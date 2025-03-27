@@ -1,0 +1,40 @@
+name: Release
+
+on:
+    push:
+        branches:
+            - main
+
+permissions:
+    contents: write
+
+defaults:
+    run:
+        working-directory: ./
+
+jobs:
+    publish-package:
+        runs-on: ubuntu-latest
+
+        steps:
+            -   name: Checkout code
+                uses: actions/checkout@v4
+
+            -   name: Setup Python
+                uses: actions/setup-python@v5
+                with:
+                    python-version-file: 'pyproject.toml'
+                    cache: 'poetry'
+
+            -   name: Install Semantic Release
+                run: |
+                    npm install --global semantic-release
+                    npm install --global @semantic-release/git
+                    npm install --global @semantic-release/exec
+                    npm install --global semantic-release-pypi
+
+            -   name: Run semantic-release
+                env:
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                    PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
+                run: npx semantic-release
