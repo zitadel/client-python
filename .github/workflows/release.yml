@@ -32,10 +32,7 @@ jobs:
 
             -   name: Install Semantic Release
                 run: |
-                    npm install --global semantic-release
-                    npm install --global @semantic-release/git
-                    npm install --global @semantic-release/exec
-                    npm install --global semantic-release-pypi
+                    npm install --global semantic-release $(jq -r '.plugins[] | if type == "string" then . else .[0] end' .releaserc.json)
 
             -   name: Run semantic-release
                 env:
