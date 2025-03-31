@@ -314,4 +314,5 @@ from zitadel_client.models.zitadelobjectv2_organization import Zitadelobjectv2Or
 from zitadel_client.models.zitadelorgv2_organization import Zitadelorgv2Organization
 from zitadel_client.models.zitadelorgv2_search_query import Zitadelorgv2SearchQuery
 from zitadel_client.models.zitadelv1_timestamp_query_method import Zitadelv1TimestampQueryMethod
+
 from zitadel_client.zitadel import Zitadel

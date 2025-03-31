@@ -66,3 +66,7 @@ target/
 .ipynb_checkpoints
 
 .env
+
+devbox.json
+devbox.lock
+.devbox
