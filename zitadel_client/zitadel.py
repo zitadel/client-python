@@ -10,7 +10,7 @@ from zitadel_client.configuration import Configuration
 from zitadel_client.api_client import ApiClient
 
 class Zitadel:
-	def __init__(self, host: str, access_token: str):
+	def __init__(self, host: str, access_token: str, mutate_config: callable = None):
 		"""
 		Initialize the Zitadel SDK with the provided host and access token.
 
@@ -22,6 +22,9 @@ class Zitadel:
 			host = host,
 			access_token = access_token
 		)
+
+		if mutate_config:
+			mutate_config(self.configuration)
 
 		self.client = ApiClient(configuration = self.configuration)
 		self.features = FeatureServiceApi(self.client)
