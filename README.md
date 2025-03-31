@@ -92,8 +92,8 @@ integration or troubleshooting unexpected behavior.
 ## Design and Dependencies
 
 This SDK is designed to be lean and efficient, focusing on providing a
-streamlined way to interact with the Zitadel API. It relies on Guzzle's
-PSR-7 compliant HTTP transport for making requests, which ensures that
+streamlined way to interact with the Zitadel API. It relies on the commonly used
+urllib3 HTTP transport for making requests, which ensures that
 the SDK integrates well with other libraries and provides flexibility
 in terms of request handling and error management.
 
