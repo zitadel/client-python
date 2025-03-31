@@ -13,3 +13,7 @@ git_push.sh
 setup.cfg
 setup.py
 pyproject.toml
+poetry.lock
+requirements.txt
+test-requirements.txt
+tox.ini
