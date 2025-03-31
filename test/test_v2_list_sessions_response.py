@@ -40,7 +40,7 @@ class TestV2ListSessionsResponse(unittest.TestCase):
                     processed_sequence = '267831', 
                     timestamp = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), ),
                 sessions = [
-                    zitadel_client.models.v2_session.v2Session(
+                    zitadel_client.models.v2_session_1.v2Session_1(
                         id = '', 
                         creation_date = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
                         change_date = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 

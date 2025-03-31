@@ -26,15 +26,15 @@ class TestSettingsApi(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
-    def test_settings_service_get_security_settings(self) -> None:
-        """Test case for settings_service_get_security_settings
+    def test_get_security_settings(self) -> None:
+        """Test case for get_security_settings
 
         Get Security Settings
         """
         pass
 
-    def test_settings_service_set_security_settings(self) -> None:
-        """Test case for settings_service_set_security_settings
+    def test_set_security_settings(self) -> None:
+        """Test case for set_security_settings
 
         Set Security Settings
         """

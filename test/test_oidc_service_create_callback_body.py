@@ -35,7 +35,7 @@ class TestOIDCServiceCreateCallbackBody(unittest.TestCase):
         model = OIDCServiceCreateCallbackBody()
         if include_optional:
             return OIDCServiceCreateCallbackBody(
-                session = zitadel_client.models.v2_session_1.v2Session_1(
+                session = zitadel_client.models.v2_session.v2Session(
                     session_id = '163840776835432705', 
                     session_token = '0', ),
                 error = zitadel_client.models.v2_authorization_error.v2AuthorizationError(

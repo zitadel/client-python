@@ -26,15 +26,15 @@ class TestOrganizationServiceApi(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
-    def test_organization_service_add_organization(self) -> None:
-        """Test case for organization_service_add_organization
+    def test_add_organization(self) -> None:
+        """Test case for add_organization
 
         Create an Organization
         """
         pass
 
-    def test_organization_service_list_organizations(self) -> None:
-        """Test case for organization_service_list_organizations
+    def test_list_organizations(self) -> None:
+        """Test case for list_organizations
 
         Search Organizations
         """

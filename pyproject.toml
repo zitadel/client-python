@@ -1,12 +1,12 @@
 [tool.poetry]
 name = "zitadel_client"
 version = "0.0.1"
-description = "merged spec"
+description = "Official Zitadel SDK for Python. Authenticate and access Zitadel's authentication and management APIs in Python."
 authors = ["OpenAPI Generator Community <team@openapitools.org>"]
 license = "NoLicense"
 readme = "README.md"
 repository = "https://github.com/zitadel/python-client"
-keywords = ["OpenAPI", "OpenAPI-Generator", "merged spec"]
+keywords = ["OpenAPI", "OpenAPI-Generator"]
 include = ["zitadel_client/py.typed"]
 
 [tool.poetry.dependencies]

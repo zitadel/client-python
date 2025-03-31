@@ -26,64 +26,64 @@ class TestSettingsServiceApi(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
-    def test_settings_service_get_active_identity_providers(self) -> None:
-        """Test case for settings_service_get_active_identity_providers
+    def test_get_active_identity_providers(self) -> None:
+        """Test case for get_active_identity_providers
 
         Get the current active identity providers
         """
         pass
 
-    def test_settings_service_get_branding_settings(self) -> None:
-        """Test case for settings_service_get_branding_settings
+    def test_get_branding_settings(self) -> None:
+        """Test case for get_branding_settings
 
         Get the current active branding settings
         """
         pass
 
-    def test_settings_service_get_domain_settings(self) -> None:
-        """Test case for settings_service_get_domain_settings
+    def test_get_domain_settings(self) -> None:
+        """Test case for get_domain_settings
 
         Get the domain settings
         """
         pass
 
-    def test_settings_service_get_general_settings(self) -> None:
-        """Test case for settings_service_get_general_settings
+    def test_get_general_settings(self) -> None:
+        """Test case for get_general_settings
 
         Get basic information over the instance
         """
         pass
 
-    def test_settings_service_get_legal_and_support_settings(self) -> None:
-        """Test case for settings_service_get_legal_and_support_settings
+    def test_get_legal_and_support_settings(self) -> None:
+        """Test case for get_legal_and_support_settings
 
         Get the legal and support settings
         """
         pass
 
-    def test_settings_service_get_lockout_settings(self) -> None:
-        """Test case for settings_service_get_lockout_settings
+    def test_get_lockout_settings(self) -> None:
+        """Test case for get_lockout_settings
 
         Get the lockout settings
         """
         pass
 
-    def test_settings_service_get_login_settings(self) -> None:
-        """Test case for settings_service_get_login_settings
+    def test_get_login_settings(self) -> None:
+        """Test case for get_login_settings
 
         Get the login settings
         """
         pass
 
-    def test_settings_service_get_password_complexity_settings(self) -> None:
-        """Test case for settings_service_get_password_complexity_settings
+    def test_get_password_complexity_settings(self) -> None:
+        """Test case for get_password_complexity_settings
 
         Get the password complexity settings
         """
         pass
 
-    def test_settings_service_get_password_expiry_settings(self) -> None:
-        """Test case for settings_service_get_password_expiry_settings
+    def test_get_password_expiry_settings(self) -> None:
+        """Test case for get_password_expiry_settings
 
         Get the password expiry settings
         """

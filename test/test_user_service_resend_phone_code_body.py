@@ -35,8 +35,8 @@ class TestUserServiceResendPhoneCodeBody(unittest.TestCase):
         model = UserServiceResendPhoneCodeBody()
         if include_optional:
             return UserServiceResendPhoneCodeBody(
-                send_code = None,
-                return_code = None
+                send_code = zitadel_client.models.v2_send_phone_verification_code.v2SendPhoneVerificationCode(),
+                return_code = zitadel_client.models.v2_return_phone_verification_code.v2ReturnPhoneVerificationCode()
             )
         else:
             return UserServiceResendPhoneCodeBody(

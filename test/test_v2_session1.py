@@ -35,8 +35,44 @@ class TestV2Session1(unittest.TestCase):
         model = V2Session1()
         if include_optional:
             return V2Session1(
-                session_id = '163840776835432705',
-                session_token = '0'
+                id = '',
+                creation_date = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
+                change_date = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
+                sequence = '',
+                factors = zitadel_client.models.v2_factors.v2Factors(
+                    user = zitadel_client.models.v2_user_factor.v2UserFactor(
+                        verified_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                        id = '', 
+                        login_name = '', 
+                        display_name = '', 
+                        organization_id = '', ), 
+                    password = zitadel_client.models.v2_password_factor.v2PasswordFactor(
+                        verified_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), ), 
+                    web_auth_n = zitadel_client.models.v2_web_auth_n_factor.v2WebAuthNFactor(
+                        verified_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                        user_verified = True, ), 
+                    intent = zitadel_client.models.v2_intent_factor.v2IntentFactor(
+                        verified_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), ), 
+                    totp = zitadel_client.models.v2_totp_factor.v2TOTPFactor(
+                        verified_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), ), 
+                    otp_sms = zitadel_client.models.v2_otp_factor.v2OTPFactor(
+                        verified_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), ), 
+                    otp_email = zitadel_client.models.v2_otp_factor.v2OTPFactor(
+                        verified_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), ), ),
+                metadata = {
+                    'key' : 'YQ=='
+                    },
+                user_agent = zitadel_client.models.v2_user_agent.v2UserAgent(
+                    fingerprint_id = '', 
+                    ip = '', 
+                    description = '', 
+                    header = {
+                        'key' : zitadel_client.models.user_agent_header_values.UserAgentHeaderValues(
+                            values = [
+                                ''
+                                ], )
+                        }, ),
+                expiration_date = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f')
             )
         else:
             return V2Session1(

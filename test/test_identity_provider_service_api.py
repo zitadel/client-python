@@ -26,8 +26,8 @@ class TestIdentityProviderServiceApi(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
-    def test_identity_provider_service_get_idpby_id(self) -> None:
-        """Test case for identity_provider_service_get_idpby_id
+    def test_get_idpby_id(self) -> None:
+        """Test case for get_idpby_id
 
         Get identity provider (IdP) by ID
         """

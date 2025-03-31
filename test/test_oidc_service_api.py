@@ -26,15 +26,15 @@ class TestOIDCServiceApi(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
-    def test_o_idc_service_create_callback(self) -> None:
-        """Test case for o_idc_service_create_callback
+    def test_create_callback(self) -> None:
+        """Test case for create_callback
 
         Finalize an Auth Request and get the callback URL.
         """
         pass
 
-    def test_o_idc_service_get_auth_request(self) -> None:
-        """Test case for o_idc_service_get_auth_request
+    def test_get_auth_request(self) -> None:
+        """Test case for get_auth_request
 
         Get OIDC Auth Request details
         """

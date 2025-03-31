@@ -43,8 +43,8 @@ class TestZitadelorgv2SearchQuery(unittest.TestCase):
                     method = 'TEXT_QUERY_METHOD_EQUALS', ),
                 state_query = zitadel_client.models.v2_organization_state_query.v2OrganizationStateQuery(
                     state = 'ORGANIZATION_STATE_UNSPECIFIED', ),
-                id_query = zitadel_client.models.v2_organization_id_query.v2OrganizationIdQuery(
-                    organization_id = '69629023906488334', ),
+                id_query = zitadel_client.models.v2_organization_id_query.v2OrganizationIDQuery(
+                    id = '69629023906488334', ),
                 default_query = zitadel_client.models.v2_default_organization_query.v2DefaultOrganizationQuery()
             )
         else:

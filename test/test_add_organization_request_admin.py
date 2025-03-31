@@ -60,7 +60,7 @@ class TestAddOrganizationRequestAdmin(unittest.TestCase):
                     metadata = [
                         zitadel_client.models.v2_set_metadata_entry.v2SetMetadataEntry(
                             key = 'my-key', 
-                            value = '[B@aa5455e', )
+                            value = '[B@4a67318f', )
                         ], 
                     password = zitadel_client.models.v2_password.v2Password(
                         password = 'Secr3tP4ssw0rd!', 

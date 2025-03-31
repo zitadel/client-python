@@ -14,10 +14,10 @@
 
 import unittest
 
-from zitadel_client.models.v2_organization_id_query import V2OrganizationIdQuery
+from zitadel_client.models.v2_organization_id_query import V2OrganizationIDQuery
 
-class TestV2OrganizationIdQuery(unittest.TestCase):
-    """V2OrganizationIdQuery unit test stubs"""
+class TestV2OrganizationIDQuery(unittest.TestCase):
+    """V2OrganizationIDQuery unit test stubs"""
 
     def setUp(self):
         pass
@@ -25,26 +25,26 @@ class TestV2OrganizationIdQuery(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> V2OrganizationIdQuery:
-        """Test V2OrganizationIdQuery
+    def make_instance(self, include_optional) -> V2OrganizationIDQuery:
+        """Test V2OrganizationIDQuery
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `V2OrganizationIdQuery`
+        # uncomment below to create an instance of `V2OrganizationIDQuery`
         """
-        model = V2OrganizationIdQuery()
+        model = V2OrganizationIDQuery()
         if include_optional:
-            return V2OrganizationIdQuery(
-                organization_id = '69629023906488334'
+            return V2OrganizationIDQuery(
+                id = '69629023906488334'
             )
         else:
-            return V2OrganizationIdQuery(
-                organization_id = '69629023906488334',
+            return V2OrganizationIDQuery(
+                id = '69629023906488334',
         )
         """
 
-    def testV2OrganizationIdQuery(self):
-        """Test V2OrganizationIdQuery"""
+    def testV2OrganizationIDQuery(self):
+        """Test V2OrganizationIDQuery"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

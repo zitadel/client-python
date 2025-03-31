@@ -38,7 +38,7 @@ class TestUserServiceSetEmailBody(unittest.TestCase):
                 email = 'mini@mouse.com',
                 send_code = zitadel_client.models.v2_send_email_verification_code.v2SendEmailVerificationCode(
                     url_template = 'https://example.com/email/verify?userID={{.UserID}}&code={{.Code}}&orgID={{.OrgID}}', ),
-                return_code = None,
+                return_code = zitadel_client.models.v2_return_email_verification_code.v2ReturnEmailVerificationCode(),
                 is_verified = True
             )
         else:

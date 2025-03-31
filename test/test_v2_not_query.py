@@ -64,8 +64,8 @@ class TestV2NotQuery(unittest.TestCase):
                                 not_query = zitadel_client.models.v2_not_query.v2NotQuery(), 
                                 in_user_emails_query = zitadel_client.models.v2_in_user_emails_query.v2InUserEmailsQuery(
                                     user_emails = ["test@example.com","test@example.org"], ), 
-                                organization_id_query = zitadel_client.models.v2_organization_id_query.v2OrganizationIdQuery(
-                                    organization_id = '69629023906488334', ), 
+                                organization_id_query = zitadel_client.models.v2_organization_id_query.v2OrganizationIDQuery(
+                                    id = '69629023906488334', ), 
                                 phone_query = zitadel_client.models.v2_phone_query.v2PhoneQuery(
                                     number = '+41791234567', ), )
                             ], ), 
@@ -73,8 +73,8 @@ class TestV2NotQuery(unittest.TestCase):
                     not_query = zitadel_client.models.v2_not_query.v2NotQuery(), 
                     in_user_emails_query = zitadel_client.models.v2_in_user_emails_query.v2InUserEmailsQuery(
                         user_emails = ["test@example.com","test@example.org"], ), 
-                    organization_id_query = zitadel_client.models.v2_organization_id_query.v2OrganizationIdQuery(
-                        organization_id = '69629023906488334', ), 
+                    organization_id_query = zitadel_client.models.v2_organization_id_query.v2OrganizationIDQuery(
+                        id = '69629023906488334', ), 
                     phone_query = zitadel_client.models.v2_phone_query.v2PhoneQuery(
                         number = '+41791234567', ), )
             )

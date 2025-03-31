@@ -33,17 +33,14 @@ REQUIRES = [
 setup(
     name=NAME,
     version=VERSION,
-    description="merged spec",
+    description="Official Zitadel SDK for Python. Authenticate and access Zitadel's authentication and management APIs in Python.",
     author="OpenAPI Generator community",
     author_email="team@openapitools.org",
     url="https://github.com/zitadel/sdk",
-    keywords=["OpenAPI", "OpenAPI-Generator", "merged spec"],
+    keywords=["OpenAPI", "OpenAPI-Generator"],
     install_requires=REQUIRES,
     packages=find_packages(exclude=["test", "tests"]),
     include_package_data=True,
     long_description_content_type='text/markdown',
-    long_description="""\
-    merged spec
-    """,  # noqa: E501
     package_data={"zitadel_client": ["py.typed"]},
 )

@@ -36,12 +36,12 @@ class TestV2SetMetadataEntry(unittest.TestCase):
         if include_optional:
             return V2SetMetadataEntry(
                 key = 'my-key',
-                value = '[B@aa5455e'
+                value = '[B@4a67318f'
             )
         else:
             return V2SetMetadataEntry(
                 key = 'my-key',
-                value = '[B@aa5455e',
+                value = '[B@4a67318f',
         )
         """
 

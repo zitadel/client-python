@@ -35,7 +35,7 @@ class TestV2GetSessionResponse(unittest.TestCase):
         model = V2GetSessionResponse()
         if include_optional:
             return V2GetSessionResponse(
-                session = zitadel_client.models.v2_session.v2Session(
+                session = zitadel_client.models.v2_session_1.v2Session_1(
                     id = '', 
                     creation_date = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
                     change_date = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 

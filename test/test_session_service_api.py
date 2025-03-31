@@ -26,36 +26,36 @@ class TestSessionServiceApi(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
-    def test_session_service_create_session(self) -> None:
-        """Test case for session_service_create_session
+    def test_create_session(self) -> None:
+        """Test case for create_session
 
         Create a new session
         """
         pass
 
-    def test_session_service_delete_session(self) -> None:
-        """Test case for session_service_delete_session
+    def test_delete_session(self) -> None:
+        """Test case for delete_session
 
         Terminate an existing session
         """
         pass
 
-    def test_session_service_get_session(self) -> None:
-        """Test case for session_service_get_session
+    def test_get_session(self) -> None:
+        """Test case for get_session
 
         Get a session
         """
         pass
 
-    def test_session_service_list_sessions(self) -> None:
-        """Test case for session_service_list_sessions
+    def test_list_sessions(self) -> None:
+        """Test case for list_sessions
 
         Search sessions
         """
         pass
 
-    def test_session_service_set_session(self) -> None:
-        """Test case for session_service_set_session
+    def test_set_session(self) -> None:
+        """Test case for set_session
 
         Update an existing session
         """

@@ -12,4 +12,4 @@ api/*.yaml
 git_push.sh
 setup.cfg
 setup.py
-
+pyproject.toml
