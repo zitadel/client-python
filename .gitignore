@@ -1,0 +1,9 @@
+devbox.json
+devbox.lock
+.devbox
+.env
+.idea
+.venv
+dist
+test
+build
