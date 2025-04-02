@@ -1,0 +1,40 @@
+name: Compatibility
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  check-compatibility:
+    name: With Python ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ '3.7', '3.8', '3.9', '3.10', '3.11', '3.12', '3.13', '3.14' ]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          path: project/library
+
+      - name: Checkout sanity stub
+        uses: actions/checkout@v4
+        with:
+          ref: sanity
+          path: project/sanity
+
+      - name: Install poetry
+        run: |
+          pipx install poetry
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'poetry'
+
+      - name: Check Installability
+        working-directory: project/sanity
+        run: poetry add zitadel-client --path ../library

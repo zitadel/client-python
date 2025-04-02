@@ -1,41 +1,41 @@
 name: Release
 
 on:
-    push:
-        branches:
-            - main
+  push:
+    branches:
+      - main
 
 permissions:
-    contents: write
+  contents: write
 
 defaults:
-    run:
-        working-directory: ./
+  run:
+    working-directory: ./
 
 jobs:
-    publish-package:
-        runs-on: ubuntu-latest
+  publish-package:
+    runs-on: ubuntu-latest
 
-        steps:
-            -   name: Checkout code
-                uses: actions/checkout@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-            -   name: Install poetry
-                run: |
-                    pipx install poetry
+      - name: Install poetry
+        run: |
+          pipx install poetry
 
-            -   name: Setup Python
-                uses: actions/setup-python@v5
-                with:
-                    python-version-file: 'pyproject.toml'
-                    cache: 'poetry'
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: 'pyproject.toml'
+          cache: 'poetry'
 
-            -   name: Install Semantic Release
-                run: |
-                    npm install --global semantic-release $(jq -r '.plugins[] | if type == "string" then . else .[0] end' .releaserc.json)
+      - name: Install Semantic Release
+        run: |
+          npm install --global semantic-release $(jq -r '.plugins[] | if type == "string" then . else .[0] end' .releaserc.json)
 
-            -   name: Run semantic-release
-                env:
-                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                    PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
-                run: npx semantic-release
+      - name: Run semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
+        run: npx semantic-release

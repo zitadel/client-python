@@ -3,32 +3,32 @@ name: Run Tests
 on: push
 
 permissions:
-    contents: write
+  contents: write
 
 defaults:
-    run:
-        working-directory: ./
+  run:
+    working-directory: ./
 
 jobs:
-    app-testing:
-        runs-on: ubuntu-latest
+  app-testing:
+    runs-on: ubuntu-latest
 
-        steps:
-            -   name: Checkout code
-                uses: actions/checkout@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-            -   name: Install poetry
-                run: |
-                    pipx install poetry
+      - name: Install poetry
+        run: |
+          pipx install poetry
 
-            -   name: Setup Python
-                uses: actions/setup-python@v5
-                with:
-                    python-version-file: 'pyproject.toml'
-                    cache: 'poetry'
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: 'pyproject.toml'
+          cache: 'poetry'
 
-            -   name: Install Dependencies
-                run: poetry install
+      - name: Install Dependencies
+        run: poetry install
 
-            -   name: Run Tests
-                run: poetry run pytest
+      - name: Run Tests
+        run: poetry run pytest
