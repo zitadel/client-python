@@ -37,4 +37,8 @@ jobs:
 
       - name: Check Installability
         working-directory: project/sanity
-        run: poetry add zitadel-client@../library
+        run: |
+          cat pyproject.toml
+          python --version
+          cat ../library/pyproject.toml
+          poetry add zitadel-client@../library
