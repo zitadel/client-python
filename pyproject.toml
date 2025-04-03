@@ -1,7 +1,7 @@
 [project]
 name = "zitadel"
 version = "0.1.0"
-requires-python = ">=3.7"
+requires-python = ">=3.8"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
