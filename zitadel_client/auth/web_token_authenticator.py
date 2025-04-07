@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta, timezone
+from typing import Set
 
 from authlib.integrations.requests_client import OAuth2Session
 from authlib.jose import jwt, JoseError
@@ -15,7 +16,7 @@ class WebTokenAuthenticator(OAuthAuthenticator):
   This implementation builds a JWT assertion dynamically in get_grant().
   """
 
-  def __init__(self, open_id: OpenId, auth_scopes: str,
+  def __init__(self, open_id: OpenId, auth_scopes: Set[str],
                jwt_issuer: str, jwt_subject: str, jwt_audience: str,
                private_key: str, jwt_lifetime: timedelta = timedelta(hours=1), jwt_algorithm: str = "RS256"):
     """
@@ -30,7 +31,7 @@ class WebTokenAuthenticator(OAuthAuthenticator):
     :param jwt_lifetime: Lifetime of the JWT in seconds.
     :param jwt_algorithm: The JWT signing algorithm (default "RS256").
     """
-    super().__init__(open_id, OAuth2Session(scope=auth_scopes))
+    super().__init__(open_id, OAuth2Session(scope=" ".join(auth_scopes)))
     self.jwt_issuer = jwt_issuer
     self.jwt_subject = jwt_subject
     self.jwt_audience = jwt_audience
@@ -107,16 +108,6 @@ class JWTAuthenticatorBuilder(OAuthAuthenticatorBuilder):
     :return: The builder instance.
     """
     self.jwt_lifetime = timedelta(seconds=seconds)
-    return self
-
-  def scopes(self, scopes: set) -> "JWTAuthenticatorBuilder":
-    """
-    Overrides the default scopes for the JWTAuthenticator.
-
-    :param scopes: A set of scope strings.
-    :return: The builder instance.
-    """
-    self.auth_scopes = " ".join(scopes)
     return self
 
   def build(self) -> WebTokenAuthenticator:

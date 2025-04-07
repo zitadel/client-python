@@ -15,7 +15,7 @@ class ClientCredentialsAuthenticatorTest(OAuthAuthenticatorTest):
     time.sleep(20)
 
     authenticator = ClientCredentialsAuthenticator.builder(self.oauth_host, "dummy-client", "dummy-secret") \
-      .scopes({"openid", "foo"}) \
+      .scopes("openid", "foo") \
       .build()
 
     self.assertTrue(authenticator.get_auth_token(), "Access token should not be empty")

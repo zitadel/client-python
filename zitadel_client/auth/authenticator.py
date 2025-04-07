@@ -43,10 +43,30 @@ class Authenticator(ABC):
 
 class Token:
   def __init__(self, access_token: str, expires_at: datetime):
+    """
+    Initializes a new Token instance.
+
+    Parameters:
+    - access_token (str): The JWT or OAuth token.
+    - expires_at (datetime): The expiration time of the token. It should be timezone-aware.
+      If a naive datetime is provided, it will be converted to an aware datetime in UTC.
+    """
     self.access_token = access_token
-    self.expires_at = expires_at
+
+    # Ensure expires_at is timezone-aware. If naive, assume UTC.
+    if expires_at.tzinfo is None:
+      self.expires_at = expires_at.replace(tzinfo=timezone.utc)
+    else:
+      self.expires_at = expires_at
 
   def is_expired(self) -> bool:
+    """
+    Checks if the token is expired by comparing the current UTC time
+    with the token's expiration time.
+
+    Returns:
+    - bool: True if expired, False otherwise.
+    """
     return datetime.now(timezone.utc) >= self.expires_at
 
 
@@ -64,14 +84,14 @@ class OAuthAuthenticatorBuilder(ABC):
     :param host: The base URL for the OAuth provider.
     """
     self.open_id = OpenId(host)
-    self.auth_scopes = "openid urn:zitadel:iam:org:project:id:zitadel:aud"
+    self.auth_scopes = {"openid", "urn:zitadel:iam:org:project:id:zitadel:aud"}
 
-  def scopes(self, auth_scopes: set) -> "OAuthAuthenticatorBuilder":
+  def scopes(self, *auth_scopes: str) -> "OAuthAuthenticatorBuilder":
     """
     Sets the authentication scopes for the OAuth authenticator.
 
-    :param auth_scopes: A set of scope strings.
+    :param auth_scopes: A variable number of scope strings.
     :return: The builder instance to allow for method chaining.
     """
-    self.auth_scopes = " ".join(auth_scopes)
+    self.auth_scopes = set(auth_scopes)
     return self

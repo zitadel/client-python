@@ -1,4 +1,4 @@
-from typing import override
+from typing import override, Set
 
 from authlib.integrations.requests_client import OAuth2Session
 
@@ -14,7 +14,7 @@ class ClientCredentialsAuthenticator(OAuthAuthenticator):
   Uses client_id and client_secret to obtain an access token from the OAuth2 token endpoint.
   """
 
-  def __init__(self, open_id: OpenId, client_id: str, client_secret: str, auth_scopes: str):
+  def __init__(self, open_id: OpenId, client_id: str, client_secret: str, auth_scopes: Set[str]):
     """
     Constructs a ClientCredentialsAuthenticator.
 
@@ -23,7 +23,7 @@ class ClientCredentialsAuthenticator(OAuthAuthenticator):
     :param client_secret: The OAuth client secret.
     :param auth_scopes: The scope(s) for the token request.
     """
-    super().__init__(open_id, OAuth2Session(client_id=client_id, client_secret=client_secret, scope=auth_scopes))
+    super().__init__(open_id, OAuth2Session(client_id=client_id, client_secret=client_secret, scope=" ".join(auth_scopes)))
 
   @override
   def get_grant(self) -> dict:
@@ -73,9 +73,4 @@ class ClientCredentialsAuthenticatorBuilder(OAuthAuthenticatorBuilder):
 
     :return: A configured ClientCredentialsAuthenticator.
     """
-    return ClientCredentialsAuthenticator(
-      self.open_id,  # OpenId instance with endpoint info (constructed from host)
-      self.client_id,  # OAuth client identifier
-      self.client_secret,  # OAuth client secret
-      self.auth_scopes  # Authentication scopes configured in the builder
-    )
+    return ClientCredentialsAuthenticator(self.open_id, self.client_id, self.client_secret, self.auth_scopes)
