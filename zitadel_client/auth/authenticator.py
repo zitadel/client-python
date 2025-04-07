@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from datetime import datetime, timezone
-from typing import Dict
+from typing import Dict, Generic, TypeVar
 
 from zitadel_client.auth.open_id import OpenId
 
@@ -69,8 +69,10 @@ class Token:
     """
     return datetime.now(timezone.utc) >= self.expires_at
 
+T = TypeVar("T", bound="OAuthAuthenticatorBuilder")
 
-class OAuthAuthenticatorBuilder(ABC):
+
+class OAuthAuthenticatorBuilder(ABC, Generic[T]):
   """
   Abstract builder class for constructing OAuth authenticator instances.
 
@@ -86,7 +88,7 @@ class OAuthAuthenticatorBuilder(ABC):
     self.open_id = OpenId(host)
     self.auth_scopes = {"openid", "urn:zitadel:iam:org:project:id:zitadel:aud"}
 
-  def scopes(self, *auth_scopes: str) -> "OAuthAuthenticatorBuilder":
+  def scopes(self: T, *auth_scopes: str) -> T:
     """
     Sets the authentication scopes for the OAuth authenticator.
 
