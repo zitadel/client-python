@@ -49,14 +49,14 @@ class Zitadel:
         if mutate_config:
             mutate_config(self.configuration)
 
-        self.client = ApiClient(configuration=self.configuration)
-        self.features = FeatureServiceApi(self.client)
-        self.idps = IdentityProviderServiceApi(self.client)
-        self.oidc = OIDCServiceApi(self.client)
-        self.organizations = OrganizationServiceApi(self.client)
-        self.sessions = SessionServiceApi(self.client)
-        self.settings = SettingsServiceApi(self.client)
-        self.users = UserServiceApi(self.client)
+        client = ApiClient(configuration=self.configuration)
+        self.features = FeatureServiceApi(client)
+        self.idps = IdentityProviderServiceApi(client)
+        self.oidc = OIDCServiceApi(client)
+        self.organizations = OrganizationServiceApi(client)
+        self.sessions = SessionServiceApi(client)
+        self.settings = SettingsServiceApi(client)
+        self.users = UserServiceApi(client)
 
     def __enter__(self):
         """
