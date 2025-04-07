@@ -8,7 +8,7 @@ from zitadel_client.auth.oauth_authenticator import OAuthAuthenticator
 from zitadel_client.auth.open_id import OpenId
 
 
-class JWTAuthenticator(OAuthAuthenticator):
+class WebTokenAuthenticator(OAuthAuthenticator):
   """
   OAuth authenticator implementing the JWT bearer flow.
 
@@ -57,7 +57,7 @@ class JWTAuthenticator(OAuthAuthenticator):
           "aud": self.jwt_audience,
           "iat": int(now.timestamp()),
           "exp": int((now + self.jwt_lifetime).timestamp())
-        }, self.private_key, algorithm=self.jwt_algorithm))
+        }, self.private_key))
       }
     except JoseError as e:
       raise Exception("Failed to generate JWT assertion: " + str(e)) from e
@@ -119,7 +119,7 @@ class JWTAuthenticatorBuilder(OAuthAuthenticatorBuilder):
     self.auth_scopes = " ".join(scopes)
     return self
 
-  def build(self) -> JWTAuthenticator:
+  def build(self) -> WebTokenAuthenticator:
     """
     Builds and returns a new JWTAuthenticator instance using the configured parameters.
 
@@ -128,7 +128,7 @@ class JWTAuthenticatorBuilder(OAuthAuthenticatorBuilder):
 
     :return: A new JWTAuthenticator instance.
     """
-    return JWTAuthenticator(
+    return WebTokenAuthenticator(
       open_id=self.open_id,
       auth_scopes=self.auth_scopes,
       jwt_issuer=self.jwt_issuer,

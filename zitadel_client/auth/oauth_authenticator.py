@@ -1,10 +1,11 @@
 from abc import ABC, abstractmethod
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import Dict, Optional
 
 from authlib.integrations.requests_client import OAuth2Session
 
 from zitadel_client.auth.authenticator import Token, Authenticator
+from zitadel_client.auth.open_id import OpenId
 
 
 class OAuthAuthenticator(Authenticator, ABC):
@@ -16,12 +17,12 @@ class OAuthAuthenticator(Authenticator, ABC):
       oauth_session: An OAuth2Session instance used for fetching tokens.
   """
 
-  def __init__(self, open_id, oauth_session: OAuth2Session):
+  def __init__(self, open_id: OpenId, oauth_session: OAuth2Session):
     """
     Constructs an OAuthAuthenticator.
 
     :param open_id: An object that must implement get_host_endpoint() and get_token_endpoint().
-    :param scope: The scope for the token request.
+    :param oauth_session: The scope for the token request.
     """
     super().__init__(open_id.get_host_endpoint())
     self.open_id = open_id
@@ -60,14 +61,11 @@ class OAuthAuthenticator(Authenticator, ABC):
 
     :return: A new Token.
     """
-    token_endpoint = self.open_id.get_token_endpoint()
-    grant_params = self.get_grant()
     try:
-      # fetch_token returns an OAuth2Token (usually a dict-like object)
-      token_response = self.session.fetch_token(url=token_endpoint, **grant_params)
+      token_response = self.oauth_session.fetch_token(url=(self.open_id.get_token_endpoint()), **(self.get_grant()))
       access_token = token_response["access_token"]
       expires_in = token_response.get("expires_in", 3600)
-      expires_at = datetime.utcnow() + timedelta(seconds=expires_in)
+      expires_at = datetime.now(timezone.utc) + timedelta(seconds=expires_in)
       self.token = Token(access_token, expires_at)
       return self.token
     except Exception as e:

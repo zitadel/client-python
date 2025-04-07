@@ -13,14 +13,11 @@ from dateutil.parser import parse
 from pydantic import SecretStr
 
 import zitadel_client.models
-from zitadel_client import rest, configuration
+from zitadel_client import rest
 from zitadel_client.api_response import ApiResponse, T as ApiResponseT
-from zitadel_client.auth.authenticator import Authenticator
-from zitadel_client.auth.no_auth import DummyAuthenticator
-from zitadel_client.auth.personal_access import PersonalAccessAuthenticator
 from zitadel_client.configuration import Configuration
 from zitadel_client.exceptions import (
-    ApiException
+  ApiException
 )
 
 RequestSerialized = Tuple[str, str, Dict[str, str], Optional[str], List[str]]

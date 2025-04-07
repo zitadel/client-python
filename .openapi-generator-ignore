@@ -17,3 +17,4 @@ poetry.lock
 requirements.txt
 test-requirements.txt
 tox.ini
+test/*.py
