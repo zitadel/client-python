@@ -1,65 +1,77 @@
 from abc import ABC, abstractmethod
+from datetime import datetime, timezone
+from typing import Dict
+
+from zitadel_client.auth.open_id import OpenId
 
 
 class Authenticator(ABC):
   """
-  Abstract base class for authentication strategies.
+  Abstract base class for authenticators.
 
-  This class defines a common interface for implementing various
-  authentication mechanisms. Subclasses must implement the
-  `get_auth_headers` method to provide the necessary HTTP headers for
-  authenticated API requests, as well as the `refresh_token` method for
-  refreshing authentication tokens when needed.
-
-  Attributes:
-      host (str): The base URL for authentication endpoints.
+  This class defines the basic structure for any authenticator by requiring the implementation
+  of a method to retrieve authentication headers, and provides a way to store and retrieve the host.
   """
 
   def __init__(self, host: str):
     """
-    Initialize the Authenticator with a host URL.
+    Initializes the Authenticator with the specified host.
 
-    Args:
-        host (str): The base URL for all authentication endpoints.
+    :param host: The base URL or endpoint for the service.
     """
     self.host = host
 
   @abstractmethod
-  def get_auth_headers(self) -> dict[str, str]:
+  def get_auth_headers(self) -> Dict[str, str]:
     """
-    Generate and return the authentication headers required for API requests.
+    Retrieves the authentication headers to be sent with requests.
 
-    Subclasses must implement this method to return a dictionary where the keys
-    are the header names and the values are the corresponding header values.
+    Subclasses must override this method to return the appropriate headers.
 
-    Returns:
-        dict[str, str]: A dictionary containing the authentication header(s).
-    """
-    pass
-
-  @abstractmethod
-  def refresh_token(self) -> None:
-    """
-    Refresh the authentication token.
-
-    This abstract method must be implemented by subclasses that require a mechanism
-    to refresh the authentication token. The implementation should update the token
-    used by the authenticator.
-
-    Returns:
-        None
+    :return: A dictionary mapping header names to their values.
     """
     pass
 
   def get_host(self) -> str:
     """
-    Retrieve the base host URL.
+    Returns the stored host.
 
-    This method returns the host URL that was specified during the instantiation
-    of the Authenticator. It can be used by concrete classes or external consumers
-    to build full endpoint URLs.
-
-    Returns:
-        str: The base URL for authentication endpoints.
+    :return: The host as a string.
     """
     return self.host
+
+
+class Token:
+  def __init__(self, access_token: str, expires_at: datetime):
+    self.access_token = access_token
+    self.expires_at = expires_at
+
+  def is_expired(self) -> bool:
+    return datetime.now(timezone.utc) >= self.expires_at
+
+
+class OAuthAuthenticatorBuilder(ABC):
+  """
+  Abstract builder class for constructing OAuth authenticator instances.
+
+  This builder provides common configuration options such as the OpenId instance and authentication scopes.
+  """
+
+  def __init__(self, host: str):
+    """
+    Initializes the OAuthAuthenticatorBuilder with a given host.
+
+    :param host: The base URL for the OAuth provider.
+    """
+    self.open_id = OpenId(host)
+    self.auth_scopes = "openid urn:zitadel:iam:org:project:id:zitadel:aud"
+
+  def scopes(self, auth_scopes: set) -> "OAuthAuthenticatorBuilder":
+    """
+    Sets the authentication scopes for the OAuth authenticator.
+
+    :param auth_scopes: A set of scope strings.
+    :return: The builder instance to allow for method chaining.
+    """
+    self.auth_scopes = " ".join(auth_scopes)
+    return self
