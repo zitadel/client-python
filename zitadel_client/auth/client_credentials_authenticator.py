@@ -23,7 +23,8 @@ class ClientCredentialsAuthenticator(OAuthAuthenticator):
     :param client_secret: The OAuth client secret.
     :param auth_scopes: The scope(s) for the token request.
     """
-    super().__init__(open_id, OAuth2Session(client_id=client_id, client_secret=client_secret, scope=" ".join(auth_scopes)))
+    super().__init__(open_id,
+                     OAuth2Session(client_id=client_id, client_secret=client_secret, scope=" ".join(auth_scopes)))
 
   @override
   def get_grant(self) -> dict:

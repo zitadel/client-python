@@ -69,6 +69,7 @@ class Token:
     """
     return datetime.now(timezone.utc) >= self.expires_at
 
+
 T = TypeVar("T", bound="OAuthAuthenticatorBuilder")
 
 

@@ -64,7 +64,7 @@ class WebTokenAuthenticator(OAuthAuthenticator):
       raise Exception("Failed to generate JWT assertion: " + str(e)) from e
 
   @staticmethod
-  def builder(host: str, user_id: str, private_key: str) -> "JWTAuthenticatorBuilder":
+  def builder(host: str, user_id: str, private_key: str) -> "WebTokenAuthenticatorBuilder":
     """
     Returns a builder for constructing a JWTAuthenticator.
 
@@ -73,10 +73,10 @@ class WebTokenAuthenticator(OAuthAuthenticator):
     :param private_key: The private key used to sign the JWT.
     :return: A JWTAuthenticatorBuilder instance.
     """
-    return JWTAuthenticatorBuilder(host, user_id, user_id, host, private_key)
+    return WebTokenAuthenticatorBuilder(host, user_id, user_id, host, private_key)
 
 
-class JWTAuthenticatorBuilder(OAuthAuthenticatorBuilder):
+class WebTokenAuthenticatorBuilder(OAuthAuthenticatorBuilder):
   """
   Builder for JWTAuthenticator.
 
@@ -100,7 +100,7 @@ class JWTAuthenticatorBuilder(OAuthAuthenticatorBuilder):
     self.private_key = private_key
     self.jwt_lifetime = timedelta(hours=1)
 
-  def token_lifetime_seconds(self, seconds: int) -> "JWTAuthenticatorBuilder":
+  def token_lifetime_seconds(self, seconds: int) -> "WebTokenAuthenticatorBuilder":
     """
     Sets the JWT token lifetime in seconds.
 
