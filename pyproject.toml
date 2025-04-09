@@ -53,6 +53,9 @@ addopts = [
     "--cov-report=term"
 ]
 
+[tool.coverage.run]
+data_file = "build/coverage/.coverage"
+
 [tool.pylint.'MESSAGES CONTROL']
 extension-pkg-whitelist = "pydantic"
 
