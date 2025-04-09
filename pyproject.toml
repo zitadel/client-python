@@ -45,13 +45,12 @@ build-backend = "poetry.core.masonry.api"
 [tool.tox]
 envlist = ["py3"]
 
-[testenv]
-deps = [
-    "pytest",
-    "pytest-cov"
-]
-commands = [
-    "pytest --cov=zitadel_client"
+[tool.pytest.ini_options]
+addopts = [
+    "--cov=zitadel_client",
+    "--cov-report=html:build/coverage/html",
+    "--cov-report=lcov:build/coverage/lcov.info",
+    "--cov-report=term"
 ]
 
 [tool.pylint.'MESSAGES CONTROL']
