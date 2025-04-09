@@ -1,7 +1,6 @@
 import json
+import urllib
 from urllib.parse import urljoin
-
-import urllib3
 
 
 class OpenId:
@@ -14,21 +13,25 @@ class OpenId:
 
   def __init__(self, hostname: str):
     if not (hostname.startswith("http://") or hostname.startswith("https://")):
-      hostname = "https://" + hostname  # Default to HTTPS if no scheme is provided.
+      hostname = "https://" + hostname
+
     self.host_endpoint = hostname
     well_known_url = self.build_well_known_url(hostname)
 
-    http = urllib3.PoolManager()
-    response = http.request("GET", well_known_url)
+    try:
+      with urllib.request.urlopen(well_known_url) as response:
+        if response.status != 200:
+          raise Exception(f"Failed to fetch OpenID configuration: HTTP {response.status}")
+        config = json.loads(response.read().decode('utf-8'))
+    except urllib.error.URLError as e:
+      raise Exception(f"URL error occurred: {e}")
+    except json.JSONDecodeError:
+      raise Exception("Failed to decode JSON response")
 
-    if response.status != 200:
-      raise Exception(f"Failed to fetch OpenID configuration: HTTP {response.status}")
-
-    # Decode and load the JSON response
-    config = json.loads(response.data.decode('utf-8'))
     token_endpoint = config.get("token_endpoint")
     if not token_endpoint:
       raise Exception("token_endpoint not found in OpenID configuration")
+
     self.token_endpoint = token_endpoint
 
   @staticmethod
