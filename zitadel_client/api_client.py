@@ -15,6 +15,7 @@ from pydantic import SecretStr
 import zitadel_client.models
 from zitadel_client import rest
 from zitadel_client.api_response import ApiResponse, T as ApiResponseT
+from zitadel_client.auth.no_auth_authenticator import NoAuthAuthenticator
 from zitadel_client.configuration import Configuration
 from zitadel_client.exceptions import (
   ApiException
@@ -663,4 +664,4 @@ class ApiClient:
 
     @classmethod
     def get_default(cls):
-        return ApiClient(configuration=Configuration(authenticator=DummyAuthenticator("localhost")))
+        return ApiClient(configuration=Configuration(authenticator=NoAuthAuthenticator()))
