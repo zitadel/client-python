@@ -166,7 +166,10 @@ class ApiClient:
         if body:
             body = self.sanitize_for_serialization(body)
 
-        url = _host + resource_path
+        if _host is None:
+          url = self.configuration.host + resource_path
+        else:
+          url = _host + resource_path
 
         if query_params:
             query_params = self.sanitize_for_serialization(query_params)
