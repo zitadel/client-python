@@ -55,6 +55,10 @@ addopts = [
 
 [tool.coverage.run]
 data_file = "build/coverage/.coverage"
+omit = [
+  "zitadel_client/api/*",
+  "zitadel_client/models/*"
+]
 
 [tool.pylint.'MESSAGES CONTROL']
 extension-pkg-whitelist = "pydantic"
