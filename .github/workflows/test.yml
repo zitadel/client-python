@@ -32,3 +32,6 @@ jobs:
 
       - name: Run Tests
         run: poetry run pytest
+        env:
+          BASE_URL: ${{ secrets.BASE_URL }}
+          AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
