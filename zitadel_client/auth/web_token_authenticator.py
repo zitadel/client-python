@@ -1,3 +1,4 @@
+import json
 from datetime import datetime, timedelta, timezone
 from typing import Set
 
@@ -62,6 +63,39 @@ class WebTokenAuthenticator(OAuthAuthenticator):
       }
     except JoseError as e:
       raise Exception("Failed to generate JWT assertion: " + str(e)) from e
+
+  @classmethod
+  def from_json(cls, host: str, json_path: str) -> "WebTokenAuthenticator":
+    """
+    Create a WebTokenAuthenticatorBuilder instance from a JSON configuration file.
+
+    Expected JSON format:
+    {
+        "type": "serviceaccount",
+        "keyId": "<key-id>",
+        "key": "<private-key>",
+        "userId": "<user-id>"
+    }
+
+    :param host: Base URL for the API endpoints.
+    :param json_path: File path to the JSON configuration file.
+    :return: A new instance of WebTokenAuthenticator.
+    :raises Exception: If the file cannot be read, the JSON is invalid,
+                       or required keys are missing.
+    """
+    try:
+      with open(json_path, "r") as file:
+        config = json.load(file)
+    except Exception as e:
+      raise Exception(f"Unable to read JSON file: {json_path}") from e
+
+    user_id = config.get("userId")
+    private_key = config.get("key")
+    if not user_id or not private_key:
+      raise Exception("Missing required keys 'userId' or 'key' in JSON file.")
+
+    return (WebTokenAuthenticator.builder(host, user_id, private_key)
+            .build())
 
   @staticmethod
   def builder(host: str, user_id: str, private_key: str) -> "WebTokenAuthenticatorBuilder":
