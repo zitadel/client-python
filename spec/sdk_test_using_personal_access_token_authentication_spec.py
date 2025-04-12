@@ -26,10 +26,10 @@ def user_id(valid_token, base_url):
     with zitadel.Zitadel(PersonalAccessTokenAuthenticator(base_url, valid_token)) as client:
         try:
             response = client.users.add_human_user(
-                body=zitadel.V2AddHumanUserRequest(
+                body=zitadel.models.V2AddHumanUserRequest(
                     username=uuid.uuid4().hex,
-                    profile=zitadel.V2SetHumanProfile(given_name="John", family_name="Doe"),
-                    email=zitadel.V2SetHumanEmail(email=f"johndoe{uuid.uuid4().hex}@caos.ag")
+                    profile=zitadel.models.V2SetHumanProfile(given_name="John", family_name="Doe"),
+                    email=zitadel.models.V2SetHumanEmail(email=f"johndoe{uuid.uuid4().hex}@caos.ag")
                 )
             )
             print("User created:", response)
