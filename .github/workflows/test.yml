@@ -32,3 +32,9 @@ jobs:
 
       - name: Run Tests
         run: poetry run pytest
+        env:
+          BASE_URL: ${{ secrets.BASE_URL }}
+          AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
+          JWT_KEY: ${{ secrets.JWT_KEY }}
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}

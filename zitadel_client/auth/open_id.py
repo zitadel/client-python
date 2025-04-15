@@ -1,0 +1,54 @@
+import json
+import urllib
+from urllib.parse import urljoin
+
+
+class OpenId:
+    """
+    OpenId retrieves OpenID Connect configuration from a given host.
+
+    It builds the well-known configuration URL from the provided hostname,
+    fetches the configuration, and extracts the token endpoint.
+    """
+
+    def __init__(self, hostname: str):
+        if not (hostname.startswith("http://") or hostname.startswith("https://")):
+            hostname = "https://" + hostname
+
+        self.host_endpoint = hostname
+        well_known_url = self.build_well_known_url(hostname)
+
+        try:
+            with urllib.request.urlopen(well_known_url) as response:
+                if response.status != 200:
+                    raise Exception(f"Failed to fetch OpenID configuration: HTTP {response.status}")
+                config = json.loads(response.read().decode('utf-8'))
+        except urllib.error.URLError as e:
+            raise Exception(f"URL error occurred: {e}")
+        except json.JSONDecodeError:
+            raise Exception("Failed to decode JSON response")
+
+        token_endpoint = config.get("token_endpoint")
+        if not token_endpoint:
+            raise Exception("token_endpoint not found in OpenID configuration")
+
+        self.token_endpoint = token_endpoint
+
+    @staticmethod
+    def build_well_known_url(hostname: str) -> str:
+        """
+        Builds the well-known OpenID configuration URL for the given hostname.
+        """
+        return urljoin(hostname, "/.well-known/openid-configuration")
+
+    def get_host_endpoint(self) -> str:
+        """
+        Returns the host endpoint URL.
+        """
+        return self.host_endpoint
+
+    def get_token_endpoint(self) -> str:
+        """
+        Returns the token endpoint URL extracted from the OpenID configuration.
+        """
+        return self.token_endpoint

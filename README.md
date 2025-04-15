@@ -37,44 +37,132 @@ install dependencies.
 Install the SDK by running one of the following commands:
 
 ```bash
-composer require zitadel/client
+pip install zitadel_client
 ```
 
-### Authentication
+## Authentication Methods
 
-The SDK supports three authentication methods:
+Your SDK offers three ways to authenticate with Zitadel. Each method has its
+own benefits—choose the one that fits your situation best.
 
-1. Private Key JWT Authentication
-2. Client Credentials Grant
-3. Personal Access Tokens (PATs)
+#### 1. Private Key JWT Authentication
 
-For most service user scenarios in Zitadel, private key JWT authentication
-is the recommended choice due to its benefits in security, performance, and control.
-However, client credentials authentication might be considered in specific
-situations where simplicity and trust between servers are priorities.
+**What is it?**
+You use a JSON Web Token (JWT) that you sign with a private key stored in a
+JSON file. This process creates a secure token.
 
-For more details on these authentication methods, please refer
-to the [Zitadel documentation on authenticating service users](https://zitadel.com/docs/guides/integrate/service-users/authenticate-service-users).
+**When should you use it?**
+- **Best for production:** It offers strong security.
+- **Advanced control:** You can adjust token settings like expiration.
 
+**How do you use it?**
+1. Save your private key in a JSON file.
+2. Use the provided method to load this key and create a JWT-based
+   authenticator.
 
-### Example
+**Example:**
 
 ```python
 import zitadel_client as zitadel
+from zitadel_client.auth.web_token_authenticator import WebTokenAuthenticator
 
-with zitadel.Zitadel("your-zitadel-base-url", 'your-valid-token') as client:
-	try:
-		response = client.users.add_human_user(
-			body=zitadel.V2AddHumanUserRequest(
-				username="john.doe",
-				profile=zitadel.V2SetHumanProfile(given_name="John", family_name="Doe"),
-				email=zitadel.V2SetHumanEmail(email="johndoe@doe.com")
-			)
-		)
-		print("User created:", response)
-	except Exception as e:
-		raise e
+base_url = "https://example.zitadel.com"
+key_file = "/path/to/jwt-key.json"
+
+authenticator = WebTokenAuthenticator.from_json(base_url, key_file)
+zitadel = zitadel.Zitadel(authenticator)
+
+try:
+    response = zitadel.users.add_human_user({
+        "username": "john.doe",
+        "profile": {"givenName": "John", "familyName": "Doe"},
+        "email": {"email": "john@doe.com"}
+    })
+    print("User created:", response)
+except Exception as e:
+    print("Error:", e)
 ```
+
+#### 2. Client Credentials Grant
+
+**What is it?**
+This method uses a client ID and client secret to get a secure access token,
+which is then used to authenticate.
+
+**When should you use it?**
+- **Simple and straightforward:** Good for server-to-server communication.
+- **Trusted environments:** Use it when both servers are owned or trusted.
+
+**How do you use it?**
+1. Provide your client ID and client secret.
+2. Build the authenticator
+
+**Example:**
+
+```python
+import zitadel_client as zitadel
+from zitadel_client.auth.client_credentials_authenticator import ClientCredentialsAuthenticator
+
+base_url = "https://example.zitadel.com"
+client_id = "your-client-id"
+client_secret = "your-client-secret"
+
+authenticator = ClientCredentialsAuthenticator.builder(base_url, client_id, client_secret).build()
+zitadel = zitadel.Zitadel(authenticator)
+
+try:
+    response = zitadel.users.add_human_user({
+        "username": "john.doe",
+        "profile": {"givenName": "John", "familyName": "Doe"},
+        "email": {"email": "john@doe.com"}
+    })
+    print("User created:", response)
+except Exception as e:
+    print("Error:", e)
+```
+
+#### 3. Personal Access Tokens (PATs)
+
+**What is it?**
+A Personal Access Token (PAT) is a pre-generated token that you can use to
+authenticate without exchanging credentials every time.
+
+**When should you use it?**
+- **Easy to use:** Great for development or testing scenarios.
+- **Quick setup:** No need for dynamic token generation.
+
+**How do you use it?**
+1. Obtain a valid personal access token from your account.
+2. Create the authenticator with: `PersonalAccessTokenAuthenticator`
+
+**Example:**
+
+```python
+import zitadel_client as zitadel
+from zitadel_client.auth.personal_access_token_authenticator import PersonalAccessTokenAuthenticator
+
+base_url = "https://example.zitadel.com"
+valid_token = "your-valid-token"
+
+authenticator = PersonalAccessTokenAuthenticator(base_url, valid_token)
+zitadel = zitadel.Zitadel(authenticator)
+
+try:
+    response = zitadel.users.add_human_user({
+        "username": "john.doe",
+        "profile": {"givenName": "John", "familyName": "Doe"},
+        "email": {"email": "john@doe.com"}
+    })
+    print("User created:", response)
+except Exception as e:
+    print("Error:", e)
+```
+
+---
+
+Choose the authentication method that best suits your needs based on your
+environment and security requirements. For more details, please refer to the
+[Zitadel documentation on authenticating service users](https://zitadel.com/docs/guides/integrate/service-users/authenticate-service-users).
 
 ### Debugging
 The SDK supports debug logging, which can be enabled for troubleshooting
