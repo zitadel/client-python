@@ -25,646 +25,646 @@ RequestSerialized = Tuple[str, str, Dict[str, str], Optional[str], List[str]]
 
 
 class ApiClient:
-    """Generic API client for OpenAPI client library builds.
+  """Generic API client for OpenAPI client library builds.
 
-    OpenAPI generic API client. This client handles the client-server communication,
-    and is invariant across implementations. Specifics of the methods and models
-    for each application are generated from the OpenAPI
-    templates.
+  OpenAPI generic API client. This client handles the client-server communication,
+  and is invariant across implementations. Specifics of the methods and models
+  for each application are generated from the OpenAPI
+  templates.
 
-    :param configuration: .Configuration object for this client
-    :param header_name: a header to pass when making calls to the API.
-    :param header_value: a header value to pass when making calls to
-        the API.
+  :param configuration: .Configuration object for this client
+  :param header_name: a header to pass when making calls to the API.
+  :param header_value: a header value to pass when making calls to
+      the API.
+  """
+
+  PRIMITIVE_TYPES = (float, bool, bytes, str, int)
+  NATIVE_TYPES_MAPPING = {
+    'int': int,
+    'long': int,
+    'float': float,
+    'str': str,
+    'bool': bool,
+    'date': datetime.date,
+    'datetime': datetime.datetime,
+    'decimal': decimal.Decimal,
+    'object': object,
+  }
+  _pool = None
+
+  def __init__(
+    self,
+    configuration: Configuration,
+    header_name=None,
+    header_value=None,
+  ) -> None:
+    self.configuration = configuration
+
+    self.rest_client = rest.RESTClientObject(configuration)
+    self.default_headers = {}
+    if header_name is not None:
+      self.default_headers[header_name] = header_value
+    self.user_agent = 'OpenAPI-Generator/0.0.1/python'
+    self.client_side_validation = configuration.client_side_validation
+
+  def __enter__(self):
+    return self
+
+  def __exit__(self, exc_type, exc_value, traceback):
+    pass
+
+  @property
+  def user_agent(self):
+    """User agent for this API client"""
+    return self.default_headers['User-Agent']
+
+  @user_agent.setter
+  def user_agent(self, value):
+    self.default_headers['User-Agent'] = value
+
+  def set_default_header(self, header_name, header_value):
+    self.default_headers[header_name] = header_value
+
+  _default = None
+
+  def param_serialize(
+    self,
+    method,
+    resource_path,
+    path_params=None,
+    query_params=None,
+    header_params=None,
+    body=None,
+    post_params=None,
+    files=None,
+    auth_settings=None,
+    collection_formats=None,
+    _host=None,
+    _request_auth=None
+  ) -> RequestSerialized:
+
+    """Builds the HTTP request params needed by the request.
+    :param _host:
+    :param auth_settings:
+    :param method: Method to call.
+    :param resource_path: Path to method endpoint.
+    :param path_params: Path parameters in the url.
+    :param query_params: Query parameters in the url.
+    :param header_params: Header parameters to be
+        placed in the request header.
+    :param body: Request body.
+    :param post_params: Request post form parameters,
+        for `application/x-www-form-urlencoded`, `multipart/form-data`.
+    :param auth_settings: Auth Settings names for the request.
+    :param collection_formats: dict of collection formats for path, query,
+        header, and post parameters.
+    :param _request_auth: set to override the auth_settings for an single
+                          request; this effectively ignores the authentication
+                          in the spec for a single request.
+    :return: tuple of form (path, http_method, query_params, header_params,
+        body, post_params, files)
     """
 
-    PRIMITIVE_TYPES = (float, bool, bytes, str, int)
-    NATIVE_TYPES_MAPPING = {
-        'int': int,
-        'long': int,
-        'float': float,
-        'str': str,
-        'bool': bool,
-        'date': datetime.date,
-        'datetime': datetime.datetime,
-        'decimal': decimal.Decimal,
-        'object': object,
+    config = self.configuration
+
+    # header parameters
+    header_params = header_params or {}
+    header_params.update(self.default_headers)
+    if header_params:
+      header_params = self.sanitize_for_serialization(header_params)
+      header_params = dict(
+        self.parameters_to_tuples(header_params, collection_formats)
+      )
+
+    # path parameters
+    if path_params:
+      path_params = self.sanitize_for_serialization(path_params)
+      path_params = self.parameters_to_tuples(
+        path_params,
+        collection_formats
+      )
+      for k, v in path_params:
+        # specified safe chars, encode everything
+        resource_path = resource_path.replace(
+          '{%s}' % k,
+          quote(str(v), safe=config.safe_chars_for_path_param)
+        )
+
+    # post parameters
+    if post_params or files:
+      post_params = post_params if post_params else []
+      post_params = self.sanitize_for_serialization(post_params)
+      post_params = self.parameters_to_tuples(
+        post_params,
+        collection_formats
+      )
+      if files:
+        post_params.extend(self.files_parameters(files))
+
+    header_params.update(self.configuration.authenticator.get_auth_headers())
+
+    if body:
+      body = self.sanitize_for_serialization(body)
+
+    if _host is None:
+      url = self.configuration.host + resource_path
+    else:
+      url = _host + resource_path
+
+    if query_params:
+      query_params = self.sanitize_for_serialization(query_params)
+      url_query = self.parameters_to_url_query(
+        query_params,
+        collection_formats
+      )
+      url += "?" + url_query
+
+    return method, url, header_params, body, post_params
+
+  def call_api(
+    self,
+    method,
+    url,
+    header_params=None,
+    body=None,
+    post_params=None,
+    _request_timeout=None
+  ) -> rest.RESTResponse:
+    """Makes the HTTP request (synchronous)
+    :param post_params:
+    :param method: Method to call.
+    :param url: Path to method endpoint.
+    :param header_params: Header parameters to be
+        placed in the request header.
+    :param body: Request body.
+    :param post_params: Request post form parameters,
+        for `application/x-www-form-urlencoded`, `multipart/form-data`.
+    :param _request_timeout: timeout setting for this request.
+    :return: RESTResponse
+    """
+
+    try:
+      # perform request and return response
+      response_data = self.rest_client.request(
+        method, url,
+        headers=header_params,
+        body=body, post_params=post_params,
+        _request_timeout=_request_timeout
+      )
+
+    except ApiException as e:
+      raise e
+
+    return response_data
+
+  def response_deserialize(
+    self,
+    response_data: rest.RESTResponse,
+    response_types_map: Optional[Dict[str, ApiResponseT]] = None
+  ) -> ApiResponse[ApiResponseT]:
+    """Deserializes response into an object.
+    :param response_data: RESTResponse object to be deserialized.
+    :param response_types_map: dict of response types.
+    :return: ApiResponse
+    """
+
+    msg = "RESTResponse.read() must be called before passing it to response_deserialize()"
+    assert response_data.data is not None, msg
+
+    response_type = response_types_map.get(str(response_data.status), None)
+    if not response_type and isinstance(response_data.status, int) and 100 <= response_data.status <= 599:
+      # if not found, look for '1XX', '2XX', etc.
+      response_type = response_types_map.get(str(response_data.status)[0] + "XX", None)
+
+    # deserialize response data
+    response_text = None
+    return_data = None
+    try:
+      if response_type == "bytearray":
+        return_data = response_data.data
+      elif response_type == "file":
+        return_data = self.__deserialize_file(response_data)
+      elif response_type is not None:
+        match = None
+        content_type = response_data.getheader('content-type')
+        if content_type is not None:
+          match = re.search(r"charset=([a-zA-Z\-\d]+)[\s;]?", content_type)
+        encoding = match.group(1) if match else "utf-8"
+        response_text = response_data.data.decode(encoding)
+        return_data = self.deserialize(response_text, response_type, content_type)
+    finally:
+      if not 200 <= response_data.status <= 299:
+        raise ApiException.from_response(
+          http_resp=response_data,
+          body=response_text,
+          data=return_data,
+        )
+      else:
+        return ApiResponse(
+          status_code=response_data.status,
+          data=return_data,
+          headers=response_data.getheaders(),
+          raw_data=response_data.data
+        )
+
+  def sanitize_for_serialization(self, obj):
+    """Builds a JSON POST object.
+
+    If obj is None, return None.
+    If obj is SecretStr, return obj.get_secret_value()
+    If obj is str, int, long, float, bool, return directly.
+    If obj is datetime.datetime, datetime.date
+        convert to string in iso8601 format.
+    If obj is decimal.Decimal return string representation.
+    If obj is list, sanitize each element in the list.
+    If obj is dict, return the dict.
+    If obj is OpenAPI model, return the properties' dict.
+
+    :param obj: The data to serialize.
+    :return: The serialized form of data.
+    """
+    if obj is None:
+      return None
+    elif isinstance(obj, Enum):
+      return obj.value
+    elif isinstance(obj, SecretStr):
+      return obj.get_secret_value()
+    elif isinstance(obj, self.PRIMITIVE_TYPES):
+      return obj
+    elif isinstance(obj, list):
+      return [
+        self.sanitize_for_serialization(sub_obj) for sub_obj in obj
+      ]
+    elif isinstance(obj, tuple):
+      return tuple(
+        self.sanitize_for_serialization(sub_obj) for sub_obj in obj
+      )
+    elif isinstance(obj, (datetime.datetime, datetime.date)):
+      return obj.isoformat()
+    elif isinstance(obj, decimal.Decimal):
+      return str(obj)
+
+    elif isinstance(obj, dict):
+      obj_dict = obj
+    else:
+      # Convert model obj to dict except
+      # attributes `openapi_types`, `attribute_map`
+      # and attributes which value is not None.
+      # Convert attribute name to json key in
+      # model definition for request.
+      if hasattr(obj, 'to_dict') and callable(getattr(obj, 'to_dict')):
+        obj_dict = obj.to_dict()
+      else:
+        obj_dict = obj.__dict__
+
+    return {
+      key: self.sanitize_for_serialization(val)
+      for key, val in obj_dict.items()
     }
-    _pool = None
 
-    def __init__(
-            self,
-            configuration: Configuration,
-            header_name=None,
-            header_value=None,
-    ) -> None:
-        self.configuration = configuration
+  def deserialize(self, response_text: str, response_type: str, content_type: Optional[str]):
+    """Deserializes response into an object.
 
-        self.rest_client = rest.RESTClientObject(configuration)
-        self.default_headers = {}
-        if header_name is not None:
-            self.default_headers[header_name] = header_value
-        self.user_agent = 'OpenAPI-Generator/0.0.1/python'
-        self.client_side_validation = configuration.client_side_validation
+    :param response_text: RESTResponse object to be deserialized.
+    :param response_type: class literal for
+        deserialized object, or string of class name.
+    :param content_type: content type of response.
 
-    def __enter__(self):
-        return self
+    :return: deserialized object.
+    """
 
-    def __exit__(self, exc_type, exc_value, traceback):
-        pass
+    # fetch data from response object
+    if content_type is None:
+      try:
+        data = json.loads(response_text)
+      except ValueError:
+        data = response_text
+    elif re.match(r'^application/(json|[\w!#$&.+-^_]+\+json)\s*(;|$)', content_type, re.IGNORECASE):
+      if response_text == "":
+        data = ""
+      else:
+        data = json.loads(response_text)
+    elif re.match(r'^text\/[a-z.+-]+\s*(;|$)', content_type, re.IGNORECASE):
+      data = response_text
+    else:
+      raise ApiException(
+        status=0,
+        reason="Unsupported content type: {0}".format(content_type)
+      )
 
-    @property
-    def user_agent(self):
-        """User agent for this API client"""
-        return self.default_headers['User-Agent']
+    return self.__deserialize(data, response_type)
 
-    @user_agent.setter
-    def user_agent(self, value):
-        self.default_headers['User-Agent'] = value
+  @staticmethod
+  def __deserialize(data, klass):
+    """Deserializes dict, list, str into an object.
 
-    def set_default_header(self, header_name, header_value):
-        self.default_headers[header_name] = header_value
+    :param data: dict, list or str.
+    :param klass: class literal, or string of class name.
 
-    _default = None
+    :return: object.
+    """
+    if data is None:
+      return None
 
-    def param_serialize(
-            self,
-            method,
-            resource_path,
-            path_params=None,
-            query_params=None,
-            header_params=None,
-            body=None,
-            post_params=None,
-            files=None,
-            auth_settings=None,
-            collection_formats=None,
-            _host=None,
-            _request_auth=None
-    ) -> RequestSerialized:
+    if isinstance(klass, str):
+      if klass.startswith('List['):
+        m = re.match(r'List\[(.*)]', klass)
+        assert m is not None, "Malformed List type definition"
+        sub_kls = m.group(1)
+        return [ApiClient.__deserialize(sub_data)
+                for sub_data in data]
 
-        """Builds the HTTP request params needed by the request.
-        :param _host:
-        :param auth_settings:
-        :param method: Method to call.
-        :param resource_path: Path to method endpoint.
-        :param path_params: Path parameters in the url.
-        :param query_params: Query parameters in the url.
-        :param header_params: Header parameters to be
-            placed in the request header.
-        :param body: Request body.
-        :param post_params: Request post form parameters,
-            for `application/x-www-form-urlencoded`, `multipart/form-data`.
-        :param auth_settings: Auth Settings names for the request.
-        :param collection_formats: dict of collection formats for path, query,
-            header, and post parameters.
-        :param _request_auth: set to override the auth_settings for an single
-                              request; this effectively ignores the authentication
-                              in the spec for a single request.
-        :return: tuple of form (path, http_method, query_params, header_params,
-            body, post_params, files)
-        """
+      if klass.startswith('Dict['):
+        m = re.match(r'Dict\[([^,]*), (.*)]', klass)
+        assert m is not None, "Malformed Dict type definition"
+        sub_kls = m.group(2)
+        return {k: ApiClient.__deserialize(sub_kls)
+                for k, v in data.items()}
 
-        config = self.configuration
+      # convert str to class
+      if klass in ApiClient.NATIVE_TYPES_MAPPING:
+        klass = ApiClient.NATIVE_TYPES_MAPPING[klass]
+      else:
+        klass = getattr(zitadel_client.models, klass)
 
-        # header parameters
-        header_params = header_params or {}
-        header_params.update(self.default_headers)
-        if header_params:
-            header_params = self.sanitize_for_serialization(header_params)
-            header_params = dict(
-                self.parameters_to_tuples(header_params, collection_formats)
-            )
+    if klass in ApiClient.PRIMITIVE_TYPES:
+      return ApiClient.__deserialize_primitive(data, klass)
+    elif klass == object:
+      return ApiClient.__deserialize_object(data)
+    elif klass == datetime.date:
+      return ApiClient.__deserialize_date(data)
+    elif klass == datetime.datetime:
+      return ApiClient.__deserialize_datetime(data)
+    elif klass == decimal.Decimal:
+      return decimal.Decimal(data)
+    elif issubclass(klass, Enum):
+      return ApiClient.__deserialize_enum(data, klass)
+    else:
+      return ApiClient.__deserialize_model(data, klass)
 
-        # path parameters
-        if path_params:
-            path_params = self.sanitize_for_serialization(path_params)
-            path_params = self.parameters_to_tuples(
-                path_params,
-                collection_formats
-            )
-            for k, v in path_params:
-                # specified safe chars, encode everything
-                resource_path = resource_path.replace(
-                    '{%s}' % k,
-                    quote(str(v), safe=config.safe_chars_for_path_param)
-                )
+  @staticmethod
+  def parameters_to_tuples(params, collection_formats):
+    """Get parameters as list of tuples, formatting collections.
 
-        # post parameters
-        if post_params or files:
-            post_params = post_params if post_params else []
-            post_params = self.sanitize_for_serialization(post_params)
-            post_params = self.parameters_to_tuples(
-                post_params,
-                collection_formats
-            )
-            if files:
-                post_params.extend(self.files_parameters(files))
-
-        header_params.update(self.configuration.authenticator.get_auth_headers())
-
-        if body:
-            body = self.sanitize_for_serialization(body)
-
-        if _host is None:
-          url = self.configuration.host + resource_path
+    :param params: Parameters as dict or list of two-tuples
+    :param dict collection_formats: Parameter collection formats
+    :return: Parameters as list of tuples, collections formatted
+    """
+    new_params: List[Tuple[str, str]] = []
+    if collection_formats is None:
+      collection_formats = {}
+    for k, v in params.items() if isinstance(params, dict) else params:
+      if k in collection_formats:
+        collection_format = collection_formats[k]
+        if collection_format == 'multi':
+          new_params.extend((k, value) for value in v)
         else:
-          url = _host + resource_path
+          if collection_format == 'ssv':
+            delimiter = ' '
+          elif collection_format == 'tsv':
+            delimiter = '\t'
+          elif collection_format == 'pipes':
+            delimiter = '|'
+          else:  # csv is the default
+            delimiter = ','
+          new_params.append(
+            (k, delimiter.join(str(value) for value in v)))
+      else:
+        new_params.append((k, v))
+    return new_params
 
-        if query_params:
-            query_params = self.sanitize_for_serialization(query_params)
-            url_query = self.parameters_to_url_query(
-                query_params,
-                collection_formats
-            )
-            url += "?" + url_query
+  @staticmethod
+  def parameters_to_url_query(params, collection_formats):
+    """Get parameters as list of tuples, formatting collections.
 
-        return method, url, header_params, body, post_params
+    :param params: Parameters as dict or list of two-tuples
+    :param dict collection_formats: Parameter collection formats
+    :return: URL query string (e.g. a=Hello%20World&b=123)
+    """
+    new_params: List[Tuple[str, str]] = []
+    if collection_formats is None:
+      collection_formats = {}
+    for k, v in params.items() if isinstance(params, dict) else params:
+      if isinstance(v, bool):
+        v = str(v).lower()
+      if isinstance(v, (int, float)):
+        v = str(v)
+      if isinstance(v, dict):
+        v = json.dumps(v)
 
-    def call_api(
-            self,
-            method,
-            url,
-            header_params=None,
-            body=None,
-            post_params=None,
-            _request_timeout=None
-    ) -> rest.RESTResponse:
-        """Makes the HTTP request (synchronous)
-        :param post_params:
-        :param method: Method to call.
-        :param url: Path to method endpoint.
-        :param header_params: Header parameters to be
-            placed in the request header.
-        :param body: Request body.
-        :param post_params: Request post form parameters,
-            for `application/x-www-form-urlencoded`, `multipart/form-data`.
-        :param _request_timeout: timeout setting for this request.
-        :return: RESTResponse
-        """
-
-        try:
-            # perform request and return response
-            response_data = self.rest_client.request(
-                method, url,
-                headers=header_params,
-                body=body, post_params=post_params,
-                _request_timeout=_request_timeout
-            )
-
-        except ApiException as e:
-            raise e
-
-        return response_data
-
-    def response_deserialize(
-            self,
-            response_data: rest.RESTResponse,
-            response_types_map: Optional[Dict[str, ApiResponseT]] = None
-    ) -> ApiResponse[ApiResponseT]:
-        """Deserializes response into an object.
-        :param response_data: RESTResponse object to be deserialized.
-        :param response_types_map: dict of response types.
-        :return: ApiResponse
-        """
-
-        msg = "RESTResponse.read() must be called before passing it to response_deserialize()"
-        assert response_data.data is not None, msg
-
-        response_type = response_types_map.get(str(response_data.status), None)
-        if not response_type and isinstance(response_data.status, int) and 100 <= response_data.status <= 599:
-            # if not found, look for '1XX', '2XX', etc.
-            response_type = response_types_map.get(str(response_data.status)[0] + "XX", None)
-
-        # deserialize response data
-        response_text = None
-        return_data = None
-        try:
-            if response_type == "bytearray":
-                return_data = response_data.data
-            elif response_type == "file":
-                return_data = self.__deserialize_file(response_data)
-            elif response_type is not None:
-                match = None
-                content_type = response_data.getheader('content-type')
-                if content_type is not None:
-                    match = re.search(r"charset=([a-zA-Z\-\d]+)[\s;]?", content_type)
-                encoding = match.group(1) if match else "utf-8"
-                response_text = response_data.data.decode(encoding)
-                return_data = self.deserialize(response_text, response_type, content_type)
-        finally:
-            if not 200 <= response_data.status <= 299:
-                raise ApiException.from_response(
-                    http_resp=response_data,
-                    body=response_text,
-                    data=return_data,
-                )
-            else:
-                return ApiResponse(
-                    status_code=response_data.status,
-                    data=return_data,
-                    headers=response_data.getheaders(),
-                    raw_data=response_data.data
-                )
-
-    def sanitize_for_serialization(self, obj):
-        """Builds a JSON POST object.
-
-        If obj is None, return None.
-        If obj is SecretStr, return obj.get_secret_value()
-        If obj is str, int, long, float, bool, return directly.
-        If obj is datetime.datetime, datetime.date
-            convert to string in iso8601 format.
-        If obj is decimal.Decimal return string representation.
-        If obj is list, sanitize each element in the list.
-        If obj is dict, return the dict.
-        If obj is OpenAPI model, return the properties' dict.
-
-        :param obj: The data to serialize.
-        :return: The serialized form of data.
-        """
-        if obj is None:
-            return None
-        elif isinstance(obj, Enum):
-            return obj.value
-        elif isinstance(obj, SecretStr):
-            return obj.get_secret_value()
-        elif isinstance(obj, self.PRIMITIVE_TYPES):
-            return obj
-        elif isinstance(obj, list):
-            return [
-                self.sanitize_for_serialization(sub_obj) for sub_obj in obj
-            ]
-        elif isinstance(obj, tuple):
-            return tuple(
-                self.sanitize_for_serialization(sub_obj) for sub_obj in obj
-            )
-        elif isinstance(obj, (datetime.datetime, datetime.date)):
-            return obj.isoformat()
-        elif isinstance(obj, decimal.Decimal):
-            return str(obj)
-
-        elif isinstance(obj, dict):
-            obj_dict = obj
+      if k in collection_formats:
+        collection_format = collection_formats[k]
+        if collection_format == 'multi':
+          new_params.extend((k, quote(str(value))) for value in v)
         else:
-            # Convert model obj to dict except
-            # attributes `openapi_types`, `attribute_map`
-            # and attributes which value is not None.
-            # Convert attribute name to json key in
-            # model definition for request.
-            if hasattr(obj, 'to_dict') and callable(getattr(obj, 'to_dict')):
-                obj_dict = obj.to_dict()
-            else:
-                obj_dict = obj.__dict__
+          if collection_format == 'ssv':
+            delimiter = ' '
+          elif collection_format == 'tsv':
+            delimiter = '\t'
+          elif collection_format == 'pipes':
+            delimiter = '|'
+          else:  # csv is the default
+            delimiter = ','
+          new_params.append(
+            (k, delimiter.join(quote(str(value)) for value in v))
+          )
+      else:
+        new_params.append((k, quote(str(v))))
 
-        return {
-            key: self.sanitize_for_serialization(val)
-            for key, val in obj_dict.items()
-        }
+    return "&".join(["=".join(map(str, item)) for item in new_params])
 
-    def deserialize(self, response_text: str, response_type: str, content_type: Optional[str]):
-        """Deserializes response into an object.
+  def files_parameters(
+    self,
+    files: Dict[str, Union[str, bytes, List[str], List[bytes], Tuple[str, bytes]]],
+  ):
+    """Builds form parameters.
 
-        :param response_text: RESTResponse object to be deserialized.
-        :param response_type: class literal for
-            deserialized object, or string of class name.
-        :param content_type: content type of response.
+    :param files: File parameters.
+    :return: Form parameters with files.
+    """
+    params = []
+    for k, v in files.items():
+      if isinstance(v, str):
+        with open(v, 'rb') as f:
+          filename = os.path.basename(f.name)
+          filedata = f.read()
+      elif isinstance(v, bytes):
+        filename = k
+        filedata = v
+      elif isinstance(v, tuple):
+        filename, filedata = v
+      elif isinstance(v, list):
+        for file_param in v:
+          params.extend(self.files_parameters({k: file_param}))
+        continue
+      else:
+        raise ValueError("Unsupported file value")
+      mimetype = (
+        mimetypes.guess_type(filename)[0]
+        or 'application/octet-stream'
+      )
+      params.append(
+        tuple([k, tuple([filename, filedata, mimetype])])
+      )
+    return params
 
-        :return: deserialized object.
-        """
+  @staticmethod
+  def select_header_accept(accepts: List[str]) -> Optional[str]:
+    """Returns `Accept` based on an array of accepts provided.
 
-        # fetch data from response object
-        if content_type is None:
-            try:
-                data = json.loads(response_text)
-            except ValueError:
-                data = response_text
-        elif re.match(r'^application/(json|[\w!#$&.+-^_]+\+json)\s*(;|$)', content_type, re.IGNORECASE):
-            if response_text == "":
-                data = ""
-            else:
-                data = json.loads(response_text)
-        elif re.match(r'^text\/[a-z.+-]+\s*(;|$)', content_type, re.IGNORECASE):
-            data = response_text
-        else:
-            raise ApiException(
-                status=0,
-                reason="Unsupported content type: {0}".format(content_type)
-            )
+    :param accepts: List of headers.
+    :return: Accept (e.g. application/json).
+    """
+    if not accepts:
+      return None
 
-        return self.__deserialize(data, response_type)
+    for accept in accepts:
+      if re.search('json', accept, re.IGNORECASE):
+        return accept
 
-    @staticmethod
-    def __deserialize(data, klass):
-        """Deserializes dict, list, str into an object.
+    return accepts[0]
 
-        :param data: dict, list or str.
-        :param klass: class literal, or string of class name.
+  @staticmethod
+  def select_header_content_type(content_types):
+    """Returns `Content-Type` based on an array of content_types provided.
 
-        :return: object.
-        """
-        if data is None:
-            return None
+    :param content_types: List of content-types.
+    :return: Content-Type (e.g. application/json).
+    """
+    if not content_types:
+      return None
 
-        if isinstance(klass, str):
-            if klass.startswith('List['):
-                m = re.match(r'List\[(.*)]', klass)
-                assert m is not None, "Malformed List type definition"
-                sub_kls = m.group(1)
-                return [ApiClient.__deserialize(sub_data)
-                        for sub_data in data]
+    for content_type in content_types:
+      if re.search('json', content_type, re.IGNORECASE):
+        return content_type
 
-            if klass.startswith('Dict['):
-                m = re.match(r'Dict\[([^,]*), (.*)]', klass)
-                assert m is not None, "Malformed Dict type definition"
-                sub_kls = m.group(2)
-                return {k: ApiClient.__deserialize(sub_kls)
-                        for k, v in data.items()}
+    return content_types[0]
 
-            # convert str to class
-            if klass in ApiClient.NATIVE_TYPES_MAPPING:
-                klass = ApiClient.NATIVE_TYPES_MAPPING[klass]
-            else:
-                klass = getattr(zitadel_client.models, klass)
+  @staticmethod
+  def __deserialize_file(response):
+    """Deserializes body to file
 
-        if klass in ApiClient.PRIMITIVE_TYPES:
-            return ApiClient.__deserialize_primitive(data, klass)
-        elif klass == object:
-            return ApiClient.__deserialize_object(data)
-        elif klass == datetime.date:
-            return ApiClient.__deserialize_date(data)
-        elif klass == datetime.datetime:
-            return ApiClient.__deserialize_datetime(data)
-        elif klass == decimal.Decimal:
-            return decimal.Decimal(data)
-        elif issubclass(klass, Enum):
-            return ApiClient.__deserialize_enum(data, klass)
-        else:
-            return ApiClient.__deserialize_model(data, klass)
+    Saves response body into a file in a temporary folder,
+    using the filename from the `Content-Disposition` header if provided.
 
-    @staticmethod
-    def parameters_to_tuples(params, collection_formats):
-        """Get parameters as list of tuples, formatting collections.
+    handle file downloading
+    save response body into a tmp file and return the instance
 
-        :param params: Parameters as dict or list of two-tuples
-        :param dict collection_formats: Parameter collection formats
-        :return: Parameters as list of tuples, collections formatted
-        """
-        new_params: List[Tuple[str, str]] = []
-        if collection_formats is None:
-            collection_formats = {}
-        for k, v in params.items() if isinstance(params, dict) else params:
-            if k in collection_formats:
-                collection_format = collection_formats[k]
-                if collection_format == 'multi':
-                    new_params.extend((k, value) for value in v)
-                else:
-                    if collection_format == 'ssv':
-                        delimiter = ' '
-                    elif collection_format == 'tsv':
-                        delimiter = '\t'
-                    elif collection_format == 'pipes':
-                        delimiter = '|'
-                    else:  # csv is the default
-                        delimiter = ','
-                    new_params.append(
-                        (k, delimiter.join(str(value) for value in v)))
-            else:
-                new_params.append((k, v))
-        return new_params
+    :param response:  RESTResponse.
+    :return: file path.
+    """
+    fd, path = tempfile.mkstemp()
+    os.close(fd)
+    os.remove(path)
 
-    @staticmethod
-    def parameters_to_url_query(params, collection_formats):
-        """Get parameters as list of tuples, formatting collections.
+    content_disposition = response.getheader("Content-Disposition")
+    if content_disposition:
+      m = re.search(
+        r'filename=[\'"]?([^\'"\s]+)[\'"]?',
+        content_disposition
+      )
+      assert m is not None, "Unexpected 'content-disposition' header value"
+      filename = m.group(1)
+      path = os.path.join(os.path.dirname(path), filename)
 
-        :param params: Parameters as dict or list of two-tuples
-        :param dict collection_formats: Parameter collection formats
-        :return: URL query string (e.g. a=Hello%20World&b=123)
-        """
-        new_params: List[Tuple[str, str]] = []
-        if collection_formats is None:
-            collection_formats = {}
-        for k, v in params.items() if isinstance(params, dict) else params:
-            if isinstance(v, bool):
-                v = str(v).lower()
-            if isinstance(v, (int, float)):
-                v = str(v)
-            if isinstance(v, dict):
-                v = json.dumps(v)
+    with open(path, "wb") as f:
+      f.write(response.data)
 
-            if k in collection_formats:
-                collection_format = collection_formats[k]
-                if collection_format == 'multi':
-                    new_params.extend((k, quote(str(value))) for value in v)
-                else:
-                    if collection_format == 'ssv':
-                        delimiter = ' '
-                    elif collection_format == 'tsv':
-                        delimiter = '\t'
-                    elif collection_format == 'pipes':
-                        delimiter = '|'
-                    else:  # csv is the default
-                        delimiter = ','
-                    new_params.append(
-                        (k, delimiter.join(quote(str(value)) for value in v))
-                    )
-            else:
-                new_params.append((k, quote(str(v))))
+    return path
 
-        return "&".join(["=".join(map(str, item)) for item in new_params])
+  @staticmethod
+  def __deserialize_primitive(data, klass):
+    """Deserializes string to primitive type.
 
-    def files_parameters(
-            self,
-            files: Dict[str, Union[str, bytes, List[str], List[bytes], Tuple[str, bytes]]],
-    ):
-        """Builds form parameters.
+    :param data: str.
+    :param klass: class literal.
 
-        :param files: File parameters.
-        :return: Form parameters with files.
-        """
-        params = []
-        for k, v in files.items():
-            if isinstance(v, str):
-                with open(v, 'rb') as f:
-                    filename = os.path.basename(f.name)
-                    filedata = f.read()
-            elif isinstance(v, bytes):
-                filename = k
-                filedata = v
-            elif isinstance(v, tuple):
-                filename, filedata = v
-            elif isinstance(v, list):
-                for file_param in v:
-                    params.extend(self.files_parameters({k: file_param}))
-                continue
-            else:
-                raise ValueError("Unsupported file value")
-            mimetype = (
-                    mimetypes.guess_type(filename)[0]
-                    or 'application/octet-stream'
-            )
-            params.append(
-                tuple([k, tuple([filename, filedata, mimetype])])
-            )
-        return params
+    :return: int, long, float, str, bool.
+    """
+    try:
+      return klass(data)
+    except UnicodeEncodeError:
+      return str(data)
+    except TypeError:
+      return data
 
-    @staticmethod
-    def select_header_accept(accepts: List[str]) -> Optional[str]:
-        """Returns `Accept` based on an array of accepts provided.
+  @staticmethod
+  def __deserialize_object(value):
+    """Return an original value.
 
-        :param accepts: List of headers.
-        :return: Accept (e.g. application/json).
-        """
-        if not accepts:
-            return None
+    :return: object.
+    """
+    return value
 
-        for accept in accepts:
-            if re.search('json', accept, re.IGNORECASE):
-                return accept
+  @staticmethod
+  def __deserialize_date(string):
+    """Deserializes string to date.
 
-        return accepts[0]
+    :param string: str.
+    :return: date.
+    """
+    try:
+      return parse(string).date()
+    except ImportError:
+      return string
+    except ValueError:
+      raise rest.ApiException(
+        status=0,
+        reason="Failed to parse `{0}` as date object".format(string)
+      )
 
-    @staticmethod
-    def select_header_content_type(content_types):
-        """Returns `Content-Type` based on an array of content_types provided.
+  @staticmethod
+  def __deserialize_datetime(string):
+    """Deserializes string to datetime.
 
-        :param content_types: List of content-types.
-        :return: Content-Type (e.g. application/json).
-        """
-        if not content_types:
-            return None
+    The string should be in iso8601 datetime format.
 
-        for content_type in content_types:
-            if re.search('json', content_type, re.IGNORECASE):
-                return content_type
+    :param string: str.
+    :return: datetime.
+    """
+    try:
+      return parse(string)
+    except ImportError:
+      return string
+    except ValueError:
+      raise rest.ApiException(
+        status=0,
+        reason=(
+          "Failed to parse `{0}` as datetime object"
+          .format(string)
+        )
+      )
 
-        return content_types[0]
+  @staticmethod
+  def __deserialize_enum(data, klass):
+    """Deserializes primitive type to enum.
 
-    @staticmethod
-    def __deserialize_file(response):
-        """Deserializes body to file
+    :param data: primitive type.
+    :param klass: class literal.
+    :return: enum value.
+    """
+    try:
+      return klass(data)
+    except ValueError:
+      raise rest.ApiException(
+        status=0,
+        reason=(
+          "Failed to parse `{0}` as `{1}`"
+          .format(data, klass)
+        )
+      )
 
-        Saves response body into a file in a temporary folder,
-        using the filename from the `Content-Disposition` header if provided.
+  @staticmethod
+  def __deserialize_model(data, klass: Any):
+    """Deserializes list or dict to model.
 
-        handle file downloading
-        save response body into a tmp file and return the instance
+    :param data: dict, list.
+    :param klass: class literal.
+    :return: model object.
+    """
 
-        :param response:  RESTResponse.
-        :return: file path.
-        """
-        fd, path = tempfile.mkstemp()
-        os.close(fd)
-        os.remove(path)
+    return klass.from_dict(data)
 
-        content_disposition = response.getheader("Content-Disposition")
-        if content_disposition:
-            m = re.search(
-                r'filename=[\'"]?([^\'"\s]+)[\'"]?',
-                content_disposition
-            )
-            assert m is not None, "Unexpected 'content-disposition' header value"
-            filename = m.group(1)
-            path = os.path.join(os.path.dirname(path), filename)
-
-        with open(path, "wb") as f:
-            f.write(response.data)
-
-        return path
-
-    @staticmethod
-    def __deserialize_primitive(data, klass):
-        """Deserializes string to primitive type.
-
-        :param data: str.
-        :param klass: class literal.
-
-        :return: int, long, float, str, bool.
-        """
-        try:
-            return klass(data)
-        except UnicodeEncodeError:
-            return str(data)
-        except TypeError:
-            return data
-
-    @staticmethod
-    def __deserialize_object(value):
-        """Return an original value.
-
-        :return: object.
-        """
-        return value
-
-    @staticmethod
-    def __deserialize_date(string):
-        """Deserializes string to date.
-
-        :param string: str.
-        :return: date.
-        """
-        try:
-            return parse(string).date()
-        except ImportError:
-            return string
-        except ValueError:
-            raise rest.ApiException(
-                status=0,
-                reason="Failed to parse `{0}` as date object".format(string)
-            )
-
-    @staticmethod
-    def __deserialize_datetime(string):
-        """Deserializes string to datetime.
-
-        The string should be in iso8601 datetime format.
-
-        :param string: str.
-        :return: datetime.
-        """
-        try:
-            return parse(string)
-        except ImportError:
-            return string
-        except ValueError:
-            raise rest.ApiException(
-                status=0,
-                reason=(
-                    "Failed to parse `{0}` as datetime object"
-                    .format(string)
-                )
-            )
-
-    @staticmethod
-    def __deserialize_enum(data, klass):
-        """Deserializes primitive type to enum.
-
-        :param data: primitive type.
-        :param klass: class literal.
-        :return: enum value.
-        """
-        try:
-            return klass(data)
-        except ValueError:
-            raise rest.ApiException(
-                status=0,
-                reason=(
-                    "Failed to parse `{0}` as `{1}`"
-                    .format(data, klass)
-                )
-            )
-
-    @staticmethod
-    def __deserialize_model(data, klass: Any):
-        """Deserializes list or dict to model.
-
-        :param data: dict, list.
-        :param klass: class literal.
-        :return: model object.
-        """
-
-        return klass.from_dict(data)
-
-    @classmethod
-    def get_default(cls):
-        return ApiClient(configuration=Configuration(authenticator=NoAuthAuthenticator()))
+  @classmethod
+  def get_default(cls):
+    return ApiClient(configuration=Configuration(authenticator=NoAuthAuthenticator()))

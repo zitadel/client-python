@@ -11,71 +11,71 @@ from zitadel_client.configuration import Configuration
 
 
 class Zitadel:
+  """
+  Main entry point for the Zitadel SDK.
+
+  This class initializes and configures the SDK with the provided authentication strategy.
+  It sets up service APIs for interacting with various Zitadel features such as identity providers,
+  organizations, sessions, settings, users, and more.
+
+  Attributes:
+      configuration (Configuration): The configuration instance containing authentication and endpoint details.
+      client (ApiClient): The API client used for making HTTP requests to the Zitadel API.
+      features (FeatureServiceApi): Service API for feature management.
+      idps (IdentityProviderServiceApi): Service API for identity provider operations.
+      oidc (OIDCServiceApi): Service API for OIDC-related operations.
+      organizations (OrganizationServiceApi): Service API for organization-related operations.
+      sessions (SessionServiceApi): Service API for session management.
+      settings (SettingsServiceApi): Service API for settings management.
+      users (UserServiceApi): Service API for user management.
+  """
+
+  def __init__(self, authenticator: Authenticator, mutate_config: callable = None):
     """
-    Main entry point for the Zitadel SDK.
+    Initialize the Zitadel SDK.
 
-    This class initializes and configures the SDK with the provided authentication strategy.
-    It sets up service APIs for interacting with various Zitadel features such as identity providers,
-    organizations, sessions, settings, users, and more.
+    This constructor creates a configuration instance using the provided authenticator.
+    Optionally, the configuration can be modified via the `mutate_config` callback function.
+    It then instantiates the underlying API client and initializes various service APIs.
 
-    Attributes:
-        configuration (Configuration): The configuration instance containing authentication and endpoint details.
-        client (ApiClient): The API client used for making HTTP requests to the Zitadel API.
-        features (FeatureServiceApi): Service API for feature management.
-        idps (IdentityProviderServiceApi): Service API for identity provider operations.
-        oidc (OIDCServiceApi): Service API for OIDC-related operations.
-        organizations (OrganizationServiceApi): Service API for organization-related operations.
-        sessions (SessionServiceApi): Service API for session management.
-        settings (SettingsServiceApi): Service API for settings management.
-        users (UserServiceApi): Service API for user management.
+    Args:
+        authenticator (Authenticator): The authentication strategy to be used.
+        mutate_config (callable, optional): A callback function that receives the configuration
+            instance for any additional modifications before the API client is created.
+            Defaults to None.
     """
+    self.configuration = Configuration(authenticator)
 
-    def __init__(self, authenticator: Authenticator, mutate_config: callable = None):
-        """
-        Initialize the Zitadel SDK.
+    if mutate_config:
+      mutate_config(self.configuration)
 
-        This constructor creates a configuration instance using the provided authenticator.
-        Optionally, the configuration can be modified via the `mutate_config` callback function.
-        It then instantiates the underlying API client and initializes various service APIs.
+    client = ApiClient(configuration=self.configuration)
+    self.features = FeatureServiceApi(client)
+    self.idps = IdentityProviderServiceApi(client)
+    self.oidc = OIDCServiceApi(client)
+    self.organizations = OrganizationServiceApi(client)
+    self.sessions = SessionServiceApi(client)
+    self.settings = SettingsServiceApi(client)
+    self.users = UserServiceApi(client)
 
-        Args:
-            authenticator (Authenticator): The authentication strategy to be used.
-            mutate_config (callable, optional): A callback function that receives the configuration
-                instance for any additional modifications before the API client is created.
-                Defaults to None.
-        """
-        self.configuration = Configuration(authenticator)
+  def __enter__(self):
+    """
+    Enter the runtime context related to the Zitadel instance.
 
-        if mutate_config:
-            mutate_config(self.configuration)
+    Returns:
+        Zitadel: The current instance.
+    """
+    return self
 
-        client = ApiClient(configuration=self.configuration)
-        self.features = FeatureServiceApi(client)
-        self.idps = IdentityProviderServiceApi(client)
-        self.oidc = OIDCServiceApi(client)
-        self.organizations = OrganizationServiceApi(client)
-        self.sessions = SessionServiceApi(client)
-        self.settings = SettingsServiceApi(client)
-        self.users = UserServiceApi(client)
+  def __exit__(self, exc_type, exc_value, traceback):
+    """
+    Exit the runtime context.
 
-    def __enter__(self):
-        """
-        Enter the runtime context related to the Zitadel instance.
+    This method can be used to perform cleanup actions. Currently, it does nothing.
 
-        Returns:
-            Zitadel: The current instance.
-        """
-        return self
-
-    def __exit__(self, exc_type, exc_value, traceback):
-        """
-        Exit the runtime context.
-
-        This method can be used to perform cleanup actions. Currently, it does nothing.
-
-        Args:
-            exc_type: The exception type, if an exception occurred.
-            exc_value: The exception value, if an exception occurred.
-            traceback: The traceback of the exception, if an exception occurred.
-        """
-        pass
+    Args:
+        exc_type: The exception type, if an exception occurred.
+        exc_value: The exception value, if an exception occurred.
+        traceback: The traceback of the exception, if an exception occurred.
+    """
+    pass

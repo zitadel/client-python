@@ -6,18 +6,18 @@ license = { text = "Apache-2.0" }
 readme = "README.md"
 requires-python = ">=3.8"
 authors = [
-	{ name = "Mridang Agarwalla", email = "mridang@zitadel.com" }
+  { name = "Mridang Agarwalla", email = "mridang@zitadel.com" }
 ]
 keywords = ["sdk", "iam", "client-lib", "client-library", "sdk-python", "zitadel", "zitadel-sdk"]
 classifiers = [
-	"Topic :: Software Development :: Libraries"
+  "Topic :: Software Development :: Libraries"
 ]
 dependencies = [
-    "urllib3>=1.25.3,<3.0.0",
-    "python-dateutil>=2.8.2",
-    "pydantic>=2",
-    "typing-extensions>=4.7.1",
-    "authlib (==1.3.2)"
+  "urllib3>=1.25.3,<3.0.0",
+  "python-dateutil>=2.8.2",
+  "pydantic>=2",
+  "typing-extensions>=4.7.1",
+  "authlib (==1.3.2)"
 ]
 
 [project.urls]
@@ -50,10 +50,10 @@ envlist = ["py3"]
 testpaths = ["test", "spec"]
 python_files = "test_*.py *_spec.py"
 addopts = [
-    "--cov=zitadel_client",
-    "--cov-report=html:build/coverage/html",
-    "--cov-report=lcov:build/coverage/lcov.info",
-    "--cov-report=term"
+  "--cov=zitadel_client",
+  "--cov-report=html:build/coverage/html",
+  "--cov-report=lcov:build/coverage/lcov.info",
+  "--cov-report=term"
 ]
 
 [tool.coverage.run]
@@ -68,8 +68,8 @@ extension-pkg-whitelist = "pydantic"
 
 [tool.mypy]
 files = [
-	"zitadel_client",
-	"tests",
+  "zitadel_client",
+  "tests",
 ]
 
 # List from: https://mypy.readthedocs.io/en/stable/existing_code.html#introduce-stricter-options
@@ -92,7 +92,7 @@ disallow_any_generics = true
 
 [[tool.mypy.overrides]]
 module = [
-	"zitadel_client.configuration",
+  "zitadel_client.configuration",
 ]
 warn_unused_ignores = true
 strict_equality = true
