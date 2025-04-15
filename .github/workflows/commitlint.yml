@@ -1,0 +1,19 @@
+name: Commits
+
+on: pull_request
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  lint-commits:
+    runs-on: ubuntu-latest
+    name: Validate Commits
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Inspect Commits
+        uses: wagoid/commitlint-github-action@v6
