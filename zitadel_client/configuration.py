@@ -2,6 +2,7 @@ import copy
 import http.client as httplib
 import logging
 import multiprocessing
+import platform
 import sys
 from logging import FileHandler
 from typing import Any, Dict, Optional, Union
@@ -9,11 +10,12 @@ from typing import Any, Dict, Optional, Union
 from typing_extensions import Self
 
 from zitadel_client.auth.authenticator import Authenticator
-
+from zitadel_client.version import Version
 
 class Configuration:
   """This class contains various settings of the API client.
   """
+  USER_AGENT = f"zitadel-client/{Version.VERSION} (lang=python; lang_version={platform.python_version()}; os={platform.system()}; arch={platform.machine()})".lower()
 
   def __init__(
     self,
@@ -26,6 +28,7 @@ class Configuration:
   ) -> None:
     """Constructor
     """
+    self._user_agent = Configuration.USER_AGENT
     self.authenticator = authenticator
     self.api_key_prefix = {}
     self.refresh_api_key_hook = None
@@ -195,3 +198,23 @@ class Configuration:
   def host(self) -> str:
     """Return generated host."""
     return self.authenticator.get_host()
+
+  @property
+  def user_agent(self):
+    """
+    Get the user agent string.
+
+    Returns:
+        str: The current value of the user agent.
+    """
+    return self._user_agent
+
+  @user_agent.setter
+  def user_agent(self, value):
+    """
+    Set the user agent string.
+
+    Args:
+        value (str): The new user agent string to set.
+    """
+    self._user_agent = value
