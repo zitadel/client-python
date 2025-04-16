@@ -61,10 +61,11 @@ class ApiClient:
     self.configuration = configuration
 
     self.rest_client = rest.RESTClientObject(configuration)
-    self.default_headers = {}
+    self.default_headers = {
+      'User-Agent': configuration.user_agent
+    }
     if header_name is not None:
       self.default_headers[header_name] = header_value
-    self.user_agent = 'OpenAPI-Generator/0.0.1/python'
     self.client_side_validation = configuration.client_side_validation
 
   def __enter__(self):
@@ -72,15 +73,6 @@ class ApiClient:
 
   def __exit__(self, exc_type, exc_value, traceback):
     pass
-
-  @property
-  def user_agent(self):
-    """User agent for this API client"""
-    return self.default_headers['User-Agent']
-
-  @user_agent.setter
-  def user_agent(self, value):
-    self.default_headers['User-Agent'] = value
 
   def set_default_header(self, header_name, header_value):
     self.default_headers[header_name] = header_value
