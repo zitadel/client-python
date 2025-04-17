@@ -10,19 +10,7 @@ import urllib3
 from zitadel_client.exceptions import ApiException, ApiValueError
 from zitadel_client.rest_response import RESTResponse
 
-SUPPORTED_SOCKS_PROXIES = {"socks5", "socks5h", "socks4", "socks4a"}
 RESTResponseType = urllib3.HTTPResponse
-
-
-def is_socks_proxy_url(url: str) -> bool:
-  if url is None:
-    return False
-  split_section = url.split("://")
-  if len(split_section) < 2:
-    return False
-  else:
-    return split_section[0].lower() in SUPPORTED_SOCKS_PROXIES
-
 
 class RESTClientObject:
 
@@ -64,19 +52,7 @@ class RESTClientObject:
 
     # https pool manager
     self.pool_manager: urllib3.PoolManager
-
-    if configuration.proxy:
-      if is_socks_proxy_url(configuration.proxy):
-        from urllib3.contrib.socks import SOCKSProxyManager
-        pool_args["proxy_url"] = configuration.proxy
-        pool_args["headers"] = configuration.proxy_headers
-        self.pool_manager = SOCKSProxyManager(**pool_args)
-      else:
-        pool_args["proxy_url"] = configuration.proxy
-        pool_args["proxy_headers"] = configuration.proxy_headers
-        self.pool_manager = urllib3.ProxyManager(**pool_args)
-    else:
-      self.pool_manager = urllib3.PoolManager(**pool_args)
+    self.pool_manager = urllib3.PoolManager(**pool_args)
 
   def request(
     self,

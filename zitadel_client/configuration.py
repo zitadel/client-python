@@ -57,8 +57,6 @@ class Configuration:
        cpu_count * 5 is used as default value to increase performance.
     """
 
-    self.proxy: Optional[str] = None
-    self.proxy_headers = None
     self.safe_chars_for_path_param = ''
     self.retries = retries
     # Enable client side validation
