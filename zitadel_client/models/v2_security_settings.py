@@ -13,15 +13,17 @@
 
 
 from __future__ import annotations
+
+import json
 import pprint
 import re  # noqa: F401
-import json
+from typing import Any, ClassVar, Dict, List, Optional, Set
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool
-from typing import Any, ClassVar, Dict, List, Optional
-from zitadel_client.models.v2_embedded_iframe_settings import V2EmbeddedIframeSettings
-from typing import Optional, Set
 from typing_extensions import Self
+
+from zitadel_client.models.v2_embedded_iframe_settings import V2EmbeddedIframeSettings
+
 
 class V2SecuritySettings(BaseModel):
     """
@@ -75,7 +77,7 @@ class V2SecuritySettings(BaseModel):
         )
         # override the default output from pydantic by calling `to_dict()` of embedded_iframe
         if self.embedded_iframe:
-            _dict['embeddedIframe'] = self.embedded_iframe.to_dict()
+            _dict["embeddedIframe"] = self.embedded_iframe.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():

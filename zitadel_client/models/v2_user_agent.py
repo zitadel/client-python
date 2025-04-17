@@ -13,15 +13,17 @@
 
 
 from __future__ import annotations
+
+import json
 import pprint
 import re  # noqa: F401
-import json
+from typing import Any, ClassVar, Dict, List, Optional, Set
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from zitadel_client.models.user_agent_header_values import UserAgentHeaderValues
-from typing import Optional, Set
 from typing_extensions import Self
+
+from zitadel_client.models.user_agent_header_values import UserAgentHeaderValues
+
 
 class V2UserAgent(BaseModel):
     """
@@ -81,7 +83,7 @@ class V2UserAgent(BaseModel):
             for _key_header in self.header:
                 if self.header[_key_header]:
                     _field_dict[_key_header] = self.header[_key_header].to_dict()
-            _dict['header'] = _field_dict
+            _dict["header"] = _field_dict
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():

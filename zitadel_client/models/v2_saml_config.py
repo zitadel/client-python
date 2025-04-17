@@ -13,17 +13,25 @@
 
 
 from __future__ import annotations
+
+import json
 import pprint
 import re  # noqa: F401
-import json
+from typing import Any, ClassVar, Dict, List, Optional, Set, Union
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List, Optional, Union
-from typing_extensions import Annotated
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    StrictBool,
+    StrictStr,
+    field_validator,
+)
+from typing_extensions import Annotated, Self
+
 from zitadel_client.models.v2_saml_binding import V2SAMLBinding
 from zitadel_client.models.v2_saml_name_id_format import V2SAMLNameIDFormat
-from typing import Optional, Set
-from typing_extensions import Self
+
 
 class V2SAMLConfig(BaseModel):
     """
@@ -37,7 +45,7 @@ class V2SAMLConfig(BaseModel):
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["metadataXml", "binding", "withSignedRequest", "nameIdFormat", "transientMappingAttributeName"]
 
-    @field_validator('metadata_xml')
+    @field_validator("metadata_xml")
     def metadata_xml_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:

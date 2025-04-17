@@ -13,21 +13,21 @@
 
 
 from __future__ import annotations
+
+import json
 import pprint
 import re  # noqa: F401
-import json
+from typing import Any, ClassVar, Dict, List, Optional, Set
 
 from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List
-from typing_extensions import Annotated
-from typing import Optional, Set
-from typing_extensions import Self
+from typing_extensions import Annotated, Self
+
 
 class UserServiceVerifyEmailBody(BaseModel):
     """
     UserServiceVerifyEmailBody
     """ # noqa: E501
-    verification_code: Annotated[str, Field(min_length=1, strict=True, max_length=20)] = Field(description="\"the verification code generated during the set email request\"", alias="verificationCode")
+    verification_code: Annotated[str, Field(min_length=1, strict=True, max_length=20)] = Field(description='"the verification code generated during the set email request"', alias="verificationCode")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["verificationCode"]
 

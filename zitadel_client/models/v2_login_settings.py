@@ -13,18 +13,20 @@
 
 
 from __future__ import annotations
+
+import json
 import pprint
 import re  # noqa: F401
-import json
+from typing import Any, ClassVar, Dict, List, Optional, Set
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Self
+
 from zitadel_client.models.v2_multi_factor_type import V2MultiFactorType
 from zitadel_client.models.v2_passkeys_type import V2PasskeysType
 from zitadel_client.models.v2_resource_owner_type import V2ResourceOwnerType
 from zitadel_client.models.v2_second_factor_type import V2SecondFactorType
-from typing import Optional, Set
-from typing_extensions import Self
+
 
 class V2LoginSettings(BaseModel):
     """

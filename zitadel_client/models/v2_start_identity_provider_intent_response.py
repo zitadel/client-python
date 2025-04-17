@@ -13,17 +13,18 @@
 
 
 from __future__ import annotations
+
+import json
 import pprint
 import re  # noqa: F401
-import json
+from typing import Any, ClassVar, Dict, List, Optional, Set, Union
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List, Optional, Union
-from typing_extensions import Annotated
+from typing_extensions import Annotated, Self
+
 from zitadel_client.models.v2_details import V2Details
 from zitadel_client.models.v2_idp_intent import V2IDPIntent
-from typing import Optional, Set
-from typing_extensions import Self
+
 
 class V2StartIdentityProviderIntentResponse(BaseModel):
     """
@@ -36,7 +37,7 @@ class V2StartIdentityProviderIntentResponse(BaseModel):
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["details", "authUrl", "idpIntent", "postForm"]
 
-    @field_validator('post_form')
+    @field_validator("post_form")
     def post_form_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
@@ -89,10 +90,10 @@ class V2StartIdentityProviderIntentResponse(BaseModel):
         )
         # override the default output from pydantic by calling `to_dict()` of details
         if self.details:
-            _dict['details'] = self.details.to_dict()
+            _dict["details"] = self.details.to_dict()
         # override the default output from pydantic by calling `to_dict()` of idp_intent
         if self.idp_intent:
-            _dict['idpIntent'] = self.idp_intent.to_dict()
+            _dict["idpIntent"] = self.idp_intent.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():

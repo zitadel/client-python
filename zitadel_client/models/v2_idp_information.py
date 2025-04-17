@@ -13,17 +13,25 @@
 
 
 from __future__ import annotations
+
+import json
 import pprint
 import re  # noqa: F401
-import json
+from typing import Any, ClassVar, Dict, List, Optional, Set
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from zitadel_client.models.v2_idpldap_access_information import V2IDPLDAPAccessInformation
-from zitadel_client.models.v2_idpo_auth_access_information import V2IDPOAuthAccessInformation
-from zitadel_client.models.v2_idpsaml_access_information import V2IDPSAMLAccessInformation
-from typing import Optional, Set
 from typing_extensions import Self
+
+from zitadel_client.models.v2_idpldap_access_information import (
+    V2IDPLDAPAccessInformation,
+)
+from zitadel_client.models.v2_idpo_auth_access_information import (
+    V2IDPOAuthAccessInformation,
+)
+from zitadel_client.models.v2_idpsaml_access_information import (
+    V2IDPSAMLAccessInformation,
+)
+
 
 class V2IDPInformation(BaseModel):
     """
@@ -82,13 +90,13 @@ class V2IDPInformation(BaseModel):
         )
         # override the default output from pydantic by calling `to_dict()` of oauth
         if self.oauth:
-            _dict['oauth'] = self.oauth.to_dict()
+            _dict["oauth"] = self.oauth.to_dict()
         # override the default output from pydantic by calling `to_dict()` of ldap
         if self.ldap:
-            _dict['ldap'] = self.ldap.to_dict()
+            _dict["ldap"] = self.ldap.to_dict()
         # override the default output from pydantic by calling `to_dict()` of saml
         if self.saml:
-            _dict['saml'] = self.saml.to_dict()
+            _dict["saml"] = self.saml.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():

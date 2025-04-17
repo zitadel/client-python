@@ -13,17 +13,18 @@
 
 
 from __future__ import annotations
+
+import json
 import pprint
 import re  # noqa: F401
-import json
+from typing import Any, ClassVar, Dict, List, Optional, Set
 
 from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
+from typing_extensions import Annotated, Self
+
 from zitadel_client.models.v2_ldap_credentials import V2LDAPCredentials
 from zitadel_client.models.v2_redirect_urls import V2RedirectURLs
-from typing import Optional, Set
-from typing_extensions import Self
+
 
 class V2StartIdentityProviderIntentRequest(BaseModel):
     """
@@ -78,10 +79,10 @@ class V2StartIdentityProviderIntentRequest(BaseModel):
         )
         # override the default output from pydantic by calling `to_dict()` of urls
         if self.urls:
-            _dict['urls'] = self.urls.to_dict()
+            _dict["urls"] = self.urls.to_dict()
         # override the default output from pydantic by calling `to_dict()` of ldap
         if self.ldap:
-            _dict['ldap'] = self.ldap.to_dict()
+            _dict["ldap"] = self.ldap.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():

@@ -13,17 +13,18 @@
 
 
 from __future__ import annotations
+
+import json
 import pprint
 import re  # noqa: F401
-import json
+from typing import Any, ClassVar, Dict, List, Optional, Set
 
 from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
+from typing_extensions import Annotated, Self
+
 from zitadel_client.models.v2_hashed_password import V2HashedPassword
 from zitadel_client.models.v2_password import V2Password
-from typing import Optional, Set
-from typing_extensions import Self
+
 
 class Userv2SetPassword(BaseModel):
     """
@@ -32,7 +33,7 @@ class Userv2SetPassword(BaseModel):
     password: Optional[V2Password] = None
     hashed_password: Optional[V2HashedPassword] = Field(default=None, alias="hashedPassword")
     current_password: Annotated[str, Field(min_length=1, strict=True, max_length=200)] = Field(alias="currentPassword")
-    verification_code: Annotated[str, Field(min_length=1, strict=True, max_length=20)] = Field(description="\"the verification code generated during password reset request\"", alias="verificationCode")
+    verification_code: Annotated[str, Field(min_length=1, strict=True, max_length=20)] = Field(description='"the verification code generated during password reset request"', alias="verificationCode")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["password", "hashedPassword", "currentPassword", "verificationCode"]
 
@@ -79,10 +80,10 @@ class Userv2SetPassword(BaseModel):
         )
         # override the default output from pydantic by calling `to_dict()` of password
         if self.password:
-            _dict['password'] = self.password.to_dict()
+            _dict["password"] = self.password.to_dict()
         # override the default output from pydantic by calling `to_dict()` of hashed_password
         if self.hashed_password:
-            _dict['hashedPassword'] = self.hashed_password.to_dict()
+            _dict["hashedPassword"] = self.hashed_password.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():

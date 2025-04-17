@@ -13,16 +13,20 @@
 
 
 from __future__ import annotations
+
+import json
 import pprint
 import re  # noqa: F401
-import json
-
 from datetime import datetime
+from typing import Any, ClassVar, Dict, List, Optional, Set
+
 from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
-from zitadel_client.models.zitadelv1_timestamp_query_method import Zitadelv1TimestampQueryMethod
-from typing import Optional, Set
 from typing_extensions import Self
+
+from zitadel_client.models.zitadelv1_timestamp_query_method import (
+    Zitadelv1TimestampQueryMethod,
+)
+
 
 class V2CreationDateQuery(BaseModel):
     """

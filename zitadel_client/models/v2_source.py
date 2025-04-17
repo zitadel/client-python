@@ -13,8 +13,10 @@
 
 
 from __future__ import annotations
+
 import json
 from enum import Enum
+
 from typing_extensions import Self
 
 
@@ -26,13 +28,13 @@ class V2Source(str, Enum):
     """
     allowed enum values
     """
-    SOURCE_UNSPECIFIED = 'SOURCE_UNSPECIFIED'
-    SOURCE_SYSTEM = 'SOURCE_SYSTEM'
-    SOURCE_INSTANCE = 'SOURCE_INSTANCE'
-    SOURCE_ORGANIZATION = 'SOURCE_ORGANIZATION'
-    SOURCE_PROJECT = 'SOURCE_PROJECT'
-    SOURCE_APP = 'SOURCE_APP'
-    SOURCE_USER = 'SOURCE_USER'
+    SOURCE_UNSPECIFIED = "SOURCE_UNSPECIFIED"
+    SOURCE_SYSTEM = "SOURCE_SYSTEM"
+    SOURCE_INSTANCE = "SOURCE_INSTANCE"
+    SOURCE_ORGANIZATION = "SOURCE_ORGANIZATION"
+    SOURCE_PROJECT = "SOURCE_PROJECT"
+    SOURCE_APP = "SOURCE_APP"
+    SOURCE_USER = "SOURCE_USER"
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

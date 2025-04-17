@@ -13,8 +13,10 @@
 
 
 from __future__ import annotations
+
 import json
 from enum import Enum
+
 from typing_extensions import Self
 
 
@@ -26,12 +28,12 @@ class V2Prompt(str, Enum):
     """
     allowed enum values
     """
-    PROMPT_UNSPECIFIED = 'PROMPT_UNSPECIFIED'
-    PROMPT_NONE = 'PROMPT_NONE'
-    PROMPT_LOGIN = 'PROMPT_LOGIN'
-    PROMPT_CONSENT = 'PROMPT_CONSENT'
-    PROMPT_SELECT_ACCOUNT = 'PROMPT_SELECT_ACCOUNT'
-    PROMPT_CREATE = 'PROMPT_CREATE'
+    PROMPT_UNSPECIFIED = "PROMPT_UNSPECIFIED"
+    PROMPT_NONE = "PROMPT_NONE"
+    PROMPT_LOGIN = "PROMPT_LOGIN"
+    PROMPT_CONSENT = "PROMPT_CONSENT"
+    PROMPT_SELECT_ACCOUNT = "PROMPT_SELECT_ACCOUNT"
+    PROMPT_CREATE = "PROMPT_CREATE"
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

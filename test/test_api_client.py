@@ -7,13 +7,16 @@ import urllib.request
 from testcontainers.core.container import DockerContainer
 
 from zitadel_client import ApiClient, Configuration
-from zitadel_client.auth.personal_access_token_authenticator import PersonalAccessTokenAuthenticator
+from zitadel_client.auth.personal_access_token_authenticator import (
+    PersonalAccessTokenAuthenticator,
+)
 
 
 class TestApiClient(unittest.TestCase):
     """
     Test case for interacting with the WireMock mock OAuth2 server.
     """
+
     mock_oauth2_server: DockerContainer
     oauth_host: str
 
@@ -23,8 +26,9 @@ class TestApiClient(unittest.TestCase):
         Starts the WireMock Docker container and exposes the required port.
         Sets up the OAuth server URL.
         """
-        cls.mock_oauth2_server = DockerContainer("wiremock/wiremock:3.12.1") \
-            .with_exposed_ports(8080)
+        cls.mock_oauth2_server = DockerContainer(
+            "wiremock/wiremock:3.12.1"
+        ).with_exposed_ports(8080)
         cls.mock_oauth2_server.start()
 
         host = cls.mock_oauth2_server.get_container_host_ip()
@@ -47,47 +51,51 @@ class TestApiClient(unittest.TestCase):
         time.sleep(20)
 
         with urllib.request.urlopen(
-                urllib.request.Request(
-                    self.oauth_host + "/__admin/mappings",
-                    data=json.dumps({
+            urllib.request.Request(
+                self.oauth_host + "/__admin/mappings",
+                data=json.dumps(
+                    {
                         "request": {
                             "method": "GET",
                             "url": "/your/endpoint",
                             "headers": {
-                                "Authorization": {
-                                    "equalTo": "Bearer mm"
-                                },
+                                "Authorization": {"equalTo": "Bearer mm"},
                                 "User-Agent": {
-                                  "matches": "^zitadel-client/0\\.0\\.0 \\(lang=python; lang_version=[^;]+; os=[^;]+; arch=[^;]+\\)$"
-                                }
-                            }
+                                    "matches": "^zitadel-client/0\\.0\\.0 \\(lang=python; lang_version=[^;]+; os=[^;]+; arch=[^;]+\\)$"
+                                },
+                            },
                         },
                         "response": {
                             "status": 200,
-                            "body": "{\"key\": \"value\"}",
-                            "headers": {
-                                "Content-Type": "application/json"
-                            }
-                        }
-                    }).encode('utf-8'),
-                    headers={'Content-Type': 'application/json'},
-                    method='POST'
-                )
+                            "body": '{"key": "value"}',
+                            "headers": {"Content-Type": "application/json"},
+                        },
+                    }
+                ).encode("utf-8"),
+                headers={"Content-Type": "application/json"},
+                method="POST",
+            )
         ) as response:
             response.read().decode()
 
         api_client = ApiClient(
-            Configuration(authenticator=PersonalAccessTokenAuthenticator(self.oauth_host, "mm"))
+            Configuration(
+                authenticator=PersonalAccessTokenAuthenticator(self.oauth_host, "mm")
+            )
         )
 
-        api_response = api_client.call_api(*(api_client.param_serialize(
-            method='GET',
-            resource_path='/your/endpoint',
-        )))
+        api_response = api_client.call_api(
+            *(
+                api_client.param_serialize(
+                    method="GET",
+                    resource_path="/your/endpoint",
+                )
+            )
+        )
 
         if api_response.status != 200:
             self.fail(f"Expected status 200, but got {api_response.status}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

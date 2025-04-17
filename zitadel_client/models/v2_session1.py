@@ -13,31 +13,32 @@
 
 
 from __future__ import annotations
+
+import json
 import pprint
 import re  # noqa: F401
-import json
-
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List, Optional, Union
-from typing_extensions import Annotated
+from typing import Any, ClassVar, Dict, List, Optional, Set, Union
+
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing_extensions import Annotated, Self
+
 from zitadel_client.models.v2_factors import V2Factors
 from zitadel_client.models.v2_user_agent import V2UserAgent
-from typing import Optional, Set
-from typing_extensions import Self
+
 
 class V2Session1(BaseModel):
     """
     V2Session1
     """ # noqa: E501
-    id: Optional[StrictStr] = Field(default=None, description="\"id of the session\"")
-    creation_date: Optional[datetime] = Field(default=None, description="\"time when the session was created\"", alias="creationDate")
-    change_date: Optional[datetime] = Field(default=None, description="\"time when the session was last updated\"", alias="changeDate")
-    sequence: Optional[StrictStr] = Field(default=None, description="\"sequence of the session\"")
+    id: Optional[StrictStr] = Field(default=None, description='"id of the session"')
+    creation_date: Optional[datetime] = Field(default=None, description='"time when the session was created"', alias="creationDate")
+    change_date: Optional[datetime] = Field(default=None, description='"time when the session was last updated"', alias="changeDate")
+    sequence: Optional[StrictStr] = Field(default=None, description='"sequence of the session"')
     factors: Optional[V2Factors] = None
-    metadata: Optional[Dict[str, Union[Annotated[bytes, Field(strict=True)], Annotated[str, Field(strict=True)]]]] = Field(default=None, description="\"custom key value list\"")
+    metadata: Optional[Dict[str, Union[Annotated[bytes, Field(strict=True)], Annotated[str, Field(strict=True)]]]] = Field(default=None, description='"custom key value list"')
     user_agent: Optional[V2UserAgent] = Field(default=None, alias="userAgent")
-    expiration_date: Optional[datetime] = Field(default=None, description="\"time the session will be automatically invalidated\"", alias="expirationDate")
+    expiration_date: Optional[datetime] = Field(default=None, description='"time the session will be automatically invalidated"', alias="expirationDate")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "creationDate", "changeDate", "sequence", "factors", "metadata", "userAgent", "expirationDate"]
 
@@ -84,10 +85,10 @@ class V2Session1(BaseModel):
         )
         # override the default output from pydantic by calling `to_dict()` of factors
         if self.factors:
-            _dict['factors'] = self.factors.to_dict()
+            _dict["factors"] = self.factors.to_dict()
         # override the default output from pydantic by calling `to_dict()` of user_agent
         if self.user_agent:
-            _dict['userAgent'] = self.user_agent.to_dict()
+            _dict["userAgent"] = self.user_agent.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():

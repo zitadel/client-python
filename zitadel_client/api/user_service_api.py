@@ -11,47 +11,92 @@
     Do not edit the class manually.
 """  # noqa: E501
 
-import warnings
-from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
+
+from pydantic import Field, StrictBool, StrictFloat, StrictInt, StrictStr, validate_call
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictBool, StrictStr, field_validator
-from typing import List, Optional
-from typing_extensions import Annotated
-from zitadel_client.models.user_service_add_idp_link_body import UserServiceAddIDPLinkBody
-from zitadel_client.models.user_service_create_invite_code_body import UserServiceCreateInviteCodeBody
-from zitadel_client.models.user_service_create_passkey_registration_link_body import UserServiceCreatePasskeyRegistrationLinkBody
-from zitadel_client.models.user_service_list_idp_links_body import UserServiceListIDPLinksBody
-from zitadel_client.models.user_service_password_reset_body import UserServicePasswordResetBody
-from zitadel_client.models.user_service_register_passkey_body import UserServiceRegisterPasskeyBody
-from zitadel_client.models.user_service_register_u2_f_body import UserServiceRegisterU2FBody
-from zitadel_client.models.user_service_resend_email_code_body import UserServiceResendEmailCodeBody
-from zitadel_client.models.user_service_resend_phone_code_body import UserServiceResendPhoneCodeBody
-from zitadel_client.models.user_service_retrieve_identity_provider_intent_body import UserServiceRetrieveIdentityProviderIntentBody
-from zitadel_client.models.user_service_send_email_code_body import UserServiceSendEmailCodeBody
+from zitadel_client.api_client import ApiClient, RequestSerialized
+from zitadel_client.api_response import ApiResponse
+from zitadel_client.models.user_service_add_idp_link_body import (
+    UserServiceAddIDPLinkBody,
+)
+from zitadel_client.models.user_service_create_invite_code_body import (
+    UserServiceCreateInviteCodeBody,
+)
+from zitadel_client.models.user_service_create_passkey_registration_link_body import (
+    UserServiceCreatePasskeyRegistrationLinkBody,
+)
+from zitadel_client.models.user_service_list_idp_links_body import (
+    UserServiceListIDPLinksBody,
+)
+from zitadel_client.models.user_service_password_reset_body import (
+    UserServicePasswordResetBody,
+)
+from zitadel_client.models.user_service_register_passkey_body import (
+    UserServiceRegisterPasskeyBody,
+)
+from zitadel_client.models.user_service_register_u2_f_body import (
+    UserServiceRegisterU2FBody,
+)
+from zitadel_client.models.user_service_resend_email_code_body import (
+    UserServiceResendEmailCodeBody,
+)
+from zitadel_client.models.user_service_resend_phone_code_body import (
+    UserServiceResendPhoneCodeBody,
+)
+from zitadel_client.models.user_service_retrieve_identity_provider_intent_body import (
+    UserServiceRetrieveIdentityProviderIntentBody,
+)
+from zitadel_client.models.user_service_send_email_code_body import (
+    UserServiceSendEmailCodeBody,
+)
 from zitadel_client.models.user_service_set_email_body import UserServiceSetEmailBody
 from zitadel_client.models.user_service_set_phone_body import UserServiceSetPhoneBody
-from zitadel_client.models.user_service_update_human_user_body import UserServiceUpdateHumanUserBody
-from zitadel_client.models.user_service_verify_email_body import UserServiceVerifyEmailBody
-from zitadel_client.models.user_service_verify_invite_code_body import UserServiceVerifyInviteCodeBody
-from zitadel_client.models.user_service_verify_passkey_registration_body import UserServiceVerifyPasskeyRegistrationBody
-from zitadel_client.models.user_service_verify_phone_body import UserServiceVerifyPhoneBody
-from zitadel_client.models.user_service_verify_totp_registration_body import UserServiceVerifyTOTPRegistrationBody
-from zitadel_client.models.user_service_verify_u2_f_registration_body import UserServiceVerifyU2FRegistrationBody
+from zitadel_client.models.user_service_update_human_user_body import (
+    UserServiceUpdateHumanUserBody,
+)
+from zitadel_client.models.user_service_verify_email_body import (
+    UserServiceVerifyEmailBody,
+)
+from zitadel_client.models.user_service_verify_invite_code_body import (
+    UserServiceVerifyInviteCodeBody,
+)
+from zitadel_client.models.user_service_verify_passkey_registration_body import (
+    UserServiceVerifyPasskeyRegistrationBody,
+)
+from zitadel_client.models.user_service_verify_phone_body import (
+    UserServiceVerifyPhoneBody,
+)
+from zitadel_client.models.user_service_verify_totp_registration_body import (
+    UserServiceVerifyTOTPRegistrationBody,
+)
+from zitadel_client.models.user_service_verify_u2_f_registration_body import (
+    UserServiceVerifyU2FRegistrationBody,
+)
 from zitadel_client.models.v2_add_human_user_request import V2AddHumanUserRequest
 from zitadel_client.models.v2_add_human_user_response import V2AddHumanUserResponse
 from zitadel_client.models.v2_add_idp_link_response import V2AddIDPLinkResponse
 from zitadel_client.models.v2_add_otp_email_response import V2AddOTPEmailResponse
 from zitadel_client.models.v2_add_otpsms_response import V2AddOTPSMSResponse
-from zitadel_client.models.v2_create_invite_code_response import V2CreateInviteCodeResponse
-from zitadel_client.models.v2_create_passkey_registration_link_response import V2CreatePasskeyRegistrationLinkResponse
+from zitadel_client.models.v2_create_invite_code_response import (
+    V2CreateInviteCodeResponse,
+)
+from zitadel_client.models.v2_create_passkey_registration_link_response import (
+    V2CreatePasskeyRegistrationLinkResponse,
+)
 from zitadel_client.models.v2_deactivate_user_response import V2DeactivateUserResponse
 from zitadel_client.models.v2_delete_user_response import V2DeleteUserResponse
 from zitadel_client.models.v2_get_user_by_id_response import V2GetUserByIDResponse
-from zitadel_client.models.v2_human_mfa_init_skipped_response import V2HumanMFAInitSkippedResponse
-from zitadel_client.models.v2_list_authentication_factors_response import V2ListAuthenticationFactorsResponse
-from zitadel_client.models.v2_list_authentication_method_types_response import V2ListAuthenticationMethodTypesResponse
+from zitadel_client.models.v2_human_mfa_init_skipped_response import (
+    V2HumanMFAInitSkippedResponse,
+)
+from zitadel_client.models.v2_list_authentication_factors_response import (
+    V2ListAuthenticationFactorsResponse,
+)
+from zitadel_client.models.v2_list_authentication_method_types_response import (
+    V2ListAuthenticationMethodTypesResponse,
+)
 from zitadel_client.models.v2_list_idp_links_response import V2ListIDPLinksResponse
 from zitadel_client.models.v2_list_passkeys_response import V2ListPasskeysResponse
 from zitadel_client.models.v2_list_users_request import V2ListUsersRequest
@@ -69,28 +114,49 @@ from zitadel_client.models.v2_remove_passkey_response import V2RemovePasskeyResp
 from zitadel_client.models.v2_remove_phone_response import V2RemovePhoneResponse
 from zitadel_client.models.v2_remove_totp_response import V2RemoveTOTPResponse
 from zitadel_client.models.v2_remove_u2_f_response import V2RemoveU2FResponse
-from zitadel_client.models.v2_resend_email_code_response import V2ResendEmailCodeResponse
-from zitadel_client.models.v2_resend_invite_code_response import V2ResendInviteCodeResponse
-from zitadel_client.models.v2_resend_phone_code_response import V2ResendPhoneCodeResponse
-from zitadel_client.models.v2_retrieve_identity_provider_intent_response import V2RetrieveIdentityProviderIntentResponse
+from zitadel_client.models.v2_resend_email_code_response import (
+    V2ResendEmailCodeResponse,
+)
+from zitadel_client.models.v2_resend_invite_code_response import (
+    V2ResendInviteCodeResponse,
+)
+from zitadel_client.models.v2_resend_phone_code_response import (
+    V2ResendPhoneCodeResponse,
+)
+from zitadel_client.models.v2_retrieve_identity_provider_intent_response import (
+    V2RetrieveIdentityProviderIntentResponse,
+)
 from zitadel_client.models.v2_send_email_code_response import V2SendEmailCodeResponse
 from zitadel_client.models.v2_set_email_response import V2SetEmailResponse
 from zitadel_client.models.v2_set_password_response import V2SetPasswordResponse
 from zitadel_client.models.v2_set_phone_response import V2SetPhoneResponse
-from zitadel_client.models.v2_start_identity_provider_intent_request import V2StartIdentityProviderIntentRequest
-from zitadel_client.models.v2_start_identity_provider_intent_response import V2StartIdentityProviderIntentResponse
+from zitadel_client.models.v2_start_identity_provider_intent_request import (
+    V2StartIdentityProviderIntentRequest,
+)
+from zitadel_client.models.v2_start_identity_provider_intent_response import (
+    V2StartIdentityProviderIntentResponse,
+)
 from zitadel_client.models.v2_unlock_user_response import V2UnlockUserResponse
-from zitadel_client.models.v2_update_human_user_response import V2UpdateHumanUserResponse
-from zitadel_client.models.v2_user_service_set_password_body import V2UserServiceSetPasswordBody
+from zitadel_client.models.v2_update_human_user_response import (
+    V2UpdateHumanUserResponse,
+)
+from zitadel_client.models.v2_user_service_set_password_body import (
+    V2UserServiceSetPasswordBody,
+)
 from zitadel_client.models.v2_verify_email_response import V2VerifyEmailResponse
-from zitadel_client.models.v2_verify_invite_code_response import V2VerifyInviteCodeResponse
-from zitadel_client.models.v2_verify_passkey_registration_response import V2VerifyPasskeyRegistrationResponse
+from zitadel_client.models.v2_verify_invite_code_response import (
+    V2VerifyInviteCodeResponse,
+)
+from zitadel_client.models.v2_verify_passkey_registration_response import (
+    V2VerifyPasskeyRegistrationResponse,
+)
 from zitadel_client.models.v2_verify_phone_response import V2VerifyPhoneResponse
-from zitadel_client.models.v2_verify_totp_registration_response import V2VerifyTOTPRegistrationResponse
-from zitadel_client.models.v2_verify_u2_f_registration_response import V2VerifyU2FRegistrationResponse
-
-from zitadel_client.api_client import ApiClient, RequestSerialized
-from zitadel_client.api_response import ApiResponse
+from zitadel_client.models.v2_verify_totp_registration_response import (
+    V2VerifyTOTPRegistrationResponse,
+)
+from zitadel_client.models.v2_verify_u2_f_registration_response import (
+    V2VerifyU2FRegistrationResponse,
+)
 from zitadel_client.rest import RESTResponseType
 
 
@@ -161,9 +227,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "V2AddHumanUserResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "201": "V2AddHumanUserResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -230,9 +296,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "V2AddHumanUserResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "201": "V2AddHumanUserResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -299,9 +365,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "V2AddHumanUserResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "201": "V2AddHumanUserResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -343,35 +409,35 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params['Content-Type'] = _content_type
+            _header_params["Content-Type"] = _content_type
         else:
             _default_content_type = (
                 self.api_client.select_header_content_type(
                     [
-                        'application/json'
+                        "application/json"
                     ]
                 )
             )
             if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+                _header_params["Content-Type"] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/human',
+            method="POST",
+            resource_path="/v2/users/human",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -445,9 +511,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2AddIDPLinkResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2AddIDPLinkResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -518,9 +584,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2AddIDPLinkResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2AddIDPLinkResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -591,9 +657,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2AddIDPLinkResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2AddIDPLinkResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -628,7 +694,7 @@ class UserServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -638,35 +704,35 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params['Content-Type'] = _content_type
+            _header_params["Content-Type"] = _content_type
         else:
             _default_content_type = (
                 self.api_client.select_header_content_type(
                     [
-                        'application/json'
+                        "application/json"
                     ]
                 )
             )
             if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+                _header_params["Content-Type"] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/links',
+            method="POST",
+            resource_path="/v2/users/{userId}/links",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -736,9 +802,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2AddOTPEmailResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2AddOTPEmailResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -805,9 +871,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2AddOTPEmailResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2AddOTPEmailResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -874,9 +940,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2AddOTPEmailResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2AddOTPEmailResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -910,7 +976,7 @@ class UserServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -918,22 +984,22 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/otp_email',
+            method="POST",
+            resource_path="/v2/users/{userId}/otp_email",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -1003,9 +1069,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2AddOTPSMSResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2AddOTPSMSResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1072,9 +1138,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2AddOTPSMSResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2AddOTPSMSResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1141,9 +1207,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2AddOTPSMSResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2AddOTPSMSResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1177,7 +1243,7 @@ class UserServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -1185,22 +1251,22 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/otp_sms',
+            method="POST",
+            resource_path="/v2/users/{userId}/otp_sms",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -1274,9 +1340,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2CreateInviteCodeResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2CreateInviteCodeResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1347,9 +1413,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2CreateInviteCodeResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2CreateInviteCodeResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1420,9 +1486,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2CreateInviteCodeResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2CreateInviteCodeResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1457,7 +1523,7 @@ class UserServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -1467,35 +1533,35 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params['Content-Type'] = _content_type
+            _header_params["Content-Type"] = _content_type
         else:
             _default_content_type = (
                 self.api_client.select_header_content_type(
                     [
-                        'application/json'
+                        "application/json"
                     ]
                 )
             )
             if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+                _header_params["Content-Type"] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/invite_code',
+            method="POST",
+            resource_path="/v2/users/{userId}/invite_code",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -1569,9 +1635,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2CreatePasskeyRegistrationLinkResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2CreatePasskeyRegistrationLinkResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1642,9 +1708,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2CreatePasskeyRegistrationLinkResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2CreatePasskeyRegistrationLinkResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1715,9 +1781,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2CreatePasskeyRegistrationLinkResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2CreatePasskeyRegistrationLinkResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1752,7 +1818,7 @@ class UserServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -1762,35 +1828,35 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params['Content-Type'] = _content_type
+            _header_params["Content-Type"] = _content_type
         else:
             _default_content_type = (
                 self.api_client.select_header_content_type(
                     [
-                        'application/json'
+                        "application/json"
                     ]
                 )
             )
             if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+                _header_params["Content-Type"] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/passkeys/registration_link',
+            method="POST",
+            resource_path="/v2/users/{userId}/passkeys/registration_link",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -1860,9 +1926,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2DeactivateUserResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2DeactivateUserResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1929,9 +1995,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2DeactivateUserResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2DeactivateUserResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1998,9 +2064,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2DeactivateUserResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2DeactivateUserResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2034,7 +2100,7 @@ class UserServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -2042,22 +2108,22 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/deactivate',
+            method="POST",
+            resource_path="/v2/users/{userId}/deactivate",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -2127,9 +2193,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2DeleteUserResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2DeleteUserResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2196,9 +2262,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2DeleteUserResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2DeleteUserResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2265,9 +2331,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2DeleteUserResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2DeleteUserResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2301,7 +2367,7 @@ class UserServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -2309,22 +2375,22 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='DELETE',
-            resource_path='/v2/users/{userId}',
+            method="DELETE",
+            resource_path="/v2/users/{userId}",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -2394,9 +2460,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2GetUserByIDResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2GetUserByIDResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2463,9 +2529,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2GetUserByIDResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2GetUserByIDResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2532,9 +2598,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2GetUserByIDResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2GetUserByIDResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2568,7 +2634,7 @@ class UserServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -2576,22 +2642,22 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/v2/users/{userId}',
+            method="GET",
+            resource_path="/v2/users/{userId}",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -2661,9 +2727,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2HumanMFAInitSkippedResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2HumanMFAInitSkippedResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2730,9 +2796,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2HumanMFAInitSkippedResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2HumanMFAInitSkippedResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2799,9 +2865,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2HumanMFAInitSkippedResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2HumanMFAInitSkippedResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2835,7 +2901,7 @@ class UserServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -2843,22 +2909,22 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/mfa_init_skipped',
+            method="POST",
+            resource_path="/v2/users/{userId}/mfa_init_skipped",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -2935,9 +3001,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ListAuthenticationFactorsResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2ListAuthenticationFactorsResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3011,9 +3077,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ListAuthenticationFactorsResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2ListAuthenticationFactorsResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3087,9 +3153,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ListAuthenticationFactorsResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2ListAuthenticationFactorsResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3112,8 +3178,8 @@ class UserServiceApi:
         _host = None
 
         _collection_formats: Dict[str, str] = {
-            'authFactors': 'multi',
-            'states': 'multi',
+            "authFactors": "multi",
+            "states": "multi",
         }
 
         _path_params: Dict[str, str] = {}
@@ -3127,15 +3193,15 @@ class UserServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         # process the query parameters
         if auth_factors is not None:
             
-            _query_params.append(('authFactors', auth_factors))
+            _query_params.append(("authFactors", auth_factors))
             
         if states is not None:
             
-            _query_params.append(('states', states))
+            _query_params.append(("states", states))
             
         # process the header parameters
         # process the form parameters
@@ -3143,22 +3209,22 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/authentication_factors/_search',
+            method="POST",
+            resource_path="/v2/users/{userId}/authentication_factors/_search",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -3236,9 +3302,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ListAuthenticationMethodTypesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2ListAuthenticationMethodTypesResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3313,9 +3379,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ListAuthenticationMethodTypesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2ListAuthenticationMethodTypesResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3390,9 +3456,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ListAuthenticationMethodTypesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2ListAuthenticationMethodTypesResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3428,15 +3494,15 @@ class UserServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         # process the query parameters
         if domain_query_include_without_domain is not None:
             
-            _query_params.append(('domainQuery.includeWithoutDomain', domain_query_include_without_domain))
+            _query_params.append(("domainQuery.includeWithoutDomain", domain_query_include_without_domain))
             
         if domain_query_domain is not None:
             
-            _query_params.append(('domainQuery.domain', domain_query_domain))
+            _query_params.append(("domainQuery.domain", domain_query_domain))
             
         # process the header parameters
         # process the form parameters
@@ -3444,22 +3510,22 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/v2/users/{userId}/authentication_methods',
+            method="GET",
+            resource_path="/v2/users/{userId}/authentication_methods",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -3533,9 +3599,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ListIDPLinksResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2ListIDPLinksResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3606,9 +3672,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ListIDPLinksResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2ListIDPLinksResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3679,9 +3745,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ListIDPLinksResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2ListIDPLinksResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3716,7 +3782,7 @@ class UserServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -3726,35 +3792,35 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params['Content-Type'] = _content_type
+            _header_params["Content-Type"] = _content_type
         else:
             _default_content_type = (
                 self.api_client.select_header_content_type(
                     [
-                        'application/json'
+                        "application/json"
                     ]
                 )
             )
             if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+                _header_params["Content-Type"] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/links/_search',
+            method="POST",
+            resource_path="/v2/users/{userId}/links/_search",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -3824,9 +3890,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ListPasskeysResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2ListPasskeysResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3893,9 +3959,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ListPasskeysResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2ListPasskeysResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3962,9 +4028,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ListPasskeysResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2ListPasskeysResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3998,7 +4064,7 @@ class UserServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -4006,22 +4072,22 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/passkeys/_search',
+            method="POST",
+            resource_path="/v2/users/{userId}/passkeys/_search",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -4091,10 +4157,10 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ListUsersResponse",
-            '400': "RpcStatus",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2ListUsersResponse",
+            "400": "RpcStatus",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4161,10 +4227,10 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ListUsersResponse",
-            '400': "RpcStatus",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2ListUsersResponse",
+            "400": "RpcStatus",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4231,10 +4297,10 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ListUsersResponse",
-            '400': "RpcStatus",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2ListUsersResponse",
+            "400": "RpcStatus",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4276,35 +4342,35 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params['Content-Type'] = _content_type
+            _header_params["Content-Type"] = _content_type
         else:
             _default_content_type = (
                 self.api_client.select_header_content_type(
                     [
-                        'application/json'
+                        "application/json"
                     ]
                 )
             )
             if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+                _header_params["Content-Type"] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users',
+            method="POST",
+            resource_path="/v2/users",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -4374,9 +4440,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2LockUserResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2LockUserResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4443,9 +4509,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2LockUserResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2LockUserResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4512,9 +4578,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2LockUserResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2LockUserResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4548,7 +4614,7 @@ class UserServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -4556,22 +4622,22 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/lock',
+            method="POST",
+            resource_path="/v2/users/{userId}/lock",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -4645,9 +4711,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2PasswordResetResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2PasswordResetResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4718,9 +4784,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2PasswordResetResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2PasswordResetResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4791,9 +4857,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2PasswordResetResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2PasswordResetResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4828,7 +4894,7 @@ class UserServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -4838,35 +4904,35 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params['Content-Type'] = _content_type
+            _header_params["Content-Type"] = _content_type
         else:
             _default_content_type = (
                 self.api_client.select_header_content_type(
                     [
-                        'application/json'
+                        "application/json"
                     ]
                 )
             )
             if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+                _header_params["Content-Type"] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/password_reset',
+            method="POST",
+            resource_path="/v2/users/{userId}/password_reset",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -4936,9 +5002,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ReactivateUserResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2ReactivateUserResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5005,9 +5071,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ReactivateUserResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2ReactivateUserResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5074,9 +5140,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ReactivateUserResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2ReactivateUserResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5110,7 +5176,7 @@ class UserServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -5118,22 +5184,22 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/reactivate',
+            method="POST",
+            resource_path="/v2/users/{userId}/reactivate",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -5207,9 +5273,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2RegisterPasskeyResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2RegisterPasskeyResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5280,9 +5346,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2RegisterPasskeyResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2RegisterPasskeyResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5353,9 +5419,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2RegisterPasskeyResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2RegisterPasskeyResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5390,7 +5456,7 @@ class UserServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -5400,35 +5466,35 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params['Content-Type'] = _content_type
+            _header_params["Content-Type"] = _content_type
         else:
             _default_content_type = (
                 self.api_client.select_header_content_type(
                     [
-                        'application/json'
+                        "application/json"
                     ]
                 )
             )
             if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+                _header_params["Content-Type"] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/passkeys',
+            method="POST",
+            resource_path="/v2/users/{userId}/passkeys",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -5498,9 +5564,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2RegisterTOTPResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2RegisterTOTPResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5567,9 +5633,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2RegisterTOTPResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2RegisterTOTPResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5636,9 +5702,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2RegisterTOTPResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2RegisterTOTPResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5672,7 +5738,7 @@ class UserServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -5680,22 +5746,22 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/totp',
+            method="POST",
+            resource_path="/v2/users/{userId}/totp",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -5769,9 +5835,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2RegisterU2FResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2RegisterU2FResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5842,9 +5908,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2RegisterU2FResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2RegisterU2FResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5915,9 +5981,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2RegisterU2FResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2RegisterU2FResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5952,7 +6018,7 @@ class UserServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -5962,35 +6028,35 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params['Content-Type'] = _content_type
+            _header_params["Content-Type"] = _content_type
         else:
             _default_content_type = (
                 self.api_client.select_header_content_type(
                     [
-                        'application/json'
+                        "application/json"
                     ]
                 )
             )
             if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+                _header_params["Content-Type"] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/u2f',
+            method="POST",
+            resource_path="/v2/users/{userId}/u2f",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -6068,9 +6134,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2RemoveIDPLinkResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2RemoveIDPLinkResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -6145,9 +6211,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2RemoveIDPLinkResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2RemoveIDPLinkResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -6222,9 +6288,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2RemoveIDPLinkResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2RemoveIDPLinkResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -6260,11 +6326,11 @@ class UserServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         if idp_id is not None:
-            _path_params['idpId'] = idp_id
+            _path_params["idpId"] = idp_id
         if linked_user_id is not None:
-            _path_params['linkedUserId'] = linked_user_id
+            _path_params["linkedUserId"] = linked_user_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -6272,22 +6338,22 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='DELETE',
-            resource_path='/v2/users/{userId}/links/{idpId}/{linkedUserId}',
+            method="DELETE",
+            resource_path="/v2/users/{userId}/links/{idpId}/{linkedUserId}",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -6357,9 +6423,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2RemoveOTPEmailResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2RemoveOTPEmailResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -6426,9 +6492,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2RemoveOTPEmailResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2RemoveOTPEmailResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -6495,9 +6561,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2RemoveOTPEmailResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2RemoveOTPEmailResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -6531,7 +6597,7 @@ class UserServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -6539,22 +6605,22 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='DELETE',
-            resource_path='/v2/users/{userId}/otp_email',
+            method="DELETE",
+            resource_path="/v2/users/{userId}/otp_email",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -6624,9 +6690,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2RemoveOTPSMSResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2RemoveOTPSMSResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -6693,9 +6759,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2RemoveOTPSMSResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2RemoveOTPSMSResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -6762,9 +6828,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2RemoveOTPSMSResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2RemoveOTPSMSResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -6798,7 +6864,7 @@ class UserServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -6806,22 +6872,22 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='DELETE',
-            resource_path='/v2/users/{userId}/otp_sms',
+            method="DELETE",
+            resource_path="/v2/users/{userId}/otp_sms",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -6895,9 +6961,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2RemovePasskeyResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2RemovePasskeyResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -6968,9 +7034,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2RemovePasskeyResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2RemovePasskeyResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -7041,9 +7107,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2RemovePasskeyResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2RemovePasskeyResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -7078,9 +7144,9 @@ class UserServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         if passkey_id is not None:
-            _path_params['passkeyId'] = passkey_id
+            _path_params["passkeyId"] = passkey_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -7088,22 +7154,22 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='DELETE',
-            resource_path='/v2/users/{userId}/passkeys/{passkeyId}',
+            method="DELETE",
+            resource_path="/v2/users/{userId}/passkeys/{passkeyId}",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -7173,9 +7239,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2RemovePhoneResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2RemovePhoneResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -7242,9 +7308,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2RemovePhoneResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2RemovePhoneResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -7311,9 +7377,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2RemovePhoneResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2RemovePhoneResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -7347,7 +7413,7 @@ class UserServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -7355,22 +7421,22 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='DELETE',
-            resource_path='/v2/users/{userId}/phone',
+            method="DELETE",
+            resource_path="/v2/users/{userId}/phone",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -7440,9 +7506,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2RemoveTOTPResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2RemoveTOTPResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -7509,9 +7575,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2RemoveTOTPResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2RemoveTOTPResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -7578,9 +7644,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2RemoveTOTPResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2RemoveTOTPResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -7614,7 +7680,7 @@ class UserServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -7622,22 +7688,22 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='DELETE',
-            resource_path='/v2/users/{userId}/totp',
+            method="DELETE",
+            resource_path="/v2/users/{userId}/totp",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -7711,9 +7777,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2RemoveU2FResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2RemoveU2FResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -7784,9 +7850,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2RemoveU2FResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2RemoveU2FResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -7857,9 +7923,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2RemoveU2FResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2RemoveU2FResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -7894,9 +7960,9 @@ class UserServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         if u2f_id is not None:
-            _path_params['u2fId'] = u2f_id
+            _path_params["u2fId"] = u2f_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -7904,22 +7970,22 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='DELETE',
-            resource_path='/v2/users/{userId}/u2f/{u2fId}',
+            method="DELETE",
+            resource_path="/v2/users/{userId}/u2f/{u2fId}",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -7993,9 +8059,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ResendEmailCodeResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2ResendEmailCodeResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -8066,9 +8132,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ResendEmailCodeResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2ResendEmailCodeResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -8139,9 +8205,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ResendEmailCodeResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2ResendEmailCodeResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -8176,7 +8242,7 @@ class UserServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -8186,35 +8252,35 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params['Content-Type'] = _content_type
+            _header_params["Content-Type"] = _content_type
         else:
             _default_content_type = (
                 self.api_client.select_header_content_type(
                     [
-                        'application/json'
+                        "application/json"
                     ]
                 )
             )
             if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+                _header_params["Content-Type"] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/email/resend',
+            method="POST",
+            resource_path="/v2/users/{userId}/email/resend",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -8284,9 +8350,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ResendInviteCodeResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2ResendInviteCodeResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -8353,9 +8419,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ResendInviteCodeResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2ResendInviteCodeResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -8422,9 +8488,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ResendInviteCodeResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2ResendInviteCodeResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -8458,7 +8524,7 @@ class UserServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -8466,22 +8532,22 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/invite_code/resend',
+            method="POST",
+            resource_path="/v2/users/{userId}/invite_code/resend",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -8555,9 +8621,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ResendPhoneCodeResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2ResendPhoneCodeResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -8628,9 +8694,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ResendPhoneCodeResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2ResendPhoneCodeResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -8701,9 +8767,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ResendPhoneCodeResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2ResendPhoneCodeResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -8738,7 +8804,7 @@ class UserServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -8748,35 +8814,35 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params['Content-Type'] = _content_type
+            _header_params["Content-Type"] = _content_type
         else:
             _default_content_type = (
                 self.api_client.select_header_content_type(
                     [
-                        'application/json'
+                        "application/json"
                     ]
                 )
             )
             if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+                _header_params["Content-Type"] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/phone/resend',
+            method="POST",
+            resource_path="/v2/users/{userId}/phone/resend",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -8850,9 +8916,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2RetrieveIdentityProviderIntentResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2RetrieveIdentityProviderIntentResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -8923,9 +8989,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2RetrieveIdentityProviderIntentResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2RetrieveIdentityProviderIntentResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -8996,9 +9062,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2RetrieveIdentityProviderIntentResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2RetrieveIdentityProviderIntentResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -9033,7 +9099,7 @@ class UserServiceApi:
 
         # process the path parameters
         if idp_intent_id is not None:
-            _path_params['idpIntentId'] = idp_intent_id
+            _path_params["idpIntentId"] = idp_intent_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -9043,35 +9109,35 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params['Content-Type'] = _content_type
+            _header_params["Content-Type"] = _content_type
         else:
             _default_content_type = (
                 self.api_client.select_header_content_type(
                     [
-                        'application/json'
+                        "application/json"
                     ]
                 )
             )
             if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+                _header_params["Content-Type"] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/idp_intents/{idpIntentId}',
+            method="POST",
+            resource_path="/v2/idp_intents/{idpIntentId}",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -9145,9 +9211,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2SendEmailCodeResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2SendEmailCodeResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -9218,9 +9284,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2SendEmailCodeResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2SendEmailCodeResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -9291,9 +9357,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2SendEmailCodeResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2SendEmailCodeResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -9328,7 +9394,7 @@ class UserServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -9338,35 +9404,35 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params['Content-Type'] = _content_type
+            _header_params["Content-Type"] = _content_type
         else:
             _default_content_type = (
                 self.api_client.select_header_content_type(
                     [
-                        'application/json'
+                        "application/json"
                     ]
                 )
             )
             if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+                _header_params["Content-Type"] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/email/send',
+            method="POST",
+            resource_path="/v2/users/{userId}/email/send",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -9440,9 +9506,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2SetEmailResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2SetEmailResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -9513,9 +9579,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2SetEmailResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2SetEmailResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -9586,9 +9652,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2SetEmailResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2SetEmailResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -9623,7 +9689,7 @@ class UserServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -9633,35 +9699,35 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params['Content-Type'] = _content_type
+            _header_params["Content-Type"] = _content_type
         else:
             _default_content_type = (
                 self.api_client.select_header_content_type(
                     [
-                        'application/json'
+                        "application/json"
                     ]
                 )
             )
             if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+                _header_params["Content-Type"] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/email',
+            method="POST",
+            resource_path="/v2/users/{userId}/email",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -9735,9 +9801,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2SetPasswordResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2SetPasswordResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -9808,9 +9874,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2SetPasswordResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2SetPasswordResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -9881,9 +9947,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2SetPasswordResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2SetPasswordResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -9918,7 +9984,7 @@ class UserServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -9928,35 +9994,35 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params['Content-Type'] = _content_type
+            _header_params["Content-Type"] = _content_type
         else:
             _default_content_type = (
                 self.api_client.select_header_content_type(
                     [
-                        'application/json'
+                        "application/json"
                     ]
                 )
             )
             if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+                _header_params["Content-Type"] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/password',
+            method="POST",
+            resource_path="/v2/users/{userId}/password",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -10030,9 +10096,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2SetPhoneResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2SetPhoneResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -10103,9 +10169,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2SetPhoneResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2SetPhoneResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -10176,9 +10242,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2SetPhoneResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2SetPhoneResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -10213,7 +10279,7 @@ class UserServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -10223,35 +10289,35 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params['Content-Type'] = _content_type
+            _header_params["Content-Type"] = _content_type
         else:
             _default_content_type = (
                 self.api_client.select_header_content_type(
                     [
-                        'application/json'
+                        "application/json"
                     ]
                 )
             )
             if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+                _header_params["Content-Type"] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/phone',
+            method="POST",
+            resource_path="/v2/users/{userId}/phone",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -10321,9 +10387,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2StartIdentityProviderIntentResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2StartIdentityProviderIntentResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -10390,9 +10456,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2StartIdentityProviderIntentResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2StartIdentityProviderIntentResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -10459,9 +10525,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2StartIdentityProviderIntentResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2StartIdentityProviderIntentResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -10503,35 +10569,35 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params['Content-Type'] = _content_type
+            _header_params["Content-Type"] = _content_type
         else:
             _default_content_type = (
                 self.api_client.select_header_content_type(
                     [
-                        'application/json'
+                        "application/json"
                     ]
                 )
             )
             if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+                _header_params["Content-Type"] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/idp_intents',
+            method="POST",
+            resource_path="/v2/idp_intents",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -10601,9 +10667,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2UnlockUserResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2UnlockUserResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -10670,9 +10736,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2UnlockUserResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2UnlockUserResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -10739,9 +10805,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2UnlockUserResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2UnlockUserResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -10775,7 +10841,7 @@ class UserServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -10783,22 +10849,22 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/unlock',
+            method="POST",
+            resource_path="/v2/users/{userId}/unlock",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -10872,9 +10938,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2UpdateHumanUserResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2UpdateHumanUserResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -10945,9 +11011,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2UpdateHumanUserResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2UpdateHumanUserResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -11018,9 +11084,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2UpdateHumanUserResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2UpdateHumanUserResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -11055,7 +11121,7 @@ class UserServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -11065,35 +11131,35 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params['Content-Type'] = _content_type
+            _header_params["Content-Type"] = _content_type
         else:
             _default_content_type = (
                 self.api_client.select_header_content_type(
                     [
-                        'application/json'
+                        "application/json"
                     ]
                 )
             )
             if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+                _header_params["Content-Type"] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='PUT',
-            resource_path='/v2/users/human/{userId}',
+            method="PUT",
+            resource_path="/v2/users/human/{userId}",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -11167,9 +11233,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2VerifyEmailResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2VerifyEmailResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -11240,9 +11306,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2VerifyEmailResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2VerifyEmailResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -11313,9 +11379,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2VerifyEmailResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2VerifyEmailResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -11350,7 +11416,7 @@ class UserServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -11360,35 +11426,35 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params['Content-Type'] = _content_type
+            _header_params["Content-Type"] = _content_type
         else:
             _default_content_type = (
                 self.api_client.select_header_content_type(
                     [
-                        'application/json'
+                        "application/json"
                     ]
                 )
             )
             if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+                _header_params["Content-Type"] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/email/verify',
+            method="POST",
+            resource_path="/v2/users/{userId}/email/verify",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -11462,9 +11528,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2VerifyInviteCodeResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2VerifyInviteCodeResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -11535,9 +11601,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2VerifyInviteCodeResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2VerifyInviteCodeResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -11608,9 +11674,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2VerifyInviteCodeResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2VerifyInviteCodeResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -11645,7 +11711,7 @@ class UserServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -11655,35 +11721,35 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params['Content-Type'] = _content_type
+            _header_params["Content-Type"] = _content_type
         else:
             _default_content_type = (
                 self.api_client.select_header_content_type(
                     [
-                        'application/json'
+                        "application/json"
                     ]
                 )
             )
             if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+                _header_params["Content-Type"] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/invite_code/verify',
+            method="POST",
+            resource_path="/v2/users/{userId}/invite_code/verify",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -11761,9 +11827,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2VerifyPasskeyRegistrationResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2VerifyPasskeyRegistrationResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -11838,9 +11904,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2VerifyPasskeyRegistrationResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2VerifyPasskeyRegistrationResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -11915,9 +11981,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2VerifyPasskeyRegistrationResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2VerifyPasskeyRegistrationResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -11953,9 +12019,9 @@ class UserServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         if passkey_id is not None:
-            _path_params['passkeyId'] = passkey_id
+            _path_params["passkeyId"] = passkey_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -11965,35 +12031,35 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params['Content-Type'] = _content_type
+            _header_params["Content-Type"] = _content_type
         else:
             _default_content_type = (
                 self.api_client.select_header_content_type(
                     [
-                        'application/json'
+                        "application/json"
                     ]
                 )
             )
             if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+                _header_params["Content-Type"] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/passkeys/{passkeyId}',
+            method="POST",
+            resource_path="/v2/users/{userId}/passkeys/{passkeyId}",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -12067,9 +12133,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2VerifyPhoneResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2VerifyPhoneResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -12140,9 +12206,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2VerifyPhoneResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2VerifyPhoneResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -12213,9 +12279,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2VerifyPhoneResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2VerifyPhoneResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -12250,7 +12316,7 @@ class UserServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -12260,35 +12326,35 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params['Content-Type'] = _content_type
+            _header_params["Content-Type"] = _content_type
         else:
             _default_content_type = (
                 self.api_client.select_header_content_type(
                     [
-                        'application/json'
+                        "application/json"
                     ]
                 )
             )
             if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+                _header_params["Content-Type"] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/phone/verify',
+            method="POST",
+            resource_path="/v2/users/{userId}/phone/verify",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -12362,9 +12428,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2VerifyTOTPRegistrationResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2VerifyTOTPRegistrationResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -12435,9 +12501,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2VerifyTOTPRegistrationResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2VerifyTOTPRegistrationResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -12508,9 +12574,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2VerifyTOTPRegistrationResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2VerifyTOTPRegistrationResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -12545,7 +12611,7 @@ class UserServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -12555,35 +12621,35 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params['Content-Type'] = _content_type
+            _header_params["Content-Type"] = _content_type
         else:
             _default_content_type = (
                 self.api_client.select_header_content_type(
                     [
-                        'application/json'
+                        "application/json"
                     ]
                 )
             )
             if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+                _header_params["Content-Type"] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/totp/verify',
+            method="POST",
+            resource_path="/v2/users/{userId}/totp/verify",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -12661,9 +12727,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2VerifyU2FRegistrationResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2VerifyU2FRegistrationResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -12738,9 +12804,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2VerifyU2FRegistrationResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2VerifyU2FRegistrationResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -12815,9 +12881,9 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2VerifyU2FRegistrationResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2VerifyU2FRegistrationResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -12853,9 +12919,9 @@ class UserServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         if u2f_id is not None:
-            _path_params['u2fId'] = u2f_id
+            _path_params["u2fId"] = u2f_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -12865,35 +12931,35 @@ class UserServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params['Content-Type'] = _content_type
+            _header_params["Content-Type"] = _content_type
         else:
             _default_content_type = (
                 self.api_client.select_header_content_type(
                     [
-                        'application/json'
+                        "application/json"
                     ]
                 )
             )
             if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+                _header_params["Content-Type"] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/u2f/{u2fId}',
+            method="POST",
+            resource_path="/v2/users/{userId}/u2f/{u2fId}",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

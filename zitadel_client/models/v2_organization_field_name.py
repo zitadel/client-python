@@ -13,8 +13,10 @@
 
 
 from __future__ import annotations
+
 import json
 from enum import Enum
+
 from typing_extensions import Self
 
 
@@ -26,8 +28,8 @@ class V2OrganizationFieldName(str, Enum):
     """
     allowed enum values
     """
-    ORGANIZATION_FIELD_NAME_UNSPECIFIED = 'ORGANIZATION_FIELD_NAME_UNSPECIFIED'
-    ORGANIZATION_FIELD_NAME_NAME = 'ORGANIZATION_FIELD_NAME_NAME'
+    ORGANIZATION_FIELD_NAME_UNSPECIFIED = "ORGANIZATION_FIELD_NAME_UNSPECIFIED"
+    ORGANIZATION_FIELD_NAME_NAME = "ORGANIZATION_FIELD_NAME_NAME"
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

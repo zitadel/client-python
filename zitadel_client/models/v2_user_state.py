@@ -13,8 +13,10 @@
 
 
 from __future__ import annotations
+
 import json
 from enum import Enum
+
 from typing_extensions import Self
 
 
@@ -26,12 +28,12 @@ class V2UserState(str, Enum):
     """
     allowed enum values
     """
-    USER_STATE_UNSPECIFIED = 'USER_STATE_UNSPECIFIED'
-    USER_STATE_ACTIVE = 'USER_STATE_ACTIVE'
-    USER_STATE_INACTIVE = 'USER_STATE_INACTIVE'
-    USER_STATE_DELETED = 'USER_STATE_DELETED'
-    USER_STATE_LOCKED = 'USER_STATE_LOCKED'
-    USER_STATE_INITIAL = 'USER_STATE_INITIAL'
+    USER_STATE_UNSPECIFIED = "USER_STATE_UNSPECIFIED"
+    USER_STATE_ACTIVE = "USER_STATE_ACTIVE"
+    USER_STATE_INACTIVE = "USER_STATE_INACTIVE"
+    USER_STATE_DELETED = "USER_STATE_DELETED"
+    USER_STATE_LOCKED = "USER_STATE_LOCKED"
+    USER_STATE_INITIAL = "USER_STATE_INITIAL"
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

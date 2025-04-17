@@ -13,15 +13,17 @@
 
 
 from __future__ import annotations
+
+import json
 import pprint
 import re  # noqa: F401
-import json
+from typing import Any, ClassVar, Dict, List, Optional, Set
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from zitadel_client.models.v2_resource_owner_type import V2ResourceOwnerType
-from typing import Optional, Set
 from typing_extensions import Self
+
+from zitadel_client.models.v2_resource_owner_type import V2ResourceOwnerType
+
 
 class V2PasswordComplexitySettings(BaseModel):
     """
@@ -31,7 +33,7 @@ class V2PasswordComplexitySettings(BaseModel):
     requires_uppercase: Optional[StrictBool] = Field(default=None, description="defines if the password MUST contain an upper case letter", alias="requiresUppercase")
     requires_lowercase: Optional[StrictBool] = Field(default=None, description="defines if the password MUST contain a lowercase letter", alias="requiresLowercase")
     requires_number: Optional[StrictBool] = Field(default=None, description="defines if the password MUST contain a number", alias="requiresNumber")
-    requires_symbol: Optional[StrictBool] = Field(default=None, description="defines if the password MUST contain a symbol. E.g. \"$\"", alias="requiresSymbol")
+    requires_symbol: Optional[StrictBool] = Field(default=None, description='defines if the password MUST contain a symbol. E.g. "$"', alias="requiresSymbol")
     resource_owner_type: Optional[V2ResourceOwnerType] = Field(default=V2ResourceOwnerType.RESOURCE_OWNER_TYPE_UNSPECIFIED, alias="resourceOwnerType")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["minLength", "requiresUppercase", "requiresLowercase", "requiresNumber", "requiresSymbol", "resourceOwnerType"]

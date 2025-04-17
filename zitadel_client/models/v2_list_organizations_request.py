@@ -13,17 +13,19 @@
 
 
 from __future__ import annotations
+
+import json
 import pprint
 import re  # noqa: F401
-import json
+from typing import Any, ClassVar, Dict, List, Optional, Set
 
 from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Self
+
 from zitadel_client.models.v2_list_query import V2ListQuery
 from zitadel_client.models.v2_organization_field_name import V2OrganizationFieldName
 from zitadel_client.models.zitadelorgv2_search_query import Zitadelorgv2SearchQuery
-from typing import Optional, Set
-from typing_extensions import Self
+
 
 class V2ListOrganizationsRequest(BaseModel):
     """
@@ -78,14 +80,14 @@ class V2ListOrganizationsRequest(BaseModel):
         )
         # override the default output from pydantic by calling `to_dict()` of query
         if self.query:
-            _dict['query'] = self.query.to_dict()
+            _dict["query"] = self.query.to_dict()
         # override the default output from pydantic by calling `to_dict()` of each item in queries (list)
         _items = []
         if self.queries:
             for _item_queries in self.queries:
                 if _item_queries:
                     _items.append(_item_queries.to_dict())
-            _dict['queries'] = _items
+            _dict["queries"] = _items
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():

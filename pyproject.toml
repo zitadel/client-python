@@ -38,6 +38,7 @@ types-python-dateutil = ">= 2.8.19.14"
 mypy = ">= 1.5"
 testcontainers = "3.7.1"
 python-dotenv = "1.0.1"
+ruff = "^0.11.5"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -89,3 +90,16 @@ disable_error_code = ["import-untyped"]
 
 [tool.flake8]
 max-line-length = 99
+
+[tool.ruff]
+line-length = 88
+fix = true
+target-version = "py39"
+exclude = [
+    "zitadel_client/api/*",
+    "zitadel_client/models/*"
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "C", "N", "Q", "S", "T"]
+extend-select = ["A"]

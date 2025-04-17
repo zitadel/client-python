@@ -13,16 +13,18 @@
 
 
 from __future__ import annotations
+
+import json
 import pprint
 import re  # noqa: F401
-import json
+from typing import Any, ClassVar, Dict, List, Optional, Set
 
 from pydantic import BaseModel, ConfigDict
-from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Self
+
 from zitadel_client.models.v2_idp_link import V2IDPLink
 from zitadel_client.models.v2_list_details import V2ListDetails
-from typing import Optional, Set
-from typing_extensions import Self
+
 
 class V2ListIDPLinksResponse(BaseModel):
     """
@@ -76,14 +78,14 @@ class V2ListIDPLinksResponse(BaseModel):
         )
         # override the default output from pydantic by calling `to_dict()` of details
         if self.details:
-            _dict['details'] = self.details.to_dict()
+            _dict["details"] = self.details.to_dict()
         # override the default output from pydantic by calling `to_dict()` of each item in result (list)
         _items = []
         if self.result:
             for _item_result in self.result:
                 if _item_result:
                     _items.append(_item_result.to_dict())
-            _dict['result'] = _items
+            _dict["result"] = _items
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():

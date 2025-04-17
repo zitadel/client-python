@@ -13,27 +13,28 @@
 
 
 from __future__ import annotations
+
+import json
 import pprint
 import re  # noqa: F401
-import json
+from typing import Any, ClassVar, Dict, List, Optional, Set, Union
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List, Optional, Union
-from typing_extensions import Annotated
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing_extensions import Annotated, Self
+
 from zitadel_client.models.v2_checks import V2Checks
 from zitadel_client.models.v2_request_challenges import V2RequestChallenges
-from typing import Optional, Set
-from typing_extensions import Self
+
 
 class SessionServiceSetSessionBody(BaseModel):
     """
     SessionServiceSetSessionBody
     """ # noqa: E501
-    session_token: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]] = Field(default=None, description="\"DEPRECATED: this field is ignored.\"", alias="sessionToken")
+    session_token: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]] = Field(default=None, description='"DEPRECATED: this field is ignored."', alias="sessionToken")
     checks: Optional[V2Checks] = None
-    metadata: Optional[Dict[str, Union[Annotated[bytes, Field(strict=True)], Annotated[str, Field(strict=True)]]]] = Field(default=None, description="\"custom key value list to be stored on the session\"")
+    metadata: Optional[Dict[str, Union[Annotated[bytes, Field(strict=True)], Annotated[str, Field(strict=True)]]]] = Field(default=None, description='"custom key value list to be stored on the session"')
     challenges: Optional[V2RequestChallenges] = None
-    lifetime: Optional[StrictStr] = Field(default=None, description="\"duration (in seconds) after which the session will be automatically invalidated\"")
+    lifetime: Optional[StrictStr] = Field(default=None, description='"duration (in seconds) after which the session will be automatically invalidated"')
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["sessionToken", "checks", "metadata", "challenges", "lifetime"]
 
@@ -80,10 +81,10 @@ class SessionServiceSetSessionBody(BaseModel):
         )
         # override the default output from pydantic by calling `to_dict()` of checks
         if self.checks:
-            _dict['checks'] = self.checks.to_dict()
+            _dict["checks"] = self.checks.to_dict()
         # override the default output from pydantic by calling `to_dict()` of challenges
         if self.challenges:
-            _dict['challenges'] = self.challenges.to_dict()
+            _dict["challenges"] = self.challenges.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():

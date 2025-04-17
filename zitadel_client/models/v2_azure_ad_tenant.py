@@ -13,15 +13,17 @@
 
 
 from __future__ import annotations
+
+import json
 import pprint
 import re  # noqa: F401
-import json
+from typing import Any, ClassVar, Dict, List, Optional, Set
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from zitadel_client.models.v2_azure_ad_tenant_type import V2AzureADTenantType
-from typing import Optional, Set
 from typing_extensions import Self
+
+from zitadel_client.models.v2_azure_ad_tenant_type import V2AzureADTenantType
+
 
 class V2AzureADTenant(BaseModel):
     """

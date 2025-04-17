@@ -11,16 +11,14 @@
     Do not edit the class manually.
 """  # noqa: E501
 
-import warnings
-from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
-from typing_extensions import Annotated
 
-from pydantic import StrictStr
-from zitadel_client.models.v2_get_idpby_id_response import V2GetIDPByIDResponse
+from pydantic import Field, StrictFloat, StrictInt, StrictStr, validate_call
+from typing_extensions import Annotated
 
 from zitadel_client.api_client import ApiClient, RequestSerialized
 from zitadel_client.api_response import ApiResponse
+from zitadel_client.models.v2_get_idpby_id_response import V2GetIDPByIDResponse
 from zitadel_client.rest import RESTResponseType
 
 
@@ -91,9 +89,9 @@ class IdentityProviderServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2GetIDPByIDResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2GetIDPByIDResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -160,9 +158,9 @@ class IdentityProviderServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2GetIDPByIDResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2GetIDPByIDResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -229,9 +227,9 @@ class IdentityProviderServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2GetIDPByIDResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2GetIDPByIDResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -265,7 +263,7 @@ class IdentityProviderServiceApi:
 
         # process the path parameters
         if id is not None:
-            _path_params['id'] = id
+            _path_params["id"] = id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -273,22 +271,22 @@ class IdentityProviderServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/v2/idps/{id}',
+            method="GET",
+            resource_path="/v2/idps/{id}",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

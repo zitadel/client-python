@@ -13,15 +13,15 @@
 
 
 from __future__ import annotations
+
+import json
 import pprint
 import re  # noqa: F401
-import json
+from typing import Any, ClassVar, Dict, List, Optional, Set, Union
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
-from typing import Any, ClassVar, Dict, List, Optional, Union
-from typing_extensions import Annotated
-from typing import Optional, Set
-from typing_extensions import Self
+from typing_extensions import Annotated, Self
+
 
 class V2IDPSAMLAccessInformation(BaseModel):
     """
@@ -31,7 +31,7 @@ class V2IDPSAMLAccessInformation(BaseModel):
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["assertion"]
 
-    @field_validator('assertion')
+    @field_validator("assertion")
     def assertion_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:

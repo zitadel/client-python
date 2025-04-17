@@ -13,16 +13,17 @@
 
 
 from __future__ import annotations
+
+import json
 import pprint
 import re  # noqa: F401
-import json
+from typing import Any, ClassVar, Dict, List, Optional, Set
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
+from typing_extensions import Annotated, Self
+
 from zitadel_client.models.v2_gender import V2Gender
-from typing import Optional, Set
-from typing_extensions import Self
+
 
 class V2HumanProfile(BaseModel):
     """

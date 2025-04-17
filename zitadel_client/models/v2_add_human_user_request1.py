@@ -13,13 +13,15 @@
 
 
 from __future__ import annotations
+
+import json
 import pprint
 import re  # noqa: F401
-import json
+from typing import Any, ClassVar, Dict, List, Optional, Set
 
 from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
+from typing_extensions import Annotated, Self
+
 from zitadel_client.models.v2_hashed_password import V2HashedPassword
 from zitadel_client.models.v2_idp_link import V2IDPLink
 from zitadel_client.models.v2_organization import V2Organization
@@ -28,8 +30,7 @@ from zitadel_client.models.v2_set_human_email1 import V2SetHumanEmail1
 from zitadel_client.models.v2_set_human_phone1 import V2SetHumanPhone1
 from zitadel_client.models.v2_set_human_profile1 import V2SetHumanProfile1
 from zitadel_client.models.v2_set_metadata_entry1 import V2SetMetadataEntry1
-from typing import Optional, Set
-from typing_extensions import Self
+
 
 class V2AddHumanUserRequest1(BaseModel):
     """
@@ -92,36 +93,36 @@ class V2AddHumanUserRequest1(BaseModel):
         )
         # override the default output from pydantic by calling `to_dict()` of organization
         if self.organization:
-            _dict['organization'] = self.organization.to_dict()
+            _dict["organization"] = self.organization.to_dict()
         # override the default output from pydantic by calling `to_dict()` of profile
         if self.profile:
-            _dict['profile'] = self.profile.to_dict()
+            _dict["profile"] = self.profile.to_dict()
         # override the default output from pydantic by calling `to_dict()` of email
         if self.email:
-            _dict['email'] = self.email.to_dict()
+            _dict["email"] = self.email.to_dict()
         # override the default output from pydantic by calling `to_dict()` of phone
         if self.phone:
-            _dict['phone'] = self.phone.to_dict()
+            _dict["phone"] = self.phone.to_dict()
         # override the default output from pydantic by calling `to_dict()` of each item in metadata (list)
         _items = []
         if self.metadata:
             for _item_metadata in self.metadata:
                 if _item_metadata:
                     _items.append(_item_metadata.to_dict())
-            _dict['metadata'] = _items
+            _dict["metadata"] = _items
         # override the default output from pydantic by calling `to_dict()` of password
         if self.password:
-            _dict['password'] = self.password.to_dict()
+            _dict["password"] = self.password.to_dict()
         # override the default output from pydantic by calling `to_dict()` of hashed_password
         if self.hashed_password:
-            _dict['hashedPassword'] = self.hashed_password.to_dict()
+            _dict["hashedPassword"] = self.hashed_password.to_dict()
         # override the default output from pydantic by calling `to_dict()` of each item in idp_links (list)
         _items = []
         if self.idp_links:
             for _item_idp_links in self.idp_links:
                 if _item_idp_links:
                     _items.append(_item_idp_links.to_dict())
-            _dict['idpLinks'] = _items
+            _dict["idpLinks"] = _items
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():

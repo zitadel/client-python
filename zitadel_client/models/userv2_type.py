@@ -13,8 +13,10 @@
 
 
 from __future__ import annotations
+
 import json
 from enum import Enum
+
 from typing_extensions import Self
 
 
@@ -26,9 +28,9 @@ class Userv2Type(str, Enum):
     """
     allowed enum values
     """
-    TYPE_UNSPECIFIED = 'TYPE_UNSPECIFIED'
-    TYPE_HUMAN = 'TYPE_HUMAN'
-    TYPE_MACHINE = 'TYPE_MACHINE'
+    TYPE_UNSPECIFIED = "TYPE_UNSPECIFIED"
+    TYPE_HUMAN = "TYPE_HUMAN"
+    TYPE_MACHINE = "TYPE_MACHINE"
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

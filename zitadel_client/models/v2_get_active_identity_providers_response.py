@@ -13,16 +13,18 @@
 
 
 from __future__ import annotations
+
+import json
 import pprint
 import re  # noqa: F401
-import json
+from typing import Any, ClassVar, Dict, List, Optional, Set
 
 from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Self
+
 from zitadel_client.models.v2_identity_provider import V2IdentityProvider
 from zitadel_client.models.v2_list_details import V2ListDetails
-from typing import Optional, Set
-from typing_extensions import Self
+
 
 class V2GetActiveIdentityProvidersResponse(BaseModel):
     """
@@ -76,14 +78,14 @@ class V2GetActiveIdentityProvidersResponse(BaseModel):
         )
         # override the default output from pydantic by calling `to_dict()` of details
         if self.details:
-            _dict['details'] = self.details.to_dict()
+            _dict["details"] = self.details.to_dict()
         # override the default output from pydantic by calling `to_dict()` of each item in identity_providers (list)
         _items = []
         if self.identity_providers:
             for _item_identity_providers in self.identity_providers:
                 if _item_identity_providers:
                     _items.append(_item_identity_providers.to_dict())
-            _dict['identityProviders'] = _items
+            _dict["identityProviders"] = _items
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():

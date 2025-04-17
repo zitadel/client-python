@@ -13,8 +13,10 @@
 
 
 from __future__ import annotations
+
 import json
 from enum import Enum
+
 from typing_extensions import Self
 
 
@@ -26,10 +28,10 @@ class V2Gender(str, Enum):
     """
     allowed enum values
     """
-    GENDER_UNSPECIFIED = 'GENDER_UNSPECIFIED'
-    GENDER_FEMALE = 'GENDER_FEMALE'
-    GENDER_MALE = 'GENDER_MALE'
-    GENDER_DIVERSE = 'GENDER_DIVERSE'
+    GENDER_UNSPECIFIED = "GENDER_UNSPECIFIED"
+    GENDER_FEMALE = "GENDER_FEMALE"
+    GENDER_MALE = "GENDER_MALE"
+    GENDER_DIVERSE = "GENDER_DIVERSE"
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

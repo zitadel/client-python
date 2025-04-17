@@ -13,14 +13,15 @@
 
 
 from __future__ import annotations
+
+import json
 import pprint
 import re  # noqa: F401
-import json
+from typing import Any, ClassVar, Dict, List, Optional, Set
 
 from pydantic import BaseModel, ConfigDict
-from typing import Any, ClassVar, Dict, List, Optional
-from typing import Optional, Set
 from typing_extensions import Self
+
 
 class V2NotQuery(BaseModel):
     """
@@ -73,7 +74,7 @@ class V2NotQuery(BaseModel):
         )
         # override the default output from pydantic by calling `to_dict()` of query
         if self.query:
-            _dict['query'] = self.query.to_dict()
+            _dict["query"] = self.query.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
@@ -101,6 +102,7 @@ class V2NotQuery(BaseModel):
         return _obj
 
 from zitadel_client.models.v2_search_query1 import V2SearchQuery1
+
 # TODO: Rewrite to not use raise_errors
 V2NotQuery.model_rebuild(raise_errors=False)
 

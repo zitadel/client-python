@@ -11,31 +11,55 @@
     Do not edit the class manually.
 """  # noqa: E501
 
-import warnings
-from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
-from typing_extensions import Annotated
 
-from pydantic import Field, StrictBool, StrictStr
-from typing import Optional
+from pydantic import Field, StrictBool, StrictFloat, StrictInt, StrictStr, validate_call
 from typing_extensions import Annotated
-from zitadel_client.models.v2_get_instance_features_response import V2GetInstanceFeaturesResponse
-from zitadel_client.models.v2_get_organization_features_response import V2GetOrganizationFeaturesResponse
-from zitadel_client.models.v2_get_system_features_response import V2GetSystemFeaturesResponse
-from zitadel_client.models.v2_get_user_features_response import V2GetUserFeaturesResponse
-from zitadel_client.models.v2_reset_instance_features_response import V2ResetInstanceFeaturesResponse
-from zitadel_client.models.v2_reset_organization_features_response import V2ResetOrganizationFeaturesResponse
-from zitadel_client.models.v2_reset_system_features_response import V2ResetSystemFeaturesResponse
-from zitadel_client.models.v2_reset_user_features_response import V2ResetUserFeaturesResponse
-from zitadel_client.models.v2_set_instance_features_request import V2SetInstanceFeaturesRequest
-from zitadel_client.models.v2_set_instance_features_response import V2SetInstanceFeaturesResponse
-from zitadel_client.models.v2_set_organization_features_response import V2SetOrganizationFeaturesResponse
-from zitadel_client.models.v2_set_system_features_request import V2SetSystemFeaturesRequest
-from zitadel_client.models.v2_set_system_features_response import V2SetSystemFeaturesResponse
-from zitadel_client.models.v2_set_user_features_response import V2SetUserFeaturesResponse
 
 from zitadel_client.api_client import ApiClient, RequestSerialized
 from zitadel_client.api_response import ApiResponse
+from zitadel_client.models.v2_get_instance_features_response import (
+    V2GetInstanceFeaturesResponse,
+)
+from zitadel_client.models.v2_get_organization_features_response import (
+    V2GetOrganizationFeaturesResponse,
+)
+from zitadel_client.models.v2_get_system_features_response import (
+    V2GetSystemFeaturesResponse,
+)
+from zitadel_client.models.v2_get_user_features_response import (
+    V2GetUserFeaturesResponse,
+)
+from zitadel_client.models.v2_reset_instance_features_response import (
+    V2ResetInstanceFeaturesResponse,
+)
+from zitadel_client.models.v2_reset_organization_features_response import (
+    V2ResetOrganizationFeaturesResponse,
+)
+from zitadel_client.models.v2_reset_system_features_response import (
+    V2ResetSystemFeaturesResponse,
+)
+from zitadel_client.models.v2_reset_user_features_response import (
+    V2ResetUserFeaturesResponse,
+)
+from zitadel_client.models.v2_set_instance_features_request import (
+    V2SetInstanceFeaturesRequest,
+)
+from zitadel_client.models.v2_set_instance_features_response import (
+    V2SetInstanceFeaturesResponse,
+)
+from zitadel_client.models.v2_set_organization_features_response import (
+    V2SetOrganizationFeaturesResponse,
+)
+from zitadel_client.models.v2_set_system_features_request import (
+    V2SetSystemFeaturesRequest,
+)
+from zitadel_client.models.v2_set_system_features_response import (
+    V2SetSystemFeaturesResponse,
+)
+from zitadel_client.models.v2_set_user_features_response import (
+    V2SetUserFeaturesResponse,
+)
 from zitadel_client.rest import RESTResponseType
 
 
@@ -106,9 +130,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2GetInstanceFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2GetInstanceFeaturesResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -175,9 +199,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2GetInstanceFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2GetInstanceFeaturesResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -244,9 +268,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2GetInstanceFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2GetInstanceFeaturesResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -282,7 +306,7 @@ class FeatureServiceApi:
         # process the query parameters
         if inheritance is not None:
             
-            _query_params.append(('inheritance', inheritance))
+            _query_params.append(("inheritance", inheritance))
             
         # process the header parameters
         # process the form parameters
@@ -290,22 +314,22 @@ class FeatureServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/v2/features/instance',
+            method="GET",
+            resource_path="/v2/features/instance",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -379,9 +403,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2GetOrganizationFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2GetOrganizationFeaturesResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -452,9 +476,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2GetOrganizationFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2GetOrganizationFeaturesResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -525,9 +549,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2GetOrganizationFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2GetOrganizationFeaturesResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -562,11 +586,11 @@ class FeatureServiceApi:
 
         # process the path parameters
         if organization_id is not None:
-            _path_params['organizationId'] = organization_id
+            _path_params["organizationId"] = organization_id
         # process the query parameters
         if inheritance is not None:
             
-            _query_params.append(('inheritance', inheritance))
+            _query_params.append(("inheritance", inheritance))
             
         # process the header parameters
         # process the form parameters
@@ -574,22 +598,22 @@ class FeatureServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/v2/features/organization/{organizationId}',
+            method="GET",
+            resource_path="/v2/features/organization/{organizationId}",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -655,9 +679,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2GetSystemFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2GetSystemFeaturesResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -720,9 +744,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2GetSystemFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2GetSystemFeaturesResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -785,9 +809,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2GetSystemFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2GetSystemFeaturesResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -826,22 +850,22 @@ class FeatureServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/v2/features/system',
+            method="GET",
+            resource_path="/v2/features/system",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -915,9 +939,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2GetUserFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2GetUserFeaturesResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -988,9 +1012,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2GetUserFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2GetUserFeaturesResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1061,9 +1085,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2GetUserFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2GetUserFeaturesResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1098,11 +1122,11 @@ class FeatureServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         # process the query parameters
         if inheritance is not None:
             
-            _query_params.append(('inheritance', inheritance))
+            _query_params.append(("inheritance", inheritance))
             
         # process the header parameters
         # process the form parameters
@@ -1110,22 +1134,22 @@ class FeatureServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/v2/features/user/{userId}',
+            method="GET",
+            resource_path="/v2/features/user/{userId}",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -1191,9 +1215,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ResetInstanceFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2ResetInstanceFeaturesResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1256,9 +1280,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ResetInstanceFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2ResetInstanceFeaturesResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1321,9 +1345,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ResetInstanceFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2ResetInstanceFeaturesResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1362,22 +1386,22 @@ class FeatureServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='DELETE',
-            resource_path='/v2/features/instance',
+            method="DELETE",
+            resource_path="/v2/features/instance",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -1447,9 +1471,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ResetOrganizationFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2ResetOrganizationFeaturesResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1516,9 +1540,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ResetOrganizationFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2ResetOrganizationFeaturesResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1585,9 +1609,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ResetOrganizationFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2ResetOrganizationFeaturesResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1621,7 +1645,7 @@ class FeatureServiceApi:
 
         # process the path parameters
         if organization_id is not None:
-            _path_params['organizationId'] = organization_id
+            _path_params["organizationId"] = organization_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -1629,22 +1653,22 @@ class FeatureServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='DELETE',
-            resource_path='/v2/features/organization/{organizationId}',
+            method="DELETE",
+            resource_path="/v2/features/organization/{organizationId}",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -1710,9 +1734,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ResetSystemFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2ResetSystemFeaturesResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1775,9 +1799,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ResetSystemFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2ResetSystemFeaturesResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1840,9 +1864,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ResetSystemFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2ResetSystemFeaturesResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1881,22 +1905,22 @@ class FeatureServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='DELETE',
-            resource_path='/v2/features/system',
+            method="DELETE",
+            resource_path="/v2/features/system",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -1966,9 +1990,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ResetUserFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2ResetUserFeaturesResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2035,9 +2059,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ResetUserFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2ResetUserFeaturesResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2104,9 +2128,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ResetUserFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2ResetUserFeaturesResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2140,7 +2164,7 @@ class FeatureServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -2148,22 +2172,22 @@ class FeatureServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='DELETE',
-            resource_path='/v2/features/user/{userId}',
+            method="DELETE",
+            resource_path="/v2/features/user/{userId}",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -2233,9 +2257,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2SetInstanceFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2SetInstanceFeaturesResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2302,9 +2326,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2SetInstanceFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2SetInstanceFeaturesResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2371,9 +2395,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2SetInstanceFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2SetInstanceFeaturesResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2415,35 +2439,35 @@ class FeatureServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params['Content-Type'] = _content_type
+            _header_params["Content-Type"] = _content_type
         else:
             _default_content_type = (
                 self.api_client.select_header_content_type(
                     [
-                        'application/json'
+                        "application/json"
                     ]
                 )
             )
             if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+                _header_params["Content-Type"] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='PUT',
-            resource_path='/v2/features/instance',
+            method="PUT",
+            resource_path="/v2/features/instance",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -2513,9 +2537,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2SetOrganizationFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2SetOrganizationFeaturesResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2582,9 +2606,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2SetOrganizationFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2SetOrganizationFeaturesResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2651,9 +2675,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2SetOrganizationFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2SetOrganizationFeaturesResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2687,7 +2711,7 @@ class FeatureServiceApi:
 
         # process the path parameters
         if organization_id is not None:
-            _path_params['organizationId'] = organization_id
+            _path_params["organizationId"] = organization_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -2695,22 +2719,22 @@ class FeatureServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='PUT',
-            resource_path='/v2/features/organization/{organizationId}',
+            method="PUT",
+            resource_path="/v2/features/organization/{organizationId}",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -2780,9 +2804,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2SetSystemFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2SetSystemFeaturesResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2849,9 +2873,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2SetSystemFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2SetSystemFeaturesResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2918,9 +2942,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2SetSystemFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2SetSystemFeaturesResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2962,35 +2986,35 @@ class FeatureServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params['Content-Type'] = _content_type
+            _header_params["Content-Type"] = _content_type
         else:
             _default_content_type = (
                 self.api_client.select_header_content_type(
                     [
-                        'application/json'
+                        "application/json"
                     ]
                 )
             )
             if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+                _header_params["Content-Type"] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='PUT',
-            resource_path='/v2/features/system',
+            method="PUT",
+            resource_path="/v2/features/system",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -3060,9 +3084,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2SetUserFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2SetUserFeaturesResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3129,9 +3153,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2SetUserFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2SetUserFeaturesResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3198,9 +3222,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2SetUserFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2SetUserFeaturesResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3234,7 +3258,7 @@ class FeatureServiceApi:
 
         # process the path parameters
         if user_id is not None:
-            _path_params['userId'] = user_id
+            _path_params["userId"] = user_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -3242,22 +3266,22 @@ class FeatureServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='PUT',
-            resource_path='/v2/features/user/{userId}',
+            method="PUT",
+            resource_path="/v2/features/user/{userId}",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

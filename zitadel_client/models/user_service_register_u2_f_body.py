@@ -13,20 +13,21 @@
 
 
 from __future__ import annotations
+
+import json
 import pprint
 import re  # noqa: F401
-import json
+from typing import Any, ClassVar, Dict, List, Optional, Set
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from typing import Optional, Set
 from typing_extensions import Self
+
 
 class UserServiceRegisterU2FBody(BaseModel):
     """
     UserServiceRegisterU2FBody
     """ # noqa: E501
-    domain: Optional[StrictStr] = Field(default=None, description="\"Domain on which the user is authenticated.\"")
+    domain: Optional[StrictStr] = Field(default=None, description='"Domain on which the user is authenticated."')
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["domain"]
 

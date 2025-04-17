@@ -13,8 +13,10 @@
 
 
 from __future__ import annotations
+
 import json
 from enum import Enum
+
 from typing_extensions import Self
 
 
@@ -26,9 +28,9 @@ class V2ResourceOwnerType(str, Enum):
     """
     allowed enum values
     """
-    RESOURCE_OWNER_TYPE_UNSPECIFIED = 'RESOURCE_OWNER_TYPE_UNSPECIFIED'
-    RESOURCE_OWNER_TYPE_INSTANCE = 'RESOURCE_OWNER_TYPE_INSTANCE'
-    RESOURCE_OWNER_TYPE_ORG = 'RESOURCE_OWNER_TYPE_ORG'
+    RESOURCE_OWNER_TYPE_UNSPECIFIED = "RESOURCE_OWNER_TYPE_UNSPECIFIED"
+    RESOURCE_OWNER_TYPE_INSTANCE = "RESOURCE_OWNER_TYPE_INSTANCE"
+    RESOURCE_OWNER_TYPE_ORG = "RESOURCE_OWNER_TYPE_ORG"
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

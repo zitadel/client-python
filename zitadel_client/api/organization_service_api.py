@@ -11,18 +11,21 @@
     Do not edit the class manually.
 """  # noqa: E501
 
-import warnings
-from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
-from typing_extensions import Annotated
 
-from zitadel_client.models.v2_add_organization_request import V2AddOrganizationRequest
-from zitadel_client.models.v2_add_organization_response import V2AddOrganizationResponse
-from zitadel_client.models.v2_list_organizations_request import V2ListOrganizationsRequest
-from zitadel_client.models.v2_list_organizations_response import V2ListOrganizationsResponse
+from pydantic import Field, StrictFloat, StrictInt, StrictStr, validate_call
+from typing_extensions import Annotated
 
 from zitadel_client.api_client import ApiClient, RequestSerialized
 from zitadel_client.api_response import ApiResponse
+from zitadel_client.models.v2_add_organization_request import V2AddOrganizationRequest
+from zitadel_client.models.v2_add_organization_response import V2AddOrganizationResponse
+from zitadel_client.models.v2_list_organizations_request import (
+    V2ListOrganizationsRequest,
+)
+from zitadel_client.models.v2_list_organizations_response import (
+    V2ListOrganizationsResponse,
+)
 from zitadel_client.rest import RESTResponseType
 
 
@@ -93,9 +96,9 @@ class OrganizationServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2AddOrganizationResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2AddOrganizationResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -162,9 +165,9 @@ class OrganizationServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2AddOrganizationResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2AddOrganizationResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -231,9 +234,9 @@ class OrganizationServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2AddOrganizationResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2AddOrganizationResponse",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -275,35 +278,35 @@ class OrganizationServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params['Content-Type'] = _content_type
+            _header_params["Content-Type"] = _content_type
         else:
             _default_content_type = (
                 self.api_client.select_header_content_type(
                     [
-                        'application/json'
+                        "application/json"
                     ]
                 )
             )
             if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+                _header_params["Content-Type"] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/organizations',
+            method="POST",
+            resource_path="/v2/organizations",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -373,10 +376,10 @@ class OrganizationServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ListOrganizationsResponse",
-            '400': "RpcStatus",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2ListOrganizationsResponse",
+            "400": "RpcStatus",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -443,10 +446,10 @@ class OrganizationServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ListOrganizationsResponse",
-            '400': "RpcStatus",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2ListOrganizationsResponse",
+            "400": "RpcStatus",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -513,10 +516,10 @@ class OrganizationServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ListOrganizationsResponse",
-            '400': "RpcStatus",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            "200": "V2ListOrganizationsResponse",
+            "400": "RpcStatus",
+            "403": "RpcStatus",
+            "404": "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -558,35 +561,35 @@ class OrganizationServiceApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
                 [
-                    'application/json'
+                    "application/json"
                 ]
             )
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params['Content-Type'] = _content_type
+            _header_params["Content-Type"] = _content_type
         else:
             _default_content_type = (
                 self.api_client.select_header_content_type(
                     [
-                        'application/json'
+                        "application/json"
                     ]
                 )
             )
             if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+                _header_params["Content-Type"] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
-            'zitadelAccessToken'
+            "zitadelAccessToken"
         ]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/organizations/_search',
+            method="POST",
+            resource_path="/v2/organizations/_search",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

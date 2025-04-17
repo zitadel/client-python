@@ -13,16 +13,20 @@
 
 
 from __future__ import annotations
+
+import json
 import pprint
 import re  # noqa: F401
-import json
+from typing import Any, ClassVar, Dict, List, Optional, Set
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from zitadel_client.models.add_organization_response_created_admin import AddOrganizationResponseCreatedAdmin
-from zitadel_client.models.v2_details import V2Details
-from typing import Optional, Set
 from typing_extensions import Self
+
+from zitadel_client.models.add_organization_response_created_admin import (
+    AddOrganizationResponseCreatedAdmin,
+)
+from zitadel_client.models.v2_details import V2Details
+
 
 class V2AddOrganizationResponse(BaseModel):
     """
@@ -77,14 +81,14 @@ class V2AddOrganizationResponse(BaseModel):
         )
         # override the default output from pydantic by calling `to_dict()` of details
         if self.details:
-            _dict['details'] = self.details.to_dict()
+            _dict["details"] = self.details.to_dict()
         # override the default output from pydantic by calling `to_dict()` of each item in created_admins (list)
         _items = []
         if self.created_admins:
             for _item_created_admins in self.created_admins:
                 if _item_created_admins:
                     _items.append(_item_created_admins.to_dict())
-            _dict['createdAdmins'] = _items
+            _dict["createdAdmins"] = _items
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():

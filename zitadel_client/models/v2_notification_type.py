@@ -13,8 +13,10 @@
 
 
 from __future__ import annotations
+
 import json
 from enum import Enum
+
 from typing_extensions import Self
 
 
@@ -26,9 +28,9 @@ class V2NotificationType(str, Enum):
     """
     allowed enum values
     """
-    NOTIFICATION_TYPE_UNSPECIFIED = 'NOTIFICATION_TYPE_Unspecified'
-    NOTIFICATION_TYPE_EMAIL = 'NOTIFICATION_TYPE_Email'
-    NOTIFICATION_TYPE_SMS = 'NOTIFICATION_TYPE_SMS'
+    NOTIFICATION_TYPE_UNSPECIFIED = "NOTIFICATION_TYPE_Unspecified"
+    NOTIFICATION_TYPE_EMAIL = "NOTIFICATION_TYPE_Email"
+    NOTIFICATION_TYPE_SMS = "NOTIFICATION_TYPE_SMS"
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:
