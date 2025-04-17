@@ -23,7 +23,7 @@ class TestApiClient(unittest.TestCase):
         Starts the WireMock Docker container and exposes the required port.
         Sets up the OAuth server URL.
         """
-        cls.mock_oauth2_server = DockerContainer("wiremock/wiremock") \
+        cls.mock_oauth2_server = DockerContainer("wiremock/wiremock:3.12.1") \
             .with_exposed_ports(8080)
         cls.mock_oauth2_server.start()
 
