@@ -13,18 +13,16 @@
 
 
 from __future__ import annotations
-
-import json
 import pprint
 import re  # noqa: F401
-from typing import Any, ClassVar, Dict, List, Optional, Set
+import json
 
 from pydantic import BaseModel, ConfigDict
-from typing_extensions import Self
-
+from typing import Any, ClassVar, Dict, List, Optional
 from zitadel_client.models.objectv2_list_details import Objectv2ListDetails
 from zitadel_client.models.v2_session1 import V2Session1
-
+from typing import Optional, Set
+from typing_extensions import Self
 
 class V2ListSessionsResponse(BaseModel):
     """
@@ -78,14 +76,14 @@ class V2ListSessionsResponse(BaseModel):
         )
         # override the default output from pydantic by calling `to_dict()` of details
         if self.details:
-            _dict["details"] = self.details.to_dict()
+            _dict['details'] = self.details.to_dict()
         # override the default output from pydantic by calling `to_dict()` of each item in sessions (list)
         _items = []
         if self.sessions:
             for _item_sessions in self.sessions:
                 if _item_sessions:
                     _items.append(_item_sessions.to_dict())
-            _dict["sessions"] = _items
+            _dict['sessions'] = _items
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():

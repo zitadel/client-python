@@ -13,22 +13,20 @@
 
 
 from __future__ import annotations
-
-import json
 import pprint
 import re  # noqa: F401
-from typing import Any, ClassVar, Dict, List, Optional, Set
+import json
 
 from pydantic import BaseModel, ConfigDict, Field
-from typing_extensions import Self
-
+from typing import Any, ClassVar, Dict, List, Optional
 from zitadel_client.models.v2_intent_factor import V2IntentFactor
 from zitadel_client.models.v2_otp_factor import V2OTPFactor
 from zitadel_client.models.v2_password_factor import V2PasswordFactor
 from zitadel_client.models.v2_totp_factor import V2TOTPFactor
 from zitadel_client.models.v2_user_factor import V2UserFactor
 from zitadel_client.models.v2_web_auth_n_factor import V2WebAuthNFactor
-
+from typing import Optional, Set
+from typing_extensions import Self
 
 class V2Factors(BaseModel):
     """
@@ -87,25 +85,25 @@ class V2Factors(BaseModel):
         )
         # override the default output from pydantic by calling `to_dict()` of user
         if self.user:
-            _dict["user"] = self.user.to_dict()
+            _dict['user'] = self.user.to_dict()
         # override the default output from pydantic by calling `to_dict()` of password
         if self.password:
-            _dict["password"] = self.password.to_dict()
+            _dict['password'] = self.password.to_dict()
         # override the default output from pydantic by calling `to_dict()` of web_auth_n
         if self.web_auth_n:
-            _dict["webAuthN"] = self.web_auth_n.to_dict()
+            _dict['webAuthN'] = self.web_auth_n.to_dict()
         # override the default output from pydantic by calling `to_dict()` of intent
         if self.intent:
-            _dict["intent"] = self.intent.to_dict()
+            _dict['intent'] = self.intent.to_dict()
         # override the default output from pydantic by calling `to_dict()` of totp
         if self.totp:
-            _dict["totp"] = self.totp.to_dict()
+            _dict['totp'] = self.totp.to_dict()
         # override the default output from pydantic by calling `to_dict()` of otp_sms
         if self.otp_sms:
-            _dict["otpSms"] = self.otp_sms.to_dict()
+            _dict['otpSms'] = self.otp_sms.to_dict()
         # override the default output from pydantic by calling `to_dict()` of otp_email
         if self.otp_email:
-            _dict["otpEmail"] = self.otp_email.to_dict()
+            _dict['otpEmail'] = self.otp_email.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():

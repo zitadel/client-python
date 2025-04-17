@@ -13,19 +13,17 @@
 
 
 from __future__ import annotations
-
-import json
 import pprint
 import re  # noqa: F401
-from typing import Any, ClassVar, Dict, List, Optional, Set
+import json
 
 from pydantic import BaseModel, ConfigDict, Field
-from typing_extensions import Self
-
+from typing import Any, ClassVar, Dict, List, Optional
 from zitadel_client.models.v2_list_details import V2ListDetails
 from zitadel_client.models.v2_user import V2User
 from zitadel_client.models.v2_user_field_name import V2UserFieldName
-
+from typing import Optional, Set
+from typing_extensions import Self
 
 class V2ListUsersResponse(BaseModel):
     """
@@ -80,14 +78,14 @@ class V2ListUsersResponse(BaseModel):
         )
         # override the default output from pydantic by calling `to_dict()` of details
         if self.details:
-            _dict["details"] = self.details.to_dict()
+            _dict['details'] = self.details.to_dict()
         # override the default output from pydantic by calling `to_dict()` of each item in result (list)
         _items = []
         if self.result:
             for _item_result in self.result:
                 if _item_result:
                     _items.append(_item_result.to_dict())
-            _dict["result"] = _items
+            _dict['result'] = _items
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():

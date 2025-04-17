@@ -13,10 +13,8 @@
 
 
 from __future__ import annotations
-
 import json
 from enum import Enum
-
 from typing_extensions import Self
 
 
@@ -28,11 +26,11 @@ class V2IDPState(str, Enum):
     """
     allowed enum values
     """
-    IDP_STATE_UNSPECIFIED = "IDP_STATE_UNSPECIFIED"
-    IDP_STATE_ACTIVE = "IDP_STATE_ACTIVE"
-    IDP_STATE_INACTIVE = "IDP_STATE_INACTIVE"
-    IDP_STATE_REMOVED = "IDP_STATE_REMOVED"
-    IDP_STATE_MIGRATED = "IDP_STATE_MIGRATED"
+    IDP_STATE_UNSPECIFIED = 'IDP_STATE_UNSPECIFIED'
+    IDP_STATE_ACTIVE = 'IDP_STATE_ACTIVE'
+    IDP_STATE_INACTIVE = 'IDP_STATE_INACTIVE'
+    IDP_STATE_REMOVED = 'IDP_STATE_REMOVED'
+    IDP_STATE_MIGRATED = 'IDP_STATE_MIGRATED'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

@@ -13,10 +13,8 @@
 
 
 from __future__ import annotations
-
 import json
 from enum import Enum
-
 from typing_extensions import Self
 
 
@@ -28,10 +26,10 @@ class V2AuthFactorState(str, Enum):
     """
     allowed enum values
     """
-    AUTH_FACTOR_STATE_UNSPECIFIED = "AUTH_FACTOR_STATE_UNSPECIFIED"
-    AUTH_FACTOR_STATE_NOT_READY = "AUTH_FACTOR_STATE_NOT_READY"
-    AUTH_FACTOR_STATE_READY = "AUTH_FACTOR_STATE_READY"
-    AUTH_FACTOR_STATE_REMOVED = "AUTH_FACTOR_STATE_REMOVED"
+    AUTH_FACTOR_STATE_UNSPECIFIED = 'AUTH_FACTOR_STATE_UNSPECIFIED'
+    AUTH_FACTOR_STATE_NOT_READY = 'AUTH_FACTOR_STATE_NOT_READY'
+    AUTH_FACTOR_STATE_READY = 'AUTH_FACTOR_STATE_READY'
+    AUTH_FACTOR_STATE_REMOVED = 'AUTH_FACTOR_STATE_REMOVED'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

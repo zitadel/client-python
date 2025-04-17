@@ -13,15 +13,12 @@
 
 
 from __future__ import annotations
-
-import json
 import pprint
 import re  # noqa: F401
-from typing import Any, ClassVar, Dict, List, Optional, Set
+import json
 
 from pydantic import BaseModel, ConfigDict, Field
-from typing_extensions import Self
-
+from typing import Any, ClassVar, Dict, List, Optional
 from zitadel_client.models.v2_display_name_query import V2DisplayNameQuery
 from zitadel_client.models.v2_email_query import V2EmailQuery
 from zitadel_client.models.v2_first_name_query import V2FirstNameQuery
@@ -35,7 +32,8 @@ from zitadel_client.models.v2_phone_query import V2PhoneQuery
 from zitadel_client.models.v2_state_query import V2StateQuery
 from zitadel_client.models.v2_type_query import V2TypeQuery
 from zitadel_client.models.v2_user_name_query import V2UserNameQuery
-
+from typing import Optional, Set
+from typing_extensions import Self
 
 class V2SearchQuery1(BaseModel):
     """
@@ -103,52 +101,52 @@ class V2SearchQuery1(BaseModel):
         )
         # override the default output from pydantic by calling `to_dict()` of user_name_query
         if self.user_name_query:
-            _dict["userNameQuery"] = self.user_name_query.to_dict()
+            _dict['userNameQuery'] = self.user_name_query.to_dict()
         # override the default output from pydantic by calling `to_dict()` of first_name_query
         if self.first_name_query:
-            _dict["firstNameQuery"] = self.first_name_query.to_dict()
+            _dict['firstNameQuery'] = self.first_name_query.to_dict()
         # override the default output from pydantic by calling `to_dict()` of last_name_query
         if self.last_name_query:
-            _dict["lastNameQuery"] = self.last_name_query.to_dict()
+            _dict['lastNameQuery'] = self.last_name_query.to_dict()
         # override the default output from pydantic by calling `to_dict()` of nick_name_query
         if self.nick_name_query:
-            _dict["nickNameQuery"] = self.nick_name_query.to_dict()
+            _dict['nickNameQuery'] = self.nick_name_query.to_dict()
         # override the default output from pydantic by calling `to_dict()` of display_name_query
         if self.display_name_query:
-            _dict["displayNameQuery"] = self.display_name_query.to_dict()
+            _dict['displayNameQuery'] = self.display_name_query.to_dict()
         # override the default output from pydantic by calling `to_dict()` of email_query
         if self.email_query:
-            _dict["emailQuery"] = self.email_query.to_dict()
+            _dict['emailQuery'] = self.email_query.to_dict()
         # override the default output from pydantic by calling `to_dict()` of state_query
         if self.state_query:
-            _dict["stateQuery"] = self.state_query.to_dict()
+            _dict['stateQuery'] = self.state_query.to_dict()
         # override the default output from pydantic by calling `to_dict()` of type_query
         if self.type_query:
-            _dict["typeQuery"] = self.type_query.to_dict()
+            _dict['typeQuery'] = self.type_query.to_dict()
         # override the default output from pydantic by calling `to_dict()` of login_name_query
         if self.login_name_query:
-            _dict["loginNameQuery"] = self.login_name_query.to_dict()
+            _dict['loginNameQuery'] = self.login_name_query.to_dict()
         # override the default output from pydantic by calling `to_dict()` of in_user_ids_query
         if self.in_user_ids_query:
-            _dict["inUserIdsQuery"] = self.in_user_ids_query.to_dict()
+            _dict['inUserIdsQuery'] = self.in_user_ids_query.to_dict()
         # override the default output from pydantic by calling `to_dict()` of or_query
         if self.or_query:
-            _dict["orQuery"] = self.or_query.to_dict()
+            _dict['orQuery'] = self.or_query.to_dict()
         # override the default output from pydantic by calling `to_dict()` of and_query
         if self.and_query:
-            _dict["andQuery"] = self.and_query.to_dict()
+            _dict['andQuery'] = self.and_query.to_dict()
         # override the default output from pydantic by calling `to_dict()` of not_query
         if self.not_query:
-            _dict["notQuery"] = self.not_query.to_dict()
+            _dict['notQuery'] = self.not_query.to_dict()
         # override the default output from pydantic by calling `to_dict()` of in_user_emails_query
         if self.in_user_emails_query:
-            _dict["inUserEmailsQuery"] = self.in_user_emails_query.to_dict()
+            _dict['inUserEmailsQuery'] = self.in_user_emails_query.to_dict()
         # override the default output from pydantic by calling `to_dict()` of organization_id_query
         if self.organization_id_query:
-            _dict["organizationIdQuery"] = self.organization_id_query.to_dict()
+            _dict['organizationIdQuery'] = self.organization_id_query.to_dict()
         # override the default output from pydantic by calling `to_dict()` of phone_query
         if self.phone_query:
-            _dict["phoneQuery"] = self.phone_query.to_dict()
+            _dict['phoneQuery'] = self.phone_query.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
@@ -193,7 +191,6 @@ class V2SearchQuery1(BaseModel):
 from zitadel_client.models.v2_and_query import V2AndQuery
 from zitadel_client.models.v2_not_query import V2NotQuery
 from zitadel_client.models.v2_or_query import V2OrQuery
-
 # TODO: Rewrite to not use raise_errors
 V2SearchQuery1.model_rebuild(raise_errors=False)
 

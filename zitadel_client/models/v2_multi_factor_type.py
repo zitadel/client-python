@@ -13,10 +13,8 @@
 
 
 from __future__ import annotations
-
 import json
 from enum import Enum
-
 from typing_extensions import Self
 
 
@@ -28,8 +26,8 @@ class V2MultiFactorType(str, Enum):
     """
     allowed enum values
     """
-    MULTI_FACTOR_TYPE_UNSPECIFIED = "MULTI_FACTOR_TYPE_UNSPECIFIED"
-    MULTI_FACTOR_TYPE_U2_F_WITH_VERIFICATION = "MULTI_FACTOR_TYPE_U2F_WITH_VERIFICATION"
+    MULTI_FACTOR_TYPE_UNSPECIFIED = 'MULTI_FACTOR_TYPE_UNSPECIFIED'
+    MULTI_FACTOR_TYPE_U2_F_WITH_VERIFICATION = 'MULTI_FACTOR_TYPE_U2F_WITH_VERIFICATION'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

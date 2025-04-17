@@ -13,22 +13,18 @@
 
 
 from __future__ import annotations
-
-import json
 import pprint
 import re  # noqa: F401
-from typing import Any, ClassVar, Dict, List, Optional, Set
+import json
 
 from pydantic import BaseModel, ConfigDict, Field
-from typing_extensions import Self
-
+from typing import Any, ClassVar, Dict, List, Optional
 from zitadel_client.models.v2_details import V2Details
 from zitadel_client.models.v2_feature_flag import V2FeatureFlag
-from zitadel_client.models.v2_improved_performance_feature_flag import (
-    V2ImprovedPerformanceFeatureFlag,
-)
+from zitadel_client.models.v2_improved_performance_feature_flag import V2ImprovedPerformanceFeatureFlag
 from zitadel_client.models.v2_login_v2_feature_flag import V2LoginV2FeatureFlag
-
+from typing import Optional, Set
+from typing_extensions import Self
 
 class V2GetSystemFeaturesResponse(BaseModel):
     """
@@ -93,43 +89,43 @@ class V2GetSystemFeaturesResponse(BaseModel):
         )
         # override the default output from pydantic by calling `to_dict()` of details
         if self.details:
-            _dict["details"] = self.details.to_dict()
+            _dict['details'] = self.details.to_dict()
         # override the default output from pydantic by calling `to_dict()` of login_default_org
         if self.login_default_org:
-            _dict["loginDefaultOrg"] = self.login_default_org.to_dict()
+            _dict['loginDefaultOrg'] = self.login_default_org.to_dict()
         # override the default output from pydantic by calling `to_dict()` of oidc_trigger_introspection_projections
         if self.oidc_trigger_introspection_projections:
-            _dict["oidcTriggerIntrospectionProjections"] = self.oidc_trigger_introspection_projections.to_dict()
+            _dict['oidcTriggerIntrospectionProjections'] = self.oidc_trigger_introspection_projections.to_dict()
         # override the default output from pydantic by calling `to_dict()` of oidc_legacy_introspection
         if self.oidc_legacy_introspection:
-            _dict["oidcLegacyIntrospection"] = self.oidc_legacy_introspection.to_dict()
+            _dict['oidcLegacyIntrospection'] = self.oidc_legacy_introspection.to_dict()
         # override the default output from pydantic by calling `to_dict()` of user_schema
         if self.user_schema:
-            _dict["userSchema"] = self.user_schema.to_dict()
+            _dict['userSchema'] = self.user_schema.to_dict()
         # override the default output from pydantic by calling `to_dict()` of oidc_token_exchange
         if self.oidc_token_exchange:
-            _dict["oidcTokenExchange"] = self.oidc_token_exchange.to_dict()
+            _dict['oidcTokenExchange'] = self.oidc_token_exchange.to_dict()
         # override the default output from pydantic by calling `to_dict()` of actions
         if self.actions:
-            _dict["actions"] = self.actions.to_dict()
+            _dict['actions'] = self.actions.to_dict()
         # override the default output from pydantic by calling `to_dict()` of improved_performance
         if self.improved_performance:
-            _dict["improvedPerformance"] = self.improved_performance.to_dict()
+            _dict['improvedPerformance'] = self.improved_performance.to_dict()
         # override the default output from pydantic by calling `to_dict()` of oidc_single_v1_session_termination
         if self.oidc_single_v1_session_termination:
-            _dict["oidcSingleV1SessionTermination"] = self.oidc_single_v1_session_termination.to_dict()
+            _dict['oidcSingleV1SessionTermination'] = self.oidc_single_v1_session_termination.to_dict()
         # override the default output from pydantic by calling `to_dict()` of disable_user_token_event
         if self.disable_user_token_event:
-            _dict["disableUserTokenEvent"] = self.disable_user_token_event.to_dict()
+            _dict['disableUserTokenEvent'] = self.disable_user_token_event.to_dict()
         # override the default output from pydantic by calling `to_dict()` of enable_back_channel_logout
         if self.enable_back_channel_logout:
-            _dict["enableBackChannelLogout"] = self.enable_back_channel_logout.to_dict()
+            _dict['enableBackChannelLogout'] = self.enable_back_channel_logout.to_dict()
         # override the default output from pydantic by calling `to_dict()` of login_v2
         if self.login_v2:
-            _dict["loginV2"] = self.login_v2.to_dict()
+            _dict['loginV2'] = self.login_v2.to_dict()
         # override the default output from pydantic by calling `to_dict()` of permission_check_v2
         if self.permission_check_v2:
-            _dict["permissionCheckV2"] = self.permission_check_v2.to_dict()
+            _dict['permissionCheckV2'] = self.permission_check_v2.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():

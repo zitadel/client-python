@@ -13,17 +13,15 @@
 
 
 from __future__ import annotations
-
-import json
 import pprint
 import re  # noqa: F401
-from typing import Any, ClassVar, Dict, List, Optional, Set
+import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
-from typing_extensions import Self
-
+from typing import Any, ClassVar, Dict, List, Optional
 from zitadel_client.models.v2_ldap_attributes import V2LDAPAttributes
-
+from typing import Optional, Set
+from typing_extensions import Self
 
 class V2LDAPConfig(BaseModel):
     """
@@ -84,7 +82,7 @@ class V2LDAPConfig(BaseModel):
         )
         # override the default output from pydantic by calling `to_dict()` of attributes
         if self.attributes:
-            _dict["attributes"] = self.attributes.to_dict()
+            _dict['attributes'] = self.attributes.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():

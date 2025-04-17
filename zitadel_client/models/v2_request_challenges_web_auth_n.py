@@ -13,25 +13,21 @@
 
 
 from __future__ import annotations
-
-import json
 import pprint
 import re  # noqa: F401
-from typing import Any, ClassVar, Dict, List, Optional, Set
+import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, List
+from zitadel_client.models.v2_user_verification_requirement import V2UserVerificationRequirement
+from typing import Optional, Set
 from typing_extensions import Self
-
-from zitadel_client.models.v2_user_verification_requirement import (
-    V2UserVerificationRequirement,
-)
-
 
 class V2RequestChallengesWebAuthN(BaseModel):
     """
     V2RequestChallengesWebAuthN
     """ # noqa: E501
-    domain: StrictStr = Field(description='"Domain on which the session was created. Will be used in the WebAuthN challenge."')
+    domain: StrictStr = Field(description="\"Domain on which the session was created. Will be used in the WebAuthN challenge.\"")
     user_verification_requirement: V2UserVerificationRequirement = Field(alias="userVerificationRequirement")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["domain", "userVerificationRequirement"]

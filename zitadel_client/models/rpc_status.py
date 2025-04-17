@@ -13,17 +13,15 @@
 
 
 from __future__ import annotations
-
-import json
 import pprint
 import re  # noqa: F401
-from typing import Any, ClassVar, Dict, List, Optional, Set
+import json
 
 from pydantic import BaseModel, ConfigDict, StrictInt, StrictStr
-from typing_extensions import Self
-
+from typing import Any, ClassVar, Dict, List, Optional
 from zitadel_client.models.protobuf_any import ProtobufAny
-
+from typing import Optional, Set
+from typing_extensions import Self
 
 class RpcStatus(BaseModel):
     """
@@ -82,7 +80,7 @@ class RpcStatus(BaseModel):
             for _item_details in self.details:
                 if _item_details:
                     _items.append(_item_details.to_dict())
-            _dict["details"] = _items
+            _dict['details'] = _items
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():

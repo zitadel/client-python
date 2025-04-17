@@ -13,19 +13,17 @@
 
 
 from __future__ import annotations
-
-import json
 import pprint
 import re  # noqa: F401
-from typing import Any, ClassVar, Dict, List, Optional, Set
+import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
-from typing_extensions import Self
-
+from typing import Any, ClassVar, Dict, List, Optional
 from zitadel_client.models.v2_resource_owner_type import V2ResourceOwnerType
 from zitadel_client.models.v2_theme import V2Theme
 from zitadel_client.models.v2_theme_mode import V2ThemeMode
-
+from typing import Optional, Set
+from typing_extensions import Self
 
 class V2BrandingSettings(BaseModel):
     """
@@ -34,7 +32,7 @@ class V2BrandingSettings(BaseModel):
     light_theme: Optional[V2Theme] = Field(default=None, alias="lightTheme")
     dark_theme: Optional[V2Theme] = Field(default=None, alias="darkTheme")
     font_url: Optional[StrictStr] = Field(default=None, description="url to the font used", alias="fontUrl")
-    hide_login_name_suffix: Optional[StrictBool] = Field(default=None, description='hides the org suffix on the login form if the scope "urn:zitadel:iam:org:domain:primary:{domainname}" is set', alias="hideLoginNameSuffix")
+    hide_login_name_suffix: Optional[StrictBool] = Field(default=None, description="hides the org suffix on the login form if the scope \"urn:zitadel:iam:org:domain:primary:{domainname}\" is set", alias="hideLoginNameSuffix")
     disable_watermark: Optional[StrictBool] = Field(default=None, description="boolean to disable the watermark", alias="disableWatermark")
     resource_owner_type: Optional[V2ResourceOwnerType] = Field(default=V2ResourceOwnerType.RESOURCE_OWNER_TYPE_UNSPECIFIED, alias="resourceOwnerType")
     theme_mode: Optional[V2ThemeMode] = Field(default=V2ThemeMode.THEME_MODE_UNSPECIFIED, alias="themeMode")
@@ -84,10 +82,10 @@ class V2BrandingSettings(BaseModel):
         )
         # override the default output from pydantic by calling `to_dict()` of light_theme
         if self.light_theme:
-            _dict["lightTheme"] = self.light_theme.to_dict()
+            _dict['lightTheme'] = self.light_theme.to_dict()
         # override the default output from pydantic by calling `to_dict()` of dark_theme
         if self.dark_theme:
-            _dict["darkTheme"] = self.dark_theme.to_dict()
+            _dict['darkTheme'] = self.dark_theme.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():

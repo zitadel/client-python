@@ -13,10 +13,8 @@
 
 
 from __future__ import annotations
-
 import json
 from enum import Enum
-
 from typing_extensions import Self
 
 
@@ -28,10 +26,10 @@ class V2SAMLBinding(str, Enum):
     """
     allowed enum values
     """
-    SAML_BINDING_UNSPECIFIED = "SAML_BINDING_UNSPECIFIED"
-    SAML_BINDING_POST = "SAML_BINDING_POST"
-    SAML_BINDING_REDIRECT = "SAML_BINDING_REDIRECT"
-    SAML_BINDING_ARTIFACT = "SAML_BINDING_ARTIFACT"
+    SAML_BINDING_UNSPECIFIED = 'SAML_BINDING_UNSPECIFIED'
+    SAML_BINDING_POST = 'SAML_BINDING_POST'
+    SAML_BINDING_REDIRECT = 'SAML_BINDING_REDIRECT'
+    SAML_BINDING_ARTIFACT = 'SAML_BINDING_ARTIFACT'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

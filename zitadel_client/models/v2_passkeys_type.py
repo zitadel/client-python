@@ -13,10 +13,8 @@
 
 
 from __future__ import annotations
-
 import json
 from enum import Enum
-
 from typing_extensions import Self
 
 
@@ -28,8 +26,8 @@ class V2PasskeysType(str, Enum):
     """
     allowed enum values
     """
-    PASSKEYS_TYPE_NOT_ALLOWED = "PASSKEYS_TYPE_NOT_ALLOWED"
-    PASSKEYS_TYPE_ALLOWED = "PASSKEYS_TYPE_ALLOWED"
+    PASSKEYS_TYPE_NOT_ALLOWED = 'PASSKEYS_TYPE_NOT_ALLOWED'
+    PASSKEYS_TYPE_ALLOWED = 'PASSKEYS_TYPE_ALLOWED'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

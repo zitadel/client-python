@@ -13,17 +13,15 @@
 
 
 from __future__ import annotations
-
-import json
 import pprint
 import re  # noqa: F401
-from typing import Any, ClassVar, Dict, List, Optional, Set
+import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool
-from typing_extensions import Self
-
+from typing import Any, ClassVar, Dict, List, Optional
 from zitadel_client.models.v2_auto_linking_option import V2AutoLinkingOption
-
+from typing import Optional, Set
+from typing_extensions import Self
 
 class Zitadelidpv2Options1(BaseModel):
     """

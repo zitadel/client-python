@@ -13,10 +13,8 @@
 
 
 from __future__ import annotations
-
 import json
 from enum import Enum
-
 from typing_extensions import Self
 
 
@@ -28,10 +26,10 @@ class V2ThemeMode(str, Enum):
     """
     allowed enum values
     """
-    THEME_MODE_UNSPECIFIED = "THEME_MODE_UNSPECIFIED"
-    THEME_MODE_AUTO = "THEME_MODE_AUTO"
-    THEME_MODE_LIGHT = "THEME_MODE_LIGHT"
-    THEME_MODE_DARK = "THEME_MODE_DARK"
+    THEME_MODE_UNSPECIFIED = 'THEME_MODE_UNSPECIFIED'
+    THEME_MODE_AUTO = 'THEME_MODE_AUTO'
+    THEME_MODE_LIGHT = 'THEME_MODE_LIGHT'
+    THEME_MODE_DARK = 'THEME_MODE_DARK'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

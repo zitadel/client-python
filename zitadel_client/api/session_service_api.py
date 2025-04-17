@@ -11,19 +11,16 @@
     Do not edit the class manually.
 """  # noqa: E501
 
+import warnings
+from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
-
-from pydantic import Field, StrictFloat, StrictInt, StrictStr, validate_call
 from typing_extensions import Annotated
 
-from zitadel_client.api_client import ApiClient, RequestSerialized
-from zitadel_client.api_response import ApiResponse
-from zitadel_client.models.session_service_delete_session_body import (
-    SessionServiceDeleteSessionBody,
-)
-from zitadel_client.models.session_service_set_session_body import (
-    SessionServiceSetSessionBody,
-)
+from pydantic import Field, StrictStr
+from typing import Optional
+from typing_extensions import Annotated
+from zitadel_client.models.session_service_delete_session_body import SessionServiceDeleteSessionBody
+from zitadel_client.models.session_service_set_session_body import SessionServiceSetSessionBody
 from zitadel_client.models.v2_create_session_request import V2CreateSessionRequest
 from zitadel_client.models.v2_create_session_response import V2CreateSessionResponse
 from zitadel_client.models.v2_delete_session_response import V2DeleteSessionResponse
@@ -31,6 +28,9 @@ from zitadel_client.models.v2_get_session_response import V2GetSessionResponse
 from zitadel_client.models.v2_list_sessions_request import V2ListSessionsRequest
 from zitadel_client.models.v2_list_sessions_response import V2ListSessionsResponse
 from zitadel_client.models.v2_set_session_response import V2SetSessionResponse
+
+from zitadel_client.api_client import ApiClient, RequestSerialized
+from zitadel_client.api_response import ApiResponse
 from zitadel_client.rest import RESTResponseType
 
 
@@ -101,9 +101,9 @@ class SessionServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2CreateSessionResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2CreateSessionResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -170,9 +170,9 @@ class SessionServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2CreateSessionResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2CreateSessionResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -239,9 +239,9 @@ class SessionServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2CreateSessionResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2CreateSessionResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -283,35 +283,35 @@ class SessionServiceApi:
 
 
         # set the HTTP header `Accept`
-        if "Accept" not in _header_params:
-            _header_params["Accept"] = self.api_client.select_header_accept(
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    "application/json"
+                    'application/json'
                 ]
             )
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params["Content-Type"] = _content_type
+            _header_params['Content-Type'] = _content_type
         else:
             _default_content_type = (
                 self.api_client.select_header_content_type(
                     [
-                        "application/json"
+                        'application/json'
                     ]
                 )
             )
             if _default_content_type is not None:
-                _header_params["Content-Type"] = _default_content_type
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
-            "zitadelAccessToken"
+            'zitadelAccessToken'
         ]
 
         return self.api_client.param_serialize(
-            method="POST",
-            resource_path="/v2/sessions",
+            method='POST',
+            resource_path='/v2/sessions',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -330,7 +330,7 @@ class SessionServiceApi:
     @validate_call
     def delete_session(
         self,
-        session_id: Annotated[StrictStr, Field(description='"id of the session to terminate"')],
+        session_id: Annotated[StrictStr, Field(description="\"id of the session to terminate\"")],
         body: SessionServiceDeleteSessionBody,
         _request_timeout: Union[
             None,
@@ -385,9 +385,9 @@ class SessionServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2DeleteSessionResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2DeleteSessionResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -403,7 +403,7 @@ class SessionServiceApi:
     @validate_call
     def delete_session_with_http_info(
         self,
-        session_id: Annotated[StrictStr, Field(description='"id of the session to terminate"')],
+        session_id: Annotated[StrictStr, Field(description="\"id of the session to terminate\"")],
         body: SessionServiceDeleteSessionBody,
         _request_timeout: Union[
             None,
@@ -458,9 +458,9 @@ class SessionServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2DeleteSessionResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2DeleteSessionResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -476,7 +476,7 @@ class SessionServiceApi:
     @validate_call
     def delete_session_without_preload_content(
         self,
-        session_id: Annotated[StrictStr, Field(description='"id of the session to terminate"')],
+        session_id: Annotated[StrictStr, Field(description="\"id of the session to terminate\"")],
         body: SessionServiceDeleteSessionBody,
         _request_timeout: Union[
             None,
@@ -531,9 +531,9 @@ class SessionServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2DeleteSessionResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2DeleteSessionResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -568,7 +568,7 @@ class SessionServiceApi:
 
         # process the path parameters
         if session_id is not None:
-            _path_params["sessionId"] = session_id
+            _path_params['sessionId'] = session_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -578,35 +578,35 @@ class SessionServiceApi:
 
 
         # set the HTTP header `Accept`
-        if "Accept" not in _header_params:
-            _header_params["Accept"] = self.api_client.select_header_accept(
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    "application/json"
+                    'application/json'
                 ]
             )
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params["Content-Type"] = _content_type
+            _header_params['Content-Type'] = _content_type
         else:
             _default_content_type = (
                 self.api_client.select_header_content_type(
                     [
-                        "application/json"
+                        'application/json'
                     ]
                 )
             )
             if _default_content_type is not None:
-                _header_params["Content-Type"] = _default_content_type
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
-            "zitadelAccessToken"
+            'zitadelAccessToken'
         ]
 
         return self.api_client.param_serialize(
-            method="DELETE",
-            resource_path="/v2/sessions/{sessionId}",
+            method='DELETE',
+            resource_path='/v2/sessions/{sessionId}',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -680,9 +680,9 @@ class SessionServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2GetSessionResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2GetSessionResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -753,9 +753,9 @@ class SessionServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2GetSessionResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2GetSessionResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -826,9 +826,9 @@ class SessionServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2GetSessionResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2GetSessionResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -863,11 +863,11 @@ class SessionServiceApi:
 
         # process the path parameters
         if session_id is not None:
-            _path_params["sessionId"] = session_id
+            _path_params['sessionId'] = session_id
         # process the query parameters
         if session_token is not None:
             
-            _query_params.append(("sessionToken", session_token))
+            _query_params.append(('sessionToken', session_token))
             
         # process the header parameters
         # process the form parameters
@@ -875,22 +875,22 @@ class SessionServiceApi:
 
 
         # set the HTTP header `Accept`
-        if "Accept" not in _header_params:
-            _header_params["Accept"] = self.api_client.select_header_accept(
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    "application/json"
+                    'application/json'
                 ]
             )
 
 
         # authentication setting
         _auth_settings: List[str] = [
-            "zitadelAccessToken"
+            'zitadelAccessToken'
         ]
 
         return self.api_client.param_serialize(
-            method="GET",
-            resource_path="/v2/sessions/{sessionId}",
+            method='GET',
+            resource_path='/v2/sessions/{sessionId}',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -960,10 +960,10 @@ class SessionServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2ListSessionsResponse",
-            "400": "RpcStatus",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2ListSessionsResponse",
+            '400': "RpcStatus",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1030,10 +1030,10 @@ class SessionServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2ListSessionsResponse",
-            "400": "RpcStatus",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2ListSessionsResponse",
+            '400': "RpcStatus",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1100,10 +1100,10 @@ class SessionServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2ListSessionsResponse",
-            "400": "RpcStatus",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2ListSessionsResponse",
+            '400': "RpcStatus",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1145,35 +1145,35 @@ class SessionServiceApi:
 
 
         # set the HTTP header `Accept`
-        if "Accept" not in _header_params:
-            _header_params["Accept"] = self.api_client.select_header_accept(
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    "application/json"
+                    'application/json'
                 ]
             )
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params["Content-Type"] = _content_type
+            _header_params['Content-Type'] = _content_type
         else:
             _default_content_type = (
                 self.api_client.select_header_content_type(
                     [
-                        "application/json"
+                        'application/json'
                     ]
                 )
             )
             if _default_content_type is not None:
-                _header_params["Content-Type"] = _default_content_type
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
-            "zitadelAccessToken"
+            'zitadelAccessToken'
         ]
 
         return self.api_client.param_serialize(
-            method="POST",
-            resource_path="/v2/sessions/search",
+            method='POST',
+            resource_path='/v2/sessions/search',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -1192,7 +1192,7 @@ class SessionServiceApi:
     @validate_call
     def set_session(
         self,
-        session_id: Annotated[StrictStr, Field(description='"id of the session to update"')],
+        session_id: Annotated[StrictStr, Field(description="\"id of the session to update\"")],
         body: SessionServiceSetSessionBody,
         _request_timeout: Union[
             None,
@@ -1247,9 +1247,9 @@ class SessionServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2SetSessionResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2SetSessionResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1265,7 +1265,7 @@ class SessionServiceApi:
     @validate_call
     def set_session_with_http_info(
         self,
-        session_id: Annotated[StrictStr, Field(description='"id of the session to update"')],
+        session_id: Annotated[StrictStr, Field(description="\"id of the session to update\"")],
         body: SessionServiceSetSessionBody,
         _request_timeout: Union[
             None,
@@ -1320,9 +1320,9 @@ class SessionServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2SetSessionResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2SetSessionResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1338,7 +1338,7 @@ class SessionServiceApi:
     @validate_call
     def set_session_without_preload_content(
         self,
-        session_id: Annotated[StrictStr, Field(description='"id of the session to update"')],
+        session_id: Annotated[StrictStr, Field(description="\"id of the session to update\"")],
         body: SessionServiceSetSessionBody,
         _request_timeout: Union[
             None,
@@ -1393,9 +1393,9 @@ class SessionServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2SetSessionResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2SetSessionResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1430,7 +1430,7 @@ class SessionServiceApi:
 
         # process the path parameters
         if session_id is not None:
-            _path_params["sessionId"] = session_id
+            _path_params['sessionId'] = session_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -1440,35 +1440,35 @@ class SessionServiceApi:
 
 
         # set the HTTP header `Accept`
-        if "Accept" not in _header_params:
-            _header_params["Accept"] = self.api_client.select_header_accept(
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    "application/json"
+                    'application/json'
                 ]
             )
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params["Content-Type"] = _content_type
+            _header_params['Content-Type'] = _content_type
         else:
             _default_content_type = (
                 self.api_client.select_header_content_type(
                     [
-                        "application/json"
+                        'application/json'
                     ]
                 )
             )
             if _default_content_type is not None:
-                _header_params["Content-Type"] = _default_content_type
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
-            "zitadelAccessToken"
+            'zitadelAccessToken'
         ]
 
         return self.api_client.param_serialize(
-            method="PATCH",
-            resource_path="/v2/sessions/{sessionId}",
+            method='PATCH',
+            resource_path='/v2/sessions/{sessionId}',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

@@ -13,20 +13,19 @@
 
 
 from __future__ import annotations
-
-import json
 import pprint
 import re  # noqa: F401
-from typing import Any, ClassVar, Dict, List, Optional, Set
+import json
 
 from pydantic import BaseModel, ConfigDict, Field
-from typing_extensions import Annotated, Self
-
+from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 from zitadel_client.models.userv2_set_password import Userv2SetPassword
 from zitadel_client.models.v2_set_human_email1 import V2SetHumanEmail1
 from zitadel_client.models.v2_set_human_phone1 import V2SetHumanPhone1
 from zitadel_client.models.v2_set_human_profile1 import V2SetHumanProfile1
-
+from typing import Optional, Set
+from typing_extensions import Self
 
 class UserServiceUpdateHumanUserBody(BaseModel):
     """
@@ -83,16 +82,16 @@ class UserServiceUpdateHumanUserBody(BaseModel):
         )
         # override the default output from pydantic by calling `to_dict()` of profile
         if self.profile:
-            _dict["profile"] = self.profile.to_dict()
+            _dict['profile'] = self.profile.to_dict()
         # override the default output from pydantic by calling `to_dict()` of email
         if self.email:
-            _dict["email"] = self.email.to_dict()
+            _dict['email'] = self.email.to_dict()
         # override the default output from pydantic by calling `to_dict()` of phone
         if self.phone:
-            _dict["phone"] = self.phone.to_dict()
+            _dict['phone'] = self.phone.to_dict()
         # override the default output from pydantic by calling `to_dict()` of password
         if self.password:
-            _dict["password"] = self.password.to_dict()
+            _dict['password'] = self.password.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():

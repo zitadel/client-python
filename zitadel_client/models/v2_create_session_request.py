@@ -13,29 +13,28 @@
 
 
 from __future__ import annotations
-
-import json
 import pprint
 import re  # noqa: F401
-from typing import Any, ClassVar, Dict, List, Optional, Set, Union
+import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing_extensions import Annotated, Self
-
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from typing_extensions import Annotated
 from zitadel_client.models.v2_checks import V2Checks
 from zitadel_client.models.v2_request_challenges import V2RequestChallenges
 from zitadel_client.models.v2_user_agent import V2UserAgent
-
+from typing import Optional, Set
+from typing_extensions import Self
 
 class V2CreateSessionRequest(BaseModel):
     """
     V2CreateSessionRequest
     """ # noqa: E501
     checks: Optional[V2Checks] = None
-    metadata: Optional[Dict[str, Union[Annotated[bytes, Field(strict=True)], Annotated[str, Field(strict=True)]]]] = Field(default=None, description='"custom key value list to be stored on the session"')
+    metadata: Optional[Dict[str, Union[Annotated[bytes, Field(strict=True)], Annotated[str, Field(strict=True)]]]] = Field(default=None, description="\"custom key value list to be stored on the session\"")
     challenges: Optional[V2RequestChallenges] = None
     user_agent: Optional[V2UserAgent] = Field(default=None, alias="userAgent")
-    lifetime: Optional[StrictStr] = Field(default=None, description='"duration (in seconds) after which the session will be automatically invalidated"')
+    lifetime: Optional[StrictStr] = Field(default=None, description="\"duration (in seconds) after which the session will be automatically invalidated\"")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["checks", "metadata", "challenges", "userAgent", "lifetime"]
 
@@ -82,13 +81,13 @@ class V2CreateSessionRequest(BaseModel):
         )
         # override the default output from pydantic by calling `to_dict()` of checks
         if self.checks:
-            _dict["checks"] = self.checks.to_dict()
+            _dict['checks'] = self.checks.to_dict()
         # override the default output from pydantic by calling `to_dict()` of challenges
         if self.challenges:
-            _dict["challenges"] = self.challenges.to_dict()
+            _dict['challenges'] = self.challenges.to_dict()
         # override the default output from pydantic by calling `to_dict()` of user_agent
         if self.user_agent:
-            _dict["userAgent"] = self.user_agent.to_dict()
+            _dict['userAgent'] = self.user_agent.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():

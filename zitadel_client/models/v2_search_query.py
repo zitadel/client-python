@@ -13,21 +13,19 @@
 
 
 from __future__ import annotations
-
-import json
 import pprint
 import re  # noqa: F401
-from typing import Any, ClassVar, Dict, List, Optional, Set
+import json
 
 from pydantic import BaseModel, ConfigDict, Field
-from typing_extensions import Self
-
+from typing import Any, ClassVar, Dict, List, Optional
 from zitadel_client.models.v2_creation_date_query import V2CreationDateQuery
 from zitadel_client.models.v2_creator_query import V2CreatorQuery
 from zitadel_client.models.v2_ids_query import V2IDsQuery
 from zitadel_client.models.v2_user_agent_query import V2UserAgentQuery
 from zitadel_client.models.v2_user_id_query import V2UserIDQuery
-
+from typing import Optional, Set
+from typing_extensions import Self
 
 class V2SearchQuery(BaseModel):
     """
@@ -84,19 +82,19 @@ class V2SearchQuery(BaseModel):
         )
         # override the default output from pydantic by calling `to_dict()` of ids_query
         if self.ids_query:
-            _dict["idsQuery"] = self.ids_query.to_dict()
+            _dict['idsQuery'] = self.ids_query.to_dict()
         # override the default output from pydantic by calling `to_dict()` of user_id_query
         if self.user_id_query:
-            _dict["userIdQuery"] = self.user_id_query.to_dict()
+            _dict['userIdQuery'] = self.user_id_query.to_dict()
         # override the default output from pydantic by calling `to_dict()` of creation_date_query
         if self.creation_date_query:
-            _dict["creationDateQuery"] = self.creation_date_query.to_dict()
+            _dict['creationDateQuery'] = self.creation_date_query.to_dict()
         # override the default output from pydantic by calling `to_dict()` of creator_query
         if self.creator_query:
-            _dict["creatorQuery"] = self.creator_query.to_dict()
+            _dict['creatorQuery'] = self.creator_query.to_dict()
         # override the default output from pydantic by calling `to_dict()` of user_agent_query
         if self.user_agent_query:
-            _dict["userAgentQuery"] = self.user_agent_query.to_dict()
+            _dict['userAgentQuery'] = self.user_agent_query.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():

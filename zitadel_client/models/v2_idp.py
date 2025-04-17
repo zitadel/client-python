@@ -13,20 +13,18 @@
 
 
 from __future__ import annotations
-
-import json
 import pprint
 import re  # noqa: F401
-from typing import Any, ClassVar, Dict, List, Optional, Set
+import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing_extensions import Self
-
+from typing import Any, ClassVar, Dict, List, Optional
 from zitadel_client.models.v2_details import V2Details
 from zitadel_client.models.v2_idp_config import V2IDPConfig
 from zitadel_client.models.v2_idp_state import V2IDPState
 from zitadel_client.models.v2_idp_type import V2IDPType
-
+from typing import Optional, Set
+from typing_extensions import Self
 
 class V2IDP(BaseModel):
     """
@@ -84,10 +82,10 @@ class V2IDP(BaseModel):
         )
         # override the default output from pydantic by calling `to_dict()` of details
         if self.details:
-            _dict["details"] = self.details.to_dict()
+            _dict['details'] = self.details.to_dict()
         # override the default output from pydantic by calling `to_dict()` of config
         if self.config:
-            _dict["config"] = self.config.to_dict()
+            _dict['config'] = self.config.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():

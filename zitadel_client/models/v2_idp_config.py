@@ -13,22 +13,17 @@
 
 
 from __future__ import annotations
-
-import json
 import pprint
 import re  # noqa: F401
-from typing import Any, ClassVar, Dict, List, Optional, Set
+import json
 
 from pydantic import BaseModel, ConfigDict, Field
-from typing_extensions import Self
-
+from typing import Any, ClassVar, Dict, List, Optional
 from zitadel_client.models.v2_apple_config import V2AppleConfig
 from zitadel_client.models.v2_azure_ad_config import V2AzureADConfig
 from zitadel_client.models.v2_generic_oidc_config import V2GenericOIDCConfig
 from zitadel_client.models.v2_git_hub_config import V2GitHubConfig
-from zitadel_client.models.v2_git_hub_enterprise_server_config import (
-    V2GitHubEnterpriseServerConfig,
-)
+from zitadel_client.models.v2_git_hub_enterprise_server_config import V2GitHubEnterpriseServerConfig
 from zitadel_client.models.v2_git_lab_config import V2GitLabConfig
 from zitadel_client.models.v2_git_lab_self_hosted_config import V2GitLabSelfHostedConfig
 from zitadel_client.models.v2_google_config import V2GoogleConfig
@@ -37,7 +32,8 @@ from zitadel_client.models.v2_ldap_config import V2LDAPConfig
 from zitadel_client.models.v2_o_auth_config import V2OAuthConfig
 from zitadel_client.models.v2_saml_config import V2SAMLConfig
 from zitadel_client.models.zitadelidpv2_options import Zitadelidpv2Options
-
+from typing import Optional, Set
+from typing_extensions import Self
 
 class V2IDPConfig(BaseModel):
     """
@@ -102,43 +98,43 @@ class V2IDPConfig(BaseModel):
         )
         # override the default output from pydantic by calling `to_dict()` of options
         if self.options:
-            _dict["options"] = self.options.to_dict()
+            _dict['options'] = self.options.to_dict()
         # override the default output from pydantic by calling `to_dict()` of ldap
         if self.ldap:
-            _dict["ldap"] = self.ldap.to_dict()
+            _dict['ldap'] = self.ldap.to_dict()
         # override the default output from pydantic by calling `to_dict()` of google
         if self.google:
-            _dict["google"] = self.google.to_dict()
+            _dict['google'] = self.google.to_dict()
         # override the default output from pydantic by calling `to_dict()` of oauth
         if self.oauth:
-            _dict["oauth"] = self.oauth.to_dict()
+            _dict['oauth'] = self.oauth.to_dict()
         # override the default output from pydantic by calling `to_dict()` of oidc
         if self.oidc:
-            _dict["oidc"] = self.oidc.to_dict()
+            _dict['oidc'] = self.oidc.to_dict()
         # override the default output from pydantic by calling `to_dict()` of jwt
         if self.jwt:
-            _dict["jwt"] = self.jwt.to_dict()
+            _dict['jwt'] = self.jwt.to_dict()
         # override the default output from pydantic by calling `to_dict()` of github
         if self.github:
-            _dict["github"] = self.github.to_dict()
+            _dict['github'] = self.github.to_dict()
         # override the default output from pydantic by calling `to_dict()` of github_es
         if self.github_es:
-            _dict["githubEs"] = self.github_es.to_dict()
+            _dict['githubEs'] = self.github_es.to_dict()
         # override the default output from pydantic by calling `to_dict()` of gitlab
         if self.gitlab:
-            _dict["gitlab"] = self.gitlab.to_dict()
+            _dict['gitlab'] = self.gitlab.to_dict()
         # override the default output from pydantic by calling `to_dict()` of gitlab_self_hosted
         if self.gitlab_self_hosted:
-            _dict["gitlabSelfHosted"] = self.gitlab_self_hosted.to_dict()
+            _dict['gitlabSelfHosted'] = self.gitlab_self_hosted.to_dict()
         # override the default output from pydantic by calling `to_dict()` of azure_ad
         if self.azure_ad:
-            _dict["azureAd"] = self.azure_ad.to_dict()
+            _dict['azureAd'] = self.azure_ad.to_dict()
         # override the default output from pydantic by calling `to_dict()` of apple
         if self.apple:
-            _dict["apple"] = self.apple.to_dict()
+            _dict['apple'] = self.apple.to_dict()
         # override the default output from pydantic by calling `to_dict()` of saml
         if self.saml:
-            _dict["saml"] = self.saml.to_dict()
+            _dict['saml'] = self.saml.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():

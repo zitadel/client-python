@@ -13,21 +13,20 @@
 
 
 from __future__ import annotations
-
-import json
 import pprint
 import re  # noqa: F401
-from typing import Any, ClassVar, Dict, List, Optional, Set
+import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional
+from typing import Optional, Set
 from typing_extensions import Self
-
 
 class SessionServiceDeleteSessionBody(BaseModel):
     """
     SessionServiceDeleteSessionBody
     """ # noqa: E501
-    session_token: Optional[StrictStr] = Field(default=None, description='"The current token of the session, previously returned on the create / update request. The token is required unless the authenticated user terminates the own session or is granted the `session.delete` permission."', alias="sessionToken")
+    session_token: Optional[StrictStr] = Field(default=None, description="\"The current token of the session, previously returned on the create / update request. The token is required unless the authenticated user terminates the own session or is granted the `session.delete` permission.\"", alias="sessionToken")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["sessionToken"]
 

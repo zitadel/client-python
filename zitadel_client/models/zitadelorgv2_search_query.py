@@ -13,20 +13,18 @@
 
 
 from __future__ import annotations
-
-import json
 import pprint
 import re  # noqa: F401
-from typing import Any, ClassVar, Dict, List, Optional, Set
+import json
 
 from pydantic import BaseModel, ConfigDict, Field
-from typing_extensions import Self
-
+from typing import Any, ClassVar, Dict, List, Optional
 from zitadel_client.models.v2_organization_domain_query import V2OrganizationDomainQuery
 from zitadel_client.models.v2_organization_id_query import V2OrganizationIDQuery
 from zitadel_client.models.v2_organization_name_query import V2OrganizationNameQuery
 from zitadel_client.models.v2_organization_state_query import V2OrganizationStateQuery
-
+from typing import Optional, Set
+from typing_extensions import Self
 
 class Zitadelorgv2SearchQuery(BaseModel):
     """
@@ -83,16 +81,16 @@ class Zitadelorgv2SearchQuery(BaseModel):
         )
         # override the default output from pydantic by calling `to_dict()` of name_query
         if self.name_query:
-            _dict["nameQuery"] = self.name_query.to_dict()
+            _dict['nameQuery'] = self.name_query.to_dict()
         # override the default output from pydantic by calling `to_dict()` of domain_query
         if self.domain_query:
-            _dict["domainQuery"] = self.domain_query.to_dict()
+            _dict['domainQuery'] = self.domain_query.to_dict()
         # override the default output from pydantic by calling `to_dict()` of state_query
         if self.state_query:
-            _dict["stateQuery"] = self.state_query.to_dict()
+            _dict['stateQuery'] = self.state_query.to_dict()
         # override the default output from pydantic by calling `to_dict()` of id_query
         if self.id_query:
-            _dict["idQuery"] = self.id_query.to_dict()
+            _dict['idQuery'] = self.id_query.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():

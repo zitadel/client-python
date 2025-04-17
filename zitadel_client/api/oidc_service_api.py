@@ -13,14 +13,13 @@
 
 from typing import Any, Dict, List, Optional, Tuple, Union
 
-from pydantic import Field, StrictFloat, StrictInt, StrictStr, validate_call
+from pydantic import Field, StrictStr
+from pydantic import validate_call, StrictFloat, StrictInt
 from typing_extensions import Annotated
 
 from zitadel_client.api_client import ApiClient, RequestSerialized
 from zitadel_client.api_response import ApiResponse
-from zitadel_client.models.oidc_service_create_callback_body import (
-    OIDCServiceCreateCallbackBody,
-)
+from zitadel_client.models.oidc_service_create_callback_body import OIDCServiceCreateCallbackBody
 from zitadel_client.models.v2_create_callback_response import V2CreateCallbackResponse
 from zitadel_client.models.v2_get_auth_request_response import V2GetAuthRequestResponse
 from zitadel_client.rest import RESTResponseType
@@ -97,9 +96,9 @@ class OIDCServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2CreateCallbackResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2CreateCallbackResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -170,9 +169,9 @@ class OIDCServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2CreateCallbackResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2CreateCallbackResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -243,9 +242,9 @@ class OIDCServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2CreateCallbackResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2CreateCallbackResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -280,7 +279,7 @@ class OIDCServiceApi:
 
         # process the path parameters
         if auth_request_id is not None:
-            _path_params["authRequestId"] = auth_request_id
+            _path_params['authRequestId'] = auth_request_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -290,35 +289,35 @@ class OIDCServiceApi:
 
 
         # set the HTTP header `Accept`
-        if "Accept" not in _header_params:
-            _header_params["Accept"] = self.api_client.select_header_accept(
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    "application/json"
+                    'application/json'
                 ]
             )
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params["Content-Type"] = _content_type
+            _header_params['Content-Type'] = _content_type
         else:
             _default_content_type = (
                 self.api_client.select_header_content_type(
                     [
-                        "application/json"
+                        'application/json'
                     ]
                 )
             )
             if _default_content_type is not None:
-                _header_params["Content-Type"] = _default_content_type
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
-            "zitadelAccessToken"
+            'zitadelAccessToken'
         ]
 
         return self.api_client.param_serialize(
-            method="POST",
-            resource_path="/v2/oidc/auth_requests/{authRequestId}",
+            method='POST',
+            resource_path='/v2/oidc/auth_requests/{authRequestId}',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -388,9 +387,9 @@ class OIDCServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2GetAuthRequestResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2GetAuthRequestResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -457,9 +456,9 @@ class OIDCServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2GetAuthRequestResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2GetAuthRequestResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -526,9 +525,9 @@ class OIDCServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2GetAuthRequestResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2GetAuthRequestResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -562,7 +561,7 @@ class OIDCServiceApi:
 
         # process the path parameters
         if auth_request_id is not None:
-            _path_params["authRequestId"] = auth_request_id
+            _path_params['authRequestId'] = auth_request_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -570,22 +569,22 @@ class OIDCServiceApi:
 
 
         # set the HTTP header `Accept`
-        if "Accept" not in _header_params:
-            _header_params["Accept"] = self.api_client.select_header_accept(
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    "application/json"
+                    'application/json'
                 ]
             )
 
 
         # authentication setting
         _auth_settings: List[str] = [
-            "zitadelAccessToken"
+            'zitadelAccessToken'
         ]
 
         return self.api_client.param_serialize(
-            method="GET",
-            resource_path="/v2/oidc/auth_requests/{authRequestId}",
+            method='GET',
+            resource_path='/v2/oidc/auth_requests/{authRequestId}',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

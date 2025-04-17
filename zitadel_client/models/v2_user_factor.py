@@ -13,26 +13,25 @@
 
 
 from __future__ import annotations
-
-import json
 import pprint
 import re  # noqa: F401
+import json
+
 from datetime import datetime
-from typing import Any, ClassVar, Dict, List, Optional, Set
-
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional
+from typing import Optional, Set
 from typing_extensions import Self
-
 
 class V2UserFactor(BaseModel):
     """
     V2UserFactor
     """ # noqa: E501
-    verified_at: Optional[datetime] = Field(default=None, description='"time when the user was last checked"', alias="verifiedAt")
-    id: Optional[StrictStr] = Field(default=None, description='"id of the checked user"')
-    login_name: Optional[StrictStr] = Field(default=None, description='"login name of the checked user"', alias="loginName")
-    display_name: Optional[StrictStr] = Field(default=None, description='"display name of the checked user"', alias="displayName")
-    organization_id: Optional[StrictStr] = Field(default=None, description='"organization id of the checked user"', alias="organizationId")
+    verified_at: Optional[datetime] = Field(default=None, description="\"time when the user was last checked\"", alias="verifiedAt")
+    id: Optional[StrictStr] = Field(default=None, description="\"id of the checked user\"")
+    login_name: Optional[StrictStr] = Field(default=None, description="\"login name of the checked user\"", alias="loginName")
+    display_name: Optional[StrictStr] = Field(default=None, description="\"display name of the checked user\"", alias="displayName")
+    organization_id: Optional[StrictStr] = Field(default=None, description="\"organization id of the checked user\"", alias="organizationId")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["verifiedAt", "id", "loginName", "displayName", "organizationId"]
 

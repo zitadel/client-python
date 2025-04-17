@@ -13,21 +13,21 @@
 
 
 from __future__ import annotations
-
-import json
 import pprint
 import re  # noqa: F401
-from typing import Any, ClassVar, Dict, List, Optional, Set
+import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool
-from typing_extensions import Annotated, Self
-
+from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
+from typing import Optional, Set
+from typing_extensions import Self
 
 class V2HashedPassword(BaseModel):
     """
     V2HashedPassword
     """ # noqa: E501
-    hash: Annotated[str, Field(min_length=1, strict=True, max_length=200)] = Field(description='"Encoded hash of a password in Modular Crypt Format: https://zitadel.com/docs/concepts/architecture/secrets#hashed-secrets"')
+    hash: Annotated[str, Field(min_length=1, strict=True, max_length=200)] = Field(description="\"Encoded hash of a password in Modular Crypt Format: https://zitadel.com/docs/concepts/architecture/secrets#hashed-secrets\"")
     change_required: Optional[StrictBool] = Field(default=None, alias="changeRequired")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["hash", "changeRequired"]

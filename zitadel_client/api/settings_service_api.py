@@ -11,40 +11,25 @@
     Do not edit the class manually.
 """  # noqa: E501
 
+import warnings
+from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
-
-from pydantic import Field, StrictBool, StrictFloat, StrictInt, StrictStr, validate_call
 from typing_extensions import Annotated
+
+from pydantic import StrictBool, StrictStr
+from typing import Optional
+from zitadel_client.models.v2_get_active_identity_providers_response import V2GetActiveIdentityProvidersResponse
+from zitadel_client.models.v2_get_branding_settings_response import V2GetBrandingSettingsResponse
+from zitadel_client.models.v2_get_domain_settings_response import V2GetDomainSettingsResponse
+from zitadel_client.models.v2_get_general_settings_response import V2GetGeneralSettingsResponse
+from zitadel_client.models.v2_get_legal_and_support_settings_response import V2GetLegalAndSupportSettingsResponse
+from zitadel_client.models.v2_get_lockout_settings_response import V2GetLockoutSettingsResponse
+from zitadel_client.models.v2_get_login_settings_response import V2GetLoginSettingsResponse
+from zitadel_client.models.v2_get_password_complexity_settings_response import V2GetPasswordComplexitySettingsResponse
+from zitadel_client.models.v2_get_password_expiry_settings_response import V2GetPasswordExpirySettingsResponse
 
 from zitadel_client.api_client import ApiClient, RequestSerialized
 from zitadel_client.api_response import ApiResponse
-from zitadel_client.models.v2_get_active_identity_providers_response import (
-    V2GetActiveIdentityProvidersResponse,
-)
-from zitadel_client.models.v2_get_branding_settings_response import (
-    V2GetBrandingSettingsResponse,
-)
-from zitadel_client.models.v2_get_domain_settings_response import (
-    V2GetDomainSettingsResponse,
-)
-from zitadel_client.models.v2_get_general_settings_response import (
-    V2GetGeneralSettingsResponse,
-)
-from zitadel_client.models.v2_get_legal_and_support_settings_response import (
-    V2GetLegalAndSupportSettingsResponse,
-)
-from zitadel_client.models.v2_get_lockout_settings_response import (
-    V2GetLockoutSettingsResponse,
-)
-from zitadel_client.models.v2_get_login_settings_response import (
-    V2GetLoginSettingsResponse,
-)
-from zitadel_client.models.v2_get_password_complexity_settings_response import (
-    V2GetPasswordComplexitySettingsResponse,
-)
-from zitadel_client.models.v2_get_password_expiry_settings_response import (
-    V2GetPasswordExpirySettingsResponse,
-)
 from zitadel_client.rest import RESTResponseType
 
 
@@ -135,9 +120,9 @@ class SettingsServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2GetActiveIdentityProvidersResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2GetActiveIdentityProvidersResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -224,9 +209,9 @@ class SettingsServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2GetActiveIdentityProvidersResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2GetActiveIdentityProvidersResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -313,9 +298,9 @@ class SettingsServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2GetActiveIdentityProvidersResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2GetActiveIdentityProvidersResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -356,27 +341,27 @@ class SettingsServiceApi:
         # process the query parameters
         if ctx_org_id is not None:
             
-            _query_params.append(("ctx.orgId", ctx_org_id))
+            _query_params.append(('ctx.orgId', ctx_org_id))
             
         if ctx_instance is not None:
             
-            _query_params.append(("ctx.instance", ctx_instance))
+            _query_params.append(('ctx.instance', ctx_instance))
             
         if creation_allowed is not None:
             
-            _query_params.append(("creationAllowed", creation_allowed))
+            _query_params.append(('creationAllowed', creation_allowed))
             
         if linking_allowed is not None:
             
-            _query_params.append(("linkingAllowed", linking_allowed))
+            _query_params.append(('linkingAllowed', linking_allowed))
             
         if auto_creation is not None:
             
-            _query_params.append(("autoCreation", auto_creation))
+            _query_params.append(('autoCreation', auto_creation))
             
         if auto_linking is not None:
             
-            _query_params.append(("autoLinking", auto_linking))
+            _query_params.append(('autoLinking', auto_linking))
             
         # process the header parameters
         # process the form parameters
@@ -384,22 +369,22 @@ class SettingsServiceApi:
 
 
         # set the HTTP header `Accept`
-        if "Accept" not in _header_params:
-            _header_params["Accept"] = self.api_client.select_header_accept(
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    "application/json"
+                    'application/json'
                 ]
             )
 
 
         # authentication setting
         _auth_settings: List[str] = [
-            "zitadelAccessToken"
+            'zitadelAccessToken'
         ]
 
         return self.api_client.param_serialize(
-            method="GET",
-            resource_path="/v2/settings/login/idps",
+            method='GET',
+            resource_path='/v2/settings/login/idps',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -473,9 +458,9 @@ class SettingsServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2GetBrandingSettingsResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2GetBrandingSettingsResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -546,9 +531,9 @@ class SettingsServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2GetBrandingSettingsResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2GetBrandingSettingsResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -619,9 +604,9 @@ class SettingsServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2GetBrandingSettingsResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2GetBrandingSettingsResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -658,11 +643,11 @@ class SettingsServiceApi:
         # process the query parameters
         if ctx_org_id is not None:
             
-            _query_params.append(("ctx.orgId", ctx_org_id))
+            _query_params.append(('ctx.orgId', ctx_org_id))
             
         if ctx_instance is not None:
             
-            _query_params.append(("ctx.instance", ctx_instance))
+            _query_params.append(('ctx.instance', ctx_instance))
             
         # process the header parameters
         # process the form parameters
@@ -670,22 +655,22 @@ class SettingsServiceApi:
 
 
         # set the HTTP header `Accept`
-        if "Accept" not in _header_params:
-            _header_params["Accept"] = self.api_client.select_header_accept(
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    "application/json"
+                    'application/json'
                 ]
             )
 
 
         # authentication setting
         _auth_settings: List[str] = [
-            "zitadelAccessToken"
+            'zitadelAccessToken'
         ]
 
         return self.api_client.param_serialize(
-            method="GET",
-            resource_path="/v2/settings/branding",
+            method='GET',
+            resource_path='/v2/settings/branding',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -759,9 +744,9 @@ class SettingsServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2GetDomainSettingsResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2GetDomainSettingsResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -832,9 +817,9 @@ class SettingsServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2GetDomainSettingsResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2GetDomainSettingsResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -905,9 +890,9 @@ class SettingsServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2GetDomainSettingsResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2GetDomainSettingsResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -944,11 +929,11 @@ class SettingsServiceApi:
         # process the query parameters
         if ctx_org_id is not None:
             
-            _query_params.append(("ctx.orgId", ctx_org_id))
+            _query_params.append(('ctx.orgId', ctx_org_id))
             
         if ctx_instance is not None:
             
-            _query_params.append(("ctx.instance", ctx_instance))
+            _query_params.append(('ctx.instance', ctx_instance))
             
         # process the header parameters
         # process the form parameters
@@ -956,22 +941,22 @@ class SettingsServiceApi:
 
 
         # set the HTTP header `Accept`
-        if "Accept" not in _header_params:
-            _header_params["Accept"] = self.api_client.select_header_accept(
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    "application/json"
+                    'application/json'
                 ]
             )
 
 
         # authentication setting
         _auth_settings: List[str] = [
-            "zitadelAccessToken"
+            'zitadelAccessToken'
         ]
 
         return self.api_client.param_serialize(
-            method="GET",
-            resource_path="/v2/settings/domain",
+            method='GET',
+            resource_path='/v2/settings/domain',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -1037,9 +1022,9 @@ class SettingsServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2GetGeneralSettingsResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2GetGeneralSettingsResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1102,9 +1087,9 @@ class SettingsServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2GetGeneralSettingsResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2GetGeneralSettingsResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1167,9 +1152,9 @@ class SettingsServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2GetGeneralSettingsResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2GetGeneralSettingsResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1208,22 +1193,22 @@ class SettingsServiceApi:
 
 
         # set the HTTP header `Accept`
-        if "Accept" not in _header_params:
-            _header_params["Accept"] = self.api_client.select_header_accept(
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    "application/json"
+                    'application/json'
                 ]
             )
 
 
         # authentication setting
         _auth_settings: List[str] = [
-            "zitadelAccessToken"
+            'zitadelAccessToken'
         ]
 
         return self.api_client.param_serialize(
-            method="GET",
-            resource_path="/v2/settings",
+            method='GET',
+            resource_path='/v2/settings',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -1297,9 +1282,9 @@ class SettingsServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2GetLegalAndSupportSettingsResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2GetLegalAndSupportSettingsResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1370,9 +1355,9 @@ class SettingsServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2GetLegalAndSupportSettingsResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2GetLegalAndSupportSettingsResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1443,9 +1428,9 @@ class SettingsServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2GetLegalAndSupportSettingsResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2GetLegalAndSupportSettingsResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1482,11 +1467,11 @@ class SettingsServiceApi:
         # process the query parameters
         if ctx_org_id is not None:
             
-            _query_params.append(("ctx.orgId", ctx_org_id))
+            _query_params.append(('ctx.orgId', ctx_org_id))
             
         if ctx_instance is not None:
             
-            _query_params.append(("ctx.instance", ctx_instance))
+            _query_params.append(('ctx.instance', ctx_instance))
             
         # process the header parameters
         # process the form parameters
@@ -1494,22 +1479,22 @@ class SettingsServiceApi:
 
 
         # set the HTTP header `Accept`
-        if "Accept" not in _header_params:
-            _header_params["Accept"] = self.api_client.select_header_accept(
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    "application/json"
+                    'application/json'
                 ]
             )
 
 
         # authentication setting
         _auth_settings: List[str] = [
-            "zitadelAccessToken"
+            'zitadelAccessToken'
         ]
 
         return self.api_client.param_serialize(
-            method="GET",
-            resource_path="/v2/settings/legal_support",
+            method='GET',
+            resource_path='/v2/settings/legal_support',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -1583,9 +1568,9 @@ class SettingsServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2GetLockoutSettingsResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2GetLockoutSettingsResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1656,9 +1641,9 @@ class SettingsServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2GetLockoutSettingsResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2GetLockoutSettingsResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1729,9 +1714,9 @@ class SettingsServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2GetLockoutSettingsResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2GetLockoutSettingsResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1768,11 +1753,11 @@ class SettingsServiceApi:
         # process the query parameters
         if ctx_org_id is not None:
             
-            _query_params.append(("ctx.orgId", ctx_org_id))
+            _query_params.append(('ctx.orgId', ctx_org_id))
             
         if ctx_instance is not None:
             
-            _query_params.append(("ctx.instance", ctx_instance))
+            _query_params.append(('ctx.instance', ctx_instance))
             
         # process the header parameters
         # process the form parameters
@@ -1780,22 +1765,22 @@ class SettingsServiceApi:
 
 
         # set the HTTP header `Accept`
-        if "Accept" not in _header_params:
-            _header_params["Accept"] = self.api_client.select_header_accept(
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    "application/json"
+                    'application/json'
                 ]
             )
 
 
         # authentication setting
         _auth_settings: List[str] = [
-            "zitadelAccessToken"
+            'zitadelAccessToken'
         ]
 
         return self.api_client.param_serialize(
-            method="GET",
-            resource_path="/v2/settings/lockout",
+            method='GET',
+            resource_path='/v2/settings/lockout',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -1869,9 +1854,9 @@ class SettingsServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2GetLoginSettingsResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2GetLoginSettingsResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1942,9 +1927,9 @@ class SettingsServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2GetLoginSettingsResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2GetLoginSettingsResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2015,9 +2000,9 @@ class SettingsServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2GetLoginSettingsResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2GetLoginSettingsResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2054,11 +2039,11 @@ class SettingsServiceApi:
         # process the query parameters
         if ctx_org_id is not None:
             
-            _query_params.append(("ctx.orgId", ctx_org_id))
+            _query_params.append(('ctx.orgId', ctx_org_id))
             
         if ctx_instance is not None:
             
-            _query_params.append(("ctx.instance", ctx_instance))
+            _query_params.append(('ctx.instance', ctx_instance))
             
         # process the header parameters
         # process the form parameters
@@ -2066,22 +2051,22 @@ class SettingsServiceApi:
 
 
         # set the HTTP header `Accept`
-        if "Accept" not in _header_params:
-            _header_params["Accept"] = self.api_client.select_header_accept(
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    "application/json"
+                    'application/json'
                 ]
             )
 
 
         # authentication setting
         _auth_settings: List[str] = [
-            "zitadelAccessToken"
+            'zitadelAccessToken'
         ]
 
         return self.api_client.param_serialize(
-            method="GET",
-            resource_path="/v2/settings/login",
+            method='GET',
+            resource_path='/v2/settings/login',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -2155,9 +2140,9 @@ class SettingsServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2GetPasswordComplexitySettingsResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2GetPasswordComplexitySettingsResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2228,9 +2213,9 @@ class SettingsServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2GetPasswordComplexitySettingsResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2GetPasswordComplexitySettingsResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2301,9 +2286,9 @@ class SettingsServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2GetPasswordComplexitySettingsResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2GetPasswordComplexitySettingsResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2340,11 +2325,11 @@ class SettingsServiceApi:
         # process the query parameters
         if ctx_org_id is not None:
             
-            _query_params.append(("ctx.orgId", ctx_org_id))
+            _query_params.append(('ctx.orgId', ctx_org_id))
             
         if ctx_instance is not None:
             
-            _query_params.append(("ctx.instance", ctx_instance))
+            _query_params.append(('ctx.instance', ctx_instance))
             
         # process the header parameters
         # process the form parameters
@@ -2352,22 +2337,22 @@ class SettingsServiceApi:
 
 
         # set the HTTP header `Accept`
-        if "Accept" not in _header_params:
-            _header_params["Accept"] = self.api_client.select_header_accept(
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    "application/json"
+                    'application/json'
                 ]
             )
 
 
         # authentication setting
         _auth_settings: List[str] = [
-            "zitadelAccessToken"
+            'zitadelAccessToken'
         ]
 
         return self.api_client.param_serialize(
-            method="GET",
-            resource_path="/v2/settings/password/complexity",
+            method='GET',
+            resource_path='/v2/settings/password/complexity',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -2441,9 +2426,9 @@ class SettingsServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2GetPasswordExpirySettingsResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2GetPasswordExpirySettingsResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2514,9 +2499,9 @@ class SettingsServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2GetPasswordExpirySettingsResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2GetPasswordExpirySettingsResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2587,9 +2572,9 @@ class SettingsServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "V2GetPasswordExpirySettingsResponse",
-            "403": "RpcStatus",
-            "404": "RpcStatus",
+            '200': "V2GetPasswordExpirySettingsResponse",
+            '403': "RpcStatus",
+            '404': "RpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2626,11 +2611,11 @@ class SettingsServiceApi:
         # process the query parameters
         if ctx_org_id is not None:
             
-            _query_params.append(("ctx.orgId", ctx_org_id))
+            _query_params.append(('ctx.orgId', ctx_org_id))
             
         if ctx_instance is not None:
             
-            _query_params.append(("ctx.instance", ctx_instance))
+            _query_params.append(('ctx.instance', ctx_instance))
             
         # process the header parameters
         # process the form parameters
@@ -2638,22 +2623,22 @@ class SettingsServiceApi:
 
 
         # set the HTTP header `Accept`
-        if "Accept" not in _header_params:
-            _header_params["Accept"] = self.api_client.select_header_accept(
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    "application/json"
+                    'application/json'
                 ]
             )
 
 
         # authentication setting
         _auth_settings: List[str] = [
-            "zitadelAccessToken"
+            'zitadelAccessToken'
         ]
 
         return self.api_client.param_serialize(
-            method="GET",
-            resource_path="/v2/settings/password/expiry",
+            method='GET',
+            resource_path='/v2/settings/password/expiry',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

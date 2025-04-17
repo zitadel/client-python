@@ -13,15 +13,15 @@
 
 
 from __future__ import annotations
-
-import json
 import pprint
 import re  # noqa: F401
-from typing import Any, ClassVar, Dict, List, Optional, Set, Union
+import json
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
-from typing_extensions import Annotated, Self
-
+from typing import Any, ClassVar, Dict, List, Union
+from typing_extensions import Annotated
+from typing import Optional, Set
+from typing_extensions import Self
 
 class V2SetMetadataEntry1(BaseModel):
     """
@@ -32,7 +32,7 @@ class V2SetMetadataEntry1(BaseModel):
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["key", "value"]
 
-    @field_validator("value")
+    @field_validator('value')
     def value_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if not re.match(r"^(?:[A-Za-z0-9+\/]{4})*(?:[A-Za-z0-9+\/]{2}==|[A-Za-z0-9+\/]{3}=)?$", value):

@@ -13,10 +13,8 @@
 
 
 from __future__ import annotations
-
 import json
 from enum import Enum
-
 from typing_extensions import Self
 
 
@@ -28,9 +26,9 @@ class V2AutoLinkingOption(str, Enum):
     """
     allowed enum values
     """
-    AUTO_LINKING_OPTION_UNSPECIFIED = "AUTO_LINKING_OPTION_UNSPECIFIED"
-    AUTO_LINKING_OPTION_USERNAME = "AUTO_LINKING_OPTION_USERNAME"
-    AUTO_LINKING_OPTION_EMAIL = "AUTO_LINKING_OPTION_EMAIL"
+    AUTO_LINKING_OPTION_UNSPECIFIED = 'AUTO_LINKING_OPTION_UNSPECIFIED'
+    AUTO_LINKING_OPTION_USERNAME = 'AUTO_LINKING_OPTION_USERNAME'
+    AUTO_LINKING_OPTION_EMAIL = 'AUTO_LINKING_OPTION_EMAIL'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

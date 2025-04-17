@@ -13,10 +13,8 @@
 
 
 from __future__ import annotations
-
 import json
 from enum import Enum
-
 from typing_extensions import Self
 
 
@@ -28,9 +26,9 @@ class V2AzureADTenantType(str, Enum):
     """
     allowed enum values
     """
-    AZURE_AD_TENANT_TYPE_COMMON = "AZURE_AD_TENANT_TYPE_COMMON"
-    AZURE_AD_TENANT_TYPE_ORGANISATIONS = "AZURE_AD_TENANT_TYPE_ORGANISATIONS"
-    AZURE_AD_TENANT_TYPE_CONSUMERS = "AZURE_AD_TENANT_TYPE_CONSUMERS"
+    AZURE_AD_TENANT_TYPE_COMMON = 'AZURE_AD_TENANT_TYPE_COMMON'
+    AZURE_AD_TENANT_TYPE_ORGANISATIONS = 'AZURE_AD_TENANT_TYPE_ORGANISATIONS'
+    AZURE_AD_TENANT_TYPE_CONSUMERS = 'AZURE_AD_TENANT_TYPE_CONSUMERS'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

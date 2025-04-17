@@ -13,19 +13,16 @@
 
 
 from __future__ import annotations
-
-import json
 import pprint
 import re  # noqa: F401
-from typing import Any, ClassVar, Dict, List, Optional, Set
+import json
 
 from pydantic import BaseModel, ConfigDict, Field
-from typing_extensions import Annotated, Self
-
-from zitadel_client.models.add_organization_request_admin import (
-    AddOrganizationRequestAdmin,
-)
-
+from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
+from zitadel_client.models.add_organization_request_admin import AddOrganizationRequestAdmin
+from typing import Optional, Set
+from typing_extensions import Self
 
 class V2AddOrganizationRequest(BaseModel):
     """
@@ -83,7 +80,7 @@ class V2AddOrganizationRequest(BaseModel):
             for _item_admins in self.admins:
                 if _item_admins:
                     _items.append(_item_admins.to_dict())
-            _dict["admins"] = _items
+            _dict['admins'] = _items
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():

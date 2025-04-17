@@ -13,17 +13,16 @@
 
 
 from __future__ import annotations
-
-import json
 import pprint
 import re  # noqa: F401
-from typing import Any, ClassVar, Dict, List, Optional, Set
+import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing_extensions import Annotated, Self
-
+from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 from zitadel_client.models.v2_auth_factor_state import V2AuthFactorState
-
+from typing import Optional, Set
+from typing_extensions import Self
 
 class V2Passkey(BaseModel):
     """

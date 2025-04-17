@@ -13,17 +13,15 @@
 
 
 from __future__ import annotations
-
-import json
 import pprint
 import re  # noqa: F401
-from typing import Any, ClassVar, Dict, List, Optional, Set
+import json
 
 from pydantic import BaseModel, ConfigDict
-from typing_extensions import Self
-
+from typing import Any, ClassVar, Dict, List, Optional
 from zitadel_client.models.v2_auth_factor import V2AuthFactor
-
+from typing import Optional, Set
+from typing_extensions import Self
 
 class V2ListAuthenticationFactorsResponse(BaseModel):
     """
@@ -80,7 +78,7 @@ class V2ListAuthenticationFactorsResponse(BaseModel):
             for _item_result in self.result:
                 if _item_result:
                     _items.append(_item_result.to_dict())
-            _dict["result"] = _items
+            _dict['result'] = _items
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
