@@ -6,13 +6,15 @@ import os
 import re
 import tempfile
 from enum import Enum
-from typing import Tuple, Optional, List, Dict, Union, Any
+from types import TracebackType
+from typing import Tuple, Optional, List, Dict, Union, Any, TypeVar, Type, no_type_check
 from urllib.parse import quote
 
 from dateutil.parser import parse
 from pydantic import SecretStr
 
 import zitadel_client.models
+import zitadel_client.rest_response
 from zitadel_client import rest
 from zitadel_client.api_response import ApiResponse, T as ApiResponseT
 from zitadel_client.auth.no_auth_authenticator import NoAuthAuthenticator
@@ -55,8 +57,8 @@ class ApiClient:
   def __init__(
     self,
     configuration: Configuration,
-    header_name=None,
-    header_value=None,
+    header_name: Optional[str]=None,
+    header_value: Optional[str]=None,
   ) -> None:
     self.configuration = configuration
 
@@ -64,21 +66,28 @@ class ApiClient:
     self.default_headers = {
       'User-Agent': configuration.user_agent
     }
-    if header_name is not None:
+    if header_name is not None and header_value is not None:
       self.default_headers[header_name] = header_value
     self.client_side_validation = configuration.client_side_validation
 
-  def __enter__(self):
+  T = TypeVar("T", bound="ApiClient")
+  def __enter__(self: T) -> T:
     return self
 
-  def __exit__(self, exc_type, exc_value, traceback):
-    pass
+  def __exit__(
+    self,
+    exc_type: Optional[Type[BaseException]],
+    exc_value: Optional[BaseException],
+    traceback: Optional[TracebackType],
+  ) -> Optional[bool]:
+    return None
 
-  def set_default_header(self, header_name, header_value):
+  def set_default_header(self, header_name: str, header_value: str) -> None:
     self.default_headers[header_name] = header_value
 
   _default = None
 
+  @no_type_check
   def param_serialize(
     self,
     method,
@@ -173,6 +182,7 @@ class ApiClient:
 
     return method, url, header_params, body, post_params
 
+  @no_type_check
   def call_api(
     self,
     method,
@@ -181,7 +191,7 @@ class ApiClient:
     body=None,
     post_params=None,
     _request_timeout=None
-  ) -> rest.RESTResponse:
+  ) -> zitadel_client.rest_response.RESTResponse:
     """Makes the HTTP request (synchronous)
     :param post_params:
     :param method: Method to call.
@@ -209,9 +219,10 @@ class ApiClient:
 
     return response_data
 
+  @no_type_check
   def response_deserialize(
     self,
-    response_data: rest.RESTResponse,
+    response_data: zitadel_client.rest_response.RESTResponse,
     response_types_map: Optional[Dict[str, ApiResponseT]] = None
   ) -> ApiResponse[ApiResponseT]:
     """Deserializes response into an object.
@@ -259,6 +270,7 @@ class ApiClient:
           raw_data=response_data.data
         )
 
+  @no_type_check
   def sanitize_for_serialization(self, obj):
     """Builds a JSON POST object.
 
@@ -314,6 +326,7 @@ class ApiClient:
       for key, val in obj_dict.items()
     }
 
+  @no_type_check
   def deserialize(self, response_text: str, response_type: str, content_type: Optional[str]):
     """Deserializes response into an object.
 
@@ -346,6 +359,7 @@ class ApiClient:
 
     return self.__deserialize(data, response_type)
 
+  @no_type_check
   @staticmethod
   def __deserialize(data, klass):
     """Deserializes dict, list, str into an object.
@@ -394,6 +408,7 @@ class ApiClient:
     else:
       return ApiClient.__deserialize_model(data, klass)
 
+  @no_type_check
   @staticmethod
   def parameters_to_tuples(params, collection_formats):
     """Get parameters as list of tuples, formatting collections.
@@ -425,6 +440,7 @@ class ApiClient:
         new_params.append((k, v))
     return new_params
 
+  @no_type_check
   @staticmethod
   def parameters_to_url_query(params, collection_formats):
     """Get parameters as list of tuples, formatting collections.
@@ -465,6 +481,7 @@ class ApiClient:
 
     return "&".join(["=".join(map(str, item)) for item in new_params])
 
+  @no_type_check
   def files_parameters(
     self,
     files: Dict[str, Union[str, bytes, List[str], List[bytes], Tuple[str, bytes]]],
@@ -516,6 +533,7 @@ class ApiClient:
 
     return accepts[0]
 
+  @no_type_check
   @staticmethod
   def select_header_content_type(content_types):
     """Returns `Content-Type` based on an array of content_types provided.
@@ -532,6 +550,7 @@ class ApiClient:
 
     return content_types[0]
 
+  @no_type_check
   @staticmethod
   def __deserialize_file(response):
     """Deserializes body to file
@@ -564,6 +583,7 @@ class ApiClient:
 
     return path
 
+  @no_type_check
   @staticmethod
   def __deserialize_primitive(data, klass):
     """Deserializes string to primitive type.
@@ -580,6 +600,7 @@ class ApiClient:
     except TypeError:
       return data
 
+  @no_type_check
   @staticmethod
   def __deserialize_object(value):
     """Return an original value.
@@ -588,6 +609,7 @@ class ApiClient:
     """
     return value
 
+  @no_type_check
   @staticmethod
   def __deserialize_date(string):
     """Deserializes string to date.
@@ -605,6 +627,7 @@ class ApiClient:
         reason="Failed to parse `{0}` as date object".format(string)
       )
 
+  @no_type_check
   @staticmethod
   def __deserialize_datetime(string):
     """Deserializes string to datetime.
@@ -627,6 +650,7 @@ class ApiClient:
         )
       )
 
+  @no_type_check
   @staticmethod
   def __deserialize_enum(data, klass):
     """Deserializes primitive type to enum.
@@ -646,6 +670,7 @@ class ApiClient:
         )
       )
 
+  @no_type_check
   @staticmethod
   def __deserialize_model(data, klass: Any):
     """Deserializes list or dict to model.
@@ -657,6 +682,7 @@ class ApiClient:
 
     return klass.from_dict(data)
 
+  @no_type_check
   @classmethod
   def get_default(cls):
     return ApiClient(configuration=Configuration(authenticator=NoAuthAuthenticator()))

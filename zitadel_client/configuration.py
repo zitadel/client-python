@@ -30,7 +30,6 @@ class Configuration:
     """
     self._user_agent = Configuration.USER_AGENT
     self.authenticator = authenticator
-    self.api_key_prefix = {}
     self.refresh_api_key_hook = None
     self.logger = {"package_logger": logging.getLogger("zitadel_client"),
                    "urllib3_logger": logging.getLogger("urllib3")}
@@ -84,17 +83,6 @@ class Configuration:
 
   def __setattr__(self, name: str, value: Any) -> None:
     object.__setattr__(self, name, value)
-
-  @classmethod
-  def set_default(cls, default: Optional[Self]) -> None:
-    """Set default instance of configuration.
-
-    It stores default configuration, which can be
-    returned by get_default_copy method.
-
-    :param default: object of Configuration
-    """
-    cls._default = default
 
   @property
   def logger_file(self) -> Optional[str]:
@@ -200,7 +188,7 @@ class Configuration:
     return self.authenticator.get_host()
 
   @property
-  def user_agent(self):
+  def user_agent(self) -> str:
     """
     Get the user agent string.
 
@@ -210,7 +198,7 @@ class Configuration:
     return self._user_agent
 
   @user_agent.setter
-  def user_agent(self, value):
+  def user_agent(self, value: str) -> None:
     """
     Set the user agent string.
 

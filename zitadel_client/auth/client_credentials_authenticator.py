@@ -1,9 +1,8 @@
-from typing import override, Set
+from typing import override, Set, Dict
 
 from authlib.integrations.requests_client import OAuth2Session
 
-from zitadel_client.auth.authenticator import OAuthAuthenticatorBuilder
-from zitadel_client.auth.oauth_authenticator import OAuthAuthenticator
+from zitadel_client.auth.oauth_authenticator import OAuthAuthenticator, OAuthAuthenticatorBuilder
 from zitadel_client.auth.open_id import OpenId
 
 
@@ -27,7 +26,7 @@ class ClientCredentialsAuthenticator(OAuthAuthenticator):
                      OAuth2Session(client_id=client_id, client_secret=client_secret, scope=" ".join(auth_scopes)))
 
   @override
-  def get_grant(self) -> dict:
+  def get_grant(self) -> Dict[str, str]:
     """
     Returns the grant parameters for the client credentials flow.
 
@@ -48,7 +47,7 @@ class ClientCredentialsAuthenticator(OAuthAuthenticator):
     return ClientCredentialsAuthenticatorBuilder(host, client_id, client_secret)
 
 
-class ClientCredentialsAuthenticatorBuilder(OAuthAuthenticatorBuilder):
+class ClientCredentialsAuthenticatorBuilder(OAuthAuthenticatorBuilder["ClientCredentialsAuthenticatorBuilder"]):
   """
   Builder class for constructing ClientCredentialsAuthenticator instances.
 

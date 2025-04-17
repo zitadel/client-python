@@ -11,9 +11,10 @@ class ClientCredentialsAuthenticatorTest(OAuthAuthenticatorTest):
   Extends the base OAuthAuthenticatorTest class.
   """
 
-  def test_refresh_token(self):
+  def test_refresh_token(self) -> None:
     time.sleep(20)
 
+    assert self.oauth_host is not None
     authenticator = ClientCredentialsAuthenticator.builder(self.oauth_host, "dummy-client", "dummy-secret") \
       .scopes("openid", "foo") \
       .build()

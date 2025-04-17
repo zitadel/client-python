@@ -2,6 +2,7 @@ import json
 import time
 import unittest
 import urllib
+import urllib.request
 
 from testcontainers.core.container import DockerContainer
 
@@ -13,9 +14,11 @@ class TestApiClient(unittest.TestCase):
     """
     Test case for interacting with the WireMock mock OAuth2 server.
     """
+    mock_oauth2_server: DockerContainer
+    oauth_host: str
 
     @classmethod
-    def setUpClass(cls):
+    def setUpClass(cls) -> None:
         """
         Starts the WireMock Docker container and exposes the required port.
         Sets up the OAuth server URL.
@@ -29,14 +32,14 @@ class TestApiClient(unittest.TestCase):
         cls.oauth_host = f"http://{host}:{port}"
 
     @classmethod
-    def tearDownClass(cls):
+    def tearDownClass(cls) -> None:
         """
         Stops the WireMock Docker container.
         """
         if cls.mock_oauth2_server is not None:
             cls.mock_oauth2_server.stop()
 
-    def test_assert_headers_and_content_type(self):
+    def test_assert_headers_and_content_type(self) -> None:
         """
         Test the behavior of API client when sending requests to the mock OAuth2 server,
         asserting headers and content type.

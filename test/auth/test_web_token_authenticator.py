@@ -13,7 +13,7 @@ class WebTokenAuthenticatorTest(OAuthAuthenticatorTest):
     Test for WebTokenAuthenticator to verify JWT token refresh functionality using the builder.
     """
 
-    def test_refresh_token_using_builder(self):
+    def test_refresh_token_using_builder(self) -> None:
         time.sleep(20)
 
         key = rsa.generate_private_key(public_exponent=65537, key_size=2048)
@@ -23,6 +23,7 @@ class WebTokenAuthenticatorTest(OAuthAuthenticatorTest):
             encryption_algorithm=NoEncryption()
         ).decode('utf-8')
 
+        assert self.oauth_host is not None
         authenticator = WebTokenAuthenticator.builder(self.oauth_host, "dummy-client", private_key_pem) \
             .token_lifetime_seconds(3600) \
             .build()

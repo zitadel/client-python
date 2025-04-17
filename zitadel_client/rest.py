@@ -1,17 +1,20 @@
-import io
+# mypy: ignore-errors
+
 import json
 import re
 import ssl
+from typing import Dict, Optional
 
 import urllib3
 
 from zitadel_client.exceptions import ApiException, ApiValueError
+from zitadel_client.rest_response import RESTResponse
 
 SUPPORTED_SOCKS_PROXIES = {"socks5", "socks5h", "socks4", "socks4a"}
 RESTResponseType = urllib3.HTTPResponse
 
 
-def is_socks_proxy_url(url):
+def is_socks_proxy_url(url: str) -> bool:
   if url is None:
     return False
   split_section = url.split("://")
@@ -21,31 +24,9 @@ def is_socks_proxy_url(url):
     return split_section[0].lower() in SUPPORTED_SOCKS_PROXIES
 
 
-class RESTResponse(io.IOBase):
-
-  def __init__(self, resp) -> None:
-    self.response = resp
-    self.status = resp.status
-    self.reason = resp.reason
-    self.data = None
-
-  def read(self):
-    if self.data is None:
-      self.data = self.response.data
-    return self.data
-
-  def getheaders(self):
-    """Returns a dictionary of the response headers."""
-    return self.response.headers
-
-  def getheader(self, name, default=None):
-    """Returns a given response header."""
-    return self.response.headers.get(name, default)
-
-
 class RESTClientObject:
 
-  def __init__(self, configuration) -> None:
+  def __init__(self, configuration) -> None: # type: ignore
     # urllib3.PoolManager will pass all kw parameters to connectionpool
     # https://github.com/shazow/urllib3/blob/f9409436f83aeb79fbaf090181cd81b784f1b8ce/urllib3/poolmanager.py#L75  # noqa: E501
     # https://github.com/shazow/urllib3/blob/f9409436f83aeb79fbaf090181cd81b784f1b8ce/urllib3/connectionpool.py#L680  # noqa: E501
@@ -99,9 +80,9 @@ class RESTClientObject:
 
   def request(
     self,
-    method,
-    url,
-    headers=None,
+    method: str,
+    url: str,
+    headers: Optional[Dict[str, str]] = None,
     body=None,
     post_params=None,
     _request_timeout=None

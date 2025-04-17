@@ -6,7 +6,7 @@ from zitadel_client.configuration import Configuration
 
 class ConfigurationTest(unittest.TestCase):
 
-  def test_user_agent_getter_and_setter(self):
+  def test_user_agent_getter_and_setter(self) -> None:
     """
     Test user agent getter and setter.
 

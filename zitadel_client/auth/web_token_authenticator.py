@@ -1,12 +1,11 @@
 import json
 from datetime import datetime, timedelta, timezone
-from typing import Set
+from typing import Set, Dict, Optional
 
 from authlib.integrations.requests_client import OAuth2Session
 from authlib.jose import jwt, JoseError
 
-from zitadel_client.auth.authenticator import OAuthAuthenticatorBuilder
-from zitadel_client.auth.oauth_authenticator import OAuthAuthenticator
+from zitadel_client.auth.oauth_authenticator import OAuthAuthenticator, OAuthAuthenticatorBuilder
 from zitadel_client.auth.open_id import OpenId
 
 
@@ -20,7 +19,7 @@ class WebTokenAuthenticator(OAuthAuthenticator):
   def __init__(self, open_id: OpenId, auth_scopes: Set[str],
                jwt_issuer: str, jwt_subject: str, jwt_audience: str,
                private_key: str, jwt_lifetime: timedelta = timedelta(hours=1), jwt_algorithm: str = "RS256",
-               key_id: str = None):
+               key_id: str | None = None):
     """
     Constructs a JWTAuthenticator.
 
@@ -42,7 +41,7 @@ class WebTokenAuthenticator(OAuthAuthenticator):
     self.jwt_algorithm = jwt_algorithm
     self.key_id = key_id
 
-  def get_grant(self) -> dict:
+  def get_grant(self) -> Dict[str, str]:
     """
     Builds and returns the grant parameters for the JWT bearer flow.
 
@@ -112,14 +111,14 @@ class WebTokenAuthenticator(OAuthAuthenticator):
     return WebTokenAuthenticatorBuilder(host, user_id, user_id, host, private_key)
 
 
-class WebTokenAuthenticatorBuilder(OAuthAuthenticatorBuilder):
+class WebTokenAuthenticatorBuilder(OAuthAuthenticatorBuilder["WebTokenAuthenticatorBuilder"]):
   """
   Builder for JWTAuthenticator.
 
   Provides a fluent API for configuring and constructing a JWTAuthenticator instance.
   """
 
-  def __init__(self, host: str, jwt_issuer: str, jwt_subject: str, jwt_audience: str, private_key: str):
+  def __init__(self, host: str, jwt_issuer: str, jwt_subject: str, jwt_audience: str, private_key: str, key_id: Optional[str] = None):
     """
     Initializes the JWTAuthenticatorBuilder with required parameters.
 
@@ -135,7 +134,7 @@ class WebTokenAuthenticatorBuilder(OAuthAuthenticatorBuilder):
     self.jwt_audience = jwt_audience
     self.private_key = private_key
     self.jwt_lifetime = timedelta(hours=1)
-    self.key_id = None
+    self.key_id = key_id
 
   def token_lifetime_seconds(self, seconds: int) -> "WebTokenAuthenticatorBuilder":
     """
@@ -167,6 +166,6 @@ class WebTokenAuthenticatorBuilder(OAuthAuthenticatorBuilder):
       key_id=self.key_id
     )
 
-  def key_identifier(self, key_id):
+  def key_identifier(self, key_id: str | None) -> "WebTokenAuthenticatorBuilder":
     self.key_id = key_id
     return self

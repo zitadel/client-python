@@ -1,3 +1,6 @@
+from types import TracebackType
+from typing import Callable, Optional, Type, TypeVar
+
 from zitadel_client.api.feature_service_api import FeatureServiceApi
 from zitadel_client.api.identity_provider_service_api import IdentityProviderServiceApi
 from zitadel_client.api.oidc_service_api import OIDCServiceApi
@@ -30,7 +33,7 @@ class Zitadel:
       users (UserServiceApi): Service API for user management.
   """
 
-  def __init__(self, authenticator: Authenticator, mutate_config: callable = None):
+  def __init__(self, authenticator: Authenticator, mutate_config: Optional[Callable[[Configuration], None]] = None):
     """
     Initialize the Zitadel SDK.
 
@@ -58,7 +61,9 @@ class Zitadel:
     self.settings = SettingsServiceApi(client)
     self.users = UserServiceApi(client)
 
-  def __enter__(self):
+  T = TypeVar("T", bound="Zitadel")
+
+  def __enter__(self: T) -> T:
     """
     Enter the runtime context related to the Zitadel instance.
 
@@ -67,7 +72,7 @@ class Zitadel:
     """
     return self
 
-  def __exit__(self, exc_type, exc_value, traceback):
+  def __exit__(self, exc_type: Optional[Type[BaseException]], exc_value: Optional[BaseException], traceback: Optional[TracebackType]) -> Optional[bool]:
     """
     Exit the runtime context.
 

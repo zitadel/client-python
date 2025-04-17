@@ -69,43 +69,23 @@ extension-pkg-whitelist = "pydantic"
 [tool.mypy]
 files = [
   "zitadel_client",
-  "tests",
+  "test",
+  "spec"
 ]
-
-# List from: https://mypy.readthedocs.io/en/stable/existing_code.html#introduce-stricter-options
-warn_unused_configs = true
-warn_redundant_casts = true
-warn_unused_ignores = true
-
-## Getting these passing should be easy
-strict_equality = true
-extra_checks = true
-
-## Strongly recommend enabling this one as soon as you can
-check_untyped_defs = true
-
-## These shouldn't be too much additional work, but may be tricky to
-## get passing if you use a lot of untyped libraries
-disallow_subclassing_any = true
-disallow_untyped_decorators = true
-disallow_any_generics = true
+exclude = '(^zitadel_client/models/|^zitadel_client/api/)'
+strict = true
+implicit_reexport = true
 
 [[tool.mypy.overrides]]
 module = [
-  "zitadel_client.configuration",
+  "authlib",
+  "authlib.integrations.requests_client",
+  "authlib.jose",
+  "testcontainers.core.container",
+  "testcontainers"
 ]
-warn_unused_ignores = true
-strict_equality = true
-extra_checks = true
-check_untyped_defs = true
-disallow_subclassing_any = true
-disallow_untyped_decorators = true
-disallow_any_generics = true
-disallow_untyped_calls = true
-disallow_incomplete_defs = true
-disallow_untyped_defs = true
-no_implicit_reexport = true
-warn_return_any = true
+ignore_missing_imports = true
+disable_error_code = ["import-untyped"]
 
 [tool.flake8]
 max-line-length = 99

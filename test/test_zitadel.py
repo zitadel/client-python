@@ -13,7 +13,7 @@ class ZitadelServicesTest(unittest.TestCase):
   are registered as attributes in the Zitadel class.
   """
 
-  def test_services_dynamic(self):
+  def test_services_dynamic(self) -> None:
     expected = set()
     package = importlib.import_module("zitadel_client.api")
     for _, modname, _ in pkgutil.walk_packages(package.__path__, package.__name__ + "."):

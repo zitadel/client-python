@@ -1,5 +1,7 @@
 import json
 import urllib
+import urllib.error
+import urllib.request
 from urllib.parse import urljoin
 
 
@@ -10,6 +12,8 @@ class OpenId:
   It builds the well-known configuration URL from the provided hostname,
   fetches the configuration, and extracts the token endpoint.
   """
+  host_endpoint: str
+  token_endpoint: str
 
   def __init__(self, hostname: str):
     if not (hostname.startswith("http://") or hostname.startswith("https://")):

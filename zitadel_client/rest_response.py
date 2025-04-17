@@ -1,0 +1,27 @@
+import io
+from typing import Dict, Any, Optional
+
+from urllib3 import BaseHTTPResponse, HTTPHeaderDict
+
+
+class RESTResponse(io.IOBase):
+  data: Optional[bytes] = None
+
+  def __init__(self, resp: BaseHTTPResponse) -> None:
+    self.response = resp
+    self.status = resp.status
+    self.reason = resp.reason
+    self.data = None
+
+  def read(self) -> Optional[bytes]:
+    if self.data is None:
+      self.data = self.response.data
+    return self.data
+
+  def getheaders(self) -> HTTPHeaderDict:
+    """Returns a dictionary of the response headers."""
+    return self.response.headers
+
+  def getheader(self, name: str, default: Optional[str]=None) -> Optional[str]:
+    """Returns a given response header."""
+    return self.response.headers.get(name, default)

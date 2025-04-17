@@ -1,4 +1,4 @@
-name: Testing
+name: Typecheck
 
 on:
   push:
@@ -7,16 +7,16 @@ on:
   pull_request:
 
 permissions:
-  contents: write
+  contents: read
 
 defaults:
   run:
     working-directory: ./
 
 jobs:
-  app-testing:
+  steep-check:
     runs-on: ubuntu-latest
-    name: Run Tests
+    name: Inspect Code
 
     steps:
       - name: Checkout code
@@ -35,11 +35,5 @@ jobs:
       - name: Install Dependencies
         run: poetry install --no-interaction --sync --all-extras
 
-      - name: Run Tests
-        run: poetry run pytest
-        env:
-          BASE_URL: ${{ secrets.BASE_URL }}
-          AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
-          JWT_KEY: ${{ secrets.JWT_KEY }}
-          CLIENT_ID: ${{ secrets.CLIENT_ID }}
-          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+      - name: Run MyPy
+        run: poetry run mypy

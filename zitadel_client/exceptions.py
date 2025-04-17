@@ -1,6 +1,8 @@
-from typing import Any, Optional
+from typing import Any, Optional, List
 
 from typing_extensions import Self
+
+import zitadel_client.rest_response
 
 
 class OpenApiException(Exception):
@@ -8,8 +10,7 @@ class OpenApiException(Exception):
 
 
 class ApiTypeError(OpenApiException, TypeError):
-  def __init__(self, msg, path_to_item=None, valid_classes=None,
-               key_type=None) -> None:
+  def __init__(self, msg: str, path_to_item: Optional[List[str]]=None, valid_classes: Optional[Any]=None, key_type: Optional[bool]=None) -> None:
     """ Raises an exception for TypeErrors
 
     Args:
@@ -37,7 +38,7 @@ class ApiTypeError(OpenApiException, TypeError):
 
 
 class ApiValueError(OpenApiException, ValueError):
-  def __init__(self, msg, path_to_item=None) -> None:
+  def __init__(self, msg: str, path_to_item: Optional[List[str]] =None) -> None:
     """
     Args:
         msg (str): the exception message
@@ -55,7 +56,7 @@ class ApiValueError(OpenApiException, ValueError):
 
 
 class ApiAttributeError(OpenApiException, AttributeError):
-  def __init__(self, msg, path_to_item=None) -> None:
+  def __init__(self, msg: str, path_to_item: Optional[List[str]]=None) -> None:
     """
     Raised when an attribute reference or assignment fails.
 
@@ -74,7 +75,7 @@ class ApiAttributeError(OpenApiException, AttributeError):
 
 
 class ApiKeyError(OpenApiException, KeyError):
-  def __init__(self, msg, path_to_item=None) -> None:
+  def __init__(self, msg: str, path_to_item: Optional[List[str]]=None) -> None:
     """
     Args:
         msg (str): the exception message
@@ -94,9 +95,9 @@ class ApiException(OpenApiException):
 
   def __init__(
     self,
-    status=None,
-    reason=None,
-    http_resp=None,
+    status: Optional[int]=None,
+    reason: Optional[str]=None,
+    http_resp: Optional[zitadel_client.rest_response.RESTResponse]=None,
     *,
     body: Optional[str] = None,
     data: Optional[Any] = None,
@@ -112,7 +113,7 @@ class ApiException(OpenApiException):
         self.status = http_resp.status
       if self.reason is None:
         self.reason = http_resp.reason
-      if self.body is None:
+      if self.body is None and http_resp.data is not None:
         try:
           self.body = http_resp.data.decode('utf-8')
         except Exception:
@@ -123,7 +124,7 @@ class ApiException(OpenApiException):
   def from_response(
     cls,
     *,
-    http_resp,
+    http_resp: zitadel_client.rest_response.RESTResponse,
     body: Optional[str],
     data: Optional[Any],
   ) -> Self:
@@ -150,7 +151,7 @@ class ApiException(OpenApiException):
       raise ServiceException(http_resp=http_resp, body=body, data=data)
     raise ApiException(http_resp=http_resp, body=body, data=data)
 
-  def __str__(self):
+  def __str__(self) -> str:
     """Custom error messages for exception"""
     error_message = "({0})\n" \
                     "Reason: {1}\n".format(self.status, self.reason)
@@ -194,7 +195,7 @@ class UnprocessableEntityException(ApiException):
   pass
 
 
-def render_path(path_to_item):
+def render_path(path_to_item: List[str]) -> str:
   """Returns a string representation of a path"""
   result = ""
   for pth in path_to_item:

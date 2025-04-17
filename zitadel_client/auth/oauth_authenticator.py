@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from datetime import datetime, timedelta, timezone
-from typing import Dict, Optional
+from typing import Dict, Optional, Generic, TypeVar, Any # noqa: F401
 
 from authlib.integrations.requests_client import OAuth2Session
 
@@ -35,6 +35,8 @@ class OAuthAuthenticator(Authenticator, ABC):
     """
     if self.token is None or self.token.is_expired():
       self.refresh_token()
+
+    assert self.token is not None
     return self.token.access_token
 
   def get_auth_headers(self) -> Dict[str, str]:
@@ -46,7 +48,7 @@ class OAuthAuthenticator(Authenticator, ABC):
     return {"Authorization": "Bearer " + self.get_auth_token()}
 
   @abstractmethod
-  def get_grant(self) -> dict:
+  def get_grant(self) -> Dict[str, str]:
     """
     Builds and returns a dictionary of grant parameters required for the token request.
 
@@ -71,3 +73,32 @@ class OAuthAuthenticator(Authenticator, ABC):
       return self.token
     except Exception as e:
       raise Exception("Failed to refresh token: " + str(e)) from e
+
+
+T = TypeVar("T", bound="OAuthAuthenticatorBuilder[Any]")
+
+class OAuthAuthenticatorBuilder(ABC, Generic[T]):
+  """
+  Abstract builder class for constructing OAuth authenticator instances.
+
+  This builder provides common configuration options such as the OpenId instance and authentication scopes.
+  """
+
+  def __init__(self, host: str):
+    """
+    Initializes the OAuthAuthenticatorBuilder with a given host.
+
+    :param host: The base URL for the OAuth provider.
+    """
+    self.open_id = OpenId(host)
+    self.auth_scopes = {"openid", "urn:zitadel:iam:org:project:id:zitadel:aud"}
+
+  def scopes(self: T, *auth_scopes: str) -> T:
+    """
+    Sets the authentication scopes for the OAuth authenticator.
+
+    :param auth_scopes: A variable number of scope strings.
+    :return: The builder instance to allow for method chaining.
+    """
+    self.auth_scopes = set(auth_scopes)
+    return self

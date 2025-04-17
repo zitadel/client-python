@@ -11,17 +11,16 @@
     Do not edit the class manually.
 """  # noqa: E501
 
-import warnings
-from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
-from typing_extensions import Annotated
 
-from zitadel_client.models.v2_get_security_settings_response import V2GetSecuritySettingsResponse
-from zitadel_client.models.v2_set_security_settings_request import V2SetSecuritySettingsRequest
-from zitadel_client.models.v2_set_security_settings_response import V2SetSecuritySettingsResponse
+from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
+from typing_extensions import Annotated
 
 from zitadel_client.api_client import ApiClient, RequestSerialized
 from zitadel_client.api_response import ApiResponse
+from zitadel_client.models.v2_get_security_settings_response import V2GetSecuritySettingsResponse
+from zitadel_client.models.v2_set_security_settings_request import V2SetSecuritySettingsRequest
+from zitadel_client.models.v2_set_security_settings_response import V2SetSecuritySettingsResponse
 from zitadel_client.rest import RESTResponseType
 
 

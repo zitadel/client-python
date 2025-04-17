@@ -14,11 +14,11 @@ class OAuthAuthenticatorTest(unittest.TestCase):
   The container is configured to wait for an HTTP response from the "/" endpoint
   with a status code of 405, using HttpWaitStrategy.
   """
-  oauth_host: str = None
+  oauth_host: str | None = None
   mock_oauth2_server: DockerContainer = None
 
   @classmethod
-  def setUpClass(cls):
+  def setUpClass(cls) -> None:
     cls.mock_oauth2_server = DockerContainer("ghcr.io/navikt/mock-oauth2-server:2.1.10") \
       .with_exposed_ports(8080)
     cls.mock_oauth2_server.start()
@@ -27,6 +27,6 @@ class OAuthAuthenticatorTest(unittest.TestCase):
     cls.oauth_host = f"http://{host}:{port}"
 
   @classmethod
-  def tearDownClass(cls):
+  def tearDownClass(cls) -> None:
     if cls.mock_oauth2_server is not None:
       cls.mock_oauth2_server.stop()
