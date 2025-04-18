@@ -24,7 +24,10 @@ class OpenId:
         well_known_url = self.build_well_known_url(hostname)
 
         try:
-            with urllib.request.urlopen(well_known_url) as response:
+            if not well_known_url.lower().startswith(("http://", "https://")):
+                raise ValueError("Invalid URL scheme. Only 'http' and 'https' are allowed.")
+
+            with urllib.request.urlopen(well_known_url) as response: # noqa S310
                 if response.status != 200:
                     raise Exception(f"Failed to fetch OpenID configuration: HTTP {response.status}")
                 config = json.loads(response.read().decode("utf-8"))

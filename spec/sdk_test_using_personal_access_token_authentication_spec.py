@@ -61,18 +61,8 @@ def test_should_deactivate_and_reactivate_user_with_valid_token(user_id: str, va
 def test_should_not_deactivate_or_reactivate_user_with_invalid_token(user_id: str, invalid_token: str, base_url: str) -> None:
     """Test to attempt (de)activating the user with an invalid token."""
     with zitadel.Zitadel(PersonalAccessTokenAuthenticator(base_url, invalid_token)) as client:
-        try:
+        with pytest.raises(UnauthorizedException):
             client.users.deactivate_user(user_id=user_id)
-            pytest.fail("Expected exception when deactivating user with invalid token, but got response.")
-        except UnauthorizedException as e:
-            print("Caught expected UnauthorizedException:", e)
-        except Exception as e:
-            pytest.fail(f"Invalid exception when calling the function: {e}")
 
-        try:
+        with pytest.raises(UnauthorizedException):
             client.users.reactivate_user(user_id=user_id)
-            pytest.fail("Expected exception when reactivating user with invalid token, but got response.")
-        except UnauthorizedException as e:
-            print("Caught expected UnauthorizedException:", e)
-        except Exception as e:
-            pytest.fail(f"Invalid exception when calling the function: {e}")

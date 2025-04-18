@@ -256,7 +256,7 @@ class ApiClient:
                 )
 
     @no_type_check
-    def sanitize_for_serialization(self, obj):
+    def sanitize_for_serialization(self, obj): # noqa C901 too complex
         """Builds a JSON POST object.
 
         If obj is None, return None.
@@ -340,7 +340,7 @@ class ApiClient:
 
     @no_type_check
     @staticmethod
-    def __deserialize(data, klass):
+    def __deserialize(data, klass): # noqa C901 too complex
         """Deserializes dict, list, str into an object.
 
         :param data: dict, list or str.
@@ -372,7 +372,7 @@ class ApiClient:
 
         if klass in ApiClient.PRIMITIVE_TYPES:
             return ApiClient.__deserialize_primitive(data, klass)
-        elif klass == object:
+        elif klass is object:
             return ApiClient.__deserialize_object(data)
         elif klass == datetime.date:
             return ApiClient.__deserialize_date(data)
@@ -418,7 +418,7 @@ class ApiClient:
 
     @no_type_check
     @staticmethod
-    def parameters_to_url_query(params, collection_formats):
+    def parameters_to_url_query(params, collection_formats): # noqa C901 too complex
         """Get parameters as list of tuples, formatting collections.
 
         :param params: Parameters as dict or list of two-tuples
@@ -483,7 +483,7 @@ class ApiClient:
             else:
                 raise ValueError("Unsupported file value")
             mimetype = mimetypes.guess_type(filename)[0] or "application/octet-stream"
-            params.append(tuple([k, tuple([filename, filedata, mimetype])]))
+            params.append((k, (filename, filedata, mimetype)))
         return params
 
     @staticmethod
@@ -587,8 +587,8 @@ class ApiClient:
             return parse(string).date()
         except ImportError:
             return string
-        except ValueError:
-            raise rest.ApiException(status=0, reason="Failed to parse `{0}` as date object".format(string))
+        except ValueError as err:
+          raise rest.ApiException(status=0, reason="Failed to parse `{0}` as date object".format(string)) from err
 
     @no_type_check
     @staticmethod
@@ -604,11 +604,8 @@ class ApiClient:
             return parse(string)
         except ImportError:
             return string
-        except ValueError:
-            raise rest.ApiException(
-                status=0,
-                reason=("Failed to parse `{0}` as datetime object".format(string)),
-            )
+        except ValueError as err:
+            raise rest.ApiException(status=0,reason=("Failed to parse `{0}` as datetime object".format(string))) from err
 
     @no_type_check
     @staticmethod
@@ -621,8 +618,8 @@ class ApiClient:
         """
         try:
             return klass(data)
-        except ValueError:
-            raise rest.ApiException(status=0, reason=("Failed to parse `{0}` as `{1}`".format(data, klass)))
+        except ValueError as err:
+            raise rest.ApiException(status=0, reason=("Failed to parse `{0}` as `{1}`".format(data, klass))) from err
 
     @no_type_check
     @staticmethod

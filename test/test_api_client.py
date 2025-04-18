@@ -48,8 +48,8 @@ class TestApiClient(unittest.TestCase):
         """
         time.sleep(20)
 
-        with urllib.request.urlopen(
-            urllib.request.Request(
+        with urllib.request.urlopen( # noqa S310 allow all URL schemes
+            urllib.request.Request( # noqa S310 allow all URL schemes
                 self.oauth_host + "/__admin/mappings",
                 data=json.dumps(
                     {
@@ -59,7 +59,8 @@ class TestApiClient(unittest.TestCase):
                             "headers": {
                                 "Authorization": {"equalTo": "Bearer mm"},
                                 "User-Agent": {
-                                    "matches": "^zitadel-client/0\\.0\\.0 \\(lang=python; lang_version=[^;]+; os=[^;]+; arch=[^;]+\\)$"
+                                    "matches":
+                                      "^zitadel-client/0\\.0\\.0 \\(lang=python; lang_version=[^;]+; os=[^;]+; arch=[^;]+\\)$"
                                 },
                             },
                         },

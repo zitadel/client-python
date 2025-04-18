@@ -7,7 +7,6 @@ import zitadel_client as zitadel
 from zitadel_client.auth.client_credentials_authenticator import (
     ClientCredentialsAuthenticator,
 )
-from zitadel_client.exceptions import UnauthorizedException
 
 
 @pytest.fixture
@@ -63,11 +62,8 @@ def test_should_deactivate_and_reactivate_user_with_valid_token(
 def test_should_not_deactivate_or_reactivate_user_with_invalid_token(user_id: str, base_url: str) -> None:
     """Test to attempt (de)activating the user with an invalid token."""
     with zitadel.Zitadel(ClientCredentialsAuthenticator.builder(base_url, "id", "secret").build()) as client:
-        with pytest.raises(Exception) as excinfo:
+        with pytest.raises(Exception, match="Failed to refresh token: invalid_client: client not found"):
             client.users.deactivate_user(user_id=user_id)
-        #assert "Unauthorized" in str(excinfo.value)
 
-        with pytest.raises(Exception) as excinfo:
+        with pytest.raises(Exception, match="Failed to refresh token: invalid_client: client not found"):
             client.users.reactivate_user(user_id=user_id)
-        print(excinfo)
-        #assert "Unauthorized" in str(excinfo.value), "Expected exception when reactivating user with invalid token, but got response."

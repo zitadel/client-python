@@ -97,7 +97,7 @@ class ApiKeyError(OpenApiError, KeyError):
         super(ApiKeyError, self).__init__(full_msg)
 
 
-class ApiException(OpenApiError):
+class ApiException(OpenApiError): # noqa N818 should be named with an Error suffix later
     def __init__(
         self,
         status: Optional[int] = None,

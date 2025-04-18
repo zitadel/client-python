@@ -52,7 +52,7 @@ class RESTClientObject:
         self.pool_manager: urllib3.PoolManager
         self.pool_manager = urllib3.PoolManager(**pool_args)
 
-    def request(
+    def request( # noqa C901 too complex
         self,
         method: str,
         url: str,
@@ -174,6 +174,6 @@ class RESTClientObject:
                 )
         except urllib3.exceptions.SSLError as e:
             msg = "\n".join([type(e).__name__, str(e)])
-            raise ApiException(status=0, reason=msg)
+            raise ApiException(status=0, reason=msg) from e
 
         return RESTResponse(r)
