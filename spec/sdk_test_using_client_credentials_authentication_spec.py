@@ -65,9 +65,9 @@ def test_should_not_deactivate_or_reactivate_user_with_invalid_token(user_id: st
     with zitadel.Zitadel(ClientCredentialsAuthenticator.builder(base_url, "id", "secret").build()) as client:
         with pytest.raises(Exception) as excinfo:
             client.users.deactivate_user(user_id=user_id)
-        #assert "Unauthorized" in str(excinfo.value)
+        # assert "Unauthorized" in str(excinfo.value)
 
         with pytest.raises(Exception) as excinfo:
             client.users.reactivate_user(user_id=user_id)
         print(excinfo)
-        #assert "Unauthorized" in str(excinfo.value), "Expected exception when reactivating user with invalid token, but got response."
+        # assert "Unauthorized" in str(excinfo.value), "Expected exception when reactivating user with invalid token, but got response."
