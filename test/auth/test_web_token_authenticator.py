@@ -29,16 +29,10 @@ class WebTokenAuthenticatorTest(OAuthAuthenticatorTest):
 
         assert self.oauth_host is not None
         authenticator = (
-            WebTokenAuthenticator.builder(
-                self.oauth_host, "dummy-client", private_key_pem
-            )
-            .token_lifetime_seconds(3600)
-            .build()
+            WebTokenAuthenticator.builder(self.oauth_host, "dummy-client", private_key_pem).token_lifetime_seconds(3600).build()
         )
 
-        self.assertTrue(
-            authenticator.get_auth_token(), "Access token should not be empty"
-        )
+        self.assertTrue(authenticator.get_auth_token(), "Access token should not be empty")
         token = authenticator.refresh_token()
         self.assertEqual(
             {"Authorization": "Bearer " + token.access_token},

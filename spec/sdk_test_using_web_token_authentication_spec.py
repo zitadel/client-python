@@ -32,34 +32,23 @@ def user_id(key_file: str, base_url: str) -> str | None:
             response = client.users.add_human_user(
                 body=zitadel.models.V2AddHumanUserRequest(
                     username=uuid.uuid4().hex,
-                    profile=zitadel.models.V2SetHumanProfile(
-                        given_name="John", family_name="Doe"
-                    ),  # type: ignore[call-arg]
-                    email=zitadel.models.V2SetHumanEmail(
-                        email=f"johndoe{uuid.uuid4().hex}@caos.ag"
-                    ),
+                    profile=zitadel.models.V2SetHumanProfile(given_name="John", family_name="Doe"),  # type: ignore[call-arg]
+                    email=zitadel.models.V2SetHumanEmail(email=f"johndoe{uuid.uuid4().hex}@caos.ag"),
                 )
             )
-            print("User created:", response)
             return response.user_id
         except Exception as e:
             pytest.fail(f"Exception while creating user: {e}")
 
 
-def test_should_deactivate_and_reactivate_user_with_valid_token(
-    user_id: str, key_file: str, base_url: str
-) -> None:
+def test_should_deactivate_and_reactivate_user_with_valid_token(user_id: str, key_file: str, base_url: str) -> None:
     """Test to (de)activate the user with a valid token."""
     with zitadel.Zitadel(WebTokenAuthenticator.from_json(base_url, key_file)) as client:
         try:
             deactivate_response = client.users.deactivate_user(user_id=user_id)
-            print("User deactivated:", deactivate_response)
+            assert deactivate_response is not None, "Deactivation response is None"
 
             reactivate_response = client.users.reactivate_user(user_id=user_id)
-            print("User reactivated:", reactivate_response)
-            # Adjust based on actual response format
-            # assert reactivate_response["status"] == "success"
+            assert reactivate_response is not None, "Reactivation response is None"
         except Exception as e:
-            pytest.fail(
-                f"Exception when calling deactivate_user or reactivate_user with valid token: {e}"
-            )
+            pytest.fail(f"Exception when calling deactivate_user or reactivate_user with valid token: {e}")

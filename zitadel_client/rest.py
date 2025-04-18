@@ -79,9 +79,7 @@ class RESTClientObject:
         assert method in ["GET", "HEAD", "DELETE", "POST", "PUT", "PATCH", "OPTIONS"]
 
         if post_params and body:
-            raise ApiValueError(
-                "body parameter cannot be used with post_params parameter."
-            )
+            raise ApiValueError("body parameter cannot be used with post_params parameter.")
 
         post_params = post_params or {}
         headers = headers or {}
@@ -91,9 +89,7 @@ class RESTClientObject:
             if isinstance(_request_timeout, (int, float)):
                 timeout = urllib3.Timeout(total=_request_timeout)
             elif isinstance(_request_timeout, tuple) and len(_request_timeout) == 2:
-                timeout = urllib3.Timeout(
-                    connect=_request_timeout[0], read=_request_timeout[1]
-                )
+                timeout = urllib3.Timeout(connect=_request_timeout[0], read=_request_timeout[1])
 
         try:
             # For `POST`, `PUT`, `PATCH`, `OPTIONS`, `DELETE`
@@ -128,10 +124,7 @@ class RESTClientObject:
                     # overwritten.
                     del headers["Content-Type"]
                     # Ensures that dict objects are serialized
-                    post_params = [
-                        (a, json.dumps(b)) if isinstance(b, dict) else (a, b)
-                        for a, b in post_params
-                    ]
+                    post_params = [(a, json.dumps(b)) if isinstance(b, dict) else (a, b) for a, b in post_params]
                     r = self.pool_manager.request(
                         method,
                         url,
@@ -153,9 +146,7 @@ class RESTClientObject:
                         headers=headers,
                         preload_content=False,
                     )
-                elif headers["Content-Type"].startswith("text/") and isinstance(
-                    body, bool
-                ):
+                elif headers["Content-Type"].startswith("text/") and isinstance(body, bool):
                     request_body = "true" if body else "false"
                     r = self.pool_manager.request(
                         method,

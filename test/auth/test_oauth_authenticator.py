@@ -20,9 +20,7 @@ class OAuthAuthenticatorTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
-        cls.mock_oauth2_server = DockerContainer(
-            "ghcr.io/navikt/mock-oauth2-server:2.1.10"
-        ).with_exposed_ports(8080)
+        cls.mock_oauth2_server = DockerContainer("ghcr.io/navikt/mock-oauth2-server:2.1.10").with_exposed_ports(8080)
         cls.mock_oauth2_server.start()
         host = cls.mock_oauth2_server.get_container_host_ip()
         port = cls.mock_oauth2_server.get_exposed_port(8080)

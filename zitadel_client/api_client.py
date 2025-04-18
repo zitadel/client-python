@@ -130,9 +130,7 @@ class ApiClient:
         header_params.update(self.default_headers)
         if header_params:
             header_params = self.sanitize_for_serialization(header_params)
-            header_params = dict(
-                self.parameters_to_tuples(header_params, collection_formats)
-            )
+            header_params = dict(self.parameters_to_tuples(header_params, collection_formats))
 
         # path parameters
         if path_params:
@@ -140,9 +138,7 @@ class ApiClient:
             path_params = self.parameters_to_tuples(path_params, collection_formats)
             for k, v in path_params:
                 # specified safe chars, encode everything
-                resource_path = resource_path.replace(
-                    "{%s}" % k, quote(str(v), safe=config.safe_chars_for_path_param)
-                )
+                resource_path = resource_path.replace("{%s}" % k, quote(str(v), safe=config.safe_chars_for_path_param))
 
         # post parameters
         if post_params or files:
@@ -224,15 +220,9 @@ class ApiClient:
         assert response_data.data is not None, msg
 
         response_type = response_types_map.get(str(response_data.status), None)
-        if (
-            not response_type
-            and isinstance(response_data.status, int)
-            and 100 <= response_data.status <= 599
-        ):
+        if not response_type and isinstance(response_data.status, int) and 100 <= response_data.status <= 599:
             # if not found, look for '1XX', '2XX', etc.
-            response_type = response_types_map.get(
-                str(response_data.status)[0] + "XX", None
-            )
+            response_type = response_types_map.get(str(response_data.status)[0] + "XX", None)
 
         # deserialize response data
         response_text = None
@@ -249,9 +239,7 @@ class ApiClient:
                     match = re.search(r"charset=([a-zA-Z\-\d]+)[\s;]?", content_type)
                 encoding = match.group(1) if match else "utf-8"
                 response_text = response_data.data.decode(encoding)
-                return_data = self.deserialize(
-                    response_text, response_type, content_type
-                )
+                return_data = self.deserialize(response_text, response_type, content_type)
         finally:
             if not 200 <= response_data.status <= 299:
                 raise ApiException.from_response(
@@ -314,14 +302,10 @@ class ApiClient:
             else:
                 obj_dict = obj.__dict__
 
-        return {
-            key: self.sanitize_for_serialization(val) for key, val in obj_dict.items()
-        }
+        return {key: self.sanitize_for_serialization(val) for key, val in obj_dict.items()}
 
     @no_type_check
-    def deserialize(
-        self, response_text: str, response_type: str, content_type: Optional[str]
-    ):
+    def deserialize(self, response_text: str, response_type: str, content_type: Optional[str]):
         """Deserializes response into an object.
 
         :param response_text: RESTResponse object to be deserialized.
@@ -350,9 +334,7 @@ class ApiClient:
         elif re.match(r"^text\/[a-z.+-]+\s*(;|$)", content_type, re.IGNORECASE):
             data = response_text
         else:
-            raise ApiException(
-                status=0, reason="Unsupported content type: {0}".format(content_type)
-            )
+            raise ApiException(status=0, reason="Unsupported content type: {0}".format(content_type))
 
         return self.__deserialize(data, response_type)
 
@@ -467,9 +449,7 @@ class ApiClient:
                         delimiter = "|"
                     else:  # csv is the default
                         delimiter = ","
-                    new_params.append(
-                        (k, delimiter.join(quote(str(value)) for value in v))
-                    )
+                    new_params.append((k, delimiter.join(quote(str(value)) for value in v)))
             else:
                 new_params.append((k, quote(str(v))))
 
@@ -608,9 +588,7 @@ class ApiClient:
         except ImportError:
             return string
         except ValueError:
-            raise rest.ApiException(
-                status=0, reason="Failed to parse `{0}` as date object".format(string)
-            )
+            raise rest.ApiException(status=0, reason="Failed to parse `{0}` as date object".format(string))
 
     @no_type_check
     @staticmethod
@@ -644,9 +622,7 @@ class ApiClient:
         try:
             return klass(data)
         except ValueError:
-            raise rest.ApiException(
-                status=0, reason=("Failed to parse `{0}` as `{1}`".format(data, klass))
-            )
+            raise rest.ApiException(status=0, reason=("Failed to parse `{0}` as `{1}`".format(data, klass)))
 
     @no_type_check
     @staticmethod
@@ -663,6 +639,4 @@ class ApiClient:
     @no_type_check
     @classmethod
     def get_default(cls):
-        return ApiClient(
-            configuration=Configuration(authenticator=NoAuthAuthenticator())
-        )
+        return ApiClient(configuration=Configuration(authenticator=NoAuthAuthenticator()))

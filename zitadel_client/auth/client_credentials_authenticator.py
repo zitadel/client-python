@@ -16,9 +16,7 @@ class ClientCredentialsAuthenticator(OAuthAuthenticator):
     Uses client_id and client_secret to obtain an access token from the OAuth2 token endpoint.
     """
 
-    def __init__(
-        self, open_id: OpenId, client_id: str, client_secret: str, auth_scopes: Set[str]
-    ):
+    def __init__(self, open_id: OpenId, client_id: str, client_secret: str, auth_scopes: Set[str]):
         """
         Constructs a ClientCredentialsAuthenticator.
 
@@ -46,9 +44,7 @@ class ClientCredentialsAuthenticator(OAuthAuthenticator):
         return {"grant_type": "client_credentials"}
 
     @staticmethod
-    def builder(
-        host: str, client_id: str, client_secret: str
-    ) -> "ClientCredentialsAuthenticatorBuilder":
+    def builder(host: str, client_id: str, client_secret: str) -> "ClientCredentialsAuthenticatorBuilder":
         """
         Returns a builder for constructing a ClientCredentialsAuthenticator.
 
@@ -60,9 +56,7 @@ class ClientCredentialsAuthenticator(OAuthAuthenticator):
         return ClientCredentialsAuthenticatorBuilder(host, client_id, client_secret)
 
 
-class ClientCredentialsAuthenticatorBuilder(
-    OAuthAuthenticatorBuilder["ClientCredentialsAuthenticatorBuilder"]
-):
+class ClientCredentialsAuthenticatorBuilder(OAuthAuthenticatorBuilder["ClientCredentialsAuthenticatorBuilder"]):
     """
     Builder class for constructing ClientCredentialsAuthenticator instances.
 
@@ -88,6 +82,4 @@ class ClientCredentialsAuthenticatorBuilder(
 
         :return: A configured ClientCredentialsAuthenticator.
         """
-        return ClientCredentialsAuthenticator(
-            self.open_id, self.client_id, self.client_secret, self.auth_scopes
-        )
+        return ClientCredentialsAuthenticator(self.open_id, self.client_id, self.client_secret, self.auth_scopes)

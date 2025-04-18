@@ -64,9 +64,7 @@ class OAuthAuthenticator(Authenticator, ABC):
         :return: A new Token.
         """
         try:
-            token_response = self.oauth_session.fetch_token(
-                url=(self.open_id.get_token_endpoint()), **(self.get_grant())
-            )
+            token_response = self.oauth_session.fetch_token(url=(self.open_id.get_token_endpoint()), **(self.get_grant()))
             access_token = token_response["access_token"]
             expires_in = token_response.get("expires_in", 3600)
             expires_at = datetime.now(timezone.utc) + timedelta(seconds=expires_in)

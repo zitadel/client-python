@@ -92,7 +92,7 @@ disable_error_code = ["import-untyped"]
 max-line-length = 99
 
 [tool.ruff]
-line-length = 88
+line-length = 130
 fix = true
 target-version = "py39"
 exclude = [
@@ -103,3 +103,4 @@ exclude = [
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "C", "N", "Q", "S", "T"]
 extend-select = ["A"]
+ignore = ["S101"]  # Ignore assert statements

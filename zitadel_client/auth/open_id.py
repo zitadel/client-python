@@ -26,14 +26,12 @@ class OpenId:
         try:
             with urllib.request.urlopen(well_known_url) as response:
                 if response.status != 200:
-                    raise Exception(
-                        f"Failed to fetch OpenID configuration: HTTP {response.status}"
-                    )
+                    raise Exception(f"Failed to fetch OpenID configuration: HTTP {response.status}")
                 config = json.loads(response.read().decode("utf-8"))
         except urllib.error.URLError as e:
-            raise Exception(f"URL error occurred: {e}")
-        except json.JSONDecodeError:
-            raise Exception("Failed to decode JSON response")
+            raise Exception(f"URL error occurred: {e}") from e
+        except json.JSONDecodeError as e:
+            raise Exception("Failed to decode JSON response") from e
 
         token_endpoint = config.get("token_endpoint")
         if not token_endpoint:

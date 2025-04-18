@@ -18,16 +18,12 @@ class ClientCredentialsAuthenticatorTest(OAuthAuthenticatorTest):
 
         assert self.oauth_host is not None
         authenticator = (
-            ClientCredentialsAuthenticator.builder(
-                self.oauth_host, "dummy-client", "dummy-secret"
-            )
+            ClientCredentialsAuthenticator.builder(self.oauth_host, "dummy-client", "dummy-secret")
             .scopes("openid", "foo")
             .build()
         )
 
-        self.assertTrue(
-            authenticator.get_auth_token(), "Access token should not be empty"
-        )
+        self.assertTrue(authenticator.get_auth_token(), "Access token should not be empty")
         token = authenticator.refresh_token()
         self.assertEqual(
             {"Authorization": "Bearer " + token.access_token},

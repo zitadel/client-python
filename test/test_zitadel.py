@@ -16,11 +16,9 @@ class ZitadelServicesTest(unittest.TestCase):
     def test_services_dynamic(self) -> None:
         expected = set()
         package = importlib.import_module("zitadel_client.api")
-        for _, modname, _ in pkgutil.walk_packages(
-            package.__path__, package.__name__ + "."
-        ):
+        for _, modname, _ in pkgutil.walk_packages(package.__path__, package.__name__ + "."):
             module = importlib.import_module(modname)
-            for name, obj in inspect.getmembers(module, inspect.isclass):
+            for _, obj in inspect.getmembers(module, inspect.isclass):
                 if obj.__module__ == modname and obj.__name__.endswith("ServiceApi"):
                     expected.add(obj)
         zitadel = Zitadel(NoAuthAuthenticator("http://dummy"))
@@ -29,8 +27,6 @@ class ZitadelServicesTest(unittest.TestCase):
             for attr in dir(zitadel)
             if not attr.startswith("_")
             and hasattr(getattr(zitadel, attr), "__class__")
-            and getattr(zitadel, attr).__class__.__module__.startswith(
-                "zitadel_client.api"
-            )
+            and getattr(zitadel, attr).__class__.__module__.startswith("zitadel_client.api")
         }
         self.assertEqual(expected, actual)

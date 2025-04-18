@@ -5,11 +5,11 @@ from typing_extensions import Self
 import zitadel_client.rest_response
 
 
-class OpenApiException(Exception):
-    """The base exception class for all OpenAPIExceptions"""
+class OpenApiError(Exception):
+    """The base exception class for all OpenApiErrors"""
 
 
-class ApiTypeError(OpenApiException, TypeError):
+class ApiTypeError(OpenApiError, TypeError):
     def __init__(
         self,
         msg: str,
@@ -43,7 +43,7 @@ class ApiTypeError(OpenApiException, TypeError):
         super(ApiTypeError, self).__init__(full_msg)
 
 
-class ApiValueError(OpenApiException, ValueError):
+class ApiValueError(OpenApiError, ValueError):
     def __init__(self, msg: str, path_to_item: Optional[List[str]] = None) -> None:
         """
         Args:
@@ -61,7 +61,7 @@ class ApiValueError(OpenApiException, ValueError):
         super(ApiValueError, self).__init__(full_msg)
 
 
-class ApiAttributeError(OpenApiException, AttributeError):
+class ApiAttributeError(OpenApiError, AttributeError):
     def __init__(self, msg: str, path_to_item: Optional[List[str]] = None) -> None:
         """
         Raised when an attribute reference or assignment fails.
@@ -80,7 +80,7 @@ class ApiAttributeError(OpenApiException, AttributeError):
         super(ApiAttributeError, self).__init__(full_msg)
 
 
-class ApiKeyError(OpenApiException, KeyError):
+class ApiKeyError(OpenApiError, KeyError):
     def __init__(self, msg: str, path_to_item: Optional[List[str]] = None) -> None:
         """
         Args:
@@ -97,7 +97,7 @@ class ApiKeyError(OpenApiException, KeyError):
         super(ApiKeyError, self).__init__(full_msg)
 
 
-class ApiException(OpenApiException):
+class ApiException(OpenApiError):
     def __init__(
         self,
         status: Optional[int] = None,
@@ -121,7 +121,7 @@ class ApiException(OpenApiException):
             if self.body is None and http_resp.data is not None:
                 try:
                     self.body = http_resp.data.decode("utf-8")
-                except Exception:
+                except Exception:  # noqa: S110
                     pass
             self.headers = http_resp.getheaders()
 
@@ -150,9 +150,7 @@ class ApiException(OpenApiException):
             raise ConflictException(http_resp=http_resp, body=body, data=data)
 
         if http_resp.status == 422:
-            raise UnprocessableEntityException(
-                http_resp=http_resp, body=body, data=data
-            )
+            raise UnprocessableEntityException(http_resp=http_resp, body=body, data=data)
 
         if 500 <= http_resp.status <= 599:
             raise ServiceException(http_resp=http_resp, body=body, data=data)

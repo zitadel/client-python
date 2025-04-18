@@ -9,6 +9,6 @@ from .exceptions import (
     ApiKeyError,
     ApiTypeError,
     ApiValueError,
-    OpenApiException,
+    OpenApiError,
 )
 from .zitadel import Zitadel

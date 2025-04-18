@@ -115,20 +115,12 @@ class WebTokenAuthenticator(OAuthAuthenticator):
         private_key = config.get("key")
         key_id = config.get("keyId")
         if not user_id or not key_id or not private_key:
-            raise Exception(
-                "Missing required keys 'userId', 'key_id' or 'key' in JSON file."
-            )
+            raise Exception("Missing required keys 'userId', 'key_id' or 'key' in JSON file.")
 
-        return (
-            (WebTokenAuthenticator.builder(host, user_id, private_key))
-            .key_identifier(key_id)
-            .build()
-        )
+        return (WebTokenAuthenticator.builder(host, user_id, private_key)).key_identifier(key_id).build()
 
     @staticmethod
-    def builder(
-        host: str, user_id: str, private_key: str
-    ) -> "WebTokenAuthenticatorBuilder":
+    def builder(host: str, user_id: str, private_key: str) -> "WebTokenAuthenticatorBuilder":
         """
         Returns a builder for constructing a JWTAuthenticator.
 
@@ -140,9 +132,7 @@ class WebTokenAuthenticator(OAuthAuthenticator):
         return WebTokenAuthenticatorBuilder(host, user_id, user_id, host, private_key)
 
 
-class WebTokenAuthenticatorBuilder(
-    OAuthAuthenticatorBuilder["WebTokenAuthenticatorBuilder"]
-):
+class WebTokenAuthenticatorBuilder(OAuthAuthenticatorBuilder["WebTokenAuthenticatorBuilder"]):
     """
     Builder for JWTAuthenticator.
 
