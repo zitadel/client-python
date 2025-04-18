@@ -16,15 +16,21 @@ from zitadel_client.version import Version
 class Configuration:
     """This class contains various settings of the API client."""
 
-    USER_AGENT = " ".join([
-      f"zitadel-client/{Version.VERSION}",
-      f"({'; '.join([
-        'lang=python',
-        f'lang_version={platform.python_version()}',
-        f'os={platform.system()}',
-        f'arch={platform.machine()}'
-      ])})"
-    ]).lower()
+    USER_AGENT = " ".join(
+        [
+            f"zitadel-client/{Version.VERSION}",
+            f"({
+                '; '.join(
+                    [
+                        'lang=python',
+                        f'lang_version={platform.python_version()}',
+                        f'os={platform.system()}',
+                        f'arch={platform.machine()}',
+                    ]
+                )
+            })",
+        ]
+    ).lower()
 
     def __init__(
         self,

@@ -52,7 +52,7 @@ class RESTClientObject:
         self.pool_manager: urllib3.PoolManager
         self.pool_manager = urllib3.PoolManager(**pool_args)
 
-    def request( # noqa C901 too complex
+    def request(  # noqa C901 too complex
         self,
         method: str,
         url: str,

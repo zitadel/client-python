@@ -256,7 +256,7 @@ class ApiClient:
                 )
 
     @no_type_check
-    def sanitize_for_serialization(self, obj): # noqa C901 too complex
+    def sanitize_for_serialization(self, obj):  # noqa C901 too complex
         """Builds a JSON POST object.
 
         If obj is None, return None.
@@ -340,7 +340,7 @@ class ApiClient:
 
     @no_type_check
     @staticmethod
-    def __deserialize(data, klass): # noqa C901 too complex
+    def __deserialize(data, klass):  # noqa C901 too complex
         """Deserializes dict, list, str into an object.
 
         :param data: dict, list or str.
@@ -418,7 +418,7 @@ class ApiClient:
 
     @no_type_check
     @staticmethod
-    def parameters_to_url_query(params, collection_formats): # noqa C901 too complex
+    def parameters_to_url_query(params, collection_formats):  # noqa C901 too complex
         """Get parameters as list of tuples, formatting collections.
 
         :param params: Parameters as dict or list of two-tuples
@@ -588,7 +588,7 @@ class ApiClient:
         except ImportError:
             return string
         except ValueError as err:
-          raise rest.ApiException(status=0, reason="Failed to parse `{0}` as date object".format(string)) from err
+            raise rest.ApiException(status=0, reason="Failed to parse `{0}` as date object".format(string)) from err
 
     @no_type_check
     @staticmethod
@@ -605,7 +605,7 @@ class ApiClient:
         except ImportError:
             return string
         except ValueError as err:
-            raise rest.ApiException(status=0,reason=("Failed to parse `{0}` as datetime object".format(string))) from err
+            raise rest.ApiException(status=0, reason=("Failed to parse `{0}` as datetime object".format(string))) from err
 
     @no_type_check
     @staticmethod
