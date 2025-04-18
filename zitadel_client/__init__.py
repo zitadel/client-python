@@ -11,4 +11,5 @@ from .exceptions import (
     ApiValueError,  # noqa F401
     OpenApiError,  # noqa F401
 )
+from .models import *  # noqa: F403, F401
 from .zitadel import Zitadel  # noqa F401
