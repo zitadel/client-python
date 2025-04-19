@@ -10,6 +10,9 @@ from zitadel_client.api.settings_service_api import SettingsServiceApi
 from zitadel_client.api.user_service_api import UserServiceApi
 from zitadel_client.api_client import ApiClient
 from zitadel_client.auth.authenticator import Authenticator
+from zitadel_client.auth.client_credentials_authenticator import ClientCredentialsAuthenticator
+from zitadel_client.auth.personal_access_token_authenticator import PersonalAccessTokenAuthenticator
+from zitadel_client.auth.web_token_authenticator import WebTokenAuthenticator
 from zitadel_client.configuration import Configuration
 
 
@@ -93,3 +96,15 @@ class Zitadel:
             traceback: The traceback of the exception, if an exception occurred.
         """
         pass
+
+    @staticmethod
+    def with_access_token(host: str, access_token: str) -> "Zitadel":
+        return Zitadel(PersonalAccessTokenAuthenticator(host, access_token))
+
+    @staticmethod
+    def with_client_credentials(host: str, client_id: str, client_secret: str) -> "Zitadel":
+        return Zitadel(ClientCredentialsAuthenticator.builder(host, client_id, client_secret).build())
+
+    @staticmethod
+    def with_private_key(host: str, key_file: str) -> "Zitadel":
+        return Zitadel(WebTokenAuthenticator.from_json(host, key_file))

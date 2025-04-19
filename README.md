@@ -69,13 +69,8 @@ JSON file. This process creates a secure token.
 
 ```python
 import zitadel_client as zitadel
-from zitadel_client.auth.web_token_authenticator import WebTokenAuthenticator
 
-base_url = "https://example.zitadel.com"
-key_file = "/path/to/jwt-key.json"
-
-authenticator = WebTokenAuthenticator.from_json(base_url, key_file)
-zitadel = zitadel.Zitadel(authenticator)
+zitadel = zitadel.Zitadel.with_private_key("https://example.us1.zitadel.cloud", "path/to/jwt-key.json")
 
 try:
     response = zitadel.users.add_human_user({
@@ -108,14 +103,8 @@ which is then used to authenticate.
 
 ```python
 import zitadel_client as zitadel
-from zitadel_client.auth.client_credentials_authenticator import ClientCredentialsAuthenticator
 
-base_url = "https://example.zitadel.com"
-client_id = "your-client-id"
-client_secret = "your-client-secret"
-
-authenticator = ClientCredentialsAuthenticator.builder(base_url, client_id, client_secret).build()
-zitadel = zitadel.Zitadel(authenticator)
+zitadel = zitadel.Zitadel.with_client_credentials("https://example.us1.zitadel.cloud", "id", "secret")
 
 try:
     response = zitadel.users.add_human_user({
@@ -148,13 +137,8 @@ authenticate without exchanging credentials every time.
 
 ```python
 import zitadel_client as zitadel
-from zitadel_client.auth.personal_access_token_authenticator import PersonalAccessTokenAuthenticator
 
-base_url = "https://example.zitadel.com"
-valid_token = "your-valid-token"
-
-authenticator = PersonalAccessTokenAuthenticator(base_url, valid_token)
-zitadel = zitadel.Zitadel(authenticator)
+zitadel = zitadel.Zitadel.with_access_token("https://example.us1.zitadel.cloud", "token")
 
 try:
     response = zitadel.users.add_human_user({
