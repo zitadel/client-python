@@ -54,7 +54,7 @@ class OAuthAuthenticator(Authenticator, ABC):
 
         For example, this might include parameters like grant_type, client_assertion, etc.
         """
-        pass
+        pass # pragma: no cover
 
     def refresh_token(self) -> Token:
         """

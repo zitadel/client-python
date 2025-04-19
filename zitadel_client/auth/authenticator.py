@@ -28,7 +28,7 @@ class Authenticator(ABC):
 
         :return: A dictionary mapping header names to their values.
         """
-        pass
+        pass # pragma: no cover
 
     def get_host(self) -> str:
         """
