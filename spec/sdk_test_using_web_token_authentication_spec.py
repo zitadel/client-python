@@ -27,7 +27,7 @@ def base_url() -> str | None:
 @pytest.fixture
 def user_id(key_file: str, base_url: str) -> str | None:
     """Fixture to create a user and return their ID."""
-    with zitadel.Zitadel(WebTokenAuthenticator.from_json(base_url, key_file)) as client:
+    with zitadel.Zitadel.with_private_key(base_url, key_file) as client:
         try:
             response = client.users.add_human_user(
                 body=zitadel.models.V2AddHumanUserRequest(
@@ -43,7 +43,7 @@ def user_id(key_file: str, base_url: str) -> str | None:
 
 def test_should_deactivate_and_reactivate_user_with_valid_token(user_id: str, key_file: str, base_url: str) -> None:
     """Test to (de)activate the user with a valid token."""
-    with zitadel.Zitadel(WebTokenAuthenticator.from_json(base_url, key_file)) as client:
+    with zitadel.Zitadel.with_private_key(base_url, key_file) as client:
         try:
             deactivate_response = client.users.deactivate_user(user_id=user_id)
             assert deactivate_response is not None, "Deactivation response is None"

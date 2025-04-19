@@ -30,7 +30,7 @@ def base_url() -> str | None:
 @pytest.fixture
 def user_id(client_id: str, client_secret: str, base_url: str) -> str | None:
     """Fixture to create a user and return their ID."""
-    with zitadel.Zitadel(ClientCredentialsAuthenticator.builder(base_url, client_id, client_secret).build()) as client:
+    with zitadel.Zitadel.with_client_credentials(base_url, client_id, client_secret) as client:
         try:
             response = client.users.add_human_user(
                 body=zitadel.models.V2AddHumanUserRequest(
@@ -48,7 +48,7 @@ def test_should_deactivate_and_reactivate_user_with_valid_token(
     user_id: str, client_id: str, client_secret: str, base_url: str
 ) -> None:
     """Test to (de)activate the user with a valid token."""
-    with zitadel.Zitadel(ClientCredentialsAuthenticator.builder(base_url, client_id, client_secret).build()) as client:
+    with zitadel.Zitadel.with_client_credentials(base_url, client_id, client_secret) as client:
         try:
             deactivate_response = client.users.deactivate_user(user_id=user_id)
             assert deactivate_response is not None, "Deactivation response is None"
@@ -61,7 +61,7 @@ def test_should_deactivate_and_reactivate_user_with_valid_token(
 
 def test_should_not_deactivate_or_reactivate_user_with_invalid_token(user_id: str, base_url: str) -> None:
     """Test to attempt (de)activating the user with an invalid token."""
-    with zitadel.Zitadel(ClientCredentialsAuthenticator.builder(base_url, "id", "secret").build()) as client:
+    with zitadel.Zitadel.with_client_credentials(base_url, "id", "secret") as client:
         with pytest.raises(Exception, match="Failed to refresh token: invalid_client: client not found"):
             client.users.deactivate_user(user_id=user_id)
 
