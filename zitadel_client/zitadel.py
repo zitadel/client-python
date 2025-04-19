@@ -99,12 +99,37 @@ class Zitadel:
 
     @staticmethod
     def with_access_token(host: str, access_token: str) -> "Zitadel":
+        """
+        Initialize the SDK with a Personal Access Token (PAT).
+
+        :param host: API URL (e.g., "https://api.zitadel.example.com").
+        :param access_token: Personal Access Token for Bearer authentication.
+        :return: Configured Zitadel client instance.
+        :see: https://zitadel.com/docs/guides/integrate/service-users/personal-access-token
+        """
         return Zitadel(PersonalAccessTokenAuthenticator(host, access_token))
 
     @staticmethod
     def with_client_credentials(host: str, client_id: str, client_secret: str) -> "Zitadel":
+        """
+        Initialize the SDK using OAuth2 Client Credentials flow.
+
+        :param host: API URL.
+        :param client_id: OAuth2 client identifier.
+        :param client_secret: OAuth2 client secret.
+        :return: Configured Zitadel client instance with token auto-refresh.
+        :see: https://zitadel.com/docs/guides/integrate/service-users/client-credentials
+        """
         return Zitadel(ClientCredentialsAuthenticator.builder(host, client_id, client_secret).build())
 
     @staticmethod
     def with_private_key(host: str, key_file: str) -> "Zitadel":
+        """
+        Initialize the SDK via Private Key JWT assertion.
+
+        :param host: API URL.
+        :param key_file: Path to service account JSON or PEM key file.
+        :return: Configured Zitadel client instance using JWT assertion.
+        :see: https://zitadel.com/docs/guides/integrate/service-users/private-key-jwt
+        """
         return Zitadel(WebTokenAuthenticator.from_json(host, key_file))
