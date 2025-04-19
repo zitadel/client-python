@@ -31,7 +31,7 @@ def base_url() -> str | None:
 @pytest.fixture
 def user_id(valid_token: str, base_url: str) -> str | None:
     """Fixture to create a user and return their ID."""
-    with zitadel.Zitadel(PersonalAccessTokenAuthenticator(base_url, valid_token)) as client:
+    with zitadel.Zitadel.with_access_token(base_url, valid_token) as client:
         try:
             response = client.users.add_human_user(
                 body=zitadel.models.V2AddHumanUserRequest(
@@ -47,7 +47,7 @@ def user_id(valid_token: str, base_url: str) -> str | None:
 
 def test_should_deactivate_and_reactivate_user_with_valid_token(user_id: str, valid_token: str, base_url: str) -> None:
     """Test to (de)activate the user with a valid token."""
-    with zitadel.Zitadel(PersonalAccessTokenAuthenticator(base_url, valid_token)) as client:
+    with zitadel.Zitadel.with_access_token(base_url, valid_token) as client:
         try:
             deactivate_response = client.users.deactivate_user(user_id=user_id)
             assert deactivate_response is not None, "Deactivation response is None"
@@ -60,7 +60,7 @@ def test_should_deactivate_and_reactivate_user_with_valid_token(user_id: str, va
 
 def test_should_not_deactivate_or_reactivate_user_with_invalid_token(user_id: str, invalid_token: str, base_url: str) -> None:
     """Test to attempt (de)activating the user with an invalid token."""
-    with zitadel.Zitadel(PersonalAccessTokenAuthenticator(base_url, invalid_token)) as client:
+    with zitadel.Zitadel.with_access_token(base_url, invalid_token) as client:
         with pytest.raises(UnauthorizedException):
             client.users.deactivate_user(user_id=user_id)
 
