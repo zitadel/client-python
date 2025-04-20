@@ -43,3 +43,19 @@ jobs:
           JWT_KEY: ${{ secrets.JWT_KEY }}
           CLIENT_ID: ${{ secrets.CLIENT_ID }}
           CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+
+      - name: Upload Results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results
+          path: build/reports/**/*.xml
+
+      - name: Generate Report
+        if: ${{ always() && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false) }}
+        uses: dorny/test-reporter@v2.0.0
+        with:
+          name: Tests
+          reporter: java-junit
+          path: build/reports/**/*.xml
+          token: ${{ secrets.GITHUB_TOKEN }}
