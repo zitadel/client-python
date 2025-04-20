@@ -1,0 +1,25 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.10.7/.schema/devbox.schema.json",
+  "packages": [
+    "python@latest",
+    "poetry@latest",
+    "lefthook@latest"
+  ],
+  "shell": {
+    "init_hook": [
+      "lefthook install"
+    ],
+    "scripts": {
+      "format": [
+        "poetry run ruff format ."
+      ],
+      "test": [
+        "poetry run pytest"
+      ],
+      "check": [
+        "poetry run ruff check .",
+        "poetry run mypy"
+      ]
+    }
+  }
+}
