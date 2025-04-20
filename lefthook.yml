@@ -1,0 +1,13 @@
+pre-commit:
+  parallel: true
+
+  commands:
+    format:
+      glob: "*.py"
+      run: poetry run ruff format .
+
+    check:
+      glob: "*.py"
+      run: |
+        poetry run ruff check .
+        poetry run mypy
