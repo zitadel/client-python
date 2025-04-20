@@ -54,8 +54,10 @@ addopts = [
   "--cov=zitadel_client",
   "--cov-report=html:build/coverage/html",
   "--cov-report=lcov:build/coverage/lcov.info",
-  "--cov-report=term"
+  "--cov-report=term",
+  "--junitxml=build/reports/junit.xml"
 ]
+junit_family= "legacy"
 
 [tool.coverage.run]
 data_file = "build/coverage/.coverage"
