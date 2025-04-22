@@ -215,7 +215,7 @@ class _NodeReporter:
         self.duration = _duration
 
         # Freeze the XML output
-        self.to_xml = lambda: data
+        self.to_xml = lambda: data # type: ignore[method-assign]
 
 
 @pytest.fixture
@@ -332,7 +332,7 @@ def mangle_test_address(address: str) -> list[str]:
 
 
 class LogXML:
-    def __init__(
+    def __init__( # type: ignore[no-untyped-def]
         self,
         output_dir,
         prefix: str | None = None,
