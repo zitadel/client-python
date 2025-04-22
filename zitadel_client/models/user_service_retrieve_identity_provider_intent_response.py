@@ -19,6 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from zitadel_client.models.user_service_add_human_user_request import UserServiceAddHumanUserRequest
 from zitadel_client.models.user_service_details import UserServiceDetails
 from zitadel_client.models.user_service_idp_information import UserServiceIDPInformation
 from typing import Optional, Set
@@ -31,8 +32,9 @@ class UserServiceRetrieveIdentityProviderIntentResponse(BaseModel):
     details: Optional[UserServiceDetails] = None
     idp_information: Optional[UserServiceIDPInformation] = Field(default=None, alias="idpInformation")
     user_id: Optional[StrictStr] = Field(default=None, description="ID of the user in ZITADEL if external user is linked", alias="userId")
+    add_human_user: Optional[UserServiceAddHumanUserRequest] = Field(default=None, alias="addHumanUser")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["details", "idpInformation", "userId"]
+    __properties: ClassVar[List[str]] = ["details", "idpInformation", "userId", "addHumanUser"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -81,6 +83,9 @@ class UserServiceRetrieveIdentityProviderIntentResponse(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of idp_information
         if self.idp_information:
             _dict['idpInformation'] = self.idp_information.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of add_human_user
+        if self.add_human_user:
+            _dict['addHumanUser'] = self.add_human_user.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
@@ -100,7 +105,8 @@ class UserServiceRetrieveIdentityProviderIntentResponse(BaseModel):
         _obj = cls.model_validate({
             "details": UserServiceDetails.from_dict(obj["details"]) if obj.get("details") is not None else None,
             "idpInformation": UserServiceIDPInformation.from_dict(obj["idpInformation"]) if obj.get("idpInformation") is not None else None,
-            "userId": obj.get("userId")
+            "userId": obj.get("userId"),
+            "addHumanUser": UserServiceAddHumanUserRequest.from_dict(obj["addHumanUser"]) if obj.get("addHumanUser") is not None else None
         })
         # store additional fields in additional_properties
         for _key in obj.keys():
