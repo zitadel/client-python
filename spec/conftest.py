@@ -14,8 +14,10 @@ from datetime import timezone
 import pytest
 from _pytest import nodes
 from _pytest import timing
+
 # noinspection PyProtectedMember
 from _pytest._code.code import ExceptionRepr
+
 # noinspection PyProtectedMember
 from _pytest._code.code import ReprFileLocation
 from _pytest.config import Config, directory_arg
@@ -91,7 +93,6 @@ class _NodeReporter:
         self.append(node)
 
     def write_captured_output(self, report: TestReport) -> None:
-
         if not self.xml.log_passing_tests and report.passed:
             return
 
@@ -131,9 +132,7 @@ class _NodeReporter:
             self._add_simple("skipped", "xfail-marked test passes unexpectedly")
         else:
             assert report.longrepr is not None
-            reprcrash: ReprFileLocation | None = getattr(
-                report.longrepr, "reprcrash", None
-            )
+            reprcrash: ReprFileLocation | None = getattr(report.longrepr, "reprcrash", None)
             if reprcrash is not None:
                 message = reprcrash.message
             else:
@@ -152,11 +151,7 @@ class _NodeReporter:
         :param report: The TestReport instance for the failed collection.
         """
         assert report.longrepr is not None
-        self._add_simple(
-            "error",
-            "collection failure",
-            str(report.longrepr)
-        )
+        self._add_simple("error", "collection failure", str(report.longrepr))
 
     def append_collect_skipped(self, report: TestReport) -> None:
         """
@@ -168,11 +163,7 @@ class _NodeReporter:
 
         :param report: The TestReport instance for the skipped collection.
         """
-        self._add_simple(
-            "skipped",
-            "collection skipped",
-            str(report.longrepr)
-        )
+        self._add_simple("skipped", "collection skipped", str(report.longrepr))
 
     def append_error(self, report: TestReport) -> None:
         assert report.longrepr is not None
@@ -203,9 +194,7 @@ class _NodeReporter:
                 skipreason = skipreason[9:]
             details = f"{filename}:{lineno}: {skipreason}"
 
-            skipped = ET.Element(
-                "skipped", type="pytest.skip", message=bin_xml_escape(skipreason)
-            )
+            skipped = ET.Element("skipped", type="pytest.skip", message=bin_xml_escape(skipreason))
             skipped.text = bin_xml_escape(details)
             self.append(skipped)
             self.write_captured_output(report)
@@ -214,8 +203,8 @@ class _NodeReporter:
         data = self.to_xml()
         # Preserve key attributes
         _id = self.id
-        _stats = getattr(self, 'stats', {})
-        _duration = getattr(self, 'duration', 0.0)
+        _stats = getattr(self, "stats", {})
+        _duration = getattr(self, "duration", 0.0)
 
         # Clear everything else
         self.__dict__.clear()
@@ -273,7 +262,6 @@ def record_xml_attribute(request: FixtureRequest) -> Callable[[str, object], Non
     return attr_func
 
 
-
 def ensure_directory(path: str) -> str:
     """
     Expand ~/$VARS and create the directory (and parents) if missing.
@@ -282,6 +270,7 @@ def ensure_directory(path: str) -> str:
     p = os.path.expanduser(os.path.expandvars(path))
     os.makedirs(p, exist_ok=True)
     return os.path.normpath(os.path.abspath(p))
+
 
 def pytest_addoption(parser: Parser) -> None:
     group = parser.getgroup("terminal reporting")
@@ -359,9 +348,7 @@ class LogXML:
         self.logging = logging
         self.log_passing_tests = log_passing_tests
         self.report_duration = report_duration
-        self.stats: dict[str, int] = dict.fromkeys(
-            ["error", "passed", "failure", "skipped"], 0
-        )
+        self.stats: dict[str, int] = dict.fromkeys(["error", "passed", "failure", "skipped"], 0)
         self.node_reporters: dict[tuple[str | TestReport, object], _NodeReporter] = {}
         self.node_reporters_ordered: list[_NodeReporter] = []
 
@@ -446,10 +433,10 @@ class LogXML:
                         rep
                         for rep in self.open_reports
                         if (
-                        rep.nodeid == report.nodeid
-                        and getattr(rep, "item_index", None) == report_ii
-                        and getattr(rep, "worker_id", None) == report_wid
-                    )
+                            rep.nodeid == report.nodeid
+                            and getattr(rep, "item_index", None) == report_ii
+                            and getattr(rep, "worker_id", None) == report_wid
+                        )
                     ),
                     None,
                 )
@@ -483,10 +470,10 @@ class LogXML:
                     rep
                     for rep in self.open_reports
                     if (
-                    rep.nodeid == report.nodeid
-                    and getattr(rep, "item_index", None) == report_ii
-                    and getattr(rep, "worker_id", None) == report_wid
-                )
+                        rep.nodeid == report.nodeid
+                        and getattr(rep, "item_index", None) == report_ii
+                        and getattr(rep, "worker_id", None) == report_wid
+                    )
                 ),
                 None,
             )
@@ -552,8 +539,7 @@ class LogXML:
         with correct per‑suite and root summary counts.
         """
         os.makedirs(self.output_dir, exist_ok=True)
-        ts = datetime.fromtimestamp(self.suite_start_time, timezone.utc) \
-            .astimezone().isoformat()
+        ts = datetime.fromtimestamp(self.suite_start_time, timezone.utc).astimezone().isoformat()
 
         # Group reporters by class
         groups: dict[str, list[_NodeReporter]] = defaultdict(list)
@@ -564,10 +550,13 @@ class LogXML:
 
         for cls_name, reps in groups.items():
             # Build the <testsuite> element
-            suite = ET.Element("testsuite", {
-                "name": cls_name,
-                "filepath": reps[0].to_xml().get("file", ""),
-            })
+            suite = ET.Element(
+                "testsuite",
+                {
+                    "name": cls_name,
+                    "filepath": reps[0].to_xml().get("file", ""),
+                },
+            )
 
             # Attach each <testcase>
             for r in reps:
@@ -590,15 +579,18 @@ class LogXML:
             suite.set("hostname", platform.node())
 
             # Wrap and write
-            root = ET.Element("testsuites", {
-                "tests": str(total),
-                "failures": str(failures),
-                "skipped": str(skipped),
-                "errors": str(errors),
-                "time": f"{duration:.3f}",
-                "timestamp": ts,
-                "hostname": platform.node(),
-            })
+            root = ET.Element(
+                "testsuites",
+                {
+                    "tests": str(total),
+                    "failures": str(failures),
+                    "skipped": str(skipped),
+                    "errors": str(errors),
+                    "time": f"{duration:.3f}",
+                    "timestamp": ts,
+                    "hostname": platform.node(),
+                },
+            )
             root.append(suite)
             ET.indent(root, space="  ", level=0)
 
