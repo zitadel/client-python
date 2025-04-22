@@ -55,7 +55,7 @@ addopts = [
   "--cov-report=html:build/coverage/html",
   "--cov-report=lcov:build/coverage/lcov.info",
   "--cov-report=term",
-  "--junitxml=build/reports/junit.xml"
+  "--xml-junit-dir=build/reports/"
 ]
 junit_family= "legacy"
 
