@@ -69,9 +69,9 @@ class FeatureServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> FeatureServiceGetInstanceFeaturesResponse:
-        """Get instance level features
+        """Get Instance Features
 
-        Returns all configured features for an instance. Unset fields mean the feature is the current system default.
+        Returns all configured features for an instance. Unset fields mean the feature is the current system default.  Required permissions:  - none
 
         :param inheritance: Inherit unset features from the resource owners. This option is recursive: if the flag is set, the resource's ancestors are consulted up to system defaults. If this option is disabled and the feature is not set on the instance, it will be omitted from the response or Not Found is returned when the instance has no features flags at all.
         :type inheritance: bool
@@ -138,9 +138,9 @@ class FeatureServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[FeatureServiceGetInstanceFeaturesResponse]:
-        """Get instance level features
+        """Get Instance Features
 
-        Returns all configured features for an instance. Unset fields mean the feature is the current system default.
+        Returns all configured features for an instance. Unset fields mean the feature is the current system default.  Required permissions:  - none
 
         :param inheritance: Inherit unset features from the resource owners. This option is recursive: if the flag is set, the resource's ancestors are consulted up to system defaults. If this option is disabled and the feature is not set on the instance, it will be omitted from the response or Not Found is returned when the instance has no features flags at all.
         :type inheritance: bool
@@ -207,9 +207,9 @@ class FeatureServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get instance level features
+        """Get Instance Features
 
-        Returns all configured features for an instance. Unset fields mean the feature is the current system default.
+        Returns all configured features for an instance. Unset fields mean the feature is the current system default.  Required permissions:  - none
 
         :param inheritance: Inherit unset features from the resource owners. This option is recursive: if the flag is set, the resource's ancestors are consulted up to system defaults. If this option is disabled and the feature is not set on the instance, it will be omitted from the response or Not Found is returned when the instance has no features flags at all.
         :type inheritance: bool
@@ -339,9 +339,9 @@ class FeatureServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> FeatureServiceGetOrganizationFeaturesResponse:
-        """Get organization level features
+        """Get Organization Features
 
-        Returns all configured features for an organization. Unset fields mean the feature is the current instance default.
+        Returns all configured features for an organization. Unset fields mean the feature is the current instance default.  Required permissions:  - org.feature.read  - no permission required for the organization the user belongs to
 
         :param organization_id: (required)
         :type organization_id: str
@@ -412,9 +412,9 @@ class FeatureServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[FeatureServiceGetOrganizationFeaturesResponse]:
-        """Get organization level features
+        """Get Organization Features
 
-        Returns all configured features for an organization. Unset fields mean the feature is the current instance default.
+        Returns all configured features for an organization. Unset fields mean the feature is the current instance default.  Required permissions:  - org.feature.read  - no permission required for the organization the user belongs to
 
         :param organization_id: (required)
         :type organization_id: str
@@ -485,9 +485,9 @@ class FeatureServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get organization level features
+        """Get Organization Features
 
-        Returns all configured features for an organization. Unset fields mean the feature is the current instance default.
+        Returns all configured features for an organization. Unset fields mean the feature is the current instance default.  Required permissions:  - org.feature.read  - no permission required for the organization the user belongs to
 
         :param organization_id: (required)
         :type organization_id: str
@@ -621,9 +621,9 @@ class FeatureServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> FeatureServiceGetSystemFeaturesResponse:
-        """Get system level features
+        """Get System Features
 
-        Returns all configured features for the system. Unset fields mean the feature is the current system default.
+        Returns all configured features for the system. Unset fields mean the feature is the current system default.  Required permissions:  - none
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -686,9 +686,9 @@ class FeatureServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[FeatureServiceGetSystemFeaturesResponse]:
-        """Get system level features
+        """Get System Features
 
-        Returns all configured features for the system. Unset fields mean the feature is the current system default.
+        Returns all configured features for the system. Unset fields mean the feature is the current system default.  Required permissions:  - none
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -751,9 +751,9 @@ class FeatureServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get system level features
+        """Get System Features
 
-        Returns all configured features for the system. Unset fields mean the feature is the current system default.
+        Returns all configured features for the system. Unset fields mean the feature is the current system default.  Required permissions:  - none
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -875,9 +875,9 @@ class FeatureServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> FeatureServiceGetUserFeaturesResponse:
-        """Get organization level features
+        """Get User Features
 
-        Returns all configured features for an organization. Unset fields mean the feature is the current instance default.
+        Returns all configured features for a user. Unset fields mean the feature is the current organization default.  Required permissions:  - user.feature.read  - no permission required for the own user
 
         :param user_id: (required)
         :type user_id: str
@@ -948,9 +948,9 @@ class FeatureServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[FeatureServiceGetUserFeaturesResponse]:
-        """Get organization level features
+        """Get User Features
 
-        Returns all configured features for an organization. Unset fields mean the feature is the current instance default.
+        Returns all configured features for a user. Unset fields mean the feature is the current organization default.  Required permissions:  - user.feature.read  - no permission required for the own user
 
         :param user_id: (required)
         :type user_id: str
@@ -1021,9 +1021,9 @@ class FeatureServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get organization level features
+        """Get User Features
 
-        Returns all configured features for an organization. Unset fields mean the feature is the current instance default.
+        Returns all configured features for a user. Unset fields mean the feature is the current organization default.  Required permissions:  - user.feature.read  - no permission required for the own user
 
         :param user_id: (required)
         :type user_id: str
@@ -1157,9 +1157,9 @@ class FeatureServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> FeatureServiceResetInstanceFeaturesResponse:
-        """Reset instance level features
+        """Reset Instance Features
 
-        Deletes ALL configured features for an instance, reverting the behaviors to system defaults.
+        Deletes ALL configured features for an instance, reverting the behaviors to system defaults.  Required permissions:  - iam.feature.delete
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1222,9 +1222,9 @@ class FeatureServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[FeatureServiceResetInstanceFeaturesResponse]:
-        """Reset instance level features
+        """Reset Instance Features
 
-        Deletes ALL configured features for an instance, reverting the behaviors to system defaults.
+        Deletes ALL configured features for an instance, reverting the behaviors to system defaults.  Required permissions:  - iam.feature.delete
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1287,9 +1287,9 @@ class FeatureServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Reset instance level features
+        """Reset Instance Features
 
-        Deletes ALL configured features for an instance, reverting the behaviors to system defaults.
+        Deletes ALL configured features for an instance, reverting the behaviors to system defaults.  Required permissions:  - iam.feature.delete
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1410,9 +1410,9 @@ class FeatureServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> FeatureServiceResetOrganizationFeaturesResponse:
-        """Reset organization level features
+        """Reset Organization Features
 
-        Deletes ALL configured features for an organization, reverting the behaviors to instance defaults.
+        Deletes ALL configured features for an organization, reverting the behaviors to instance defaults.  Required permissions:  - org.feature.delete
 
         :param organization_id: (required)
         :type organization_id: str
@@ -1479,9 +1479,9 @@ class FeatureServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[FeatureServiceResetOrganizationFeaturesResponse]:
-        """Reset organization level features
+        """Reset Organization Features
 
-        Deletes ALL configured features for an organization, reverting the behaviors to instance defaults.
+        Deletes ALL configured features for an organization, reverting the behaviors to instance defaults.  Required permissions:  - org.feature.delete
 
         :param organization_id: (required)
         :type organization_id: str
@@ -1548,9 +1548,9 @@ class FeatureServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Reset organization level features
+        """Reset Organization Features
 
-        Deletes ALL configured features for an organization, reverting the behaviors to instance defaults.
+        Deletes ALL configured features for an organization, reverting the behaviors to instance defaults.  Required permissions:  - org.feature.delete
 
         :param organization_id: (required)
         :type organization_id: str
@@ -1676,9 +1676,9 @@ class FeatureServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> FeatureServiceResetSystemFeaturesResponse:
-        """Reset system level features
+        """Reset System Features
 
-        Deletes ALL configured features for the system, reverting the behaviors to system defaults.
+        Deletes ALL configured features for the system, reverting the behaviors to system defaults.  Required permissions:  - system.feature.delete
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1741,9 +1741,9 @@ class FeatureServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[FeatureServiceResetSystemFeaturesResponse]:
-        """Reset system level features
+        """Reset System Features
 
-        Deletes ALL configured features for the system, reverting the behaviors to system defaults.
+        Deletes ALL configured features for the system, reverting the behaviors to system defaults.  Required permissions:  - system.feature.delete
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1806,9 +1806,9 @@ class FeatureServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Reset system level features
+        """Reset System Features
 
-        Deletes ALL configured features for the system, reverting the behaviors to system defaults.
+        Deletes ALL configured features for the system, reverting the behaviors to system defaults.  Required permissions:  - system.feature.delete
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1929,9 +1929,9 @@ class FeatureServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> FeatureServiceResetUserFeaturesResponse:
-        """Reset user level features
+        """Reset User Features
 
-        Deletes ALL configured features for a user, reverting the behaviors to organization defaults.
+        Deletes ALL configured features for a user, reverting the behaviors to organization defaults.  Required permissions:  - user.feature.delete
 
         :param user_id: (required)
         :type user_id: str
@@ -1998,9 +1998,9 @@ class FeatureServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[FeatureServiceResetUserFeaturesResponse]:
-        """Reset user level features
+        """Reset User Features
 
-        Deletes ALL configured features for a user, reverting the behaviors to organization defaults.
+        Deletes ALL configured features for a user, reverting the behaviors to organization defaults.  Required permissions:  - user.feature.delete
 
         :param user_id: (required)
         :type user_id: str
@@ -2067,9 +2067,9 @@ class FeatureServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Reset user level features
+        """Reset User Features
 
-        Deletes ALL configured features for a user, reverting the behaviors to organization defaults.
+        Deletes ALL configured features for a user, reverting the behaviors to organization defaults.  Required permissions:  - user.feature.delete
 
         :param user_id: (required)
         :type user_id: str
@@ -2196,9 +2196,9 @@ class FeatureServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> FeatureServiceSetInstanceFeaturesResponse:
-        """Set instance level features
+        """Set Instance Features
 
-        Configure and set features that apply to a complete instance. Only fields present in the request are set or unset.
+        Configure and set features that apply to a complete instance. Only fields present in the request are set or unset.  Required permissions:  - iam.feature.write
 
         :param feature_service_set_instance_features_request: (required)
         :type feature_service_set_instance_features_request: FeatureServiceSetInstanceFeaturesRequest
@@ -2265,9 +2265,9 @@ class FeatureServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[FeatureServiceSetInstanceFeaturesResponse]:
-        """Set instance level features
+        """Set Instance Features
 
-        Configure and set features that apply to a complete instance. Only fields present in the request are set or unset.
+        Configure and set features that apply to a complete instance. Only fields present in the request are set or unset.  Required permissions:  - iam.feature.write
 
         :param feature_service_set_instance_features_request: (required)
         :type feature_service_set_instance_features_request: FeatureServiceSetInstanceFeaturesRequest
@@ -2334,9 +2334,9 @@ class FeatureServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Set instance level features
+        """Set Instance Features
 
-        Configure and set features that apply to a complete instance. Only fields present in the request are set or unset.
+        Configure and set features that apply to a complete instance. Only fields present in the request are set or unset.  Required permissions:  - iam.feature.write
 
         :param feature_service_set_instance_features_request: (required)
         :type feature_service_set_instance_features_request: FeatureServiceSetInstanceFeaturesRequest
@@ -2476,9 +2476,9 @@ class FeatureServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> FeatureServiceSetOrganizationFeaturesResponse:
-        """Set organization level features
+        """Set Organization Features
 
-        Configure and set features that apply to a complete instance. Only fields present in the request are set or unset.
+        Configure and set features that apply to a complete instance. Only fields present in the request are set or unset.  Required permissions:  - org.feature.write
 
         :param organization_id: (required)
         :type organization_id: str
@@ -2545,9 +2545,9 @@ class FeatureServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[FeatureServiceSetOrganizationFeaturesResponse]:
-        """Set organization level features
+        """Set Organization Features
 
-        Configure and set features that apply to a complete instance. Only fields present in the request are set or unset.
+        Configure and set features that apply to a complete instance. Only fields present in the request are set or unset.  Required permissions:  - org.feature.write
 
         :param organization_id: (required)
         :type organization_id: str
@@ -2614,9 +2614,9 @@ class FeatureServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Set organization level features
+        """Set Organization Features
 
-        Configure and set features that apply to a complete instance. Only fields present in the request are set or unset.
+        Configure and set features that apply to a complete instance. Only fields present in the request are set or unset.  Required permissions:  - org.feature.write
 
         :param organization_id: (required)
         :type organization_id: str
@@ -2756,9 +2756,9 @@ class FeatureServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> FeatureServiceSetSystemFeaturesResponse:
-        """Set system level features
+        """Set System Features
 
-        Configure and set features that apply to the complete system. Only fields present in the request are set or unset.
+        Configure and set features that apply to the complete system. Only fields present in the request are set or unset.  Required permissions:  - system.feature.write
 
         :param feature_service_set_system_features_request: (required)
         :type feature_service_set_system_features_request: FeatureServiceSetSystemFeaturesRequest
@@ -2825,9 +2825,9 @@ class FeatureServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[FeatureServiceSetSystemFeaturesResponse]:
-        """Set system level features
+        """Set System Features
 
-        Configure and set features that apply to the complete system. Only fields present in the request are set or unset.
+        Configure and set features that apply to the complete system. Only fields present in the request are set or unset.  Required permissions:  - system.feature.write
 
         :param feature_service_set_system_features_request: (required)
         :type feature_service_set_system_features_request: FeatureServiceSetSystemFeaturesRequest
@@ -2894,9 +2894,9 @@ class FeatureServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Set system level features
+        """Set System Features
 
-        Configure and set features that apply to the complete system. Only fields present in the request are set or unset.
+        Configure and set features that apply to the complete system. Only fields present in the request are set or unset.  Required permissions:  - system.feature.write
 
         :param feature_service_set_system_features_request: (required)
         :type feature_service_set_system_features_request: FeatureServiceSetSystemFeaturesRequest
@@ -3036,9 +3036,9 @@ class FeatureServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> FeatureServiceSetUserFeaturesResponse:
-        """Set user level features
+        """Set User Features
 
-        Configure and set features that apply to an user. Only fields present in the request are set or unset.
+        Configure and set features that apply to an user. Only fields present in the request are set or unset.  Required permissions:  - user.feature.write
 
         :param user_id: (required)
         :type user_id: str
@@ -3105,9 +3105,9 @@ class FeatureServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[FeatureServiceSetUserFeaturesResponse]:
-        """Set user level features
+        """Set User Features
 
-        Configure and set features that apply to an user. Only fields present in the request are set or unset.
+        Configure and set features that apply to an user. Only fields present in the request are set or unset.  Required permissions:  - user.feature.write
 
         :param user_id: (required)
         :type user_id: str
@@ -3174,9 +3174,9 @@ class FeatureServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Set user level features
+        """Set User Features
 
-        Configure and set features that apply to an user. Only fields present in the request are set or unset.
+        Configure and set features that apply to an user. Only fields present in the request are set or unset.  Required permissions:  - user.feature.write
 
         :param user_id: (required)
         :type user_id: str

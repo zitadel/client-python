@@ -3182,13 +3182,13 @@ class UserServiceApi:
             _path_params['userId'] = user_id
         # process the query parameters
         if auth_factors is not None:
-
+            
             _query_params.append(('authFactors', auth_factors))
-
+            
         if states is not None:
-
+            
             _query_params.append(('states', states))
-
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter
@@ -3483,13 +3483,13 @@ class UserServiceApi:
             _path_params['userId'] = user_id
         # process the query parameters
         if domain_query_include_without_domain is not None:
-
+            
             _query_params.append(('domainQuery.includeWithoutDomain', domain_query_include_without_domain))
-
+            
         if domain_query_domain is not None:
-
+            
             _query_params.append(('domainQuery.domain', domain_query_domain))
-
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter
