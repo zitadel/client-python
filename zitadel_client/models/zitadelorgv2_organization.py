@@ -19,8 +19,8 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from zitadel_client.models.v2_details import V2Details
-from zitadel_client.models.v2_organization_state import V2OrganizationState
+from zitadel_client.models.organization_service_details import OrganizationServiceDetails
+from zitadel_client.models.organization_service_organization_state import OrganizationServiceOrganizationState
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -29,8 +29,8 @@ class Zitadelorgv2Organization(BaseModel):
     Zitadelorgv2Organization
     """ # noqa: E501
     id: Optional[StrictStr] = Field(default=None, description="Unique identifier of the organization.")
-    details: Optional[V2Details] = None
-    state: Optional[V2OrganizationState] = V2OrganizationState.ORGANIZATION_STATE_UNSPECIFIED
+    details: Optional[OrganizationServiceDetails] = None
+    state: Optional[OrganizationServiceOrganizationState] = OrganizationServiceOrganizationState.ORGANIZATION_STATE_UNSPECIFIED
     name: Optional[StrictStr] = Field(default=None, description="Name of the organization.")
     primary_domain: Optional[StrictStr] = Field(default=None, description="Primary domain used in the organization.", alias="primaryDomain")
     additional_properties: Dict[str, Any] = {}
@@ -98,8 +98,8 @@ class Zitadelorgv2Organization(BaseModel):
 
         _obj = cls.model_validate({
             "id": obj.get("id"),
-            "details": V2Details.from_dict(obj["details"]) if obj.get("details") is not None else None,
-            "state": obj.get("state") if obj.get("state") is not None else V2OrganizationState.ORGANIZATION_STATE_UNSPECIFIED,
+            "details": OrganizationServiceDetails.from_dict(obj["details"]) if obj.get("details") is not None else None,
+            "state": obj.get("state") if obj.get("state") is not None else OrganizationServiceOrganizationState.ORGANIZATION_STATE_UNSPECIFIED,
             "name": obj.get("name"),
             "primaryDomain": obj.get("primaryDomain")
         })

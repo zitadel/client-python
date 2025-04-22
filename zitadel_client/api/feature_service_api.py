@@ -19,20 +19,20 @@ from typing_extensions import Annotated
 from pydantic import Field, StrictBool, StrictStr
 from typing import Optional
 from typing_extensions import Annotated
-from zitadel_client.models.v2_get_instance_features_response import V2GetInstanceFeaturesResponse
-from zitadel_client.models.v2_get_organization_features_response import V2GetOrganizationFeaturesResponse
-from zitadel_client.models.v2_get_system_features_response import V2GetSystemFeaturesResponse
-from zitadel_client.models.v2_get_user_features_response import V2GetUserFeaturesResponse
-from zitadel_client.models.v2_reset_instance_features_response import V2ResetInstanceFeaturesResponse
-from zitadel_client.models.v2_reset_organization_features_response import V2ResetOrganizationFeaturesResponse
-from zitadel_client.models.v2_reset_system_features_response import V2ResetSystemFeaturesResponse
-from zitadel_client.models.v2_reset_user_features_response import V2ResetUserFeaturesResponse
-from zitadel_client.models.v2_set_instance_features_request import V2SetInstanceFeaturesRequest
-from zitadel_client.models.v2_set_instance_features_response import V2SetInstanceFeaturesResponse
-from zitadel_client.models.v2_set_organization_features_response import V2SetOrganizationFeaturesResponse
-from zitadel_client.models.v2_set_system_features_request import V2SetSystemFeaturesRequest
-from zitadel_client.models.v2_set_system_features_response import V2SetSystemFeaturesResponse
-from zitadel_client.models.v2_set_user_features_response import V2SetUserFeaturesResponse
+from zitadel_client.models.feature_service_get_instance_features_response import FeatureServiceGetInstanceFeaturesResponse
+from zitadel_client.models.feature_service_get_organization_features_response import FeatureServiceGetOrganizationFeaturesResponse
+from zitadel_client.models.feature_service_get_system_features_response import FeatureServiceGetSystemFeaturesResponse
+from zitadel_client.models.feature_service_get_user_features_response import FeatureServiceGetUserFeaturesResponse
+from zitadel_client.models.feature_service_reset_instance_features_response import FeatureServiceResetInstanceFeaturesResponse
+from zitadel_client.models.feature_service_reset_organization_features_response import FeatureServiceResetOrganizationFeaturesResponse
+from zitadel_client.models.feature_service_reset_system_features_response import FeatureServiceResetSystemFeaturesResponse
+from zitadel_client.models.feature_service_reset_user_features_response import FeatureServiceResetUserFeaturesResponse
+from zitadel_client.models.feature_service_set_instance_features_request import FeatureServiceSetInstanceFeaturesRequest
+from zitadel_client.models.feature_service_set_instance_features_response import FeatureServiceSetInstanceFeaturesResponse
+from zitadel_client.models.feature_service_set_organization_features_response import FeatureServiceSetOrganizationFeaturesResponse
+from zitadel_client.models.feature_service_set_system_features_request import FeatureServiceSetSystemFeaturesRequest
+from zitadel_client.models.feature_service_set_system_features_response import FeatureServiceSetSystemFeaturesResponse
+from zitadel_client.models.feature_service_set_user_features_response import FeatureServiceSetUserFeaturesResponse
 
 from zitadel_client.api_client import ApiClient, RequestSerialized
 from zitadel_client.api_response import ApiResponse
@@ -53,7 +53,7 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def get_instance_features(
+    def feature_service_get_instance_features(
         self,
         inheritance: Annotated[Optional[StrictBool], Field(description="Inherit unset features from the resource owners. This option is recursive: if the flag is set, the resource's ancestors are consulted up to system defaults. If this option is disabled and the feature is not set on the instance, it will be omitted from the response or Not Found is returned when the instance has no features flags at all.")] = None,
         _request_timeout: Union[
@@ -68,7 +68,7 @@ class FeatureServiceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> V2GetInstanceFeaturesResponse:
+    ) -> FeatureServiceGetInstanceFeaturesResponse:
         """Get instance level features
 
         Returns all configured features for an instance. Unset fields mean the feature is the current system default.
@@ -97,7 +97,7 @@ class FeatureServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_instance_features_serialize(
+        _param = self._feature_service_get_instance_features_serialize(
             inheritance=inheritance,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -106,9 +106,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2GetInstanceFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "FeatureServiceGetInstanceFeaturesResponse",
+            '403': "FeatureServiceRpcStatus",
+            '404': "FeatureServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -122,7 +122,7 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def get_instance_features_with_http_info(
+    def feature_service_get_instance_features_with_http_info(
         self,
         inheritance: Annotated[Optional[StrictBool], Field(description="Inherit unset features from the resource owners. This option is recursive: if the flag is set, the resource's ancestors are consulted up to system defaults. If this option is disabled and the feature is not set on the instance, it will be omitted from the response or Not Found is returned when the instance has no features flags at all.")] = None,
         _request_timeout: Union[
@@ -137,7 +137,7 @@ class FeatureServiceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[V2GetInstanceFeaturesResponse]:
+    ) -> ApiResponse[FeatureServiceGetInstanceFeaturesResponse]:
         """Get instance level features
 
         Returns all configured features for an instance. Unset fields mean the feature is the current system default.
@@ -166,7 +166,7 @@ class FeatureServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_instance_features_serialize(
+        _param = self._feature_service_get_instance_features_serialize(
             inheritance=inheritance,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -175,9 +175,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2GetInstanceFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "FeatureServiceGetInstanceFeaturesResponse",
+            '403': "FeatureServiceRpcStatus",
+            '404': "FeatureServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -191,7 +191,7 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def get_instance_features_without_preload_content(
+    def feature_service_get_instance_features_without_preload_content(
         self,
         inheritance: Annotated[Optional[StrictBool], Field(description="Inherit unset features from the resource owners. This option is recursive: if the flag is set, the resource's ancestors are consulted up to system defaults. If this option is disabled and the feature is not set on the instance, it will be omitted from the response or Not Found is returned when the instance has no features flags at all.")] = None,
         _request_timeout: Union[
@@ -235,7 +235,7 @@ class FeatureServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_instance_features_serialize(
+        _param = self._feature_service_get_instance_features_serialize(
             inheritance=inheritance,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -244,9 +244,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2GetInstanceFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "FeatureServiceGetInstanceFeaturesResponse",
+            '403': "FeatureServiceRpcStatus",
+            '404': "FeatureServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -255,7 +255,7 @@ class FeatureServiceApi:
         return response_data.response
 
 
-    def _get_instance_features_serialize(
+    def _feature_service_get_instance_features_serialize(
         self,
         inheritance,
         _request_auth,
@@ -322,7 +322,7 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def get_organization_features(
+    def feature_service_get_organization_features(
         self,
         organization_id: StrictStr,
         inheritance: Annotated[Optional[StrictBool], Field(description="Inherit unset features from the resource owners. This option is recursive: if the flag is set, the resource's ancestors are consulted up to system defaults. If this option is disabled and the feature is not set on the organization, it will be omitted from the response or Not Found is returned when the organization has no features flags at all.")] = None,
@@ -338,7 +338,7 @@ class FeatureServiceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> V2GetOrganizationFeaturesResponse:
+    ) -> FeatureServiceGetOrganizationFeaturesResponse:
         """Get organization level features
 
         Returns all configured features for an organization. Unset fields mean the feature is the current instance default.
@@ -369,7 +369,7 @@ class FeatureServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_organization_features_serialize(
+        _param = self._feature_service_get_organization_features_serialize(
             organization_id=organization_id,
             inheritance=inheritance,
             _request_auth=_request_auth,
@@ -379,9 +379,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2GetOrganizationFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "FeatureServiceGetOrganizationFeaturesResponse",
+            '403': "FeatureServiceRpcStatus",
+            '404': "FeatureServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -395,7 +395,7 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def get_organization_features_with_http_info(
+    def feature_service_get_organization_features_with_http_info(
         self,
         organization_id: StrictStr,
         inheritance: Annotated[Optional[StrictBool], Field(description="Inherit unset features from the resource owners. This option is recursive: if the flag is set, the resource's ancestors are consulted up to system defaults. If this option is disabled and the feature is not set on the organization, it will be omitted from the response or Not Found is returned when the organization has no features flags at all.")] = None,
@@ -411,7 +411,7 @@ class FeatureServiceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[V2GetOrganizationFeaturesResponse]:
+    ) -> ApiResponse[FeatureServiceGetOrganizationFeaturesResponse]:
         """Get organization level features
 
         Returns all configured features for an organization. Unset fields mean the feature is the current instance default.
@@ -442,7 +442,7 @@ class FeatureServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_organization_features_serialize(
+        _param = self._feature_service_get_organization_features_serialize(
             organization_id=organization_id,
             inheritance=inheritance,
             _request_auth=_request_auth,
@@ -452,9 +452,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2GetOrganizationFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "FeatureServiceGetOrganizationFeaturesResponse",
+            '403': "FeatureServiceRpcStatus",
+            '404': "FeatureServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -468,7 +468,7 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def get_organization_features_without_preload_content(
+    def feature_service_get_organization_features_without_preload_content(
         self,
         organization_id: StrictStr,
         inheritance: Annotated[Optional[StrictBool], Field(description="Inherit unset features from the resource owners. This option is recursive: if the flag is set, the resource's ancestors are consulted up to system defaults. If this option is disabled and the feature is not set on the organization, it will be omitted from the response or Not Found is returned when the organization has no features flags at all.")] = None,
@@ -515,7 +515,7 @@ class FeatureServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_organization_features_serialize(
+        _param = self._feature_service_get_organization_features_serialize(
             organization_id=organization_id,
             inheritance=inheritance,
             _request_auth=_request_auth,
@@ -525,9 +525,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2GetOrganizationFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "FeatureServiceGetOrganizationFeaturesResponse",
+            '403': "FeatureServiceRpcStatus",
+            '404': "FeatureServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -536,7 +536,7 @@ class FeatureServiceApi:
         return response_data.response
 
 
-    def _get_organization_features_serialize(
+    def _feature_service_get_organization_features_serialize(
         self,
         organization_id,
         inheritance,
@@ -606,7 +606,7 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def get_system_features(
+    def feature_service_get_system_features(
         self,
         _request_timeout: Union[
             None,
@@ -620,7 +620,7 @@ class FeatureServiceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> V2GetSystemFeaturesResponse:
+    ) -> FeatureServiceGetSystemFeaturesResponse:
         """Get system level features
 
         Returns all configured features for the system. Unset fields mean the feature is the current system default.
@@ -647,7 +647,7 @@ class FeatureServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_system_features_serialize(
+        _param = self._feature_service_get_system_features_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -655,9 +655,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2GetSystemFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "FeatureServiceGetSystemFeaturesResponse",
+            '403': "FeatureServiceRpcStatus",
+            '404': "FeatureServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -671,7 +671,7 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def get_system_features_with_http_info(
+    def feature_service_get_system_features_with_http_info(
         self,
         _request_timeout: Union[
             None,
@@ -685,7 +685,7 @@ class FeatureServiceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[V2GetSystemFeaturesResponse]:
+    ) -> ApiResponse[FeatureServiceGetSystemFeaturesResponse]:
         """Get system level features
 
         Returns all configured features for the system. Unset fields mean the feature is the current system default.
@@ -712,7 +712,7 @@ class FeatureServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_system_features_serialize(
+        _param = self._feature_service_get_system_features_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -720,9 +720,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2GetSystemFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "FeatureServiceGetSystemFeaturesResponse",
+            '403': "FeatureServiceRpcStatus",
+            '404': "FeatureServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -736,7 +736,7 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def get_system_features_without_preload_content(
+    def feature_service_get_system_features_without_preload_content(
         self,
         _request_timeout: Union[
             None,
@@ -777,7 +777,7 @@ class FeatureServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_system_features_serialize(
+        _param = self._feature_service_get_system_features_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -785,9 +785,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2GetSystemFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "FeatureServiceGetSystemFeaturesResponse",
+            '403': "FeatureServiceRpcStatus",
+            '404': "FeatureServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -796,7 +796,7 @@ class FeatureServiceApi:
         return response_data.response
 
 
-    def _get_system_features_serialize(
+    def _feature_service_get_system_features_serialize(
         self,
         _request_auth,
         _content_type,
@@ -858,7 +858,7 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def get_user_features(
+    def feature_service_get_user_features(
         self,
         user_id: StrictStr,
         inheritance: Annotated[Optional[StrictBool], Field(description="Inherit unset features from the resource owners. This option is recursive: if the flag is set, the resource's ancestors are consulted up to system defaults. If this option is disabled and the feature is not set on the user, it will be ommitted from the response or Not Found is returned when the user has no features flags at all.")] = None,
@@ -874,7 +874,7 @@ class FeatureServiceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> V2GetUserFeaturesResponse:
+    ) -> FeatureServiceGetUserFeaturesResponse:
         """Get organization level features
 
         Returns all configured features for an organization. Unset fields mean the feature is the current instance default.
@@ -905,7 +905,7 @@ class FeatureServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_user_features_serialize(
+        _param = self._feature_service_get_user_features_serialize(
             user_id=user_id,
             inheritance=inheritance,
             _request_auth=_request_auth,
@@ -915,9 +915,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2GetUserFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "FeatureServiceGetUserFeaturesResponse",
+            '403': "FeatureServiceRpcStatus",
+            '404': "FeatureServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -931,7 +931,7 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def get_user_features_with_http_info(
+    def feature_service_get_user_features_with_http_info(
         self,
         user_id: StrictStr,
         inheritance: Annotated[Optional[StrictBool], Field(description="Inherit unset features from the resource owners. This option is recursive: if the flag is set, the resource's ancestors are consulted up to system defaults. If this option is disabled and the feature is not set on the user, it will be ommitted from the response or Not Found is returned when the user has no features flags at all.")] = None,
@@ -947,7 +947,7 @@ class FeatureServiceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[V2GetUserFeaturesResponse]:
+    ) -> ApiResponse[FeatureServiceGetUserFeaturesResponse]:
         """Get organization level features
 
         Returns all configured features for an organization. Unset fields mean the feature is the current instance default.
@@ -978,7 +978,7 @@ class FeatureServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_user_features_serialize(
+        _param = self._feature_service_get_user_features_serialize(
             user_id=user_id,
             inheritance=inheritance,
             _request_auth=_request_auth,
@@ -988,9 +988,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2GetUserFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "FeatureServiceGetUserFeaturesResponse",
+            '403': "FeatureServiceRpcStatus",
+            '404': "FeatureServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1004,7 +1004,7 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def get_user_features_without_preload_content(
+    def feature_service_get_user_features_without_preload_content(
         self,
         user_id: StrictStr,
         inheritance: Annotated[Optional[StrictBool], Field(description="Inherit unset features from the resource owners. This option is recursive: if the flag is set, the resource's ancestors are consulted up to system defaults. If this option is disabled and the feature is not set on the user, it will be ommitted from the response or Not Found is returned when the user has no features flags at all.")] = None,
@@ -1051,7 +1051,7 @@ class FeatureServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_user_features_serialize(
+        _param = self._feature_service_get_user_features_serialize(
             user_id=user_id,
             inheritance=inheritance,
             _request_auth=_request_auth,
@@ -1061,9 +1061,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2GetUserFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "FeatureServiceGetUserFeaturesResponse",
+            '403': "FeatureServiceRpcStatus",
+            '404': "FeatureServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1072,7 +1072,7 @@ class FeatureServiceApi:
         return response_data.response
 
 
-    def _get_user_features_serialize(
+    def _feature_service_get_user_features_serialize(
         self,
         user_id,
         inheritance,
@@ -1142,7 +1142,7 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def reset_instance_features(
+    def feature_service_reset_instance_features(
         self,
         _request_timeout: Union[
             None,
@@ -1156,7 +1156,7 @@ class FeatureServiceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> V2ResetInstanceFeaturesResponse:
+    ) -> FeatureServiceResetInstanceFeaturesResponse:
         """Reset instance level features
 
         Deletes ALL configured features for an instance, reverting the behaviors to system defaults.
@@ -1183,7 +1183,7 @@ class FeatureServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._reset_instance_features_serialize(
+        _param = self._feature_service_reset_instance_features_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1191,9 +1191,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ResetInstanceFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "FeatureServiceResetInstanceFeaturesResponse",
+            '403': "FeatureServiceRpcStatus",
+            '404': "FeatureServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1207,7 +1207,7 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def reset_instance_features_with_http_info(
+    def feature_service_reset_instance_features_with_http_info(
         self,
         _request_timeout: Union[
             None,
@@ -1221,7 +1221,7 @@ class FeatureServiceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[V2ResetInstanceFeaturesResponse]:
+    ) -> ApiResponse[FeatureServiceResetInstanceFeaturesResponse]:
         """Reset instance level features
 
         Deletes ALL configured features for an instance, reverting the behaviors to system defaults.
@@ -1248,7 +1248,7 @@ class FeatureServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._reset_instance_features_serialize(
+        _param = self._feature_service_reset_instance_features_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1256,9 +1256,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ResetInstanceFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "FeatureServiceResetInstanceFeaturesResponse",
+            '403': "FeatureServiceRpcStatus",
+            '404': "FeatureServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1272,7 +1272,7 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def reset_instance_features_without_preload_content(
+    def feature_service_reset_instance_features_without_preload_content(
         self,
         _request_timeout: Union[
             None,
@@ -1313,7 +1313,7 @@ class FeatureServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._reset_instance_features_serialize(
+        _param = self._feature_service_reset_instance_features_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1321,9 +1321,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ResetInstanceFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "FeatureServiceResetInstanceFeaturesResponse",
+            '403': "FeatureServiceRpcStatus",
+            '404': "FeatureServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1332,7 +1332,7 @@ class FeatureServiceApi:
         return response_data.response
 
 
-    def _reset_instance_features_serialize(
+    def _feature_service_reset_instance_features_serialize(
         self,
         _request_auth,
         _content_type,
@@ -1394,7 +1394,7 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def reset_organization_features(
+    def feature_service_reset_organization_features(
         self,
         organization_id: StrictStr,
         _request_timeout: Union[
@@ -1409,7 +1409,7 @@ class FeatureServiceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> V2ResetOrganizationFeaturesResponse:
+    ) -> FeatureServiceResetOrganizationFeaturesResponse:
         """Reset organization level features
 
         Deletes ALL configured features for an organization, reverting the behaviors to instance defaults.
@@ -1438,7 +1438,7 @@ class FeatureServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._reset_organization_features_serialize(
+        _param = self._feature_service_reset_organization_features_serialize(
             organization_id=organization_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1447,9 +1447,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ResetOrganizationFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "FeatureServiceResetOrganizationFeaturesResponse",
+            '403': "FeatureServiceRpcStatus",
+            '404': "FeatureServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1463,7 +1463,7 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def reset_organization_features_with_http_info(
+    def feature_service_reset_organization_features_with_http_info(
         self,
         organization_id: StrictStr,
         _request_timeout: Union[
@@ -1478,7 +1478,7 @@ class FeatureServiceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[V2ResetOrganizationFeaturesResponse]:
+    ) -> ApiResponse[FeatureServiceResetOrganizationFeaturesResponse]:
         """Reset organization level features
 
         Deletes ALL configured features for an organization, reverting the behaviors to instance defaults.
@@ -1507,7 +1507,7 @@ class FeatureServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._reset_organization_features_serialize(
+        _param = self._feature_service_reset_organization_features_serialize(
             organization_id=organization_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1516,9 +1516,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ResetOrganizationFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "FeatureServiceResetOrganizationFeaturesResponse",
+            '403': "FeatureServiceRpcStatus",
+            '404': "FeatureServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1532,7 +1532,7 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def reset_organization_features_without_preload_content(
+    def feature_service_reset_organization_features_without_preload_content(
         self,
         organization_id: StrictStr,
         _request_timeout: Union[
@@ -1576,7 +1576,7 @@ class FeatureServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._reset_organization_features_serialize(
+        _param = self._feature_service_reset_organization_features_serialize(
             organization_id=organization_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1585,9 +1585,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ResetOrganizationFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "FeatureServiceResetOrganizationFeaturesResponse",
+            '403': "FeatureServiceRpcStatus",
+            '404': "FeatureServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1596,7 +1596,7 @@ class FeatureServiceApi:
         return response_data.response
 
 
-    def _reset_organization_features_serialize(
+    def _feature_service_reset_organization_features_serialize(
         self,
         organization_id,
         _request_auth,
@@ -1661,7 +1661,7 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def reset_system_features(
+    def feature_service_reset_system_features(
         self,
         _request_timeout: Union[
             None,
@@ -1675,7 +1675,7 @@ class FeatureServiceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> V2ResetSystemFeaturesResponse:
+    ) -> FeatureServiceResetSystemFeaturesResponse:
         """Reset system level features
 
         Deletes ALL configured features for the system, reverting the behaviors to system defaults.
@@ -1702,7 +1702,7 @@ class FeatureServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._reset_system_features_serialize(
+        _param = self._feature_service_reset_system_features_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1710,9 +1710,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ResetSystemFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "FeatureServiceResetSystemFeaturesResponse",
+            '403': "FeatureServiceRpcStatus",
+            '404': "FeatureServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1726,7 +1726,7 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def reset_system_features_with_http_info(
+    def feature_service_reset_system_features_with_http_info(
         self,
         _request_timeout: Union[
             None,
@@ -1740,7 +1740,7 @@ class FeatureServiceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[V2ResetSystemFeaturesResponse]:
+    ) -> ApiResponse[FeatureServiceResetSystemFeaturesResponse]:
         """Reset system level features
 
         Deletes ALL configured features for the system, reverting the behaviors to system defaults.
@@ -1767,7 +1767,7 @@ class FeatureServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._reset_system_features_serialize(
+        _param = self._feature_service_reset_system_features_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1775,9 +1775,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ResetSystemFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "FeatureServiceResetSystemFeaturesResponse",
+            '403': "FeatureServiceRpcStatus",
+            '404': "FeatureServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1791,7 +1791,7 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def reset_system_features_without_preload_content(
+    def feature_service_reset_system_features_without_preload_content(
         self,
         _request_timeout: Union[
             None,
@@ -1832,7 +1832,7 @@ class FeatureServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._reset_system_features_serialize(
+        _param = self._feature_service_reset_system_features_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1840,9 +1840,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ResetSystemFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "FeatureServiceResetSystemFeaturesResponse",
+            '403': "FeatureServiceRpcStatus",
+            '404': "FeatureServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1851,7 +1851,7 @@ class FeatureServiceApi:
         return response_data.response
 
 
-    def _reset_system_features_serialize(
+    def _feature_service_reset_system_features_serialize(
         self,
         _request_auth,
         _content_type,
@@ -1913,7 +1913,7 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def reset_user_features(
+    def feature_service_reset_user_features(
         self,
         user_id: StrictStr,
         _request_timeout: Union[
@@ -1928,7 +1928,7 @@ class FeatureServiceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> V2ResetUserFeaturesResponse:
+    ) -> FeatureServiceResetUserFeaturesResponse:
         """Reset user level features
 
         Deletes ALL configured features for a user, reverting the behaviors to organization defaults.
@@ -1957,7 +1957,7 @@ class FeatureServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._reset_user_features_serialize(
+        _param = self._feature_service_reset_user_features_serialize(
             user_id=user_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1966,9 +1966,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ResetUserFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "FeatureServiceResetUserFeaturesResponse",
+            '403': "FeatureServiceRpcStatus",
+            '404': "FeatureServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1982,7 +1982,7 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def reset_user_features_with_http_info(
+    def feature_service_reset_user_features_with_http_info(
         self,
         user_id: StrictStr,
         _request_timeout: Union[
@@ -1997,7 +1997,7 @@ class FeatureServiceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[V2ResetUserFeaturesResponse]:
+    ) -> ApiResponse[FeatureServiceResetUserFeaturesResponse]:
         """Reset user level features
 
         Deletes ALL configured features for a user, reverting the behaviors to organization defaults.
@@ -2026,7 +2026,7 @@ class FeatureServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._reset_user_features_serialize(
+        _param = self._feature_service_reset_user_features_serialize(
             user_id=user_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -2035,9 +2035,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ResetUserFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "FeatureServiceResetUserFeaturesResponse",
+            '403': "FeatureServiceRpcStatus",
+            '404': "FeatureServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2051,7 +2051,7 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def reset_user_features_without_preload_content(
+    def feature_service_reset_user_features_without_preload_content(
         self,
         user_id: StrictStr,
         _request_timeout: Union[
@@ -2095,7 +2095,7 @@ class FeatureServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._reset_user_features_serialize(
+        _param = self._feature_service_reset_user_features_serialize(
             user_id=user_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -2104,9 +2104,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ResetUserFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "FeatureServiceResetUserFeaturesResponse",
+            '403': "FeatureServiceRpcStatus",
+            '404': "FeatureServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2115,7 +2115,7 @@ class FeatureServiceApi:
         return response_data.response
 
 
-    def _reset_user_features_serialize(
+    def _feature_service_reset_user_features_serialize(
         self,
         user_id,
         _request_auth,
@@ -2180,9 +2180,9 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def set_instance_features(
+    def feature_service_set_instance_features(
         self,
-        body: V2SetInstanceFeaturesRequest,
+        feature_service_set_instance_features_request: FeatureServiceSetInstanceFeaturesRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2195,13 +2195,13 @@ class FeatureServiceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> V2SetInstanceFeaturesResponse:
+    ) -> FeatureServiceSetInstanceFeaturesResponse:
         """Set instance level features
 
         Configure and set features that apply to a complete instance. Only fields present in the request are set or unset.
 
-        :param body: (required)
-        :type body: V2SetInstanceFeaturesRequest
+        :param feature_service_set_instance_features_request: (required)
+        :type feature_service_set_instance_features_request: FeatureServiceSetInstanceFeaturesRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2224,8 +2224,8 @@ class FeatureServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._set_instance_features_serialize(
-            body=body,
+        _param = self._feature_service_set_instance_features_serialize(
+            feature_service_set_instance_features_request=feature_service_set_instance_features_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2233,9 +2233,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2SetInstanceFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "FeatureServiceSetInstanceFeaturesResponse",
+            '403': "FeatureServiceRpcStatus",
+            '404': "FeatureServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2249,9 +2249,9 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def set_instance_features_with_http_info(
+    def feature_service_set_instance_features_with_http_info(
         self,
-        body: V2SetInstanceFeaturesRequest,
+        feature_service_set_instance_features_request: FeatureServiceSetInstanceFeaturesRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2264,13 +2264,13 @@ class FeatureServiceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[V2SetInstanceFeaturesResponse]:
+    ) -> ApiResponse[FeatureServiceSetInstanceFeaturesResponse]:
         """Set instance level features
 
         Configure and set features that apply to a complete instance. Only fields present in the request are set or unset.
 
-        :param body: (required)
-        :type body: V2SetInstanceFeaturesRequest
+        :param feature_service_set_instance_features_request: (required)
+        :type feature_service_set_instance_features_request: FeatureServiceSetInstanceFeaturesRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2293,8 +2293,8 @@ class FeatureServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._set_instance_features_serialize(
-            body=body,
+        _param = self._feature_service_set_instance_features_serialize(
+            feature_service_set_instance_features_request=feature_service_set_instance_features_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2302,9 +2302,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2SetInstanceFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "FeatureServiceSetInstanceFeaturesResponse",
+            '403': "FeatureServiceRpcStatus",
+            '404': "FeatureServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2318,9 +2318,9 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def set_instance_features_without_preload_content(
+    def feature_service_set_instance_features_without_preload_content(
         self,
-        body: V2SetInstanceFeaturesRequest,
+        feature_service_set_instance_features_request: FeatureServiceSetInstanceFeaturesRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2338,8 +2338,8 @@ class FeatureServiceApi:
 
         Configure and set features that apply to a complete instance. Only fields present in the request are set or unset.
 
-        :param body: (required)
-        :type body: V2SetInstanceFeaturesRequest
+        :param feature_service_set_instance_features_request: (required)
+        :type feature_service_set_instance_features_request: FeatureServiceSetInstanceFeaturesRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2362,8 +2362,8 @@ class FeatureServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._set_instance_features_serialize(
-            body=body,
+        _param = self._feature_service_set_instance_features_serialize(
+            feature_service_set_instance_features_request=feature_service_set_instance_features_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2371,9 +2371,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2SetInstanceFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "FeatureServiceSetInstanceFeaturesResponse",
+            '403': "FeatureServiceRpcStatus",
+            '404': "FeatureServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2382,9 +2382,9 @@ class FeatureServiceApi:
         return response_data.response
 
 
-    def _set_instance_features_serialize(
+    def _feature_service_set_instance_features_serialize(
         self,
-        body,
+        feature_service_set_instance_features_request,
         _request_auth,
         _content_type,
         _headers,
@@ -2410,8 +2410,8 @@ class FeatureServiceApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
-        if body is not None:
-            _body_params = body
+        if feature_service_set_instance_features_request is not None:
+            _body_params = feature_service_set_instance_features_request
 
 
         # set the HTTP header `Accept`
@@ -2460,7 +2460,7 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def set_organization_features(
+    def feature_service_set_organization_features(
         self,
         organization_id: StrictStr,
         _request_timeout: Union[
@@ -2475,7 +2475,7 @@ class FeatureServiceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> V2SetOrganizationFeaturesResponse:
+    ) -> FeatureServiceSetOrganizationFeaturesResponse:
         """Set organization level features
 
         Configure and set features that apply to a complete instance. Only fields present in the request are set or unset.
@@ -2504,7 +2504,7 @@ class FeatureServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._set_organization_features_serialize(
+        _param = self._feature_service_set_organization_features_serialize(
             organization_id=organization_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -2513,9 +2513,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2SetOrganizationFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "FeatureServiceSetOrganizationFeaturesResponse",
+            '403': "FeatureServiceRpcStatus",
+            '404': "FeatureServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2529,7 +2529,7 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def set_organization_features_with_http_info(
+    def feature_service_set_organization_features_with_http_info(
         self,
         organization_id: StrictStr,
         _request_timeout: Union[
@@ -2544,7 +2544,7 @@ class FeatureServiceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[V2SetOrganizationFeaturesResponse]:
+    ) -> ApiResponse[FeatureServiceSetOrganizationFeaturesResponse]:
         """Set organization level features
 
         Configure and set features that apply to a complete instance. Only fields present in the request are set or unset.
@@ -2573,7 +2573,7 @@ class FeatureServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._set_organization_features_serialize(
+        _param = self._feature_service_set_organization_features_serialize(
             organization_id=organization_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -2582,9 +2582,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2SetOrganizationFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "FeatureServiceSetOrganizationFeaturesResponse",
+            '403': "FeatureServiceRpcStatus",
+            '404': "FeatureServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2598,7 +2598,7 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def set_organization_features_without_preload_content(
+    def feature_service_set_organization_features_without_preload_content(
         self,
         organization_id: StrictStr,
         _request_timeout: Union[
@@ -2642,7 +2642,7 @@ class FeatureServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._set_organization_features_serialize(
+        _param = self._feature_service_set_organization_features_serialize(
             organization_id=organization_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -2651,9 +2651,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2SetOrganizationFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "FeatureServiceSetOrganizationFeaturesResponse",
+            '403': "FeatureServiceRpcStatus",
+            '404': "FeatureServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2662,7 +2662,7 @@ class FeatureServiceApi:
         return response_data.response
 
 
-    def _set_organization_features_serialize(
+    def _feature_service_set_organization_features_serialize(
         self,
         organization_id,
         _request_auth,
@@ -2702,6 +2702,19 @@ class FeatureServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -2727,9 +2740,9 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def set_system_features(
+    def feature_service_set_system_features(
         self,
-        body: V2SetSystemFeaturesRequest,
+        feature_service_set_system_features_request: FeatureServiceSetSystemFeaturesRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2742,13 +2755,13 @@ class FeatureServiceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> V2SetSystemFeaturesResponse:
+    ) -> FeatureServiceSetSystemFeaturesResponse:
         """Set system level features
 
         Configure and set features that apply to the complete system. Only fields present in the request are set or unset.
 
-        :param body: (required)
-        :type body: V2SetSystemFeaturesRequest
+        :param feature_service_set_system_features_request: (required)
+        :type feature_service_set_system_features_request: FeatureServiceSetSystemFeaturesRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2771,8 +2784,8 @@ class FeatureServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._set_system_features_serialize(
-            body=body,
+        _param = self._feature_service_set_system_features_serialize(
+            feature_service_set_system_features_request=feature_service_set_system_features_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2780,9 +2793,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2SetSystemFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "FeatureServiceSetSystemFeaturesResponse",
+            '403': "FeatureServiceRpcStatus",
+            '404': "FeatureServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2796,9 +2809,9 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def set_system_features_with_http_info(
+    def feature_service_set_system_features_with_http_info(
         self,
-        body: V2SetSystemFeaturesRequest,
+        feature_service_set_system_features_request: FeatureServiceSetSystemFeaturesRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2811,13 +2824,13 @@ class FeatureServiceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[V2SetSystemFeaturesResponse]:
+    ) -> ApiResponse[FeatureServiceSetSystemFeaturesResponse]:
         """Set system level features
 
         Configure and set features that apply to the complete system. Only fields present in the request are set or unset.
 
-        :param body: (required)
-        :type body: V2SetSystemFeaturesRequest
+        :param feature_service_set_system_features_request: (required)
+        :type feature_service_set_system_features_request: FeatureServiceSetSystemFeaturesRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2840,8 +2853,8 @@ class FeatureServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._set_system_features_serialize(
-            body=body,
+        _param = self._feature_service_set_system_features_serialize(
+            feature_service_set_system_features_request=feature_service_set_system_features_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2849,9 +2862,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2SetSystemFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "FeatureServiceSetSystemFeaturesResponse",
+            '403': "FeatureServiceRpcStatus",
+            '404': "FeatureServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2865,9 +2878,9 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def set_system_features_without_preload_content(
+    def feature_service_set_system_features_without_preload_content(
         self,
-        body: V2SetSystemFeaturesRequest,
+        feature_service_set_system_features_request: FeatureServiceSetSystemFeaturesRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2885,8 +2898,8 @@ class FeatureServiceApi:
 
         Configure and set features that apply to the complete system. Only fields present in the request are set or unset.
 
-        :param body: (required)
-        :type body: V2SetSystemFeaturesRequest
+        :param feature_service_set_system_features_request: (required)
+        :type feature_service_set_system_features_request: FeatureServiceSetSystemFeaturesRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2909,8 +2922,8 @@ class FeatureServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._set_system_features_serialize(
-            body=body,
+        _param = self._feature_service_set_system_features_serialize(
+            feature_service_set_system_features_request=feature_service_set_system_features_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2918,9 +2931,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2SetSystemFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "FeatureServiceSetSystemFeaturesResponse",
+            '403': "FeatureServiceRpcStatus",
+            '404': "FeatureServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2929,9 +2942,9 @@ class FeatureServiceApi:
         return response_data.response
 
 
-    def _set_system_features_serialize(
+    def _feature_service_set_system_features_serialize(
         self,
-        body,
+        feature_service_set_system_features_request,
         _request_auth,
         _content_type,
         _headers,
@@ -2957,8 +2970,8 @@ class FeatureServiceApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
-        if body is not None:
-            _body_params = body
+        if feature_service_set_system_features_request is not None:
+            _body_params = feature_service_set_system_features_request
 
 
         # set the HTTP header `Accept`
@@ -3007,7 +3020,7 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def set_user_features(
+    def feature_service_set_user_features(
         self,
         user_id: StrictStr,
         _request_timeout: Union[
@@ -3022,7 +3035,7 @@ class FeatureServiceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> V2SetUserFeaturesResponse:
+    ) -> FeatureServiceSetUserFeaturesResponse:
         """Set user level features
 
         Configure and set features that apply to an user. Only fields present in the request are set or unset.
@@ -3051,7 +3064,7 @@ class FeatureServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._set_user_features_serialize(
+        _param = self._feature_service_set_user_features_serialize(
             user_id=user_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -3060,9 +3073,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2SetUserFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "FeatureServiceSetUserFeaturesResponse",
+            '403': "FeatureServiceRpcStatus",
+            '404': "FeatureServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3076,7 +3089,7 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def set_user_features_with_http_info(
+    def feature_service_set_user_features_with_http_info(
         self,
         user_id: StrictStr,
         _request_timeout: Union[
@@ -3091,7 +3104,7 @@ class FeatureServiceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[V2SetUserFeaturesResponse]:
+    ) -> ApiResponse[FeatureServiceSetUserFeaturesResponse]:
         """Set user level features
 
         Configure and set features that apply to an user. Only fields present in the request are set or unset.
@@ -3120,7 +3133,7 @@ class FeatureServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._set_user_features_serialize(
+        _param = self._feature_service_set_user_features_serialize(
             user_id=user_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -3129,9 +3142,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2SetUserFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "FeatureServiceSetUserFeaturesResponse",
+            '403': "FeatureServiceRpcStatus",
+            '404': "FeatureServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3145,7 +3158,7 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def set_user_features_without_preload_content(
+    def feature_service_set_user_features_without_preload_content(
         self,
         user_id: StrictStr,
         _request_timeout: Union[
@@ -3189,7 +3202,7 @@ class FeatureServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._set_user_features_serialize(
+        _param = self._feature_service_set_user_features_serialize(
             user_id=user_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -3198,9 +3211,9 @@ class FeatureServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2SetUserFeaturesResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "FeatureServiceSetUserFeaturesResponse",
+            '403': "FeatureServiceRpcStatus",
+            '404': "FeatureServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3209,7 +3222,7 @@ class FeatureServiceApi:
         return response_data.response
 
 
-    def _set_user_features_serialize(
+    def _feature_service_set_user_features_serialize(
         self,
         user_id,
         _request_auth,
@@ -3249,6 +3262,19 @@ class FeatureServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [

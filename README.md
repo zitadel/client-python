@@ -73,7 +73,7 @@ import zitadel_client as zitadel
 zitadel = zitadel.Zitadel.with_private_key("https://example.us1.zitadel.cloud", "path/to/jwt-key.json")
 
 try:
-    response = zitadel.users.add_human_user({
+    response = zitadel.users.user_service_add_human_user({
         "username": "john.doe",
         "profile": {"givenName": "John", "familyName": "Doe"},
         "email": {"email": "john@doe.com"}
@@ -107,7 +107,7 @@ import zitadel_client as zitadel
 zitadel = zitadel.Zitadel.with_client_credentials("https://example.us1.zitadel.cloud", "id", "secret")
 
 try:
-    response = zitadel.users.add_human_user({
+    response = zitadel.users.user_service_add_human_user({
         "username": "john.doe",
         "profile": {"givenName": "John", "familyName": "Doe"},
         "email": {"email": "john@doe.com"}
@@ -141,7 +141,7 @@ import zitadel_client as zitadel
 zitadel = zitadel.Zitadel.with_access_token("https://example.us1.zitadel.cloud", "token")
 
 try:
-    response = zitadel.users.add_human_user({
+    response = zitadel.users.user_service_add_human_user({
         "username": "john.doe",
         "profile": {"givenName": "John", "familyName": "Doe"},
         "email": {"email": "john@doe.com"}

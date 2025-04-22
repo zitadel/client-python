@@ -1,6 +1,7 @@
 from types import TracebackType
 from typing import Callable, Optional, Type, TypeVar
 
+from zitadel_client.api import SAMLServiceApi
 from zitadel_client.api.feature_service_api import FeatureServiceApi
 from zitadel_client.api.identity_provider_service_api import IdentityProviderServiceApi
 from zitadel_client.api.oidc_service_api import OIDCServiceApi
@@ -34,6 +35,7 @@ class Zitadel:
         sessions (SessionServiceApi): Service API for session management.
         settings (SettingsServiceApi): Service API for settings management.
         users (UserServiceApi): Service API for user management.
+        saml (SAMLServiceApi): Service API for SAML management.
     """
 
     def __init__(
@@ -67,6 +69,8 @@ class Zitadel:
         self.sessions = SessionServiceApi(client)
         self.settings = SettingsServiceApi(client)
         self.users = UserServiceApi(client)
+        self.users = UserServiceApi(client)
+        self.saml = SAMLServiceApi(client)
 
     T = TypeVar("T", bound="Zitadel")
 

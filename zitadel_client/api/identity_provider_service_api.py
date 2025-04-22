@@ -17,7 +17,7 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from pydantic import StrictStr
-from zitadel_client.models.v2_get_idpby_id_response import V2GetIDPByIDResponse
+from zitadel_client.models.identity_provider_service_get_idpby_id_response import IdentityProviderServiceGetIDPByIDResponse
 
 from zitadel_client.api_client import ApiClient, RequestSerialized
 from zitadel_client.api_response import ApiResponse
@@ -38,7 +38,7 @@ class IdentityProviderServiceApi:
 
 
     @validate_call
-    def get_idpby_id(
+    def identity_provider_service_get_idpby_id(
         self,
         id: StrictStr,
         _request_timeout: Union[
@@ -53,7 +53,7 @@ class IdentityProviderServiceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> V2GetIDPByIDResponse:
+    ) -> IdentityProviderServiceGetIDPByIDResponse:
         """Get identity provider (IdP) by ID
 
         Returns an identity provider (social/enterprise login) by its ID, which can be of the type Google, AzureAD, etc.
@@ -82,7 +82,7 @@ class IdentityProviderServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_idpby_id_serialize(
+        _param = self._identity_provider_service_get_idpby_id_serialize(
             id=id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -91,9 +91,9 @@ class IdentityProviderServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2GetIDPByIDResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "IdentityProviderServiceGetIDPByIDResponse",
+            '403': "IdentityProviderServiceRpcStatus",
+            '404': "IdentityProviderServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -107,7 +107,7 @@ class IdentityProviderServiceApi:
 
 
     @validate_call
-    def get_idpby_id_with_http_info(
+    def identity_provider_service_get_idpby_id_with_http_info(
         self,
         id: StrictStr,
         _request_timeout: Union[
@@ -122,7 +122,7 @@ class IdentityProviderServiceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[V2GetIDPByIDResponse]:
+    ) -> ApiResponse[IdentityProviderServiceGetIDPByIDResponse]:
         """Get identity provider (IdP) by ID
 
         Returns an identity provider (social/enterprise login) by its ID, which can be of the type Google, AzureAD, etc.
@@ -151,7 +151,7 @@ class IdentityProviderServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_idpby_id_serialize(
+        _param = self._identity_provider_service_get_idpby_id_serialize(
             id=id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -160,9 +160,9 @@ class IdentityProviderServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2GetIDPByIDResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "IdentityProviderServiceGetIDPByIDResponse",
+            '403': "IdentityProviderServiceRpcStatus",
+            '404': "IdentityProviderServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -176,7 +176,7 @@ class IdentityProviderServiceApi:
 
 
     @validate_call
-    def get_idpby_id_without_preload_content(
+    def identity_provider_service_get_idpby_id_without_preload_content(
         self,
         id: StrictStr,
         _request_timeout: Union[
@@ -220,7 +220,7 @@ class IdentityProviderServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_idpby_id_serialize(
+        _param = self._identity_provider_service_get_idpby_id_serialize(
             id=id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -229,9 +229,9 @@ class IdentityProviderServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2GetIDPByIDResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "IdentityProviderServiceGetIDPByIDResponse",
+            '403': "IdentityProviderServiceRpcStatus",
+            '404': "IdentityProviderServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -240,7 +240,7 @@ class IdentityProviderServiceApi:
         return response_data.response
 
 
-    def _get_idpby_id_serialize(
+    def _identity_provider_service_get_idpby_id_serialize(
         self,
         id,
         _request_auth,
