@@ -16,10 +16,10 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from zitadel_client.models.v2_add_organization_request import V2AddOrganizationRequest
-from zitadel_client.models.v2_add_organization_response import V2AddOrganizationResponse
-from zitadel_client.models.v2_list_organizations_request import V2ListOrganizationsRequest
-from zitadel_client.models.v2_list_organizations_response import V2ListOrganizationsResponse
+from zitadel_client.models.organization_service_add_organization_request import OrganizationServiceAddOrganizationRequest
+from zitadel_client.models.organization_service_add_organization_response import OrganizationServiceAddOrganizationResponse
+from zitadel_client.models.organization_service_list_organizations_request import OrganizationServiceListOrganizationsRequest
+from zitadel_client.models.organization_service_list_organizations_response import OrganizationServiceListOrganizationsResponse
 
 from zitadel_client.api_client import ApiClient, RequestSerialized
 from zitadel_client.api_response import ApiResponse
@@ -40,9 +40,9 @@ class OrganizationServiceApi:
 
 
     @validate_call
-    def add_organization(
+    def organization_service_add_organization(
         self,
-        body: V2AddOrganizationRequest,
+        organization_service_add_organization_request: OrganizationServiceAddOrganizationRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -55,13 +55,13 @@ class OrganizationServiceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> V2AddOrganizationResponse:
+    ) -> OrganizationServiceAddOrganizationResponse:
         """Create an Organization
 
         Create a new organization with an administrative user. If no specific roles are sent for the users, they will be granted the role ORG_OWNER.
 
-        :param body: (required)
-        :type body: V2AddOrganizationRequest
+        :param organization_service_add_organization_request: (required)
+        :type organization_service_add_organization_request: OrganizationServiceAddOrganizationRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -84,8 +84,8 @@ class OrganizationServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._add_organization_serialize(
-            body=body,
+        _param = self._organization_service_add_organization_serialize(
+            organization_service_add_organization_request=organization_service_add_organization_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -93,9 +93,9 @@ class OrganizationServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2AddOrganizationResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "OrganizationServiceAddOrganizationResponse",
+            '403': "OrganizationServiceRpcStatus",
+            '404': "OrganizationServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -109,9 +109,9 @@ class OrganizationServiceApi:
 
 
     @validate_call
-    def add_organization_with_http_info(
+    def organization_service_add_organization_with_http_info(
         self,
-        body: V2AddOrganizationRequest,
+        organization_service_add_organization_request: OrganizationServiceAddOrganizationRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -124,13 +124,13 @@ class OrganizationServiceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[V2AddOrganizationResponse]:
+    ) -> ApiResponse[OrganizationServiceAddOrganizationResponse]:
         """Create an Organization
 
         Create a new organization with an administrative user. If no specific roles are sent for the users, they will be granted the role ORG_OWNER.
 
-        :param body: (required)
-        :type body: V2AddOrganizationRequest
+        :param organization_service_add_organization_request: (required)
+        :type organization_service_add_organization_request: OrganizationServiceAddOrganizationRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -153,8 +153,8 @@ class OrganizationServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._add_organization_serialize(
-            body=body,
+        _param = self._organization_service_add_organization_serialize(
+            organization_service_add_organization_request=organization_service_add_organization_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -162,9 +162,9 @@ class OrganizationServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2AddOrganizationResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "OrganizationServiceAddOrganizationResponse",
+            '403': "OrganizationServiceRpcStatus",
+            '404': "OrganizationServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -178,9 +178,9 @@ class OrganizationServiceApi:
 
 
     @validate_call
-    def add_organization_without_preload_content(
+    def organization_service_add_organization_without_preload_content(
         self,
-        body: V2AddOrganizationRequest,
+        organization_service_add_organization_request: OrganizationServiceAddOrganizationRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -198,8 +198,8 @@ class OrganizationServiceApi:
 
         Create a new organization with an administrative user. If no specific roles are sent for the users, they will be granted the role ORG_OWNER.
 
-        :param body: (required)
-        :type body: V2AddOrganizationRequest
+        :param organization_service_add_organization_request: (required)
+        :type organization_service_add_organization_request: OrganizationServiceAddOrganizationRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -222,8 +222,8 @@ class OrganizationServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._add_organization_serialize(
-            body=body,
+        _param = self._organization_service_add_organization_serialize(
+            organization_service_add_organization_request=organization_service_add_organization_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -231,9 +231,9 @@ class OrganizationServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2AddOrganizationResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "OrganizationServiceAddOrganizationResponse",
+            '403': "OrganizationServiceRpcStatus",
+            '404': "OrganizationServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -242,9 +242,9 @@ class OrganizationServiceApi:
         return response_data.response
 
 
-    def _add_organization_serialize(
+    def _organization_service_add_organization_serialize(
         self,
-        body,
+        organization_service_add_organization_request,
         _request_auth,
         _content_type,
         _headers,
@@ -270,8 +270,8 @@ class OrganizationServiceApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
-        if body is not None:
-            _body_params = body
+        if organization_service_add_organization_request is not None:
+            _body_params = organization_service_add_organization_request
 
 
         # set the HTTP header `Accept`
@@ -320,9 +320,9 @@ class OrganizationServiceApi:
 
 
     @validate_call
-    def list_organizations(
+    def organization_service_list_organizations(
         self,
-        body: V2ListOrganizationsRequest,
+        organization_service_list_organizations_request: OrganizationServiceListOrganizationsRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -335,13 +335,13 @@ class OrganizationServiceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> V2ListOrganizationsResponse:
+    ) -> OrganizationServiceListOrganizationsResponse:
         """Search Organizations
 
         Search for Organizations. By default, we will return all organization of the instance. Make sure to include a limit and sorting for pagination..
 
-        :param body: (required)
-        :type body: V2ListOrganizationsRequest
+        :param organization_service_list_organizations_request: (required)
+        :type organization_service_list_organizations_request: OrganizationServiceListOrganizationsRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -364,8 +364,8 @@ class OrganizationServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_organizations_serialize(
-            body=body,
+        _param = self._organization_service_list_organizations_serialize(
+            organization_service_list_organizations_request=organization_service_list_organizations_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -373,10 +373,10 @@ class OrganizationServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ListOrganizationsResponse",
-            '400': "RpcStatus",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "OrganizationServiceListOrganizationsResponse",
+            '400': "OrganizationServiceRpcStatus",
+            '403': "OrganizationServiceRpcStatus",
+            '404': "OrganizationServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -390,9 +390,9 @@ class OrganizationServiceApi:
 
 
     @validate_call
-    def list_organizations_with_http_info(
+    def organization_service_list_organizations_with_http_info(
         self,
-        body: V2ListOrganizationsRequest,
+        organization_service_list_organizations_request: OrganizationServiceListOrganizationsRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -405,13 +405,13 @@ class OrganizationServiceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[V2ListOrganizationsResponse]:
+    ) -> ApiResponse[OrganizationServiceListOrganizationsResponse]:
         """Search Organizations
 
         Search for Organizations. By default, we will return all organization of the instance. Make sure to include a limit and sorting for pagination..
 
-        :param body: (required)
-        :type body: V2ListOrganizationsRequest
+        :param organization_service_list_organizations_request: (required)
+        :type organization_service_list_organizations_request: OrganizationServiceListOrganizationsRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -434,8 +434,8 @@ class OrganizationServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_organizations_serialize(
-            body=body,
+        _param = self._organization_service_list_organizations_serialize(
+            organization_service_list_organizations_request=organization_service_list_organizations_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -443,10 +443,10 @@ class OrganizationServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ListOrganizationsResponse",
-            '400': "RpcStatus",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "OrganizationServiceListOrganizationsResponse",
+            '400': "OrganizationServiceRpcStatus",
+            '403': "OrganizationServiceRpcStatus",
+            '404': "OrganizationServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -460,9 +460,9 @@ class OrganizationServiceApi:
 
 
     @validate_call
-    def list_organizations_without_preload_content(
+    def organization_service_list_organizations_without_preload_content(
         self,
-        body: V2ListOrganizationsRequest,
+        organization_service_list_organizations_request: OrganizationServiceListOrganizationsRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -480,8 +480,8 @@ class OrganizationServiceApi:
 
         Search for Organizations. By default, we will return all organization of the instance. Make sure to include a limit and sorting for pagination..
 
-        :param body: (required)
-        :type body: V2ListOrganizationsRequest
+        :param organization_service_list_organizations_request: (required)
+        :type organization_service_list_organizations_request: OrganizationServiceListOrganizationsRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -504,8 +504,8 @@ class OrganizationServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_organizations_serialize(
-            body=body,
+        _param = self._organization_service_list_organizations_serialize(
+            organization_service_list_organizations_request=organization_service_list_organizations_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -513,10 +513,10 @@ class OrganizationServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2ListOrganizationsResponse",
-            '400': "RpcStatus",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "OrganizationServiceListOrganizationsResponse",
+            '400': "OrganizationServiceRpcStatus",
+            '403': "OrganizationServiceRpcStatus",
+            '404': "OrganizationServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -525,9 +525,9 @@ class OrganizationServiceApi:
         return response_data.response
 
 
-    def _list_organizations_serialize(
+    def _organization_service_list_organizations_serialize(
         self,
-        body,
+        organization_service_list_organizations_request,
         _request_auth,
         _content_type,
         _headers,
@@ -553,8 +553,8 @@ class OrganizationServiceApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
-        if body is not None:
-            _body_params = body
+        if organization_service_list_organizations_request is not None:
+            _body_params = organization_service_list_organizations_request
 
 
         # set the HTTP header `Accept`

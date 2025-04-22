@@ -11,16 +11,17 @@
     Do not edit the class manually.
 """  # noqa: E501
 
-from typing import Any, Dict, List, Optional, Tuple, Union
-
+import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
+from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
+
+from zitadel_client.models.settings_service_get_security_settings_response import SettingsServiceGetSecuritySettingsResponse
+from zitadel_client.models.settings_service_set_security_settings_request import SettingsServiceSetSecuritySettingsRequest
+from zitadel_client.models.settings_service_set_security_settings_response import SettingsServiceSetSecuritySettingsResponse
 
 from zitadel_client.api_client import ApiClient, RequestSerialized
 from zitadel_client.api_response import ApiResponse
-from zitadel_client.models.v2_get_security_settings_response import V2GetSecuritySettingsResponse
-from zitadel_client.models.v2_set_security_settings_request import V2SetSecuritySettingsRequest
-from zitadel_client.models.v2_set_security_settings_response import V2SetSecuritySettingsResponse
 from zitadel_client.rest import RESTResponseType
 
 
@@ -38,7 +39,7 @@ class SettingsApi:
 
 
     @validate_call
-    def get_security_settings(
+    def settings_service_get_security_settings(
         self,
         _request_timeout: Union[
             None,
@@ -52,7 +53,7 @@ class SettingsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> V2GetSecuritySettingsResponse:
+    ) -> SettingsServiceGetSecuritySettingsResponse:
         """Get Security Settings
 
         Returns the security settings of the ZITADEL instance.
@@ -79,7 +80,7 @@ class SettingsApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_security_settings_serialize(
+        _param = self._settings_service_get_security_settings_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -87,9 +88,9 @@ class SettingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2GetSecuritySettingsResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "SettingsServiceGetSecuritySettingsResponse",
+            '403': "SettingsServiceRpcStatus",
+            '404': "SettingsServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -103,7 +104,7 @@ class SettingsApi:
 
 
     @validate_call
-    def get_security_settings_with_http_info(
+    def settings_service_get_security_settings_with_http_info(
         self,
         _request_timeout: Union[
             None,
@@ -117,7 +118,7 @@ class SettingsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[V2GetSecuritySettingsResponse]:
+    ) -> ApiResponse[SettingsServiceGetSecuritySettingsResponse]:
         """Get Security Settings
 
         Returns the security settings of the ZITADEL instance.
@@ -144,7 +145,7 @@ class SettingsApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_security_settings_serialize(
+        _param = self._settings_service_get_security_settings_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -152,9 +153,9 @@ class SettingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2GetSecuritySettingsResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "SettingsServiceGetSecuritySettingsResponse",
+            '403': "SettingsServiceRpcStatus",
+            '404': "SettingsServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -168,7 +169,7 @@ class SettingsApi:
 
 
     @validate_call
-    def get_security_settings_without_preload_content(
+    def settings_service_get_security_settings_without_preload_content(
         self,
         _request_timeout: Union[
             None,
@@ -209,7 +210,7 @@ class SettingsApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_security_settings_serialize(
+        _param = self._settings_service_get_security_settings_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -217,9 +218,9 @@ class SettingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2GetSecuritySettingsResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "SettingsServiceGetSecuritySettingsResponse",
+            '403': "SettingsServiceRpcStatus",
+            '404': "SettingsServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -228,7 +229,7 @@ class SettingsApi:
         return response_data.response
 
 
-    def _get_security_settings_serialize(
+    def _settings_service_get_security_settings_serialize(
         self,
         _request_auth,
         _content_type,
@@ -290,9 +291,9 @@ class SettingsApi:
 
 
     @validate_call
-    def set_security_settings(
+    def settings_service_set_security_settings(
         self,
-        body: V2SetSecuritySettingsRequest,
+        settings_service_set_security_settings_request: SettingsServiceSetSecuritySettingsRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -305,13 +306,13 @@ class SettingsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> V2SetSecuritySettingsResponse:
+    ) -> SettingsServiceSetSecuritySettingsResponse:
         """Set Security Settings
 
         Set the security settings of the ZITADEL instance.
 
-        :param body: (required)
-        :type body: V2SetSecuritySettingsRequest
+        :param settings_service_set_security_settings_request: (required)
+        :type settings_service_set_security_settings_request: SettingsServiceSetSecuritySettingsRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -334,8 +335,8 @@ class SettingsApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._set_security_settings_serialize(
-            body=body,
+        _param = self._settings_service_set_security_settings_serialize(
+            settings_service_set_security_settings_request=settings_service_set_security_settings_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -343,9 +344,9 @@ class SettingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2SetSecuritySettingsResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "SettingsServiceSetSecuritySettingsResponse",
+            '403': "SettingsServiceRpcStatus",
+            '404': "SettingsServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -359,9 +360,9 @@ class SettingsApi:
 
 
     @validate_call
-    def set_security_settings_with_http_info(
+    def settings_service_set_security_settings_with_http_info(
         self,
-        body: V2SetSecuritySettingsRequest,
+        settings_service_set_security_settings_request: SettingsServiceSetSecuritySettingsRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -374,13 +375,13 @@ class SettingsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[V2SetSecuritySettingsResponse]:
+    ) -> ApiResponse[SettingsServiceSetSecuritySettingsResponse]:
         """Set Security Settings
 
         Set the security settings of the ZITADEL instance.
 
-        :param body: (required)
-        :type body: V2SetSecuritySettingsRequest
+        :param settings_service_set_security_settings_request: (required)
+        :type settings_service_set_security_settings_request: SettingsServiceSetSecuritySettingsRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -403,8 +404,8 @@ class SettingsApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._set_security_settings_serialize(
-            body=body,
+        _param = self._settings_service_set_security_settings_serialize(
+            settings_service_set_security_settings_request=settings_service_set_security_settings_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -412,9 +413,9 @@ class SettingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2SetSecuritySettingsResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "SettingsServiceSetSecuritySettingsResponse",
+            '403': "SettingsServiceRpcStatus",
+            '404': "SettingsServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -428,9 +429,9 @@ class SettingsApi:
 
 
     @validate_call
-    def set_security_settings_without_preload_content(
+    def settings_service_set_security_settings_without_preload_content(
         self,
-        body: V2SetSecuritySettingsRequest,
+        settings_service_set_security_settings_request: SettingsServiceSetSecuritySettingsRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -448,8 +449,8 @@ class SettingsApi:
 
         Set the security settings of the ZITADEL instance.
 
-        :param body: (required)
-        :type body: V2SetSecuritySettingsRequest
+        :param settings_service_set_security_settings_request: (required)
+        :type settings_service_set_security_settings_request: SettingsServiceSetSecuritySettingsRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -472,8 +473,8 @@ class SettingsApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._set_security_settings_serialize(
-            body=body,
+        _param = self._settings_service_set_security_settings_serialize(
+            settings_service_set_security_settings_request=settings_service_set_security_settings_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -481,9 +482,9 @@ class SettingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "V2SetSecuritySettingsResponse",
-            '403': "RpcStatus",
-            '404': "RpcStatus",
+            '200': "SettingsServiceSetSecuritySettingsResponse",
+            '403': "SettingsServiceRpcStatus",
+            '404': "SettingsServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -492,9 +493,9 @@ class SettingsApi:
         return response_data.response
 
 
-    def _set_security_settings_serialize(
+    def _settings_service_set_security_settings_serialize(
         self,
-        body,
+        settings_service_set_security_settings_request,
         _request_auth,
         _content_type,
         _headers,
@@ -520,8 +521,8 @@ class SettingsApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
-        if body is not None:
-            _body_params = body
+        if settings_service_set_security_settings_request is not None:
+            _body_params = settings_service_set_security_settings_request
 
 
         # set the HTTP header `Accept`
