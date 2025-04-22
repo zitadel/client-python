@@ -1,26 +1,21 @@
 # mypy: allow-untyped-defs
 from __future__ import annotations
 
-import functools
 import os
 import platform
 import re
 import xml.etree.ElementTree as ET
 from collections import defaultdict
 from collections.abc import Callable
-from datetime import datetime
-from datetime import timezone
+from datetime import datetime, timezone
 
 import pytest
-from _pytest import nodes
-from _pytest import timing
+from _pytest import nodes, timing
 
 # noinspection PyProtectedMember
-from _pytest._code.code import ExceptionRepr
-
 # noinspection PyProtectedMember
-from _pytest._code.code import ReprFileLocation
-from _pytest.config import Config, directory_arg
+from _pytest._code.code import ExceptionRepr, ReprFileLocation
+from _pytest.config import Config
 from _pytest.config.argparsing import Parser
 from _pytest.fixtures import FixtureRequest
 from _pytest.junitxml import bin_xml_escape
@@ -215,7 +210,7 @@ class _NodeReporter:
         self.duration = _duration
 
         # Freeze the XML output
-        self.to_xml = lambda: data # type: ignore[method-assign]
+        self.to_xml = lambda: data  # type: ignore[method-assign]
 
 
 @pytest.fixture
@@ -332,7 +327,7 @@ def mangle_test_address(address: str) -> list[str]:
 
 
 class LogXML:
-    def __init__( # type: ignore[no-untyped-def]
+    def __init__(  # type: ignore[no-untyped-def]
         self,
         output_dir,
         prefix: str | None = None,
