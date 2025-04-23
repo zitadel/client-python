@@ -530,11 +530,14 @@ class LogXML:
 
     def pytest_sessionfinish(self) -> None:
         """
-        After all tests complete, write one JUnit‑XML file per test class,
-        with correct per‑suite and root summary counts.
+        After all tests complete, write a single JUnit XML file containing
+        multiple <testsuite> elements grouped by test class.
         """
         os.makedirs(self.output_dir, exist_ok=True)
         ts = datetime.fromtimestamp(self.suite_start_time, timezone.utc).astimezone().isoformat()
+
+        root = ET.Element("testsuites")
+        total_tests = total_failures = total_skipped = total_errors = total_time = 0.0
 
         # Group reporters by class
         groups: dict[str, list[_NodeReporter]] = defaultdict(list)
@@ -544,56 +547,54 @@ class LogXML:
             groups[cls].append(rpt)
 
         for cls_name, reps in groups.items():
-            # Build the <testsuite> element
             suite = ET.Element(
                 "testsuite",
                 {
                     "name": cls_name,
-                    "filepath": reps[0].to_xml().get("file", ""),
+                    "file": reps[0].to_xml().get("file", ""),
                 },
             )
 
-            # Attach each <testcase>
             for r in reps:
                 suite.append(r.to_xml())
 
-            # Now count outcomes from the XML
-            total = len(reps)
-            failures = len(suite.findall("testcase/failure"))
-            skipped = len(suite.findall("testcase/skipped"))
-            errors = len(suite.findall("testcase/error"))
-            duration = sum(r.duration for r in reps)
+            num_tests = len(reps)
+            num_failures = len(suite.findall("testcase/failure"))
+            num_skipped = len(suite.findall("testcase/skipped"))
+            num_errors = len(suite.findall("testcase/error"))
+            suite_time = sum(r.duration for r in reps)
 
-            # Stamp on the rest of the attributes
-            suite.set("tests", str(total))
-            suite.set("failures", str(failures))
-            suite.set("skipped", str(skipped))
-            suite.set("errors", str(errors))
-            suite.set("time", f"{duration:.3f}")
+            suite.set("tests", str(num_tests))
+            suite.set("failures", str(num_failures))
+            suite.set("skipped", str(num_skipped))
+            suite.set("errors", str(num_errors))
+            suite.set("time", f"{suite_time:.3f}")
             suite.set("timestamp", ts)
             suite.set("hostname", platform.node())
 
-            # Wrap and write
-            root = ET.Element(
-                "testsuites",
-                {
-                    "tests": str(total),
-                    "failures": str(failures),
-                    "skipped": str(skipped),
-                    "errors": str(errors),
-                    "time": f"{duration:.3f}",
-                    "timestamp": ts,
-                    "hostname": platform.node(),
-                },
-            )
             root.append(suite)
-            ET.indent(root, space="  ", level=0)
 
-            safe = re.sub(r"[^A-Za-z0-9_.-]", "_", cls_name)
-            path = os.path.join(self.output_dir, f"TEST-{safe}.xml")
-            with open(path, "w", encoding="utf-8") as f:
-                f.write('<?xml version="1.0" encoding="utf-8"?>')
-                f.write(ET.tostring(root, encoding="unicode"))
+            # Accumulate totals
+            total_tests += num_tests
+            total_failures += num_failures
+            total_skipped += num_skipped
+            total_errors += num_errors
+            total_time += suite_time
+
+        # Set attributes on <testsuites>
+        root.set("tests", str(int(total_tests)))
+        root.set("failures", str(int(total_failures)))
+        root.set("skipped", str(int(total_skipped)))
+        root.set("errors", str(int(total_errors)))
+        root.set("time", f"{total_time:.3f}")
+        root.set("timestamp", ts)
+        root.set("hostname", platform.node())
+
+        ET.indent(root, space="  ", level=0)
+        path = os.path.join(self.output_dir, "report.xml")
+        with open(path, "w", encoding="utf-8") as f:
+            f.write('<?xml version="1.0" encoding="utf-8"?>')
+            f.write(ET.tostring(root, encoding="unicode"))
 
     def pytest_terminal_summary(self, terminalreporter: TerminalReporter) -> None:
         """

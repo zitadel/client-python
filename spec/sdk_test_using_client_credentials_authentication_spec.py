@@ -1,5 +1,4 @@
 import os
-import pprint
 import uuid
 
 import pytest
@@ -37,7 +36,6 @@ def user_id(client_id: str, client_secret: str, base_url: str) -> str | None:
                     email=zitadel.models.UserServiceSetHumanEmail(email=f"johndoe{uuid.uuid4().hex}@caos.ag"),
                 )
             )
-            pprint.pprint(response)
             return response.user_id
         except Exception as e:
             pytest.fail(f"Exception while creating user: {e}")
