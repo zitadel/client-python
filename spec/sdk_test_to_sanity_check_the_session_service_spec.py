@@ -57,9 +57,7 @@ def client() -> zitadel.Zitadel:
 def session(client: zitadel.Zitadel) -> Generator[SessionServiceCreateSessionResponse, None, None]:
     """Creates a fresh session for each test and cleans up afterward."""
     request = SessionServiceCreateSessionRequest(
-        checks=SessionServiceChecks(
-            user=SessionServiceCheckUser(loginName="johndoe")
-        ),
+        checks=SessionServiceChecks(user=SessionServiceCheckUser(loginName="johndoe")),
         lifetime="18000s",
     )
     response = client.sessions.session_service_create_session(request)
@@ -88,10 +86,8 @@ class TestSessionServiceSanityCheckSpec:
         session: SessionServiceCreateSessionResponse,
     ) -> None:
         """Retrieves the session details by ID."""
-        response: SessionServiceGetSessionResponse = (
-            client.sessions.session_service_get_session(
-                session.session_id if session.session_id is not None else ""
-            )
+        response: SessionServiceGetSessionResponse = client.sessions.session_service_get_session(
+            session.session_id if session.session_id is not None else ""
         )
         assert response.session is not None
         assert response.session.id == session.session_id
@@ -103,9 +99,7 @@ class TestSessionServiceSanityCheckSpec:
     ) -> None:
         """Includes the created session when listing all sessions."""
         request = SessionServiceListSessionsRequest(queries=[])
-        response: SessionServiceListSessionsResponse = (
-            client.sessions.session_service_list_sessions(request)
-        )
+        response: SessionServiceListSessionsResponse = client.sessions.session_service_list_sessions(request)
         assert response.sessions is not None
         assert session.session_id in [session.id for session in response.sessions]
 
@@ -116,11 +110,9 @@ class TestSessionServiceSanityCheckSpec:
     ) -> None:
         """Updates the session lifetime and returns a new token."""
         request = SessionServiceSetSessionRequest(lifetime="36000s")
-        response: SessionServiceSetSessionResponse = (
-            client.sessions.session_service_set_session(
-                session.session_id if session.session_id is not None else "",
-                request,
-            )
+        response: SessionServiceSetSessionResponse = client.sessions.session_service_set_session(
+            session.session_id if session.session_id is not None else "",
+            request,
         )
         assert isinstance(response.session_token, str)
 
