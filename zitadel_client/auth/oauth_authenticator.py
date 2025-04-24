@@ -4,7 +4,7 @@ from typing import Any, Dict, Generic, Optional, TypeVar  # noqa: F401
 
 from authlib.integrations.requests_client import OAuth2Session
 
-from zitadel_client import ApiException, OpenApiError
+from zitadel_client import OpenApiError
 from zitadel_client.auth.authenticator import Authenticator, Token
 from zitadel_client.auth.open_id import OpenId
 

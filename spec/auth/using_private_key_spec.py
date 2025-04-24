@@ -12,7 +12,6 @@ Each test instantiates a new client to ensure a clean, stateless call.
 
 import os
 import pathlib
-from pathlib import Path
 
 import pytest
 

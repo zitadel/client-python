@@ -68,7 +68,7 @@ def user(client: zitadel.Zitadel) -> Generator[UserServiceAddHumanUserResponse, 
     response = client.users.user_service_add_human_user(request)
     yield response
     try:
-        client.users.user_service_delete_user(response.user_id) # type: ignore[arg-type]
+        client.users.user_service_delete_user(response.user_id)  # type: ignore[arg-type]
     except ApiException:
         pass
 
@@ -86,8 +86,8 @@ class TestUserServiceSanityCheckSpec:
         user: UserServiceAddHumanUserResponse,
     ) -> None:
         """Retrieves the user details by ID."""
-        response: UserServiceGetUserByIDResponse = client.users.user_service_get_user_by_id(user.user_id) # type: ignore[arg-type]
-        assert response.user.user_id == user.user_id # type: ignore[union-attr]
+        response: UserServiceGetUserByIDResponse = client.users.user_service_get_user_by_id(user.user_id)  # type: ignore[arg-type]
+        assert response.user.user_id == user.user_id  # type: ignore[union-attr]
 
     def test_includes_created_user_when_listing(
         self,
@@ -97,7 +97,7 @@ class TestUserServiceSanityCheckSpec:
         """Includes the created user when listing all users."""
         request = UserServiceListUsersRequest(queries=[])
         response = client.users.user_service_list_users(request)
-        ids = [u.user_id for u in response.result] # type: ignore
+        ids = [u.user_id for u in response.result]  # type: ignore
         assert user.user_id in ids
 
     def test_updates_user_email_and_reflects_in_get(
@@ -107,11 +107,11 @@ class TestUserServiceSanityCheckSpec:
     ) -> None:
         """Updates the user's email and verifies the change."""
         client.users.user_service_update_human_user(
-            user.user_id, # type: ignore[arg-type]
+            user.user_id,  # type: ignore[arg-type]
             UserServiceUpdateHumanUserRequest(email=UserServiceSetHumanEmail(email=f"updated{uuid.uuid4().hex}@example.com")),
         )
-        response = client.users.user_service_get_user_by_id(user.user_id) # type: ignore[arg-type]
-        assert "updated" in response.user.human.email.email # type: ignore
+        response = client.users.user_service_get_user_by_id(user.user_id)  # type: ignore[arg-type]
+        assert "updated" in response.user.human.email.email  # type: ignore
 
     def test_raises_api_exception_for_nonexistent_user(
         self,
