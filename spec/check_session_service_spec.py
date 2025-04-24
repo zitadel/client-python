@@ -36,21 +36,28 @@ from zitadel_client.models import (
 )
 
 
-def pytest_configure() -> None:
-    """Skip tests if required environment variables are missing."""
-    if not os.getenv("AUTH_TOKEN") or not os.getenv("BASE_URL"):
-        pytest.skip(
-            "Environment variables AUTH_TOKEN and BASE_URL must be set",
-            allow_module_level=True,
-        )
+@pytest.fixture(scope="module")
+def base_url() -> str:
+    """Provides the base URL for tests, skipping if unset."""
+    url = os.getenv("BASE_URL")
+    if not url:
+        pytest.skip("Environment variable BASE_URL must be set", allow_module_level=True)
+    return url
 
 
 @pytest.fixture(scope="module")
-def client() -> zitadel.Zitadel:
+def auth_token() -> str:
+    """Provides a valid personal access token, skipping if unset."""
+    token = os.getenv("AUTH_TOKEN")
+    if not token:
+        pytest.skip("Environment variable AUTH_TOKEN must be set", allow_module_level=True)
+    return token
+
+
+@pytest.fixture(scope="module")
+def client(base_url: str, auth_token: str) -> zitadel.Zitadel:
     """Provides a Zitadel client configured with a personal access token."""
-    token: str = os.getenv("AUTH_TOKEN")  # type: ignore
-    base_url: str = os.getenv("BASE_URL")  # type: ignore
-    return zitadel.Zitadel.with_access_token(base_url, token)
+    return zitadel.Zitadel.with_access_token(base_url, auth_token)
 
 
 @pytest.fixture

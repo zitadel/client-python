@@ -4,6 +4,7 @@ from typing import Any, Dict, Generic, Optional, TypeVar  # noqa: F401
 
 from authlib.integrations.requests_client import OAuth2Session
 
+from zitadel_client import ApiException, OpenApiError
 from zitadel_client.auth.authenticator import Authenticator, Token
 from zitadel_client.auth.open_id import OpenId
 
@@ -71,7 +72,7 @@ class OAuthAuthenticator(Authenticator, ABC):
             self.token = Token(access_token, expires_at)
             return self.token
         except Exception as e:
-            raise Exception("Failed to refresh token: " + str(e)) from e
+            raise OpenApiError("Failed to refresh token: " + str(e)) from e
 
 
 T = TypeVar("T", bound="OAuthAuthenticatorBuilder[Any]")
