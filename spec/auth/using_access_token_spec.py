@@ -1,15 +1,3 @@
-"""
-SettingsService Integration Tests (Personal Access Token)
-
-This suite verifies the Zitadel SettingsService API's general settings
-endpoint works when authenticating via a Personal Access Token:
-
- 1. Retrieve general settings successfully with a valid token
- 2. Expect an ApiException when using an invalid token
-
-Each test instantiates a new client to ensure a clean, stateless call.
-"""
-
 import os
 
 import pytest
@@ -36,20 +24,39 @@ def auth_token() -> str:
     return url
 
 
-def test_retrieves_general_settings_with_valid_token(base_url: str, auth_token: str) -> None:
-    """Retrieves general settings successfully with a valid access token."""
-    client = zitadel.Zitadel.with_access_token(
-        base_url,
-        auth_token,
-    )
-    client.settings.settings_service_get_general_settings()
+class TestUseAccessTokenSpec:
+    """
+    SettingsService Integration Tests (Personal Access Token)
 
+    This suite verifies the Zitadel SettingsService API's general settings
+    endpoint works when authenticating via a Personal Access Token:
 
-def test_raises_api_exception_with_invalid_token(base_url: str) -> None:
-    """Raises ApiException when using an invalid access token."""
-    client = zitadel.Zitadel.with_access_token(
-        base_url,
-        "invalid",
-    )
-    with pytest.raises(OpenApiError):
+     1. Retrieve general settings successfully with a valid token
+     2. Expect an ApiException when using an invalid token
+
+    Each test instantiates a new client to ensure a clean, stateless call.
+    """
+
+    def test_retrieves_general_settings_with_valid_token(
+        self,
+        base_url: str,
+        auth_token: str,
+    ) -> None:
+        """Retrieves general settings successfully with a valid access token."""
+        client = zitadel.Zitadel.with_access_token(
+            base_url,
+            auth_token,
+        )
         client.settings.settings_service_get_general_settings()
+
+    def test_raises_api_exception_with_invalid_token(
+        self,
+        base_url: str,
+    ) -> None:
+        """Raises ApiException when using an invalid access token."""
+        client = zitadel.Zitadel.with_access_token(
+            base_url,
+            "invalid",
+        )
+        with pytest.raises(OpenApiError):
+            client.settings.settings_service_get_general_settings()

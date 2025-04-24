@@ -1,19 +1,3 @@
-"""
-SessionService Integration Tests
-
-This suite verifies the Zitadel SessionService API's basic operations using a
-personal access token:
-
- 1. Create a session with specified checks and lifetime
- 2. Retrieve the session by ID
- 3. List sessions and ensure the created session appears
- 4. Update the session's lifetime and confirm a new token is returned
- 5. Error when retrieving a non-existent session
-
-Each test runs in isolation: a new session is created in the `session` fixture and
-deleted after the test to ensure a clean state.
-"""
-
 import os
 import uuid
 from typing import Generator
@@ -82,9 +66,19 @@ def session(client: zitadel.Zitadel) -> Generator[SessionServiceCreateSessionRes
 
 class TestSessionServiceSanityCheckSpec:
     """
-    Integration tests for the SessionService endpoints.
+    SessionService Integration Tests
 
-    Verifies create, get, list, set, and error behaviors for sessions.
+    This suite verifies the Zitadel SessionService API's basic operations using a
+    personal access token:
+
+     1. Create a session with specified checks and lifetime
+     2. Retrieve the session by ID
+     3. List sessions and ensure the created session appears
+     4. Update the session's lifetime and confirm a new token is returned
+     5. Error when retrieving a non-existent session
+
+    Each test runs in isolation: a new session is created in the `session` fixture and
+    deleted after the test to ensure a clean state.
     """
 
     def test_retrieves_session_details_by_id(

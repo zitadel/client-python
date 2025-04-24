@@ -1,15 +1,3 @@
-"""
-SettingsService Integration Tests (Private Key Assertion)
-
-This suite verifies the Zitadel SettingsService API's general settings
-endpoint works when authenticating via a private key assertion:
-
- 1. Retrieve general settings successfully with a valid private key
- 2. Expect an ApiException when using an invalid private key path
-
-Each test instantiates a new client to ensure a clean, stateless call.
-"""
-
 import os
 import pathlib
 
@@ -36,20 +24,39 @@ def key_file(tmp_path: pathlib.Path) -> str:
     return str(file_path)
 
 
-def test_retrieves_general_settings_with_valid_private_key(base_url: str, key_file: str) -> None:
-    """Retrieves general settings successfully with a valid private key."""
-    client = zitadel.Zitadel.with_private_key(
-        base_url,
-        key_file,
-    )
-    client.settings.settings_service_get_general_settings()
+class TestUsePrivateKeySpec:
+    """
+    SettingsService Integration Tests (Private Key Assertion)
 
+    This suite verifies the Zitadel SettingsService API's general settings
+    endpoint works when authenticating via a private key assertion:
 
-def test_raises_api_exception_with_invalid_private_key(key_file: str) -> None:
-    """Raises ApiException when using an invalid private key path."""
-    client = zitadel.Zitadel.with_private_key(
-        "https://zitadel.cloud",
-        key_file,
-    )
-    with pytest.raises(OpenApiError):
+     1. Retrieve general settings successfully with a valid private key
+     2. Expect an ApiException when using an invalid private key path
+
+    Each test instantiates a new client to ensure a clean, stateless call.
+    """
+
+    def test_retrieves_general_settings_with_valid_private_key(
+        self,
+        base_url: str,
+        key_file: str,
+    ) -> None:
+        """Retrieves general settings successfully with a valid private key."""
+        client = zitadel.Zitadel.with_private_key(
+            base_url,
+            key_file,
+        )
         client.settings.settings_service_get_general_settings()
+
+    def test_raises_api_exception_with_invalid_private_key(
+        self,
+        key_file: str,
+    ) -> None:
+        """Raises ApiException when using an invalid private key path."""
+        client = zitadel.Zitadel.with_private_key(
+            "https://zitadel.cloud",
+            key_file,
+        )
+        with pytest.raises(OpenApiError):
+            client.settings.settings_service_get_general_settings()

@@ -1,15 +1,3 @@
-"""
-SettingsService Integration Tests (Client Credentials)
-
-This suite verifies the Zitadel SettingsService API's general settings
-endpoint works when authenticating via Client Credentials:
-
- 1. Retrieve general settings successfully with valid credentials
- 2. Expect an ApiException when using invalid credentials
-
-Each test instantiates a new client to ensure a clean, stateless call.
-"""
-
 import os
 
 import pytest
@@ -45,22 +33,42 @@ def client_secret() -> str:
     return cs
 
 
-def test_retrieves_general_settings_with_valid_client_credentials(base_url: str, client_id: str, client_secret: str) -> None:
-    """Retrieves general settings successfully with valid client credentials."""
-    client = zitadel.Zitadel.with_client_credentials(
-        base_url,
-        client_id,
-        client_secret,
-    )
-    client.settings.settings_service_get_general_settings()
+class TestUseClientCredentialsSpec:
+    """
+    SettingsService Integration Tests (Client Credentials)
 
+    This suite verifies the Zitadel SettingsService API's general settings
+    endpoint works when authenticating via Client Credentials:
 
-def test_raises_api_exception_with_invalid_client_credentials(base_url: str) -> None:
-    """Raises ApiException when using invalid client credentials."""
-    client = zitadel.Zitadel.with_client_credentials(
-        base_url,
-        "invalid",
-        "invalid",
-    )
-    with pytest.raises(OpenApiError):
+     1. Retrieve general settings successfully with valid credentials
+     2. Expect an ApiException when using invalid credentials
+
+    Each test instantiates a new client to ensure a clean, stateless call.
+    """
+
+    def test_retrieves_general_settings_with_valid_client_credentials(
+        self,
+        base_url: str,
+        client_id: str,
+        client_secret: str,
+    ) -> None:
+        """Retrieves general settings successfully with valid client credentials."""
+        client = zitadel.Zitadel.with_client_credentials(
+            base_url,
+            client_id,
+            client_secret,
+        )
         client.settings.settings_service_get_general_settings()
+
+    def test_raises_api_exception_with_invalid_client_credentials(
+        self,
+        base_url: str,
+    ) -> None:
+        """Raises ApiException when using invalid client credentials."""
+        client = zitadel.Zitadel.with_client_credentials(
+            base_url,
+            "invalid",
+            "invalid",
+        )
+        with pytest.raises(OpenApiError):
+            client.settings.settings_service_get_general_settings()

@@ -1,19 +1,3 @@
-"""
-UserService Integration Tests
-
-This suite verifies the Zitadel UserService API's basic operations using a
-personal access token:
-
- 1. Create a human user
- 2. Retrieve the user by ID
- 3. List users and ensure the created user appears
- 4. Update the user's email and confirm the change
- 5. Error when retrieving a non-existent user
-
-Each test runs in isolation: a new user is created in the `user` fixture and
-removed after the test to ensure a clean state.
-"""
-
 import os
 import uuid
 from typing import Generator
@@ -75,9 +59,19 @@ def user(client: zitadel.Zitadel) -> Generator[UserServiceAddHumanUserResponse, 
 
 class TestUserServiceSanityCheckSpec:
     """
-    Integration tests for the UserService endpoints.
+    UserService Integration Tests
 
-    Verifies create, get, list, set, and error behaviors for users.
+    This suite verifies the Zitadel UserService API's basic operations using a
+    personal access token:
+
+     1. Create a human user
+     2. Retrieve the user by ID
+     3. List users and ensure the created user appears
+     4. Update the user's email and confirm the change
+     5. Error when retrieving a non-existent user
+
+    Each test runs in isolation: a new user is created in the `user` fixture and
+    removed after the test to ensure a clean state.
     """
 
     def test_retrieves_user_details_by_id(
