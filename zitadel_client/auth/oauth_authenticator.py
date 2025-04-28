@@ -77,7 +77,7 @@ class OAuthAuthenticator(Authenticator, ABC):
 
 T = TypeVar("T", bound="OAuthAuthenticatorBuilder[Any]")
 
-
+# noinspection PyTypeHintsInspection
 class OAuthAuthenticatorBuilder(ABC, Generic[T]):
     """
     Abstract builder class for constructing OAuth authenticator instances.
