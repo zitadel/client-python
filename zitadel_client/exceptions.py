@@ -119,6 +119,7 @@ class ApiException(OpenApiError):  # noqa N818 should be named with an Error suf
             if self.reason is None:
                 self.reason = http_resp.reason
             if self.body is None and http_resp.data is not None:
+                # noinspection PyBroadException
                 try:
                     self.body = http_resp.data.decode("utf-8")
                 except Exception:  # noqa: S110

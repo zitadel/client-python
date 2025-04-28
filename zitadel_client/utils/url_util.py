@@ -1,4 +1,7 @@
 class URLUtil:
+    def __init__(self) -> None:
+        pass
+
     @staticmethod
     def build_hostname(host: str) -> str:
         """
@@ -7,6 +10,7 @@ class URLUtil:
         """
         # For example, trim whitespace and ensure the host starts with 'https://'
         host = host.strip()
+        # noinspection HttpUrlsUsage
         if not host.startswith("http://") and not host.startswith("https://"):
             host = "https://" + host
         return host

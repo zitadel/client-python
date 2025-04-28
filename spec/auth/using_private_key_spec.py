@@ -37,6 +37,9 @@ class TestUsePrivateKeySpec:
     Each test instantiates a new client to ensure a clean, stateless call.
     """
 
+    def __init__(self) -> None:
+        pass
+
     def test_retrieves_general_settings_with_valid_private_key(
         self,
         base_url: str,

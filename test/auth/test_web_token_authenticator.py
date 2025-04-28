@@ -17,6 +17,7 @@ class WebTokenAuthenticatorTest(OAuthAuthenticatorTest):
     Test for WebTokenAuthenticator to verify JWT token refresh functionality using the builder.
     """
 
+    # noinspection DuplicatedCode
     def test_refresh_token_using_builder(self) -> None:
         time.sleep(20)
 

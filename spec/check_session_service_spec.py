@@ -20,6 +20,7 @@ from zitadel_client.models import (
 )
 
 
+# noinspection DuplicatedCode
 @pytest.fixture(scope="module")
 def base_url() -> str:
     """Provides the base URL for tests, skipping if unset."""
@@ -80,6 +81,9 @@ class TestSessionServiceSanityCheckSpec:
     Each test runs in isolation: a new session is created in the `session` fixture and
     deleted after the test to ensure a clean state.
     """
+
+    def __init__(self) -> None:
+        pass
 
     def test_retrieves_session_details_by_id(
         self,

@@ -21,7 +21,7 @@ class TestApiClient(unittest.TestCase):
     oauth_host: str
 
     @classmethod
-    def setUpClass(cls) -> None:
+    def setup_class(cls) -> None:
         """
         Starts the WireMock Docker container and exposes the required port.
         Sets up the OAuth server URL.
@@ -31,10 +31,11 @@ class TestApiClient(unittest.TestCase):
 
         host = cls.mock_oauth2_server.get_container_host_ip()
         port = cls.mock_oauth2_server.get_exposed_port(8080)
+        # noinspection HttpUrlsUsage
         cls.oauth_host = f"http://{host}:{port}"
 
     @classmethod
-    def tearDownClass(cls) -> None:
+    def teardown_class(cls) -> None:
         """
         Stops the WireMock Docker container.
         """

@@ -1,9 +1,12 @@
+# noinspection All
 # mypy: allow-untyped-defs
 from __future__ import annotations
 
 import os
 import platform
 import re
+
+# noinspection PyPep8Naming
 import xml.etree.ElementTree as ET
 from collections import defaultdict
 from collections.abc import Callable
@@ -101,24 +104,25 @@ class _NodeReporter:
             content_all = self._prepare_content(content_log, " Captured Log ")
         if self.xml.logging in ["system-out", "out-err", "all"]:
             content_all += self._prepare_content(content_out, " Captured Out ")
-            self._write_content(report, content_all, "system-out")
+            self._write_content(content_all, "system-out")
             content_all = ""
         if self.xml.logging in ["system-err", "out-err", "all"]:
             content_all += self._prepare_content(content_err, " Captured Err ")
-            self._write_content(report, content_all, "system-err")
+            self._write_content(content_all, "system-err")
             content_all = ""
         if content_all:
-            self._write_content(report, content_all, "system-out")
+            self._write_content(content_all, "system-out")
 
-    def _prepare_content(self, content: str, header: str) -> str:
+    @staticmethod
+    def _prepare_content(content: str, header: str) -> str:
         return "\n".join([header.center(80, "-"), content, ""])
 
-    def _write_content(self, report: TestReport, content: str, jheader: str) -> None:
+    def _write_content(self, content: str, jheader: str) -> None:
         tag = ET.Element(jheader)
         tag.text = bin_xml_escape(content)
         self.append(tag)
 
-    def append_pass(self, report: TestReport) -> None:
+    def append_pass(self) -> None:
         self.add_stats("passed")
 
     def append_failure(self, report: TestReport) -> None:
@@ -194,6 +198,7 @@ class _NodeReporter:
             self.append(skipped)
             self.write_captured_output(report)
 
+    # noinspection PyAttributeOutsideInit
     def finalize(self) -> None:
         data = self.to_xml()
         # Preserve key attributes
@@ -244,6 +249,7 @@ def record_xml_attribute(request: FixtureRequest) -> Callable[[str, object], Non
     """
 
     # Declare noop
+    # noinspection PyUnusedLocal
     def add_attr_noop(name: str, value: object) -> None:
         pass
 
@@ -390,6 +396,7 @@ class LogXML:
         reporter.record_testreport(report)
         return reporter
 
+    # noinspection DuplicatedCode
     def pytest_runtest_logreport(self, report: TestReport) -> None:
         """Handle a setup/call/teardown report, generating the appropriate
         XML tags as necessary.
@@ -413,11 +420,10 @@ class LogXML:
             -> teardown node2
             -> teardown node1
         """
-        close_report = None
         if report.passed:
             if report.when == "call":  # ignore setup/teardown
                 reporter = self._opentestcase(report)
-                reporter.append_pass(report)
+                reporter.append_pass()
         elif report.failed:
             if report.when == "teardown":
                 # The following vars are needed when xdist plugin is used.
@@ -518,6 +524,7 @@ class LogXML:
         # Record the exception as a standard JUnit <error> element
         reporter._add_simple("error", "internal error", str(excrepr))
 
+    # noinspection PyAttributeOutsideInit
     def pytest_sessionstart(self) -> None:
         """
         Called at the very start of the pytest session.
