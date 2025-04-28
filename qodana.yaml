@@ -1,7 +1,7 @@
 version: "1.0"
 
 profile:
-  name: qodana.starter
+  name: qodana.recommended
 
 exclude:
   - name: All
