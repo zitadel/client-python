@@ -1,0 +1,12 @@
+version: "1.0"
+
+profile:
+  name: qodana.starter
+
+exclude:
+  - name: All
+    paths:
+      - zitadel_client/api
+      - zitadel_client/models
+
+linter: jetbrains/qodana-python:2025.1

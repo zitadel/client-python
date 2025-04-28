@@ -1,0 +1,32 @@
+name: Qodana
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
+
+defaults:
+  run:
+    working-directory: ./
+
+jobs:
+  qodana-check:
+    runs-on: ubuntu-latest
+    name: Inspect Code
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run Qodana
+        uses: JetBrains/qodana-action@v2025.1
+        env:
+          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
