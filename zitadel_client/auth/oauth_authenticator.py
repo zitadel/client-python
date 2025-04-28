@@ -77,6 +77,7 @@ class OAuthAuthenticator(Authenticator, ABC):
 
 T = TypeVar("T", bound="OAuthAuthenticatorBuilder[Any]")
 
+
 # noinspection PyTypeHintsInspection
 class OAuthAuthenticatorBuilder(ABC, Generic[T]):
     """
