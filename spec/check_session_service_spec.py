@@ -20,6 +20,7 @@ from zitadel_client.models import (
 )
 
 
+# noinspection DuplicatedCode
 @pytest.fixture(scope="module")
 def base_url() -> str:
     """Provides the base URL for tests, skipping if unset."""

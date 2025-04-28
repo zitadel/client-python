@@ -17,6 +17,8 @@ import zitadel_client.models
 import zitadel_client.rest_response
 from zitadel_client import rest
 from zitadel_client.api_response import ApiResponse
+
+# noinspection PyPep8Naming
 from zitadel_client.api_response import T as ApiResponseT
 from zitadel_client.auth.no_auth_authenticator import NoAuthAuthenticator
 from zitadel_client.configuration import Configuration
@@ -85,6 +87,7 @@ class ApiClient:
 
     _default = None
 
+    # noinspection PyUnusedLocal
     @no_type_check
     def param_serialize(
         self,
@@ -102,6 +105,7 @@ class ApiClient:
         _request_auth=None,
     ) -> RequestSerialized:
         """Builds the HTTP request params needed by the request.
+        :param files:
         :param _host:
         :param auth_settings:
         :param method: Method to call.
@@ -319,6 +323,7 @@ class ApiClient:
         # fetch data from response object
         if content_type is None:
             try:
+                # noinspection PyUnusedLocal
                 data = json.loads(response_text)
             except ValueError:
                 data = response_text
@@ -331,13 +336,14 @@ class ApiClient:
                 data = ""
             else:
                 data = json.loads(response_text)
-        elif re.match(r"^text\/[a-z.+-]+\s*(;|$)", content_type, re.IGNORECASE):
+        elif re.match(r"^text/[a-z.+-]+\s*(;|$)", content_type, re.IGNORECASE):
             data = response_text
         else:
             raise ApiException(status=0, reason="Unsupported content type: {0}".format(content_type))
 
         return self.__deserialize(data, response_type)
 
+    # noinspection PyNestedDecorators
     @no_type_check
     @staticmethod
     def __deserialize(data, klass):  # noqa C901 too complex
@@ -355,7 +361,6 @@ class ApiClient:
             if klass.startswith("List["):
                 m = re.match(r"List\[(.*)]", klass)
                 assert m is not None, "Malformed List type definition"
-                sub_kls = m.group(1)
                 return [ApiClient.__deserialize(sub_data) for sub_data in data]
 
             if klass.startswith("Dict["):
@@ -385,6 +390,7 @@ class ApiClient:
         else:
             return ApiClient.__deserialize_model(data, klass)
 
+    # noinspection PyNestedDecorators
     @no_type_check
     @staticmethod
     def parameters_to_tuples(params, collection_formats):
@@ -416,6 +422,7 @@ class ApiClient:
                 new_params.append((k, v))
         return new_params
 
+    # noinspection PyNestedDecorators
     @no_type_check
     @staticmethod
     def parameters_to_url_query(params, collection_formats):  # noqa C901 too complex
@@ -502,6 +509,7 @@ class ApiClient:
 
         return accepts[0]
 
+    # noinspection PyNestedDecorators
     @no_type_check
     @staticmethod
     def select_header_content_type(content_types):
@@ -519,6 +527,7 @@ class ApiClient:
 
         return content_types[0]
 
+    # noinspection PyNestedDecorators
     @no_type_check
     @staticmethod
     def __deserialize_file(response):
@@ -549,6 +558,7 @@ class ApiClient:
 
         return path
 
+    # noinspection PyNestedDecorators
     @no_type_check
     @staticmethod
     def __deserialize_primitive(data, klass):
@@ -566,6 +576,7 @@ class ApiClient:
         except TypeError:
             return data
 
+    # noinspection PyNestedDecorators
     @no_type_check
     @staticmethod
     def __deserialize_object(value):
@@ -575,6 +586,7 @@ class ApiClient:
         """
         return value
 
+    # noinspection PyNestedDecorators
     @no_type_check
     @staticmethod
     def __deserialize_date(string):
@@ -590,6 +602,7 @@ class ApiClient:
         except ValueError as err:
             raise rest.ApiException(status=0, reason="Failed to parse `{0}` as date object".format(string)) from err
 
+    # noinspection PyNestedDecorators
     @no_type_check
     @staticmethod
     def __deserialize_datetime(string):
@@ -607,6 +620,7 @@ class ApiClient:
         except ValueError as err:
             raise rest.ApiException(status=0, reason=("Failed to parse `{0}` as datetime object".format(string))) from err
 
+    # noinspection PyNestedDecorators
     @no_type_check
     @staticmethod
     def __deserialize_enum(data, klass):
@@ -621,6 +635,7 @@ class ApiClient:
         except ValueError as err:
             raise rest.ApiException(status=0, reason=("Failed to parse `{0}` as `{1}`".format(data, klass))) from err
 
+    # noinspection PyNestedDecorators
     @no_type_check
     @staticmethod
     def __deserialize_model(data, klass: Any):
@@ -633,6 +648,7 @@ class ApiClient:
 
         return klass.from_dict(data)
 
+    # noinspection PyNestedDecorators
     @no_type_check
     @classmethod
     def get_default(cls):

@@ -13,6 +13,7 @@ class ClientCredentialsAuthenticatorTest(OAuthAuthenticatorTest):
     Extends the base OAuthAuthenticatorTest class.
     """
 
+    # noinspection DuplicatedCode
     def test_refresh_token(self) -> None:
         time.sleep(20)
 

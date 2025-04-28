@@ -105,7 +105,6 @@ class Configuration:
         If the logger_file is None, then add stream handler and remove file
         handler. Otherwise, add file handler and remove stream handler.
 
-        :param value: The logger_file path.
         :type: str
         """
         return self.__logger_file
@@ -133,7 +132,6 @@ class Configuration:
     def debug(self) -> bool:
         """Debug status
 
-        :param value: The debug status, True or False.
         :type: bool
         """
         return self.__debug
@@ -166,7 +164,6 @@ class Configuration:
 
         The logger_formatter will be updated when sets logger_format.
 
-        :param value: The format string.
         :type: str
         """
         return self.__logger_format
