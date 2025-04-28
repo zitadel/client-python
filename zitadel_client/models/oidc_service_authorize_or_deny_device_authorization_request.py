@@ -30,7 +30,7 @@ class OIDCServiceAuthorizeOrDenyDeviceAuthorizationRequest(BaseModel):
     session: Optional[OIDCServiceSession] = None
     deny: Optional[Dict[str, Any]] = None
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["session", "deny"]
+    __properties: ClassVar[List[str]] = []
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -73,9 +73,6 @@ class OIDCServiceAuthorizeOrDenyDeviceAuthorizationRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of session
-        if self.session:
-            _dict['session'] = self.session.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
@@ -93,8 +90,6 @@ class OIDCServiceAuthorizeOrDenyDeviceAuthorizationRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "session": OIDCServiceSession.from_dict(obj["session"]) if obj.get("session") is not None else None,
-            "deny": obj.get("deny")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

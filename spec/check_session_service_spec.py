@@ -11,7 +11,7 @@ from zitadel_client.models import (
     SessionServiceCheckUser,
     SessionServiceCreateSessionRequest,
     SessionServiceCreateSessionResponse,
-    SessionServiceDeleteSessionBody,
+    SessionServiceDeleteSessionRequest,
     SessionServiceGetSessionResponse,
     SessionServiceListSessionsRequest,
     SessionServiceListSessionsResponse,
@@ -55,7 +55,7 @@ def session(client: zitadel.Zitadel) -> Generator[SessionServiceCreateSessionRes
     response = client.sessions.session_service_create_session(request)
     yield response
     # Teardown
-    delete_body = SessionServiceDeleteSessionBody()
+    delete_body = SessionServiceDeleteSessionRequest()
     try:
         client.sessions.session_service_delete_session(
             response.session_id if response.session_id is not None else "",

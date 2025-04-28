@@ -32,7 +32,7 @@ class UserServiceSetHumanPhone(BaseModel):
     return_code: Optional[Dict[str, Any]] = Field(default=None, alias="returnCode")
     is_verified: Optional[StrictBool] = Field(default=None, alias="isVerified")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["phone", "sendCode", "returnCode", "isVerified"]
+    __properties: ClassVar[List[str]] = []
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -92,10 +92,6 @@ class UserServiceSetHumanPhone(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "phone": obj.get("phone"),
-            "sendCode": obj.get("sendCode"),
-            "returnCode": obj.get("returnCode"),
-            "isVerified": obj.get("isVerified")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

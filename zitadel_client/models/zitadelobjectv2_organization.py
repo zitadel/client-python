@@ -29,7 +29,7 @@ class Zitadelobjectv2Organization(BaseModel):
     org_id: Optional[StrictStr] = Field(default=None, alias="orgId")
     org_domain: Optional[StrictStr] = Field(default=None, alias="orgDomain")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["orgId", "orgDomain"]
+    __properties: ClassVar[List[str]] = []
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -89,8 +89,6 @@ class Zitadelobjectv2Organization(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "orgId": obj.get("orgId"),
-            "orgDomain": obj.get("orgDomain")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

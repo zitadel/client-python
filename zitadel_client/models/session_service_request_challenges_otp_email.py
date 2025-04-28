@@ -19,7 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field
 from typing import Any, ClassVar, Dict, List, Optional
-from zitadel_client.models.session_service_request_challenges_otp_email_send_code import SessionServiceRequestChallengesOTPEmailSendCode
+from zitadel_client.models.session_service_otp_email_send_code import SessionServiceOTPEmailSendCode
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,10 +27,10 @@ class SessionServiceRequestChallengesOTPEmail(BaseModel):
     """
     SessionServiceRequestChallengesOTPEmail
     """ # noqa: E501
-    send_code: Optional[SessionServiceRequestChallengesOTPEmailSendCode] = Field(default=None, alias="sendCode")
+    send_code: Optional[SessionServiceOTPEmailSendCode] = Field(default=None, alias="sendCode")
     return_code: Optional[Dict[str, Any]] = Field(default=None, alias="returnCode")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["sendCode", "returnCode"]
+    __properties: ClassVar[List[str]] = []
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -73,9 +73,6 @@ class SessionServiceRequestChallengesOTPEmail(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of send_code
-        if self.send_code:
-            _dict['sendCode'] = self.send_code.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
@@ -93,8 +90,6 @@ class SessionServiceRequestChallengesOTPEmail(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "sendCode": SessionServiceRequestChallengesOTPEmailSendCode.from_dict(obj["sendCode"]) if obj.get("sendCode") is not None else None,
-            "returnCode": obj.get("returnCode")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

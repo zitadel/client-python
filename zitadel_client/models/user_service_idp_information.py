@@ -37,7 +37,7 @@ class UserServiceIDPInformation(BaseModel):
     user_name: Optional[StrictStr] = Field(default=None, description="username of the user of the identity provider", alias="userName")
     raw_information: Optional[Dict[str, Any]] = Field(default=None, description="complete information returned by the identity provider", alias="rawInformation")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["oauth", "ldap", "saml", "idpId", "userId", "userName", "rawInformation"]
+    __properties: ClassVar[List[str]] = []
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -80,15 +80,6 @@ class UserServiceIDPInformation(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of oauth
-        if self.oauth:
-            _dict['oauth'] = self.oauth.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of ldap
-        if self.ldap:
-            _dict['ldap'] = self.ldap.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of saml
-        if self.saml:
-            _dict['saml'] = self.saml.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
@@ -106,13 +97,6 @@ class UserServiceIDPInformation(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "oauth": UserServiceIDPOAuthAccessInformation.from_dict(obj["oauth"]) if obj.get("oauth") is not None else None,
-            "ldap": UserServiceIDPLDAPAccessInformation.from_dict(obj["ldap"]) if obj.get("ldap") is not None else None,
-            "saml": UserServiceIDPSAMLAccessInformation.from_dict(obj["saml"]) if obj.get("saml") is not None else None,
-            "idpId": obj.get("idpId"),
-            "userId": obj.get("userId"),
-            "userName": obj.get("userName"),
-            "rawInformation": obj.get("rawInformation")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

@@ -33,7 +33,7 @@ class UserServiceStartIdentityProviderIntentRequest(BaseModel):
     urls: Optional[UserServiceRedirectURLs] = None
     ldap: Optional[UserServiceLDAPCredentials] = None
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["idpId", "urls", "ldap"]
+    __properties: ClassVar[List[str]] = []
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -76,12 +76,6 @@ class UserServiceStartIdentityProviderIntentRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of urls
-        if self.urls:
-            _dict['urls'] = self.urls.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of ldap
-        if self.ldap:
-            _dict['ldap'] = self.ldap.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
@@ -99,9 +93,6 @@ class UserServiceStartIdentityProviderIntentRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "idpId": obj.get("idpId"),
-            "urls": UserServiceRedirectURLs.from_dict(obj["urls"]) if obj.get("urls") is not None else None,
-            "ldap": UserServiceLDAPCredentials.from_dict(obj["ldap"]) if obj.get("ldap") is not None else None
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

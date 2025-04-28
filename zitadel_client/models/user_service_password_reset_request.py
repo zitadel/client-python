@@ -30,7 +30,7 @@ class UserServicePasswordResetRequest(BaseModel):
     send_link: Optional[UserServiceSendPasswordResetLink] = Field(default=None, alias="sendLink")
     return_code: Optional[Dict[str, Any]] = Field(default=None, alias="returnCode")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["sendLink", "returnCode"]
+    __properties: ClassVar[List[str]] = []
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -73,9 +73,6 @@ class UserServicePasswordResetRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of send_link
-        if self.send_link:
-            _dict['sendLink'] = self.send_link.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
@@ -93,8 +90,6 @@ class UserServicePasswordResetRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "sendLink": UserServiceSendPasswordResetLink.from_dict(obj["sendLink"]) if obj.get("sendLink") is not None else None,
-            "returnCode": obj.get("returnCode")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

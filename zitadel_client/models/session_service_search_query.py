@@ -37,7 +37,7 @@ class SessionServiceSearchQuery(BaseModel):
     creator_query: Optional[SessionServiceCreatorQuery] = Field(default=None, alias="creatorQuery")
     user_agent_query: Optional[SessionServiceUserAgentQuery] = Field(default=None, alias="userAgentQuery")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["idsQuery", "userIdQuery", "creationDateQuery", "creatorQuery", "userAgentQuery"]
+    __properties: ClassVar[List[str]] = []
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -80,21 +80,6 @@ class SessionServiceSearchQuery(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of ids_query
-        if self.ids_query:
-            _dict['idsQuery'] = self.ids_query.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of user_id_query
-        if self.user_id_query:
-            _dict['userIdQuery'] = self.user_id_query.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of creation_date_query
-        if self.creation_date_query:
-            _dict['creationDateQuery'] = self.creation_date_query.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of creator_query
-        if self.creator_query:
-            _dict['creatorQuery'] = self.creator_query.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of user_agent_query
-        if self.user_agent_query:
-            _dict['userAgentQuery'] = self.user_agent_query.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
@@ -112,11 +97,6 @@ class SessionServiceSearchQuery(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "idsQuery": SessionServiceIDsQuery.from_dict(obj["idsQuery"]) if obj.get("idsQuery") is not None else None,
-            "userIdQuery": SessionServiceUserIDQuery.from_dict(obj["userIdQuery"]) if obj.get("userIdQuery") is not None else None,
-            "creationDateQuery": SessionServiceCreationDateQuery.from_dict(obj["creationDateQuery"]) if obj.get("creationDateQuery") is not None else None,
-            "creatorQuery": SessionServiceCreatorQuery.from_dict(obj["creatorQuery"]) if obj.get("creatorQuery") is not None else None,
-            "userAgentQuery": SessionServiceUserAgentQuery.from_dict(obj["userAgentQuery"]) if obj.get("userAgentQuery") is not None else None
         })
         # store additional fields in additional_properties
         for _key in obj.keys():
