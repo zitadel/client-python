@@ -56,7 +56,7 @@ class UserServiceSearchQuery(BaseModel):
     organization_id_query: Optional[UserServiceOrganizationIdQuery] = Field(default=None, alias="organizationIdQuery")
     phone_query: Optional[UserServicePhoneQuery] = Field(default=None, alias="phoneQuery")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["userNameQuery", "firstNameQuery", "lastNameQuery", "nickNameQuery", "displayNameQuery", "emailQuery", "stateQuery", "typeQuery", "loginNameQuery", "inUserIdsQuery", "orQuery", "andQuery", "notQuery", "inUserEmailsQuery", "organizationIdQuery", "phoneQuery"]
+    __properties: ClassVar[List[str]] = []
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -99,54 +99,6 @@ class UserServiceSearchQuery(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of user_name_query
-        if self.user_name_query:
-            _dict['userNameQuery'] = self.user_name_query.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of first_name_query
-        if self.first_name_query:
-            _dict['firstNameQuery'] = self.first_name_query.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of last_name_query
-        if self.last_name_query:
-            _dict['lastNameQuery'] = self.last_name_query.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of nick_name_query
-        if self.nick_name_query:
-            _dict['nickNameQuery'] = self.nick_name_query.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of display_name_query
-        if self.display_name_query:
-            _dict['displayNameQuery'] = self.display_name_query.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of email_query
-        if self.email_query:
-            _dict['emailQuery'] = self.email_query.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of state_query
-        if self.state_query:
-            _dict['stateQuery'] = self.state_query.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of type_query
-        if self.type_query:
-            _dict['typeQuery'] = self.type_query.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of login_name_query
-        if self.login_name_query:
-            _dict['loginNameQuery'] = self.login_name_query.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of in_user_ids_query
-        if self.in_user_ids_query:
-            _dict['inUserIdsQuery'] = self.in_user_ids_query.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of or_query
-        if self.or_query:
-            _dict['orQuery'] = self.or_query.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of and_query
-        if self.and_query:
-            _dict['andQuery'] = self.and_query.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of not_query
-        if self.not_query:
-            _dict['notQuery'] = self.not_query.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of in_user_emails_query
-        if self.in_user_emails_query:
-            _dict['inUserEmailsQuery'] = self.in_user_emails_query.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of organization_id_query
-        if self.organization_id_query:
-            _dict['organizationIdQuery'] = self.organization_id_query.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of phone_query
-        if self.phone_query:
-            _dict['phoneQuery'] = self.phone_query.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
@@ -164,22 +116,6 @@ class UserServiceSearchQuery(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "userNameQuery": UserServiceUserNameQuery.from_dict(obj["userNameQuery"]) if obj.get("userNameQuery") is not None else None,
-            "firstNameQuery": UserServiceFirstNameQuery.from_dict(obj["firstNameQuery"]) if obj.get("firstNameQuery") is not None else None,
-            "lastNameQuery": UserServiceLastNameQuery.from_dict(obj["lastNameQuery"]) if obj.get("lastNameQuery") is not None else None,
-            "nickNameQuery": UserServiceNickNameQuery.from_dict(obj["nickNameQuery"]) if obj.get("nickNameQuery") is not None else None,
-            "displayNameQuery": UserServiceDisplayNameQuery.from_dict(obj["displayNameQuery"]) if obj.get("displayNameQuery") is not None else None,
-            "emailQuery": UserServiceEmailQuery.from_dict(obj["emailQuery"]) if obj.get("emailQuery") is not None else None,
-            "stateQuery": UserServiceStateQuery.from_dict(obj["stateQuery"]) if obj.get("stateQuery") is not None else None,
-            "typeQuery": UserServiceTypeQuery.from_dict(obj["typeQuery"]) if obj.get("typeQuery") is not None else None,
-            "loginNameQuery": UserServiceLoginNameQuery.from_dict(obj["loginNameQuery"]) if obj.get("loginNameQuery") is not None else None,
-            "inUserIdsQuery": UserServiceInUserIDQuery.from_dict(obj["inUserIdsQuery"]) if obj.get("inUserIdsQuery") is not None else None,
-            "orQuery": UserServiceOrQuery.from_dict(obj["orQuery"]) if obj.get("orQuery") is not None else None,
-            "andQuery": UserServiceAndQuery.from_dict(obj["andQuery"]) if obj.get("andQuery") is not None else None,
-            "notQuery": UserServiceNotQuery.from_dict(obj["notQuery"]) if obj.get("notQuery") is not None else None,
-            "inUserEmailsQuery": UserServiceInUserEmailsQuery.from_dict(obj["inUserEmailsQuery"]) if obj.get("inUserEmailsQuery") is not None else None,
-            "organizationIdQuery": UserServiceOrganizationIdQuery.from_dict(obj["organizationIdQuery"]) if obj.get("organizationIdQuery") is not None else None,
-            "phoneQuery": UserServicePhoneQuery.from_dict(obj["phoneQuery"]) if obj.get("phoneQuery") is not None else None
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

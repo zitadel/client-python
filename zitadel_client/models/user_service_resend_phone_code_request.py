@@ -29,7 +29,7 @@ class UserServiceResendPhoneCodeRequest(BaseModel):
     send_code: Optional[Dict[str, Any]] = Field(default=None, alias="sendCode")
     return_code: Optional[Dict[str, Any]] = Field(default=None, alias="returnCode")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["sendCode", "returnCode"]
+    __properties: ClassVar[List[str]] = []
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -89,8 +89,6 @@ class UserServiceResendPhoneCodeRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "sendCode": obj.get("sendCode"),
-            "returnCode": obj.get("returnCode")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

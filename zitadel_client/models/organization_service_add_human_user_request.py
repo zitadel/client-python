@@ -47,7 +47,7 @@ class OrganizationServiceAddHumanUserRequest(BaseModel):
     idp_links: Optional[List[OrganizationServiceIDPLink]] = Field(default=None, alias="idpLinks")
     totp_secret: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]] = Field(default=None, description="An Implementation of RFC 6238 is used, with HMAC-SHA-1 and time-step of 30 seconds. Currently no other options are supported, and if anything different is used the validation will fail.", alias="totpSecret")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["userId", "username", "organization", "profile", "email", "phone", "metadata", "password", "hashedPassword", "idpLinks", "totpSecret"]
+    __properties: ClassVar[List[str]] = []
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -90,38 +90,6 @@ class OrganizationServiceAddHumanUserRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of organization
-        if self.organization:
-            _dict['organization'] = self.organization.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of profile
-        if self.profile:
-            _dict['profile'] = self.profile.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of email
-        if self.email:
-            _dict['email'] = self.email.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of phone
-        if self.phone:
-            _dict['phone'] = self.phone.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of each item in metadata (list)
-        _items = []
-        if self.metadata:
-            for _item_metadata in self.metadata:
-                if _item_metadata:
-                    _items.append(_item_metadata.to_dict())
-            _dict['metadata'] = _items
-        # override the default output from pydantic by calling `to_dict()` of password
-        if self.password:
-            _dict['password'] = self.password.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of hashed_password
-        if self.hashed_password:
-            _dict['hashedPassword'] = self.hashed_password.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of each item in idp_links (list)
-        _items = []
-        if self.idp_links:
-            for _item_idp_links in self.idp_links:
-                if _item_idp_links:
-                    _items.append(_item_idp_links.to_dict())
-            _dict['idpLinks'] = _items
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
@@ -139,17 +107,6 @@ class OrganizationServiceAddHumanUserRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "userId": obj.get("userId"),
-            "username": obj.get("username"),
-            "organization": Zitadelobjectv2Organization.from_dict(obj["organization"]) if obj.get("organization") is not None else None,
-            "profile": OrganizationServiceSetHumanProfile.from_dict(obj["profile"]) if obj.get("profile") is not None else None,
-            "email": OrganizationServiceSetHumanEmail.from_dict(obj["email"]) if obj.get("email") is not None else None,
-            "phone": OrganizationServiceSetHumanPhone.from_dict(obj["phone"]) if obj.get("phone") is not None else None,
-            "metadata": [OrganizationServiceSetMetadataEntry.from_dict(_item) for _item in obj["metadata"]] if obj.get("metadata") is not None else None,
-            "password": OrganizationServicePassword.from_dict(obj["password"]) if obj.get("password") is not None else None,
-            "hashedPassword": OrganizationServiceHashedPassword.from_dict(obj["hashedPassword"]) if obj.get("hashedPassword") is not None else None,
-            "idpLinks": [OrganizationServiceIDPLink.from_dict(_item) for _item in obj["idpLinks"]] if obj.get("idpLinks") is not None else None,
-            "totpSecret": obj.get("totpSecret")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

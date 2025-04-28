@@ -33,7 +33,7 @@ class UserServiceStartIdentityProviderIntentResponse(BaseModel):
     idp_intent: Optional[UserServiceIDPIntent] = Field(default=None, alias="idpIntent")
     post_form: Optional[Union[StrictBytes, StrictStr]] = Field(default=None, description="POST call information", alias="postForm")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["details", "authUrl", "idpIntent", "postForm"]
+    __properties: ClassVar[List[str]] = []
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -76,12 +76,6 @@ class UserServiceStartIdentityProviderIntentResponse(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of details
-        if self.details:
-            _dict['details'] = self.details.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of idp_intent
-        if self.idp_intent:
-            _dict['idpIntent'] = self.idp_intent.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
@@ -99,10 +93,6 @@ class UserServiceStartIdentityProviderIntentResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "details": UserServiceDetails.from_dict(obj["details"]) if obj.get("details") is not None else None,
-            "authUrl": obj.get("authUrl"),
-            "idpIntent": UserServiceIDPIntent.from_dict(obj["idpIntent"]) if obj.get("idpIntent") is not None else None,
-            "postForm": obj.get("postForm")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

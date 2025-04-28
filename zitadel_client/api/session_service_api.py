@@ -21,7 +21,7 @@ from typing import Optional
 from typing_extensions import Annotated
 from zitadel_client.models.session_service_create_session_request import SessionServiceCreateSessionRequest
 from zitadel_client.models.session_service_create_session_response import SessionServiceCreateSessionResponse
-from zitadel_client.models.session_service_delete_session_body import SessionServiceDeleteSessionBody
+from zitadel_client.models.session_service_delete_session_request import SessionServiceDeleteSessionRequest
 from zitadel_client.models.session_service_delete_session_response import SessionServiceDeleteSessionResponse
 from zitadel_client.models.session_service_get_session_response import SessionServiceGetSessionResponse
 from zitadel_client.models.session_service_list_sessions_request import SessionServiceListSessionsRequest
@@ -101,7 +101,7 @@ class SessionServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "SessionServiceCreateSessionResponse",
+            '200': "SessionServiceCreateSessionResponse",
             '403': "SessionServiceRpcStatus",
             '404': "SessionServiceRpcStatus",
         }
@@ -170,7 +170,7 @@ class SessionServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "SessionServiceCreateSessionResponse",
+            '200': "SessionServiceCreateSessionResponse",
             '403': "SessionServiceRpcStatus",
             '404': "SessionServiceRpcStatus",
         }
@@ -239,7 +239,7 @@ class SessionServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "SessionServiceCreateSessionResponse",
+            '200': "SessionServiceCreateSessionResponse",
             '403': "SessionServiceRpcStatus",
             '404': "SessionServiceRpcStatus",
         }
@@ -331,7 +331,7 @@ class SessionServiceApi:
     def session_service_delete_session(
         self,
         session_id: Annotated[StrictStr, Field(description="\"id of the session to terminate\"")],
-        session_service_delete_session_body: SessionServiceDeleteSessionBody,
+        session_service_delete_session_request: SessionServiceDeleteSessionRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -351,8 +351,8 @@ class SessionServiceApi:
 
         :param session_id: \"id of the session to terminate\" (required)
         :type session_id: str
-        :param session_service_delete_session_body: (required)
-        :type session_service_delete_session_body: SessionServiceDeleteSessionBody
+        :param session_service_delete_session_request: (required)
+        :type session_service_delete_session_request: SessionServiceDeleteSessionRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -377,7 +377,7 @@ class SessionServiceApi:
 
         _param = self._session_service_delete_session_serialize(
             session_id=session_id,
-            session_service_delete_session_body=session_service_delete_session_body,
+            session_service_delete_session_request=session_service_delete_session_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -404,7 +404,7 @@ class SessionServiceApi:
     def session_service_delete_session_with_http_info(
         self,
         session_id: Annotated[StrictStr, Field(description="\"id of the session to terminate\"")],
-        session_service_delete_session_body: SessionServiceDeleteSessionBody,
+        session_service_delete_session_request: SessionServiceDeleteSessionRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -424,8 +424,8 @@ class SessionServiceApi:
 
         :param session_id: \"id of the session to terminate\" (required)
         :type session_id: str
-        :param session_service_delete_session_body: (required)
-        :type session_service_delete_session_body: SessionServiceDeleteSessionBody
+        :param session_service_delete_session_request: (required)
+        :type session_service_delete_session_request: SessionServiceDeleteSessionRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -450,7 +450,7 @@ class SessionServiceApi:
 
         _param = self._session_service_delete_session_serialize(
             session_id=session_id,
-            session_service_delete_session_body=session_service_delete_session_body,
+            session_service_delete_session_request=session_service_delete_session_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -477,7 +477,7 @@ class SessionServiceApi:
     def session_service_delete_session_without_preload_content(
         self,
         session_id: Annotated[StrictStr, Field(description="\"id of the session to terminate\"")],
-        session_service_delete_session_body: SessionServiceDeleteSessionBody,
+        session_service_delete_session_request: SessionServiceDeleteSessionRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -497,8 +497,8 @@ class SessionServiceApi:
 
         :param session_id: \"id of the session to terminate\" (required)
         :type session_id: str
-        :param session_service_delete_session_body: (required)
-        :type session_service_delete_session_body: SessionServiceDeleteSessionBody
+        :param session_service_delete_session_request: (required)
+        :type session_service_delete_session_request: SessionServiceDeleteSessionRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -523,7 +523,7 @@ class SessionServiceApi:
 
         _param = self._session_service_delete_session_serialize(
             session_id=session_id,
-            session_service_delete_session_body=session_service_delete_session_body,
+            session_service_delete_session_request=session_service_delete_session_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -545,7 +545,7 @@ class SessionServiceApi:
     def _session_service_delete_session_serialize(
         self,
         session_id,
-        session_service_delete_session_body,
+        session_service_delete_session_request,
         _request_auth,
         _content_type,
         _headers,
@@ -573,8 +573,8 @@ class SessionServiceApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
-        if session_service_delete_session_body is not None:
-            _body_params = session_service_delete_session_body
+        if session_service_delete_session_request is not None:
+            _body_params = session_service_delete_session_request
 
 
         # set the HTTP header `Accept`
@@ -866,9 +866,9 @@ class SessionServiceApi:
             _path_params['sessionId'] = session_id
         # process the query parameters
         if session_token is not None:
-
+            
             _query_params.append(('sessionToken', session_token))
-
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter

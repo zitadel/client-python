@@ -22,9 +22,9 @@ from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
-class SessionServiceDeleteSessionBody(BaseModel):
+class SessionServiceDeleteSessionRequest(BaseModel):
     """
-    SessionServiceDeleteSessionBody
+    SessionServiceDeleteSessionRequest
     """ # noqa: E501
     session_token: Optional[StrictStr] = Field(default=None, description="\"The current token of the session, previously returned on the create / update request. The token is required unless the authenticated user terminates the own session or is granted the `session.delete` permission.\"", alias="sessionToken")
     additional_properties: Dict[str, Any] = {}
@@ -48,7 +48,7 @@ class SessionServiceDeleteSessionBody(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of SessionServiceDeleteSessionBody from a JSON string"""
+        """Create an instance of SessionServiceDeleteSessionRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -80,7 +80,7 @@ class SessionServiceDeleteSessionBody(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of SessionServiceDeleteSessionBody from a dict"""
+        """Create an instance of SessionServiceDeleteSessionRequest from a dict"""
         if obj is None:
             return None
 

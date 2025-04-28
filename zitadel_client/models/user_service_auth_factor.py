@@ -34,7 +34,7 @@ class UserServiceAuthFactor(BaseModel):
     otp_sms: Optional[Dict[str, Any]] = Field(default=None, alias="otpSms")
     otp_email: Optional[Dict[str, Any]] = Field(default=None, alias="otpEmail")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["state", "otp", "u2f", "otpSms", "otpEmail"]
+    __properties: ClassVar[List[str]] = []
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -77,9 +77,6 @@ class UserServiceAuthFactor(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of u2f
-        if self.u2f:
-            _dict['u2f'] = self.u2f.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
@@ -97,11 +94,6 @@ class UserServiceAuthFactor(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "state": obj.get("state") if obj.get("state") is not None else UserServiceAuthFactorState.AUTH_FACTOR_STATE_UNSPECIFIED,
-            "otp": obj.get("otp"),
-            "u2f": UserServiceAuthFactorU2F.from_dict(obj["u2f"]) if obj.get("u2f") is not None else None,
-            "otpSms": obj.get("otpSms"),
-            "otpEmail": obj.get("otpEmail")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

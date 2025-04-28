@@ -31,7 +31,7 @@ class OrganizationServiceAddOrganizationRequestAdmin(BaseModel):
     human: Optional[OrganizationServiceAddHumanUserRequest] = None
     roles: Optional[List[StrictStr]] = None
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["userId", "human", "roles"]
+    __properties: ClassVar[List[str]] = []
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -74,9 +74,6 @@ class OrganizationServiceAddOrganizationRequestAdmin(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of human
-        if self.human:
-            _dict['human'] = self.human.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
@@ -94,9 +91,6 @@ class OrganizationServiceAddOrganizationRequestAdmin(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "userId": obj.get("userId"),
-            "human": OrganizationServiceAddHumanUserRequest.from_dict(obj["human"]) if obj.get("human") is not None else None,
-            "roles": obj.get("roles")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

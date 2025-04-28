@@ -39,7 +39,7 @@ class UserServiceUser(BaseModel):
     human: Optional[UserServiceHumanUser] = None
     machine: Optional[UserServiceMachineUser] = None
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["userId", "details", "state", "username", "loginNames", "preferredLoginName", "human", "machine"]
+    __properties: ClassVar[List[str]] = []
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -82,15 +82,6 @@ class UserServiceUser(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of details
-        if self.details:
-            _dict['details'] = self.details.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of human
-        if self.human:
-            _dict['human'] = self.human.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of machine
-        if self.machine:
-            _dict['machine'] = self.machine.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
@@ -108,14 +99,6 @@ class UserServiceUser(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "userId": obj.get("userId"),
-            "details": UserServiceDetails.from_dict(obj["details"]) if obj.get("details") is not None else None,
-            "state": obj.get("state") if obj.get("state") is not None else UserServiceUserState.USER_STATE_UNSPECIFIED,
-            "username": obj.get("username"),
-            "loginNames": obj.get("loginNames"),
-            "preferredLoginName": obj.get("preferredLoginName"),
-            "human": UserServiceHumanUser.from_dict(obj["human"]) if obj.get("human") is not None else None,
-            "machine": UserServiceMachineUser.from_dict(obj["machine"]) if obj.get("machine") is not None else None
         })
         # store additional fields in additional_properties
         for _key in obj.keys():
