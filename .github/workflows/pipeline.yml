@@ -1,0 +1,93 @@
+name: Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: write
+  actions: read
+  checks: write
+  pull-requests: write
+  packages: write
+
+jobs:
+  lint-commits:
+    name: Run Commitlint Checks
+    if: github.event_name == 'pull_request'
+    uses: ./.github/workflows/commitlint.yml
+    with:
+      ref: ${{ github.event.pull_request.head.sha }}
+    secrets: inherit
+
+  code-style:
+    name: Run Linter Formatter
+    uses: ./.github/workflows/linting.yml
+    with:
+      ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.ref }}
+      commit_changes: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    secrets: inherit
+
+  compat-check:
+    name: Run Compatibility Checks
+    uses: ./.github/workflows/integration.yml
+    with:
+      library_ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.ref }}
+      sanity_ref: sanity
+    secrets: inherit
+
+  type-check:
+    name: Run Type Checks
+    uses: ./.github/workflows/typecheck.yml
+    with:
+      ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.ref }}
+    secrets: inherit
+
+  run-tests:
+    name: Run Test Suite
+    uses: ./.github/workflows/test.yml
+    with:
+      ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.ref }}
+    secrets:
+      BASE_URL: ${{ secrets.BASE_URL }}
+      AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
+      JWT_KEY: ${{ secrets.JWT_KEY }}
+      CLIENT_ID: ${{ secrets.CLIENT_ID }}
+      CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  code-inspection:
+    name: Run Qodana Inspections
+    needs: run-tests
+    uses: ./.github/workflows/qodana.yml
+    with:
+      ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.ref }}
+    secrets:
+      QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
+
+  all-passed:
+    name: Check Build Status
+    runs-on: ubuntu-latest
+    needs:
+      #- lint-commits
+      - code-style
+      - compat-check
+      - type-check
+      - run-tests
+      - code-inspection
+    if: ${{ always() && (needs.lint-commits.result == 'success' || needs.lint-commits.result == 'skipped') && needs.code-style.result == 'success' && needs.compat-check.result == 'success' && needs.type-check.result == 'success' && needs.run-tests.result == 'success' && needs.code-inspection.result == 'success' }}
+    steps:
+      - name: Report Success
+        run: echo "All required checks passed successfully."
+
+  release-package:
+    name: Do Release Artifact
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs:
+      - all-passed
+    uses: ./.github/workflows/release.yml
+    secrets:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}

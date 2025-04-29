@@ -1,12 +1,10 @@
 name: Release
 
 on:
-  push:
-    branches:
-      - main
-
-permissions:
-  contents: write
+  workflow_call:
+    secrets:
+      PYPI_TOKEN:
+        required: true
 
 defaults:
   run:
@@ -20,6 +18,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Install poetry
         run: |
@@ -30,6 +30,11 @@ jobs:
         with:
           python-version-file: 'pyproject.toml'
           cache: 'poetry'
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
 
       - name: Install Semantic Release
         run: |

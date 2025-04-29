@@ -1,15 +1,22 @@
 name: Qodana
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-
-permissions:
-  contents: read
-  checks: write
-  pull-requests: write
+  workflow_call:
+    inputs:
+      ref:
+        required: true
+        type: string
+      test_artifact_name:
+        required: false
+        type: string
+        default: test-results
+      coverage_artifact_name:
+        required: false
+        type: string
+        default: test-coverage
+    secrets:
+      QODANA_TOKEN:
+        required: true
 
 defaults:
   run:
@@ -24,7 +31,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
+          ref: ${{ inputs.ref }}
           fetch-depth: 0
+
+      - name: Download Test Reports Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ inputs.test_artifact_name }}
+          path: ./qodana-downloaded-reports/test-results
 
       - name: Run Qodana
         uses: JetBrains/qodana-action@v2025.1

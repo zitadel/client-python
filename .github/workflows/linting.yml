@@ -1,13 +1,15 @@
 name: Linting
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-
-permissions:
-  contents: write
+  workflow_call:
+    inputs:
+      ref:
+        required: true
+        type: string
+      commit_changes:
+        required: false
+        type: boolean
+        default: false
 
 defaults:
   run:
@@ -22,7 +24,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.ref }}
+          ref: ${{ inputs.ref }}
           fetch-depth: 0
 
       - name: Install poetry
@@ -42,6 +44,7 @@ jobs:
         run: poetry run ruff format .
 
       - name: Commit Changes
+        if: ${{ inputs.commit_changes == true }}
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: 'style: Apply automated code formatting [skip ci]'

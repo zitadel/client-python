@@ -53,7 +53,7 @@ python_files = "test_*.py *_spec.py"
 addopts = [
   "--cov=zitadel_client",
   "--cov-report=html:build/coverage/html",
-  "--cov-report=lcov:build/coverage/lcov.info",
+  "--cov-report=xml:build/coverage/coverage.xml",
   "--cov-report=term",
   "--xml-junit-dir=build/reports/"
 ]

@@ -1,10 +1,14 @@
 name: Compatibility
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
+  workflow_call:
+    inputs:
+      library_ref:
+        required: true
+        type: string
+      sanity_ref:
+        required: true
+        type: string
 
 jobs:
   check-compatibility:
@@ -19,12 +23,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
+          ref: ${{ inputs.library_ref }}
           path: project/library
 
       - name: Checkout sanity stub
         uses: actions/checkout@v4
         with:
-          ref: sanity
+          ref: ${{ inputs.sanity_ref }}
           path: project/sanity
 
       - name: Install poetry

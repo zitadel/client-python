@@ -1,13 +1,22 @@
 name: Testing
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-
-permissions:
-  contents: write
+  workflow_call:
+    inputs:
+      ref:
+        required: true
+        type: string
+    secrets:
+      BASE_URL:
+        required: false
+      AUTH_TOKEN:
+        required: false
+      JWT_KEY:
+        required: false
+      CLIENT_ID:
+        required: false
+      CLIENT_SECRET:
+        required: false
 
 defaults:
   run:
@@ -21,6 +30,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
 
       - name: Install poetry
         run: |
@@ -36,7 +47,7 @@ jobs:
         run: poetry install --no-interaction --sync --all-extras
 
       - name: Run Tests
-        run: poetry run pytest
+        run: poetry run pytest --junitxml=build/reports/junit.xml
         env:
           BASE_URL: ${{ secrets.BASE_URL }}
           AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
@@ -49,13 +60,21 @@ jobs:
         if: always()
         with:
           name: test-results
-          path: build/reports/**/*.xml
+          path: build/reports/junit.xml
+
+      - name: Upload Coverage
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-coverage
+          path: build/coverage/clover.xml
 
       - name: Generate Report
-        if: ${{ always() && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false) }}
+        if: ${{ always() && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) }}
         uses: dorny/test-reporter@v2.0.0
         with:
           name: Tests
+          path: build/reports/junit.xml
           reporter: java-junit
-          path: build/reports/**/*.xml
+          fail-on-error: 'true'
           token: ${{ secrets.GITHUB_TOKEN }}

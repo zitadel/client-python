@@ -8,7 +8,7 @@
     [
       "@semantic-release/exec",
       {
-        "prepareCmd": "pip install --no-cache-dir build && python -m build"
+        "prepareCmd": "poetry install --no-interaction --sync --all-extras"
       }
     ],
     [
@@ -21,14 +21,28 @@
       }
     ],
     [
-      "@semantic-release/github",
+      "@codedependant/semantic-release-docker",
       {
-        "assets": {
-          "path": "dist/*"
-        }
+        "dockerRegistry": "ghcr.io",
+        "dockerProject": "zitadel",
+        "dockerImage": "client-php",
+        "dockerTags": [
+          "{{version}}"
+        ]
       }
     ],
-    "semantic-release-pypi",
+    [
+      "@semantic-release/github",
+      {
+        "successComment": false,
+        "failComment": false,
+        "assets": [
+          {
+            "path": "dist/*"
+          }
+        ]
+      }
+    ],
     [
       "@semantic-release/git",
       {
