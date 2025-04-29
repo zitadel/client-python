@@ -33,7 +33,7 @@ class UserServiceSetHumanEmail(BaseModel):
     return_code: Optional[Dict[str, Any]] = Field(default=None, alias="returnCode")
     is_verified: Optional[StrictBool] = Field(default=None, alias="isVerified")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["email", "sendCode", "returnCode", "isVerified"]
+    __properties: ClassVar[List[str]] = []
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -76,9 +76,6 @@ class UserServiceSetHumanEmail(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of send_code
-        if self.send_code:
-            _dict['sendCode'] = self.send_code.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
@@ -96,10 +93,6 @@ class UserServiceSetHumanEmail(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "email": obj.get("email"),
-            "sendCode": UserServiceSendEmailVerificationCode.from_dict(obj["sendCode"]) if obj.get("sendCode") is not None else None,
-            "returnCode": obj.get("returnCode"),
-            "isVerified": obj.get("isVerified")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

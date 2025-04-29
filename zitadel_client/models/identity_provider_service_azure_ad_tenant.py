@@ -30,7 +30,7 @@ class IdentityProviderServiceAzureADTenant(BaseModel):
     tenant_type: Optional[IdentityProviderServiceAzureADTenantType] = Field(default=IdentityProviderServiceAzureADTenantType.AZURE_AD_TENANT_TYPE_COMMON, alias="tenantType")
     tenant_id: Optional[StrictStr] = Field(default=None, alias="tenantId")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["tenantType", "tenantId"]
+    __properties: ClassVar[List[str]] = []
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -90,8 +90,6 @@ class IdentityProviderServiceAzureADTenant(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "tenantType": obj.get("tenantType") if obj.get("tenantType") is not None else IdentityProviderServiceAzureADTenantType.AZURE_AD_TENANT_TYPE_COMMON,
-            "tenantId": obj.get("tenantId")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

@@ -161,7 +161,7 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "UserServiceAddHumanUserResponse",
+            '200': "UserServiceAddHumanUserResponse",
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
@@ -230,7 +230,7 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "UserServiceAddHumanUserResponse",
+            '200': "UserServiceAddHumanUserResponse",
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
@@ -299,7 +299,7 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "UserServiceAddHumanUserResponse",
+            '200': "UserServiceAddHumanUserResponse",
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }

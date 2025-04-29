@@ -33,7 +33,7 @@ class SAMLServiceCreateResponseResponse(BaseModel):
     redirect: Optional[Dict[str, Any]] = None
     post: Optional[SAMLServicePostResponse] = None
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["details", "url", "redirect", "post"]
+    __properties: ClassVar[List[str]] = []
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -76,12 +76,6 @@ class SAMLServiceCreateResponseResponse(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of details
-        if self.details:
-            _dict['details'] = self.details.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of post
-        if self.post:
-            _dict['post'] = self.post.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
@@ -99,10 +93,6 @@ class SAMLServiceCreateResponseResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "details": SAMLServiceDetails.from_dict(obj["details"]) if obj.get("details") is not None else None,
-            "url": obj.get("url"),
-            "redirect": obj.get("redirect"),
-            "post": SAMLServicePostResponse.from_dict(obj["post"]) if obj.get("post") is not None else None
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

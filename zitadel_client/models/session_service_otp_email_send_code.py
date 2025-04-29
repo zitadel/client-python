@@ -23,9 +23,9 @@ from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
 
-class SessionServiceRequestChallengesOTPEmailSendCode(BaseModel):
+class SessionServiceOTPEmailSendCode(BaseModel):
     """
-    SessionServiceRequestChallengesOTPEmailSendCode
+    SessionServiceOTPEmailSendCode
     """ # noqa: E501
     url_template: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]] = Field(default=None, description="Optionally set a url_template, which will be used in the mail sent by ZITADEL to guide the user to your verification page. If no template is set, the default ZITADEL url will be used.  The following placeholders can be used: Code, UserID, LoginName, DisplayName, PreferredLanguage, SessionID", alias="urlTemplate")
     additional_properties: Dict[str, Any] = {}
@@ -49,7 +49,7 @@ class SessionServiceRequestChallengesOTPEmailSendCode(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of SessionServiceRequestChallengesOTPEmailSendCode from a JSON string"""
+        """Create an instance of SessionServiceOTPEmailSendCode from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -81,7 +81,7 @@ class SessionServiceRequestChallengesOTPEmailSendCode(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of SessionServiceRequestChallengesOTPEmailSendCode from a dict"""
+        """Create an instance of SessionServiceOTPEmailSendCode from a dict"""
         if obj is None:
             return None
 
