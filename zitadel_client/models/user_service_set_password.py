@@ -34,7 +34,7 @@ class UserServiceSetPassword(BaseModel):
     current_password: Annotated[str, Field(min_length=1, strict=True, max_length=200)] = Field(alias="currentPassword")
     verification_code: Annotated[str, Field(min_length=1, strict=True, max_length=20)] = Field(description="\"the verification code generated during password reset request\"", alias="verificationCode")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["password", "hashedPassword", "currentPassword", "verificationCode"]
+    __properties: ClassVar[List[str]] = []
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -77,12 +77,6 @@ class UserServiceSetPassword(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of password
-        if self.password:
-            _dict['password'] = self.password.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of hashed_password
-        if self.hashed_password:
-            _dict['hashedPassword'] = self.hashed_password.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
@@ -100,10 +94,6 @@ class UserServiceSetPassword(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "password": UserServicePassword.from_dict(obj["password"]) if obj.get("password") is not None else None,
-            "hashedPassword": UserServiceHashedPassword.from_dict(obj["hashedPassword"]) if obj.get("hashedPassword") is not None else None,
-            "currentPassword": obj.get("currentPassword"),
-            "verificationCode": obj.get("verificationCode")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

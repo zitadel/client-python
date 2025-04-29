@@ -36,7 +36,7 @@ class OrganizationServiceSearchQuery(BaseModel):
     id_query: Optional[OrganizationServiceOrganizationIDQuery] = Field(default=None, alias="idQuery")
     default_query: Optional[Dict[str, Any]] = Field(default=None, alias="defaultQuery")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["nameQuery", "domainQuery", "stateQuery", "idQuery", "defaultQuery"]
+    __properties: ClassVar[List[str]] = []
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -79,18 +79,6 @@ class OrganizationServiceSearchQuery(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of name_query
-        if self.name_query:
-            _dict['nameQuery'] = self.name_query.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of domain_query
-        if self.domain_query:
-            _dict['domainQuery'] = self.domain_query.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of state_query
-        if self.state_query:
-            _dict['stateQuery'] = self.state_query.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of id_query
-        if self.id_query:
-            _dict['idQuery'] = self.id_query.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
@@ -108,11 +96,6 @@ class OrganizationServiceSearchQuery(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "nameQuery": OrganizationServiceOrganizationNameQuery.from_dict(obj["nameQuery"]) if obj.get("nameQuery") is not None else None,
-            "domainQuery": OrganizationServiceOrganizationDomainQuery.from_dict(obj["domainQuery"]) if obj.get("domainQuery") is not None else None,
-            "stateQuery": OrganizationServiceOrganizationStateQuery.from_dict(obj["stateQuery"]) if obj.get("stateQuery") is not None else None,
-            "idQuery": OrganizationServiceOrganizationIDQuery.from_dict(obj["idQuery"]) if obj.get("idQuery") is not None else None,
-            "defaultQuery": obj.get("defaultQuery")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

@@ -30,7 +30,7 @@ class SessionServiceCheckUser(BaseModel):
     user_id: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]] = Field(default=None, alias="userId")
     login_name: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]] = Field(default=None, alias="loginName")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["userId", "loginName"]
+    __properties: ClassVar[List[str]] = []
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -90,8 +90,6 @@ class SessionServiceCheckUser(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "userId": obj.get("userId"),
-            "loginName": obj.get("loginName")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():
