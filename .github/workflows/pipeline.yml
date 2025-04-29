@@ -70,7 +70,6 @@ jobs:
       - type-check
       - run-tests
       - code-inspection
-    if: ${{ always() && (needs.lint-commits.result == 'success' || needs.lint-commits.result == 'skipped') && needs.code-style.result == 'success' && needs.compat-check.result == 'success' && needs.type-check.result == 'success' && needs.run-tests.result == 'success' && needs.code-inspection.result == 'success' }}
     steps:
       - name: Report Success
         run: echo "All required checks passed successfully."
