@@ -60,7 +60,7 @@ class TestApiClient(unittest.TestCase):
                             "headers": {
                                 "Authorization": {"equalTo": "Bearer mm"},
                                 "User-Agent": {
-                                    "matches": "^zitadel-client/0\\.0\\.0 \\(lang=python; lang_version=[^;]+; os=[^;]+; arch=[^;]+\\)$"  # noqa E501
+                                    "matches": "^zitadel-client/\\d\\.\\d\\.\\d \\(lang=python; lang_version=[^;]+; os=[^;]+; arch=[^;]+\\)$"  # noqa E501
                                 },
                             },
                         },
