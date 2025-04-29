@@ -50,13 +50,7 @@ jobs:
     uses: ./.github/workflows/test.yml
     with:
       ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.ref }}
-    secrets:
-      BASE_URL: ${{ secrets.BASE_URL }}
-      AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
-      JWT_KEY: ${{ secrets.JWT_KEY }}
-      CLIENT_ID: ${{ secrets.CLIENT_ID }}
-      CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    secrets: inherit
 
   code-inspection:
     name: Run Qodana Inspections
@@ -64,8 +58,7 @@ jobs:
     uses: ./.github/workflows/qodana.yml
     with:
       ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.ref }}
-    secrets:
-      QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
+    secrets: inherit
 
   all-passed:
     name: Check Build Status
@@ -88,6 +81,4 @@ jobs:
     needs:
       - all-passed
     uses: ./.github/workflows/release.yml
-    secrets:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
+    secrets: inherit
