@@ -40,6 +40,12 @@ jobs:
           name: ${{ inputs.test_artifact_name }}
           path: ./qodana-downloaded-reports/test-results
 
+      - name: Download Coverage Report Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ inputs.coverage_artifact_name }}
+          path: ./.qodana/code-coverage
+
       - name: Run Qodana
         uses: JetBrains/qodana-action@v2025.1
         with:
