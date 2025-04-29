@@ -82,9 +82,6 @@ class TestSessionServiceSanityCheckSpec:
     deleted after the test to ensure a clean state.
     """
 
-    def __init__(self) -> None:
-        pass
-
     def test_retrieves_session_details_by_id(
         self,
         client: zitadel.Zitadel,

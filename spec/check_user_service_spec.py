@@ -1,4 +1,5 @@
 import os
+import pprint
 import uuid
 from typing import Generator
 
@@ -74,9 +75,6 @@ class TestUserServiceSanityCheckSpec:
     Each test runs in isolation: a new user is created in the `user` fixture and
     removed after the test to ensure a clean state.
     """
-
-    def __init__(self) -> None:
-        pass
 
     def test_retrieves_user_details_by_id(
         self,

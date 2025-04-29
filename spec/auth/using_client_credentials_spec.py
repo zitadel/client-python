@@ -46,9 +46,6 @@ class TestUseClientCredentialsSpec:
     Each test instantiates a new client to ensure a clean, stateless call.
     """
 
-    def __init__(self) -> None:
-        pass
-
     def test_retrieves_general_settings_with_valid_client_credentials(
         self,
         base_url: str,
