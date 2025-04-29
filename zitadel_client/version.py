@@ -2,4 +2,4 @@ class Version:
     def __init__(self) -> None:
         pass
 
-    VERSION = "0.0.0"
+    VERSION = "1.0.0"
