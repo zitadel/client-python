@@ -60,6 +60,14 @@ jobs:
       ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.ref }}
     secrets: inherit
 
+  build-docker:
+    name: Build Docker Container
+    needs: run-tests
+    uses: ./.github/workflows/docker.yml
+    with:
+      ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.ref }}
+    secrets: inherit
+
   all-passed:
     name: Check Build Status
     runs-on: ubuntu-latest
@@ -70,6 +78,7 @@ jobs:
       - type-check
       - run-tests
       - code-inspection
+      - build-docker
     steps:
       - name: Report Success
         run: echo "All required checks passed successfully."

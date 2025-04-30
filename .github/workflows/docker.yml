@@ -1,0 +1,37 @@
+name: Docker
+
+on:
+  workflow_call:
+    inputs:
+      ref:
+        required: true
+        type: string
+      image-name:
+        type: string
+        default: 'temp'
+
+jobs:
+  Build-Container:
+    runs-on: ubuntu-latest
+    name: Build Container
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+          fetch-depth: 0
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          push: false
+          tags: ${{ inputs.image-name }}:${{ github.sha }}
+          load: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
