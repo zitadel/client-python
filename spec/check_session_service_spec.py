@@ -5,7 +5,7 @@ from typing import Generator
 import pytest
 
 import zitadel_client as zitadel
-from zitadel_client.exceptions import ApiException
+from zitadel_client.exceptions import ApiError
 from zitadel_client.models import (
     SessionServiceChecks,
     SessionServiceCheckUser,
@@ -61,7 +61,7 @@ def session(client: zitadel.Zitadel) -> Generator[SessionServiceCreateSessionRes
             response.session_id if response.session_id is not None else "",
             delete_body,
         )
-    except ApiException:
+    except ApiError:
         pass
 
 
@@ -124,7 +124,7 @@ class TestSessionServiceSanityCheckSpec:
         session: SessionServiceCreateSessionResponse,
     ) -> None:
         """Raises an ApiException when retrieving a non-existent session."""
-        with pytest.raises(ApiException):
+        with pytest.raises(ApiError):
             client.sessions.session_service_get_session(
                 str(uuid.uuid4()),
                 session_token=session.session_token,

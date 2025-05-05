@@ -3,7 +3,7 @@ import os
 import pytest
 
 import zitadel_client as zitadel
-from zitadel_client.exceptions import OpenApiError
+from zitadel_client.exceptions import ZitadelError
 
 
 @pytest.fixture(scope="module")
@@ -70,5 +70,5 @@ class TestUseClientCredentialsSpec:
             "invalid",
             "invalid",
         )
-        with pytest.raises(OpenApiError):
+        with pytest.raises(ZitadelError):
             client.settings.settings_service_get_general_settings()

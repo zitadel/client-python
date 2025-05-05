@@ -4,7 +4,7 @@ import pathlib
 import pytest
 
 import zitadel_client as zitadel
-from zitadel_client import OpenApiError
+from zitadel_client import ZitadelError
 
 
 @pytest.fixture(scope="module")
@@ -58,5 +58,5 @@ class TestUsePrivateKeySpec:
             "https://zitadel.cloud",
             key_file,
         )
-        with pytest.raises(OpenApiError):
+        with pytest.raises(ZitadelError):
             client.settings.settings_service_get_general_settings()

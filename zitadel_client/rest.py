@@ -7,7 +7,6 @@ from typing import Dict, Optional
 
 import urllib3
 
-from zitadel_client.exceptions import ApiException
 from zitadel_client.rest_response import RESTResponse
 
 RESTResponseType = urllib3.HTTPResponse
@@ -161,7 +160,7 @@ class RESTClientObject:
                     msg = """Cannot prepare a request message for provided
                              arguments. Please check that your arguments match
                              declared content type."""
-                    raise ApiException(status=0, reason=msg)
+                    raise RuntimeError(msg)
             # For `GET`, `HEAD`
             else:
                 r = self.pool_manager.request(
@@ -174,6 +173,6 @@ class RESTClientObject:
                 )
         except urllib3.exceptions.SSLError as e:
             msg = "\n".join([type(e).__name__, str(e)])
-            raise ApiException(status=0, reason=msg) from e
+            raise RuntimeError(msg) from e
 
         return RESTResponse(r)

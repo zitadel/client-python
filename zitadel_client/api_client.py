@@ -22,7 +22,7 @@ from zitadel_client.api_response import ApiResponse
 from zitadel_client.api_response import T as ApiResponseT
 from zitadel_client.auth.no_auth_authenticator import NoAuthAuthenticator
 from zitadel_client.configuration import Configuration
-from zitadel_client.exceptions import ApiException
+from zitadel_client.exceptions import ApiError
 
 RequestSerialized = Tuple[str, str, Dict[str, str], Optional[str], List[str]]
 
@@ -203,7 +203,7 @@ class ApiClient:
                 _request_timeout=_request_timeout,
             )
 
-        except ApiException as e:
+        except ApiError as e:
             raise e
 
         return response_data
@@ -246,11 +246,7 @@ class ApiClient:
                 return_data = self.deserialize(response_text, response_type, content_type)
         finally:
             if not 200 <= response_data.status <= 299:
-                raise ApiException.from_response(
-                    http_resp=response_data,
-                    body=response_text,
-                    data=return_data,
-                )
+                raise ApiError(response_data.status, response_data.getheaders(), return_data)
             else:
                 return ApiResponse(
                     status_code=response_data.status,
@@ -339,7 +335,7 @@ class ApiClient:
         elif re.match(r"^text/[a-z.+-]+\s*(;|$)", content_type, re.IGNORECASE):
             data = response_text
         else:
-            raise ApiException(status=0, reason="Unsupported content type: {0}".format(content_type))
+            raise RuntimeError("Unsupported content type: {0}".format(content_type))
 
         return self.__deserialize(data, response_type)
 
@@ -600,7 +596,7 @@ class ApiClient:
         except ImportError:
             return string
         except ValueError as err:
-            raise rest.ApiException(status=0, reason="Failed to parse `{0}` as date object".format(string)) from err
+            raise RuntimeError("Failed to parse `{0}` as date object".format(string)) from err
 
     # noinspection PyNestedDecorators
     @no_type_check
@@ -618,7 +614,7 @@ class ApiClient:
         except ImportError:
             return string
         except ValueError as err:
-            raise rest.ApiException(status=0, reason=("Failed to parse `{0}` as datetime object".format(string))) from err
+            raise RuntimeError("Failed to parse `{0}` as datetime object".format(string)) from err
 
     # noinspection PyNestedDecorators
     @no_type_check
@@ -633,7 +629,7 @@ class ApiClient:
         try:
             return klass(data)
         except ValueError as err:
-            raise rest.ApiException(status=0, reason=("Failed to parse `{0}` as `{1}`".format(data, klass))) from err
+            raise RuntimeError("Failed to parse `{0}` as `{1}`".format(data, klass)) from err
 
     # noinspection PyNestedDecorators
     @no_type_check

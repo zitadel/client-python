@@ -5,7 +5,7 @@ from typing import Generator
 import pytest
 
 import zitadel_client as zitadel
-from zitadel_client.exceptions import ApiException
+from zitadel_client.exceptions import ApiError
 from zitadel_client.models import (
     UserServiceAddHumanUserRequest,
     UserServiceAddHumanUserResponse,
@@ -54,7 +54,7 @@ def user(client: zitadel.Zitadel) -> Generator[UserServiceAddHumanUserResponse, 
     yield response
     try:
         client.users.user_service_delete_user(response.user_id)  # type: ignore[arg-type]
-    except ApiException:
+    except ApiError:
         pass
 
 
@@ -113,5 +113,5 @@ class TestUserServiceSanityCheckSpec:
         client: zitadel.Zitadel,
     ) -> None:
         """Raises an ApiException when retrieving a non-existent user."""
-        with pytest.raises(ApiException):
+        with pytest.raises(ApiError):
             client.users.user_service_get_user_by_id(str(uuid.uuid4()))
