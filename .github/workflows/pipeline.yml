@@ -55,6 +55,7 @@ jobs:
   code-inspection:
     name: Run Qodana Inspections
     needs: run-tests
+    if: ${{ always() }}
     uses: ./.github/workflows/qodana.yml
     with:
       ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.ref }}
