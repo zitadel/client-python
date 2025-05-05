@@ -70,3 +70,5 @@ target/
 devbox.json
 devbox.lock
 .devbox
+
+.poetry

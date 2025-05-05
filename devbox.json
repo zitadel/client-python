@@ -5,6 +5,9 @@
     "poetry@latest",
     "lefthook@latest"
   ],
+  "env": {
+    "POETRY_CACHE_DIR": "$PWD/.poetry"
+  },
   "shell": {
     "init_hook": [
       "lefthook install"
