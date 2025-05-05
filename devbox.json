@@ -10,7 +10,8 @@
   },
   "shell": {
     "init_hook": [
-      "lefthook install"
+      "lefthook install",
+      "poetry install"
     ],
     "scripts": {
       "format": [
