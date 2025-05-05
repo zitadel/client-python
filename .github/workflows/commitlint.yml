@@ -21,3 +21,5 @@ jobs:
 
       - name: Inspect Commits
         uses: wagoid/commitlint-github-action@v6
+        with:
+          configFile: .commitlintrc.json
