@@ -7,7 +7,7 @@ from typing import Dict, Optional
 
 import urllib3
 
-from zitadel_client.exceptions import ApiException, ApiValueError
+from zitadel_client.exceptions import ApiException
 from zitadel_client.rest_response import RESTResponse
 
 RESTResponseType = urllib3.HTTPResponse
@@ -79,7 +79,7 @@ class RESTClientObject:
         assert method in ["GET", "HEAD", "DELETE", "POST", "PUT", "PATCH", "OPTIONS"]
 
         if post_params and body:
-            raise ApiValueError("body parameter cannot be used with post_params parameter.")
+            raise RuntimeError("body parameter cannot be used with post_params parameter.")
 
         post_params = post_params or {}
         headers = headers or {}
