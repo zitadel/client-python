@@ -866,9 +866,9 @@ class SessionServiceApi:
             _path_params['sessionId'] = session_id
         # process the query parameters
         if session_token is not None:
-
+            
             _query_params.append(('sessionToken', session_token))
-
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter
