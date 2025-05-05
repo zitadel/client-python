@@ -58,7 +58,7 @@ addopts = [
   "--cov-report=term",
   "--xml-junit-dir=build/reports/"
 ]
-junit_family= "legacy"
+junit_family = "legacy"
 
 [tool.coverage.run]
 data_file = "build/coverage/.coverage"
@@ -99,8 +99,8 @@ line-length = 130
 fix = true
 target-version = "py39"
 exclude = [
-    "zitadel_client/api/*",
-    "zitadel_client/models/*"
+  "zitadel_client/api/*",
+  "zitadel_client/models/*"
 ]
 
 [tool.ruff.lint]
