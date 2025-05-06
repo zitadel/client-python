@@ -1,0 +1,14 @@
+# Exclude everything by default
+*
+
+# Include only the essential files needed for building the library
+!README.md
+!LICENSE
+!pyproject.toml
+!poetry.lock
+!zitadel_client/
+!zitadel_client/**/*
+
+# Exclude Python bytecode files
+zitadel_client/**/__pycache__/
+zitadel_client/**/*$py.class

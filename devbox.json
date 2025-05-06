@@ -23,6 +23,10 @@
       "check": [
         "poetry run ruff check .",
         "poetry run mypy"
+      ],
+      "replit": [
+        "docker build --tag python-repl --file Dockerfile .",
+        "docker run --rm --interactive --tty python-repl"
       ]
     }
   }
