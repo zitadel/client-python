@@ -38,8 +38,6 @@ class OIDCServiceAuthRequest(BaseModel):
     login_hint: Optional[StrictStr] = Field(default=None, description="Login hint can be set by the application with a user identifier such as an email or phone number.", alias="loginHint")
     max_age: Optional[StrictStr] = Field(default=None, description="Specifies the allowable elapsed time in seconds since the last time the End-User was actively authenticated. If the elapsed time is greater than this value, or the field is present with 0 duration, the user must be re-authenticated.", alias="maxAge")
     hint_user_id: Optional[StrictStr] = Field(default=None, description="User ID taken from a ID Token Hint if it was present and valid.", alias="hintUserId")
-    additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["id", "creationDate", "clientId", "scope", "redirectUri", "prompt", "uiLocales", "loginHint", "maxAge", "hintUserId"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -71,10 +69,8 @@ class OIDCServiceAuthRequest(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
-        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
-            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -82,11 +78,6 @@ class OIDCServiceAuthRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # puts key-value pairs in additional_properties in the top level
-        if self.additional_properties is not None:
-            for _key, _value in self.additional_properties.items():
-                _dict[_key] = _value
-
         return _dict
 
     @classmethod
@@ -110,11 +101,6 @@ class OIDCServiceAuthRequest(BaseModel):
             "maxAge": obj.get("maxAge"),
             "hintUserId": obj.get("hintUserId")
         })
-        # store additional fields in additional_properties
-        for _key in obj.keys():
-            if _key not in cls.__properties:
-                _obj.additional_properties[_key] = obj.get(_key)
-
         return _obj
 
 

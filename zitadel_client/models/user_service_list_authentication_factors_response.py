@@ -28,8 +28,6 @@ class UserServiceListAuthenticationFactorsResponse(BaseModel):
     UserServiceListAuthenticationFactorsResponse
     """ # noqa: E501
     result: Optional[List[UserServiceAuthFactor]] = None
-    additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["result"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -61,10 +59,8 @@ class UserServiceListAuthenticationFactorsResponse(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
-        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
-            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -79,11 +75,6 @@ class UserServiceListAuthenticationFactorsResponse(BaseModel):
                 if _item_result:
                     _items.append(_item_result.to_dict())
             _dict['result'] = _items
-        # puts key-value pairs in additional_properties in the top level
-        if self.additional_properties is not None:
-            for _key, _value in self.additional_properties.items():
-                _dict[_key] = _value
-
         return _dict
 
     @classmethod
@@ -98,11 +89,6 @@ class UserServiceListAuthenticationFactorsResponse(BaseModel):
         _obj = cls.model_validate({
             "result": [UserServiceAuthFactor.from_dict(_item) for _item in obj["result"]] if obj.get("result") is not None else None
         })
-        # store additional fields in additional_properties
-        for _key in obj.keys():
-            if _key not in cls.__properties:
-                _obj.additional_properties[_key] = obj.get(_key)
-
         return _obj
 
 

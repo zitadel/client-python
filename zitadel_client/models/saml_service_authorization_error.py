@@ -29,8 +29,6 @@ class SAMLServiceAuthorizationError(BaseModel):
     """ # noqa: E501
     error: Optional[SAMLServiceErrorReason] = SAMLServiceErrorReason.ERROR_REASON_UNSPECIFIED
     error_description: Optional[StrictStr] = Field(default=None, alias="errorDescription")
-    additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["error", "errorDescription"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -62,10 +60,8 @@ class SAMLServiceAuthorizationError(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
-        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
-            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -73,11 +69,6 @@ class SAMLServiceAuthorizationError(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # puts key-value pairs in additional_properties in the top level
-        if self.additional_properties is not None:
-            for _key, _value in self.additional_properties.items():
-                _dict[_key] = _value
-
         return _dict
 
     @classmethod
@@ -93,11 +84,6 @@ class SAMLServiceAuthorizationError(BaseModel):
             "error": obj.get("error") if obj.get("error") is not None else SAMLServiceErrorReason.ERROR_REASON_UNSPECIFIED,
             "errorDescription": obj.get("errorDescription")
         })
-        # store additional fields in additional_properties
-        for _key in obj.keys():
-            if _key not in cls.__properties:
-                _obj.additional_properties[_key] = obj.get(_key)
-
         return _obj
 
 

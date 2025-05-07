@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [ '3.8', '3.9', '3.10', '3.11', '3.12', '3.13' ]
+        python-version: [ '3.9', '3.10', '3.11', '3.12', '3.13' ]
       fail-fast: false
 
     steps:
@@ -34,14 +34,8 @@ jobs:
 
       - name: Install poetry
         run: |
-          IFS=. read -r major minor <<< "${{ matrix.python-version }}"
-          if [ "$major" -eq 3 ] && [ "$minor" -lt 9 ]; then
-            echo "Installing Poetry 1.x for Python ${{ matrix.python-version }}"
-            pipx install "poetry==1.8.5"
-          else
-            echo "Installing latest Poetry for Python ${{ matrix.python-version }}"
-            pipx install poetry
-          fi
+          echo "Installing latest Poetry for Python ${{ matrix.python-version }}"
+          pipx install poetry
 
       - name: Setup Python
         uses: actions/setup-python@v5

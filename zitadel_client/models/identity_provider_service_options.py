@@ -32,8 +32,6 @@ class IdentityProviderServiceOptions(BaseModel):
     is_auto_creation: Optional[StrictBool] = Field(default=None, description="Enable if a new account in ZITADEL should be created automatically when login with an external account.", alias="isAutoCreation")
     is_auto_update: Optional[StrictBool] = Field(default=None, description="Enable if a the ZITADEL account fields should be updated automatically on each login.", alias="isAutoUpdate")
     auto_linking: Optional[IdentityProviderServiceAutoLinkingOption] = Field(default=IdentityProviderServiceAutoLinkingOption.AUTO_LINKING_OPTION_UNSPECIFIED, alias="autoLinking")
-    additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["isLinkingAllowed", "isCreationAllowed", "isAutoCreation", "isAutoUpdate", "autoLinking"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -65,10 +63,8 @@ class IdentityProviderServiceOptions(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
-        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
-            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -76,11 +72,6 @@ class IdentityProviderServiceOptions(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # puts key-value pairs in additional_properties in the top level
-        if self.additional_properties is not None:
-            for _key, _value in self.additional_properties.items():
-                _dict[_key] = _value
-
         return _dict
 
     @classmethod
@@ -99,11 +90,6 @@ class IdentityProviderServiceOptions(BaseModel):
             "isAutoUpdate": obj.get("isAutoUpdate"),
             "autoLinking": obj.get("autoLinking") if obj.get("autoLinking") is not None else IdentityProviderServiceAutoLinkingOption.AUTO_LINKING_OPTION_UNSPECIFIED
         })
-        # store additional fields in additional_properties
-        for _key in obj.keys():
-            if _key not in cls.__properties:
-                _obj.additional_properties[_key] = obj.get(_key)
-
         return _obj
 
 

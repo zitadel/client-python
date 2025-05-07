@@ -32,8 +32,6 @@ class SettingsServiceTheme(BaseModel):
     font_color: Optional[StrictStr] = Field(default=None, description="hex value for font color", alias="fontColor")
     logo_url: Optional[StrictStr] = Field(default=None, description="url to the logo", alias="logoUrl")
     icon_url: Optional[StrictStr] = Field(default=None, description="url to the icon", alias="iconUrl")
-    additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["primaryColor", "backgroundColor", "warnColor", "fontColor", "logoUrl", "iconUrl"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -65,10 +63,8 @@ class SettingsServiceTheme(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
-        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
-            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -76,11 +72,6 @@ class SettingsServiceTheme(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # puts key-value pairs in additional_properties in the top level
-        if self.additional_properties is not None:
-            for _key, _value in self.additional_properties.items():
-                _dict[_key] = _value
-
         return _dict
 
     @classmethod
@@ -100,11 +91,6 @@ class SettingsServiceTheme(BaseModel):
             "logoUrl": obj.get("logoUrl"),
             "iconUrl": obj.get("iconUrl")
         })
-        # store additional fields in additional_properties
-        for _key in obj.keys():
-            if _key not in cls.__properties:
-                _obj.additional_properties[_key] = obj.get(_key)
-
         return _obj
 
 

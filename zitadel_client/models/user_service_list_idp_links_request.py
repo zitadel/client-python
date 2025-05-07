@@ -28,8 +28,6 @@ class UserServiceListIDPLinksRequest(BaseModel):
     UserServiceListIDPLinksRequest
     """ # noqa: E501
     query: Optional[UserServiceListQuery] = None
-    additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["query"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -61,10 +59,8 @@ class UserServiceListIDPLinksRequest(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
-        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
-            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -75,11 +71,6 @@ class UserServiceListIDPLinksRequest(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of query
         if self.query:
             _dict['query'] = self.query.to_dict()
-        # puts key-value pairs in additional_properties in the top level
-        if self.additional_properties is not None:
-            for _key, _value in self.additional_properties.items():
-                _dict[_key] = _value
-
         return _dict
 
     @classmethod
@@ -94,11 +85,6 @@ class UserServiceListIDPLinksRequest(BaseModel):
         _obj = cls.model_validate({
             "query": UserServiceListQuery.from_dict(obj["query"]) if obj.get("query") is not None else None
         })
-        # store additional fields in additional_properties
-        for _key in obj.keys():
-            if _key not in cls.__properties:
-                _obj.additional_properties[_key] = obj.get(_key)
-
         return _obj
 
 

@@ -29,8 +29,6 @@ class OIDCServiceCreateCallbackResponse(BaseModel):
     """ # noqa: E501
     details: Optional[OIDCServiceDetails] = None
     callback_url: Optional[StrictStr] = Field(default=None, description="Callback URL where the user should be redirected, using a \"302 FOUND\" status. Contains details for the application to obtain the tokens on success, or error details on failure. Note that this field must be treated as credentials, as the contained code can be used to obtain tokens on behalve of the user.", alias="callbackUrl")
-    additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["details", "callbackUrl"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -62,10 +60,8 @@ class OIDCServiceCreateCallbackResponse(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
-        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
-            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -76,11 +72,6 @@ class OIDCServiceCreateCallbackResponse(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of details
         if self.details:
             _dict['details'] = self.details.to_dict()
-        # puts key-value pairs in additional_properties in the top level
-        if self.additional_properties is not None:
-            for _key, _value in self.additional_properties.items():
-                _dict[_key] = _value
-
         return _dict
 
     @classmethod
@@ -96,11 +87,6 @@ class OIDCServiceCreateCallbackResponse(BaseModel):
             "details": OIDCServiceDetails.from_dict(obj["details"]) if obj.get("details") is not None else None,
             "callbackUrl": obj.get("callbackUrl")
         })
-        # store additional fields in additional_properties
-        for _key in obj.keys():
-            if _key not in cls.__properties:
-                _obj.additional_properties[_key] = obj.get(_key)
-
         return _obj
 
 
