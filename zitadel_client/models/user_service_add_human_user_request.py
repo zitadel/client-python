@@ -46,8 +46,6 @@ class UserServiceAddHumanUserRequest(BaseModel):
     hashed_password: Optional[UserServiceHashedPassword] = Field(default=None, alias="hashedPassword")
     idp_links: Optional[List[UserServiceIDPLink]] = Field(default=None, alias="idpLinks")
     totp_secret: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]] = Field(default=None, description="An Implementation of RFC 6238 is used, with HMAC-SHA-1 and time-step of 30 seconds. Currently no other options are supported, and if anything different is used the validation will fail.", alias="totpSecret")
-    additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = []
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -79,10 +77,8 @@ class UserServiceAddHumanUserRequest(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
-        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
-            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -90,11 +86,6 @@ class UserServiceAddHumanUserRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # puts key-value pairs in additional_properties in the top level
-        if self.additional_properties is not None:
-            for _key, _value in self.additional_properties.items():
-                _dict[_key] = _value
-
         return _dict
 
     @classmethod
@@ -107,12 +98,18 @@ class UserServiceAddHumanUserRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "userId": obj.get("userId"),
+            "username": obj.get("username"),
+            "organization": UserServiceOrganization.from_dict(obj["organization"]) if obj.get("organization") is not None else None,
+            "profile": UserServiceSetHumanProfile.from_dict(obj["profile"]) if obj.get("profile") is not None else None,
+            "email": UserServiceSetHumanEmail.from_dict(obj["email"]) if obj.get("email") is not None else None,
+            "phone": UserServiceSetHumanPhone.from_dict(obj["phone"]) if obj.get("phone") is not None else None,
+            "metadata": [UserServiceSetMetadataEntry.from_dict(_item) for _item in obj["metadata"]] if obj.get("metadata") is not None else None,
+            "password": UserServicePassword.from_dict(obj["password"]) if obj.get("password") is not None else None,
+            "hashedPassword": UserServiceHashedPassword.from_dict(obj["hashedPassword"]) if obj.get("hashedPassword") is not None else None,
+            "idpLinks": [UserServiceIDPLink.from_dict(_item) for _item in obj["idpLinks"]] if obj.get("idpLinks") is not None else None,
+            "totpSecret": obj.get("totpSecret")
         })
-        # store additional fields in additional_properties
-        for _key in obj.keys():
-            if _key not in cls.__properties:
-                _obj.additional_properties[_key] = obj.get(_key)
-
         return _obj
 
 

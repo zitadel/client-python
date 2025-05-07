@@ -32,8 +32,6 @@ class UserServiceStartIdentityProviderIntentResponse(BaseModel):
     auth_url: Optional[StrictStr] = Field(default=None, description="URL to which the client should redirect", alias="authUrl")
     idp_intent: Optional[UserServiceIDPIntent] = Field(default=None, alias="idpIntent")
     post_form: Optional[Union[StrictBytes, StrictStr]] = Field(default=None, description="POST call information", alias="postForm")
-    additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = []
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -65,10 +63,8 @@ class UserServiceStartIdentityProviderIntentResponse(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
-        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
-            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -76,11 +72,6 @@ class UserServiceStartIdentityProviderIntentResponse(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # puts key-value pairs in additional_properties in the top level
-        if self.additional_properties is not None:
-            for _key, _value in self.additional_properties.items():
-                _dict[_key] = _value
-
         return _dict
 
     @classmethod
@@ -93,12 +84,11 @@ class UserServiceStartIdentityProviderIntentResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "details": UserServiceDetails.from_dict(obj["details"]) if obj.get("details") is not None else None,
+            "authUrl": obj.get("authUrl"),
+            "idpIntent": UserServiceIDPIntent.from_dict(obj["idpIntent"]) if obj.get("idpIntent") is not None else None,
+            "postForm": obj.get("postForm")
         })
-        # store additional fields in additional_properties
-        for _key in obj.keys():
-            if _key not in cls.__properties:
-                _obj.additional_properties[_key] = obj.get(_key)
-
         return _obj
 
 

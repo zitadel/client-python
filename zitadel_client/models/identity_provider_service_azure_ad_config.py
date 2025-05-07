@@ -31,8 +31,6 @@ class IdentityProviderServiceAzureADConfig(BaseModel):
     tenant: Optional[IdentityProviderServiceAzureADTenant] = None
     email_verified: Optional[StrictBool] = Field(default=None, description="Azure AD doesn't send if the email has been verified. Enable this if the user email should always be added verified in ZITADEL (no verification emails will be sent).", alias="emailVerified")
     scopes: Optional[List[StrictStr]] = Field(default=None, description="The scopes requested by ZITADEL during the request to Azure AD.")
-    additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["clientId", "tenant", "emailVerified", "scopes"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -64,10 +62,8 @@ class IdentityProviderServiceAzureADConfig(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
-        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
-            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -78,11 +74,6 @@ class IdentityProviderServiceAzureADConfig(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of tenant
         if self.tenant:
             _dict['tenant'] = self.tenant.to_dict()
-        # puts key-value pairs in additional_properties in the top level
-        if self.additional_properties is not None:
-            for _key, _value in self.additional_properties.items():
-                _dict[_key] = _value
-
         return _dict
 
     @classmethod
@@ -100,11 +91,6 @@ class IdentityProviderServiceAzureADConfig(BaseModel):
             "emailVerified": obj.get("emailVerified"),
             "scopes": obj.get("scopes")
         })
-        # store additional fields in additional_properties
-        for _key in obj.keys():
-            if _key not in cls.__properties:
-                _obj.additional_properties[_key] = obj.get(_key)
-
         return _obj
 
 

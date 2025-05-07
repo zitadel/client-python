@@ -52,8 +52,6 @@ class IdentityProviderServiceIDPConfig(BaseModel):
     azure_ad: Optional[IdentityProviderServiceAzureADConfig] = Field(default=None, alias="azureAd")
     apple: Optional[IdentityProviderServiceAppleConfig] = None
     saml: Optional[IdentityProviderServiceSAMLConfig] = None
-    additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = []
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -85,10 +83,8 @@ class IdentityProviderServiceIDPConfig(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
-        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
-            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -96,11 +92,6 @@ class IdentityProviderServiceIDPConfig(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # puts key-value pairs in additional_properties in the top level
-        if self.additional_properties is not None:
-            for _key, _value in self.additional_properties.items():
-                _dict[_key] = _value
-
         return _dict
 
     @classmethod
@@ -113,12 +104,20 @@ class IdentityProviderServiceIDPConfig(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "options": IdentityProviderServiceOptions.from_dict(obj["options"]) if obj.get("options") is not None else None,
+            "ldap": IdentityProviderServiceLDAPConfig.from_dict(obj["ldap"]) if obj.get("ldap") is not None else None,
+            "google": IdentityProviderServiceGoogleConfig.from_dict(obj["google"]) if obj.get("google") is not None else None,
+            "oauth": IdentityProviderServiceOAuthConfig.from_dict(obj["oauth"]) if obj.get("oauth") is not None else None,
+            "oidc": IdentityProviderServiceGenericOIDCConfig.from_dict(obj["oidc"]) if obj.get("oidc") is not None else None,
+            "jwt": IdentityProviderServiceJWTConfig.from_dict(obj["jwt"]) if obj.get("jwt") is not None else None,
+            "github": IdentityProviderServiceGitHubConfig.from_dict(obj["github"]) if obj.get("github") is not None else None,
+            "githubEs": IdentityProviderServiceGitHubEnterpriseServerConfig.from_dict(obj["githubEs"]) if obj.get("githubEs") is not None else None,
+            "gitlab": IdentityProviderServiceGitLabConfig.from_dict(obj["gitlab"]) if obj.get("gitlab") is not None else None,
+            "gitlabSelfHosted": IdentityProviderServiceGitLabSelfHostedConfig.from_dict(obj["gitlabSelfHosted"]) if obj.get("gitlabSelfHosted") is not None else None,
+            "azureAd": IdentityProviderServiceAzureADConfig.from_dict(obj["azureAd"]) if obj.get("azureAd") is not None else None,
+            "apple": IdentityProviderServiceAppleConfig.from_dict(obj["apple"]) if obj.get("apple") is not None else None,
+            "saml": IdentityProviderServiceSAMLConfig.from_dict(obj["saml"]) if obj.get("saml") is not None else None
         })
-        # store additional fields in additional_properties
-        for _key in obj.keys():
-            if _key not in cls.__properties:
-                _obj.additional_properties[_key] = obj.get(_key)
-
         return _obj
 
 

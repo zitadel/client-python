@@ -31,8 +31,6 @@ class UserServiceMachineUser(BaseModel):
     description: Optional[StrictStr] = None
     has_secret: Optional[StrictBool] = Field(default=None, alias="hasSecret")
     access_token_type: Optional[UserServiceAccessTokenType] = Field(default=UserServiceAccessTokenType.ACCESS_TOKEN_TYPE_BEARER, alias="accessTokenType")
-    additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["name", "description", "hasSecret", "accessTokenType"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -64,10 +62,8 @@ class UserServiceMachineUser(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
-        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
-            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -75,11 +71,6 @@ class UserServiceMachineUser(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # puts key-value pairs in additional_properties in the top level
-        if self.additional_properties is not None:
-            for _key, _value in self.additional_properties.items():
-                _dict[_key] = _value
-
         return _dict
 
     @classmethod
@@ -97,11 +88,6 @@ class UserServiceMachineUser(BaseModel):
             "hasSecret": obj.get("hasSecret"),
             "accessTokenType": obj.get("accessTokenType") if obj.get("accessTokenType") is not None else UserServiceAccessTokenType.ACCESS_TOKEN_TYPE_BEARER
         })
-        # store additional fields in additional_properties
-        for _key in obj.keys():
-            if _key not in cls.__properties:
-                _obj.additional_properties[_key] = obj.get(_key)
-
         return _obj
 
 

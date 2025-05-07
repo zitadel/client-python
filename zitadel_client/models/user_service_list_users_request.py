@@ -32,8 +32,6 @@ class UserServiceListUsersRequest(BaseModel):
     query: Optional[UserServiceListQuery] = None
     sorting_column: Optional[UserServiceUserFieldName] = Field(default=UserServiceUserFieldName.USER_FIELD_NAME_UNSPECIFIED, alias="sortingColumn")
     queries: Optional[List[UserServiceSearchQuery]] = None
-    additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["query", "sortingColumn", "queries"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -65,10 +63,8 @@ class UserServiceListUsersRequest(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
-        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
-            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -86,11 +82,6 @@ class UserServiceListUsersRequest(BaseModel):
                 if _item_queries:
                     _items.append(_item_queries.to_dict())
             _dict['queries'] = _items
-        # puts key-value pairs in additional_properties in the top level
-        if self.additional_properties is not None:
-            for _key, _value in self.additional_properties.items():
-                _dict[_key] = _value
-
         return _dict
 
     @classmethod
@@ -107,11 +98,6 @@ class UserServiceListUsersRequest(BaseModel):
             "sortingColumn": obj.get("sortingColumn") if obj.get("sortingColumn") is not None else UserServiceUserFieldName.USER_FIELD_NAME_UNSPECIFIED,
             "queries": [UserServiceSearchQuery.from_dict(_item) for _item in obj["queries"]] if obj.get("queries") is not None else None
         })
-        # store additional fields in additional_properties
-        for _key in obj.keys():
-            if _key not in cls.__properties:
-                _obj.additional_properties[_key] = obj.get(_key)
-
         return _obj
 
 
