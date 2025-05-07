@@ -29,8 +29,6 @@ class OrganizationServicePassword(BaseModel):
     """ # noqa: E501
     password: Annotated[str, Field(min_length=1, strict=True, max_length=200)]
     change_required: Optional[StrictBool] = Field(default=None, alias="changeRequired")
-    additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["password", "changeRequired"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -62,10 +60,8 @@ class OrganizationServicePassword(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
-        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
-            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -73,11 +69,6 @@ class OrganizationServicePassword(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # puts key-value pairs in additional_properties in the top level
-        if self.additional_properties is not None:
-            for _key, _value in self.additional_properties.items():
-                _dict[_key] = _value
-
         return _dict
 
     @classmethod
@@ -93,11 +84,6 @@ class OrganizationServicePassword(BaseModel):
             "password": obj.get("password"),
             "changeRequired": obj.get("changeRequired")
         })
-        # store additional fields in additional_properties
-        for _key in obj.keys():
-            if _key not in cls.__properties:
-                _obj.additional_properties[_key] = obj.get(_key)
-
         return _obj
 
 

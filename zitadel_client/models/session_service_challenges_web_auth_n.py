@@ -27,8 +27,6 @@ class SessionServiceChallengesWebAuthN(BaseModel):
     SessionServiceChallengesWebAuthN
     """ # noqa: E501
     public_key_credential_request_options: Optional[Dict[str, Any]] = Field(default=None, description="Options for Assertion Generaration (dictionary PublicKeyCredentialRequestOptions). Generated helper methods transform the field to JSON, for use in a WebauthN client. See also: https://www.w3.org/TR/webauthn/#dictdef-publickeycredentialrequestoptions", alias="publicKeyCredentialRequestOptions")
-    additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["publicKeyCredentialRequestOptions"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -60,10 +58,8 @@ class SessionServiceChallengesWebAuthN(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
-        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
-            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -71,11 +67,6 @@ class SessionServiceChallengesWebAuthN(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # puts key-value pairs in additional_properties in the top level
-        if self.additional_properties is not None:
-            for _key, _value in self.additional_properties.items():
-                _dict[_key] = _value
-
         return _dict
 
     @classmethod
@@ -90,11 +81,6 @@ class SessionServiceChallengesWebAuthN(BaseModel):
         _obj = cls.model_validate({
             "publicKeyCredentialRequestOptions": obj.get("publicKeyCredentialRequestOptions")
         })
-        # store additional fields in additional_properties
-        for _key in obj.keys():
-            if _key not in cls.__properties:
-                _obj.additional_properties[_key] = obj.get(_key)
-
         return _obj
 
 

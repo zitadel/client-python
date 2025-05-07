@@ -28,8 +28,6 @@ class FeatureServiceLoginV2(BaseModel):
     """ # noqa: E501
     required: Optional[StrictBool] = Field(default=None, description="Require that all users must use the new login UI. If enabled, all users will be redirected to the login V2 regardless of the application's preference.")
     base_uri: Optional[StrictStr] = Field(default=None, description="Optionally specify a base uri of the login UI. If unspecified the default URI will be used.", alias="baseUri")
-    additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["required", "baseUri"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -61,10 +59,8 @@ class FeatureServiceLoginV2(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
-        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
-            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -72,11 +68,6 @@ class FeatureServiceLoginV2(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # puts key-value pairs in additional_properties in the top level
-        if self.additional_properties is not None:
-            for _key, _value in self.additional_properties.items():
-                _dict[_key] = _value
-
         return _dict
 
     @classmethod
@@ -92,11 +83,6 @@ class FeatureServiceLoginV2(BaseModel):
             "required": obj.get("required"),
             "baseUri": obj.get("baseUri")
         })
-        # store additional fields in additional_properties
-        for _key in obj.keys():
-            if _key not in cls.__properties:
-                _obj.additional_properties[_key] = obj.get(_key)
-
         return _obj
 
 

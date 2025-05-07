@@ -46,8 +46,6 @@ class OrganizationServiceAddHumanUserRequest(BaseModel):
     hashed_password: Optional[OrganizationServiceHashedPassword] = Field(default=None, alias="hashedPassword")
     idp_links: Optional[List[OrganizationServiceIDPLink]] = Field(default=None, alias="idpLinks")
     totp_secret: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]] = Field(default=None, description="An Implementation of RFC 6238 is used, with HMAC-SHA-1 and time-step of 30 seconds. Currently no other options are supported, and if anything different is used the validation will fail.", alias="totpSecret")
-    additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = []
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -79,10 +77,8 @@ class OrganizationServiceAddHumanUserRequest(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
-        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
-            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -90,11 +86,6 @@ class OrganizationServiceAddHumanUserRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # puts key-value pairs in additional_properties in the top level
-        if self.additional_properties is not None:
-            for _key, _value in self.additional_properties.items():
-                _dict[_key] = _value
-
         return _dict
 
     @classmethod
@@ -108,11 +99,6 @@ class OrganizationServiceAddHumanUserRequest(BaseModel):
 
         _obj = cls.model_validate({
         })
-        # store additional fields in additional_properties
-        for _key in obj.keys():
-            if _key not in cls.__properties:
-                _obj.additional_properties[_key] = obj.get(_key)
-
         return _obj
 
 
