@@ -38,7 +38,7 @@ jobs:
           if [ "$major" -eq 3 ] && [ "$minor" -lt 9 ]; then
             echo "Installing Poetry 1.x for Python ${{ matrix.python-version }}"
             pipx install "poetry==1.8.5"
-            poetry config installer.modern-installation false --global
+            python -m pip install --upgrade virtualenv
           else
             echo "Installing latest Poetry for Python ${{ matrix.python-version }}"
             pipx install poetry
