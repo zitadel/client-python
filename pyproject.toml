@@ -1,6 +1,5 @@
 [project]
 name = "zitadel_client"
-version = "0.0.1"
 description = "Official Zitadel SDK for Python. Authenticate and access Zitadel's authentication and management APIs in Python."
 license = { text = "Apache-2.0" }
 readme = "README.md"
