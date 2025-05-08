@@ -29,6 +29,7 @@ documentation = "https://python-poetry.org/docs/"
 
 [tool.poetry]
 include = ["zitadel_client/py.typed"]
+version = "1.2.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = ">= 7.2.1"
