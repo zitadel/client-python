@@ -27,6 +27,9 @@
       "replit": [
         "docker build --tag python-repl --file Dockerfile .",
         "docker run --rm --interactive --tty python-repl"
+      ],
+      "docgen": [
+        "composer docgen"
       ]
     }
   }

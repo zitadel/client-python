@@ -40,6 +40,8 @@ mypy = ">= 1.5"
 testcontainers = "3.7.1"
 python-dotenv = "1.0.1"
 ruff = "^0.11.8"
+sphinx-rtd-theme = "^3.0.2"
+sphinx = "7.1.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
