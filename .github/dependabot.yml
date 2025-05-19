@@ -33,3 +33,8 @@ updates:
         patterns:
           - "*"
         applies-to: "security-updates"
+
+  - package-ecosystem: docker
+    directory: /
+    schedule:
+      interval: daily
