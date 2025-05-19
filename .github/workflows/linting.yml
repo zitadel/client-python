@@ -21,7 +21,7 @@ permissions:
 jobs:
   lint-format:
     permissions:
-      contents: write  # for stefanzweifel/git-auto-commit-action to push code in repo
+      contents: write
     runs-on: ubuntu-latest
     name: Reformat Code
 

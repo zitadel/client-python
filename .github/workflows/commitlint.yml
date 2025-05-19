@@ -13,8 +13,8 @@ permissions:
 jobs:
   lint-commits:
     permissions:
-      contents: read  # for actions/checkout to fetch code
-      pull-requests: read  # for wagoid/commitlint-github-action to get commits in PR
+      contents: read
+      pull-requests: read
     runs-on: ubuntu-latest
     name: Validate Commits
 
