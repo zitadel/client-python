@@ -1,7 +1,7 @@
 from types import TracebackType
 from typing import Callable, Optional, Type, TypeVar
 
-from zitadel_client.api import SAMLServiceApi, ActionServiceApi, WebKeyServiceApi
+from zitadel_client.api import ActionServiceApi, SAMLServiceApi, WebKeyServiceApi
 from zitadel_client.api.feature_service_api import FeatureServiceApi
 from zitadel_client.api.identity_provider_service_api import IdentityProviderServiceApi
 from zitadel_client.api.oidc_service_api import OIDCServiceApi
@@ -75,7 +75,6 @@ class Zitadel:
         self.users = UserServiceApi(client)
         self.users = UserServiceApi(client)
         self.webkeys = WebKeyServiceApi(client)
-
 
     T = TypeVar("T", bound="Zitadel")
 
