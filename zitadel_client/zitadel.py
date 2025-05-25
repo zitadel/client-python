@@ -1,7 +1,7 @@
 from types import TracebackType
 from typing import Callable, Optional, Type, TypeVar
 
-from zitadel_client.api import SAMLServiceApi
+from zitadel_client.api import ActionServiceApi, SAMLServiceApi, WebKeyServiceApi
 from zitadel_client.api.feature_service_api import FeatureServiceApi
 from zitadel_client.api.identity_provider_service_api import IdentityProviderServiceApi
 from zitadel_client.api.oidc_service_api import OIDCServiceApi
@@ -28,14 +28,16 @@ class Zitadel:
     Attributes:
         configuration (Configuration): The configuration instance containing authentication and endpoint details.
         client (ApiClient): The API client used for making HTTP requests to the Zitadel API.
+        actions (ActionServiceApi): Service API for actions management.
         features (FeatureServiceApi): Service API for feature management.
         idps (IdentityProviderServiceApi): Service API for identity provider operations.
         oidc (OIDCServiceApi): Service API for OIDC-related operations.
         organizations (OrganizationServiceApi): Service API for organization-related operations.
+        saml (SAMLServiceApi): Service API for SAML management.
         sessions (SessionServiceApi): Service API for session management.
         settings (SettingsServiceApi): Service API for settings management.
         users (UserServiceApi): Service API for user management.
-        saml (SAMLServiceApi): Service API for SAML management.
+        webkeys (WebKeyServiceApi): Service API for webkeys management.
     """
 
     def __init__(
@@ -62,15 +64,17 @@ class Zitadel:
             mutate_config(self.configuration)
 
         client = ApiClient(configuration=self.configuration)
+        self.actions = ActionServiceApi(client)
         self.features = FeatureServiceApi(client)
         self.idps = IdentityProviderServiceApi(client)
         self.oidc = OIDCServiceApi(client)
         self.organizations = OrganizationServiceApi(client)
+        self.saml = SAMLServiceApi(client)
         self.sessions = SessionServiceApi(client)
         self.settings = SettingsServiceApi(client)
         self.users = UserServiceApi(client)
         self.users = UserServiceApi(client)
-        self.saml = SAMLServiceApi(client)
+        self.webkeys = WebKeyServiceApi(client)
 
     T = TypeVar("T", bound="Zitadel")
 
