@@ -17,10 +17,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from zitadel_client.models.action_service_beta_condition import ActionServiceBetaCondition
-from zitadel_client.models.action_service_beta_execution_target_type import ActionServiceBetaExecutionTargetType
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -29,7 +28,7 @@ class ActionServiceSetExecutionRequest(BaseModel):
     ActionServiceSetExecutionRequest
     """ # noqa: E501
     condition: Optional[ActionServiceBetaCondition] = None
-    targets: Optional[List[ActionServiceBetaExecutionTargetType]] = Field(default=None, description="Ordered list of targets/includes called during the execution.")
+    targets: Optional[List[StrictStr]] = Field(default=None, description="Ordered list of targets called during the execution.")
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -73,13 +72,6 @@ class ActionServiceSetExecutionRequest(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of condition
         if self.condition:
             _dict['condition'] = self.condition.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of each item in targets (list)
-        _items = []
-        if self.targets:
-            for _item_targets in self.targets:
-                if _item_targets:
-                    _items.append(_item_targets.to_dict())
-            _dict['targets'] = _items
         return _dict
 
     @classmethod
@@ -93,7 +85,7 @@ class ActionServiceSetExecutionRequest(BaseModel):
 
         _obj = cls.model_validate({
             "condition": ActionServiceBetaCondition.from_dict(obj["condition"]) if obj.get("condition") is not None else None,
-            "targets": [ActionServiceBetaExecutionTargetType.from_dict(_item) for _item in obj["targets"]] if obj.get("targets") is not None else None
+            "targets": obj.get("targets")
         })
         return _obj
 

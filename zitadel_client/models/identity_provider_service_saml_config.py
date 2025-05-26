@@ -33,6 +33,7 @@ class IdentityProviderServiceSAMLConfig(BaseModel):
     with_signed_request: Optional[StrictBool] = Field(default=None, description="Boolean which defines if the authentication requests are signed.", alias="withSignedRequest")
     name_id_format: Optional[IdentityProviderServiceSAMLNameIDFormat] = Field(default=IdentityProviderServiceSAMLNameIDFormat.SAML_NAME_ID_FORMAT_UNSPECIFIED, alias="nameIdFormat")
     transient_mapping_attribute_name: Optional[StrictStr] = Field(default=None, description="Optional name of the attribute, which will be used to map the user in case the nameid-format returned is `urn:oasis:names:tc:SAML:2.0:nameid-format:transient`.", alias="transientMappingAttributeName")
+    federated_logout_enabled: Optional[StrictBool] = Field(default=None, description="Boolean weather federated logout is enabled. If enabled, ZITADEL will send a logout request to the identity provider, if the user terminates the session in ZITADEL. Be sure to provide a SLO endpoint as part of the metadata.", alias="federatedLogoutEnabled")
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -89,7 +90,8 @@ class IdentityProviderServiceSAMLConfig(BaseModel):
             "binding": obj.get("binding") if obj.get("binding") is not None else IdentityProviderServiceSAMLBinding.SAML_BINDING_UNSPECIFIED,
             "withSignedRequest": obj.get("withSignedRequest"),
             "nameIdFormat": obj.get("nameIdFormat") if obj.get("nameIdFormat") is not None else IdentityProviderServiceSAMLNameIDFormat.SAML_NAME_ID_FORMAT_UNSPECIFIED,
-            "transientMappingAttributeName": obj.get("transientMappingAttributeName")
+            "transientMappingAttributeName": obj.get("transientMappingAttributeName"),
+            "federatedLogoutEnabled": obj.get("federatedLogoutEnabled")
         })
         return _obj
 
