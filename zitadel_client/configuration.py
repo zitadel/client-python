@@ -19,16 +19,16 @@ class Configuration:
     USER_AGENT = " ".join(
         [
             f"zitadel-client/{Version.VERSION}",
-            f"({
-                '; '.join(
-                    [
-                        'lang=python',
-                        f'lang_version={platform.python_version()}',
-                        f'os={platform.system()}',
-                        f'arch={platform.machine()}',
-                    ]
-                )
-            })",
+            "("
+            + "; ".join(
+                [
+                    "lang=python",
+                    f"lang_version={platform.python_version()}",
+                    f"os={platform.system()}",
+                    f"arch={platform.machine()}",
+                ]
+            )
+            + ")",
         ]
     ).lower()
 
@@ -65,6 +65,7 @@ class Configuration:
         self.assert_hostname = None
         self.tls_server_name = None
 
+        # noinspection PyUnresolvedReferences
         self.connection_pool_maxsize = multiprocessing.cpu_count() * 5
         """urllib3 connection pool's maximum number of connections saved
        per pool. urllib3 uses 1 connection as default value, but this is

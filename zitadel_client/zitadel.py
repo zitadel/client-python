@@ -27,7 +27,6 @@ class Zitadel:
 
     Attributes:
         configuration (Configuration): The configuration instance containing authentication and endpoint details.
-        client (ApiClient): The API client used for making HTTP requests to the Zitadel API.
         actions (ActionServiceApi): Service API for actions management.
         features (FeatureServiceApi): Service API for feature management.
         idps (IdentityProviderServiceApi): Service API for identity provider operations.
