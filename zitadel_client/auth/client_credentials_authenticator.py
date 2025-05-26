@@ -1,4 +1,10 @@
-from typing import Dict, Set, override
+import sys
+from typing import Dict, Set
+
+if sys.version_info >= (3, 12):
+    from typing import override
+else:
+    from typing_extensions import override
 
 from authlib.integrations.requests_client import OAuth2Session
 
