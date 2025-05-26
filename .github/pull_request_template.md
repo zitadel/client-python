@@ -1,32 +1,36 @@
-# Which Problems Are Solved
+<!--- Provide a general summary of your changes in the Title above -->
 
-Replace this example text with a concise list of problems that this PR solves.
-For example:
+## Description
 
-- If the property XY is not given, the system crashes with a nil pointer exception.
+<!--- Describe your changes -->
 
-# How the Problems Are Solved
+## Related Issue
 
-Replace this example text with a concise list of changes that this PR introduces.
-For example:
+<!--- This project only accepts pull requests related to open issues -->
+<!--- If suggesting a new feature or change, please discuss it in an issue first -->
+<!--- If fixing a bug, there should be an issue describing it with steps to reproduce -->
+<!--- Please link to the issue here: -->
 
-- Validates if property XY is given and throws an error if not
+## Motivation and Context
 
-# Additional Changes
+<!--- Why is this change required? What problem does it solve? -->
 
-Replace this example text with a concise list of additional changes that this PR introduces, that are not directly
-solving the initial problem but are related.
-For example:
+## How Has This Been Tested?
 
-- The docs explicitly describe that the property XY is mandatory
-- Adds missing translations for validations.
+<!--- Please describe in detail how you tested your changes. -->
+<!--- Include details of your testing environment, and the tests you ran to -->
+<!--- see how your change affects other areas of the code, etc. -->
 
-# Additional Context
+## Documentation:
 
-Replace this example with links to related issues, discussions, discord threads, or other sources with more context.
-Use the Closing #issue syntax for issues that are resolved with this PR.
+<!--- Upon PR's approval, link the wiki page for your corresponding changes here. -->
 
-- Closes #xxx
-- Discussion #xxx
-- Follow-up for PR #xxx
-- https://discord.com/channels/xxx/xxx
+## Checklist:
+
+- [ ] I have updated the documentation accordingly.
+- [ ] I have assigned the correct milestone or created one if non-existent.
+- [ ] I have correctly labeled this pull request.
+- [ ] I have linked the corresponding issue in this description.
+- [ ] I have requested a review from at least 2 reviewers
+- [ ] I have checked the base branch of this pull request
+- [ ] I have checked my code for any possible security vulnerabilities
