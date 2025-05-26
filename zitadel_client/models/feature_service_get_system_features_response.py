@@ -36,7 +36,6 @@ class FeatureServiceGetSystemFeaturesResponse(BaseModel):
     oidc_legacy_introspection: Optional[FeatureServiceFeatureFlag] = Field(default=None, alias="oidcLegacyIntrospection")
     user_schema: Optional[FeatureServiceFeatureFlag] = Field(default=None, alias="userSchema")
     oidc_token_exchange: Optional[FeatureServiceFeatureFlag] = Field(default=None, alias="oidcTokenExchange")
-    actions: Optional[FeatureServiceFeatureFlag] = None
     improved_performance: Optional[FeatureServiceImprovedPerformanceFeatureFlag] = Field(default=None, alias="improvedPerformance")
     oidc_single_v1_session_termination: Optional[FeatureServiceFeatureFlag] = Field(default=None, alias="oidcSingleV1SessionTermination")
     disable_user_token_event: Optional[FeatureServiceFeatureFlag] = Field(default=None, alias="disableUserTokenEvent")
@@ -101,9 +100,6 @@ class FeatureServiceGetSystemFeaturesResponse(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of oidc_token_exchange
         if self.oidc_token_exchange:
             _dict['oidcTokenExchange'] = self.oidc_token_exchange.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of actions
-        if self.actions:
-            _dict['actions'] = self.actions.to_dict()
         # override the default output from pydantic by calling `to_dict()` of improved_performance
         if self.improved_performance:
             _dict['improvedPerformance'] = self.improved_performance.to_dict()
@@ -140,7 +136,6 @@ class FeatureServiceGetSystemFeaturesResponse(BaseModel):
             "oidcLegacyIntrospection": FeatureServiceFeatureFlag.from_dict(obj["oidcLegacyIntrospection"]) if obj.get("oidcLegacyIntrospection") is not None else None,
             "userSchema": FeatureServiceFeatureFlag.from_dict(obj["userSchema"]) if obj.get("userSchema") is not None else None,
             "oidcTokenExchange": FeatureServiceFeatureFlag.from_dict(obj["oidcTokenExchange"]) if obj.get("oidcTokenExchange") is not None else None,
-            "actions": FeatureServiceFeatureFlag.from_dict(obj["actions"]) if obj.get("actions") is not None else None,
             "improvedPerformance": FeatureServiceImprovedPerformanceFeatureFlag.from_dict(obj["improvedPerformance"]) if obj.get("improvedPerformance") is not None else None,
             "oidcSingleV1SessionTermination": FeatureServiceFeatureFlag.from_dict(obj["oidcSingleV1SessionTermination"]) if obj.get("oidcSingleV1SessionTermination") is not None else None,
             "disableUserTokenEvent": FeatureServiceFeatureFlag.from_dict(obj["disableUserTokenEvent"]) if obj.get("disableUserTokenEvent") is not None else None,

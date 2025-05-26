@@ -36,7 +36,6 @@ class FeatureServiceGetInstanceFeaturesResponse(BaseModel):
     oidc_legacy_introspection: Optional[FeatureServiceFeatureFlag] = Field(default=None, alias="oidcLegacyIntrospection")
     user_schema: Optional[FeatureServiceFeatureFlag] = Field(default=None, alias="userSchema")
     oidc_token_exchange: Optional[FeatureServiceFeatureFlag] = Field(default=None, alias="oidcTokenExchange")
-    actions: Optional[FeatureServiceFeatureFlag] = None
     improved_performance: Optional[FeatureServiceImprovedPerformanceFeatureFlag] = Field(default=None, alias="improvedPerformance")
     web_key: Optional[FeatureServiceFeatureFlag] = Field(default=None, alias="webKey")
     debug_oidc_parent_error: Optional[FeatureServiceFeatureFlag] = Field(default=None, alias="debugOidcParentError")
@@ -104,9 +103,6 @@ class FeatureServiceGetInstanceFeaturesResponse(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of oidc_token_exchange
         if self.oidc_token_exchange:
             _dict['oidcTokenExchange'] = self.oidc_token_exchange.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of actions
-        if self.actions:
-            _dict['actions'] = self.actions.to_dict()
         # override the default output from pydantic by calling `to_dict()` of improved_performance
         if self.improved_performance:
             _dict['improvedPerformance'] = self.improved_performance.to_dict()
@@ -152,7 +148,6 @@ class FeatureServiceGetInstanceFeaturesResponse(BaseModel):
             "oidcLegacyIntrospection": FeatureServiceFeatureFlag.from_dict(obj["oidcLegacyIntrospection"]) if obj.get("oidcLegacyIntrospection") is not None else None,
             "userSchema": FeatureServiceFeatureFlag.from_dict(obj["userSchema"]) if obj.get("userSchema") is not None else None,
             "oidcTokenExchange": FeatureServiceFeatureFlag.from_dict(obj["oidcTokenExchange"]) if obj.get("oidcTokenExchange") is not None else None,
-            "actions": FeatureServiceFeatureFlag.from_dict(obj["actions"]) if obj.get("actions") is not None else None,
             "improvedPerformance": FeatureServiceImprovedPerformanceFeatureFlag.from_dict(obj["improvedPerformance"]) if obj.get("improvedPerformance") is not None else None,
             "webKey": FeatureServiceFeatureFlag.from_dict(obj["webKey"]) if obj.get("webKey") is not None else None,
             "debugOidcParentError": FeatureServiceFeatureFlag.from_dict(obj["debugOidcParentError"]) if obj.get("debugOidcParentError") is not None else None,

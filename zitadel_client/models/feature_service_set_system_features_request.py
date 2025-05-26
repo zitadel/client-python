@@ -33,7 +33,6 @@ class FeatureServiceSetSystemFeaturesRequest(BaseModel):
     oidc_legacy_introspection: Optional[StrictBool] = Field(default=None, description="We have recently refactored the introspection endpoint for performance reasons. This feature can be used to rollback to the legacy implementation if unexpected bugs arise. Please raise an issue if you needed to enable this feature.", alias="oidcLegacyIntrospection")
     user_schema: Optional[StrictBool] = Field(default=None, description="User Schemas allow to manage data schemas of user. If the flag is enabled, you'll be able to use the new API and its features. Note that it is still in an early stage.", alias="userSchema")
     oidc_token_exchange: Optional[StrictBool] = Field(default=None, description="Enable the experimental `urn:ietf:params:oauth:grant-type:token-exchange` grant type for the OIDC token endpoint. Token exchange can be used to request tokens with a lesser scope or impersonate other users. See the security policy to allow impersonation on an instance.", alias="oidcTokenExchange")
-    actions: Optional[StrictBool] = Field(default=None, description="Actions allow to manage data executions and targets. If the flag is enabled, you'll be able to use the new API and its features. Note that it is still in an early stage.")
     improved_performance: Optional[List[FeatureServiceImprovedPerformance]] = Field(default=None, description="Improves performance of specified execution paths.", alias="improvedPerformance")
     oidc_single_v1_session_termination: Optional[StrictBool] = Field(default=None, description="If the flag is enabled, you'll be able to terminate a single session from the login UI by providing an id_token with a `sid` claim as id_token_hint on the end_session endpoint. Note that currently all sessions from the same user agent (browser) are terminated in the login UI. Sessions managed through the Session API already allow the termination of single sessions.", alias="oidcSingleV1SessionTermination")
     disable_user_token_event: Optional[StrictBool] = Field(default=None, description="Do not push user token meta-event user.token.v2.added to improve performance on many concurrent single (machine-)user logins", alias="disableUserTokenEvent")
@@ -100,7 +99,6 @@ class FeatureServiceSetSystemFeaturesRequest(BaseModel):
             "oidcLegacyIntrospection": obj.get("oidcLegacyIntrospection"),
             "userSchema": obj.get("userSchema"),
             "oidcTokenExchange": obj.get("oidcTokenExchange"),
-            "actions": obj.get("actions"),
             "improvedPerformance": obj.get("improvedPerformance"),
             "oidcSingleV1SessionTermination": obj.get("oidcSingleV1SessionTermination"),
             "disableUserTokenEvent": obj.get("disableUserTokenEvent"),
