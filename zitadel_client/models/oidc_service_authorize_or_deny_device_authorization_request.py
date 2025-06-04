@@ -13,77 +13,125 @@
 
 
 from __future__ import annotations
-import pprint
-import re  # noqa: F401
 import json
+import pprint
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, field_validator
+from typing import Any, List, Optional
+from zitadel_client.models.deny import Deny
+from zitadel_client.models.session import Session
+from pydantic import StrictStr, Field
+from typing import Union, List, Set, Optional, Dict
+from typing_extensions import Literal, Self
 
-from pydantic import BaseModel, ConfigDict
-from typing import Any, ClassVar, Dict, List, Optional
-from zitadel_client.models.oidc_service_session import OIDCServiceSession
-from typing import Optional, Set
-from typing_extensions import Self
+OIDCSERVICEAUTHORIZEORDENYDEVICEAUTHORIZATIONREQUEST_ONE_OF_SCHEMAS = ["Deny", "Session"]
 
 class OIDCServiceAuthorizeOrDenyDeviceAuthorizationRequest(BaseModel):
     """
     OIDCServiceAuthorizeOrDenyDeviceAuthorizationRequest
-    """ # noqa: E501
-    session: Optional[OIDCServiceSession] = None
-    deny: Optional[Dict[str, Any]] = None
+    """
+    # data type: Deny
+    oneof_schema_1_validator: Optional[Deny] = None
+    # data type: Session
+    oneof_schema_2_validator: Optional[Session] = None
+    actual_instance: Optional[Union[Deny, Session]] = None
+    one_of_schemas: Set[str] = { "Deny", "Session" }
 
     model_config = ConfigDict(
-        populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
 
 
-    def to_str(self) -> str:
-        """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.model_dump(by_alias=True))
+    def __init__(self, *args, **kwargs) -> None:
+        if args:
+            if len(args) > 1:
+                raise ValueError("If a position argument is used, only 1 is allowed to set `actual_instance`")
+            if kwargs:
+                raise ValueError("If a position argument is used, keyword arguments cannot be used.")
+            super().__init__(actual_instance=args[0])
+        else:
+            super().__init__(**kwargs)
+
+    @field_validator('actual_instance')
+    def actual_instance_must_validate_oneof(cls, v):
+        instance = OIDCServiceAuthorizeOrDenyDeviceAuthorizationRequest.model_construct()
+        error_messages = []
+        match = 0
+        # validate data type: Deny
+        if not isinstance(v, Deny):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `Deny`")
+        else:
+            match += 1
+        # validate data type: Session
+        if not isinstance(v, Session):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `Session`")
+        else:
+            match += 1
+        if match > 1:
+            # more than 1 match
+            raise ValueError("Multiple matches found when setting `actual_instance` in OIDCServiceAuthorizeOrDenyDeviceAuthorizationRequest with oneOf schemas: Deny, Session. Details: " + ", ".join(error_messages))
+        elif match == 0:
+            # no match
+            raise ValueError("No match found when setting `actual_instance` in OIDCServiceAuthorizeOrDenyDeviceAuthorizationRequest with oneOf schemas: Deny, Session. Details: " + ", ".join(error_messages))
+        else:
+            return v
+
+    @classmethod
+    def from_dict(cls, obj: Union[str, Dict[str, Any]]) -> Self:
+        return cls.from_json(json.dumps(obj))
+
+    @classmethod
+    def from_json(cls, json_str: str) -> Self:
+        """Returns the object represented by the json string"""
+        instance = cls.model_construct()
+        error_messages = []
+        match = 0
+
+        # deserialize data into Deny
+        try:
+            instance.actual_instance = Deny.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into Session
+        try:
+            instance.actual_instance = Session.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+
+        if match > 1:
+            # more than 1 match
+            raise ValueError("Multiple matches found when deserializing the JSON string into OIDCServiceAuthorizeOrDenyDeviceAuthorizationRequest with oneOf schemas: Deny, Session. Details: " + ", ".join(error_messages))
+        elif match == 0:
+            # no match
+            raise ValueError("No match found when deserializing the JSON string into OIDCServiceAuthorizeOrDenyDeviceAuthorizationRequest with oneOf schemas: Deny, Session. Details: " + ", ".join(error_messages))
+        else:
+            return instance
 
     def to_json(self) -> str:
-        """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        """Returns the JSON representation of the actual instance"""
+        if self.actual_instance is None:
+            return "null"
 
-    @classmethod
-    def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of OIDCServiceAuthorizeOrDenyDeviceAuthorizationRequest from a JSON string"""
-        return cls.from_dict(json.loads(json_str))
+        if hasattr(self.actual_instance, "to_json") and callable(self.actual_instance.to_json):
+            return self.actual_instance.to_json()
+        else:
+            return json.dumps(self.actual_instance)
 
-    def to_dict(self) -> Dict[str, Any]:
-        """Return the dictionary representation of the model using alias.
-
-        This has the following differences from calling pydantic's
-        `self.model_dump(by_alias=True)`:
-
-        * `None` is only added to the output dict for nullable fields that
-          were set at model initialization. Other fields with value `None`
-          are ignored.
-        """
-        excluded_fields: Set[str] = set([
-        ])
-
-        _dict = self.model_dump(
-            by_alias=True,
-            exclude=excluded_fields,
-            exclude_none=True,
-        )
-        return _dict
-
-    @classmethod
-    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of OIDCServiceAuthorizeOrDenyDeviceAuthorizationRequest from a dict"""
-        if obj is None:
+    def to_dict(self) -> Optional[Union[Dict[str, Any], Deny, Session]]:
+        """Returns the dict representation of the actual instance"""
+        if self.actual_instance is None:
             return None
 
-        if not isinstance(obj, dict):
-            return cls.model_validate(obj)
+        if hasattr(self.actual_instance, "to_dict") and callable(self.actual_instance.to_dict):
+            return self.actual_instance.to_dict()
+        else:
+            # primitive type
+            return self.actual_instance
 
-        _obj = cls.model_validate({
-            "session": OIDCServiceSession.from_dict(obj["session"]) if obj.get("session") is not None else None,
-            "deny": obj.get("deny")
-        })
-        return _obj
+    def to_str(self) -> str:
+        """Returns the string representation of the actual instance"""
+        return pprint.pformat(self.model_dump())
 
 

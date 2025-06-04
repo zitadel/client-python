@@ -13,92 +13,125 @@
 
 
 from __future__ import annotations
-import pprint
-import re  # noqa: F401
 import json
+import pprint
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, field_validator
+from typing import Any, List, Optional
+from zitadel_client.models.human import Human
+from zitadel_client.models.machine import Machine
+from pydantic import StrictStr, Field
+from typing import Union, List, Set, Optional, Dict
+from typing_extensions import Literal, Self
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from zitadel_client.models.user_service_details import UserServiceDetails
-from zitadel_client.models.user_service_human_user import UserServiceHumanUser
-from zitadel_client.models.user_service_machine_user import UserServiceMachineUser
-from zitadel_client.models.user_service_user_state import UserServiceUserState
-from typing import Optional, Set
-from typing_extensions import Self
+USERSERVICEUSER_ONE_OF_SCHEMAS = ["Human", "Machine"]
 
 class UserServiceUser(BaseModel):
     """
     UserServiceUser
-    """ # noqa: E501
-    user_id: Optional[StrictStr] = Field(default=None, alias="userId")
-    details: Optional[UserServiceDetails] = None
-    state: Optional[UserServiceUserState] = UserServiceUserState.USER_STATE_UNSPECIFIED
-    username: Optional[StrictStr] = None
-    login_names: Optional[List[StrictStr]] = Field(default=None, alias="loginNames")
-    preferred_login_name: Optional[StrictStr] = Field(default=None, alias="preferredLoginName")
-    human: Optional[UserServiceHumanUser] = None
-    machine: Optional[UserServiceMachineUser] = None
+    """
+    # data type: Human
+    oneof_schema_1_validator: Optional[Human] = None
+    # data type: Machine
+    oneof_schema_2_validator: Optional[Machine] = None
+    actual_instance: Optional[Union[Human, Machine]] = None
+    one_of_schemas: Set[str] = { "Human", "Machine" }
 
     model_config = ConfigDict(
-        populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
 
 
-    def to_str(self) -> str:
-        """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.model_dump(by_alias=True))
+    def __init__(self, *args, **kwargs) -> None:
+        if args:
+            if len(args) > 1:
+                raise ValueError("If a position argument is used, only 1 is allowed to set `actual_instance`")
+            if kwargs:
+                raise ValueError("If a position argument is used, keyword arguments cannot be used.")
+            super().__init__(actual_instance=args[0])
+        else:
+            super().__init__(**kwargs)
+
+    @field_validator('actual_instance')
+    def actual_instance_must_validate_oneof(cls, v):
+        instance = UserServiceUser.model_construct()
+        error_messages = []
+        match = 0
+        # validate data type: Human
+        if not isinstance(v, Human):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `Human`")
+        else:
+            match += 1
+        # validate data type: Machine
+        if not isinstance(v, Machine):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `Machine`")
+        else:
+            match += 1
+        if match > 1:
+            # more than 1 match
+            raise ValueError("Multiple matches found when setting `actual_instance` in UserServiceUser with oneOf schemas: Human, Machine. Details: " + ", ".join(error_messages))
+        elif match == 0:
+            # no match
+            raise ValueError("No match found when setting `actual_instance` in UserServiceUser with oneOf schemas: Human, Machine. Details: " + ", ".join(error_messages))
+        else:
+            return v
+
+    @classmethod
+    def from_dict(cls, obj: Union[str, Dict[str, Any]]) -> Self:
+        return cls.from_json(json.dumps(obj))
+
+    @classmethod
+    def from_json(cls, json_str: str) -> Self:
+        """Returns the object represented by the json string"""
+        instance = cls.model_construct()
+        error_messages = []
+        match = 0
+
+        # deserialize data into Human
+        try:
+            instance.actual_instance = Human.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into Machine
+        try:
+            instance.actual_instance = Machine.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+
+        if match > 1:
+            # more than 1 match
+            raise ValueError("Multiple matches found when deserializing the JSON string into UserServiceUser with oneOf schemas: Human, Machine. Details: " + ", ".join(error_messages))
+        elif match == 0:
+            # no match
+            raise ValueError("No match found when deserializing the JSON string into UserServiceUser with oneOf schemas: Human, Machine. Details: " + ", ".join(error_messages))
+        else:
+            return instance
 
     def to_json(self) -> str:
-        """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        """Returns the JSON representation of the actual instance"""
+        if self.actual_instance is None:
+            return "null"
 
-    @classmethod
-    def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of UserServiceUser from a JSON string"""
-        return cls.from_dict(json.loads(json_str))
+        if hasattr(self.actual_instance, "to_json") and callable(self.actual_instance.to_json):
+            return self.actual_instance.to_json()
+        else:
+            return json.dumps(self.actual_instance)
 
-    def to_dict(self) -> Dict[str, Any]:
-        """Return the dictionary representation of the model using alias.
-
-        This has the following differences from calling pydantic's
-        `self.model_dump(by_alias=True)`:
-
-        * `None` is only added to the output dict for nullable fields that
-          were set at model initialization. Other fields with value `None`
-          are ignored.
-        """
-        excluded_fields: Set[str] = set([
-        ])
-
-        _dict = self.model_dump(
-            by_alias=True,
-            exclude=excluded_fields,
-            exclude_none=True,
-        )
-        return _dict
-
-    @classmethod
-    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of UserServiceUser from a dict"""
-        if obj is None:
+    def to_dict(self) -> Optional[Union[Dict[str, Any], Human, Machine]]:
+        """Returns the dict representation of the actual instance"""
+        if self.actual_instance is None:
             return None
 
-        if not isinstance(obj, dict):
-            return cls.model_validate(obj)
+        if hasattr(self.actual_instance, "to_dict") and callable(self.actual_instance.to_dict):
+            return self.actual_instance.to_dict()
+        else:
+            # primitive type
+            return self.actual_instance
 
-        _obj = cls.model_validate({
-            "userId": obj.get("userId"),
-            "details": UserServiceDetails.from_dict(obj["details"]) if obj.get("details") is not None else None,
-            "state": obj.get("state") if obj.get("state") is not None else UserServiceUserState.USER_STATE_UNSPECIFIED,
-            "username": obj.get("username"),
-            "loginNames": obj.get("loginNames"),
-            "preferredLoginName": obj.get("preferredLoginName"),
-            "human": UserServiceHumanUser.from_dict(obj["human"]) if obj.get("human") is not None else None,
-            "machine": UserServiceMachineUser.from_dict(obj["machine"]) if obj.get("machine") is not None else None
-        })
-        return _obj
+    def to_str(self) -> str:
+        """Returns the string representation of the actual instance"""
+        return pprint.pformat(self.model_dump())
 
 

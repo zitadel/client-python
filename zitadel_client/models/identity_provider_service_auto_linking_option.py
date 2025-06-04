@@ -20,7 +20,7 @@ from typing_extensions import Self
 
 class IdentityProviderServiceAutoLinkingOption(str, Enum):
     """
-     - AUTO_LINKING_OPTION_UNSPECIFIED: AUTO_LINKING_OPTION_UNSPECIFIED disables the auto linking prompt.  - AUTO_LINKING_OPTION_USERNAME: AUTO_LINKING_OPTION_USERNAME will use the username of the external user to check for a corresponding ZITADEL user.  - AUTO_LINKING_OPTION_EMAIL: AUTO_LINKING_OPTION_EMAIL  will use the email of the external user to check for a corresponding ZITADEL user with the same verified email Note that in case multiple users match, no prompt will be shown.
+    IdentityProviderServiceAutoLinkingOption
     """
 
     """

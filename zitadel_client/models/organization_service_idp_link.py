@@ -17,9 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,9 +26,9 @@ class OrganizationServiceIDPLink(BaseModel):
     """
     OrganizationServiceIDPLink
     """ # noqa: E501
-    idp_id: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]] = Field(default=None, description="ID of the identity provider", alias="idpId")
-    user_id: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]] = Field(default=None, description="ID of the user of the identity provider", alias="userId")
-    user_name: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]] = Field(default=None, description="username of the user of the identity provider", alias="userName")
+    idp_id: Optional[StrictStr] = Field(default=None, alias="idpId")
+    user_id: Optional[StrictStr] = Field(default=None, alias="userId")
+    user_name: Optional[StrictStr] = Field(default=None, alias="userName")
 
     model_config = ConfigDict(
         populate_by_name=True,

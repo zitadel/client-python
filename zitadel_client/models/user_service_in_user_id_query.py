@@ -26,7 +26,7 @@ class UserServiceInUserIDQuery(BaseModel):
     """
     Query for users with ID in list of IDs.
     """ # noqa: E501
-    user_ids: Optional[List[StrictStr]] = Field(default=None, description="the ids of the users to include", alias="userIds")
+    user_ids: Optional[List[StrictStr]] = Field(default=None, alias="userIds")
 
     model_config = ConfigDict(
         populate_by_name=True,

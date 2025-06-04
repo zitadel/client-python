@@ -13,89 +13,139 @@
 
 
 from __future__ import annotations
-import pprint
-import re  # noqa: F401
 import json
+import pprint
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, field_validator
+from typing import Any, List, Optional
+from zitadel_client.models.ldap2 import Ldap2
+from zitadel_client.models.oauth1 import Oauth1
+from zitadel_client.models.saml1 import Saml1
+from pydantic import StrictStr, Field
+from typing import Union, List, Set, Optional, Dict
+from typing_extensions import Literal, Self
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from zitadel_client.models.user_service_idpldap_access_information import UserServiceIDPLDAPAccessInformation
-from zitadel_client.models.user_service_idpo_auth_access_information import UserServiceIDPOAuthAccessInformation
-from zitadel_client.models.user_service_idpsaml_access_information import UserServiceIDPSAMLAccessInformation
-from typing import Optional, Set
-from typing_extensions import Self
+USERSERVICEIDPINFORMATION_ONE_OF_SCHEMAS = ["Ldap2", "Oauth1", "Saml1"]
 
 class UserServiceIDPInformation(BaseModel):
     """
     UserServiceIDPInformation
-    """ # noqa: E501
-    oauth: Optional[UserServiceIDPOAuthAccessInformation] = None
-    ldap: Optional[UserServiceIDPLDAPAccessInformation] = None
-    saml: Optional[UserServiceIDPSAMLAccessInformation] = None
-    idp_id: Optional[StrictStr] = Field(default=None, description="ID of the identity provider", alias="idpId")
-    user_id: Optional[StrictStr] = Field(default=None, description="ID of the user of the identity provider", alias="userId")
-    user_name: Optional[StrictStr] = Field(default=None, description="username of the user of the identity provider", alias="userName")
-    raw_information: Optional[Dict[str, Any]] = Field(default=None, description="complete information returned by the identity provider", alias="rawInformation")
+    """
+    # data type: Ldap2
+    oneof_schema_1_validator: Optional[Ldap2] = None
+    # data type: Oauth1
+    oneof_schema_2_validator: Optional[Oauth1] = None
+    # data type: Saml1
+    oneof_schema_3_validator: Optional[Saml1] = None
+    actual_instance: Optional[Union[Ldap2, Oauth1, Saml1]] = None
+    one_of_schemas: Set[str] = { "Ldap2", "Oauth1", "Saml1" }
 
     model_config = ConfigDict(
-        populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
 
 
-    def to_str(self) -> str:
-        """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.model_dump(by_alias=True))
+    def __init__(self, *args, **kwargs) -> None:
+        if args:
+            if len(args) > 1:
+                raise ValueError("If a position argument is used, only 1 is allowed to set `actual_instance`")
+            if kwargs:
+                raise ValueError("If a position argument is used, keyword arguments cannot be used.")
+            super().__init__(actual_instance=args[0])
+        else:
+            super().__init__(**kwargs)
+
+    @field_validator('actual_instance')
+    def actual_instance_must_validate_oneof(cls, v):
+        instance = UserServiceIDPInformation.model_construct()
+        error_messages = []
+        match = 0
+        # validate data type: Ldap2
+        if not isinstance(v, Ldap2):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `Ldap2`")
+        else:
+            match += 1
+        # validate data type: Oauth1
+        if not isinstance(v, Oauth1):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `Oauth1`")
+        else:
+            match += 1
+        # validate data type: Saml1
+        if not isinstance(v, Saml1):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `Saml1`")
+        else:
+            match += 1
+        if match > 1:
+            # more than 1 match
+            raise ValueError("Multiple matches found when setting `actual_instance` in UserServiceIDPInformation with oneOf schemas: Ldap2, Oauth1, Saml1. Details: " + ", ".join(error_messages))
+        elif match == 0:
+            # no match
+            raise ValueError("No match found when setting `actual_instance` in UserServiceIDPInformation with oneOf schemas: Ldap2, Oauth1, Saml1. Details: " + ", ".join(error_messages))
+        else:
+            return v
+
+    @classmethod
+    def from_dict(cls, obj: Union[str, Dict[str, Any]]) -> Self:
+        return cls.from_json(json.dumps(obj))
+
+    @classmethod
+    def from_json(cls, json_str: str) -> Self:
+        """Returns the object represented by the json string"""
+        instance = cls.model_construct()
+        error_messages = []
+        match = 0
+
+        # deserialize data into Ldap2
+        try:
+            instance.actual_instance = Ldap2.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into Oauth1
+        try:
+            instance.actual_instance = Oauth1.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into Saml1
+        try:
+            instance.actual_instance = Saml1.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+
+        if match > 1:
+            # more than 1 match
+            raise ValueError("Multiple matches found when deserializing the JSON string into UserServiceIDPInformation with oneOf schemas: Ldap2, Oauth1, Saml1. Details: " + ", ".join(error_messages))
+        elif match == 0:
+            # no match
+            raise ValueError("No match found when deserializing the JSON string into UserServiceIDPInformation with oneOf schemas: Ldap2, Oauth1, Saml1. Details: " + ", ".join(error_messages))
+        else:
+            return instance
 
     def to_json(self) -> str:
-        """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        """Returns the JSON representation of the actual instance"""
+        if self.actual_instance is None:
+            return "null"
 
-    @classmethod
-    def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of UserServiceIDPInformation from a JSON string"""
-        return cls.from_dict(json.loads(json_str))
+        if hasattr(self.actual_instance, "to_json") and callable(self.actual_instance.to_json):
+            return self.actual_instance.to_json()
+        else:
+            return json.dumps(self.actual_instance)
 
-    def to_dict(self) -> Dict[str, Any]:
-        """Return the dictionary representation of the model using alias.
-
-        This has the following differences from calling pydantic's
-        `self.model_dump(by_alias=True)`:
-
-        * `None` is only added to the output dict for nullable fields that
-          were set at model initialization. Other fields with value `None`
-          are ignored.
-        """
-        excluded_fields: Set[str] = set([
-        ])
-
-        _dict = self.model_dump(
-            by_alias=True,
-            exclude=excluded_fields,
-            exclude_none=True,
-        )
-        return _dict
-
-    @classmethod
-    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of UserServiceIDPInformation from a dict"""
-        if obj is None:
+    def to_dict(self) -> Optional[Union[Dict[str, Any], Ldap2, Oauth1, Saml1]]:
+        """Returns the dict representation of the actual instance"""
+        if self.actual_instance is None:
             return None
 
-        if not isinstance(obj, dict):
-            return cls.model_validate(obj)
+        if hasattr(self.actual_instance, "to_dict") and callable(self.actual_instance.to_dict):
+            return self.actual_instance.to_dict()
+        else:
+            # primitive type
+            return self.actual_instance
 
-        _obj = cls.model_validate({
-            "oauth": UserServiceIDPOAuthAccessInformation.from_dict(obj["oauth"]) if obj.get("oauth") is not None else None,
-            "ldap": UserServiceIDPLDAPAccessInformation.from_dict(obj["ldap"]) if obj.get("ldap") is not None else None,
-            "saml": UserServiceIDPSAMLAccessInformation.from_dict(obj["saml"]) if obj.get("saml") is not None else None,
-            "idpId": obj.get("idpId"),
-            "userId": obj.get("userId"),
-            "userName": obj.get("userName"),
-            "rawInformation": obj.get("rawInformation")
-        })
-        return _obj
+    def to_str(self) -> str:
+        """Returns the string representation of the actual instance"""
+        return pprint.pformat(self.model_dump())
 
 

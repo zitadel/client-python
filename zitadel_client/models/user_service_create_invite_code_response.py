@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.user_service_details import UserServiceDetails
 from typing import Optional, Set
 from typing_extensions import Self
@@ -72,6 +72,11 @@ class UserServiceCreateInviteCodeResponse(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of details
         if self.details:
             _dict['details'] = self.details.to_dict()
+        # set to None if invite_code (nullable) is None
+        # and model_fields_set contains the field
+        if self.invite_code is None and "invite_code" in self.model_fields_set:
+            _dict['inviteCode'] = None
+
         return _dict
 
     @classmethod

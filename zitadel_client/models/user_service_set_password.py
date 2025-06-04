@@ -17,9 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict
 from zitadel_client.models.user_service_hashed_password import UserServiceHashedPassword
 from zitadel_client.models.user_service_password import UserServicePassword
 from typing import Optional, Set
@@ -29,10 +28,10 @@ class UserServiceSetPassword(BaseModel):
     """
     UserServiceSetPassword
     """ # noqa: E501
-    password: Optional[UserServicePassword] = None
-    hashed_password: Optional[UserServiceHashedPassword] = Field(default=None, alias="hashedPassword")
-    current_password: Annotated[str, Field(min_length=1, strict=True, max_length=200)] = Field(alias="currentPassword")
-    verification_code: Annotated[str, Field(min_length=1, strict=True, max_length=20)] = Field(description="\"the verification code generated during password reset request\"", alias="verificationCode")
+    hashed_password: UserServiceHashedPassword = Field(alias="hashedPassword")
+    password: UserServicePassword
+    current_password: StrictStr = Field(alias="currentPassword")
+    verification_code: StrictStr = Field(alias="verificationCode")
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -73,6 +72,12 @@ class UserServiceSetPassword(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of hashed_password
+        if self.hashed_password:
+            _dict['hashedPassword'] = self.hashed_password.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of password
+        if self.password:
+            _dict['password'] = self.password.to_dict()
         return _dict
 
     @classmethod
@@ -85,8 +90,8 @@ class UserServiceSetPassword(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "password": UserServicePassword.from_dict(obj["password"]) if obj.get("password") is not None else None,
             "hashedPassword": UserServiceHashedPassword.from_dict(obj["hashedPassword"]) if obj.get("hashedPassword") is not None else None,
+            "password": UserServicePassword.from_dict(obj["password"]) if obj.get("password") is not None else None,
             "currentPassword": obj.get("currentPassword"),
             "verificationCode": obj.get("verificationCode")
         })

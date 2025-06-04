@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.settings_service_resource_owner_type import SettingsServiceResourceOwnerType
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,10 +27,10 @@ class SettingsServiceDomainSettings(BaseModel):
     """
     SettingsServiceDomainSettings
     """ # noqa: E501
-    login_name_includes_domain: Optional[StrictBool] = Field(default=None, description="the username has to end with the domain of its organization", alias="loginNameIncludesDomain")
-    require_org_domain_verification: Optional[StrictBool] = Field(default=None, description="defines if organization domains should be verified upon creation, otherwise will be created already verified", alias="requireOrgDomainVerification")
-    smtp_sender_address_matches_instance_domain: Optional[StrictBool] = Field(default=None, description="defines if the SMTP sender address domain should match an existing domain on the instance", alias="smtpSenderAddressMatchesInstanceDomain")
-    resource_owner_type: Optional[SettingsServiceResourceOwnerType] = Field(default=SettingsServiceResourceOwnerType.RESOURCE_OWNER_TYPE_UNSPECIFIED, alias="resourceOwnerType")
+    login_name_includes_domain: Optional[StrictBool] = Field(default=None, alias="loginNameIncludesDomain")
+    require_org_domain_verification: Optional[StrictBool] = Field(default=None, alias="requireOrgDomainVerification")
+    smtp_sender_address_matches_instance_domain: Optional[StrictBool] = Field(default=None, alias="smtpSenderAddressMatchesInstanceDomain")
+    resource_owner_type: Optional[SettingsServiceResourceOwnerType] = Field(default=None, alias="resourceOwnerType")
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -86,7 +86,7 @@ class SettingsServiceDomainSettings(BaseModel):
             "loginNameIncludesDomain": obj.get("loginNameIncludesDomain"),
             "requireOrgDomainVerification": obj.get("requireOrgDomainVerification"),
             "smtpSenderAddressMatchesInstanceDomain": obj.get("smtpSenderAddressMatchesInstanceDomain"),
-            "resourceOwnerType": obj.get("resourceOwnerType") if obj.get("resourceOwnerType") is not None else SettingsServiceResourceOwnerType.RESOURCE_OWNER_TYPE_UNSPECIFIED
+            "resourceOwnerType": obj.get("resourceOwnerType")
         })
         return _obj
 

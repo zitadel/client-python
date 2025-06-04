@@ -17,8 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from pydantic import BaseModel, ConfigDict, Field, StrictBool
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.settings_service_resource_owner_type import SettingsServiceResourceOwnerType
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,12 +27,12 @@ class SettingsServicePasswordComplexitySettings(BaseModel):
     """
     SettingsServicePasswordComplexitySettings
     """ # noqa: E501
-    min_length: Optional[StrictStr] = Field(default=None, description="Defines the minimum length of a password.", alias="minLength")
-    requires_uppercase: Optional[StrictBool] = Field(default=None, description="defines if the password MUST contain an upper case letter", alias="requiresUppercase")
-    requires_lowercase: Optional[StrictBool] = Field(default=None, description="defines if the password MUST contain a lowercase letter", alias="requiresLowercase")
-    requires_number: Optional[StrictBool] = Field(default=None, description="defines if the password MUST contain a number", alias="requiresNumber")
-    requires_symbol: Optional[StrictBool] = Field(default=None, description="defines if the password MUST contain a symbol. E.g. \"$\"", alias="requiresSymbol")
-    resource_owner_type: Optional[SettingsServiceResourceOwnerType] = Field(default=SettingsServiceResourceOwnerType.RESOURCE_OWNER_TYPE_UNSPECIFIED, alias="resourceOwnerType")
+    min_length: Optional[Any] = Field(default=None, alias="minLength")
+    requires_uppercase: Optional[StrictBool] = Field(default=None, alias="requiresUppercase")
+    requires_lowercase: Optional[StrictBool] = Field(default=None, alias="requiresLowercase")
+    requires_number: Optional[StrictBool] = Field(default=None, alias="requiresNumber")
+    requires_symbol: Optional[StrictBool] = Field(default=None, alias="requiresSymbol")
+    resource_owner_type: Optional[SettingsServiceResourceOwnerType] = Field(default=None, alias="resourceOwnerType")
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -73,6 +73,11 @@ class SettingsServicePasswordComplexitySettings(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if min_length (nullable) is None
+        # and model_fields_set contains the field
+        if self.min_length is None and "min_length" in self.model_fields_set:
+            _dict['minLength'] = None
+
         return _dict
 
     @classmethod
@@ -90,7 +95,7 @@ class SettingsServicePasswordComplexitySettings(BaseModel):
             "requiresLowercase": obj.get("requiresLowercase"),
             "requiresNumber": obj.get("requiresNumber"),
             "requiresSymbol": obj.get("requiresSymbol"),
-            "resourceOwnerType": obj.get("resourceOwnerType") if obj.get("resourceOwnerType") is not None else SettingsServiceResourceOwnerType.RESOURCE_OWNER_TYPE_UNSPECIFIED
+            "resourceOwnerType": obj.get("resourceOwnerType")
         })
         return _obj
 

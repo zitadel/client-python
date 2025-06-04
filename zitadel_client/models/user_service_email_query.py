@@ -17,9 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.user_service_text_query_method import UserServiceTextQueryMethod
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,8 +27,8 @@ class UserServiceEmailQuery(BaseModel):
     """
     Query for users with a specific email.
     """ # noqa: E501
-    email_address: Annotated[str, Field(strict=True, max_length=200)] = Field(description="email address of the user", alias="emailAddress")
-    method: Optional[UserServiceTextQueryMethod] = UserServiceTextQueryMethod.TEXT_QUERY_METHOD_EQUALS
+    email_address: StrictStr = Field(alias="emailAddress")
+    method: Optional[UserServiceTextQueryMethod] = None
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -83,7 +82,7 @@ class UserServiceEmailQuery(BaseModel):
 
         _obj = cls.model_validate({
             "emailAddress": obj.get("emailAddress"),
-            "method": obj.get("method") if obj.get("method") is not None else UserServiceTextQueryMethod.TEXT_QUERY_METHOD_EQUALS
+            "method": obj.get("method")
         })
         return _obj
 

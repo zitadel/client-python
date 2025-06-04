@@ -13,111 +13,265 @@
 
 
 from __future__ import annotations
-import pprint
-import re  # noqa: F401
 import json
+import pprint
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, field_validator
+from typing import Any, List, Optional
+from zitadel_client.models.apple import Apple
+from zitadel_client.models.azure_ad import AzureAd
+from zitadel_client.models.github import Github
+from zitadel_client.models.github_es import GithubEs
+from zitadel_client.models.gitlab import Gitlab
+from zitadel_client.models.gitlab_self_hosted import GitlabSelfHosted
+from zitadel_client.models.google import Google
+from zitadel_client.models.jwt import Jwt
+from zitadel_client.models.ldap import Ldap
+from zitadel_client.models.oauth import Oauth
+from zitadel_client.models.oidc import Oidc
+from zitadel_client.models.saml import Saml
+from pydantic import StrictStr, Field
+from typing import Union, List, Set, Optional, Dict
+from typing_extensions import Literal, Self
 
-from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
-from zitadel_client.models.identity_provider_service_apple_config import IdentityProviderServiceAppleConfig
-from zitadel_client.models.identity_provider_service_azure_ad_config import IdentityProviderServiceAzureADConfig
-from zitadel_client.models.identity_provider_service_generic_oidc_config import IdentityProviderServiceGenericOIDCConfig
-from zitadel_client.models.identity_provider_service_git_hub_config import IdentityProviderServiceGitHubConfig
-from zitadel_client.models.identity_provider_service_git_hub_enterprise_server_config import IdentityProviderServiceGitHubEnterpriseServerConfig
-from zitadel_client.models.identity_provider_service_git_lab_config import IdentityProviderServiceGitLabConfig
-from zitadel_client.models.identity_provider_service_git_lab_self_hosted_config import IdentityProviderServiceGitLabSelfHostedConfig
-from zitadel_client.models.identity_provider_service_google_config import IdentityProviderServiceGoogleConfig
-from zitadel_client.models.identity_provider_service_jwt_config import IdentityProviderServiceJWTConfig
-from zitadel_client.models.identity_provider_service_ldap_config import IdentityProviderServiceLDAPConfig
-from zitadel_client.models.identity_provider_service_o_auth_config import IdentityProviderServiceOAuthConfig
-from zitadel_client.models.identity_provider_service_options import IdentityProviderServiceOptions
-from zitadel_client.models.identity_provider_service_saml_config import IdentityProviderServiceSAMLConfig
-from typing import Optional, Set
-from typing_extensions import Self
+IDENTITYPROVIDERSERVICEIDPCONFIG_ONE_OF_SCHEMAS = ["Apple", "AzureAd", "Github", "GithubEs", "Gitlab", "GitlabSelfHosted", "Google", "Jwt", "Ldap", "Oauth", "Oidc", "Saml"]
 
 class IdentityProviderServiceIDPConfig(BaseModel):
     """
     IdentityProviderServiceIDPConfig
-    """ # noqa: E501
-    options: Optional[IdentityProviderServiceOptions] = None
-    ldap: Optional[IdentityProviderServiceLDAPConfig] = None
-    google: Optional[IdentityProviderServiceGoogleConfig] = None
-    oauth: Optional[IdentityProviderServiceOAuthConfig] = None
-    oidc: Optional[IdentityProviderServiceGenericOIDCConfig] = None
-    jwt: Optional[IdentityProviderServiceJWTConfig] = None
-    github: Optional[IdentityProviderServiceGitHubConfig] = None
-    github_es: Optional[IdentityProviderServiceGitHubEnterpriseServerConfig] = Field(default=None, alias="githubEs")
-    gitlab: Optional[IdentityProviderServiceGitLabConfig] = None
-    gitlab_self_hosted: Optional[IdentityProviderServiceGitLabSelfHostedConfig] = Field(default=None, alias="gitlabSelfHosted")
-    azure_ad: Optional[IdentityProviderServiceAzureADConfig] = Field(default=None, alias="azureAd")
-    apple: Optional[IdentityProviderServiceAppleConfig] = None
-    saml: Optional[IdentityProviderServiceSAMLConfig] = None
+    """
+    # data type: Apple
+    oneof_schema_1_validator: Optional[Apple] = None
+    # data type: AzureAd
+    oneof_schema_2_validator: Optional[AzureAd] = None
+    # data type: Github
+    oneof_schema_3_validator: Optional[Github] = None
+    # data type: GithubEs
+    oneof_schema_4_validator: Optional[GithubEs] = None
+    # data type: Gitlab
+    oneof_schema_5_validator: Optional[Gitlab] = None
+    # data type: GitlabSelfHosted
+    oneof_schema_6_validator: Optional[GitlabSelfHosted] = None
+    # data type: Google
+    oneof_schema_7_validator: Optional[Google] = None
+    # data type: Jwt
+    oneof_schema_8_validator: Optional[Jwt] = None
+    # data type: Ldap
+    oneof_schema_9_validator: Optional[Ldap] = None
+    # data type: Oauth
+    oneof_schema_10_validator: Optional[Oauth] = None
+    # data type: Oidc
+    oneof_schema_11_validator: Optional[Oidc] = None
+    # data type: Saml
+    oneof_schema_12_validator: Optional[Saml] = None
+    actual_instance: Optional[Union[Apple, AzureAd, Github, GithubEs, Gitlab, GitlabSelfHosted, Google, Jwt, Ldap, Oauth, Oidc, Saml]] = None
+    one_of_schemas: Set[str] = { "Apple", "AzureAd", "Github", "GithubEs", "Gitlab", "GitlabSelfHosted", "Google", "Jwt", "Ldap", "Oauth", "Oidc", "Saml" }
 
     model_config = ConfigDict(
-        populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
 
 
-    def to_str(self) -> str:
-        """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.model_dump(by_alias=True))
+    def __init__(self, *args, **kwargs) -> None:
+        if args:
+            if len(args) > 1:
+                raise ValueError("If a position argument is used, only 1 is allowed to set `actual_instance`")
+            if kwargs:
+                raise ValueError("If a position argument is used, keyword arguments cannot be used.")
+            super().__init__(actual_instance=args[0])
+        else:
+            super().__init__(**kwargs)
+
+    @field_validator('actual_instance')
+    def actual_instance_must_validate_oneof(cls, v):
+        instance = IdentityProviderServiceIDPConfig.model_construct()
+        error_messages = []
+        match = 0
+        # validate data type: Apple
+        if not isinstance(v, Apple):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `Apple`")
+        else:
+            match += 1
+        # validate data type: AzureAd
+        if not isinstance(v, AzureAd):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `AzureAd`")
+        else:
+            match += 1
+        # validate data type: Github
+        if not isinstance(v, Github):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `Github`")
+        else:
+            match += 1
+        # validate data type: GithubEs
+        if not isinstance(v, GithubEs):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `GithubEs`")
+        else:
+            match += 1
+        # validate data type: Gitlab
+        if not isinstance(v, Gitlab):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `Gitlab`")
+        else:
+            match += 1
+        # validate data type: GitlabSelfHosted
+        if not isinstance(v, GitlabSelfHosted):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `GitlabSelfHosted`")
+        else:
+            match += 1
+        # validate data type: Google
+        if not isinstance(v, Google):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `Google`")
+        else:
+            match += 1
+        # validate data type: Jwt
+        if not isinstance(v, Jwt):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `Jwt`")
+        else:
+            match += 1
+        # validate data type: Ldap
+        if not isinstance(v, Ldap):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `Ldap`")
+        else:
+            match += 1
+        # validate data type: Oauth
+        if not isinstance(v, Oauth):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `Oauth`")
+        else:
+            match += 1
+        # validate data type: Oidc
+        if not isinstance(v, Oidc):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `Oidc`")
+        else:
+            match += 1
+        # validate data type: Saml
+        if not isinstance(v, Saml):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `Saml`")
+        else:
+            match += 1
+        if match > 1:
+            # more than 1 match
+            raise ValueError("Multiple matches found when setting `actual_instance` in IdentityProviderServiceIDPConfig with oneOf schemas: Apple, AzureAd, Github, GithubEs, Gitlab, GitlabSelfHosted, Google, Jwt, Ldap, Oauth, Oidc, Saml. Details: " + ", ".join(error_messages))
+        elif match == 0:
+            # no match
+            raise ValueError("No match found when setting `actual_instance` in IdentityProviderServiceIDPConfig with oneOf schemas: Apple, AzureAd, Github, GithubEs, Gitlab, GitlabSelfHosted, Google, Jwt, Ldap, Oauth, Oidc, Saml. Details: " + ", ".join(error_messages))
+        else:
+            return v
+
+    @classmethod
+    def from_dict(cls, obj: Union[str, Dict[str, Any]]) -> Self:
+        return cls.from_json(json.dumps(obj))
+
+    @classmethod
+    def from_json(cls, json_str: str) -> Self:
+        """Returns the object represented by the json string"""
+        instance = cls.model_construct()
+        error_messages = []
+        match = 0
+
+        # deserialize data into Apple
+        try:
+            instance.actual_instance = Apple.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into AzureAd
+        try:
+            instance.actual_instance = AzureAd.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into Github
+        try:
+            instance.actual_instance = Github.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into GithubEs
+        try:
+            instance.actual_instance = GithubEs.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into Gitlab
+        try:
+            instance.actual_instance = Gitlab.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into GitlabSelfHosted
+        try:
+            instance.actual_instance = GitlabSelfHosted.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into Google
+        try:
+            instance.actual_instance = Google.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into Jwt
+        try:
+            instance.actual_instance = Jwt.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into Ldap
+        try:
+            instance.actual_instance = Ldap.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into Oauth
+        try:
+            instance.actual_instance = Oauth.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into Oidc
+        try:
+            instance.actual_instance = Oidc.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into Saml
+        try:
+            instance.actual_instance = Saml.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+
+        if match > 1:
+            # more than 1 match
+            raise ValueError("Multiple matches found when deserializing the JSON string into IdentityProviderServiceIDPConfig with oneOf schemas: Apple, AzureAd, Github, GithubEs, Gitlab, GitlabSelfHosted, Google, Jwt, Ldap, Oauth, Oidc, Saml. Details: " + ", ".join(error_messages))
+        elif match == 0:
+            # no match
+            raise ValueError("No match found when deserializing the JSON string into IdentityProviderServiceIDPConfig with oneOf schemas: Apple, AzureAd, Github, GithubEs, Gitlab, GitlabSelfHosted, Google, Jwt, Ldap, Oauth, Oidc, Saml. Details: " + ", ".join(error_messages))
+        else:
+            return instance
 
     def to_json(self) -> str:
-        """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        """Returns the JSON representation of the actual instance"""
+        if self.actual_instance is None:
+            return "null"
 
-    @classmethod
-    def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of IdentityProviderServiceIDPConfig from a JSON string"""
-        return cls.from_dict(json.loads(json_str))
+        if hasattr(self.actual_instance, "to_json") and callable(self.actual_instance.to_json):
+            return self.actual_instance.to_json()
+        else:
+            return json.dumps(self.actual_instance)
 
-    def to_dict(self) -> Dict[str, Any]:
-        """Return the dictionary representation of the model using alias.
-
-        This has the following differences from calling pydantic's
-        `self.model_dump(by_alias=True)`:
-
-        * `None` is only added to the output dict for nullable fields that
-          were set at model initialization. Other fields with value `None`
-          are ignored.
-        """
-        excluded_fields: Set[str] = set([
-        ])
-
-        _dict = self.model_dump(
-            by_alias=True,
-            exclude=excluded_fields,
-            exclude_none=True,
-        )
-        return _dict
-
-    @classmethod
-    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of IdentityProviderServiceIDPConfig from a dict"""
-        if obj is None:
+    def to_dict(self) -> Optional[Union[Dict[str, Any], Apple, AzureAd, Github, GithubEs, Gitlab, GitlabSelfHosted, Google, Jwt, Ldap, Oauth, Oidc, Saml]]:
+        """Returns the dict representation of the actual instance"""
+        if self.actual_instance is None:
             return None
 
-        if not isinstance(obj, dict):
-            return cls.model_validate(obj)
+        if hasattr(self.actual_instance, "to_dict") and callable(self.actual_instance.to_dict):
+            return self.actual_instance.to_dict()
+        else:
+            # primitive type
+            return self.actual_instance
 
-        _obj = cls.model_validate({
-            "options": IdentityProviderServiceOptions.from_dict(obj["options"]) if obj.get("options") is not None else None,
-            "ldap": IdentityProviderServiceLDAPConfig.from_dict(obj["ldap"]) if obj.get("ldap") is not None else None,
-            "google": IdentityProviderServiceGoogleConfig.from_dict(obj["google"]) if obj.get("google") is not None else None,
-            "oauth": IdentityProviderServiceOAuthConfig.from_dict(obj["oauth"]) if obj.get("oauth") is not None else None,
-            "oidc": IdentityProviderServiceGenericOIDCConfig.from_dict(obj["oidc"]) if obj.get("oidc") is not None else None,
-            "jwt": IdentityProviderServiceJWTConfig.from_dict(obj["jwt"]) if obj.get("jwt") is not None else None,
-            "github": IdentityProviderServiceGitHubConfig.from_dict(obj["github"]) if obj.get("github") is not None else None,
-            "githubEs": IdentityProviderServiceGitHubEnterpriseServerConfig.from_dict(obj["githubEs"]) if obj.get("githubEs") is not None else None,
-            "gitlab": IdentityProviderServiceGitLabConfig.from_dict(obj["gitlab"]) if obj.get("gitlab") is not None else None,
-            "gitlabSelfHosted": IdentityProviderServiceGitLabSelfHostedConfig.from_dict(obj["gitlabSelfHosted"]) if obj.get("gitlabSelfHosted") is not None else None,
-            "azureAd": IdentityProviderServiceAzureADConfig.from_dict(obj["azureAd"]) if obj.get("azureAd") is not None else None,
-            "apple": IdentityProviderServiceAppleConfig.from_dict(obj["apple"]) if obj.get("apple") is not None else None,
-            "saml": IdentityProviderServiceSAMLConfig.from_dict(obj["saml"]) if obj.get("saml") is not None else None
-        })
-        return _obj
+    def to_str(self) -> str:
+        """Returns the string representation of the actual instance"""
+        return pprint.pformat(self.model_dump())
 
 

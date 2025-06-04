@@ -20,8 +20,8 @@ import json
 from pydantic import BaseModel, ConfigDict, Field
 from typing import Any, ClassVar, Dict, List, Optional
 from zitadel_client.models.organization_service_list_details import OrganizationServiceListDetails
+from zitadel_client.models.organization_service_organization import OrganizationServiceOrganization
 from zitadel_client.models.organization_service_organization_field_name import OrganizationServiceOrganizationFieldName
-from zitadel_client.models.zitadelorgv2_organization import Zitadelorgv2Organization
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -30,8 +30,8 @@ class OrganizationServiceListOrganizationsResponse(BaseModel):
     OrganizationServiceListOrganizationsResponse
     """ # noqa: E501
     details: Optional[OrganizationServiceListDetails] = None
-    sorting_column: Optional[OrganizationServiceOrganizationFieldName] = Field(default=OrganizationServiceOrganizationFieldName.ORGANIZATION_FIELD_NAME_UNSPECIFIED, alias="sortingColumn")
-    result: Optional[List[Zitadelorgv2Organization]] = None
+    sorting_column: Optional[OrganizationServiceOrganizationFieldName] = Field(default=None, alias="sortingColumn")
+    result: Optional[List[OrganizationServiceOrganization]] = None
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -95,8 +95,8 @@ class OrganizationServiceListOrganizationsResponse(BaseModel):
 
         _obj = cls.model_validate({
             "details": OrganizationServiceListDetails.from_dict(obj["details"]) if obj.get("details") is not None else None,
-            "sortingColumn": obj.get("sortingColumn") if obj.get("sortingColumn") is not None else OrganizationServiceOrganizationFieldName.ORGANIZATION_FIELD_NAME_UNSPECIFIED,
-            "result": [Zitadelorgv2Organization.from_dict(_item) for _item in obj["result"]] if obj.get("result") is not None else None
+            "sortingColumn": obj.get("sortingColumn"),
+            "result": [OrganizationServiceOrganization.from_dict(_item) for _item in obj["result"]] if obj.get("result") is not None else None
         })
         return _obj
 

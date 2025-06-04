@@ -17,10 +17,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
-from zitadel_client.models.organization_service_add_organization_request_admin import OrganizationServiceAddOrganizationRequestAdmin
+from zitadel_client.models.organization_service_admin import OrganizationServiceAdmin
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -28,8 +27,8 @@ class OrganizationServiceAddOrganizationRequest(BaseModel):
     """
     OrganizationServiceAddOrganizationRequest
     """ # noqa: E501
-    name: Annotated[str, Field(min_length=1, strict=True, max_length=200)]
-    admins: Optional[List[OrganizationServiceAddOrganizationRequestAdmin]] = None
+    name: StrictStr
+    admins: Optional[List[OrganizationServiceAdmin]] = None
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -90,7 +89,7 @@ class OrganizationServiceAddOrganizationRequest(BaseModel):
 
         _obj = cls.model_validate({
             "name": obj.get("name"),
-            "admins": [OrganizationServiceAddOrganizationRequestAdmin.from_dict(_item) for _item in obj["admins"]] if obj.get("admins") is not None else None
+            "admins": [OrganizationServiceAdmin.from_dict(_item) for _item in obj["admins"]] if obj.get("admins") is not None else None
         })
         return _obj
 

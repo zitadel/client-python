@@ -17,9 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List
-from typing_extensions import Annotated
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,7 +26,7 @@ class OrganizationServiceOrganizationIDQuery(BaseModel):
     """
     OrganizationServiceOrganizationIDQuery
     """ # noqa: E501
-    id: Annotated[str, Field(min_length=1, strict=True, max_length=200)] = Field(description="Unique identifier of the organization.")
+    id: StrictStr = Field(description="Unique identifier of the organization.")
 
     model_config = ConfigDict(
         populate_by_name=True,

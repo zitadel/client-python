@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.feature_service_details import FeatureServiceDetails
 from zitadel_client.models.feature_service_feature_flag import FeatureServiceFeatureFlag
 from zitadel_client.models.feature_service_improved_performance_feature_flag import FeatureServiceImprovedPerformanceFeatureFlag

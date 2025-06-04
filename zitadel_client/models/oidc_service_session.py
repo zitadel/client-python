@@ -17,9 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,8 +26,8 @@ class OIDCServiceSession(BaseModel):
     """
     OIDCServiceSession
     """ # noqa: E501
-    session_id: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]] = Field(default=None, description="ID of the session, used to login the user. Connects the session to the Auth Request.", alias="sessionId")
-    session_token: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]] = Field(default=None, description="Token to verify the session is valid", alias="sessionToken")
+    session_id: Optional[StrictStr] = Field(default=None, alias="sessionId")
+    session_token: Optional[StrictStr] = Field(default=None, alias="sessionToken")
 
     model_config = ConfigDict(
         populate_by_name=True,

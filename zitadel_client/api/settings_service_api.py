@@ -16,16 +16,23 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import StrictBool, StrictStr
-from typing import Optional
+from typing import Any, Dict
+from zitadel_client.models.settings_service_get_active_identity_providers_request import SettingsServiceGetActiveIdentityProvidersRequest
 from zitadel_client.models.settings_service_get_active_identity_providers_response import SettingsServiceGetActiveIdentityProvidersResponse
+from zitadel_client.models.settings_service_get_branding_settings_request import SettingsServiceGetBrandingSettingsRequest
 from zitadel_client.models.settings_service_get_branding_settings_response import SettingsServiceGetBrandingSettingsResponse
+from zitadel_client.models.settings_service_get_domain_settings_request import SettingsServiceGetDomainSettingsRequest
 from zitadel_client.models.settings_service_get_domain_settings_response import SettingsServiceGetDomainSettingsResponse
 from zitadel_client.models.settings_service_get_general_settings_response import SettingsServiceGetGeneralSettingsResponse
+from zitadel_client.models.settings_service_get_legal_and_support_settings_request import SettingsServiceGetLegalAndSupportSettingsRequest
 from zitadel_client.models.settings_service_get_legal_and_support_settings_response import SettingsServiceGetLegalAndSupportSettingsResponse
+from zitadel_client.models.settings_service_get_lockout_settings_request import SettingsServiceGetLockoutSettingsRequest
 from zitadel_client.models.settings_service_get_lockout_settings_response import SettingsServiceGetLockoutSettingsResponse
+from zitadel_client.models.settings_service_get_login_settings_request import SettingsServiceGetLoginSettingsRequest
 from zitadel_client.models.settings_service_get_login_settings_response import SettingsServiceGetLoginSettingsResponse
+from zitadel_client.models.settings_service_get_password_complexity_settings_request import SettingsServiceGetPasswordComplexitySettingsRequest
 from zitadel_client.models.settings_service_get_password_complexity_settings_response import SettingsServiceGetPasswordComplexitySettingsResponse
+from zitadel_client.models.settings_service_get_password_expiry_settings_request import SettingsServiceGetPasswordExpirySettingsRequest
 from zitadel_client.models.settings_service_get_password_expiry_settings_response import SettingsServiceGetPasswordExpirySettingsResponse
 from zitadel_client.models.settings_service_get_security_settings_response import SettingsServiceGetSecuritySettingsResponse
 from zitadel_client.models.settings_service_set_security_settings_request import SettingsServiceSetSecuritySettingsRequest
@@ -50,14 +57,9 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_get_active_identity_providers(
+    def get_active_identity_providers(
         self,
-        ctx_org_id: Optional[StrictStr] = None,
-        ctx_instance: Optional[StrictBool] = None,
-        creation_allowed: Optional[StrictBool] = None,
-        linking_allowed: Optional[StrictBool] = None,
-        auto_creation: Optional[StrictBool] = None,
-        auto_linking: Optional[StrictBool] = None,
+        settings_service_get_active_identity_providers_request: SettingsServiceGetActiveIdentityProvidersRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -71,22 +73,12 @@ class SettingsServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> SettingsServiceGetActiveIdentityProvidersResponse:
-        """Get the current active identity providers
+        """GetActiveIdentityProviders
 
-        Return the current active identity providers for the requested context
+        Get the current active identity providers
 
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
-        :param creation_allowed:
-        :type creation_allowed: bool
-        :param linking_allowed:
-        :type linking_allowed: bool
-        :param auto_creation:
-        :type auto_creation: bool
-        :param auto_linking:
-        :type auto_linking: bool
+        :param settings_service_get_active_identity_providers_request: (required)
+        :type settings_service_get_active_identity_providers_request: SettingsServiceGetActiveIdentityProvidersRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -109,13 +101,8 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_get_active_identity_providers_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
-            creation_allowed=creation_allowed,
-            linking_allowed=linking_allowed,
-            auto_creation=auto_creation,
-            auto_linking=auto_linking,
+        _param = self._get_active_identity_providers_serialize(
+            settings_service_get_active_identity_providers_request=settings_service_get_active_identity_providers_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -124,8 +111,6 @@ class SettingsServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SettingsServiceGetActiveIdentityProvidersResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -139,14 +124,9 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_get_active_identity_providers_with_http_info(
+    def get_active_identity_providers_with_http_info(
         self,
-        ctx_org_id: Optional[StrictStr] = None,
-        ctx_instance: Optional[StrictBool] = None,
-        creation_allowed: Optional[StrictBool] = None,
-        linking_allowed: Optional[StrictBool] = None,
-        auto_creation: Optional[StrictBool] = None,
-        auto_linking: Optional[StrictBool] = None,
+        settings_service_get_active_identity_providers_request: SettingsServiceGetActiveIdentityProvidersRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -160,22 +140,12 @@ class SettingsServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[SettingsServiceGetActiveIdentityProvidersResponse]:
-        """Get the current active identity providers
+        """GetActiveIdentityProviders
 
-        Return the current active identity providers for the requested context
+        Get the current active identity providers
 
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
-        :param creation_allowed:
-        :type creation_allowed: bool
-        :param linking_allowed:
-        :type linking_allowed: bool
-        :param auto_creation:
-        :type auto_creation: bool
-        :param auto_linking:
-        :type auto_linking: bool
+        :param settings_service_get_active_identity_providers_request: (required)
+        :type settings_service_get_active_identity_providers_request: SettingsServiceGetActiveIdentityProvidersRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -198,13 +168,8 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_get_active_identity_providers_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
-            creation_allowed=creation_allowed,
-            linking_allowed=linking_allowed,
-            auto_creation=auto_creation,
-            auto_linking=auto_linking,
+        _param = self._get_active_identity_providers_serialize(
+            settings_service_get_active_identity_providers_request=settings_service_get_active_identity_providers_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -213,8 +178,6 @@ class SettingsServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SettingsServiceGetActiveIdentityProvidersResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -228,14 +191,9 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_get_active_identity_providers_without_preload_content(
+    def get_active_identity_providers_without_preload_content(
         self,
-        ctx_org_id: Optional[StrictStr] = None,
-        ctx_instance: Optional[StrictBool] = None,
-        creation_allowed: Optional[StrictBool] = None,
-        linking_allowed: Optional[StrictBool] = None,
-        auto_creation: Optional[StrictBool] = None,
-        auto_linking: Optional[StrictBool] = None,
+        settings_service_get_active_identity_providers_request: SettingsServiceGetActiveIdentityProvidersRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -249,22 +207,12 @@ class SettingsServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get the current active identity providers
+        """GetActiveIdentityProviders
 
-        Return the current active identity providers for the requested context
+        Get the current active identity providers
 
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
-        :param creation_allowed:
-        :type creation_allowed: bool
-        :param linking_allowed:
-        :type linking_allowed: bool
-        :param auto_creation:
-        :type auto_creation: bool
-        :param auto_linking:
-        :type auto_linking: bool
+        :param settings_service_get_active_identity_providers_request: (required)
+        :type settings_service_get_active_identity_providers_request: SettingsServiceGetActiveIdentityProvidersRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -287,13 +235,8 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_get_active_identity_providers_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
-            creation_allowed=creation_allowed,
-            linking_allowed=linking_allowed,
-            auto_creation=auto_creation,
-            auto_linking=auto_linking,
+        _param = self._get_active_identity_providers_serialize(
+            settings_service_get_active_identity_providers_request=settings_service_get_active_identity_providers_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -302,8 +245,6 @@ class SettingsServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SettingsServiceGetActiveIdentityProvidersResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -312,14 +253,9 @@ class SettingsServiceApi:
         return response_data.response
 
 
-    def _settings_service_get_active_identity_providers_serialize(
+    def _get_active_identity_providers_serialize(
         self,
-        ctx_org_id,
-        ctx_instance,
-        creation_allowed,
-        linking_allowed,
-        auto_creation,
-        auto_linking,
+        settings_service_get_active_identity_providers_request,
         _request_auth,
         _content_type,
         _headers,
@@ -342,33 +278,11 @@ class SettingsServiceApi:
 
         # process the path parameters
         # process the query parameters
-        if ctx_org_id is not None:
-            
-            _query_params.append(('ctx.orgId', ctx_org_id))
-            
-        if ctx_instance is not None:
-            
-            _query_params.append(('ctx.instance', ctx_instance))
-            
-        if creation_allowed is not None:
-            
-            _query_params.append(('creationAllowed', creation_allowed))
-            
-        if linking_allowed is not None:
-            
-            _query_params.append(('linkingAllowed', linking_allowed))
-            
-        if auto_creation is not None:
-            
-            _query_params.append(('autoCreation', auto_creation))
-            
-        if auto_linking is not None:
-            
-            _query_params.append(('autoLinking', auto_linking))
-            
         # process the header parameters
         # process the form parameters
         # process the body parameter
+        if settings_service_get_active_identity_providers_request is not None:
+            _body_params = settings_service_get_active_identity_providers_request
 
 
         # set the HTTP header `Accept`
@@ -379,6 +293,19 @@ class SettingsServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -386,8 +313,8 @@ class SettingsServiceApi:
         ]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/v2/settings/login/idps',
+            method='POST',
+            resource_path='/zitadel.settings.v2.SettingsService/GetActiveIdentityProviders',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -404,10 +331,9 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_get_branding_settings(
+    def get_branding_settings(
         self,
-        ctx_org_id: Optional[StrictStr] = None,
-        ctx_instance: Optional[StrictBool] = None,
+        settings_service_get_branding_settings_request: SettingsServiceGetBrandingSettingsRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -421,14 +347,12 @@ class SettingsServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> SettingsServiceGetBrandingSettingsResponse:
-        """Get the current active branding settings
+        """GetBrandingSettings
 
-        Return the current active branding settings for the requested context
+        Get the current active branding settings
 
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
+        :param settings_service_get_branding_settings_request: (required)
+        :type settings_service_get_branding_settings_request: SettingsServiceGetBrandingSettingsRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -451,9 +375,8 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_get_branding_settings_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
+        _param = self._get_branding_settings_serialize(
+            settings_service_get_branding_settings_request=settings_service_get_branding_settings_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -462,8 +385,6 @@ class SettingsServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SettingsServiceGetBrandingSettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -477,10 +398,9 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_get_branding_settings_with_http_info(
+    def get_branding_settings_with_http_info(
         self,
-        ctx_org_id: Optional[StrictStr] = None,
-        ctx_instance: Optional[StrictBool] = None,
+        settings_service_get_branding_settings_request: SettingsServiceGetBrandingSettingsRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -494,14 +414,12 @@ class SettingsServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[SettingsServiceGetBrandingSettingsResponse]:
-        """Get the current active branding settings
+        """GetBrandingSettings
 
-        Return the current active branding settings for the requested context
+        Get the current active branding settings
 
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
+        :param settings_service_get_branding_settings_request: (required)
+        :type settings_service_get_branding_settings_request: SettingsServiceGetBrandingSettingsRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -524,9 +442,8 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_get_branding_settings_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
+        _param = self._get_branding_settings_serialize(
+            settings_service_get_branding_settings_request=settings_service_get_branding_settings_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -535,8 +452,6 @@ class SettingsServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SettingsServiceGetBrandingSettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -550,10 +465,9 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_get_branding_settings_without_preload_content(
+    def get_branding_settings_without_preload_content(
         self,
-        ctx_org_id: Optional[StrictStr] = None,
-        ctx_instance: Optional[StrictBool] = None,
+        settings_service_get_branding_settings_request: SettingsServiceGetBrandingSettingsRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -567,14 +481,12 @@ class SettingsServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get the current active branding settings
+        """GetBrandingSettings
 
-        Return the current active branding settings for the requested context
+        Get the current active branding settings
 
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
+        :param settings_service_get_branding_settings_request: (required)
+        :type settings_service_get_branding_settings_request: SettingsServiceGetBrandingSettingsRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -597,9 +509,8 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_get_branding_settings_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
+        _param = self._get_branding_settings_serialize(
+            settings_service_get_branding_settings_request=settings_service_get_branding_settings_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -608,8 +519,6 @@ class SettingsServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SettingsServiceGetBrandingSettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -618,10 +527,9 @@ class SettingsServiceApi:
         return response_data.response
 
 
-    def _settings_service_get_branding_settings_serialize(
+    def _get_branding_settings_serialize(
         self,
-        ctx_org_id,
-        ctx_instance,
+        settings_service_get_branding_settings_request,
         _request_auth,
         _content_type,
         _headers,
@@ -644,17 +552,11 @@ class SettingsServiceApi:
 
         # process the path parameters
         # process the query parameters
-        if ctx_org_id is not None:
-            
-            _query_params.append(('ctx.orgId', ctx_org_id))
-            
-        if ctx_instance is not None:
-            
-            _query_params.append(('ctx.instance', ctx_instance))
-            
         # process the header parameters
         # process the form parameters
         # process the body parameter
+        if settings_service_get_branding_settings_request is not None:
+            _body_params = settings_service_get_branding_settings_request
 
 
         # set the HTTP header `Accept`
@@ -665,6 +567,19 @@ class SettingsServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -672,8 +587,8 @@ class SettingsServiceApi:
         ]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/v2/settings/branding',
+            method='POST',
+            resource_path='/zitadel.settings.v2.SettingsService/GetBrandingSettings',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -690,10 +605,9 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_get_domain_settings(
+    def get_domain_settings(
         self,
-        ctx_org_id: Optional[StrictStr] = None,
-        ctx_instance: Optional[StrictBool] = None,
+        settings_service_get_domain_settings_request: SettingsServiceGetDomainSettingsRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -707,14 +621,12 @@ class SettingsServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> SettingsServiceGetDomainSettingsResponse:
-        """Get the domain settings
+        """GetDomainSettings
 
-        Return the domain settings for the requested context
+        Get the domain settings
 
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
+        :param settings_service_get_domain_settings_request: (required)
+        :type settings_service_get_domain_settings_request: SettingsServiceGetDomainSettingsRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -737,9 +649,8 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_get_domain_settings_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
+        _param = self._get_domain_settings_serialize(
+            settings_service_get_domain_settings_request=settings_service_get_domain_settings_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -748,8 +659,6 @@ class SettingsServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SettingsServiceGetDomainSettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -763,10 +672,9 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_get_domain_settings_with_http_info(
+    def get_domain_settings_with_http_info(
         self,
-        ctx_org_id: Optional[StrictStr] = None,
-        ctx_instance: Optional[StrictBool] = None,
+        settings_service_get_domain_settings_request: SettingsServiceGetDomainSettingsRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -780,14 +688,12 @@ class SettingsServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[SettingsServiceGetDomainSettingsResponse]:
-        """Get the domain settings
+        """GetDomainSettings
 
-        Return the domain settings for the requested context
+        Get the domain settings
 
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
+        :param settings_service_get_domain_settings_request: (required)
+        :type settings_service_get_domain_settings_request: SettingsServiceGetDomainSettingsRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -810,9 +716,8 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_get_domain_settings_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
+        _param = self._get_domain_settings_serialize(
+            settings_service_get_domain_settings_request=settings_service_get_domain_settings_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -821,8 +726,6 @@ class SettingsServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SettingsServiceGetDomainSettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -836,10 +739,9 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_get_domain_settings_without_preload_content(
+    def get_domain_settings_without_preload_content(
         self,
-        ctx_org_id: Optional[StrictStr] = None,
-        ctx_instance: Optional[StrictBool] = None,
+        settings_service_get_domain_settings_request: SettingsServiceGetDomainSettingsRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -853,14 +755,12 @@ class SettingsServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get the domain settings
+        """GetDomainSettings
 
-        Return the domain settings for the requested context
+        Get the domain settings
 
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
+        :param settings_service_get_domain_settings_request: (required)
+        :type settings_service_get_domain_settings_request: SettingsServiceGetDomainSettingsRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -883,9 +783,8 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_get_domain_settings_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
+        _param = self._get_domain_settings_serialize(
+            settings_service_get_domain_settings_request=settings_service_get_domain_settings_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -894,8 +793,6 @@ class SettingsServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SettingsServiceGetDomainSettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -904,10 +801,9 @@ class SettingsServiceApi:
         return response_data.response
 
 
-    def _settings_service_get_domain_settings_serialize(
+    def _get_domain_settings_serialize(
         self,
-        ctx_org_id,
-        ctx_instance,
+        settings_service_get_domain_settings_request,
         _request_auth,
         _content_type,
         _headers,
@@ -930,17 +826,11 @@ class SettingsServiceApi:
 
         # process the path parameters
         # process the query parameters
-        if ctx_org_id is not None:
-            
-            _query_params.append(('ctx.orgId', ctx_org_id))
-            
-        if ctx_instance is not None:
-            
-            _query_params.append(('ctx.instance', ctx_instance))
-            
         # process the header parameters
         # process the form parameters
         # process the body parameter
+        if settings_service_get_domain_settings_request is not None:
+            _body_params = settings_service_get_domain_settings_request
 
 
         # set the HTTP header `Accept`
@@ -951,6 +841,19 @@ class SettingsServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -958,8 +861,8 @@ class SettingsServiceApi:
         ]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/v2/settings/domain',
+            method='POST',
+            resource_path='/zitadel.settings.v2.SettingsService/GetDomainSettings',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -976,8 +879,9 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_get_general_settings(
+    def get_general_settings(
         self,
+        body: Dict[str, Any],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -991,10 +895,12 @@ class SettingsServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> SettingsServiceGetGeneralSettingsResponse:
-        """Get basic information over the instance
+        """GetGeneralSettings
 
-        Return the basic information of the instance for the requested context
+        Get basic information over the instance
 
+        :param body: (required)
+        :type body: object
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1017,7 +923,8 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_get_general_settings_serialize(
+        _param = self._get_general_settings_serialize(
+            body=body,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1026,8 +933,6 @@ class SettingsServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SettingsServiceGetGeneralSettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1041,8 +946,9 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_get_general_settings_with_http_info(
+    def get_general_settings_with_http_info(
         self,
+        body: Dict[str, Any],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1056,10 +962,12 @@ class SettingsServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[SettingsServiceGetGeneralSettingsResponse]:
-        """Get basic information over the instance
+        """GetGeneralSettings
 
-        Return the basic information of the instance for the requested context
+        Get basic information over the instance
 
+        :param body: (required)
+        :type body: object
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1082,7 +990,8 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_get_general_settings_serialize(
+        _param = self._get_general_settings_serialize(
+            body=body,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1091,8 +1000,6 @@ class SettingsServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SettingsServiceGetGeneralSettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1106,8 +1013,9 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_get_general_settings_without_preload_content(
+    def get_general_settings_without_preload_content(
         self,
+        body: Dict[str, Any],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1121,10 +1029,12 @@ class SettingsServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get basic information over the instance
+        """GetGeneralSettings
 
-        Return the basic information of the instance for the requested context
+        Get basic information over the instance
 
+        :param body: (required)
+        :type body: object
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1147,7 +1057,8 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_get_general_settings_serialize(
+        _param = self._get_general_settings_serialize(
+            body=body,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1156,8 +1067,6 @@ class SettingsServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SettingsServiceGetGeneralSettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1166,8 +1075,9 @@ class SettingsServiceApi:
         return response_data.response
 
 
-    def _settings_service_get_general_settings_serialize(
+    def _get_general_settings_serialize(
         self,
+        body,
         _request_auth,
         _content_type,
         _headers,
@@ -1193,6 +1103,8 @@ class SettingsServiceApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+        if body is not None:
+            _body_params = body
 
 
         # set the HTTP header `Accept`
@@ -1203,6 +1115,19 @@ class SettingsServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -1210,8 +1135,8 @@ class SettingsServiceApi:
         ]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/v2/settings',
+            method='POST',
+            resource_path='/zitadel.settings.v2.SettingsService/GetGeneralSettings',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -1228,10 +1153,9 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_get_legal_and_support_settings(
+    def get_legal_and_support_settings(
         self,
-        ctx_org_id: Optional[StrictStr] = None,
-        ctx_instance: Optional[StrictBool] = None,
+        settings_service_get_legal_and_support_settings_request: SettingsServiceGetLegalAndSupportSettingsRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1245,14 +1169,12 @@ class SettingsServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> SettingsServiceGetLegalAndSupportSettingsResponse:
-        """Get the legal and support settings
+        """GetLegalAndSupportSettings
 
-        Return the legal settings for the requested context
+        Get the legal and support settings
 
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
+        :param settings_service_get_legal_and_support_settings_request: (required)
+        :type settings_service_get_legal_and_support_settings_request: SettingsServiceGetLegalAndSupportSettingsRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1275,9 +1197,8 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_get_legal_and_support_settings_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
+        _param = self._get_legal_and_support_settings_serialize(
+            settings_service_get_legal_and_support_settings_request=settings_service_get_legal_and_support_settings_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1286,8 +1207,6 @@ class SettingsServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SettingsServiceGetLegalAndSupportSettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1301,10 +1220,9 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_get_legal_and_support_settings_with_http_info(
+    def get_legal_and_support_settings_with_http_info(
         self,
-        ctx_org_id: Optional[StrictStr] = None,
-        ctx_instance: Optional[StrictBool] = None,
+        settings_service_get_legal_and_support_settings_request: SettingsServiceGetLegalAndSupportSettingsRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1318,14 +1236,12 @@ class SettingsServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[SettingsServiceGetLegalAndSupportSettingsResponse]:
-        """Get the legal and support settings
+        """GetLegalAndSupportSettings
 
-        Return the legal settings for the requested context
+        Get the legal and support settings
 
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
+        :param settings_service_get_legal_and_support_settings_request: (required)
+        :type settings_service_get_legal_and_support_settings_request: SettingsServiceGetLegalAndSupportSettingsRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1348,9 +1264,8 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_get_legal_and_support_settings_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
+        _param = self._get_legal_and_support_settings_serialize(
+            settings_service_get_legal_and_support_settings_request=settings_service_get_legal_and_support_settings_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1359,8 +1274,6 @@ class SettingsServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SettingsServiceGetLegalAndSupportSettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1374,10 +1287,9 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_get_legal_and_support_settings_without_preload_content(
+    def get_legal_and_support_settings_without_preload_content(
         self,
-        ctx_org_id: Optional[StrictStr] = None,
-        ctx_instance: Optional[StrictBool] = None,
+        settings_service_get_legal_and_support_settings_request: SettingsServiceGetLegalAndSupportSettingsRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1391,14 +1303,12 @@ class SettingsServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get the legal and support settings
+        """GetLegalAndSupportSettings
 
-        Return the legal settings for the requested context
+        Get the legal and support settings
 
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
+        :param settings_service_get_legal_and_support_settings_request: (required)
+        :type settings_service_get_legal_and_support_settings_request: SettingsServiceGetLegalAndSupportSettingsRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1421,9 +1331,8 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_get_legal_and_support_settings_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
+        _param = self._get_legal_and_support_settings_serialize(
+            settings_service_get_legal_and_support_settings_request=settings_service_get_legal_and_support_settings_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1432,8 +1341,6 @@ class SettingsServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SettingsServiceGetLegalAndSupportSettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1442,10 +1349,9 @@ class SettingsServiceApi:
         return response_data.response
 
 
-    def _settings_service_get_legal_and_support_settings_serialize(
+    def _get_legal_and_support_settings_serialize(
         self,
-        ctx_org_id,
-        ctx_instance,
+        settings_service_get_legal_and_support_settings_request,
         _request_auth,
         _content_type,
         _headers,
@@ -1468,17 +1374,11 @@ class SettingsServiceApi:
 
         # process the path parameters
         # process the query parameters
-        if ctx_org_id is not None:
-            
-            _query_params.append(('ctx.orgId', ctx_org_id))
-            
-        if ctx_instance is not None:
-            
-            _query_params.append(('ctx.instance', ctx_instance))
-            
         # process the header parameters
         # process the form parameters
         # process the body parameter
+        if settings_service_get_legal_and_support_settings_request is not None:
+            _body_params = settings_service_get_legal_and_support_settings_request
 
 
         # set the HTTP header `Accept`
@@ -1489,6 +1389,19 @@ class SettingsServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -1496,8 +1409,8 @@ class SettingsServiceApi:
         ]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/v2/settings/legal_support',
+            method='POST',
+            resource_path='/zitadel.settings.v2.SettingsService/GetLegalAndSupportSettings',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -1514,10 +1427,9 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_get_lockout_settings(
+    def get_lockout_settings(
         self,
-        ctx_org_id: Optional[StrictStr] = None,
-        ctx_instance: Optional[StrictBool] = None,
+        settings_service_get_lockout_settings_request: SettingsServiceGetLockoutSettingsRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1531,14 +1443,12 @@ class SettingsServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> SettingsServiceGetLockoutSettingsResponse:
-        """Get the lockout settings
+        """GetLockoutSettings
 
-        Return the lockout settings for the requested context, which define when a user will be locked
+        Get the lockout settings
 
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
+        :param settings_service_get_lockout_settings_request: (required)
+        :type settings_service_get_lockout_settings_request: SettingsServiceGetLockoutSettingsRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1561,9 +1471,8 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_get_lockout_settings_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
+        _param = self._get_lockout_settings_serialize(
+            settings_service_get_lockout_settings_request=settings_service_get_lockout_settings_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1572,8 +1481,6 @@ class SettingsServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SettingsServiceGetLockoutSettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1587,10 +1494,9 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_get_lockout_settings_with_http_info(
+    def get_lockout_settings_with_http_info(
         self,
-        ctx_org_id: Optional[StrictStr] = None,
-        ctx_instance: Optional[StrictBool] = None,
+        settings_service_get_lockout_settings_request: SettingsServiceGetLockoutSettingsRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1604,14 +1510,12 @@ class SettingsServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[SettingsServiceGetLockoutSettingsResponse]:
-        """Get the lockout settings
+        """GetLockoutSettings
 
-        Return the lockout settings for the requested context, which define when a user will be locked
+        Get the lockout settings
 
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
+        :param settings_service_get_lockout_settings_request: (required)
+        :type settings_service_get_lockout_settings_request: SettingsServiceGetLockoutSettingsRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1634,9 +1538,8 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_get_lockout_settings_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
+        _param = self._get_lockout_settings_serialize(
+            settings_service_get_lockout_settings_request=settings_service_get_lockout_settings_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1645,8 +1548,6 @@ class SettingsServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SettingsServiceGetLockoutSettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1660,10 +1561,9 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_get_lockout_settings_without_preload_content(
+    def get_lockout_settings_without_preload_content(
         self,
-        ctx_org_id: Optional[StrictStr] = None,
-        ctx_instance: Optional[StrictBool] = None,
+        settings_service_get_lockout_settings_request: SettingsServiceGetLockoutSettingsRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1677,14 +1577,12 @@ class SettingsServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get the lockout settings
+        """GetLockoutSettings
 
-        Return the lockout settings for the requested context, which define when a user will be locked
+        Get the lockout settings
 
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
+        :param settings_service_get_lockout_settings_request: (required)
+        :type settings_service_get_lockout_settings_request: SettingsServiceGetLockoutSettingsRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1707,9 +1605,8 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_get_lockout_settings_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
+        _param = self._get_lockout_settings_serialize(
+            settings_service_get_lockout_settings_request=settings_service_get_lockout_settings_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1718,8 +1615,6 @@ class SettingsServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SettingsServiceGetLockoutSettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1728,10 +1623,9 @@ class SettingsServiceApi:
         return response_data.response
 
 
-    def _settings_service_get_lockout_settings_serialize(
+    def _get_lockout_settings_serialize(
         self,
-        ctx_org_id,
-        ctx_instance,
+        settings_service_get_lockout_settings_request,
         _request_auth,
         _content_type,
         _headers,
@@ -1754,17 +1648,11 @@ class SettingsServiceApi:
 
         # process the path parameters
         # process the query parameters
-        if ctx_org_id is not None:
-            
-            _query_params.append(('ctx.orgId', ctx_org_id))
-            
-        if ctx_instance is not None:
-            
-            _query_params.append(('ctx.instance', ctx_instance))
-            
         # process the header parameters
         # process the form parameters
         # process the body parameter
+        if settings_service_get_lockout_settings_request is not None:
+            _body_params = settings_service_get_lockout_settings_request
 
 
         # set the HTTP header `Accept`
@@ -1775,6 +1663,19 @@ class SettingsServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -1782,8 +1683,8 @@ class SettingsServiceApi:
         ]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/v2/settings/lockout',
+            method='POST',
+            resource_path='/zitadel.settings.v2.SettingsService/GetLockoutSettings',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -1800,10 +1701,9 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_get_login_settings(
+    def get_login_settings(
         self,
-        ctx_org_id: Optional[StrictStr] = None,
-        ctx_instance: Optional[StrictBool] = None,
+        settings_service_get_login_settings_request: SettingsServiceGetLoginSettingsRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1817,14 +1717,12 @@ class SettingsServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> SettingsServiceGetLoginSettingsResponse:
-        """Get the login settings
+        """GetLoginSettings
 
-        Return the settings for the requested context
+        Get the login settings
 
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
+        :param settings_service_get_login_settings_request: (required)
+        :type settings_service_get_login_settings_request: SettingsServiceGetLoginSettingsRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1847,9 +1745,8 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_get_login_settings_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
+        _param = self._get_login_settings_serialize(
+            settings_service_get_login_settings_request=settings_service_get_login_settings_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1858,8 +1755,6 @@ class SettingsServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SettingsServiceGetLoginSettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1873,10 +1768,9 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_get_login_settings_with_http_info(
+    def get_login_settings_with_http_info(
         self,
-        ctx_org_id: Optional[StrictStr] = None,
-        ctx_instance: Optional[StrictBool] = None,
+        settings_service_get_login_settings_request: SettingsServiceGetLoginSettingsRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1890,14 +1784,12 @@ class SettingsServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[SettingsServiceGetLoginSettingsResponse]:
-        """Get the login settings
+        """GetLoginSettings
 
-        Return the settings for the requested context
+        Get the login settings
 
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
+        :param settings_service_get_login_settings_request: (required)
+        :type settings_service_get_login_settings_request: SettingsServiceGetLoginSettingsRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1920,9 +1812,8 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_get_login_settings_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
+        _param = self._get_login_settings_serialize(
+            settings_service_get_login_settings_request=settings_service_get_login_settings_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1931,8 +1822,6 @@ class SettingsServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SettingsServiceGetLoginSettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1946,10 +1835,9 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_get_login_settings_without_preload_content(
+    def get_login_settings_without_preload_content(
         self,
-        ctx_org_id: Optional[StrictStr] = None,
-        ctx_instance: Optional[StrictBool] = None,
+        settings_service_get_login_settings_request: SettingsServiceGetLoginSettingsRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1963,14 +1851,12 @@ class SettingsServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get the login settings
+        """GetLoginSettings
 
-        Return the settings for the requested context
+        Get the login settings
 
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
+        :param settings_service_get_login_settings_request: (required)
+        :type settings_service_get_login_settings_request: SettingsServiceGetLoginSettingsRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1993,9 +1879,8 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_get_login_settings_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
+        _param = self._get_login_settings_serialize(
+            settings_service_get_login_settings_request=settings_service_get_login_settings_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2004,8 +1889,6 @@ class SettingsServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SettingsServiceGetLoginSettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2014,10 +1897,9 @@ class SettingsServiceApi:
         return response_data.response
 
 
-    def _settings_service_get_login_settings_serialize(
+    def _get_login_settings_serialize(
         self,
-        ctx_org_id,
-        ctx_instance,
+        settings_service_get_login_settings_request,
         _request_auth,
         _content_type,
         _headers,
@@ -2040,17 +1922,11 @@ class SettingsServiceApi:
 
         # process the path parameters
         # process the query parameters
-        if ctx_org_id is not None:
-            
-            _query_params.append(('ctx.orgId', ctx_org_id))
-            
-        if ctx_instance is not None:
-            
-            _query_params.append(('ctx.instance', ctx_instance))
-            
         # process the header parameters
         # process the form parameters
         # process the body parameter
+        if settings_service_get_login_settings_request is not None:
+            _body_params = settings_service_get_login_settings_request
 
 
         # set the HTTP header `Accept`
@@ -2061,6 +1937,19 @@ class SettingsServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -2068,8 +1957,8 @@ class SettingsServiceApi:
         ]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/v2/settings/login',
+            method='POST',
+            resource_path='/zitadel.settings.v2.SettingsService/GetLoginSettings',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -2086,10 +1975,9 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_get_password_complexity_settings(
+    def get_password_complexity_settings(
         self,
-        ctx_org_id: Optional[StrictStr] = None,
-        ctx_instance: Optional[StrictBool] = None,
+        settings_service_get_password_complexity_settings_request: SettingsServiceGetPasswordComplexitySettingsRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2103,14 +1991,12 @@ class SettingsServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> SettingsServiceGetPasswordComplexitySettingsResponse:
-        """Get the password complexity settings
+        """GetPasswordComplexitySettings
 
-        Return the password complexity settings for the requested context
+        Get the password complexity settings
 
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
+        :param settings_service_get_password_complexity_settings_request: (required)
+        :type settings_service_get_password_complexity_settings_request: SettingsServiceGetPasswordComplexitySettingsRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2133,9 +2019,8 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_get_password_complexity_settings_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
+        _param = self._get_password_complexity_settings_serialize(
+            settings_service_get_password_complexity_settings_request=settings_service_get_password_complexity_settings_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2144,8 +2029,6 @@ class SettingsServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SettingsServiceGetPasswordComplexitySettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2159,10 +2042,9 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_get_password_complexity_settings_with_http_info(
+    def get_password_complexity_settings_with_http_info(
         self,
-        ctx_org_id: Optional[StrictStr] = None,
-        ctx_instance: Optional[StrictBool] = None,
+        settings_service_get_password_complexity_settings_request: SettingsServiceGetPasswordComplexitySettingsRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2176,14 +2058,12 @@ class SettingsServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[SettingsServiceGetPasswordComplexitySettingsResponse]:
-        """Get the password complexity settings
+        """GetPasswordComplexitySettings
 
-        Return the password complexity settings for the requested context
+        Get the password complexity settings
 
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
+        :param settings_service_get_password_complexity_settings_request: (required)
+        :type settings_service_get_password_complexity_settings_request: SettingsServiceGetPasswordComplexitySettingsRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2206,9 +2086,8 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_get_password_complexity_settings_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
+        _param = self._get_password_complexity_settings_serialize(
+            settings_service_get_password_complexity_settings_request=settings_service_get_password_complexity_settings_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2217,8 +2096,6 @@ class SettingsServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SettingsServiceGetPasswordComplexitySettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2232,10 +2109,9 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_get_password_complexity_settings_without_preload_content(
+    def get_password_complexity_settings_without_preload_content(
         self,
-        ctx_org_id: Optional[StrictStr] = None,
-        ctx_instance: Optional[StrictBool] = None,
+        settings_service_get_password_complexity_settings_request: SettingsServiceGetPasswordComplexitySettingsRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2249,14 +2125,12 @@ class SettingsServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get the password complexity settings
+        """GetPasswordComplexitySettings
 
-        Return the password complexity settings for the requested context
+        Get the password complexity settings
 
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
+        :param settings_service_get_password_complexity_settings_request: (required)
+        :type settings_service_get_password_complexity_settings_request: SettingsServiceGetPasswordComplexitySettingsRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2279,9 +2153,8 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_get_password_complexity_settings_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
+        _param = self._get_password_complexity_settings_serialize(
+            settings_service_get_password_complexity_settings_request=settings_service_get_password_complexity_settings_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2290,8 +2163,6 @@ class SettingsServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SettingsServiceGetPasswordComplexitySettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2300,10 +2171,9 @@ class SettingsServiceApi:
         return response_data.response
 
 
-    def _settings_service_get_password_complexity_settings_serialize(
+    def _get_password_complexity_settings_serialize(
         self,
-        ctx_org_id,
-        ctx_instance,
+        settings_service_get_password_complexity_settings_request,
         _request_auth,
         _content_type,
         _headers,
@@ -2326,17 +2196,11 @@ class SettingsServiceApi:
 
         # process the path parameters
         # process the query parameters
-        if ctx_org_id is not None:
-            
-            _query_params.append(('ctx.orgId', ctx_org_id))
-            
-        if ctx_instance is not None:
-            
-            _query_params.append(('ctx.instance', ctx_instance))
-            
         # process the header parameters
         # process the form parameters
         # process the body parameter
+        if settings_service_get_password_complexity_settings_request is not None:
+            _body_params = settings_service_get_password_complexity_settings_request
 
 
         # set the HTTP header `Accept`
@@ -2347,6 +2211,19 @@ class SettingsServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -2354,8 +2231,8 @@ class SettingsServiceApi:
         ]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/v2/settings/password/complexity',
+            method='POST',
+            resource_path='/zitadel.settings.v2.SettingsService/GetPasswordComplexitySettings',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -2372,10 +2249,9 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_get_password_expiry_settings(
+    def get_password_expiry_settings(
         self,
-        ctx_org_id: Optional[StrictStr] = None,
-        ctx_instance: Optional[StrictBool] = None,
+        settings_service_get_password_expiry_settings_request: SettingsServiceGetPasswordExpirySettingsRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2389,14 +2265,12 @@ class SettingsServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> SettingsServiceGetPasswordExpirySettingsResponse:
-        """Get the password expiry settings
+        """GetPasswordExpirySettings
 
-        Return the password expiry settings for the requested context
+        Get the password expiry settings
 
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
+        :param settings_service_get_password_expiry_settings_request: (required)
+        :type settings_service_get_password_expiry_settings_request: SettingsServiceGetPasswordExpirySettingsRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2419,9 +2293,8 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_get_password_expiry_settings_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
+        _param = self._get_password_expiry_settings_serialize(
+            settings_service_get_password_expiry_settings_request=settings_service_get_password_expiry_settings_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2430,8 +2303,6 @@ class SettingsServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SettingsServiceGetPasswordExpirySettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2445,10 +2316,9 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_get_password_expiry_settings_with_http_info(
+    def get_password_expiry_settings_with_http_info(
         self,
-        ctx_org_id: Optional[StrictStr] = None,
-        ctx_instance: Optional[StrictBool] = None,
+        settings_service_get_password_expiry_settings_request: SettingsServiceGetPasswordExpirySettingsRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2462,14 +2332,12 @@ class SettingsServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[SettingsServiceGetPasswordExpirySettingsResponse]:
-        """Get the password expiry settings
+        """GetPasswordExpirySettings
 
-        Return the password expiry settings for the requested context
+        Get the password expiry settings
 
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
+        :param settings_service_get_password_expiry_settings_request: (required)
+        :type settings_service_get_password_expiry_settings_request: SettingsServiceGetPasswordExpirySettingsRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2492,9 +2360,8 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_get_password_expiry_settings_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
+        _param = self._get_password_expiry_settings_serialize(
+            settings_service_get_password_expiry_settings_request=settings_service_get_password_expiry_settings_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2503,8 +2370,6 @@ class SettingsServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SettingsServiceGetPasswordExpirySettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2518,10 +2383,9 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_get_password_expiry_settings_without_preload_content(
+    def get_password_expiry_settings_without_preload_content(
         self,
-        ctx_org_id: Optional[StrictStr] = None,
-        ctx_instance: Optional[StrictBool] = None,
+        settings_service_get_password_expiry_settings_request: SettingsServiceGetPasswordExpirySettingsRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2535,14 +2399,12 @@ class SettingsServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get the password expiry settings
+        """GetPasswordExpirySettings
 
-        Return the password expiry settings for the requested context
+        Get the password expiry settings
 
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
+        :param settings_service_get_password_expiry_settings_request: (required)
+        :type settings_service_get_password_expiry_settings_request: SettingsServiceGetPasswordExpirySettingsRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2565,9 +2427,8 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_get_password_expiry_settings_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
+        _param = self._get_password_expiry_settings_serialize(
+            settings_service_get_password_expiry_settings_request=settings_service_get_password_expiry_settings_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2576,8 +2437,6 @@ class SettingsServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SettingsServiceGetPasswordExpirySettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2586,10 +2445,9 @@ class SettingsServiceApi:
         return response_data.response
 
 
-    def _settings_service_get_password_expiry_settings_serialize(
+    def _get_password_expiry_settings_serialize(
         self,
-        ctx_org_id,
-        ctx_instance,
+        settings_service_get_password_expiry_settings_request,
         _request_auth,
         _content_type,
         _headers,
@@ -2612,17 +2470,11 @@ class SettingsServiceApi:
 
         # process the path parameters
         # process the query parameters
-        if ctx_org_id is not None:
-            
-            _query_params.append(('ctx.orgId', ctx_org_id))
-            
-        if ctx_instance is not None:
-            
-            _query_params.append(('ctx.instance', ctx_instance))
-            
         # process the header parameters
         # process the form parameters
         # process the body parameter
+        if settings_service_get_password_expiry_settings_request is not None:
+            _body_params = settings_service_get_password_expiry_settings_request
 
 
         # set the HTTP header `Accept`
@@ -2633,6 +2485,19 @@ class SettingsServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -2640,8 +2505,8 @@ class SettingsServiceApi:
         ]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/v2/settings/password/expiry',
+            method='POST',
+            resource_path='/zitadel.settings.v2.SettingsService/GetPasswordExpirySettings',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -2658,8 +2523,9 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_get_security_settings(
+    def get_security_settings(
         self,
+        body: Dict[str, Any],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2673,10 +2539,12 @@ class SettingsServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> SettingsServiceGetSecuritySettingsResponse:
-        """Get Security Settings
+        """GetSecuritySettings
 
-        Returns the security settings of the ZITADEL instance.
+        Get the security settings
 
+        :param body: (required)
+        :type body: object
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2699,7 +2567,8 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_get_security_settings_serialize(
+        _param = self._get_security_settings_serialize(
+            body=body,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2708,8 +2577,6 @@ class SettingsServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SettingsServiceGetSecuritySettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2723,8 +2590,9 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_get_security_settings_with_http_info(
+    def get_security_settings_with_http_info(
         self,
+        body: Dict[str, Any],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2738,10 +2606,12 @@ class SettingsServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[SettingsServiceGetSecuritySettingsResponse]:
-        """Get Security Settings
+        """GetSecuritySettings
 
-        Returns the security settings of the ZITADEL instance.
+        Get the security settings
 
+        :param body: (required)
+        :type body: object
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2764,7 +2634,8 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_get_security_settings_serialize(
+        _param = self._get_security_settings_serialize(
+            body=body,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2773,8 +2644,6 @@ class SettingsServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SettingsServiceGetSecuritySettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2788,8 +2657,9 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_get_security_settings_without_preload_content(
+    def get_security_settings_without_preload_content(
         self,
+        body: Dict[str, Any],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2803,10 +2673,12 @@ class SettingsServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get Security Settings
+        """GetSecuritySettings
 
-        Returns the security settings of the ZITADEL instance.
+        Get the security settings
 
+        :param body: (required)
+        :type body: object
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2829,7 +2701,8 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_get_security_settings_serialize(
+        _param = self._get_security_settings_serialize(
+            body=body,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2838,8 +2711,6 @@ class SettingsServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SettingsServiceGetSecuritySettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2848,8 +2719,9 @@ class SettingsServiceApi:
         return response_data.response
 
 
-    def _settings_service_get_security_settings_serialize(
+    def _get_security_settings_serialize(
         self,
+        body,
         _request_auth,
         _content_type,
         _headers,
@@ -2875,6 +2747,8 @@ class SettingsServiceApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+        if body is not None:
+            _body_params = body
 
 
         # set the HTTP header `Accept`
@@ -2885,6 +2759,19 @@ class SettingsServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -2892,8 +2779,8 @@ class SettingsServiceApi:
         ]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/v2/settings/security',
+            method='POST',
+            resource_path='/zitadel.settings.v2.SettingsService/GetSecuritySettings',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -2910,7 +2797,7 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_set_security_settings(
+    def set_security_settings(
         self,
         settings_service_set_security_settings_request: SettingsServiceSetSecuritySettingsRequest,
         _request_timeout: Union[
@@ -2926,9 +2813,9 @@ class SettingsServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> SettingsServiceSetSecuritySettingsResponse:
-        """Set Security Settings
+        """SetSecuritySettings
 
-        Set the security settings of the ZITADEL instance.
+        Set the security settings
 
         :param settings_service_set_security_settings_request: (required)
         :type settings_service_set_security_settings_request: SettingsServiceSetSecuritySettingsRequest
@@ -2954,7 +2841,7 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_set_security_settings_serialize(
+        _param = self._set_security_settings_serialize(
             settings_service_set_security_settings_request=settings_service_set_security_settings_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -2964,8 +2851,6 @@ class SettingsServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SettingsServiceSetSecuritySettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2979,7 +2864,7 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_set_security_settings_with_http_info(
+    def set_security_settings_with_http_info(
         self,
         settings_service_set_security_settings_request: SettingsServiceSetSecuritySettingsRequest,
         _request_timeout: Union[
@@ -2995,9 +2880,9 @@ class SettingsServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[SettingsServiceSetSecuritySettingsResponse]:
-        """Set Security Settings
+        """SetSecuritySettings
 
-        Set the security settings of the ZITADEL instance.
+        Set the security settings
 
         :param settings_service_set_security_settings_request: (required)
         :type settings_service_set_security_settings_request: SettingsServiceSetSecuritySettingsRequest
@@ -3023,7 +2908,7 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_set_security_settings_serialize(
+        _param = self._set_security_settings_serialize(
             settings_service_set_security_settings_request=settings_service_set_security_settings_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -3033,8 +2918,6 @@ class SettingsServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SettingsServiceSetSecuritySettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3048,7 +2931,7 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_set_security_settings_without_preload_content(
+    def set_security_settings_without_preload_content(
         self,
         settings_service_set_security_settings_request: SettingsServiceSetSecuritySettingsRequest,
         _request_timeout: Union[
@@ -3064,9 +2947,9 @@ class SettingsServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Set Security Settings
+        """SetSecuritySettings
 
-        Set the security settings of the ZITADEL instance.
+        Set the security settings
 
         :param settings_service_set_security_settings_request: (required)
         :type settings_service_set_security_settings_request: SettingsServiceSetSecuritySettingsRequest
@@ -3092,7 +2975,7 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_set_security_settings_serialize(
+        _param = self._set_security_settings_serialize(
             settings_service_set_security_settings_request=settings_service_set_security_settings_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -3102,8 +2985,6 @@ class SettingsServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SettingsServiceSetSecuritySettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3112,7 +2993,7 @@ class SettingsServiceApi:
         return response_data.response
 
 
-    def _settings_service_set_security_settings_serialize(
+    def _set_security_settings_serialize(
         self,
         settings_service_set_security_settings_request,
         _request_auth,
@@ -3172,8 +3053,8 @@ class SettingsServiceApi:
         ]
 
         return self.api_client.param_serialize(
-            method='PUT',
-            resource_path='/v2/policies/security',
+            method='POST',
+            resource_path='/zitadel.settings.v2.SettingsService/SetSecuritySettings',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

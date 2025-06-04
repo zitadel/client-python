@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.settings_service_identity_provider_type import SettingsServiceIdentityProviderType
 from zitadel_client.models.settings_service_options import SettingsServiceOptions
 from typing import Optional, Set
@@ -30,7 +30,7 @@ class SettingsServiceIdentityProvider(BaseModel):
     """ # noqa: E501
     id: Optional[StrictStr] = None
     name: Optional[StrictStr] = None
-    type: Optional[SettingsServiceIdentityProviderType] = SettingsServiceIdentityProviderType.IDENTITY_PROVIDER_TYPE_UNSPECIFIED
+    type: Optional[SettingsServiceIdentityProviderType] = None
     options: Optional[SettingsServiceOptions] = None
 
     model_config = ConfigDict(
@@ -89,7 +89,7 @@ class SettingsServiceIdentityProvider(BaseModel):
         _obj = cls.model_validate({
             "id": obj.get("id"),
             "name": obj.get("name"),
-            "type": obj.get("type") if obj.get("type") is not None else SettingsServiceIdentityProviderType.IDENTITY_PROVIDER_TYPE_UNSPECIFIED,
+            "type": obj.get("type"),
             "options": SettingsServiceOptions.from_dict(obj["options"]) if obj.get("options") is not None else None
         })
         return _obj

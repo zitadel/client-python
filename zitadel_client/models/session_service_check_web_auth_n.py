@@ -18,7 +18,8 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, Optional
+from zitadel_client.models.session_service_value import SessionServiceValue
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,7 +27,7 @@ class SessionServiceCheckWebAuthN(BaseModel):
     """
     SessionServiceCheckWebAuthN
     """ # noqa: E501
-    credential_assertion_data: Dict[str, Any] = Field(description="JSON representation of public key credential issued by the webAuthN client", alias="credentialAssertionData")
+    credential_assertion_data: Dict[str, Optional[SessionServiceValue]] = Field(description="`Struct` represents a structured data value, consisting of fields  which map to dynamically typed values. In some languages, `Struct`  might be supported by a native representation. For example, in  scripting languages like JS a struct is represented as an  object. The details of that representation are described together  with the proto support for the language.   The JSON representation for `Struct` is JSON object.", alias="credentialAssertionData")
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -67,6 +68,13 @@ class SessionServiceCheckWebAuthN(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each value in credential_assertion_data (dict)
+        _field_dict = {}
+        if self.credential_assertion_data:
+            for _key_credential_assertion_data in self.credential_assertion_data:
+                if self.credential_assertion_data[_key_credential_assertion_data]:
+                    _field_dict[_key_credential_assertion_data] = self.credential_assertion_data[_key_credential_assertion_data].to_dict()
+            _dict['credentialAssertionData'] = _field_dict
         return _dict
 
     @classmethod
@@ -79,7 +87,12 @@ class SessionServiceCheckWebAuthN(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "credentialAssertionData": obj.get("credentialAssertionData")
+            "credentialAssertionData": dict(
+                (_k, SessionServiceValue.from_dict(_v))
+                for _k, _v in obj["credentialAssertionData"].items()
+            )
+            if obj.get("credentialAssertionData") is not None
+            else None
         })
         return _obj
 

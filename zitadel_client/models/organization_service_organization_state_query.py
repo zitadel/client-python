@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.organization_service_organization_state import OrganizationServiceOrganizationState
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,7 +27,7 @@ class OrganizationServiceOrganizationStateQuery(BaseModel):
     """
     OrganizationServiceOrganizationStateQuery
     """ # noqa: E501
-    state: Optional[OrganizationServiceOrganizationState] = OrganizationServiceOrganizationState.ORGANIZATION_STATE_UNSPECIFIED
+    state: Optional[OrganizationServiceOrganizationState] = None
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -80,7 +80,7 @@ class OrganizationServiceOrganizationStateQuery(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "state": obj.get("state") if obj.get("state") is not None else OrganizationServiceOrganizationState.ORGANIZATION_STATE_UNSPECIFIED
+            "state": obj.get("state")
         })
         return _obj
 

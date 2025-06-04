@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.settings_service_resource_owner_type import SettingsServiceResourceOwnerType
 from zitadel_client.models.settings_service_theme import SettingsServiceTheme
 from zitadel_client.models.settings_service_theme_mode import SettingsServiceThemeMode
@@ -31,11 +31,11 @@ class SettingsServiceBrandingSettings(BaseModel):
     """ # noqa: E501
     light_theme: Optional[SettingsServiceTheme] = Field(default=None, alias="lightTheme")
     dark_theme: Optional[SettingsServiceTheme] = Field(default=None, alias="darkTheme")
-    font_url: Optional[StrictStr] = Field(default=None, description="url to the font used", alias="fontUrl")
-    hide_login_name_suffix: Optional[StrictBool] = Field(default=None, description="hides the org suffix on the login form if the scope \"urn:zitadel:iam:org:domain:primary:{domainname}\" is set", alias="hideLoginNameSuffix")
-    disable_watermark: Optional[StrictBool] = Field(default=None, description="boolean to disable the watermark", alias="disableWatermark")
-    resource_owner_type: Optional[SettingsServiceResourceOwnerType] = Field(default=SettingsServiceResourceOwnerType.RESOURCE_OWNER_TYPE_UNSPECIFIED, alias="resourceOwnerType")
-    theme_mode: Optional[SettingsServiceThemeMode] = Field(default=SettingsServiceThemeMode.THEME_MODE_UNSPECIFIED, alias="themeMode")
+    font_url: Optional[StrictStr] = Field(default=None, alias="fontUrl")
+    hide_login_name_suffix: Optional[StrictBool] = Field(default=None, description="hides the org suffix on the login form if the scope \\\"urn:zitadel:iam:org:domain:primary:{domainname}\\\" is set", alias="hideLoginNameSuffix")
+    disable_watermark: Optional[StrictBool] = Field(default=None, alias="disableWatermark")
+    resource_owner_type: Optional[SettingsServiceResourceOwnerType] = Field(default=None, alias="resourceOwnerType")
+    theme_mode: Optional[SettingsServiceThemeMode] = Field(default=None, alias="themeMode")
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -99,8 +99,8 @@ class SettingsServiceBrandingSettings(BaseModel):
             "fontUrl": obj.get("fontUrl"),
             "hideLoginNameSuffix": obj.get("hideLoginNameSuffix"),
             "disableWatermark": obj.get("disableWatermark"),
-            "resourceOwnerType": obj.get("resourceOwnerType") if obj.get("resourceOwnerType") is not None else SettingsServiceResourceOwnerType.RESOURCE_OWNER_TYPE_UNSPECIFIED,
-            "themeMode": obj.get("themeMode") if obj.get("themeMode") is not None else SettingsServiceThemeMode.THEME_MODE_UNSPECIFIED
+            "resourceOwnerType": obj.get("resourceOwnerType"),
+            "themeMode": obj.get("themeMode")
         })
         return _obj
 

@@ -17,9 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List
-from typing_extensions import Annotated
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,7 +26,8 @@ class UserServiceVerifyPhoneRequest(BaseModel):
     """
     UserServiceVerifyPhoneRequest
     """ # noqa: E501
-    verification_code: Annotated[str, Field(min_length=1, strict=True, max_length=20)] = Field(description="\"the verification code generated during the set phone request\"", alias="verificationCode")
+    user_id: StrictStr = Field(alias="userId")
+    verification_code: StrictStr = Field(alias="verificationCode")
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -80,6 +80,7 @@ class UserServiceVerifyPhoneRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "userId": obj.get("userId"),
             "verificationCode": obj.get("verificationCode")
         })
         return _obj

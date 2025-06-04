@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.oidc_service_details import OIDCServiceDetails
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,7 +28,7 @@ class OIDCServiceCreateCallbackResponse(BaseModel):
     OIDCServiceCreateCallbackResponse
     """ # noqa: E501
     details: Optional[OIDCServiceDetails] = None
-    callback_url: Optional[StrictStr] = Field(default=None, description="Callback URL where the user should be redirected, using a \"302 FOUND\" status. Contains details for the application to obtain the tokens on success, or error details on failure. Note that this field must be treated as credentials, as the contained code can be used to obtain tokens on behalve of the user.", alias="callbackUrl")
+    callback_url: Optional[StrictStr] = Field(default=None, alias="callbackUrl")
 
     model_config = ConfigDict(
         populate_by_name=True,

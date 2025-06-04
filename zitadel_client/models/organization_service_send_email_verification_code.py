@@ -17,9 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,7 +26,7 @@ class OrganizationServiceSendEmailVerificationCode(BaseModel):
     """
     OrganizationServiceSendEmailVerificationCode
     """ # noqa: E501
-    url_template: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]] = Field(default=None, description="Optionally set a url_template, which will be used in the verification mail sent by ZITADEL to guide the user to your verification page. If no template is set, the default ZITADEL url will be used.  The following placeholders can be used: UserID, OrgID, Code", alias="urlTemplate")
+    url_template: Optional[StrictStr] = Field(default=None, description="Optionally set a url_template, which will be used in the verification mail sent by ZITADEL to guide the user to your verification page.  If no template is set, the default ZITADEL url will be used.   The following placeholders can be used: UserID, OrgID, Code", alias="urlTemplate")
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -68,6 +67,11 @@ class OrganizationServiceSendEmailVerificationCode(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if url_template (nullable) is None
+        # and model_fields_set contains the field
+        if self.url_template is None and "url_template" in self.model_fields_set:
+            _dict['urlTemplate'] = None
+
         return _dict
 
     @classmethod
