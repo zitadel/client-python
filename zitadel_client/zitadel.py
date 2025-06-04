@@ -1,7 +1,7 @@
 from types import TracebackType
 from typing import Callable, Optional, Type, TypeVar
 
-from zitadel_client.api import BetaActionServiceApi, SAMLServiceApi, BetaWebKeyServiceApi
+from zitadel_client.api import BetaActionServiceApi, BetaWebKeyServiceApi, SAMLServiceApi
 from zitadel_client.api.feature_service_api import FeatureServiceApi
 from zitadel_client.api.identity_provider_service_api import IdentityProviderServiceApi
 from zitadel_client.api.oidc_service_api import OIDCServiceApi
