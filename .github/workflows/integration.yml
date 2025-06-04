@@ -55,8 +55,4 @@ jobs:
         working-directory: project/sanity
         run: |
           poetry add zitadel-client@../library
-<<<<<<< Updated upstream
-||||||| Stash base
-=======
           poetry run python main.py
->>>>>>> Stashed changes
