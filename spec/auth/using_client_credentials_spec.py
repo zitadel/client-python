@@ -58,7 +58,7 @@ class TestUseClientCredentialsSpec:
             client_id,
             client_secret,
         )
-        client.settings.settings_service_get_general_settings()
+        client.settings.get_general_settings(body={})
 
     def test_raises_api_exception_with_invalid_client_credentials(
         self,
@@ -71,4 +71,4 @@ class TestUseClientCredentialsSpec:
             "invalid",
         )
         with pytest.raises(ZitadelError):
-            client.settings.settings_service_get_general_settings()
+            client.settings.get_general_settings(body={})

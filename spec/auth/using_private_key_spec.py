@@ -47,7 +47,7 @@ class TestUsePrivateKeySpec:
             base_url,
             key_file,
         )
-        client.settings.settings_service_get_general_settings()
+        client.settings.get_general_settings(body={})
 
     def test_raises_api_exception_with_invalid_private_key(
         self,
@@ -59,4 +59,4 @@ class TestUsePrivateKeySpec:
             key_file,
         )
         with pytest.raises(ZitadelError):
-            client.settings.settings_service_get_general_settings()
+            client.settings.get_general_settings(body={})
