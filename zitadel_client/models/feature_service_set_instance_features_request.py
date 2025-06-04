@@ -28,20 +28,20 @@ class FeatureServiceSetInstanceFeaturesRequest(BaseModel):
     """
     FeatureServiceSetInstanceFeaturesRequest
     """ # noqa: E501
-    login_default_org: Optional[StrictBool] = Field(default=None, description="The login UI will use the settings of the default org (and not from the instance) if no organization context is set", alias="loginDefaultOrg")
-    oidc_trigger_introspection_projections: Optional[StrictBool] = Field(default=None, description="Enable projection triggers during an introspection request. This can act as workaround if there are noticeable consistency issues in the introspection response but can have an impact on performance. We are planning to remove triggers for introspection requests in the future. Please raise an issue if you needed to enable this feature.", alias="oidcTriggerIntrospectionProjections")
-    oidc_legacy_introspection: Optional[StrictBool] = Field(default=None, description="We have recently refactored the introspection endpoint for performance reasons. This feature can be used to rollback to the legacy implementation if unexpected bugs arise. Please raise an issue if you needed to enable this feature.", alias="oidcLegacyIntrospection")
-    user_schema: Optional[StrictBool] = Field(default=None, description="User Schemas allow to manage data schemas of user. If the flag is enabled, you'll be able to use the new API and its features. Note that it is still in an early stage.", alias="userSchema")
-    oidc_token_exchange: Optional[StrictBool] = Field(default=None, description="Enable the experimental `urn:ietf:params:oauth:grant-type:token-exchange` grant type for the OIDC token endpoint. Token exchange can be used to request tokens with a lesser scope or impersonate other users. See the security policy to allow impersonation on an instance.", alias="oidcTokenExchange")
-    improved_performance: Optional[List[FeatureServiceImprovedPerformance]] = Field(default=None, description="Improves performance of specified execution paths.", alias="improvedPerformance")
-    web_key: Optional[StrictBool] = Field(default=None, description="Enable the webkey/v3alpha API. The first time this feature is enabled, web keys are generated and activated.", alias="webKey")
-    debug_oidc_parent_error: Optional[StrictBool] = Field(default=None, description="Return parent errors to OIDC clients for debugging purposes. Parent errors may contain sensitive data or unwanted details about the system status of zitadel. Only enable if really needed.", alias="debugOidcParentError")
-    oidc_single_v1_session_termination: Optional[StrictBool] = Field(default=None, description="If the flag is enabled, you'll be able to terminate a single session from the login UI by providing an id_token with a `sid` claim as id_token_hint on the end_session endpoint. Note that currently all sessions from the same user agent (browser) are terminated in the login UI. Sessions managed through the Session API already allow the termination of single sessions.", alias="oidcSingleV1SessionTermination")
-    disable_user_token_event: Optional[StrictBool] = Field(default=None, description="Do not push user token meta-event user.token.v2.added to improve performance on many concurrent single (machine-)user logins", alias="disableUserTokenEvent")
-    enable_back_channel_logout: Optional[StrictBool] = Field(default=None, description="If the flag is enabled, you'll be able to use the OIDC Back-Channel Logout to be notified in your application about terminated user sessions.", alias="enableBackChannelLogout")
+    login_default_org: Optional[StrictBool] = Field(default=None, alias="loginDefaultOrg")
+    oidc_trigger_introspection_projections: Optional[StrictBool] = Field(default=None, alias="oidcTriggerIntrospectionProjections")
+    oidc_legacy_introspection: Optional[StrictBool] = Field(default=None, alias="oidcLegacyIntrospection")
+    user_schema: Optional[StrictBool] = Field(default=None, alias="userSchema")
+    oidc_token_exchange: Optional[StrictBool] = Field(default=None, alias="oidcTokenExchange")
+    improved_performance: Optional[List[FeatureServiceImprovedPerformance]] = Field(default=None, alias="improvedPerformance")
+    web_key: Optional[StrictBool] = Field(default=None, alias="webKey")
+    debug_oidc_parent_error: Optional[StrictBool] = Field(default=None, alias="debugOidcParentError")
+    oidc_single_v1_session_termination: Optional[StrictBool] = Field(default=None, alias="oidcSingleV1SessionTermination")
+    disable_user_token_event: Optional[StrictBool] = Field(default=None, alias="disableUserTokenEvent")
+    enable_back_channel_logout: Optional[StrictBool] = Field(default=None, alias="enableBackChannelLogout")
     login_v2: Optional[FeatureServiceLoginV2] = Field(default=None, alias="loginV2")
-    permission_check_v2: Optional[StrictBool] = Field(default=None, description="Enable a newer, more performant, permission check used for v2 and v3 resource based APIs.", alias="permissionCheckV2")
-    console_use_v2_user_api: Optional[StrictBool] = Field(default=None, description="If this is enabled the console web client will use the new User v2 API for certain calls", alias="consoleUseV2UserApi")
+    permission_check_v2: Optional[StrictBool] = Field(default=None, alias="permissionCheckV2")
+    console_use_v2_user_api: Optional[StrictBool] = Field(default=None, alias="consoleUseV2UserApi")
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -85,6 +85,66 @@ class FeatureServiceSetInstanceFeaturesRequest(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of login_v2
         if self.login_v2:
             _dict['loginV2'] = self.login_v2.to_dict()
+        # set to None if login_default_org (nullable) is None
+        # and model_fields_set contains the field
+        if self.login_default_org is None and "login_default_org" in self.model_fields_set:
+            _dict['loginDefaultOrg'] = None
+
+        # set to None if oidc_trigger_introspection_projections (nullable) is None
+        # and model_fields_set contains the field
+        if self.oidc_trigger_introspection_projections is None and "oidc_trigger_introspection_projections" in self.model_fields_set:
+            _dict['oidcTriggerIntrospectionProjections'] = None
+
+        # set to None if oidc_legacy_introspection (nullable) is None
+        # and model_fields_set contains the field
+        if self.oidc_legacy_introspection is None and "oidc_legacy_introspection" in self.model_fields_set:
+            _dict['oidcLegacyIntrospection'] = None
+
+        # set to None if user_schema (nullable) is None
+        # and model_fields_set contains the field
+        if self.user_schema is None and "user_schema" in self.model_fields_set:
+            _dict['userSchema'] = None
+
+        # set to None if oidc_token_exchange (nullable) is None
+        # and model_fields_set contains the field
+        if self.oidc_token_exchange is None and "oidc_token_exchange" in self.model_fields_set:
+            _dict['oidcTokenExchange'] = None
+
+        # set to None if web_key (nullable) is None
+        # and model_fields_set contains the field
+        if self.web_key is None and "web_key" in self.model_fields_set:
+            _dict['webKey'] = None
+
+        # set to None if debug_oidc_parent_error (nullable) is None
+        # and model_fields_set contains the field
+        if self.debug_oidc_parent_error is None and "debug_oidc_parent_error" in self.model_fields_set:
+            _dict['debugOidcParentError'] = None
+
+        # set to None if oidc_single_v1_session_termination (nullable) is None
+        # and model_fields_set contains the field
+        if self.oidc_single_v1_session_termination is None and "oidc_single_v1_session_termination" in self.model_fields_set:
+            _dict['oidcSingleV1SessionTermination'] = None
+
+        # set to None if disable_user_token_event (nullable) is None
+        # and model_fields_set contains the field
+        if self.disable_user_token_event is None and "disable_user_token_event" in self.model_fields_set:
+            _dict['disableUserTokenEvent'] = None
+
+        # set to None if enable_back_channel_logout (nullable) is None
+        # and model_fields_set contains the field
+        if self.enable_back_channel_logout is None and "enable_back_channel_logout" in self.model_fields_set:
+            _dict['enableBackChannelLogout'] = None
+
+        # set to None if permission_check_v2 (nullable) is None
+        # and model_fields_set contains the field
+        if self.permission_check_v2 is None and "permission_check_v2" in self.model_fields_set:
+            _dict['permissionCheckV2'] = None
+
+        # set to None if console_use_v2_user_api (nullable) is None
+        # and model_fields_set contains the field
+        if self.console_use_v2_user_api is None and "console_use_v2_user_api" in self.model_fields_set:
+            _dict['consoleUseV2UserApi'] = None
+
         return _dict
 
     @classmethod

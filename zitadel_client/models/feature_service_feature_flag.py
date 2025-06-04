@@ -17,8 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool
-from typing import Any, ClassVar, Dict, List, Optional
+from pydantic import BaseModel, ConfigDict, StrictBool
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.feature_service_source import FeatureServiceSource
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,8 +27,8 @@ class FeatureServiceFeatureFlag(BaseModel):
     """
     FeatureFlag is a simple boolean Feature setting, without further payload.
     """ # noqa: E501
-    enabled: Optional[StrictBool] = Field(default=None, description="Whether a feature is enabled.")
-    source: Optional[FeatureServiceSource] = FeatureServiceSource.SOURCE_UNSPECIFIED
+    enabled: Optional[StrictBool] = None
+    source: Optional[FeatureServiceSource] = None
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -82,7 +82,7 @@ class FeatureServiceFeatureFlag(BaseModel):
 
         _obj = cls.model_validate({
             "enabled": obj.get("enabled"),
-            "source": obj.get("source") if obj.get("source") is not None else FeatureServiceSource.SOURCE_UNSPECIFIED
+            "source": obj.get("source")
         })
         return _obj
 

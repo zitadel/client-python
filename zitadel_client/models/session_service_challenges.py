@@ -18,8 +18,8 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from zitadel_client.models.session_service_challenges_web_auth_n import SessionServiceChallengesWebAuthN
+from typing import Any, ClassVar, Dict, Optional
+from zitadel_client.models.session_service_web_auth_n import SessionServiceWebAuthN
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,7 +27,7 @@ class SessionServiceChallenges(BaseModel):
     """
     SessionServiceChallenges
     """ # noqa: E501
-    web_auth_n: Optional[SessionServiceChallengesWebAuthN] = Field(default=None, alias="webAuthN")
+    web_auth_n: Optional[SessionServiceWebAuthN] = Field(default=None, alias="webAuthN")
     otp_sms: Optional[StrictStr] = Field(default=None, alias="otpSms")
     otp_email: Optional[StrictStr] = Field(default=None, alias="otpEmail")
 
@@ -73,6 +73,16 @@ class SessionServiceChallenges(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of web_auth_n
         if self.web_auth_n:
             _dict['webAuthN'] = self.web_auth_n.to_dict()
+        # set to None if otp_sms (nullable) is None
+        # and model_fields_set contains the field
+        if self.otp_sms is None and "otp_sms" in self.model_fields_set:
+            _dict['otpSms'] = None
+
+        # set to None if otp_email (nullable) is None
+        # and model_fields_set contains the field
+        if self.otp_email is None and "otp_email" in self.model_fields_set:
+            _dict['otpEmail'] = None
+
         return _dict
 
     @classmethod
@@ -85,7 +95,7 @@ class SessionServiceChallenges(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "webAuthN": SessionServiceChallengesWebAuthN.from_dict(obj["webAuthN"]) if obj.get("webAuthN") is not None else None,
+            "webAuthN": SessionServiceWebAuthN.from_dict(obj["webAuthN"]) if obj.get("webAuthN") is not None else None,
             "otpSms": obj.get("otpSms"),
             "otpEmail": obj.get("otpEmail")
         })

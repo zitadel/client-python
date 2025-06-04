@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.settings_service_embedded_iframe_settings import SettingsServiceEmbeddedIframeSettings
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,7 +28,7 @@ class SettingsServiceSecuritySettings(BaseModel):
     SettingsServiceSecuritySettings
     """ # noqa: E501
     embedded_iframe: Optional[SettingsServiceEmbeddedIframeSettings] = Field(default=None, alias="embeddedIframe")
-    enable_impersonation: Optional[StrictBool] = Field(default=None, description="default language for the current context", alias="enableImpersonation")
+    enable_impersonation: Optional[StrictBool] = Field(default=None, alias="enableImpersonation")
 
     model_config = ConfigDict(
         populate_by_name=True,

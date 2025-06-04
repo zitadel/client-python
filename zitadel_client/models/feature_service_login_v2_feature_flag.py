@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.feature_service_source import FeatureServiceSource
 from typing import Optional, Set
 from typing_extensions import Self
@@ -29,7 +29,7 @@ class FeatureServiceLoginV2FeatureFlag(BaseModel):
     """ # noqa: E501
     required: Optional[StrictBool] = None
     base_uri: Optional[StrictStr] = Field(default=None, alias="baseUri")
-    source: Optional[FeatureServiceSource] = FeatureServiceSource.SOURCE_UNSPECIFIED
+    source: Optional[FeatureServiceSource] = None
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -70,6 +70,11 @@ class FeatureServiceLoginV2FeatureFlag(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if base_uri (nullable) is None
+        # and model_fields_set contains the field
+        if self.base_uri is None and "base_uri" in self.model_fields_set:
+            _dict['baseUri'] = None
+
         return _dict
 
     @classmethod
@@ -84,7 +89,7 @@ class FeatureServiceLoginV2FeatureFlag(BaseModel):
         _obj = cls.model_validate({
             "required": obj.get("required"),
             "baseUri": obj.get("baseUri"),
-            "source": obj.get("source") if obj.get("source") is not None else FeatureServiceSource.SOURCE_UNSPECIFIED
+            "source": obj.get("source")
         })
         return _obj
 

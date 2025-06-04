@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.user_service_access_token_type import UserServiceAccessTokenType
 from typing import Optional, Set
 from typing_extensions import Self
@@ -30,7 +30,7 @@ class UserServiceMachineUser(BaseModel):
     name: Optional[StrictStr] = None
     description: Optional[StrictStr] = None
     has_secret: Optional[StrictBool] = Field(default=None, alias="hasSecret")
-    access_token_type: Optional[UserServiceAccessTokenType] = Field(default=UserServiceAccessTokenType.ACCESS_TOKEN_TYPE_BEARER, alias="accessTokenType")
+    access_token_type: Optional[UserServiceAccessTokenType] = Field(default=None, alias="accessTokenType")
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -86,7 +86,7 @@ class UserServiceMachineUser(BaseModel):
             "name": obj.get("name"),
             "description": obj.get("description"),
             "hasSecret": obj.get("hasSecret"),
-            "accessTokenType": obj.get("accessTokenType") if obj.get("accessTokenType") is not None else UserServiceAccessTokenType.ACCESS_TOKEN_TYPE_BEARER
+            "accessTokenType": obj.get("accessTokenType")
         })
         return _obj
 

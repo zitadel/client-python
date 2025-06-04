@@ -16,13 +16,12 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictStr
-from typing import Optional
-from typing_extensions import Annotated
+from zitadel_client.models.no_op200_response2 import NoOp200Response2
 from zitadel_client.models.session_service_create_session_request import SessionServiceCreateSessionRequest
 from zitadel_client.models.session_service_create_session_response import SessionServiceCreateSessionResponse
 from zitadel_client.models.session_service_delete_session_request import SessionServiceDeleteSessionRequest
 from zitadel_client.models.session_service_delete_session_response import SessionServiceDeleteSessionResponse
+from zitadel_client.models.session_service_get_session_request import SessionServiceGetSessionRequest
 from zitadel_client.models.session_service_get_session_response import SessionServiceGetSessionResponse
 from zitadel_client.models.session_service_list_sessions_request import SessionServiceListSessionsRequest
 from zitadel_client.models.session_service_list_sessions_response import SessionServiceListSessionsResponse
@@ -48,7 +47,7 @@ class SessionServiceApi:
 
 
     @validate_call
-    def session_service_create_session(
+    def create_session(
         self,
         session_service_create_session_request: SessionServiceCreateSessionRequest,
         _request_timeout: Union[
@@ -64,9 +63,9 @@ class SessionServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> SessionServiceCreateSessionResponse:
-        """Create a new session
+        """CreateSession
 
-        Create a new session. A token will be returned, which is required for further updates of the session.
+        Create a new session
 
         :param session_service_create_session_request: (required)
         :type session_service_create_session_request: SessionServiceCreateSessionRequest
@@ -92,7 +91,7 @@ class SessionServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._session_service_create_session_serialize(
+        _param = self._create_session_serialize(
             session_service_create_session_request=session_service_create_session_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -101,9 +100,7 @@ class SessionServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "SessionServiceCreateSessionResponse",
-            '403': "SessionServiceRpcStatus",
-            '404': "SessionServiceRpcStatus",
+            '200': "SessionServiceCreateSessionResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -117,7 +114,7 @@ class SessionServiceApi:
 
 
     @validate_call
-    def session_service_create_session_with_http_info(
+    def create_session_with_http_info(
         self,
         session_service_create_session_request: SessionServiceCreateSessionRequest,
         _request_timeout: Union[
@@ -133,9 +130,9 @@ class SessionServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[SessionServiceCreateSessionResponse]:
-        """Create a new session
+        """CreateSession
 
-        Create a new session. A token will be returned, which is required for further updates of the session.
+        Create a new session
 
         :param session_service_create_session_request: (required)
         :type session_service_create_session_request: SessionServiceCreateSessionRequest
@@ -161,7 +158,7 @@ class SessionServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._session_service_create_session_serialize(
+        _param = self._create_session_serialize(
             session_service_create_session_request=session_service_create_session_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -170,9 +167,7 @@ class SessionServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "SessionServiceCreateSessionResponse",
-            '403': "SessionServiceRpcStatus",
-            '404': "SessionServiceRpcStatus",
+            '200': "SessionServiceCreateSessionResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -186,7 +181,7 @@ class SessionServiceApi:
 
 
     @validate_call
-    def session_service_create_session_without_preload_content(
+    def create_session_without_preload_content(
         self,
         session_service_create_session_request: SessionServiceCreateSessionRequest,
         _request_timeout: Union[
@@ -202,9 +197,9 @@ class SessionServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Create a new session
+        """CreateSession
 
-        Create a new session. A token will be returned, which is required for further updates of the session.
+        Create a new session
 
         :param session_service_create_session_request: (required)
         :type session_service_create_session_request: SessionServiceCreateSessionRequest
@@ -230,7 +225,7 @@ class SessionServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._session_service_create_session_serialize(
+        _param = self._create_session_serialize(
             session_service_create_session_request=session_service_create_session_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -239,9 +234,7 @@ class SessionServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "SessionServiceCreateSessionResponse",
-            '403': "SessionServiceRpcStatus",
-            '404': "SessionServiceRpcStatus",
+            '200': "SessionServiceCreateSessionResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -250,7 +243,7 @@ class SessionServiceApi:
         return response_data.response
 
 
-    def _session_service_create_session_serialize(
+    def _create_session_serialize(
         self,
         session_service_create_session_request,
         _request_auth,
@@ -311,7 +304,7 @@ class SessionServiceApi:
 
         return self.api_client.param_serialize(
             method='POST',
-            resource_path='/v2/sessions',
+            resource_path='/zitadel.session.v2.SessionService/CreateSession',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -328,9 +321,8 @@ class SessionServiceApi:
 
 
     @validate_call
-    def session_service_delete_session(
+    def delete_session(
         self,
-        session_id: Annotated[StrictStr, Field(description="\"id of the session to terminate\"")],
         session_service_delete_session_request: SessionServiceDeleteSessionRequest,
         _request_timeout: Union[
             None,
@@ -345,12 +337,10 @@ class SessionServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> SessionServiceDeleteSessionResponse:
-        """Terminate an existing session
+        """DeleteSession
 
-        Terminate your own session or if granted any other session.
+        Terminate a session
 
-        :param session_id: \"id of the session to terminate\" (required)
-        :type session_id: str
         :param session_service_delete_session_request: (required)
         :type session_service_delete_session_request: SessionServiceDeleteSessionRequest
         :param _request_timeout: timeout setting for this request. If one
@@ -375,8 +365,7 @@ class SessionServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._session_service_delete_session_serialize(
-            session_id=session_id,
+        _param = self._delete_session_serialize(
             session_service_delete_session_request=session_service_delete_session_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -386,8 +375,6 @@ class SessionServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SessionServiceDeleteSessionResponse",
-            '403': "SessionServiceRpcStatus",
-            '404': "SessionServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -401,9 +388,8 @@ class SessionServiceApi:
 
 
     @validate_call
-    def session_service_delete_session_with_http_info(
+    def delete_session_with_http_info(
         self,
-        session_id: Annotated[StrictStr, Field(description="\"id of the session to terminate\"")],
         session_service_delete_session_request: SessionServiceDeleteSessionRequest,
         _request_timeout: Union[
             None,
@@ -418,12 +404,10 @@ class SessionServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[SessionServiceDeleteSessionResponse]:
-        """Terminate an existing session
+        """DeleteSession
 
-        Terminate your own session or if granted any other session.
+        Terminate a session
 
-        :param session_id: \"id of the session to terminate\" (required)
-        :type session_id: str
         :param session_service_delete_session_request: (required)
         :type session_service_delete_session_request: SessionServiceDeleteSessionRequest
         :param _request_timeout: timeout setting for this request. If one
@@ -448,8 +432,7 @@ class SessionServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._session_service_delete_session_serialize(
-            session_id=session_id,
+        _param = self._delete_session_serialize(
             session_service_delete_session_request=session_service_delete_session_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -459,8 +442,6 @@ class SessionServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SessionServiceDeleteSessionResponse",
-            '403': "SessionServiceRpcStatus",
-            '404': "SessionServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -474,9 +455,8 @@ class SessionServiceApi:
 
 
     @validate_call
-    def session_service_delete_session_without_preload_content(
+    def delete_session_without_preload_content(
         self,
-        session_id: Annotated[StrictStr, Field(description="\"id of the session to terminate\"")],
         session_service_delete_session_request: SessionServiceDeleteSessionRequest,
         _request_timeout: Union[
             None,
@@ -491,12 +471,10 @@ class SessionServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Terminate an existing session
+        """DeleteSession
 
-        Terminate your own session or if granted any other session.
+        Terminate a session
 
-        :param session_id: \"id of the session to terminate\" (required)
-        :type session_id: str
         :param session_service_delete_session_request: (required)
         :type session_service_delete_session_request: SessionServiceDeleteSessionRequest
         :param _request_timeout: timeout setting for this request. If one
@@ -521,8 +499,7 @@ class SessionServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._session_service_delete_session_serialize(
-            session_id=session_id,
+        _param = self._delete_session_serialize(
             session_service_delete_session_request=session_service_delete_session_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -532,8 +509,6 @@ class SessionServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SessionServiceDeleteSessionResponse",
-            '403': "SessionServiceRpcStatus",
-            '404': "SessionServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -542,9 +517,8 @@ class SessionServiceApi:
         return response_data.response
 
 
-    def _session_service_delete_session_serialize(
+    def _delete_session_serialize(
         self,
-        session_id,
         session_service_delete_session_request,
         _request_auth,
         _content_type,
@@ -567,8 +541,6 @@ class SessionServiceApi:
         _body_params: Optional[bytes] = None
 
         # process the path parameters
-        if session_id is not None:
-            _path_params['sessionId'] = session_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -605,8 +577,8 @@ class SessionServiceApi:
         ]
 
         return self.api_client.param_serialize(
-            method='DELETE',
-            resource_path='/v2/sessions/{sessionId}',
+            method='POST',
+            resource_path='/zitadel.session.v2.SessionService/DeleteSession',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -623,10 +595,9 @@ class SessionServiceApi:
 
 
     @validate_call
-    def session_service_get_session(
+    def get_session(
         self,
-        session_id: StrictStr,
-        session_token: Optional[StrictStr] = None,
+        session_service_get_session_request: SessionServiceGetSessionRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -640,14 +611,12 @@ class SessionServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> SessionServiceGetSessionResponse:
-        """Get a session
+        """GetSession
 
-        Get a session and all its information like the time of the user or password verification
+        GetSession a session
 
-        :param session_id: (required)
-        :type session_id: str
-        :param session_token:
-        :type session_token: str
+        :param session_service_get_session_request: (required)
+        :type session_service_get_session_request: SessionServiceGetSessionRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -670,9 +639,8 @@ class SessionServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._session_service_get_session_serialize(
-            session_id=session_id,
-            session_token=session_token,
+        _param = self._get_session_serialize(
+            session_service_get_session_request=session_service_get_session_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -681,8 +649,6 @@ class SessionServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SessionServiceGetSessionResponse",
-            '403': "SessionServiceRpcStatus",
-            '404': "SessionServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -696,10 +662,9 @@ class SessionServiceApi:
 
 
     @validate_call
-    def session_service_get_session_with_http_info(
+    def get_session_with_http_info(
         self,
-        session_id: StrictStr,
-        session_token: Optional[StrictStr] = None,
+        session_service_get_session_request: SessionServiceGetSessionRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -713,14 +678,12 @@ class SessionServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[SessionServiceGetSessionResponse]:
-        """Get a session
+        """GetSession
 
-        Get a session and all its information like the time of the user or password verification
+        GetSession a session
 
-        :param session_id: (required)
-        :type session_id: str
-        :param session_token:
-        :type session_token: str
+        :param session_service_get_session_request: (required)
+        :type session_service_get_session_request: SessionServiceGetSessionRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -743,9 +706,8 @@ class SessionServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._session_service_get_session_serialize(
-            session_id=session_id,
-            session_token=session_token,
+        _param = self._get_session_serialize(
+            session_service_get_session_request=session_service_get_session_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -754,8 +716,6 @@ class SessionServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SessionServiceGetSessionResponse",
-            '403': "SessionServiceRpcStatus",
-            '404': "SessionServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -769,10 +729,9 @@ class SessionServiceApi:
 
 
     @validate_call
-    def session_service_get_session_without_preload_content(
+    def get_session_without_preload_content(
         self,
-        session_id: StrictStr,
-        session_token: Optional[StrictStr] = None,
+        session_service_get_session_request: SessionServiceGetSessionRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -786,14 +745,12 @@ class SessionServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get a session
+        """GetSession
 
-        Get a session and all its information like the time of the user or password verification
+        GetSession a session
 
-        :param session_id: (required)
-        :type session_id: str
-        :param session_token:
-        :type session_token: str
+        :param session_service_get_session_request: (required)
+        :type session_service_get_session_request: SessionServiceGetSessionRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -816,9 +773,8 @@ class SessionServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._session_service_get_session_serialize(
-            session_id=session_id,
-            session_token=session_token,
+        _param = self._get_session_serialize(
+            session_service_get_session_request=session_service_get_session_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -827,8 +783,6 @@ class SessionServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SessionServiceGetSessionResponse",
-            '403': "SessionServiceRpcStatus",
-            '404': "SessionServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -837,10 +791,9 @@ class SessionServiceApi:
         return response_data.response
 
 
-    def _session_service_get_session_serialize(
+    def _get_session_serialize(
         self,
-        session_id,
-        session_token,
+        session_service_get_session_request,
         _request_auth,
         _content_type,
         _headers,
@@ -862,16 +815,12 @@ class SessionServiceApi:
         _body_params: Optional[bytes] = None
 
         # process the path parameters
-        if session_id is not None:
-            _path_params['sessionId'] = session_id
         # process the query parameters
-        if session_token is not None:
-            
-            _query_params.append(('sessionToken', session_token))
-            
         # process the header parameters
         # process the form parameters
         # process the body parameter
+        if session_service_get_session_request is not None:
+            _body_params = session_service_get_session_request
 
 
         # set the HTTP header `Accept`
@@ -882,6 +831,19 @@ class SessionServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -889,8 +851,8 @@ class SessionServiceApi:
         ]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/v2/sessions/{sessionId}',
+            method='POST',
+            resource_path='/zitadel.session.v2.SessionService/GetSession',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -907,7 +869,7 @@ class SessionServiceApi:
 
 
     @validate_call
-    def session_service_list_sessions(
+    def list_sessions(
         self,
         session_service_list_sessions_request: SessionServiceListSessionsRequest,
         _request_timeout: Union[
@@ -923,9 +885,9 @@ class SessionServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> SessionServiceListSessionsResponse:
-        """Search sessions
+        """ListSessions
 
-        Search for sessions
+        Search sessions
 
         :param session_service_list_sessions_request: (required)
         :type session_service_list_sessions_request: SessionServiceListSessionsRequest
@@ -951,7 +913,7 @@ class SessionServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._session_service_list_sessions_serialize(
+        _param = self._list_sessions_serialize(
             session_service_list_sessions_request=session_service_list_sessions_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -961,9 +923,6 @@ class SessionServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SessionServiceListSessionsResponse",
-            '400': "SessionServiceRpcStatus",
-            '403': "SessionServiceRpcStatus",
-            '404': "SessionServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -977,7 +936,7 @@ class SessionServiceApi:
 
 
     @validate_call
-    def session_service_list_sessions_with_http_info(
+    def list_sessions_with_http_info(
         self,
         session_service_list_sessions_request: SessionServiceListSessionsRequest,
         _request_timeout: Union[
@@ -993,9 +952,9 @@ class SessionServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[SessionServiceListSessionsResponse]:
-        """Search sessions
+        """ListSessions
 
-        Search for sessions
+        Search sessions
 
         :param session_service_list_sessions_request: (required)
         :type session_service_list_sessions_request: SessionServiceListSessionsRequest
@@ -1021,7 +980,7 @@ class SessionServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._session_service_list_sessions_serialize(
+        _param = self._list_sessions_serialize(
             session_service_list_sessions_request=session_service_list_sessions_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1031,9 +990,6 @@ class SessionServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SessionServiceListSessionsResponse",
-            '400': "SessionServiceRpcStatus",
-            '403': "SessionServiceRpcStatus",
-            '404': "SessionServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1047,7 +1003,7 @@ class SessionServiceApi:
 
 
     @validate_call
-    def session_service_list_sessions_without_preload_content(
+    def list_sessions_without_preload_content(
         self,
         session_service_list_sessions_request: SessionServiceListSessionsRequest,
         _request_timeout: Union[
@@ -1063,9 +1019,9 @@ class SessionServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Search sessions
+        """ListSessions
 
-        Search for sessions
+        Search sessions
 
         :param session_service_list_sessions_request: (required)
         :type session_service_list_sessions_request: SessionServiceListSessionsRequest
@@ -1091,7 +1047,7 @@ class SessionServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._session_service_list_sessions_serialize(
+        _param = self._list_sessions_serialize(
             session_service_list_sessions_request=session_service_list_sessions_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1101,9 +1057,6 @@ class SessionServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SessionServiceListSessionsResponse",
-            '400': "SessionServiceRpcStatus",
-            '403': "SessionServiceRpcStatus",
-            '404': "SessionServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1112,7 +1065,7 @@ class SessionServiceApi:
         return response_data.response
 
 
-    def _session_service_list_sessions_serialize(
+    def _list_sessions_serialize(
         self,
         session_service_list_sessions_request,
         _request_auth,
@@ -1173,7 +1126,7 @@ class SessionServiceApi:
 
         return self.api_client.param_serialize(
             method='POST',
-            resource_path='/v2/sessions/search',
+            resource_path='/zitadel.session.v2.SessionService/ListSessions',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -1190,9 +1143,251 @@ class SessionServiceApi:
 
 
     @validate_call
-    def session_service_set_session(
+    def no_op(
         self,
-        session_id: Annotated[StrictStr, Field(description="\"id of the session to update\"")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> NoOp200Response2:
+        """Dummy endpoint to retain union-member schemas
+
+
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._no_op_serialize(
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "NoOp200Response2",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def no_op_with_http_info(
+        self,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[NoOp200Response2]:
+        """Dummy endpoint to retain union-member schemas
+
+
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._no_op_serialize(
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "NoOp200Response2",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def no_op_without_preload_content(
+        self,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Dummy endpoint to retain union-member schemas
+
+
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._no_op_serialize(
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "NoOp200Response2",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _no_op_serialize(
+        self,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'zitadelAccessToken'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/44ad5538',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def set_session(
+        self,
         session_service_set_session_request: SessionServiceSetSessionRequest,
         _request_timeout: Union[
             None,
@@ -1207,12 +1402,10 @@ class SessionServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> SessionServiceSetSessionResponse:
-        """Update an existing session
+        """SetSession
 
-        Update an existing session with new information.
+        Update a session
 
-        :param session_id: \"id of the session to update\" (required)
-        :type session_id: str
         :param session_service_set_session_request: (required)
         :type session_service_set_session_request: SessionServiceSetSessionRequest
         :param _request_timeout: timeout setting for this request. If one
@@ -1237,8 +1430,7 @@ class SessionServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._session_service_set_session_serialize(
-            session_id=session_id,
+        _param = self._set_session_serialize(
             session_service_set_session_request=session_service_set_session_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1248,8 +1440,6 @@ class SessionServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SessionServiceSetSessionResponse",
-            '403': "SessionServiceRpcStatus",
-            '404': "SessionServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1263,9 +1453,8 @@ class SessionServiceApi:
 
 
     @validate_call
-    def session_service_set_session_with_http_info(
+    def set_session_with_http_info(
         self,
-        session_id: Annotated[StrictStr, Field(description="\"id of the session to update\"")],
         session_service_set_session_request: SessionServiceSetSessionRequest,
         _request_timeout: Union[
             None,
@@ -1280,12 +1469,10 @@ class SessionServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[SessionServiceSetSessionResponse]:
-        """Update an existing session
+        """SetSession
 
-        Update an existing session with new information.
+        Update a session
 
-        :param session_id: \"id of the session to update\" (required)
-        :type session_id: str
         :param session_service_set_session_request: (required)
         :type session_service_set_session_request: SessionServiceSetSessionRequest
         :param _request_timeout: timeout setting for this request. If one
@@ -1310,8 +1497,7 @@ class SessionServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._session_service_set_session_serialize(
-            session_id=session_id,
+        _param = self._set_session_serialize(
             session_service_set_session_request=session_service_set_session_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1321,8 +1507,6 @@ class SessionServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SessionServiceSetSessionResponse",
-            '403': "SessionServiceRpcStatus",
-            '404': "SessionServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1336,9 +1520,8 @@ class SessionServiceApi:
 
 
     @validate_call
-    def session_service_set_session_without_preload_content(
+    def set_session_without_preload_content(
         self,
-        session_id: Annotated[StrictStr, Field(description="\"id of the session to update\"")],
         session_service_set_session_request: SessionServiceSetSessionRequest,
         _request_timeout: Union[
             None,
@@ -1353,12 +1536,10 @@ class SessionServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Update an existing session
+        """SetSession
 
-        Update an existing session with new information.
+        Update a session
 
-        :param session_id: \"id of the session to update\" (required)
-        :type session_id: str
         :param session_service_set_session_request: (required)
         :type session_service_set_session_request: SessionServiceSetSessionRequest
         :param _request_timeout: timeout setting for this request. If one
@@ -1383,8 +1564,7 @@ class SessionServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._session_service_set_session_serialize(
-            session_id=session_id,
+        _param = self._set_session_serialize(
             session_service_set_session_request=session_service_set_session_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1394,8 +1574,6 @@ class SessionServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SessionServiceSetSessionResponse",
-            '403': "SessionServiceRpcStatus",
-            '404': "SessionServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1404,9 +1582,8 @@ class SessionServiceApi:
         return response_data.response
 
 
-    def _session_service_set_session_serialize(
+    def _set_session_serialize(
         self,
-        session_id,
         session_service_set_session_request,
         _request_auth,
         _content_type,
@@ -1429,8 +1606,6 @@ class SessionServiceApi:
         _body_params: Optional[bytes] = None
 
         # process the path parameters
-        if session_id is not None:
-            _path_params['sessionId'] = session_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -1467,8 +1642,8 @@ class SessionServiceApi:
         ]
 
         return self.api_client.param_serialize(
-            method='PATCH',
-            resource_path='/v2/sessions/{sessionId}',
+            method='POST',
+            resource_path='/zitadel.session.v2.SessionService/SetSession',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

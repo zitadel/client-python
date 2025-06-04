@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict
 from zitadel_client.models.user_service_type import UserServiceType
 from typing import Optional, Set
 from typing_extensions import Self
@@ -80,7 +80,7 @@ class UserServiceTypeQuery(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "type": obj.get("type") if obj.get("type") is not None else UserServiceType.TYPE_UNSPECIFIED
+            "type": obj.get("type")
         })
         return _obj
 

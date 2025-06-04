@@ -13,122 +13,323 @@
 
 
 from __future__ import annotations
-import pprint
-import re  # noqa: F401
 import json
+import pprint
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, field_validator
+from typing import Any, List, Optional
+from zitadel_client.models.display_name_query import DisplayNameQuery
+from zitadel_client.models.email_query import EmailQuery
+from zitadel_client.models.first_name_query import FirstNameQuery
+from zitadel_client.models.in_user_emails_query import InUserEmailsQuery
+from zitadel_client.models.in_user_ids_query import InUserIdsQuery
+from zitadel_client.models.last_name_query import LastNameQuery
+from zitadel_client.models.login_name_query import LoginNameQuery
+from zitadel_client.models.nick_name_query import NickNameQuery
+from zitadel_client.models.organization_id_query import OrganizationIdQuery
+from zitadel_client.models.phone_query import PhoneQuery
+from zitadel_client.models.state_query import StateQuery
+from zitadel_client.models.type_query import TypeQuery
+from zitadel_client.models.user_name_query import UserNameQuery
+from pydantic import StrictStr, Field
+from typing import Union, List, Set, Optional, Dict
+from typing_extensions import Literal, Self
 
-from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
-from zitadel_client.models.user_service_display_name_query import UserServiceDisplayNameQuery
-from zitadel_client.models.user_service_email_query import UserServiceEmailQuery
-from zitadel_client.models.user_service_first_name_query import UserServiceFirstNameQuery
-from zitadel_client.models.user_service_in_user_emails_query import UserServiceInUserEmailsQuery
-from zitadel_client.models.user_service_in_user_id_query import UserServiceInUserIDQuery
-from zitadel_client.models.user_service_last_name_query import UserServiceLastNameQuery
-from zitadel_client.models.user_service_login_name_query import UserServiceLoginNameQuery
-from zitadel_client.models.user_service_nick_name_query import UserServiceNickNameQuery
-from zitadel_client.models.user_service_organization_id_query import UserServiceOrganizationIdQuery
-from zitadel_client.models.user_service_phone_query import UserServicePhoneQuery
-from zitadel_client.models.user_service_state_query import UserServiceStateQuery
-from zitadel_client.models.user_service_type_query import UserServiceTypeQuery
-from zitadel_client.models.user_service_user_name_query import UserServiceUserNameQuery
-from typing import Optional, Set
-from typing_extensions import Self
+USERSERVICESEARCHQUERY_ONE_OF_SCHEMAS = ["AndQuery", "DisplayNameQuery", "EmailQuery", "FirstNameQuery", "InUserEmailsQuery", "InUserIdsQuery", "LastNameQuery", "LoginNameQuery", "NickNameQuery", "NotQuery", "OrQuery", "OrganizationIdQuery", "PhoneQuery", "StateQuery", "TypeQuery", "UserNameQuery"]
 
 class UserServiceSearchQuery(BaseModel):
     """
     UserServiceSearchQuery
-    """ # noqa: E501
-    user_name_query: Optional[UserServiceUserNameQuery] = Field(default=None, alias="userNameQuery")
-    first_name_query: Optional[UserServiceFirstNameQuery] = Field(default=None, alias="firstNameQuery")
-    last_name_query: Optional[UserServiceLastNameQuery] = Field(default=None, alias="lastNameQuery")
-    nick_name_query: Optional[UserServiceNickNameQuery] = Field(default=None, alias="nickNameQuery")
-    display_name_query: Optional[UserServiceDisplayNameQuery] = Field(default=None, alias="displayNameQuery")
-    email_query: Optional[UserServiceEmailQuery] = Field(default=None, alias="emailQuery")
-    state_query: Optional[UserServiceStateQuery] = Field(default=None, alias="stateQuery")
-    type_query: Optional[UserServiceTypeQuery] = Field(default=None, alias="typeQuery")
-    login_name_query: Optional[UserServiceLoginNameQuery] = Field(default=None, alias="loginNameQuery")
-    in_user_ids_query: Optional[UserServiceInUserIDQuery] = Field(default=None, alias="inUserIdsQuery")
-    or_query: Optional[UserServiceOrQuery] = Field(default=None, alias="orQuery")
-    and_query: Optional[UserServiceAndQuery] = Field(default=None, alias="andQuery")
-    not_query: Optional[UserServiceNotQuery] = Field(default=None, alias="notQuery")
-    in_user_emails_query: Optional[UserServiceInUserEmailsQuery] = Field(default=None, alias="inUserEmailsQuery")
-    organization_id_query: Optional[UserServiceOrganizationIdQuery] = Field(default=None, alias="organizationIdQuery")
-    phone_query: Optional[UserServicePhoneQuery] = Field(default=None, alias="phoneQuery")
+    """
+    # data type: AndQuery
+    oneof_schema_1_validator: Optional[AndQuery] = None
+    # data type: DisplayNameQuery
+    oneof_schema_2_validator: Optional[DisplayNameQuery] = None
+    # data type: EmailQuery
+    oneof_schema_3_validator: Optional[EmailQuery] = None
+    # data type: FirstNameQuery
+    oneof_schema_4_validator: Optional[FirstNameQuery] = None
+    # data type: InUserEmailsQuery
+    oneof_schema_5_validator: Optional[InUserEmailsQuery] = None
+    # data type: InUserIdsQuery
+    oneof_schema_6_validator: Optional[InUserIdsQuery] = None
+    # data type: LastNameQuery
+    oneof_schema_7_validator: Optional[LastNameQuery] = None
+    # data type: LoginNameQuery
+    oneof_schema_8_validator: Optional[LoginNameQuery] = None
+    # data type: NickNameQuery
+    oneof_schema_9_validator: Optional[NickNameQuery] = None
+    # data type: NotQuery
+    oneof_schema_10_validator: Optional[NotQuery] = None
+    # data type: OrQuery
+    oneof_schema_11_validator: Optional[OrQuery] = None
+    # data type: OrganizationIdQuery
+    oneof_schema_12_validator: Optional[OrganizationIdQuery] = None
+    # data type: PhoneQuery
+    oneof_schema_13_validator: Optional[PhoneQuery] = None
+    # data type: StateQuery
+    oneof_schema_14_validator: Optional[StateQuery] = None
+    # data type: TypeQuery
+    oneof_schema_15_validator: Optional[TypeQuery] = None
+    # data type: UserNameQuery
+    oneof_schema_16_validator: Optional[UserNameQuery] = None
+    actual_instance: Optional[Union[AndQuery, DisplayNameQuery, EmailQuery, FirstNameQuery, InUserEmailsQuery, InUserIdsQuery, LastNameQuery, LoginNameQuery, NickNameQuery, NotQuery, OrQuery, OrganizationIdQuery, PhoneQuery, StateQuery, TypeQuery, UserNameQuery]] = None
+    one_of_schemas: Set[str] = { "AndQuery", "DisplayNameQuery", "EmailQuery", "FirstNameQuery", "InUserEmailsQuery", "InUserIdsQuery", "LastNameQuery", "LoginNameQuery", "NickNameQuery", "NotQuery", "OrQuery", "OrganizationIdQuery", "PhoneQuery", "StateQuery", "TypeQuery", "UserNameQuery" }
 
     model_config = ConfigDict(
-        populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
 
 
-    def to_str(self) -> str:
-        """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.model_dump(by_alias=True))
+    def __init__(self, *args, **kwargs) -> None:
+        if args:
+            if len(args) > 1:
+                raise ValueError("If a position argument is used, only 1 is allowed to set `actual_instance`")
+            if kwargs:
+                raise ValueError("If a position argument is used, keyword arguments cannot be used.")
+            super().__init__(actual_instance=args[0])
+        else:
+            super().__init__(**kwargs)
+
+    @field_validator('actual_instance')
+    def actual_instance_must_validate_oneof(cls, v):
+        instance = UserServiceSearchQuery.model_construct()
+        error_messages = []
+        match = 0
+        # validate data type: AndQuery
+        if not isinstance(v, AndQuery):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `AndQuery`")
+        else:
+            match += 1
+        # validate data type: DisplayNameQuery
+        if not isinstance(v, DisplayNameQuery):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `DisplayNameQuery`")
+        else:
+            match += 1
+        # validate data type: EmailQuery
+        if not isinstance(v, EmailQuery):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EmailQuery`")
+        else:
+            match += 1
+        # validate data type: FirstNameQuery
+        if not isinstance(v, FirstNameQuery):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `FirstNameQuery`")
+        else:
+            match += 1
+        # validate data type: InUserEmailsQuery
+        if not isinstance(v, InUserEmailsQuery):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `InUserEmailsQuery`")
+        else:
+            match += 1
+        # validate data type: InUserIdsQuery
+        if not isinstance(v, InUserIdsQuery):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `InUserIdsQuery`")
+        else:
+            match += 1
+        # validate data type: LastNameQuery
+        if not isinstance(v, LastNameQuery):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `LastNameQuery`")
+        else:
+            match += 1
+        # validate data type: LoginNameQuery
+        if not isinstance(v, LoginNameQuery):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `LoginNameQuery`")
+        else:
+            match += 1
+        # validate data type: NickNameQuery
+        if not isinstance(v, NickNameQuery):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `NickNameQuery`")
+        else:
+            match += 1
+        # validate data type: NotQuery
+        if not isinstance(v, NotQuery):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `NotQuery`")
+        else:
+            match += 1
+        # validate data type: OrQuery
+        if not isinstance(v, OrQuery):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `OrQuery`")
+        else:
+            match += 1
+        # validate data type: OrganizationIdQuery
+        if not isinstance(v, OrganizationIdQuery):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `OrganizationIdQuery`")
+        else:
+            match += 1
+        # validate data type: PhoneQuery
+        if not isinstance(v, PhoneQuery):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `PhoneQuery`")
+        else:
+            match += 1
+        # validate data type: StateQuery
+        if not isinstance(v, StateQuery):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `StateQuery`")
+        else:
+            match += 1
+        # validate data type: TypeQuery
+        if not isinstance(v, TypeQuery):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `TypeQuery`")
+        else:
+            match += 1
+        # validate data type: UserNameQuery
+        if not isinstance(v, UserNameQuery):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `UserNameQuery`")
+        else:
+            match += 1
+        if match > 1:
+            # more than 1 match
+            raise ValueError("Multiple matches found when setting `actual_instance` in UserServiceSearchQuery with oneOf schemas: AndQuery, DisplayNameQuery, EmailQuery, FirstNameQuery, InUserEmailsQuery, InUserIdsQuery, LastNameQuery, LoginNameQuery, NickNameQuery, NotQuery, OrQuery, OrganizationIdQuery, PhoneQuery, StateQuery, TypeQuery, UserNameQuery. Details: " + ", ".join(error_messages))
+        elif match == 0:
+            # no match
+            raise ValueError("No match found when setting `actual_instance` in UserServiceSearchQuery with oneOf schemas: AndQuery, DisplayNameQuery, EmailQuery, FirstNameQuery, InUserEmailsQuery, InUserIdsQuery, LastNameQuery, LoginNameQuery, NickNameQuery, NotQuery, OrQuery, OrganizationIdQuery, PhoneQuery, StateQuery, TypeQuery, UserNameQuery. Details: " + ", ".join(error_messages))
+        else:
+            return v
+
+    @classmethod
+    def from_dict(cls, obj: Union[str, Dict[str, Any]]) -> Self:
+        return cls.from_json(json.dumps(obj))
+
+    @classmethod
+    def from_json(cls, json_str: str) -> Self:
+        """Returns the object represented by the json string"""
+        instance = cls.model_construct()
+        error_messages = []
+        match = 0
+
+        # deserialize data into AndQuery
+        try:
+            instance.actual_instance = AndQuery.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into DisplayNameQuery
+        try:
+            instance.actual_instance = DisplayNameQuery.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into EmailQuery
+        try:
+            instance.actual_instance = EmailQuery.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into FirstNameQuery
+        try:
+            instance.actual_instance = FirstNameQuery.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into InUserEmailsQuery
+        try:
+            instance.actual_instance = InUserEmailsQuery.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into InUserIdsQuery
+        try:
+            instance.actual_instance = InUserIdsQuery.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into LastNameQuery
+        try:
+            instance.actual_instance = LastNameQuery.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into LoginNameQuery
+        try:
+            instance.actual_instance = LoginNameQuery.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into NickNameQuery
+        try:
+            instance.actual_instance = NickNameQuery.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into NotQuery
+        try:
+            instance.actual_instance = NotQuery.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into OrQuery
+        try:
+            instance.actual_instance = OrQuery.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into OrganizationIdQuery
+        try:
+            instance.actual_instance = OrganizationIdQuery.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into PhoneQuery
+        try:
+            instance.actual_instance = PhoneQuery.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into StateQuery
+        try:
+            instance.actual_instance = StateQuery.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into TypeQuery
+        try:
+            instance.actual_instance = TypeQuery.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into UserNameQuery
+        try:
+            instance.actual_instance = UserNameQuery.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+
+        if match > 1:
+            # more than 1 match
+            raise ValueError("Multiple matches found when deserializing the JSON string into UserServiceSearchQuery with oneOf schemas: AndQuery, DisplayNameQuery, EmailQuery, FirstNameQuery, InUserEmailsQuery, InUserIdsQuery, LastNameQuery, LoginNameQuery, NickNameQuery, NotQuery, OrQuery, OrganizationIdQuery, PhoneQuery, StateQuery, TypeQuery, UserNameQuery. Details: " + ", ".join(error_messages))
+        elif match == 0:
+            # no match
+            raise ValueError("No match found when deserializing the JSON string into UserServiceSearchQuery with oneOf schemas: AndQuery, DisplayNameQuery, EmailQuery, FirstNameQuery, InUserEmailsQuery, InUserIdsQuery, LastNameQuery, LoginNameQuery, NickNameQuery, NotQuery, OrQuery, OrganizationIdQuery, PhoneQuery, StateQuery, TypeQuery, UserNameQuery. Details: " + ", ".join(error_messages))
+        else:
+            return instance
 
     def to_json(self) -> str:
-        """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        """Returns the JSON representation of the actual instance"""
+        if self.actual_instance is None:
+            return "null"
 
-    @classmethod
-    def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of UserServiceSearchQuery from a JSON string"""
-        return cls.from_dict(json.loads(json_str))
+        if hasattr(self.actual_instance, "to_json") and callable(self.actual_instance.to_json):
+            return self.actual_instance.to_json()
+        else:
+            return json.dumps(self.actual_instance)
 
-    def to_dict(self) -> Dict[str, Any]:
-        """Return the dictionary representation of the model using alias.
-
-        This has the following differences from calling pydantic's
-        `self.model_dump(by_alias=True)`:
-
-        * `None` is only added to the output dict for nullable fields that
-          were set at model initialization. Other fields with value `None`
-          are ignored.
-        """
-        excluded_fields: Set[str] = set([
-        ])
-
-        _dict = self.model_dump(
-            by_alias=True,
-            exclude=excluded_fields,
-            exclude_none=True,
-        )
-        return _dict
-
-    @classmethod
-    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of UserServiceSearchQuery from a dict"""
-        if obj is None:
+    def to_dict(self) -> Optional[Union[Dict[str, Any], AndQuery, DisplayNameQuery, EmailQuery, FirstNameQuery, InUserEmailsQuery, InUserIdsQuery, LastNameQuery, LoginNameQuery, NickNameQuery, NotQuery, OrQuery, OrganizationIdQuery, PhoneQuery, StateQuery, TypeQuery, UserNameQuery]]:
+        """Returns the dict representation of the actual instance"""
+        if self.actual_instance is None:
             return None
 
-        if not isinstance(obj, dict):
-            return cls.model_validate(obj)
+        if hasattr(self.actual_instance, "to_dict") and callable(self.actual_instance.to_dict):
+            return self.actual_instance.to_dict()
+        else:
+            # primitive type
+            return self.actual_instance
 
-        _obj = cls.model_validate({
-            "userNameQuery": UserServiceUserNameQuery.from_dict(obj["userNameQuery"]) if obj.get("userNameQuery") is not None else None,
-            "firstNameQuery": UserServiceFirstNameQuery.from_dict(obj["firstNameQuery"]) if obj.get("firstNameQuery") is not None else None,
-            "lastNameQuery": UserServiceLastNameQuery.from_dict(obj["lastNameQuery"]) if obj.get("lastNameQuery") is not None else None,
-            "nickNameQuery": UserServiceNickNameQuery.from_dict(obj["nickNameQuery"]) if obj.get("nickNameQuery") is not None else None,
-            "displayNameQuery": UserServiceDisplayNameQuery.from_dict(obj["displayNameQuery"]) if obj.get("displayNameQuery") is not None else None,
-            "emailQuery": UserServiceEmailQuery.from_dict(obj["emailQuery"]) if obj.get("emailQuery") is not None else None,
-            "stateQuery": UserServiceStateQuery.from_dict(obj["stateQuery"]) if obj.get("stateQuery") is not None else None,
-            "typeQuery": UserServiceTypeQuery.from_dict(obj["typeQuery"]) if obj.get("typeQuery") is not None else None,
-            "loginNameQuery": UserServiceLoginNameQuery.from_dict(obj["loginNameQuery"]) if obj.get("loginNameQuery") is not None else None,
-            "inUserIdsQuery": UserServiceInUserIDQuery.from_dict(obj["inUserIdsQuery"]) if obj.get("inUserIdsQuery") is not None else None,
-            "orQuery": UserServiceOrQuery.from_dict(obj["orQuery"]) if obj.get("orQuery") is not None else None,
-            "andQuery": UserServiceAndQuery.from_dict(obj["andQuery"]) if obj.get("andQuery") is not None else None,
-            "notQuery": UserServiceNotQuery.from_dict(obj["notQuery"]) if obj.get("notQuery") is not None else None,
-            "inUserEmailsQuery": UserServiceInUserEmailsQuery.from_dict(obj["inUserEmailsQuery"]) if obj.get("inUserEmailsQuery") is not None else None,
-            "organizationIdQuery": UserServiceOrganizationIdQuery.from_dict(obj["organizationIdQuery"]) if obj.get("organizationIdQuery") is not None else None,
-            "phoneQuery": UserServicePhoneQuery.from_dict(obj["phoneQuery"]) if obj.get("phoneQuery") is not None else None
-        })
-        return _obj
+    def to_str(self) -> str:
+        """Returns the string representation of the actual instance"""
+        return pprint.pformat(self.model_dump())
 
-from zitadel_client.models.user_service_and_query import UserServiceAndQuery
-from zitadel_client.models.user_service_not_query import UserServiceNotQuery
-from zitadel_client.models.user_service_or_query import UserServiceOrQuery
+from zitadel_client.models.and_query import AndQuery
+from zitadel_client.models.not_query import NotQuery
+from zitadel_client.models.or_query import OrQuery
 # TODO: Rewrite to not use raise_errors
 UserServiceSearchQuery.model_rebuild(raise_errors=False)
 

@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,7 +26,8 @@ class SessionServiceDeleteSessionRequest(BaseModel):
     """
     SessionServiceDeleteSessionRequest
     """ # noqa: E501
-    session_token: Optional[StrictStr] = Field(default=None, description="\"The current token of the session, previously returned on the create / update request. The token is required unless the authenticated user terminates the own session or is granted the `session.delete` permission.\"", alias="sessionToken")
+    session_id: Optional[StrictStr] = Field(default=None, alias="sessionId")
+    session_token: Optional[StrictStr] = Field(default=None, alias="sessionToken")
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -67,6 +68,11 @@ class SessionServiceDeleteSessionRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if session_token (nullable) is None
+        # and model_fields_set contains the field
+        if self.session_token is None and "session_token" in self.model_fields_set:
+            _dict['sessionToken'] = None
+
         return _dict
 
     @classmethod
@@ -79,6 +85,7 @@ class SessionServiceDeleteSessionRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "sessionId": obj.get("sessionId"),
             "sessionToken": obj.get("sessionToken")
         })
         return _obj

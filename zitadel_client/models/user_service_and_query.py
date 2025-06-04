@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
@@ -26,7 +26,7 @@ class UserServiceAndQuery(BaseModel):
     """
     Connect multiple sub-condition with and AND operator.
     """ # noqa: E501
-    queries: Optional[List[UserServiceSearchQuery]] = Field(default=None, description="the sub queries to 'AND'")
+    queries: Optional[List[UserServiceSearchQuery]] = None
 
     model_config = ConfigDict(
         populate_by_name=True,

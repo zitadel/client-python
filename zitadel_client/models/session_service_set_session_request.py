@@ -18,8 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBytes, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional, Union
-from typing_extensions import Annotated
+from typing import Any, ClassVar, Dict, Optional, Union
 from zitadel_client.models.session_service_checks import SessionServiceChecks
 from zitadel_client.models.session_service_request_challenges import SessionServiceRequestChallenges
 from typing import Optional, Set
@@ -29,11 +28,12 @@ class SessionServiceSetSessionRequest(BaseModel):
     """
     SessionServiceSetSessionRequest
     """ # noqa: E501
-    session_token: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]] = Field(default=None, description="\"DEPRECATED: this field is ignored.\"", alias="sessionToken")
+    session_id: Optional[StrictStr] = Field(default=None, alias="sessionId")
+    session_token: Optional[StrictStr] = Field(default=None, alias="sessionToken")
     checks: Optional[SessionServiceChecks] = None
-    metadata: Optional[Dict[str, Union[StrictBytes, StrictStr]]] = Field(default=None, description="\"custom key value list to be stored on the session\"")
+    metadata: Optional[Dict[str, Union[StrictBytes, StrictStr]]] = None
     challenges: Optional[SessionServiceRequestChallenges] = None
-    lifetime: Optional[StrictStr] = Field(default=None, description="\"duration (in seconds) after which the session will be automatically invalidated\"")
+    lifetime: Optional[StrictStr] = Field(default=None, description="A Duration represents a signed, fixed-length span of time represented  as a count of seconds and fractions of seconds at nanosecond  resolution. It is independent of any calendar and concepts like \"day\"  or \"month\". It is related to Timestamp in that the difference between  two Timestamp values is a Duration and it can be added or subtracted  from a Timestamp. Range is approximately +-10,000 years.   # Examples   Example 1: Compute Duration from two Timestamps in pseudo code.       Timestamp start = ...;      Timestamp end = ...;      Duration duration = ...;       duration.seconds = end.seconds - start.seconds;      duration.nanos = end.nanos - start.nanos;       if (duration.seconds < 0 && duration.nanos > 0) {        duration.seconds += 1;        duration.nanos -= 1000000000;      } else if (duration.seconds > 0 && duration.nanos < 0) {        duration.seconds -= 1;        duration.nanos += 1000000000;      }   Example 2: Compute Timestamp from Timestamp + Duration in pseudo code.       Timestamp start = ...;      Duration duration = ...;      Timestamp end = ...;       end.seconds = start.seconds + duration.seconds;      end.nanos = start.nanos + duration.nanos;       if (end.nanos < 0) {        end.seconds -= 1;        end.nanos += 1000000000;      } else if (end.nanos >= 1000000000) {        end.seconds += 1;        end.nanos -= 1000000000;      }   Example 3: Compute Duration from datetime.timedelta in Python.       td = datetime.timedelta(days=3, minutes=10)      duration = Duration()      duration.FromTimedelta(td)   # JSON Mapping   In JSON format, the Duration type is encoded as a string rather than an  object, where the string ends in the suffix \"s\" (indicating seconds) and  is preceded by the number of seconds, with nanoseconds expressed as  fractional seconds. For example, 3 seconds with 0 nanoseconds should be  encoded in JSON format as \"3s\", while 3 seconds and 1 nanosecond should  be expressed in JSON format as \"3.000000001s\", and 3 seconds and 1  microsecond should be expressed in JSON format as \"3.000001s\".")
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -92,6 +92,7 @@ class SessionServiceSetSessionRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "sessionId": obj.get("sessionId"),
             "sessionToken": obj.get("sessionToken"),
             "checks": SessionServiceChecks.from_dict(obj["checks"]) if obj.get("checks") is not None else None,
             "metadata": obj.get("metadata"),

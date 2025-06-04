@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.settings_service_details import SettingsServiceDetails
 from zitadel_client.models.settings_service_legal_and_support_settings import SettingsServiceLegalAndSupportSettings
 from typing import Optional, Set

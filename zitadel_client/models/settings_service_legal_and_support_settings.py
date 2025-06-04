@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.settings_service_resource_owner_type import SettingsServiceResourceOwnerType
 from typing import Optional, Set
 from typing_extensions import Self
@@ -30,11 +30,11 @@ class SettingsServiceLegalAndSupportSettings(BaseModel):
     tos_link: Optional[StrictStr] = Field(default=None, alias="tosLink")
     privacy_policy_link: Optional[StrictStr] = Field(default=None, alias="privacyPolicyLink")
     help_link: Optional[StrictStr] = Field(default=None, alias="helpLink")
-    support_email: Optional[StrictStr] = Field(default=None, description="help / support email address.", alias="supportEmail")
-    resource_owner_type: Optional[SettingsServiceResourceOwnerType] = Field(default=SettingsServiceResourceOwnerType.RESOURCE_OWNER_TYPE_UNSPECIFIED, alias="resourceOwnerType")
-    docs_link: Optional[StrictStr] = Field(default=None, description="Link to documentation to be shown in the console.", alias="docsLink")
-    custom_link: Optional[StrictStr] = Field(default=None, description="Link to an external resource that will be available to users in the console.", alias="customLink")
-    custom_link_text: Optional[StrictStr] = Field(default=None, description="The button text that would be shown in console pointing to custom link.", alias="customLinkText")
+    support_email: Optional[StrictStr] = Field(default=None, alias="supportEmail")
+    resource_owner_type: Optional[SettingsServiceResourceOwnerType] = Field(default=None, alias="resourceOwnerType")
+    docs_link: Optional[StrictStr] = Field(default=None, alias="docsLink")
+    custom_link: Optional[StrictStr] = Field(default=None, alias="customLink")
+    custom_link_text: Optional[StrictStr] = Field(default=None, alias="customLinkText")
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -91,7 +91,7 @@ class SettingsServiceLegalAndSupportSettings(BaseModel):
             "privacyPolicyLink": obj.get("privacyPolicyLink"),
             "helpLink": obj.get("helpLink"),
             "supportEmail": obj.get("supportEmail"),
-            "resourceOwnerType": obj.get("resourceOwnerType") if obj.get("resourceOwnerType") is not None else SettingsServiceResourceOwnerType.RESOURCE_OWNER_TYPE_UNSPECIFIED,
+            "resourceOwnerType": obj.get("resourceOwnerType"),
             "docsLink": obj.get("docsLink"),
             "customLink": obj.get("customLink"),
             "customLinkText": obj.get("customLinkText")

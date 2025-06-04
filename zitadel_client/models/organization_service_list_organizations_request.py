@@ -30,8 +30,8 @@ class OrganizationServiceListOrganizationsRequest(BaseModel):
     OrganizationServiceListOrganizationsRequest
     """ # noqa: E501
     query: Optional[OrganizationServiceListQuery] = None
-    sorting_column: Optional[OrganizationServiceOrganizationFieldName] = Field(default=OrganizationServiceOrganizationFieldName.ORGANIZATION_FIELD_NAME_UNSPECIFIED, alias="sortingColumn")
-    queries: Optional[List[OrganizationServiceSearchQuery]] = None
+    sorting_column: Optional[OrganizationServiceOrganizationFieldName] = Field(default=None, alias="sortingColumn")
+    queries: Optional[List[OrganizationServiceSearchQuery]] = Field(default=None, description="criteria the client is looking for")
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -95,7 +95,7 @@ class OrganizationServiceListOrganizationsRequest(BaseModel):
 
         _obj = cls.model_validate({
             "query": OrganizationServiceListQuery.from_dict(obj["query"]) if obj.get("query") is not None else None,
-            "sortingColumn": obj.get("sortingColumn") if obj.get("sortingColumn") is not None else OrganizationServiceOrganizationFieldName.ORGANIZATION_FIELD_NAME_UNSPECIFIED,
+            "sortingColumn": obj.get("sortingColumn"),
             "queries": [OrganizationServiceSearchQuery.from_dict(_item) for _item in obj["queries"]] if obj.get("queries") is not None else None
         })
         return _obj

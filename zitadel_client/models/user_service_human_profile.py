@@ -18,8 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.user_service_gender import UserServiceGender
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,13 +27,13 @@ class UserServiceHumanProfile(BaseModel):
     """
     UserServiceHumanProfile
     """ # noqa: E501
-    given_name: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]] = Field(default=None, alias="givenName")
-    family_name: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]] = Field(default=None, alias="familyName")
-    nick_name: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, alias="nickName")
-    display_name: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, alias="displayName")
-    preferred_language: Optional[Annotated[str, Field(strict=True, max_length=10)]] = Field(default=None, alias="preferredLanguage")
-    gender: Optional[UserServiceGender] = UserServiceGender.GENDER_UNSPECIFIED
-    avatar_url: Optional[StrictStr] = Field(default=None, description="avatar URL of the user", alias="avatarUrl")
+    given_name: Optional[StrictStr] = Field(default=None, alias="givenName")
+    family_name: Optional[StrictStr] = Field(default=None, alias="familyName")
+    nick_name: Optional[StrictStr] = Field(default=None, alias="nickName")
+    display_name: Optional[StrictStr] = Field(default=None, alias="displayName")
+    preferred_language: Optional[StrictStr] = Field(default=None, alias="preferredLanguage")
+    gender: Optional[UserServiceGender] = None
+    avatar_url: Optional[StrictStr] = Field(default=None, alias="avatarUrl")
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -75,6 +74,21 @@ class UserServiceHumanProfile(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if nick_name (nullable) is None
+        # and model_fields_set contains the field
+        if self.nick_name is None and "nick_name" in self.model_fields_set:
+            _dict['nickName'] = None
+
+        # set to None if display_name (nullable) is None
+        # and model_fields_set contains the field
+        if self.display_name is None and "display_name" in self.model_fields_set:
+            _dict['displayName'] = None
+
+        # set to None if preferred_language (nullable) is None
+        # and model_fields_set contains the field
+        if self.preferred_language is None and "preferred_language" in self.model_fields_set:
+            _dict['preferredLanguage'] = None
+
         return _dict
 
     @classmethod
@@ -92,7 +106,7 @@ class UserServiceHumanProfile(BaseModel):
             "nickName": obj.get("nickName"),
             "displayName": obj.get("displayName"),
             "preferredLanguage": obj.get("preferredLanguage"),
-            "gender": obj.get("gender") if obj.get("gender") is not None else UserServiceGender.GENDER_UNSPECIFIED,
+            "gender": obj.get("gender"),
             "avatarUrl": obj.get("avatarUrl")
         })
         return _obj

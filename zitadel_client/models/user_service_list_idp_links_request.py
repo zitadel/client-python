@@ -17,8 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict
-from typing import Any, ClassVar, Dict, List, Optional
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.user_service_list_query import UserServiceListQuery
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,6 +27,7 @@ class UserServiceListIDPLinksRequest(BaseModel):
     """
     UserServiceListIDPLinksRequest
     """ # noqa: E501
+    user_id: Optional[StrictStr] = Field(default=None, alias="userId")
     query: Optional[UserServiceListQuery] = None
 
     model_config = ConfigDict(
@@ -83,6 +84,7 @@ class UserServiceListIDPLinksRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "userId": obj.get("userId"),
             "query": UserServiceListQuery.from_dict(obj["query"]) if obj.get("query") is not None else None
         })
         return _obj

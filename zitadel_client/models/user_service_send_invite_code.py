@@ -17,9 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,8 +26,8 @@ class UserServiceSendInviteCode(BaseModel):
     """
     UserServiceSendInviteCode
     """ # noqa: E501
-    url_template: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]] = Field(default=None, description="Optionally set a url_template, which will be used in the invite mail sent by ZITADEL to guide the user to your invitation page. If no template is set, the default ZITADEL url will be used.  The following placeholders can be used: UserID, OrgID, Code", alias="urlTemplate")
-    application_name: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]] = Field(default=None, description="Optionally set an application name, which will be used in the invite mail sent by ZITADEL. If no application name is set, ZITADEL will be used as default.", alias="applicationName")
+    url_template: Optional[StrictStr] = Field(default=None, description="Optionally set a url_template, which will be used in the invite mail sent by ZITADEL to guide the user to your invitation page.  If no template is set and no previous code was created, the default ZITADEL url will be used.   The following placeholders can be used: UserID, OrgID, Code", alias="urlTemplate")
+    application_name: Optional[StrictStr] = Field(default=None, description="Optionally set an application name, which will be used in the invite mail sent by ZITADEL.  If no application name is set and no previous code was created, ZITADEL will be used as default.", alias="applicationName")
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -69,6 +68,16 @@ class UserServiceSendInviteCode(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if url_template (nullable) is None
+        # and model_fields_set contains the field
+        if self.url_template is None and "url_template" in self.model_fields_set:
+            _dict['urlTemplate'] = None
+
+        # set to None if application_name (nullable) is None
+        # and model_fields_set contains the field
+        if self.application_name is None and "application_name" in self.model_fields_set:
+            _dict['applicationName'] = None
+
         return _dict
 
     @classmethod

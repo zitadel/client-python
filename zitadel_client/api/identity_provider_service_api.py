@@ -16,8 +16,9 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import StrictStr
+from zitadel_client.models.identity_provider_service_get_idpby_id_request import IdentityProviderServiceGetIDPByIDRequest
 from zitadel_client.models.identity_provider_service_get_idpby_id_response import IdentityProviderServiceGetIDPByIDResponse
+from zitadel_client.models.no_op200_response import NoOp200Response
 
 from zitadel_client.api_client import ApiClient, RequestSerialized
 from zitadel_client.api_response import ApiResponse
@@ -38,9 +39,9 @@ class IdentityProviderServiceApi:
 
 
     @validate_call
-    def identity_provider_service_get_idpby_id(
+    def get_idpby_id(
         self,
-        id: StrictStr,
+        identity_provider_service_get_idpby_id_request: IdentityProviderServiceGetIDPByIDRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -54,12 +55,12 @@ class IdentityProviderServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> IdentityProviderServiceGetIDPByIDResponse:
-        """Get identity provider (IdP) by ID
+        """GetIDPByID
 
-        Returns an identity provider (social/enterprise login) by its ID, which can be of the type Google, AzureAD, etc.
+        Get identity provider (IdP) by ID   Returns an identity provider (social/enterprise login) by its ID, which can be of the type Google, AzureAD, etc.
 
-        :param id: (required)
-        :type id: str
+        :param identity_provider_service_get_idpby_id_request: (required)
+        :type identity_provider_service_get_idpby_id_request: IdentityProviderServiceGetIDPByIDRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -82,8 +83,8 @@ class IdentityProviderServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._identity_provider_service_get_idpby_id_serialize(
-            id=id,
+        _param = self._get_idpby_id_serialize(
+            identity_provider_service_get_idpby_id_request=identity_provider_service_get_idpby_id_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -92,8 +93,6 @@ class IdentityProviderServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "IdentityProviderServiceGetIDPByIDResponse",
-            '403': "IdentityProviderServiceRpcStatus",
-            '404': "IdentityProviderServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -107,9 +106,9 @@ class IdentityProviderServiceApi:
 
 
     @validate_call
-    def identity_provider_service_get_idpby_id_with_http_info(
+    def get_idpby_id_with_http_info(
         self,
-        id: StrictStr,
+        identity_provider_service_get_idpby_id_request: IdentityProviderServiceGetIDPByIDRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -123,12 +122,12 @@ class IdentityProviderServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[IdentityProviderServiceGetIDPByIDResponse]:
-        """Get identity provider (IdP) by ID
+        """GetIDPByID
 
-        Returns an identity provider (social/enterprise login) by its ID, which can be of the type Google, AzureAD, etc.
+        Get identity provider (IdP) by ID   Returns an identity provider (social/enterprise login) by its ID, which can be of the type Google, AzureAD, etc.
 
-        :param id: (required)
-        :type id: str
+        :param identity_provider_service_get_idpby_id_request: (required)
+        :type identity_provider_service_get_idpby_id_request: IdentityProviderServiceGetIDPByIDRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -151,8 +150,8 @@ class IdentityProviderServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._identity_provider_service_get_idpby_id_serialize(
-            id=id,
+        _param = self._get_idpby_id_serialize(
+            identity_provider_service_get_idpby_id_request=identity_provider_service_get_idpby_id_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -161,8 +160,6 @@ class IdentityProviderServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "IdentityProviderServiceGetIDPByIDResponse",
-            '403': "IdentityProviderServiceRpcStatus",
-            '404': "IdentityProviderServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -176,9 +173,9 @@ class IdentityProviderServiceApi:
 
 
     @validate_call
-    def identity_provider_service_get_idpby_id_without_preload_content(
+    def get_idpby_id_without_preload_content(
         self,
-        id: StrictStr,
+        identity_provider_service_get_idpby_id_request: IdentityProviderServiceGetIDPByIDRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -192,12 +189,12 @@ class IdentityProviderServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get identity provider (IdP) by ID
+        """GetIDPByID
 
-        Returns an identity provider (social/enterprise login) by its ID, which can be of the type Google, AzureAD, etc.
+        Get identity provider (IdP) by ID   Returns an identity provider (social/enterprise login) by its ID, which can be of the type Google, AzureAD, etc.
 
-        :param id: (required)
-        :type id: str
+        :param identity_provider_service_get_idpby_id_request: (required)
+        :type identity_provider_service_get_idpby_id_request: IdentityProviderServiceGetIDPByIDRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -220,8 +217,8 @@ class IdentityProviderServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._identity_provider_service_get_idpby_id_serialize(
-            id=id,
+        _param = self._get_idpby_id_serialize(
+            identity_provider_service_get_idpby_id_request=identity_provider_service_get_idpby_id_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -230,8 +227,6 @@ class IdentityProviderServiceApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "IdentityProviderServiceGetIDPByIDResponse",
-            '403': "IdentityProviderServiceRpcStatus",
-            '404': "IdentityProviderServiceRpcStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -240,9 +235,9 @@ class IdentityProviderServiceApi:
         return response_data.response
 
 
-    def _identity_provider_service_get_idpby_id_serialize(
+    def _get_idpby_id_serialize(
         self,
-        id,
+        identity_provider_service_get_idpby_id_request,
         _request_auth,
         _content_type,
         _headers,
@@ -264,8 +259,264 @@ class IdentityProviderServiceApi:
         _body_params: Optional[bytes] = None
 
         # process the path parameters
-        if id is not None:
-            _path_params['id'] = id
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if identity_provider_service_get_idpby_id_request is not None:
+            _body_params = identity_provider_service_get_idpby_id_request
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'zitadelAccessToken'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/zitadel.idp.v2.IdentityProviderService/GetIDPByID',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def no_op(
+        self,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> NoOp200Response:
+        """Dummy endpoint to retain union-member schemas
+
+
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._no_op_serialize(
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "NoOp200Response",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def no_op_with_http_info(
+        self,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[NoOp200Response]:
+        """Dummy endpoint to retain union-member schemas
+
+
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._no_op_serialize(
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "NoOp200Response",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def no_op_without_preload_content(
+        self,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Dummy endpoint to retain union-member schemas
+
+
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._no_op_serialize(
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "NoOp200Response",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _no_op_serialize(
+        self,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -288,7 +539,7 @@ class IdentityProviderServiceApi:
 
         return self.api_client.param_serialize(
             method='GET',
-            resource_path='/v2/idps/{id}',
+            resource_path='/8f3c9d63',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

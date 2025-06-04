@@ -17,9 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool
-from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
+from typing import Any, ClassVar, Dict, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,7 +26,7 @@ class OrganizationServiceHashedPassword(BaseModel):
     """
     OrganizationServiceHashedPassword
     """ # noqa: E501
-    hash: Annotated[str, Field(min_length=1, strict=True, max_length=200)] = Field(description="\"Encoded hash of a password in Modular Crypt Format: https://zitadel.com/docs/concepts/architecture/secrets#hashed-secrets\"")
+    hash: StrictStr
     change_required: Optional[StrictBool] = Field(default=None, alias="changeRequired")
 
     model_config = ConfigDict(

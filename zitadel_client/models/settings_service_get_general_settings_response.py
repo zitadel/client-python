@@ -26,8 +26,8 @@ class SettingsServiceGetGeneralSettingsResponse(BaseModel):
     """
     SettingsServiceGetGeneralSettingsResponse
     """ # noqa: E501
-    default_org_id: Optional[StrictStr] = Field(default=None, description="default organization for the current context", alias="defaultOrgId")
-    default_language: Optional[StrictStr] = Field(default=None, description="default language for the current context", alias="defaultLanguage")
+    default_org_id: Optional[StrictStr] = Field(default=None, alias="defaultOrgId")
+    default_language: Optional[StrictStr] = Field(default=None, alias="defaultLanguage")
     supported_languages: Optional[List[StrictStr]] = Field(default=None, alias="supportedLanguages")
 
     model_config = ConfigDict(

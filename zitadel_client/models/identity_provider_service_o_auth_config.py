@@ -30,8 +30,8 @@ class IdentityProviderServiceOAuthConfig(BaseModel):
     authorization_endpoint: Optional[StrictStr] = Field(default=None, description="The endpoint where ZITADEL send the user to authenticate.", alias="authorizationEndpoint")
     token_endpoint: Optional[StrictStr] = Field(default=None, description="The endpoint where ZITADEL can get the token.", alias="tokenEndpoint")
     user_endpoint: Optional[StrictStr] = Field(default=None, description="The endpoint where ZITADEL can get the user information.", alias="userEndpoint")
-    scopes: Optional[List[StrictStr]] = Field(default=None, description="The scopes requested by ZITADEL during the request on the identity provider.")
-    id_attribute: Optional[StrictStr] = Field(default=None, description="Defines how the attribute is called where ZITADEL can get the id of the user.", alias="idAttribute")
+    scopes: Optional[List[StrictStr]] = Field(default=None, description="The scopes requested by ZITADEL during the request on the identity  provider.")
+    id_attribute: Optional[StrictStr] = Field(default=None, description="Defines how the attribute is called where ZITADEL can get the id of the  user.", alias="idAttribute")
 
     model_config = ConfigDict(
         populate_by_name=True,

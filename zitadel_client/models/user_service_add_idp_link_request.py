@@ -17,8 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.user_service_idp_link import UserServiceIDPLink
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,6 +27,7 @@ class UserServiceAddIDPLinkRequest(BaseModel):
     """
     UserServiceAddIDPLinkRequest
     """ # noqa: E501
+    user_id: StrictStr = Field(alias="userId")
     idp_link: Optional[UserServiceIDPLink] = Field(default=None, alias="idpLink")
 
     model_config = ConfigDict(
@@ -83,6 +84,7 @@ class UserServiceAddIDPLinkRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "userId": obj.get("userId"),
             "idpLink": UserServiceIDPLink.from_dict(obj["idpLink"]) if obj.get("idpLink") is not None else None
         })
         return _obj

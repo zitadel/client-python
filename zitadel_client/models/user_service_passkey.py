@@ -17,9 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
+from pydantic import BaseModel, ConfigDict, StrictStr
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.user_service_auth_factor_state import UserServiceAuthFactorState
 from typing import Optional, Set
 from typing_extensions import Self
@@ -29,8 +28,8 @@ class UserServicePasskey(BaseModel):
     UserServicePasskey
     """ # noqa: E501
     id: Optional[StrictStr] = None
-    state: Optional[UserServiceAuthFactorState] = UserServiceAuthFactorState.AUTH_FACTOR_STATE_UNSPECIFIED
-    name: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]] = None
+    state: Optional[UserServiceAuthFactorState] = None
+    name: Optional[StrictStr] = None
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -84,7 +83,7 @@ class UserServicePasskey(BaseModel):
 
         _obj = cls.model_validate({
             "id": obj.get("id"),
-            "state": obj.get("state") if obj.get("state") is not None else UserServiceAuthFactorState.AUTH_FACTOR_STATE_UNSPECIFIED,
+            "state": obj.get("state"),
             "name": obj.get("name")
         })
         return _obj

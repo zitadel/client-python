@@ -17,18 +17,18 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from pydantic import BaseModel, ConfigDict, StrictBool, StrictInt
+from typing import Any, ClassVar, Dict, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
 class SessionServiceListQuery(BaseModel):
     """
-    Object unspecific list filters like offset, limit and asc/desc.
+    SessionServiceListQuery
     """ # noqa: E501
-    offset: Optional[StrictStr] = None
-    limit: Optional[StrictInt] = Field(default=None, description="Maximum amount of events returned. The default is set to 1000 in https://github.com/zitadel/zitadel/blob/new-eventstore/cmd/zitadel/startup.yaml. If the limit exceeds the maximum configured ZITADEL will throw an error. If no limit is present the default is taken.")
-    asc: Optional[StrictBool] = Field(default=None, description="default is descending")
+    offset: Optional[Any] = None
+    limit: Optional[StrictInt] = None
+    asc: Optional[StrictBool] = None
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -69,6 +69,11 @@ class SessionServiceListQuery(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if offset (nullable) is None
+        # and model_fields_set contains the field
+        if self.offset is None and "offset" in self.model_fields_set:
+            _dict['offset'] = None
+
         return _dict
 
     @classmethod

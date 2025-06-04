@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.session_service_intent_factor import SessionServiceIntentFactor
 from zitadel_client.models.session_service_otp_factor import SessionServiceOTPFactor
 from zitadel_client.models.session_service_password_factor import SessionServicePasswordFactor
