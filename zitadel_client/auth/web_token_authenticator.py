@@ -29,7 +29,7 @@ class WebTokenAuthenticator(OAuthAuthenticator):
         private_key: str,
         jwt_lifetime: timedelta = timedelta(hours=1),
         jwt_algorithm: str = "RS256",
-        key_id: str | None = None,
+        key_id: Optional[str] = None,
     ):
         """
         Constructs a JWTAuthenticator.
@@ -195,6 +195,6 @@ class WebTokenAuthenticatorBuilder(OAuthAuthenticatorBuilder["WebTokenAuthentica
             key_id=self.key_id,
         )
 
-    def key_identifier(self, key_id: str | None) -> "WebTokenAuthenticatorBuilder":
+    def key_identifier(self, key_id: Optional[str]) -> "WebTokenAuthenticatorBuilder":
         self.key_id = key_id
         return self

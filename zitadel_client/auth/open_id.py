@@ -17,6 +17,7 @@ class OpenId:
     token_endpoint: str
 
     def __init__(self, hostname: str):
+        # noinspection HttpUrlsUsage
         if not (hostname.startswith("http://") or hostname.startswith("https://")):
             hostname = "https://" + hostname
 
@@ -24,6 +25,7 @@ class OpenId:
         well_known_url = self.build_well_known_url(hostname)
 
         try:
+            # noinspection HttpUrlsUsage
             if not well_known_url.lower().startswith(("http://", "https://")):
                 raise ValueError("Invalid URL scheme. Only 'http' and 'https' are allowed.")
 

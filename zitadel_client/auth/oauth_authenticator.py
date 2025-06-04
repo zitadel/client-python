@@ -92,6 +92,7 @@ class OAuthAuthenticatorBuilder(ABC, Generic[T]):
 
         :param host: The base URL for the OAuth provider.
         """
+        super().__init__()
         self.open_id = OpenId(host)
         self.auth_scopes = {"openid", "urn:zitadel:iam:org:project:id:zitadel:aud"}
 
