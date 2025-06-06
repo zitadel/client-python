@@ -1,10 +1,15 @@
 name: Release
 
 on:
-  workflow_call:
-    secrets:
-      PYPI_TOKEN:
-        required: true
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  packages: write
+  id-token: write
+  checks: read
 
 defaults:
   run:
@@ -41,14 +46,13 @@ jobs:
         with:
           node-version: 'lts/*'
 
-      - name: Install Semantic Release
-        run: |
-          npm install --global semantic-release $(jq -r '.plugins[] | if type == "string" then . else .[0] end' .releaserc.json)
-
       - name: Run semantic-release
+        uses: mridang/action-semantic-release@v1.2.3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          allow-force-install: 'true'
         env:
           DOCKER_REGISTRY_USER: ${{ github.actor }}
           DOCKER_REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
-        run: npx semantic-release

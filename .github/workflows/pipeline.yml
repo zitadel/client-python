@@ -11,7 +11,6 @@ permissions:
   actions: read
   checks: write
   pull-requests: write
-  packages: write
 
 jobs:
   lint-commits:
@@ -88,11 +87,3 @@ jobs:
 
       - name: Report Success
         run: echo "All required checks passed successfully."
-
-  release-package:
-    name: Do Release Artifact
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    needs:
-      - all-passed
-    uses: ./.github/workflows/release.yml
-    secrets: inherit
