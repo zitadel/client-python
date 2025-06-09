@@ -51,7 +51,7 @@ jobs:
           path: ./.qodana/code-coverage
 
       - name: Run Qodana
-        uses: JetBrains/qodana-action@201551778d1453e36c5c0aa26f89a94775cb1acc # v2025.1
+        uses: JetBrains/qodana-action@f5aa2889b113c16bd6aee47817b027537ee33ac7 # v2025.1
         with:
           args: --baseline,.qodana/qodana.sarif.json
           push-fixes: true
