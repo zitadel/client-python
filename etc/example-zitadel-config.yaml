@@ -1,0 +1,17 @@
+ExternalSecure: false
+ExternalDomain: localhost
+ExternalPort: 8080
+TLS.Enabled: false
+Database:
+  postgres:
+    Host: 'db'
+    Port: 5432
+    Database: zitadel
+    User.SSL.Mode: 'disable'
+    Admin.SSL.Mode: 'disable'
+OIDC:
+  DefaultLoginURLV2: "/ui/v2/login/login?authRequest="
+  DefaultLogoutURLV2: "/ui/v2/login/logout?post_logout_redirect="
+SAML.DefaultLoginURLV2: "/ui/v2/login/login?authRequest="
+LogStore.Access.Stdout.Enabled: true
+DefaultInstance.LoginPolicy.MfaInitSkipLifetime: "0s"

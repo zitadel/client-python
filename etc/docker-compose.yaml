@@ -1,0 +1,89 @@
+services:
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: postgres
+    networks:
+      - storage
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready", "-d", "db_prod" ]
+      interval: 10s
+      timeout: 60s
+      retries: 5
+      start_period: 10s
+    volumes:
+      - data:/var/lib/postgresql/data:rw
+
+  zitadel-init:
+    restart: 'no'
+    networks:
+      - storage
+    image: 'ghcr.io/zitadel/zitadel:latest'
+    command: 'init --config /example-zitadel-config.yaml --config /example-zitadel-secrets.yaml'
+    depends_on:
+      db:
+        condition: 'service_healthy'
+    volumes:
+      - './example-zitadel-config.yaml:/example-zitadel-config.yaml:ro'
+      - './example-zitadel-secrets.yaml:/example-zitadel-secrets.yaml:ro'
+      - './zitadel_output:/var/zitadel_output:rw'
+
+  zitadel-setup:
+    restart: 'no'
+    networks:
+      - storage
+    image: 'ghcr.io/zitadel/zitadel:latest-debug'
+    user: root
+    entrypoint: '/bin/bash'
+    command: [ "-c", "/app/zitadel setup --config /example-zitadel-config.yaml --config /example-zitadel-secrets.yaml --steps /example-zitadel-init-steps.yaml --masterkey \"my_test_masterkey_0123456789ABEF\" && echo \"--- ZITADEL SETUP COMPLETE ---\" && echo \"Personal Access Token (PAT) will be in ./zitadel_output/pat.txt on your host.\" && echo \"Service Account Key will be in ./zitadel_output/sa-key.json on your host.\" && echo \"OAuth Client ID and Secret will be in 'zitadel' service logs (grep for 'Application created').\"" ]
+    environment:
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/app
+    depends_on:
+      zitadel-init:
+        condition: 'service_completed_successfully'
+        restart: false
+    volumes:
+      - './zitadel_output:/var/zitadel_output:rw'
+      - './example-zitadel-config.yaml:/example-zitadel-config.yaml:ro'
+      - './example-zitadel-secrets.yaml:/example-zitadel-secrets.yaml:ro'
+      - './example-zitadel-init-steps.yaml:/example-zitadel-init-steps.yaml:ro'
+
+  zitadel:
+    restart: 'unless-stopped'
+    networks:
+      - backend
+      - storage
+    image: 'ghcr.io/zitadel/zitadel:latest'
+    command: >
+      start --config /example-zitadel-config.yaml
+      --config /example-zitadel-secrets.yaml
+      --masterkey my_test_masterkey_0123456789ABEF
+    depends_on:
+      zitadel-setup:
+        condition: 'service_completed_successfully'
+        restart: true
+    volumes:
+      - './example-zitadel-config.yaml:/example-zitadel-config.yaml:ro'
+      - './example-zitadel-secrets.yaml:/example-zitadel-secrets.yaml:ro'
+      - './zitadel_output:/var/zitadel_output:rw'
+    ports:
+      - "8099:8080"
+    healthcheck:
+      test: [
+        "CMD", "/app/zitadel", "ready",
+        "--config", "/example-zitadel-config.yaml",
+        "--config", "/example-zitadel-secrets.yaml"
+      ]
+      interval: 10s
+      timeout: 60s
+      retries: 5
+      start_period: 10s
+
+networks:
+  storage: { }
+  backend: { }
+
+volumes:
+  data: { }
