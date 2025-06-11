@@ -1,10 +1,10 @@
-import os
 import uuid
-from typing import Generator
+from typing import Dict, Generator
 
 import pytest
 
 import zitadel_client as zitadel
+from spec.base_spec import docker_compose as docker_compose
 from zitadel_client.exceptions import ApiError
 from zitadel_client.models import (
     SessionServiceChecks,
@@ -17,39 +17,33 @@ from zitadel_client.models import (
     SessionServiceListSessionsResponse,
     SessionServiceSetSessionRequest,
     SessionServiceSetSessionResponse,
+    UserServiceAddHumanUserRequest,
+    UserServiceSetHumanEmail,
+    UserServiceSetHumanProfile,
 )
 
 
-# noinspection DuplicatedCode
 @pytest.fixture(scope="module")
-def base_url() -> str:
-    """Provides the base URL for tests, skipping if unset."""
-    url = os.getenv("BASE_URL")
-    if not url:
-        pytest.skip("Environment variable BASE_URL must be set", allow_module_level=True)
-    return url
-
-
-@pytest.fixture(scope="module")
-def auth_token() -> str:
-    """Provides a valid personal access token, skipping if unset."""
-    token = os.getenv("AUTH_TOKEN")
-    if not token:
-        pytest.skip("Environment variable AUTH_TOKEN must be set", allow_module_level=True)
-    return token
-
-
-@pytest.fixture(scope="module")
-def client(base_url: str, auth_token: str) -> zitadel.Zitadel:
+def client(docker_compose: Dict[str, str]) -> zitadel.Zitadel:  # noqa F811
     """Provides a Zitadel client configured with a personal access token."""
+    base_url = docker_compose["base_url"]
+    auth_token = docker_compose["auth_token"]
     return zitadel.Zitadel.with_access_token(base_url, auth_token)
 
 
 @pytest.fixture
 def session(client: zitadel.Zitadel) -> Generator[SessionServiceCreateSessionResponse, None, None]:
     """Creates a fresh session for each test and cleans up afterward."""
+    username = uuid.uuid4().hex
+    request1 = UserServiceAddHumanUserRequest(
+        username=username,
+        profile=UserServiceSetHumanProfile(given_name="John", family_name="Doe"),  # type: ignore[call-arg]
+        email=UserServiceSetHumanEmail(email=f"johndoe{uuid.uuid4().hex}@example.com"),
+    )
+    client.users.user_service_add_human_user(request1)
+
     request = SessionServiceCreateSessionRequest(
-        checks=SessionServiceChecks(user=SessionServiceCheckUser(loginName="johndoe")),
+        checks=SessionServiceChecks(user=SessionServiceCheckUser(loginName=username)),
         lifetime="18000s",
     )
     response = client.sessions.session_service_create_session(request)

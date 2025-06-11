@@ -397,7 +397,7 @@ class LogXML:
         return reporter
 
     # noinspection DuplicatedCode
-    def pytest_runtest_logreport(self, report: TestReport) -> None:
+    def pytest_runtest_logreport(self, report: TestReport) -> None:  # noqa: C901
         """Handle a setup/call/teardown report, generating the appropriate
         XML tags as necessary.
 

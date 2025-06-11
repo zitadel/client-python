@@ -1,27 +1,10 @@
-import os
+from typing import Dict
 
 import pytest
 
 import zitadel_client as zitadel
+from spec.base_spec import docker_compose as docker_compose
 from zitadel_client.exceptions import ZitadelError
-
-
-@pytest.fixture(scope="module")
-def base_url() -> str:
-    """Provides the base URL for tests, skipping if unset."""
-    url = os.getenv("BASE_URL")
-    if not url:
-        pytest.skip("Environment variable BASE_URL must be set", allow_module_level=True)
-    return url
-
-
-@pytest.fixture(scope="module")
-def auth_token() -> str:
-    """Provides the auth token for tests, skipping if unset."""
-    url = os.getenv("AUTH_TOKEN")
-    if not url:
-        pytest.skip("Environment variable AUTH_TOKEN must be set", allow_module_level=True)
-    return url
 
 
 class TestUseAccessTokenSpec:
@@ -37,25 +20,18 @@ class TestUseAccessTokenSpec:
     Each test instantiates a new client to ensure a clean, stateless call.
     """
 
-    def test_retrieves_general_settings_with_valid_token(
-        self,
-        base_url: str,
-        auth_token: str,
-    ) -> None:
+    def test_retrieves_general_settings_with_valid_token(self, docker_compose: Dict[str, str]) -> None:  # noqa F811
         """Retrieves general settings successfully with a valid access token."""
         client = zitadel.Zitadel.with_access_token(
-            base_url,
-            auth_token,
+            docker_compose["base_url"],
+            docker_compose["auth_token"],
         )
         client.settings.settings_service_get_general_settings()
 
-    def test_raises_api_exception_with_invalid_token(
-        self,
-        base_url: str,
-    ) -> None:
+    def test_raises_api_exception_with_invalid_token(self, docker_compose: Dict[str, str]) -> None:  # noqa F811
         """Raises ApiException when using an invalid access token."""
         client = zitadel.Zitadel.with_access_token(
-            base_url,
+            docker_compose["base_url"],
             "invalid",
         )
         with pytest.raises(ZitadelError):

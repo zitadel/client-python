@@ -6,17 +6,6 @@ on:
       ref:
         required: true
         type: string
-    secrets:
-      BASE_URL:
-        required: false
-      AUTH_TOKEN:
-        required: false
-      JWT_KEY:
-        required: false
-      CLIENT_ID:
-        required: false
-      CLIENT_SECRET:
-        required: false
 
 defaults:
   run:
@@ -53,12 +42,6 @@ jobs:
 
       - name: Run Tests
         run: poetry run pytest --junitxml=build/reports/junit.xml
-        env:
-          BASE_URL: ${{ secrets.BASE_URL }}
-          AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
-          JWT_KEY: ${{ secrets.JWT_KEY }}
-          CLIENT_ID: ${{ secrets.CLIENT_ID }}
-          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
 
       - name: Upload Results
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2

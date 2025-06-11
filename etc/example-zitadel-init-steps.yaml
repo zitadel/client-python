@@ -1,0 +1,35 @@
+FirstInstance:
+  MachineKeyPath: '/var/zitadel_output/sa-key.json'
+  PatPath: '/var/zitadel_output/pat.txt'
+  Org:
+    Human:
+      PasswordChangeRequired: false
+      Username: zitadel-admin@zitadel.localhost
+      Password: Password1!
+    Machine:
+      Machine:
+        Username: api-user
+        Name: Combined API User
+      MachineKey:
+        ExpirationDate: '2030-01-01T00:00:00Z'
+        Type: 1
+      Pat:
+        ExpirationDate: '2030-01-01T00:00:00Z'
+  Applications:
+    - OIDC:
+        RedirectUris:
+          - http://localhost:8080/callback
+          - http://127.0.0.1:8080/callback
+        ResponseTypes:
+          - CODE
+          - ID_TOKEN
+          - TOKEN
+        GrantTypes:
+          - AUTHORIZATION_CODE
+          - IMPLICIT
+          - REFRESH_TOKEN
+          - CLIENT_CREDENTIALS
+        AuthMethodType: POST
+      Name: 'MyOAuthAPIClient'
+      Type: 'WEB'
+DefaultInstance.LoginPolicy.MfaInitSkipLifetime: "0s"

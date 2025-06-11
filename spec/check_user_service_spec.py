@@ -1,10 +1,10 @@
-import os
 import uuid
-from typing import Generator
+from typing import Dict, Generator
 
 import pytest
 
 import zitadel_client as zitadel
+from spec.base_spec import docker_compose as docker_compose
 from zitadel_client.exceptions import ApiError
 from zitadel_client.models import (
     UserServiceAddHumanUserRequest,
@@ -17,28 +17,11 @@ from zitadel_client.models import (
 )
 
 
-# noinspection DuplicatedCode
 @pytest.fixture(scope="module")
-def base_url() -> str:
-    """Provides the base URL for tests, skipping if unset."""
-    url = os.getenv("BASE_URL")
-    if not url:
-        pytest.skip("Environment variable BASE_URL must be set", allow_module_level=True)
-    return url
-
-
-@pytest.fixture(scope="module")
-def auth_token() -> str:
-    """Provides a valid personal access token, skipping if unset."""
-    token = os.getenv("AUTH_TOKEN")
-    if not token:
-        pytest.skip("Environment variable AUTH_TOKEN must be set", allow_module_level=True)
-    return token
-
-
-@pytest.fixture(scope="module")
-def client(base_url: str, auth_token: str) -> zitadel.Zitadel:
+def client(docker_compose: Dict[str, str]) -> zitadel.Zitadel:  # noqa F811
     """Provides a Zitadel client configured with a personal access token."""
+    base_url = docker_compose["base_url"]
+    auth_token = docker_compose["auth_token"]
     return zitadel.Zitadel.with_access_token(base_url, auth_token)
 
 
