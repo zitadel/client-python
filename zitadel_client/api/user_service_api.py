@@ -16,95 +16,95 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictBool, StrictStr, field_validator
-from typing import List, Optional
-from typing_extensions import Annotated
-from zitadel_client.models.user_service_add_human_user_request import UserServiceAddHumanUserRequest
-from zitadel_client.models.user_service_add_human_user_response import UserServiceAddHumanUserResponse
-from zitadel_client.models.user_service_add_idp_link_request import UserServiceAddIDPLinkRequest
-from zitadel_client.models.user_service_add_idp_link_response import UserServiceAddIDPLinkResponse
-from zitadel_client.models.user_service_add_otp_email_response import UserServiceAddOTPEmailResponse
-from zitadel_client.models.user_service_add_otpsms_response import UserServiceAddOTPSMSResponse
-from zitadel_client.models.user_service_create_invite_code_request import UserServiceCreateInviteCodeRequest
-from zitadel_client.models.user_service_create_invite_code_response import UserServiceCreateInviteCodeResponse
-from zitadel_client.models.user_service_create_passkey_registration_link_request import UserServiceCreatePasskeyRegistrationLinkRequest
-from zitadel_client.models.user_service_create_passkey_registration_link_response import UserServiceCreatePasskeyRegistrationLinkResponse
-from zitadel_client.models.user_service_deactivate_user_response import UserServiceDeactivateUserResponse
-from zitadel_client.models.user_service_delete_user_response import UserServiceDeleteUserResponse
-from zitadel_client.models.user_service_get_user_by_id_response import UserServiceGetUserByIDResponse
-from zitadel_client.models.user_service_human_mfa_init_skipped_response import UserServiceHumanMFAInitSkippedResponse
-from zitadel_client.models.user_service_list_authentication_factors_response import UserServiceListAuthenticationFactorsResponse
-from zitadel_client.models.user_service_list_authentication_method_types_response import UserServiceListAuthenticationMethodTypesResponse
-from zitadel_client.models.user_service_list_idp_links_request import UserServiceListIDPLinksRequest
-from zitadel_client.models.user_service_list_idp_links_response import UserServiceListIDPLinksResponse
-from zitadel_client.models.user_service_list_passkeys_response import UserServiceListPasskeysResponse
-from zitadel_client.models.user_service_list_users_request import UserServiceListUsersRequest
-from zitadel_client.models.user_service_list_users_response import UserServiceListUsersResponse
-from zitadel_client.models.user_service_lock_user_response import UserServiceLockUserResponse
-from zitadel_client.models.user_service_password_reset_request import UserServicePasswordResetRequest
-from zitadel_client.models.user_service_password_reset_response import UserServicePasswordResetResponse
-from zitadel_client.models.user_service_reactivate_user_response import UserServiceReactivateUserResponse
-from zitadel_client.models.user_service_register_passkey_request import UserServiceRegisterPasskeyRequest
-from zitadel_client.models.user_service_register_passkey_response import UserServiceRegisterPasskeyResponse
-from zitadel_client.models.user_service_register_totp_response import UserServiceRegisterTOTPResponse
-from zitadel_client.models.user_service_register_u2_f_request import UserServiceRegisterU2FRequest
-from zitadel_client.models.user_service_register_u2_f_response import UserServiceRegisterU2FResponse
-from zitadel_client.models.user_service_remove_idp_link_response import UserServiceRemoveIDPLinkResponse
-from zitadel_client.models.user_service_remove_otp_email_response import UserServiceRemoveOTPEmailResponse
-from zitadel_client.models.user_service_remove_otpsms_response import UserServiceRemoveOTPSMSResponse
-from zitadel_client.models.user_service_remove_passkey_response import UserServiceRemovePasskeyResponse
-from zitadel_client.models.user_service_remove_phone_response import UserServiceRemovePhoneResponse
-from zitadel_client.models.user_service_remove_totp_response import UserServiceRemoveTOTPResponse
-from zitadel_client.models.user_service_remove_u2_f_response import UserServiceRemoveU2FResponse
-from zitadel_client.models.user_service_resend_email_code_request import UserServiceResendEmailCodeRequest
-from zitadel_client.models.user_service_resend_email_code_response import UserServiceResendEmailCodeResponse
-from zitadel_client.models.user_service_resend_invite_code_response import UserServiceResendInviteCodeResponse
-from zitadel_client.models.user_service_resend_phone_code_request import UserServiceResendPhoneCodeRequest
-from zitadel_client.models.user_service_resend_phone_code_response import UserServiceResendPhoneCodeResponse
-from zitadel_client.models.user_service_retrieve_identity_provider_intent_request import UserServiceRetrieveIdentityProviderIntentRequest
-from zitadel_client.models.user_service_retrieve_identity_provider_intent_response import UserServiceRetrieveIdentityProviderIntentResponse
-from zitadel_client.models.user_service_send_email_code_request import UserServiceSendEmailCodeRequest
-from zitadel_client.models.user_service_send_email_code_response import UserServiceSendEmailCodeResponse
-from zitadel_client.models.user_service_set_email_request import UserServiceSetEmailRequest
-from zitadel_client.models.user_service_set_email_response import UserServiceSetEmailResponse
-from zitadel_client.models.user_service_set_password_request import UserServiceSetPasswordRequest
-from zitadel_client.models.user_service_set_password_response import UserServiceSetPasswordResponse
-from zitadel_client.models.user_service_set_phone_request import UserServiceSetPhoneRequest
-from zitadel_client.models.user_service_set_phone_response import UserServiceSetPhoneResponse
-from zitadel_client.models.user_service_start_identity_provider_intent_request import UserServiceStartIdentityProviderIntentRequest
-from zitadel_client.models.user_service_start_identity_provider_intent_response import UserServiceStartIdentityProviderIntentResponse
-from zitadel_client.models.user_service_unlock_user_response import UserServiceUnlockUserResponse
-from zitadel_client.models.user_service_update_human_user_request import UserServiceUpdateHumanUserRequest
-from zitadel_client.models.user_service_update_human_user_response import UserServiceUpdateHumanUserResponse
-from zitadel_client.models.user_service_verify_email_request import UserServiceVerifyEmailRequest
-from zitadel_client.models.user_service_verify_email_response import UserServiceVerifyEmailResponse
-from zitadel_client.models.user_service_verify_invite_code_request import UserServiceVerifyInviteCodeRequest
-from zitadel_client.models.user_service_verify_invite_code_response import UserServiceVerifyInviteCodeResponse
-from zitadel_client.models.user_service_verify_passkey_registration_request import UserServiceVerifyPasskeyRegistrationRequest
-from zitadel_client.models.user_service_verify_passkey_registration_response import UserServiceVerifyPasskeyRegistrationResponse
-from zitadel_client.models.user_service_verify_phone_request import UserServiceVerifyPhoneRequest
-from zitadel_client.models.user_service_verify_phone_response import UserServiceVerifyPhoneResponse
-from zitadel_client.models.user_service_verify_totp_registration_request import UserServiceVerifyTOTPRegistrationRequest
-from zitadel_client.models.user_service_verify_totp_registration_response import UserServiceVerifyTOTPRegistrationResponse
-from zitadel_client.models.user_service_verify_u2_f_registration_request import UserServiceVerifyU2FRegistrationRequest
-from zitadel_client.models.user_service_verify_u2_f_registration_response import UserServiceVerifyU2FRegistrationResponse
+  from pydantic import Field, StrictBool, StrictStr, field_validator
+  from typing import List, Optional
+  from typing_extensions import Annotated
+  from zitadel_client.models.user_service_add_human_user_request import UserServiceAddHumanUserRequest
+  from zitadel_client.models.user_service_add_human_user_response import UserServiceAddHumanUserResponse
+  from zitadel_client.models.user_service_add_idp_link_request import UserServiceAddIDPLinkRequest
+  from zitadel_client.models.user_service_add_idp_link_response import UserServiceAddIDPLinkResponse
+  from zitadel_client.models.user_service_add_otp_email_response import UserServiceAddOTPEmailResponse
+  from zitadel_client.models.user_service_add_otpsms_response import UserServiceAddOTPSMSResponse
+  from zitadel_client.models.user_service_create_invite_code_request import UserServiceCreateInviteCodeRequest
+  from zitadel_client.models.user_service_create_invite_code_response import UserServiceCreateInviteCodeResponse
+  from zitadel_client.models.user_service_create_passkey_registration_link_request import UserServiceCreatePasskeyRegistrationLinkRequest
+  from zitadel_client.models.user_service_create_passkey_registration_link_response import UserServiceCreatePasskeyRegistrationLinkResponse
+  from zitadel_client.models.user_service_deactivate_user_response import UserServiceDeactivateUserResponse
+  from zitadel_client.models.user_service_delete_user_response import UserServiceDeleteUserResponse
+  from zitadel_client.models.user_service_get_user_by_id_response import UserServiceGetUserByIDResponse
+  from zitadel_client.models.user_service_human_mfa_init_skipped_response import UserServiceHumanMFAInitSkippedResponse
+  from zitadel_client.models.user_service_list_authentication_factors_response import UserServiceListAuthenticationFactorsResponse
+  from zitadel_client.models.user_service_list_authentication_method_types_response import UserServiceListAuthenticationMethodTypesResponse
+  from zitadel_client.models.user_service_list_idp_links_request import UserServiceListIDPLinksRequest
+  from zitadel_client.models.user_service_list_idp_links_response import UserServiceListIDPLinksResponse
+  from zitadel_client.models.user_service_list_passkeys_response import UserServiceListPasskeysResponse
+  from zitadel_client.models.user_service_list_users_request import UserServiceListUsersRequest
+  from zitadel_client.models.user_service_list_users_response import UserServiceListUsersResponse
+  from zitadel_client.models.user_service_lock_user_response import UserServiceLockUserResponse
+  from zitadel_client.models.user_service_password_reset_request import UserServicePasswordResetRequest
+  from zitadel_client.models.user_service_password_reset_response import UserServicePasswordResetResponse
+  from zitadel_client.models.user_service_reactivate_user_response import UserServiceReactivateUserResponse
+  from zitadel_client.models.user_service_register_passkey_request import UserServiceRegisterPasskeyRequest
+  from zitadel_client.models.user_service_register_passkey_response import UserServiceRegisterPasskeyResponse
+  from zitadel_client.models.user_service_register_totp_response import UserServiceRegisterTOTPResponse
+  from zitadel_client.models.user_service_register_u2_f_request import UserServiceRegisterU2FRequest
+  from zitadel_client.models.user_service_register_u2_f_response import UserServiceRegisterU2FResponse
+  from zitadel_client.models.user_service_remove_idp_link_response import UserServiceRemoveIDPLinkResponse
+  from zitadel_client.models.user_service_remove_otp_email_response import UserServiceRemoveOTPEmailResponse
+  from zitadel_client.models.user_service_remove_otpsms_response import UserServiceRemoveOTPSMSResponse
+  from zitadel_client.models.user_service_remove_passkey_response import UserServiceRemovePasskeyResponse
+  from zitadel_client.models.user_service_remove_phone_response import UserServiceRemovePhoneResponse
+  from zitadel_client.models.user_service_remove_totp_response import UserServiceRemoveTOTPResponse
+  from zitadel_client.models.user_service_remove_u2_f_response import UserServiceRemoveU2FResponse
+  from zitadel_client.models.user_service_resend_email_code_request import UserServiceResendEmailCodeRequest
+  from zitadel_client.models.user_service_resend_email_code_response import UserServiceResendEmailCodeResponse
+  from zitadel_client.models.user_service_resend_invite_code_response import UserServiceResendInviteCodeResponse
+  from zitadel_client.models.user_service_resend_phone_code_request import UserServiceResendPhoneCodeRequest
+  from zitadel_client.models.user_service_resend_phone_code_response import UserServiceResendPhoneCodeResponse
+  from zitadel_client.models.user_service_retrieve_identity_provider_intent_request import UserServiceRetrieveIdentityProviderIntentRequest
+  from zitadel_client.models.user_service_retrieve_identity_provider_intent_response import UserServiceRetrieveIdentityProviderIntentResponse
+  from zitadel_client.models.user_service_send_email_code_request import UserServiceSendEmailCodeRequest
+  from zitadel_client.models.user_service_send_email_code_response import UserServiceSendEmailCodeResponse
+  from zitadel_client.models.user_service_set_email_request import UserServiceSetEmailRequest
+  from zitadel_client.models.user_service_set_email_response import UserServiceSetEmailResponse
+  from zitadel_client.models.user_service_set_password_request import UserServiceSetPasswordRequest
+  from zitadel_client.models.user_service_set_password_response import UserServiceSetPasswordResponse
+  from zitadel_client.models.user_service_set_phone_request import UserServiceSetPhoneRequest
+  from zitadel_client.models.user_service_set_phone_response import UserServiceSetPhoneResponse
+  from zitadel_client.models.user_service_start_identity_provider_intent_request import UserServiceStartIdentityProviderIntentRequest
+  from zitadel_client.models.user_service_start_identity_provider_intent_response import UserServiceStartIdentityProviderIntentResponse
+  from zitadel_client.models.user_service_unlock_user_response import UserServiceUnlockUserResponse
+  from zitadel_client.models.user_service_update_human_user_request import UserServiceUpdateHumanUserRequest
+  from zitadel_client.models.user_service_update_human_user_response import UserServiceUpdateHumanUserResponse
+  from zitadel_client.models.user_service_verify_email_request import UserServiceVerifyEmailRequest
+  from zitadel_client.models.user_service_verify_email_response import UserServiceVerifyEmailResponse
+  from zitadel_client.models.user_service_verify_invite_code_request import UserServiceVerifyInviteCodeRequest
+  from zitadel_client.models.user_service_verify_invite_code_response import UserServiceVerifyInviteCodeResponse
+  from zitadel_client.models.user_service_verify_passkey_registration_request import UserServiceVerifyPasskeyRegistrationRequest
+  from zitadel_client.models.user_service_verify_passkey_registration_response import UserServiceVerifyPasskeyRegistrationResponse
+  from zitadel_client.models.user_service_verify_phone_request import UserServiceVerifyPhoneRequest
+  from zitadel_client.models.user_service_verify_phone_response import UserServiceVerifyPhoneResponse
+  from zitadel_client.models.user_service_verify_totp_registration_request import UserServiceVerifyTOTPRegistrationRequest
+  from zitadel_client.models.user_service_verify_totp_registration_response import UserServiceVerifyTOTPRegistrationResponse
+  from zitadel_client.models.user_service_verify_u2_f_registration_request import UserServiceVerifyU2FRegistrationRequest
+  from zitadel_client.models.user_service_verify_u2_f_registration_response import UserServiceVerifyU2FRegistrationResponse
 
 from zitadel_client.api_client import ApiClient, RequestSerialized
 from zitadel_client.api_response import ApiResponse
 from zitadel_client.rest import RESTResponseType
 
 
-class UserServiceApi:
-    """NOTE: This class is auto generated by OpenAPI Generator
-    Ref: https://openapi-generator.tech
+  class UserServiceApi:
+  """NOTE: This class is auto generated by OpenAPI Generator
+  Ref: https://openapi-generator.tech
 
-    Do not edit the class manually.
-    """
+  Do not edit the class manually.
+  """
 
-    def __init__(self, api_client=None) -> None:
-        if api_client is None:
-            api_client = ApiClient.get_default()
-        self.api_client = api_client
+  def __init__(self, api_client=None) -> None:
+  if api_client is None:
+  api_client = ApiClient.get_default()
+  self.api_client = api_client
 
 
     @validate_call
@@ -124,7 +124,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceAddHumanUserResponse:
-        """Create a new human user
+            """Create a new human user
 
         Create/import a new user with the type human. The newly created user will get a verification email if either the email address is not marked as verified and you did not request the verification to be returned.
 
@@ -152,7 +152,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_add_human_user_serialize(
+        _param = self.__user_service_add_human_user_serialize(
             user_service_add_human_user_request=user_service_add_human_user_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -165,224 +165,91 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_add_human_user_with_http_info(
-        self,
-        user_service_add_human_user_request: UserServiceAddHumanUserRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceAddHumanUserResponse]:
-        """Create a new human user
 
-        Create/import a new user with the type human. The newly created user will get a verification email if either the email address is not marked as verified and you did not request the verification to be returned.
-
-        :param user_service_add_human_user_request: (required)
-        :type user_service_add_human_user_request: UserServiceAddHumanUserRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_add_human_user_serialize(
-            user_service_add_human_user_request=user_service_add_human_user_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '201': "UserServiceAddHumanUserResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_add_human_user_without_preload_content(
-        self,
-        user_service_add_human_user_request: UserServiceAddHumanUserRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Create a new human user
-
-        Create/import a new user with the type human. The newly created user will get a verification email if either the email address is not marked as verified and you did not request the verification to be returned.
-
-        :param user_service_add_human_user_request: (required)
-        :type user_service_add_human_user_request: UserServiceAddHumanUserRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_add_human_user_serialize(
-            user_service_add_human_user_request=user_service_add_human_user_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '201': "UserServiceAddHumanUserResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_add_human_user_serialize(
-        self,
-        user_service_add_human_user_request,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_add_human_user_serialize(
+    self,
+      user_service_add_human_user_request,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-        if user_service_add_human_user_request is not None:
-            _body_params = user_service_add_human_user_request
+    # process the path parameters
+    # process the query parameters
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
+      if user_service_add_human_user_request is not None:
+        _body_params = user_service_add_human_user_request
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+      # set the HTTP header `Content-Type`
+      if _content_type:
+      _header_params['Content-Type'] = _content_type
+      else:
+      _default_content_type = (
+      self.api_client.select_header_content_type(
+      [
+        'application/json'
+      ]
+      )
+      )
+      if _default_content_type is not None:
+      _header_params['Content-Type'] = _default_content_type
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
 
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/human',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+    return self.api_client.param_serialize(
+    method='POST',
+    resource_path='/v2/users/human',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -405,7 +272,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceAddIDPLinkResponse:
-        """Add link to an identity provider to an user
+            """Add link to an identity provider to an user
 
         Add link to an identity provider to an user..
 
@@ -435,7 +302,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_add_idp_link_serialize(
+        _param = self.__user_service_add_idp_link_serialize(
             user_id=user_id,
             user_service_add_idp_link_request=user_service_add_idp_link_request,
             _request_auth=_request_auth,
@@ -449,235 +316,94 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_add_idp_link_with_http_info(
-        self,
-        user_id: StrictStr,
-        user_service_add_idp_link_request: UserServiceAddIDPLinkRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceAddIDPLinkResponse]:
-        """Add link to an identity provider to an user
 
-        Add link to an identity provider to an user..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param user_service_add_idp_link_request: (required)
-        :type user_service_add_idp_link_request: UserServiceAddIDPLinkRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_add_idp_link_serialize(
-            user_id=user_id,
-            user_service_add_idp_link_request=user_service_add_idp_link_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceAddIDPLinkResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_add_idp_link_without_preload_content(
-        self,
-        user_id: StrictStr,
-        user_service_add_idp_link_request: UserServiceAddIDPLinkRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Add link to an identity provider to an user
-
-        Add link to an identity provider to an user..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param user_service_add_idp_link_request: (required)
-        :type user_service_add_idp_link_request: UserServiceAddIDPLinkRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_add_idp_link_serialize(
-            user_id=user_id,
-            user_service_add_idp_link_request=user_service_add_idp_link_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceAddIDPLinkResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_add_idp_link_serialize(
-        self,
-        user_id,
-        user_service_add_idp_link_request,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_add_idp_link_serialize(
+    self,
+      user_id,
+      user_service_add_idp_link_request,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-        if user_service_add_idp_link_request is not None:
-            _body_params = user_service_add_idp_link_request
+    # process the path parameters
+      if user_id is not None:
+      _path_params['userId'] = user_id
+    # process the query parameters
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
+      if user_service_add_idp_link_request is not None:
+        _body_params = user_service_add_idp_link_request
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+      # set the HTTP header `Content-Type`
+      if _content_type:
+      _header_params['Content-Type'] = _content_type
+      else:
+      _default_content_type = (
+      self.api_client.select_header_content_type(
+      [
+        'application/json'
+      ]
+      )
+      )
+      if _default_content_type is not None:
+      _header_params['Content-Type'] = _default_content_type
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
 
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/links',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+    return self.api_client.param_serialize(
+    method='POST',
+    resource_path='/v2/users/{userId}/links',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -699,7 +425,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceAddOTPEmailResponse:
-        """Add OTP Email for a user
+            """Add OTP Email for a user
 
         Add a new One-Time Password (OTP) Email factor to the authenticated user. OTP Email will enable the user to verify a OTP with the latest verified email. The email has to be verified to add the second factor..
 
@@ -727,7 +453,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_add_otp_email_serialize(
+        _param = self.__user_service_add_otp_email_serialize(
             user_id=user_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -740,224 +466,78 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_add_otp_email_with_http_info(
-        self,
-        user_id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceAddOTPEmailResponse]:
-        """Add OTP Email for a user
 
-        Add a new One-Time Password (OTP) Email factor to the authenticated user. OTP Email will enable the user to verify a OTP with the latest verified email. The email has to be verified to add the second factor..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_add_otp_email_serialize(
-            user_id=user_id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceAddOTPEmailResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_add_otp_email_without_preload_content(
-        self,
-        user_id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Add OTP Email for a user
-
-        Add a new One-Time Password (OTP) Email factor to the authenticated user. OTP Email will enable the user to verify a OTP with the latest verified email. The email has to be verified to add the second factor..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_add_otp_email_serialize(
-            user_id=user_id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceAddOTPEmailResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_add_otp_email_serialize(
-        self,
-        user_id,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_add_otp_email_serialize(
+    self,
+      user_id,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
+    # process the path parameters
+      if user_id is not None:
+      _path_params['userId'] = user_id
+    # process the query parameters
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
 
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/otp_email',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+    return self.api_client.param_serialize(
+    method='POST',
+    resource_path='/v2/users/{userId}/otp_email',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -979,7 +559,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceAddOTPSMSResponse:
-        """Add OTP SMS for a user
+            """Add OTP SMS for a user
 
         Add a new One-Time Password (OTP) SMS factor to the authenticated user. OTP SMS will enable the user to verify a OTP with the latest verified phone number. The phone number has to be verified to add the second factor..
 
@@ -1007,7 +587,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_add_otpsms_serialize(
+        _param = self.__user_service_add_otpsms_serialize(
             user_id=user_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1020,224 +600,78 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_add_otpsms_with_http_info(
-        self,
-        user_id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceAddOTPSMSResponse]:
-        """Add OTP SMS for a user
 
-        Add a new One-Time Password (OTP) SMS factor to the authenticated user. OTP SMS will enable the user to verify a OTP with the latest verified phone number. The phone number has to be verified to add the second factor..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_add_otpsms_serialize(
-            user_id=user_id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceAddOTPSMSResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_add_otpsms_without_preload_content(
-        self,
-        user_id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Add OTP SMS for a user
-
-        Add a new One-Time Password (OTP) SMS factor to the authenticated user. OTP SMS will enable the user to verify a OTP with the latest verified phone number. The phone number has to be verified to add the second factor..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_add_otpsms_serialize(
-            user_id=user_id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceAddOTPSMSResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_add_otpsms_serialize(
-        self,
-        user_id,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_add_otpsms_serialize(
+    self,
+      user_id,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
+    # process the path parameters
+      if user_id is not None:
+      _path_params['userId'] = user_id
+    # process the query parameters
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
 
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/otp_sms',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+    return self.api_client.param_serialize(
+    method='POST',
+    resource_path='/v2/users/{userId}/otp_sms',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -1260,7 +694,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceCreateInviteCodeResponse:
-        """Create an invite code for a user
+            """Create an invite code for a user
 
         Create an invite code for a user to initialize their first authentication method (password, passkeys, IdP) depending on the organization's available methods.
 
@@ -1290,7 +724,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_create_invite_code_serialize(
+        _param = self.__user_service_create_invite_code_serialize(
             user_id=user_id,
             user_service_create_invite_code_request=user_service_create_invite_code_request,
             _request_auth=_request_auth,
@@ -1304,235 +738,94 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_create_invite_code_with_http_info(
-        self,
-        user_id: StrictStr,
-        user_service_create_invite_code_request: UserServiceCreateInviteCodeRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceCreateInviteCodeResponse]:
-        """Create an invite code for a user
 
-        Create an invite code for a user to initialize their first authentication method (password, passkeys, IdP) depending on the organization's available methods.
-
-        :param user_id: (required)
-        :type user_id: str
-        :param user_service_create_invite_code_request: (required)
-        :type user_service_create_invite_code_request: UserServiceCreateInviteCodeRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_create_invite_code_serialize(
-            user_id=user_id,
-            user_service_create_invite_code_request=user_service_create_invite_code_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceCreateInviteCodeResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_create_invite_code_without_preload_content(
-        self,
-        user_id: StrictStr,
-        user_service_create_invite_code_request: UserServiceCreateInviteCodeRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Create an invite code for a user
-
-        Create an invite code for a user to initialize their first authentication method (password, passkeys, IdP) depending on the organization's available methods.
-
-        :param user_id: (required)
-        :type user_id: str
-        :param user_service_create_invite_code_request: (required)
-        :type user_service_create_invite_code_request: UserServiceCreateInviteCodeRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_create_invite_code_serialize(
-            user_id=user_id,
-            user_service_create_invite_code_request=user_service_create_invite_code_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceCreateInviteCodeResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_create_invite_code_serialize(
-        self,
-        user_id,
-        user_service_create_invite_code_request,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_create_invite_code_serialize(
+    self,
+      user_id,
+      user_service_create_invite_code_request,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-        if user_service_create_invite_code_request is not None:
-            _body_params = user_service_create_invite_code_request
+    # process the path parameters
+      if user_id is not None:
+      _path_params['userId'] = user_id
+    # process the query parameters
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
+      if user_service_create_invite_code_request is not None:
+        _body_params = user_service_create_invite_code_request
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+      # set the HTTP header `Content-Type`
+      if _content_type:
+      _header_params['Content-Type'] = _content_type
+      else:
+      _default_content_type = (
+      self.api_client.select_header_content_type(
+      [
+        'application/json'
+      ]
+      )
+      )
+      if _default_content_type is not None:
+      _header_params['Content-Type'] = _default_content_type
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
 
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/invite_code',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+    return self.api_client.param_serialize(
+    method='POST',
+    resource_path='/v2/users/{userId}/invite_code',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -1555,7 +848,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceCreatePasskeyRegistrationLinkResponse:
-        """Create a passkey registration link for a user
+            """Create a passkey registration link for a user
 
         Create a passkey registration link which includes a code and either return it or send it to the user..
 
@@ -1585,7 +878,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_create_passkey_registration_link_serialize(
+        _param = self.__user_service_create_passkey_registration_link_serialize(
             user_id=user_id,
             user_service_create_passkey_registration_link_request=user_service_create_passkey_registration_link_request,
             _request_auth=_request_auth,
@@ -1599,235 +892,94 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_create_passkey_registration_link_with_http_info(
-        self,
-        user_id: StrictStr,
-        user_service_create_passkey_registration_link_request: UserServiceCreatePasskeyRegistrationLinkRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceCreatePasskeyRegistrationLinkResponse]:
-        """Create a passkey registration link for a user
 
-        Create a passkey registration link which includes a code and either return it or send it to the user..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param user_service_create_passkey_registration_link_request: (required)
-        :type user_service_create_passkey_registration_link_request: UserServiceCreatePasskeyRegistrationLinkRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_create_passkey_registration_link_serialize(
-            user_id=user_id,
-            user_service_create_passkey_registration_link_request=user_service_create_passkey_registration_link_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceCreatePasskeyRegistrationLinkResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_create_passkey_registration_link_without_preload_content(
-        self,
-        user_id: StrictStr,
-        user_service_create_passkey_registration_link_request: UserServiceCreatePasskeyRegistrationLinkRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Create a passkey registration link for a user
-
-        Create a passkey registration link which includes a code and either return it or send it to the user..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param user_service_create_passkey_registration_link_request: (required)
-        :type user_service_create_passkey_registration_link_request: UserServiceCreatePasskeyRegistrationLinkRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_create_passkey_registration_link_serialize(
-            user_id=user_id,
-            user_service_create_passkey_registration_link_request=user_service_create_passkey_registration_link_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceCreatePasskeyRegistrationLinkResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_create_passkey_registration_link_serialize(
-        self,
-        user_id,
-        user_service_create_passkey_registration_link_request,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_create_passkey_registration_link_serialize(
+    self,
+      user_id,
+      user_service_create_passkey_registration_link_request,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-        if user_service_create_passkey_registration_link_request is not None:
-            _body_params = user_service_create_passkey_registration_link_request
+    # process the path parameters
+      if user_id is not None:
+      _path_params['userId'] = user_id
+    # process the query parameters
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
+      if user_service_create_passkey_registration_link_request is not None:
+        _body_params = user_service_create_passkey_registration_link_request
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+      # set the HTTP header `Content-Type`
+      if _content_type:
+      _header_params['Content-Type'] = _content_type
+      else:
+      _default_content_type = (
+      self.api_client.select_header_content_type(
+      [
+        'application/json'
+      ]
+      )
+      )
+      if _default_content_type is not None:
+      _header_params['Content-Type'] = _default_content_type
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
 
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/passkeys/registration_link',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+    return self.api_client.param_serialize(
+    method='POST',
+    resource_path='/v2/users/{userId}/passkeys/registration_link',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -1849,7 +1001,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceDeactivateUserResponse:
-        """Deactivate user
+            """Deactivate user
 
         The state of the user will be changed to 'deactivated'. The user will not be able to log in anymore. The endpoint returns an error if the user is already in the state 'deactivated'. Use deactivate user when the user should not be able to use the account anymore, but you still need access to the user data..
 
@@ -1877,7 +1029,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_deactivate_user_serialize(
+        _param = self.__user_service_deactivate_user_serialize(
             user_id=user_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1890,224 +1042,78 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_deactivate_user_with_http_info(
-        self,
-        user_id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceDeactivateUserResponse]:
-        """Deactivate user
 
-        The state of the user will be changed to 'deactivated'. The user will not be able to log in anymore. The endpoint returns an error if the user is already in the state 'deactivated'. Use deactivate user when the user should not be able to use the account anymore, but you still need access to the user data..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_deactivate_user_serialize(
-            user_id=user_id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceDeactivateUserResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_deactivate_user_without_preload_content(
-        self,
-        user_id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Deactivate user
-
-        The state of the user will be changed to 'deactivated'. The user will not be able to log in anymore. The endpoint returns an error if the user is already in the state 'deactivated'. Use deactivate user when the user should not be able to use the account anymore, but you still need access to the user data..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_deactivate_user_serialize(
-            user_id=user_id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceDeactivateUserResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_deactivate_user_serialize(
-        self,
-        user_id,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_deactivate_user_serialize(
+    self,
+      user_id,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
+    # process the path parameters
+      if user_id is not None:
+      _path_params['userId'] = user_id
+    # process the query parameters
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
 
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/deactivate',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+    return self.api_client.param_serialize(
+    method='POST',
+    resource_path='/v2/users/{userId}/deactivate',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -2129,7 +1135,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceDeleteUserResponse:
-        """Delete user
+            """Delete user
 
         The state of the user will be changed to 'deleted'. The user will not be able to log in anymore. Endpoints requesting this user will return an error 'User not found..
 
@@ -2157,7 +1163,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_delete_user_serialize(
+        _param = self.__user_service_delete_user_serialize(
             user_id=user_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -2170,211 +1176,78 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_delete_user_with_http_info(
-        self,
-        user_id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceDeleteUserResponse]:
-        """Delete user
 
-        The state of the user will be changed to 'deleted'. The user will not be able to log in anymore. Endpoints requesting this user will return an error 'User not found..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_delete_user_serialize(
-            user_id=user_id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceDeleteUserResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_delete_user_without_preload_content(
-        self,
-        user_id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Delete user
-
-        The state of the user will be changed to 'deleted'. The user will not be able to log in anymore. Endpoints requesting this user will return an error 'User not found..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_delete_user_serialize(
-            user_id=user_id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceDeleteUserResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_delete_user_serialize(
-        self,
-        user_id,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_delete_user_serialize(
+    self,
+      user_id,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+    # process the path parameters
+      if user_id is not None:
+      _path_params['userId'] = user_id
+    # process the query parameters
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
 
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        return self.api_client.param_serialize(
-            method='DELETE',
-            resource_path='/v2/users/{userId}',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
+
+    return self.api_client.param_serialize(
+    method='DELETE',
+    resource_path='/v2/users/{userId}',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -2396,7 +1269,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceGetUserByIDResponse:
-        """User by ID
+            """User by ID
 
         Returns the full user object (human or machine) including the profile, email, etc..
 
@@ -2424,7 +1297,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_get_user_by_id_serialize(
+        _param = self.__user_service_get_user_by_id_serialize(
             user_id=user_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -2437,211 +1310,78 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_get_user_by_id_with_http_info(
-        self,
-        user_id: Annotated[StrictStr, Field(description="User ID of the user you like to get.")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceGetUserByIDResponse]:
-        """User by ID
 
-        Returns the full user object (human or machine) including the profile, email, etc..
-
-        :param user_id: User ID of the user you like to get. (required)
-        :type user_id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_get_user_by_id_serialize(
-            user_id=user_id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceGetUserByIDResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_get_user_by_id_without_preload_content(
-        self,
-        user_id: Annotated[StrictStr, Field(description="User ID of the user you like to get.")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """User by ID
-
-        Returns the full user object (human or machine) including the profile, email, etc..
-
-        :param user_id: User ID of the user you like to get. (required)
-        :type user_id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_get_user_by_id_serialize(
-            user_id=user_id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceGetUserByIDResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_get_user_by_id_serialize(
-        self,
-        user_id,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_get_user_by_id_serialize(
+    self,
+      user_id,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+    # process the path parameters
+      if user_id is not None:
+      _path_params['userId'] = user_id
+    # process the query parameters
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
 
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/v2/users/{userId}',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
+
+    return self.api_client.param_serialize(
+    method='GET',
+    resource_path='/v2/users/{userId}',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -2663,7 +1403,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceHumanMFAInitSkippedResponse:
-        """MFA Init Skipped
+            """MFA Init Skipped
 
         Update the last time the user has skipped MFA initialization. The server timestamp is used.
 
@@ -2691,7 +1431,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_human_mfa_init_skipped_serialize(
+        _param = self.__user_service_human_mfa_init_skipped_serialize(
             user_id=user_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -2704,224 +1444,78 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_human_mfa_init_skipped_with_http_info(
-        self,
-        user_id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceHumanMFAInitSkippedResponse]:
-        """MFA Init Skipped
 
-        Update the last time the user has skipped MFA initialization. The server timestamp is used.
-
-        :param user_id: (required)
-        :type user_id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_human_mfa_init_skipped_serialize(
-            user_id=user_id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceHumanMFAInitSkippedResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_human_mfa_init_skipped_without_preload_content(
-        self,
-        user_id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """MFA Init Skipped
-
-        Update the last time the user has skipped MFA initialization. The server timestamp is used.
-
-        :param user_id: (required)
-        :type user_id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_human_mfa_init_skipped_serialize(
-            user_id=user_id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceHumanMFAInitSkippedResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_human_mfa_init_skipped_serialize(
-        self,
-        user_id,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_human_mfa_init_skipped_serialize(
+    self,
+      user_id,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
+    # process the path parameters
+      if user_id is not None:
+      _path_params['userId'] = user_id
+    # process the query parameters
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
 
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/mfa_init_skipped',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+    return self.api_client.param_serialize(
+    method='POST',
+    resource_path='/v2/users/{userId}/mfa_init_skipped',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -2945,7 +1539,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceListAuthenticationFactorsResponse:
-        """user_service_list_authentication_factors
+            """user_service_list_authentication_factors
 
 
         :param user_id: (required)
@@ -2976,7 +1570,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_list_authentication_factors_serialize(
+        _param = self.__user_service_list_authentication_factors_serialize(
             user_id=user_id,
             auth_factors=auth_factors,
             states=states,
@@ -2991,237 +1585,90 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_list_authentication_factors_with_http_info(
-        self,
-        user_id: StrictStr,
-        auth_factors: Annotated[Optional[List[StrictStr]], Field(description="Specify the Auth Factors you are interested in")] = None,
-        states: Annotated[Optional[List[StrictStr]], Field(description="Specify the state of the Auth Factors")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceListAuthenticationFactorsResponse]:
-        """user_service_list_authentication_factors
 
-
-        :param user_id: (required)
-        :type user_id: str
-        :param auth_factors: Specify the Auth Factors you are interested in
-        :type auth_factors: List[str]
-        :param states: Specify the state of the Auth Factors
-        :type states: List[str]
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_list_authentication_factors_serialize(
-            user_id=user_id,
-            auth_factors=auth_factors,
-            states=states,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceListAuthenticationFactorsResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_list_authentication_factors_without_preload_content(
-        self,
-        user_id: StrictStr,
-        auth_factors: Annotated[Optional[List[StrictStr]], Field(description="Specify the Auth Factors you are interested in")] = None,
-        states: Annotated[Optional[List[StrictStr]], Field(description="Specify the state of the Auth Factors")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """user_service_list_authentication_factors
-
-
-        :param user_id: (required)
-        :type user_id: str
-        :param auth_factors: Specify the Auth Factors you are interested in
-        :type auth_factors: List[str]
-        :param states: Specify the state of the Auth Factors
-        :type states: List[str]
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_list_authentication_factors_serialize(
-            user_id=user_id,
-            auth_factors=auth_factors,
-            states=states,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceListAuthenticationFactorsResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_list_authentication_factors_serialize(
-        self,
-        user_id,
-        auth_factors,
-        states,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_list_authentication_factors_serialize(
+    self,
+      user_id,
+      auth_factors,
+      states,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-            'authFactors': 'csv',
-            'states': 'csv',
-        }
+    _collection_formats: Dict[str, str] = {
+        'authFactors': 'csv',
+        'states': 'csv',
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
-        # process the query parameters
-        if auth_factors is not None:
-            
-            _query_params.append(('authFactors', auth_factors))
-            
-        if states is not None:
-            
-            _query_params.append(('states', states))
-            
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+    # process the path parameters
+      if user_id is not None:
+      _path_params['userId'] = user_id
+    # process the query parameters
+      if auth_factors is not None:
+      
+        _query_params.append(('authFactors', auth_factors))
+      
+      if states is not None:
+      
+        _query_params.append(('states', states))
+      
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
 
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/authentication_factors/_search',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
+
+    return self.api_client.param_serialize(
+    method='POST',
+    resource_path='/v2/users/{userId}/authentication_factors/_search',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -3245,7 +1692,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceListAuthenticationMethodTypesResponse:
-        """List all possible authentication methods of a user
+            """List all possible authentication methods of a user
 
         List all possible authentication methods of a user like password, passwordless, (T)OTP and more..
 
@@ -3277,7 +1724,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_list_authentication_method_types_serialize(
+        _param = self.__user_service_list_authentication_method_types_serialize(
             user_id=user_id,
             domain_query_include_without_domain=domain_query_include_without_domain,
             domain_query_domain=domain_query_domain,
@@ -3292,237 +1739,88 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_list_authentication_method_types_with_http_info(
-        self,
-        user_id: StrictStr,
-        domain_query_include_without_domain: Annotated[Optional[StrictBool], Field(description="List also auth method types without domain information like passkey and U2F added through V1 APIs / Login UI.")] = None,
-        domain_query_domain: Annotated[Optional[StrictStr], Field(description="List only auth methods with specific domain.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceListAuthenticationMethodTypesResponse]:
-        """List all possible authentication methods of a user
 
-        List all possible authentication methods of a user like password, passwordless, (T)OTP and more..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param domain_query_include_without_domain: List also auth method types without domain information like passkey and U2F added through V1 APIs / Login UI.
-        :type domain_query_include_without_domain: bool
-        :param domain_query_domain: List only auth methods with specific domain.
-        :type domain_query_domain: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_list_authentication_method_types_serialize(
-            user_id=user_id,
-            domain_query_include_without_domain=domain_query_include_without_domain,
-            domain_query_domain=domain_query_domain,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceListAuthenticationMethodTypesResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_list_authentication_method_types_without_preload_content(
-        self,
-        user_id: StrictStr,
-        domain_query_include_without_domain: Annotated[Optional[StrictBool], Field(description="List also auth method types without domain information like passkey and U2F added through V1 APIs / Login UI.")] = None,
-        domain_query_domain: Annotated[Optional[StrictStr], Field(description="List only auth methods with specific domain.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """List all possible authentication methods of a user
-
-        List all possible authentication methods of a user like password, passwordless, (T)OTP and more..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param domain_query_include_without_domain: List also auth method types without domain information like passkey and U2F added through V1 APIs / Login UI.
-        :type domain_query_include_without_domain: bool
-        :param domain_query_domain: List only auth methods with specific domain.
-        :type domain_query_domain: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_list_authentication_method_types_serialize(
-            user_id=user_id,
-            domain_query_include_without_domain=domain_query_include_without_domain,
-            domain_query_domain=domain_query_domain,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceListAuthenticationMethodTypesResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_list_authentication_method_types_serialize(
-        self,
-        user_id,
-        domain_query_include_without_domain,
-        domain_query_domain,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_list_authentication_method_types_serialize(
+    self,
+      user_id,
+      domain_query_include_without_domain,
+      domain_query_domain,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
-        # process the query parameters
-        if domain_query_include_without_domain is not None:
-            
-            _query_params.append(('domainQuery.includeWithoutDomain', domain_query_include_without_domain))
-            
-        if domain_query_domain is not None:
-            
-            _query_params.append(('domainQuery.domain', domain_query_domain))
-            
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+    # process the path parameters
+      if user_id is not None:
+      _path_params['userId'] = user_id
+    # process the query parameters
+      if domain_query_include_without_domain is not None:
+      
+        _query_params.append(('domainQuery.includeWithoutDomain', domain_query_include_without_domain))
+      
+      if domain_query_domain is not None:
+      
+        _query_params.append(('domainQuery.domain', domain_query_domain))
+      
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
 
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/v2/users/{userId}/authentication_methods',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
+
+    return self.api_client.param_serialize(
+    method='GET',
+    resource_path='/v2/users/{userId}/authentication_methods',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -3545,7 +1843,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceListIDPLinksResponse:
-        """List links to an identity provider of an user
+            """List links to an identity provider of an user
 
         List links to an identity provider of an user.
 
@@ -3575,7 +1873,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_list_idp_links_serialize(
+        _param = self.__user_service_list_idp_links_serialize(
             user_id=user_id,
             user_service_list_idp_links_request=user_service_list_idp_links_request,
             _request_auth=_request_auth,
@@ -3589,235 +1887,94 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_list_idp_links_with_http_info(
-        self,
-        user_id: StrictStr,
-        user_service_list_idp_links_request: UserServiceListIDPLinksRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceListIDPLinksResponse]:
-        """List links to an identity provider of an user
 
-        List links to an identity provider of an user.
-
-        :param user_id: (required)
-        :type user_id: str
-        :param user_service_list_idp_links_request: (required)
-        :type user_service_list_idp_links_request: UserServiceListIDPLinksRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_list_idp_links_serialize(
-            user_id=user_id,
-            user_service_list_idp_links_request=user_service_list_idp_links_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceListIDPLinksResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_list_idp_links_without_preload_content(
-        self,
-        user_id: StrictStr,
-        user_service_list_idp_links_request: UserServiceListIDPLinksRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """List links to an identity provider of an user
-
-        List links to an identity provider of an user.
-
-        :param user_id: (required)
-        :type user_id: str
-        :param user_service_list_idp_links_request: (required)
-        :type user_service_list_idp_links_request: UserServiceListIDPLinksRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_list_idp_links_serialize(
-            user_id=user_id,
-            user_service_list_idp_links_request=user_service_list_idp_links_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceListIDPLinksResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_list_idp_links_serialize(
-        self,
-        user_id,
-        user_service_list_idp_links_request,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_list_idp_links_serialize(
+    self,
+      user_id,
+      user_service_list_idp_links_request,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-        if user_service_list_idp_links_request is not None:
-            _body_params = user_service_list_idp_links_request
+    # process the path parameters
+      if user_id is not None:
+      _path_params['userId'] = user_id
+    # process the query parameters
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
+      if user_service_list_idp_links_request is not None:
+        _body_params = user_service_list_idp_links_request
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+      # set the HTTP header `Content-Type`
+      if _content_type:
+      _header_params['Content-Type'] = _content_type
+      else:
+      _default_content_type = (
+      self.api_client.select_header_content_type(
+      [
+        'application/json'
+      ]
+      )
+      )
+      if _default_content_type is not None:
+      _header_params['Content-Type'] = _default_content_type
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
 
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/links/_search',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+    return self.api_client.param_serialize(
+    method='POST',
+    resource_path='/v2/users/{userId}/links/_search',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -3839,7 +1996,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceListPasskeysResponse:
-        """List passkeys of an user
+            """List passkeys of an user
 
         List passkeys of an user
 
@@ -3867,7 +2024,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_list_passkeys_serialize(
+        _param = self.__user_service_list_passkeys_serialize(
             user_id=user_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -3880,224 +2037,78 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_list_passkeys_with_http_info(
-        self,
-        user_id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceListPasskeysResponse]:
-        """List passkeys of an user
 
-        List passkeys of an user
-
-        :param user_id: (required)
-        :type user_id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_list_passkeys_serialize(
-            user_id=user_id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceListPasskeysResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_list_passkeys_without_preload_content(
-        self,
-        user_id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """List passkeys of an user
-
-        List passkeys of an user
-
-        :param user_id: (required)
-        :type user_id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_list_passkeys_serialize(
-            user_id=user_id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceListPasskeysResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_list_passkeys_serialize(
-        self,
-        user_id,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_list_passkeys_serialize(
+    self,
+      user_id,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
+    # process the path parameters
+      if user_id is not None:
+      _path_params['userId'] = user_id
+    # process the query parameters
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
 
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/passkeys/_search',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+    return self.api_client.param_serialize(
+    method='POST',
+    resource_path='/v2/users/{userId}/passkeys/_search',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -4119,7 +2130,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceListUsersResponse:
-        """Search Users
+            """Search Users
 
         Search for users. By default, we will return all users of your instance that you have permission to read. Make sure to include a limit and sorting for pagination.
 
@@ -4147,7 +2158,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_list_users_serialize(
+        _param = self.__user_service_list_users_serialize(
             user_service_list_users_request=user_service_list_users_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -4161,226 +2172,91 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_list_users_with_http_info(
-        self,
-        user_service_list_users_request: UserServiceListUsersRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceListUsersResponse]:
-        """Search Users
 
-        Search for users. By default, we will return all users of your instance that you have permission to read. Make sure to include a limit and sorting for pagination.
-
-        :param user_service_list_users_request: (required)
-        :type user_service_list_users_request: UserServiceListUsersRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_list_users_serialize(
-            user_service_list_users_request=user_service_list_users_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceListUsersResponse",
-            '400': "UserServiceRpcStatus",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_list_users_without_preload_content(
-        self,
-        user_service_list_users_request: UserServiceListUsersRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Search Users
-
-        Search for users. By default, we will return all users of your instance that you have permission to read. Make sure to include a limit and sorting for pagination.
-
-        :param user_service_list_users_request: (required)
-        :type user_service_list_users_request: UserServiceListUsersRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_list_users_serialize(
-            user_service_list_users_request=user_service_list_users_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceListUsersResponse",
-            '400': "UserServiceRpcStatus",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_list_users_serialize(
-        self,
-        user_service_list_users_request,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_list_users_serialize(
+    self,
+      user_service_list_users_request,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-        if user_service_list_users_request is not None:
-            _body_params = user_service_list_users_request
+    # process the path parameters
+    # process the query parameters
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
+      if user_service_list_users_request is not None:
+        _body_params = user_service_list_users_request
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+      # set the HTTP header `Content-Type`
+      if _content_type:
+      _header_params['Content-Type'] = _content_type
+      else:
+      _default_content_type = (
+      self.api_client.select_header_content_type(
+      [
+        'application/json'
+      ]
+      )
+      )
+      if _default_content_type is not None:
+      _header_params['Content-Type'] = _default_content_type
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
 
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+    return self.api_client.param_serialize(
+    method='POST',
+    resource_path='/v2/users',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -4402,7 +2278,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceLockUserResponse:
-        """Lock user
+            """Lock user
 
         The state of the user will be changed to 'locked'. The user will not be able to log in anymore. The endpoint returns an error if the user is already in the state 'locked'. Use this endpoint if the user should not be able to log in temporarily because of an event that happened (wrong password, etc.)..
 
@@ -4430,7 +2306,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_lock_user_serialize(
+        _param = self.__user_service_lock_user_serialize(
             user_id=user_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -4443,224 +2319,78 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_lock_user_with_http_info(
-        self,
-        user_id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceLockUserResponse]:
-        """Lock user
 
-        The state of the user will be changed to 'locked'. The user will not be able to log in anymore. The endpoint returns an error if the user is already in the state 'locked'. Use this endpoint if the user should not be able to log in temporarily because of an event that happened (wrong password, etc.)..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_lock_user_serialize(
-            user_id=user_id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceLockUserResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_lock_user_without_preload_content(
-        self,
-        user_id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Lock user
-
-        The state of the user will be changed to 'locked'. The user will not be able to log in anymore. The endpoint returns an error if the user is already in the state 'locked'. Use this endpoint if the user should not be able to log in temporarily because of an event that happened (wrong password, etc.)..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_lock_user_serialize(
-            user_id=user_id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceLockUserResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_lock_user_serialize(
-        self,
-        user_id,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_lock_user_serialize(
+    self,
+      user_id,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
+    # process the path parameters
+      if user_id is not None:
+      _path_params['userId'] = user_id
+    # process the query parameters
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
 
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/lock',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+    return self.api_client.param_serialize(
+    method='POST',
+    resource_path='/v2/users/{userId}/lock',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -4683,7 +2413,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServicePasswordResetResponse:
-        """Request a code to reset a password
+            """Request a code to reset a password
 
         Request a code to reset a password..
 
@@ -4713,7 +2443,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_password_reset_serialize(
+        _param = self.__user_service_password_reset_serialize(
             user_id=user_id,
             user_service_password_reset_request=user_service_password_reset_request,
             _request_auth=_request_auth,
@@ -4727,235 +2457,94 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_password_reset_with_http_info(
-        self,
-        user_id: StrictStr,
-        user_service_password_reset_request: UserServicePasswordResetRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServicePasswordResetResponse]:
-        """Request a code to reset a password
 
-        Request a code to reset a password..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param user_service_password_reset_request: (required)
-        :type user_service_password_reset_request: UserServicePasswordResetRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_password_reset_serialize(
-            user_id=user_id,
-            user_service_password_reset_request=user_service_password_reset_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServicePasswordResetResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_password_reset_without_preload_content(
-        self,
-        user_id: StrictStr,
-        user_service_password_reset_request: UserServicePasswordResetRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Request a code to reset a password
-
-        Request a code to reset a password..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param user_service_password_reset_request: (required)
-        :type user_service_password_reset_request: UserServicePasswordResetRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_password_reset_serialize(
-            user_id=user_id,
-            user_service_password_reset_request=user_service_password_reset_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServicePasswordResetResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_password_reset_serialize(
-        self,
-        user_id,
-        user_service_password_reset_request,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_password_reset_serialize(
+    self,
+      user_id,
+      user_service_password_reset_request,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-        if user_service_password_reset_request is not None:
-            _body_params = user_service_password_reset_request
+    # process the path parameters
+      if user_id is not None:
+      _path_params['userId'] = user_id
+    # process the query parameters
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
+      if user_service_password_reset_request is not None:
+        _body_params = user_service_password_reset_request
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+      # set the HTTP header `Content-Type`
+      if _content_type:
+      _header_params['Content-Type'] = _content_type
+      else:
+      _default_content_type = (
+      self.api_client.select_header_content_type(
+      [
+        'application/json'
+      ]
+      )
+      )
+      if _default_content_type is not None:
+      _header_params['Content-Type'] = _default_content_type
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
 
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/password_reset',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+    return self.api_client.param_serialize(
+    method='POST',
+    resource_path='/v2/users/{userId}/password_reset',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -4977,7 +2566,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceReactivateUserResponse:
-        """Reactivate user
+            """Reactivate user
 
         Reactivate a user with the state 'deactivated'. The user will be able to log in again afterward. The endpoint returns an error if the user is not in the state 'deactivated'..
 
@@ -5005,7 +2594,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_reactivate_user_serialize(
+        _param = self.__user_service_reactivate_user_serialize(
             user_id=user_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -5018,224 +2607,78 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_reactivate_user_with_http_info(
-        self,
-        user_id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceReactivateUserResponse]:
-        """Reactivate user
 
-        Reactivate a user with the state 'deactivated'. The user will be able to log in again afterward. The endpoint returns an error if the user is not in the state 'deactivated'..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_reactivate_user_serialize(
-            user_id=user_id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceReactivateUserResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_reactivate_user_without_preload_content(
-        self,
-        user_id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Reactivate user
-
-        Reactivate a user with the state 'deactivated'. The user will be able to log in again afterward. The endpoint returns an error if the user is not in the state 'deactivated'..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_reactivate_user_serialize(
-            user_id=user_id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceReactivateUserResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_reactivate_user_serialize(
-        self,
-        user_id,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_reactivate_user_serialize(
+    self,
+      user_id,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
+    # process the path parameters
+      if user_id is not None:
+      _path_params['userId'] = user_id
+    # process the query parameters
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
 
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/reactivate',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+    return self.api_client.param_serialize(
+    method='POST',
+    resource_path='/v2/users/{userId}/reactivate',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -5258,7 +2701,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceRegisterPasskeyResponse:
-        """Start the registration of passkey for a user
+            """Start the registration of passkey for a user
 
         Start the registration of a passkey for a user, as a response the public key credential creation options are returned, which are used to verify the passkey..
 
@@ -5288,7 +2731,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_register_passkey_serialize(
+        _param = self.__user_service_register_passkey_serialize(
             user_id=user_id,
             user_service_register_passkey_request=user_service_register_passkey_request,
             _request_auth=_request_auth,
@@ -5302,235 +2745,94 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_register_passkey_with_http_info(
-        self,
-        user_id: StrictStr,
-        user_service_register_passkey_request: UserServiceRegisterPasskeyRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceRegisterPasskeyResponse]:
-        """Start the registration of passkey for a user
 
-        Start the registration of a passkey for a user, as a response the public key credential creation options are returned, which are used to verify the passkey..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param user_service_register_passkey_request: (required)
-        :type user_service_register_passkey_request: UserServiceRegisterPasskeyRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_register_passkey_serialize(
-            user_id=user_id,
-            user_service_register_passkey_request=user_service_register_passkey_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceRegisterPasskeyResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_register_passkey_without_preload_content(
-        self,
-        user_id: StrictStr,
-        user_service_register_passkey_request: UserServiceRegisterPasskeyRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Start the registration of passkey for a user
-
-        Start the registration of a passkey for a user, as a response the public key credential creation options are returned, which are used to verify the passkey..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param user_service_register_passkey_request: (required)
-        :type user_service_register_passkey_request: UserServiceRegisterPasskeyRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_register_passkey_serialize(
-            user_id=user_id,
-            user_service_register_passkey_request=user_service_register_passkey_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceRegisterPasskeyResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_register_passkey_serialize(
-        self,
-        user_id,
-        user_service_register_passkey_request,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_register_passkey_serialize(
+    self,
+      user_id,
+      user_service_register_passkey_request,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-        if user_service_register_passkey_request is not None:
-            _body_params = user_service_register_passkey_request
+    # process the path parameters
+      if user_id is not None:
+      _path_params['userId'] = user_id
+    # process the query parameters
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
+      if user_service_register_passkey_request is not None:
+        _body_params = user_service_register_passkey_request
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+      # set the HTTP header `Content-Type`
+      if _content_type:
+      _header_params['Content-Type'] = _content_type
+      else:
+      _default_content_type = (
+      self.api_client.select_header_content_type(
+      [
+        'application/json'
+      ]
+      )
+      )
+      if _default_content_type is not None:
+      _header_params['Content-Type'] = _default_content_type
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
 
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/passkeys',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+    return self.api_client.param_serialize(
+    method='POST',
+    resource_path='/v2/users/{userId}/passkeys',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -5552,7 +2854,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceRegisterTOTPResponse:
-        """Start the registration of a TOTP generator for a user
+            """Start the registration of a TOTP generator for a user
 
         Start the registration of a TOTP generator for a user, as a response a secret returned, which is used to initialize a TOTP app or device..
 
@@ -5580,7 +2882,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_register_totp_serialize(
+        _param = self.__user_service_register_totp_serialize(
             user_id=user_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -5593,224 +2895,78 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_register_totp_with_http_info(
-        self,
-        user_id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceRegisterTOTPResponse]:
-        """Start the registration of a TOTP generator for a user
 
-        Start the registration of a TOTP generator for a user, as a response a secret returned, which is used to initialize a TOTP app or device..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_register_totp_serialize(
-            user_id=user_id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceRegisterTOTPResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_register_totp_without_preload_content(
-        self,
-        user_id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Start the registration of a TOTP generator for a user
-
-        Start the registration of a TOTP generator for a user, as a response a secret returned, which is used to initialize a TOTP app or device..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_register_totp_serialize(
-            user_id=user_id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceRegisterTOTPResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_register_totp_serialize(
-        self,
-        user_id,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_register_totp_serialize(
+    self,
+      user_id,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
+    # process the path parameters
+      if user_id is not None:
+      _path_params['userId'] = user_id
+    # process the query parameters
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
 
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/totp',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+    return self.api_client.param_serialize(
+    method='POST',
+    resource_path='/v2/users/{userId}/totp',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -5833,7 +2989,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceRegisterU2FResponse:
-        """Start the registration of a u2f token for a user
+            """Start the registration of a u2f token for a user
 
         Start the registration of a u2f token for a user, as a response the public key credential creation options are returned, which are used to verify the u2f token..
 
@@ -5863,7 +3019,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_register_u2_f_serialize(
+        _param = self.__user_service_register_u2_f_serialize(
             user_id=user_id,
             user_service_register_u2_f_request=user_service_register_u2_f_request,
             _request_auth=_request_auth,
@@ -5877,235 +3033,94 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_register_u2_f_with_http_info(
-        self,
-        user_id: StrictStr,
-        user_service_register_u2_f_request: UserServiceRegisterU2FRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceRegisterU2FResponse]:
-        """Start the registration of a u2f token for a user
 
-        Start the registration of a u2f token for a user, as a response the public key credential creation options are returned, which are used to verify the u2f token..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param user_service_register_u2_f_request: (required)
-        :type user_service_register_u2_f_request: UserServiceRegisterU2FRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_register_u2_f_serialize(
-            user_id=user_id,
-            user_service_register_u2_f_request=user_service_register_u2_f_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceRegisterU2FResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_register_u2_f_without_preload_content(
-        self,
-        user_id: StrictStr,
-        user_service_register_u2_f_request: UserServiceRegisterU2FRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Start the registration of a u2f token for a user
-
-        Start the registration of a u2f token for a user, as a response the public key credential creation options are returned, which are used to verify the u2f token..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param user_service_register_u2_f_request: (required)
-        :type user_service_register_u2_f_request: UserServiceRegisterU2FRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_register_u2_f_serialize(
-            user_id=user_id,
-            user_service_register_u2_f_request=user_service_register_u2_f_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceRegisterU2FResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_register_u2_f_serialize(
-        self,
-        user_id,
-        user_service_register_u2_f_request,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_register_u2_f_serialize(
+    self,
+      user_id,
+      user_service_register_u2_f_request,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-        if user_service_register_u2_f_request is not None:
-            _body_params = user_service_register_u2_f_request
+    # process the path parameters
+      if user_id is not None:
+      _path_params['userId'] = user_id
+    # process the query parameters
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
+      if user_service_register_u2_f_request is not None:
+        _body_params = user_service_register_u2_f_request
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+      # set the HTTP header `Content-Type`
+      if _content_type:
+      _header_params['Content-Type'] = _content_type
+      else:
+      _default_content_type = (
+      self.api_client.select_header_content_type(
+      [
+        'application/json'
+      ]
+      )
+      )
+      if _default_content_type is not None:
+      _header_params['Content-Type'] = _default_content_type
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
 
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/u2f',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+    return self.api_client.param_serialize(
+    method='POST',
+    resource_path='/v2/users/{userId}/u2f',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -6129,7 +3144,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceRemoveIDPLinkResponse:
-        """Remove link of an identity provider to an user
+            """Remove link of an identity provider to an user
 
         Remove link of an identity provider to an user.
 
@@ -6161,7 +3176,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_remove_idp_link_serialize(
+        _param = self.__user_service_remove_idp_link_serialize(
             user_id=user_id,
             idp_id=idp_id,
             linked_user_id=linked_user_id,
@@ -6176,246 +3191,84 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_remove_idp_link_with_http_info(
-        self,
-        user_id: StrictStr,
-        idp_id: StrictStr,
-        linked_user_id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceRemoveIDPLinkResponse]:
-        """Remove link of an identity provider to an user
 
-        Remove link of an identity provider to an user.
-
-        :param user_id: (required)
-        :type user_id: str
-        :param idp_id: (required)
-        :type idp_id: str
-        :param linked_user_id: (required)
-        :type linked_user_id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_remove_idp_link_serialize(
-            user_id=user_id,
-            idp_id=idp_id,
-            linked_user_id=linked_user_id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceRemoveIDPLinkResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_remove_idp_link_without_preload_content(
-        self,
-        user_id: StrictStr,
-        idp_id: StrictStr,
-        linked_user_id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Remove link of an identity provider to an user
-
-        Remove link of an identity provider to an user.
-
-        :param user_id: (required)
-        :type user_id: str
-        :param idp_id: (required)
-        :type idp_id: str
-        :param linked_user_id: (required)
-        :type linked_user_id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_remove_idp_link_serialize(
-            user_id=user_id,
-            idp_id=idp_id,
-            linked_user_id=linked_user_id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceRemoveIDPLinkResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_remove_idp_link_serialize(
-        self,
-        user_id,
-        idp_id,
-        linked_user_id,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_remove_idp_link_serialize(
+    self,
+      user_id,
+      idp_id,
+      linked_user_id,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
-        if idp_id is not None:
-            _path_params['idpId'] = idp_id
-        if linked_user_id is not None:
-            _path_params['linkedUserId'] = linked_user_id
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
+    # process the path parameters
+      if user_id is not None:
+      _path_params['userId'] = user_id
+      if idp_id is not None:
+      _path_params['idpId'] = idp_id
+      if linked_user_id is not None:
+      _path_params['linkedUserId'] = linked_user_id
+    # process the query parameters
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
 
-        return self.api_client.param_serialize(
-            method='DELETE',
-            resource_path='/v2/users/{userId}/links/{idpId}/{linkedUserId}',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+    return self.api_client.param_serialize(
+    method='DELETE',
+    resource_path='/v2/users/{userId}/links/{idpId}/{linkedUserId}',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -6437,7 +3290,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceRemoveOTPEmailResponse:
-        """Remove One-Time Password (OTP) Email from a user
+            """Remove One-Time Password (OTP) Email from a user
 
         Remove the configured One-Time Password (OTP) Email factor of a user. As only one OTP Email per user is allowed, the user will not have OTP Email as a second factor afterward.
 
@@ -6465,7 +3318,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_remove_otp_email_serialize(
+        _param = self.__user_service_remove_otp_email_serialize(
             user_id=user_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -6478,211 +3331,78 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_remove_otp_email_with_http_info(
-        self,
-        user_id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceRemoveOTPEmailResponse]:
-        """Remove One-Time Password (OTP) Email from a user
 
-        Remove the configured One-Time Password (OTP) Email factor of a user. As only one OTP Email per user is allowed, the user will not have OTP Email as a second factor afterward.
-
-        :param user_id: (required)
-        :type user_id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_remove_otp_email_serialize(
-            user_id=user_id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceRemoveOTPEmailResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_remove_otp_email_without_preload_content(
-        self,
-        user_id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Remove One-Time Password (OTP) Email from a user
-
-        Remove the configured One-Time Password (OTP) Email factor of a user. As only one OTP Email per user is allowed, the user will not have OTP Email as a second factor afterward.
-
-        :param user_id: (required)
-        :type user_id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_remove_otp_email_serialize(
-            user_id=user_id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceRemoveOTPEmailResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_remove_otp_email_serialize(
-        self,
-        user_id,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_remove_otp_email_serialize(
+    self,
+      user_id,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+    # process the path parameters
+      if user_id is not None:
+      _path_params['userId'] = user_id
+    # process the query parameters
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
 
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        return self.api_client.param_serialize(
-            method='DELETE',
-            resource_path='/v2/users/{userId}/otp_email',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
+
+    return self.api_client.param_serialize(
+    method='DELETE',
+    resource_path='/v2/users/{userId}/otp_email',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -6704,7 +3424,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceRemoveOTPSMSResponse:
-        """Remove One-Time Password (OTP) SMS from a user
+            """Remove One-Time Password (OTP) SMS from a user
 
         Remove the configured One-Time Password (OTP) SMS factor of a user. As only one OTP SMS per user is allowed, the user will not have OTP SMS as a second factor afterward.
 
@@ -6732,7 +3452,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_remove_otpsms_serialize(
+        _param = self.__user_service_remove_otpsms_serialize(
             user_id=user_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -6745,211 +3465,78 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_remove_otpsms_with_http_info(
-        self,
-        user_id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceRemoveOTPSMSResponse]:
-        """Remove One-Time Password (OTP) SMS from a user
 
-        Remove the configured One-Time Password (OTP) SMS factor of a user. As only one OTP SMS per user is allowed, the user will not have OTP SMS as a second factor afterward.
-
-        :param user_id: (required)
-        :type user_id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_remove_otpsms_serialize(
-            user_id=user_id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceRemoveOTPSMSResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_remove_otpsms_without_preload_content(
-        self,
-        user_id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Remove One-Time Password (OTP) SMS from a user
-
-        Remove the configured One-Time Password (OTP) SMS factor of a user. As only one OTP SMS per user is allowed, the user will not have OTP SMS as a second factor afterward.
-
-        :param user_id: (required)
-        :type user_id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_remove_otpsms_serialize(
-            user_id=user_id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceRemoveOTPSMSResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_remove_otpsms_serialize(
-        self,
-        user_id,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_remove_otpsms_serialize(
+    self,
+      user_id,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+    # process the path parameters
+      if user_id is not None:
+      _path_params['userId'] = user_id
+    # process the query parameters
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
 
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        return self.api_client.param_serialize(
-            method='DELETE',
-            resource_path='/v2/users/{userId}/otp_sms',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
+
+    return self.api_client.param_serialize(
+    method='DELETE',
+    resource_path='/v2/users/{userId}/otp_sms',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -6972,7 +3559,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceRemovePasskeyResponse:
-        """Remove passkey from a user
+            """Remove passkey from a user
 
         Remove passkey from a user.
 
@@ -7002,7 +3589,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_remove_passkey_serialize(
+        _param = self.__user_service_remove_passkey_serialize(
             user_id=user_id,
             passkey_id=passkey_id,
             _request_auth=_request_auth,
@@ -7016,222 +3603,81 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_remove_passkey_with_http_info(
-        self,
-        user_id: StrictStr,
-        passkey_id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceRemovePasskeyResponse]:
-        """Remove passkey from a user
 
-        Remove passkey from a user.
-
-        :param user_id: (required)
-        :type user_id: str
-        :param passkey_id: (required)
-        :type passkey_id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_remove_passkey_serialize(
-            user_id=user_id,
-            passkey_id=passkey_id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceRemovePasskeyResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_remove_passkey_without_preload_content(
-        self,
-        user_id: StrictStr,
-        passkey_id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Remove passkey from a user
-
-        Remove passkey from a user.
-
-        :param user_id: (required)
-        :type user_id: str
-        :param passkey_id: (required)
-        :type passkey_id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_remove_passkey_serialize(
-            user_id=user_id,
-            passkey_id=passkey_id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceRemovePasskeyResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_remove_passkey_serialize(
-        self,
-        user_id,
-        passkey_id,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_remove_passkey_serialize(
+    self,
+      user_id,
+      passkey_id,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
-        if passkey_id is not None:
-            _path_params['passkeyId'] = passkey_id
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+    # process the path parameters
+      if user_id is not None:
+      _path_params['userId'] = user_id
+      if passkey_id is not None:
+      _path_params['passkeyId'] = passkey_id
+    # process the query parameters
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
 
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        return self.api_client.param_serialize(
-            method='DELETE',
-            resource_path='/v2/users/{userId}/passkeys/{passkeyId}',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
+
+    return self.api_client.param_serialize(
+    method='DELETE',
+    resource_path='/v2/users/{userId}/passkeys/{passkeyId}',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -7253,7 +3699,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceRemovePhoneResponse:
-        """Delete the user phone
+            """Delete the user phone
 
         Delete the phone number of a user.
 
@@ -7281,7 +3727,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_remove_phone_serialize(
+        _param = self.__user_service_remove_phone_serialize(
             user_id=user_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -7294,224 +3740,78 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_remove_phone_with_http_info(
-        self,
-        user_id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceRemovePhoneResponse]:
-        """Delete the user phone
 
-        Delete the phone number of a user.
-
-        :param user_id: (required)
-        :type user_id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_remove_phone_serialize(
-            user_id=user_id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceRemovePhoneResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_remove_phone_without_preload_content(
-        self,
-        user_id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Delete the user phone
-
-        Delete the phone number of a user.
-
-        :param user_id: (required)
-        :type user_id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_remove_phone_serialize(
-            user_id=user_id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceRemovePhoneResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_remove_phone_serialize(
-        self,
-        user_id,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_remove_phone_serialize(
+    self,
+      user_id,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
+    # process the path parameters
+      if user_id is not None:
+      _path_params['userId'] = user_id
+    # process the query parameters
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
 
-        return self.api_client.param_serialize(
-            method='DELETE',
-            resource_path='/v2/users/{userId}/phone',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+    return self.api_client.param_serialize(
+    method='DELETE',
+    resource_path='/v2/users/{userId}/phone',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -7533,7 +3833,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceRemoveTOTPResponse:
-        """Remove TOTP generator from a user
+            """Remove TOTP generator from a user
 
         Remove the configured TOTP generator of a user. As only one TOTP generator per user is allowed, the user will not have TOTP as a second factor afterward.
 
@@ -7561,7 +3861,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_remove_totp_serialize(
+        _param = self.__user_service_remove_totp_serialize(
             user_id=user_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -7574,211 +3874,78 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_remove_totp_with_http_info(
-        self,
-        user_id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceRemoveTOTPResponse]:
-        """Remove TOTP generator from a user
 
-        Remove the configured TOTP generator of a user. As only one TOTP generator per user is allowed, the user will not have TOTP as a second factor afterward.
-
-        :param user_id: (required)
-        :type user_id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_remove_totp_serialize(
-            user_id=user_id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceRemoveTOTPResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_remove_totp_without_preload_content(
-        self,
-        user_id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Remove TOTP generator from a user
-
-        Remove the configured TOTP generator of a user. As only one TOTP generator per user is allowed, the user will not have TOTP as a second factor afterward.
-
-        :param user_id: (required)
-        :type user_id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_remove_totp_serialize(
-            user_id=user_id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceRemoveTOTPResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_remove_totp_serialize(
-        self,
-        user_id,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_remove_totp_serialize(
+    self,
+      user_id,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+    # process the path parameters
+      if user_id is not None:
+      _path_params['userId'] = user_id
+    # process the query parameters
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
 
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        return self.api_client.param_serialize(
-            method='DELETE',
-            resource_path='/v2/users/{userId}/totp',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
+
+    return self.api_client.param_serialize(
+    method='DELETE',
+    resource_path='/v2/users/{userId}/totp',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -7801,7 +3968,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceRemoveU2FResponse:
-        """Remove u2f token from a user
+            """Remove u2f token from a user
 
         Remove u2f token from a user
 
@@ -7831,7 +3998,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_remove_u2_f_serialize(
+        _param = self.__user_service_remove_u2_f_serialize(
             user_id=user_id,
             u2f_id=u2f_id,
             _request_auth=_request_auth,
@@ -7845,222 +4012,81 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_remove_u2_f_with_http_info(
-        self,
-        user_id: StrictStr,
-        u2f_id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceRemoveU2FResponse]:
-        """Remove u2f token from a user
 
-        Remove u2f token from a user
-
-        :param user_id: (required)
-        :type user_id: str
-        :param u2f_id: (required)
-        :type u2f_id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_remove_u2_f_serialize(
-            user_id=user_id,
-            u2f_id=u2f_id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceRemoveU2FResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_remove_u2_f_without_preload_content(
-        self,
-        user_id: StrictStr,
-        u2f_id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Remove u2f token from a user
-
-        Remove u2f token from a user
-
-        :param user_id: (required)
-        :type user_id: str
-        :param u2f_id: (required)
-        :type u2f_id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_remove_u2_f_serialize(
-            user_id=user_id,
-            u2f_id=u2f_id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceRemoveU2FResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_remove_u2_f_serialize(
-        self,
-        user_id,
-        u2f_id,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_remove_u2_f_serialize(
+    self,
+      user_id,
+      u2f_id,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
-        if u2f_id is not None:
-            _path_params['u2fId'] = u2f_id
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+    # process the path parameters
+      if user_id is not None:
+      _path_params['userId'] = user_id
+      if u2f_id is not None:
+      _path_params['u2fId'] = u2f_id
+    # process the query parameters
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
 
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        return self.api_client.param_serialize(
-            method='DELETE',
-            resource_path='/v2/users/{userId}/u2f/{u2fId}',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
+
+    return self.api_client.param_serialize(
+    method='DELETE',
+    resource_path='/v2/users/{userId}/u2f/{u2fId}',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -8083,7 +4109,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceResendEmailCodeResponse:
-        """Resend code to verify user email
+            """Resend code to verify user email
 
         Resend code to verify user email.
 
@@ -8113,7 +4139,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_resend_email_code_serialize(
+        _param = self.__user_service_resend_email_code_serialize(
             user_id=user_id,
             user_service_resend_email_code_request=user_service_resend_email_code_request,
             _request_auth=_request_auth,
@@ -8127,235 +4153,94 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_resend_email_code_with_http_info(
-        self,
-        user_id: StrictStr,
-        user_service_resend_email_code_request: UserServiceResendEmailCodeRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceResendEmailCodeResponse]:
-        """Resend code to verify user email
 
-        Resend code to verify user email.
-
-        :param user_id: (required)
-        :type user_id: str
-        :param user_service_resend_email_code_request: (required)
-        :type user_service_resend_email_code_request: UserServiceResendEmailCodeRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_resend_email_code_serialize(
-            user_id=user_id,
-            user_service_resend_email_code_request=user_service_resend_email_code_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceResendEmailCodeResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_resend_email_code_without_preload_content(
-        self,
-        user_id: StrictStr,
-        user_service_resend_email_code_request: UserServiceResendEmailCodeRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Resend code to verify user email
-
-        Resend code to verify user email.
-
-        :param user_id: (required)
-        :type user_id: str
-        :param user_service_resend_email_code_request: (required)
-        :type user_service_resend_email_code_request: UserServiceResendEmailCodeRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_resend_email_code_serialize(
-            user_id=user_id,
-            user_service_resend_email_code_request=user_service_resend_email_code_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceResendEmailCodeResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_resend_email_code_serialize(
-        self,
-        user_id,
-        user_service_resend_email_code_request,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_resend_email_code_serialize(
+    self,
+      user_id,
+      user_service_resend_email_code_request,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-        if user_service_resend_email_code_request is not None:
-            _body_params = user_service_resend_email_code_request
+    # process the path parameters
+      if user_id is not None:
+      _path_params['userId'] = user_id
+    # process the query parameters
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
+      if user_service_resend_email_code_request is not None:
+        _body_params = user_service_resend_email_code_request
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+      # set the HTTP header `Content-Type`
+      if _content_type:
+      _header_params['Content-Type'] = _content_type
+      else:
+      _default_content_type = (
+      self.api_client.select_header_content_type(
+      [
+        'application/json'
+      ]
+      )
+      )
+      if _default_content_type is not None:
+      _header_params['Content-Type'] = _default_content_type
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
 
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/email/resend',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+    return self.api_client.param_serialize(
+    method='POST',
+    resource_path='/v2/users/{userId}/email/resend',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -8377,7 +4262,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceResendInviteCodeResponse:
-        """Resend an invite code for a user
+            """Resend an invite code for a user
 
         Resend an invite code for a user to initialize their first authentication method (password, passkeys, IdP) depending on the organization's available methods. A resend is only possible if a code has been created previously and sent to the user. If there is no code or it was directly returned, an error will be returned.
 
@@ -8405,7 +4290,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_resend_invite_code_serialize(
+        _param = self.__user_service_resend_invite_code_serialize(
             user_id=user_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -8418,211 +4303,78 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_resend_invite_code_with_http_info(
-        self,
-        user_id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceResendInviteCodeResponse]:
-        """Resend an invite code for a user
 
-        Resend an invite code for a user to initialize their first authentication method (password, passkeys, IdP) depending on the organization's available methods. A resend is only possible if a code has been created previously and sent to the user. If there is no code or it was directly returned, an error will be returned.
-
-        :param user_id: (required)
-        :type user_id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_resend_invite_code_serialize(
-            user_id=user_id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceResendInviteCodeResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_resend_invite_code_without_preload_content(
-        self,
-        user_id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Resend an invite code for a user
-
-        Resend an invite code for a user to initialize their first authentication method (password, passkeys, IdP) depending on the organization's available methods. A resend is only possible if a code has been created previously and sent to the user. If there is no code or it was directly returned, an error will be returned.
-
-        :param user_id: (required)
-        :type user_id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_resend_invite_code_serialize(
-            user_id=user_id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceResendInviteCodeResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_resend_invite_code_serialize(
-        self,
-        user_id,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_resend_invite_code_serialize(
+    self,
+      user_id,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+    # process the path parameters
+      if user_id is not None:
+      _path_params['userId'] = user_id
+    # process the query parameters
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
 
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/invite_code/resend',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
+
+    return self.api_client.param_serialize(
+    method='POST',
+    resource_path='/v2/users/{userId}/invite_code/resend',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -8645,7 +4397,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceResendPhoneCodeResponse:
-        """Resend code to verify user phone
+            """Resend code to verify user phone
 
         Resend code to verify user phone.
 
@@ -8675,7 +4427,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_resend_phone_code_serialize(
+        _param = self.__user_service_resend_phone_code_serialize(
             user_id=user_id,
             user_service_resend_phone_code_request=user_service_resend_phone_code_request,
             _request_auth=_request_auth,
@@ -8689,235 +4441,94 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_resend_phone_code_with_http_info(
-        self,
-        user_id: StrictStr,
-        user_service_resend_phone_code_request: UserServiceResendPhoneCodeRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceResendPhoneCodeResponse]:
-        """Resend code to verify user phone
 
-        Resend code to verify user phone.
-
-        :param user_id: (required)
-        :type user_id: str
-        :param user_service_resend_phone_code_request: (required)
-        :type user_service_resend_phone_code_request: UserServiceResendPhoneCodeRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_resend_phone_code_serialize(
-            user_id=user_id,
-            user_service_resend_phone_code_request=user_service_resend_phone_code_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceResendPhoneCodeResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_resend_phone_code_without_preload_content(
-        self,
-        user_id: StrictStr,
-        user_service_resend_phone_code_request: UserServiceResendPhoneCodeRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Resend code to verify user phone
-
-        Resend code to verify user phone.
-
-        :param user_id: (required)
-        :type user_id: str
-        :param user_service_resend_phone_code_request: (required)
-        :type user_service_resend_phone_code_request: UserServiceResendPhoneCodeRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_resend_phone_code_serialize(
-            user_id=user_id,
-            user_service_resend_phone_code_request=user_service_resend_phone_code_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceResendPhoneCodeResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_resend_phone_code_serialize(
-        self,
-        user_id,
-        user_service_resend_phone_code_request,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_resend_phone_code_serialize(
+    self,
+      user_id,
+      user_service_resend_phone_code_request,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-        if user_service_resend_phone_code_request is not None:
-            _body_params = user_service_resend_phone_code_request
+    # process the path parameters
+      if user_id is not None:
+      _path_params['userId'] = user_id
+    # process the query parameters
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
+      if user_service_resend_phone_code_request is not None:
+        _body_params = user_service_resend_phone_code_request
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+      # set the HTTP header `Content-Type`
+      if _content_type:
+      _header_params['Content-Type'] = _content_type
+      else:
+      _default_content_type = (
+      self.api_client.select_header_content_type(
+      [
+        'application/json'
+      ]
+      )
+      )
+      if _default_content_type is not None:
+      _header_params['Content-Type'] = _default_content_type
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
 
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/phone/resend',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+    return self.api_client.param_serialize(
+    method='POST',
+    resource_path='/v2/users/{userId}/phone/resend',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -8940,7 +4551,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceRetrieveIdentityProviderIntentResponse:
-        """Retrieve the information returned by the identity provider
+            """Retrieve the information returned by the identity provider
 
         Retrieve the information returned by the identity provider for registration or updating an existing user with new information..
 
@@ -8970,7 +4581,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_retrieve_identity_provider_intent_serialize(
+        _param = self.__user_service_retrieve_identity_provider_intent_serialize(
             idp_intent_id=idp_intent_id,
             user_service_retrieve_identity_provider_intent_request=user_service_retrieve_identity_provider_intent_request,
             _request_auth=_request_auth,
@@ -8984,235 +4595,94 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_retrieve_identity_provider_intent_with_http_info(
-        self,
-        idp_intent_id: Annotated[StrictStr, Field(description="ID of the idp intent, previously returned on the success response of the IDP callback")],
-        user_service_retrieve_identity_provider_intent_request: UserServiceRetrieveIdentityProviderIntentRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceRetrieveIdentityProviderIntentResponse]:
-        """Retrieve the information returned by the identity provider
 
-        Retrieve the information returned by the identity provider for registration or updating an existing user with new information..
-
-        :param idp_intent_id: ID of the idp intent, previously returned on the success response of the IDP callback (required)
-        :type idp_intent_id: str
-        :param user_service_retrieve_identity_provider_intent_request: (required)
-        :type user_service_retrieve_identity_provider_intent_request: UserServiceRetrieveIdentityProviderIntentRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_retrieve_identity_provider_intent_serialize(
-            idp_intent_id=idp_intent_id,
-            user_service_retrieve_identity_provider_intent_request=user_service_retrieve_identity_provider_intent_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceRetrieveIdentityProviderIntentResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_retrieve_identity_provider_intent_without_preload_content(
-        self,
-        idp_intent_id: Annotated[StrictStr, Field(description="ID of the idp intent, previously returned on the success response of the IDP callback")],
-        user_service_retrieve_identity_provider_intent_request: UserServiceRetrieveIdentityProviderIntentRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Retrieve the information returned by the identity provider
-
-        Retrieve the information returned by the identity provider for registration or updating an existing user with new information..
-
-        :param idp_intent_id: ID of the idp intent, previously returned on the success response of the IDP callback (required)
-        :type idp_intent_id: str
-        :param user_service_retrieve_identity_provider_intent_request: (required)
-        :type user_service_retrieve_identity_provider_intent_request: UserServiceRetrieveIdentityProviderIntentRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_retrieve_identity_provider_intent_serialize(
-            idp_intent_id=idp_intent_id,
-            user_service_retrieve_identity_provider_intent_request=user_service_retrieve_identity_provider_intent_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceRetrieveIdentityProviderIntentResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_retrieve_identity_provider_intent_serialize(
-        self,
-        idp_intent_id,
-        user_service_retrieve_identity_provider_intent_request,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_retrieve_identity_provider_intent_serialize(
+    self,
+      idp_intent_id,
+      user_service_retrieve_identity_provider_intent_request,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        if idp_intent_id is not None:
-            _path_params['idpIntentId'] = idp_intent_id
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-        if user_service_retrieve_identity_provider_intent_request is not None:
-            _body_params = user_service_retrieve_identity_provider_intent_request
+    # process the path parameters
+      if idp_intent_id is not None:
+      _path_params['idpIntentId'] = idp_intent_id
+    # process the query parameters
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
+      if user_service_retrieve_identity_provider_intent_request is not None:
+        _body_params = user_service_retrieve_identity_provider_intent_request
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+      # set the HTTP header `Content-Type`
+      if _content_type:
+      _header_params['Content-Type'] = _content_type
+      else:
+      _default_content_type = (
+      self.api_client.select_header_content_type(
+      [
+        'application/json'
+      ]
+      )
+      )
+      if _default_content_type is not None:
+      _header_params['Content-Type'] = _default_content_type
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
 
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/idp_intents/{idpIntentId}',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+    return self.api_client.param_serialize(
+    method='POST',
+    resource_path='/v2/idp_intents/{idpIntentId}',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -9235,7 +4705,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceSendEmailCodeResponse:
-        """Send code to verify user email
+            """Send code to verify user email
 
         Send code to verify user email.
 
@@ -9265,7 +4735,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_send_email_code_serialize(
+        _param = self.__user_service_send_email_code_serialize(
             user_id=user_id,
             user_service_send_email_code_request=user_service_send_email_code_request,
             _request_auth=_request_auth,
@@ -9279,235 +4749,94 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_send_email_code_with_http_info(
-        self,
-        user_id: StrictStr,
-        user_service_send_email_code_request: UserServiceSendEmailCodeRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceSendEmailCodeResponse]:
-        """Send code to verify user email
 
-        Send code to verify user email.
-
-        :param user_id: (required)
-        :type user_id: str
-        :param user_service_send_email_code_request: (required)
-        :type user_service_send_email_code_request: UserServiceSendEmailCodeRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_send_email_code_serialize(
-            user_id=user_id,
-            user_service_send_email_code_request=user_service_send_email_code_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceSendEmailCodeResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_send_email_code_without_preload_content(
-        self,
-        user_id: StrictStr,
-        user_service_send_email_code_request: UserServiceSendEmailCodeRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Send code to verify user email
-
-        Send code to verify user email.
-
-        :param user_id: (required)
-        :type user_id: str
-        :param user_service_send_email_code_request: (required)
-        :type user_service_send_email_code_request: UserServiceSendEmailCodeRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_send_email_code_serialize(
-            user_id=user_id,
-            user_service_send_email_code_request=user_service_send_email_code_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceSendEmailCodeResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_send_email_code_serialize(
-        self,
-        user_id,
-        user_service_send_email_code_request,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_send_email_code_serialize(
+    self,
+      user_id,
+      user_service_send_email_code_request,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-        if user_service_send_email_code_request is not None:
-            _body_params = user_service_send_email_code_request
+    # process the path parameters
+      if user_id is not None:
+      _path_params['userId'] = user_id
+    # process the query parameters
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
+      if user_service_send_email_code_request is not None:
+        _body_params = user_service_send_email_code_request
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+      # set the HTTP header `Content-Type`
+      if _content_type:
+      _header_params['Content-Type'] = _content_type
+      else:
+      _default_content_type = (
+      self.api_client.select_header_content_type(
+      [
+        'application/json'
+      ]
+      )
+      )
+      if _default_content_type is not None:
+      _header_params['Content-Type'] = _default_content_type
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
 
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/email/send',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+    return self.api_client.param_serialize(
+    method='POST',
+    resource_path='/v2/users/{userId}/email/send',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -9530,7 +4859,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceSetEmailResponse:
-        """Change the user email
+            """Change the user email
 
         Change the email address of a user. If the state is set to not verified, a verification code will be generated, which can be either returned or sent to the user by email..
 
@@ -9560,7 +4889,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_set_email_serialize(
+        _param = self.__user_service_set_email_serialize(
             user_id=user_id,
             user_service_set_email_request=user_service_set_email_request,
             _request_auth=_request_auth,
@@ -9574,235 +4903,94 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_set_email_with_http_info(
-        self,
-        user_id: StrictStr,
-        user_service_set_email_request: UserServiceSetEmailRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceSetEmailResponse]:
-        """Change the user email
 
-        Change the email address of a user. If the state is set to not verified, a verification code will be generated, which can be either returned or sent to the user by email..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param user_service_set_email_request: (required)
-        :type user_service_set_email_request: UserServiceSetEmailRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_set_email_serialize(
-            user_id=user_id,
-            user_service_set_email_request=user_service_set_email_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceSetEmailResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_set_email_without_preload_content(
-        self,
-        user_id: StrictStr,
-        user_service_set_email_request: UserServiceSetEmailRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Change the user email
-
-        Change the email address of a user. If the state is set to not verified, a verification code will be generated, which can be either returned or sent to the user by email..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param user_service_set_email_request: (required)
-        :type user_service_set_email_request: UserServiceSetEmailRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_set_email_serialize(
-            user_id=user_id,
-            user_service_set_email_request=user_service_set_email_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceSetEmailResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_set_email_serialize(
-        self,
-        user_id,
-        user_service_set_email_request,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_set_email_serialize(
+    self,
+      user_id,
+      user_service_set_email_request,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-        if user_service_set_email_request is not None:
-            _body_params = user_service_set_email_request
+    # process the path parameters
+      if user_id is not None:
+      _path_params['userId'] = user_id
+    # process the query parameters
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
+      if user_service_set_email_request is not None:
+        _body_params = user_service_set_email_request
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+      # set the HTTP header `Content-Type`
+      if _content_type:
+      _header_params['Content-Type'] = _content_type
+      else:
+      _default_content_type = (
+      self.api_client.select_header_content_type(
+      [
+        'application/json'
+      ]
+      )
+      )
+      if _default_content_type is not None:
+      _header_params['Content-Type'] = _default_content_type
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
 
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/email',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+    return self.api_client.param_serialize(
+    method='POST',
+    resource_path='/v2/users/{userId}/email',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -9825,7 +5013,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceSetPasswordResponse:
-        """Change password
+            """Change password
 
         Change the password of a user with either a verification code or the current password..
 
@@ -9855,7 +5043,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_set_password_serialize(
+        _param = self.__user_service_set_password_serialize(
             user_id=user_id,
             user_service_set_password_request=user_service_set_password_request,
             _request_auth=_request_auth,
@@ -9869,235 +5057,94 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_set_password_with_http_info(
-        self,
-        user_id: StrictStr,
-        user_service_set_password_request: UserServiceSetPasswordRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceSetPasswordResponse]:
-        """Change password
 
-        Change the password of a user with either a verification code or the current password..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param user_service_set_password_request: (required)
-        :type user_service_set_password_request: UserServiceSetPasswordRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_set_password_serialize(
-            user_id=user_id,
-            user_service_set_password_request=user_service_set_password_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceSetPasswordResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_set_password_without_preload_content(
-        self,
-        user_id: StrictStr,
-        user_service_set_password_request: UserServiceSetPasswordRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Change password
-
-        Change the password of a user with either a verification code or the current password..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param user_service_set_password_request: (required)
-        :type user_service_set_password_request: UserServiceSetPasswordRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_set_password_serialize(
-            user_id=user_id,
-            user_service_set_password_request=user_service_set_password_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceSetPasswordResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_set_password_serialize(
-        self,
-        user_id,
-        user_service_set_password_request,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_set_password_serialize(
+    self,
+      user_id,
+      user_service_set_password_request,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-        if user_service_set_password_request is not None:
-            _body_params = user_service_set_password_request
+    # process the path parameters
+      if user_id is not None:
+      _path_params['userId'] = user_id
+    # process the query parameters
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
+      if user_service_set_password_request is not None:
+        _body_params = user_service_set_password_request
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+      # set the HTTP header `Content-Type`
+      if _content_type:
+      _header_params['Content-Type'] = _content_type
+      else:
+      _default_content_type = (
+      self.api_client.select_header_content_type(
+      [
+        'application/json'
+      ]
+      )
+      )
+      if _default_content_type is not None:
+      _header_params['Content-Type'] = _default_content_type
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
 
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/password',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+    return self.api_client.param_serialize(
+    method='POST',
+    resource_path='/v2/users/{userId}/password',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -10120,7 +5167,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceSetPhoneResponse:
-        """Set the user phone
+            """Set the user phone
 
         Set the phone number of a user. If the state is set to not verified, a verification code will be generated, which can be either returned or sent to the user by sms..
 
@@ -10150,7 +5197,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_set_phone_serialize(
+        _param = self.__user_service_set_phone_serialize(
             user_id=user_id,
             user_service_set_phone_request=user_service_set_phone_request,
             _request_auth=_request_auth,
@@ -10164,235 +5211,94 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_set_phone_with_http_info(
-        self,
-        user_id: StrictStr,
-        user_service_set_phone_request: UserServiceSetPhoneRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceSetPhoneResponse]:
-        """Set the user phone
 
-        Set the phone number of a user. If the state is set to not verified, a verification code will be generated, which can be either returned or sent to the user by sms..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param user_service_set_phone_request: (required)
-        :type user_service_set_phone_request: UserServiceSetPhoneRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_set_phone_serialize(
-            user_id=user_id,
-            user_service_set_phone_request=user_service_set_phone_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceSetPhoneResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_set_phone_without_preload_content(
-        self,
-        user_id: StrictStr,
-        user_service_set_phone_request: UserServiceSetPhoneRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Set the user phone
-
-        Set the phone number of a user. If the state is set to not verified, a verification code will be generated, which can be either returned or sent to the user by sms..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param user_service_set_phone_request: (required)
-        :type user_service_set_phone_request: UserServiceSetPhoneRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_set_phone_serialize(
-            user_id=user_id,
-            user_service_set_phone_request=user_service_set_phone_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceSetPhoneResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_set_phone_serialize(
-        self,
-        user_id,
-        user_service_set_phone_request,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_set_phone_serialize(
+    self,
+      user_id,
+      user_service_set_phone_request,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-        if user_service_set_phone_request is not None:
-            _body_params = user_service_set_phone_request
+    # process the path parameters
+      if user_id is not None:
+      _path_params['userId'] = user_id
+    # process the query parameters
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
+      if user_service_set_phone_request is not None:
+        _body_params = user_service_set_phone_request
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+      # set the HTTP header `Content-Type`
+      if _content_type:
+      _header_params['Content-Type'] = _content_type
+      else:
+      _default_content_type = (
+      self.api_client.select_header_content_type(
+      [
+        'application/json'
+      ]
+      )
+      )
+      if _default_content_type is not None:
+      _header_params['Content-Type'] = _default_content_type
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
 
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/phone',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+    return self.api_client.param_serialize(
+    method='POST',
+    resource_path='/v2/users/{userId}/phone',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -10414,7 +5320,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceStartIdentityProviderIntentResponse:
-        """Start flow with an identity provider
+            """Start flow with an identity provider
 
         Start a flow with an identity provider, for external login, registration or linking..
 
@@ -10442,7 +5348,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_start_identity_provider_intent_serialize(
+        _param = self.__user_service_start_identity_provider_intent_serialize(
             user_service_start_identity_provider_intent_request=user_service_start_identity_provider_intent_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -10455,224 +5361,91 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_start_identity_provider_intent_with_http_info(
-        self,
-        user_service_start_identity_provider_intent_request: UserServiceStartIdentityProviderIntentRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceStartIdentityProviderIntentResponse]:
-        """Start flow with an identity provider
 
-        Start a flow with an identity provider, for external login, registration or linking..
-
-        :param user_service_start_identity_provider_intent_request: (required)
-        :type user_service_start_identity_provider_intent_request: UserServiceStartIdentityProviderIntentRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_start_identity_provider_intent_serialize(
-            user_service_start_identity_provider_intent_request=user_service_start_identity_provider_intent_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceStartIdentityProviderIntentResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_start_identity_provider_intent_without_preload_content(
-        self,
-        user_service_start_identity_provider_intent_request: UserServiceStartIdentityProviderIntentRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Start flow with an identity provider
-
-        Start a flow with an identity provider, for external login, registration or linking..
-
-        :param user_service_start_identity_provider_intent_request: (required)
-        :type user_service_start_identity_provider_intent_request: UserServiceStartIdentityProviderIntentRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_start_identity_provider_intent_serialize(
-            user_service_start_identity_provider_intent_request=user_service_start_identity_provider_intent_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceStartIdentityProviderIntentResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_start_identity_provider_intent_serialize(
-        self,
-        user_service_start_identity_provider_intent_request,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_start_identity_provider_intent_serialize(
+    self,
+      user_service_start_identity_provider_intent_request,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-        if user_service_start_identity_provider_intent_request is not None:
-            _body_params = user_service_start_identity_provider_intent_request
+    # process the path parameters
+    # process the query parameters
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
+      if user_service_start_identity_provider_intent_request is not None:
+        _body_params = user_service_start_identity_provider_intent_request
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+      # set the HTTP header `Content-Type`
+      if _content_type:
+      _header_params['Content-Type'] = _content_type
+      else:
+      _default_content_type = (
+      self.api_client.select_header_content_type(
+      [
+        'application/json'
+      ]
+      )
+      )
+      if _default_content_type is not None:
+      _header_params['Content-Type'] = _default_content_type
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
 
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/idp_intents',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+    return self.api_client.param_serialize(
+    method='POST',
+    resource_path='/v2/idp_intents',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -10694,7 +5467,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceUnlockUserResponse:
-        """Unlock user
+            """Unlock user
 
         The state of the user will be changed to 'locked'. The user will not be able to log in anymore. The endpoint returns an error if the user is already in the state 'locked'. Use this endpoint if the user should not be able to log in temporarily because of an event that happened (wrong password, etc.)..
 
@@ -10722,7 +5495,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_unlock_user_serialize(
+        _param = self.__user_service_unlock_user_serialize(
             user_id=user_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -10735,224 +5508,78 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_unlock_user_with_http_info(
-        self,
-        user_id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceUnlockUserResponse]:
-        """Unlock user
 
-        The state of the user will be changed to 'locked'. The user will not be able to log in anymore. The endpoint returns an error if the user is already in the state 'locked'. Use this endpoint if the user should not be able to log in temporarily because of an event that happened (wrong password, etc.)..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_unlock_user_serialize(
-            user_id=user_id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceUnlockUserResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_unlock_user_without_preload_content(
-        self,
-        user_id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Unlock user
-
-        The state of the user will be changed to 'locked'. The user will not be able to log in anymore. The endpoint returns an error if the user is already in the state 'locked'. Use this endpoint if the user should not be able to log in temporarily because of an event that happened (wrong password, etc.)..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_unlock_user_serialize(
-            user_id=user_id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceUnlockUserResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_unlock_user_serialize(
-        self,
-        user_id,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_unlock_user_serialize(
+    self,
+      user_id,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
+    # process the path parameters
+      if user_id is not None:
+      _path_params['userId'] = user_id
+    # process the query parameters
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
 
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/unlock',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+    return self.api_client.param_serialize(
+    method='POST',
+    resource_path='/v2/users/{userId}/unlock',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -10975,7 +5602,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceUpdateHumanUserResponse:
-        """Update User
+            """Update User
 
         Update all information from a user..
 
@@ -11005,7 +5632,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_update_human_user_serialize(
+        _param = self.__user_service_update_human_user_serialize(
             user_id=user_id,
             user_service_update_human_user_request=user_service_update_human_user_request,
             _request_auth=_request_auth,
@@ -11019,235 +5646,94 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_update_human_user_with_http_info(
-        self,
-        user_id: StrictStr,
-        user_service_update_human_user_request: UserServiceUpdateHumanUserRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceUpdateHumanUserResponse]:
-        """Update User
 
-        Update all information from a user..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param user_service_update_human_user_request: (required)
-        :type user_service_update_human_user_request: UserServiceUpdateHumanUserRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_update_human_user_serialize(
-            user_id=user_id,
-            user_service_update_human_user_request=user_service_update_human_user_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceUpdateHumanUserResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_update_human_user_without_preload_content(
-        self,
-        user_id: StrictStr,
-        user_service_update_human_user_request: UserServiceUpdateHumanUserRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Update User
-
-        Update all information from a user..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param user_service_update_human_user_request: (required)
-        :type user_service_update_human_user_request: UserServiceUpdateHumanUserRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_update_human_user_serialize(
-            user_id=user_id,
-            user_service_update_human_user_request=user_service_update_human_user_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceUpdateHumanUserResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_update_human_user_serialize(
-        self,
-        user_id,
-        user_service_update_human_user_request,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_update_human_user_serialize(
+    self,
+      user_id,
+      user_service_update_human_user_request,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-        if user_service_update_human_user_request is not None:
-            _body_params = user_service_update_human_user_request
+    # process the path parameters
+      if user_id is not None:
+      _path_params['userId'] = user_id
+    # process the query parameters
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
+      if user_service_update_human_user_request is not None:
+        _body_params = user_service_update_human_user_request
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+      # set the HTTP header `Content-Type`
+      if _content_type:
+      _header_params['Content-Type'] = _content_type
+      else:
+      _default_content_type = (
+      self.api_client.select_header_content_type(
+      [
+        'application/json'
+      ]
+      )
+      )
+      if _default_content_type is not None:
+      _header_params['Content-Type'] = _default_content_type
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
 
-        return self.api_client.param_serialize(
-            method='PUT',
-            resource_path='/v2/users/human/{userId}',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+    return self.api_client.param_serialize(
+    method='PUT',
+    resource_path='/v2/users/human/{userId}',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -11270,7 +5756,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceVerifyEmailResponse:
-        """Verify the email
+            """Verify the email
 
         Verify the email with the generated code.
 
@@ -11300,7 +5786,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_verify_email_serialize(
+        _param = self.__user_service_verify_email_serialize(
             user_id=user_id,
             user_service_verify_email_request=user_service_verify_email_request,
             _request_auth=_request_auth,
@@ -11314,235 +5800,94 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_verify_email_with_http_info(
-        self,
-        user_id: StrictStr,
-        user_service_verify_email_request: UserServiceVerifyEmailRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceVerifyEmailResponse]:
-        """Verify the email
 
-        Verify the email with the generated code.
-
-        :param user_id: (required)
-        :type user_id: str
-        :param user_service_verify_email_request: (required)
-        :type user_service_verify_email_request: UserServiceVerifyEmailRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_verify_email_serialize(
-            user_id=user_id,
-            user_service_verify_email_request=user_service_verify_email_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceVerifyEmailResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_verify_email_without_preload_content(
-        self,
-        user_id: StrictStr,
-        user_service_verify_email_request: UserServiceVerifyEmailRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Verify the email
-
-        Verify the email with the generated code.
-
-        :param user_id: (required)
-        :type user_id: str
-        :param user_service_verify_email_request: (required)
-        :type user_service_verify_email_request: UserServiceVerifyEmailRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_verify_email_serialize(
-            user_id=user_id,
-            user_service_verify_email_request=user_service_verify_email_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceVerifyEmailResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_verify_email_serialize(
-        self,
-        user_id,
-        user_service_verify_email_request,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_verify_email_serialize(
+    self,
+      user_id,
+      user_service_verify_email_request,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-        if user_service_verify_email_request is not None:
-            _body_params = user_service_verify_email_request
+    # process the path parameters
+      if user_id is not None:
+      _path_params['userId'] = user_id
+    # process the query parameters
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
+      if user_service_verify_email_request is not None:
+        _body_params = user_service_verify_email_request
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+      # set the HTTP header `Content-Type`
+      if _content_type:
+      _header_params['Content-Type'] = _content_type
+      else:
+      _default_content_type = (
+      self.api_client.select_header_content_type(
+      [
+        'application/json'
+      ]
+      )
+      )
+      if _default_content_type is not None:
+      _header_params['Content-Type'] = _default_content_type
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
 
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/email/verify',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+    return self.api_client.param_serialize(
+    method='POST',
+    resource_path='/v2/users/{userId}/email/verify',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -11565,7 +5910,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceVerifyInviteCodeResponse:
-        """Verify an invite code for a user
+            """Verify an invite code for a user
 
         Verify the invite code of a user previously issued. This will set their email to a verified state and allow the user to set up their first authentication method (password, passkeys, IdP) depending on the organization's available methods.
 
@@ -11595,7 +5940,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_verify_invite_code_serialize(
+        _param = self.__user_service_verify_invite_code_serialize(
             user_id=user_id,
             user_service_verify_invite_code_request=user_service_verify_invite_code_request,
             _request_auth=_request_auth,
@@ -11609,235 +5954,94 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_verify_invite_code_with_http_info(
-        self,
-        user_id: StrictStr,
-        user_service_verify_invite_code_request: UserServiceVerifyInviteCodeRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceVerifyInviteCodeResponse]:
-        """Verify an invite code for a user
 
-        Verify the invite code of a user previously issued. This will set their email to a verified state and allow the user to set up their first authentication method (password, passkeys, IdP) depending on the organization's available methods.
-
-        :param user_id: (required)
-        :type user_id: str
-        :param user_service_verify_invite_code_request: (required)
-        :type user_service_verify_invite_code_request: UserServiceVerifyInviteCodeRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_verify_invite_code_serialize(
-            user_id=user_id,
-            user_service_verify_invite_code_request=user_service_verify_invite_code_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceVerifyInviteCodeResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_verify_invite_code_without_preload_content(
-        self,
-        user_id: StrictStr,
-        user_service_verify_invite_code_request: UserServiceVerifyInviteCodeRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Verify an invite code for a user
-
-        Verify the invite code of a user previously issued. This will set their email to a verified state and allow the user to set up their first authentication method (password, passkeys, IdP) depending on the organization's available methods.
-
-        :param user_id: (required)
-        :type user_id: str
-        :param user_service_verify_invite_code_request: (required)
-        :type user_service_verify_invite_code_request: UserServiceVerifyInviteCodeRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_verify_invite_code_serialize(
-            user_id=user_id,
-            user_service_verify_invite_code_request=user_service_verify_invite_code_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceVerifyInviteCodeResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_verify_invite_code_serialize(
-        self,
-        user_id,
-        user_service_verify_invite_code_request,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_verify_invite_code_serialize(
+    self,
+      user_id,
+      user_service_verify_invite_code_request,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-        if user_service_verify_invite_code_request is not None:
-            _body_params = user_service_verify_invite_code_request
+    # process the path parameters
+      if user_id is not None:
+      _path_params['userId'] = user_id
+    # process the query parameters
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
+      if user_service_verify_invite_code_request is not None:
+        _body_params = user_service_verify_invite_code_request
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+      # set the HTTP header `Content-Type`
+      if _content_type:
+      _header_params['Content-Type'] = _content_type
+      else:
+      _default_content_type = (
+      self.api_client.select_header_content_type(
+      [
+        'application/json'
+      ]
+      )
+      )
+      if _default_content_type is not None:
+      _header_params['Content-Type'] = _default_content_type
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
 
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/invite_code/verify',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+    return self.api_client.param_serialize(
+    method='POST',
+    resource_path='/v2/users/{userId}/invite_code/verify',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -11861,7 +6065,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceVerifyPasskeyRegistrationResponse:
-        """Verify a passkey for a user
+            """Verify a passkey for a user
 
         Verify the passkey registration with the public key credential..
 
@@ -11893,7 +6097,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_verify_passkey_registration_serialize(
+        _param = self.__user_service_verify_passkey_registration_serialize(
             user_id=user_id,
             passkey_id=passkey_id,
             user_service_verify_passkey_registration_request=user_service_verify_passkey_registration_request,
@@ -11908,246 +6112,97 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_verify_passkey_registration_with_http_info(
-        self,
-        user_id: StrictStr,
-        passkey_id: StrictStr,
-        user_service_verify_passkey_registration_request: UserServiceVerifyPasskeyRegistrationRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceVerifyPasskeyRegistrationResponse]:
-        """Verify a passkey for a user
 
-        Verify the passkey registration with the public key credential..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param passkey_id: (required)
-        :type passkey_id: str
-        :param user_service_verify_passkey_registration_request: (required)
-        :type user_service_verify_passkey_registration_request: UserServiceVerifyPasskeyRegistrationRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_verify_passkey_registration_serialize(
-            user_id=user_id,
-            passkey_id=passkey_id,
-            user_service_verify_passkey_registration_request=user_service_verify_passkey_registration_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceVerifyPasskeyRegistrationResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_verify_passkey_registration_without_preload_content(
-        self,
-        user_id: StrictStr,
-        passkey_id: StrictStr,
-        user_service_verify_passkey_registration_request: UserServiceVerifyPasskeyRegistrationRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Verify a passkey for a user
-
-        Verify the passkey registration with the public key credential..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param passkey_id: (required)
-        :type passkey_id: str
-        :param user_service_verify_passkey_registration_request: (required)
-        :type user_service_verify_passkey_registration_request: UserServiceVerifyPasskeyRegistrationRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_verify_passkey_registration_serialize(
-            user_id=user_id,
-            passkey_id=passkey_id,
-            user_service_verify_passkey_registration_request=user_service_verify_passkey_registration_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceVerifyPasskeyRegistrationResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_verify_passkey_registration_serialize(
-        self,
-        user_id,
-        passkey_id,
-        user_service_verify_passkey_registration_request,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_verify_passkey_registration_serialize(
+    self,
+      user_id,
+      passkey_id,
+      user_service_verify_passkey_registration_request,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
-        if passkey_id is not None:
-            _path_params['passkeyId'] = passkey_id
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-        if user_service_verify_passkey_registration_request is not None:
-            _body_params = user_service_verify_passkey_registration_request
+    # process the path parameters
+      if user_id is not None:
+      _path_params['userId'] = user_id
+      if passkey_id is not None:
+      _path_params['passkeyId'] = passkey_id
+    # process the query parameters
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
+      if user_service_verify_passkey_registration_request is not None:
+        _body_params = user_service_verify_passkey_registration_request
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+      # set the HTTP header `Content-Type`
+      if _content_type:
+      _header_params['Content-Type'] = _content_type
+      else:
+      _default_content_type = (
+      self.api_client.select_header_content_type(
+      [
+        'application/json'
+      ]
+      )
+      )
+      if _default_content_type is not None:
+      _header_params['Content-Type'] = _default_content_type
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
 
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/passkeys/{passkeyId}',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+    return self.api_client.param_serialize(
+    method='POST',
+    resource_path='/v2/users/{userId}/passkeys/{passkeyId}',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -12170,7 +6225,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceVerifyPhoneResponse:
-        """Verify the phone
+            """Verify the phone
 
         Verify the phone with the generated code..
 
@@ -12200,7 +6255,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_verify_phone_serialize(
+        _param = self.__user_service_verify_phone_serialize(
             user_id=user_id,
             user_service_verify_phone_request=user_service_verify_phone_request,
             _request_auth=_request_auth,
@@ -12214,235 +6269,94 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_verify_phone_with_http_info(
-        self,
-        user_id: StrictStr,
-        user_service_verify_phone_request: UserServiceVerifyPhoneRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceVerifyPhoneResponse]:
-        """Verify the phone
 
-        Verify the phone with the generated code..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param user_service_verify_phone_request: (required)
-        :type user_service_verify_phone_request: UserServiceVerifyPhoneRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_verify_phone_serialize(
-            user_id=user_id,
-            user_service_verify_phone_request=user_service_verify_phone_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceVerifyPhoneResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_verify_phone_without_preload_content(
-        self,
-        user_id: StrictStr,
-        user_service_verify_phone_request: UserServiceVerifyPhoneRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Verify the phone
-
-        Verify the phone with the generated code..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param user_service_verify_phone_request: (required)
-        :type user_service_verify_phone_request: UserServiceVerifyPhoneRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_verify_phone_serialize(
-            user_id=user_id,
-            user_service_verify_phone_request=user_service_verify_phone_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceVerifyPhoneResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_verify_phone_serialize(
-        self,
-        user_id,
-        user_service_verify_phone_request,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_verify_phone_serialize(
+    self,
+      user_id,
+      user_service_verify_phone_request,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-        if user_service_verify_phone_request is not None:
-            _body_params = user_service_verify_phone_request
+    # process the path parameters
+      if user_id is not None:
+      _path_params['userId'] = user_id
+    # process the query parameters
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
+      if user_service_verify_phone_request is not None:
+        _body_params = user_service_verify_phone_request
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+      # set the HTTP header `Content-Type`
+      if _content_type:
+      _header_params['Content-Type'] = _content_type
+      else:
+      _default_content_type = (
+      self.api_client.select_header_content_type(
+      [
+        'application/json'
+      ]
+      )
+      )
+      if _default_content_type is not None:
+      _header_params['Content-Type'] = _default_content_type
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
 
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/phone/verify',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+    return self.api_client.param_serialize(
+    method='POST',
+    resource_path='/v2/users/{userId}/phone/verify',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -12465,7 +6379,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceVerifyTOTPRegistrationResponse:
-        """Verify a TOTP generator for a user
+            """Verify a TOTP generator for a user
 
         Verify the TOTP registration with a generated code..
 
@@ -12495,7 +6409,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_verify_totp_registration_serialize(
+        _param = self.__user_service_verify_totp_registration_serialize(
             user_id=user_id,
             user_service_verify_totp_registration_request=user_service_verify_totp_registration_request,
             _request_auth=_request_auth,
@@ -12509,235 +6423,94 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_verify_totp_registration_with_http_info(
-        self,
-        user_id: StrictStr,
-        user_service_verify_totp_registration_request: UserServiceVerifyTOTPRegistrationRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceVerifyTOTPRegistrationResponse]:
-        """Verify a TOTP generator for a user
 
-        Verify the TOTP registration with a generated code..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param user_service_verify_totp_registration_request: (required)
-        :type user_service_verify_totp_registration_request: UserServiceVerifyTOTPRegistrationRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_verify_totp_registration_serialize(
-            user_id=user_id,
-            user_service_verify_totp_registration_request=user_service_verify_totp_registration_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceVerifyTOTPRegistrationResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_verify_totp_registration_without_preload_content(
-        self,
-        user_id: StrictStr,
-        user_service_verify_totp_registration_request: UserServiceVerifyTOTPRegistrationRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Verify a TOTP generator for a user
-
-        Verify the TOTP registration with a generated code..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param user_service_verify_totp_registration_request: (required)
-        :type user_service_verify_totp_registration_request: UserServiceVerifyTOTPRegistrationRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_verify_totp_registration_serialize(
-            user_id=user_id,
-            user_service_verify_totp_registration_request=user_service_verify_totp_registration_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceVerifyTOTPRegistrationResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_verify_totp_registration_serialize(
-        self,
-        user_id,
-        user_service_verify_totp_registration_request,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_verify_totp_registration_serialize(
+    self,
+      user_id,
+      user_service_verify_totp_registration_request,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-        if user_service_verify_totp_registration_request is not None:
-            _body_params = user_service_verify_totp_registration_request
+    # process the path parameters
+      if user_id is not None:
+      _path_params['userId'] = user_id
+    # process the query parameters
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
+      if user_service_verify_totp_registration_request is not None:
+        _body_params = user_service_verify_totp_registration_request
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+      # set the HTTP header `Content-Type`
+      if _content_type:
+      _header_params['Content-Type'] = _content_type
+      else:
+      _default_content_type = (
+      self.api_client.select_header_content_type(
+      [
+        'application/json'
+      ]
+      )
+      )
+      if _default_content_type is not None:
+      _header_params['Content-Type'] = _default_content_type
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
 
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/totp/verify',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+    return self.api_client.param_serialize(
+    method='POST',
+    resource_path='/v2/users/{userId}/totp/verify',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
 
@@ -12761,7 +6534,7 @@ class UserServiceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UserServiceVerifyU2FRegistrationResponse:
-        """Verify a u2f token for a user
+            """Verify a u2f token for a user
 
         Verify the u2f token registration with the public key credential..
 
@@ -12793,7 +6566,7 @@ class UserServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._user_service_verify_u2_f_registration_serialize(
+        _param = self.__user_service_verify_u2_f_registration_serialize(
             user_id=user_id,
             u2f_id=u2f_id,
             user_service_verify_u2_f_registration_request=user_service_verify_u2_f_registration_request,
@@ -12808,245 +6581,96 @@ class UserServiceApi:
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+    response_data = self.api_client.call_api(
+    *_param,
+    _request_timeout=_request_timeout
+    )
+    response_data.read()
+    return self.api_client.response_deserialize(
+    response_data=response_data,
+    response_types_map=_response_types_map,
+    ).data
 
 
-    @validate_call
-    def user_service_verify_u2_f_registration_with_http_info(
-        self,
-        user_id: StrictStr,
-        u2f_id: StrictStr,
-        user_service_verify_u2_f_registration_request: UserServiceVerifyU2FRegistrationRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserServiceVerifyU2FRegistrationResponse]:
-        """Verify a u2f token for a user
 
-        Verify the u2f token registration with the public key credential..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param u2f_id: (required)
-        :type u2f_id: str
-        :param user_service_verify_u2_f_registration_request: (required)
-        :type user_service_verify_u2_f_registration_request: UserServiceVerifyU2FRegistrationRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_verify_u2_f_registration_serialize(
-            user_id=user_id,
-            u2f_id=u2f_id,
-            user_service_verify_u2_f_registration_request=user_service_verify_u2_f_registration_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceVerifyU2FRegistrationResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def user_service_verify_u2_f_registration_without_preload_content(
-        self,
-        user_id: StrictStr,
-        u2f_id: StrictStr,
-        user_service_verify_u2_f_registration_request: UserServiceVerifyU2FRegistrationRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Verify a u2f token for a user
-
-        Verify the u2f token registration with the public key credential..
-
-        :param user_id: (required)
-        :type user_id: str
-        :param u2f_id: (required)
-        :type u2f_id: str
-        :param user_service_verify_u2_f_registration_request: (required)
-        :type user_service_verify_u2_f_registration_request: UserServiceVerifyU2FRegistrationRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._user_service_verify_u2_f_registration_serialize(
-            user_id=user_id,
-            u2f_id=u2f_id,
-            user_service_verify_u2_f_registration_request=user_service_verify_u2_f_registration_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserServiceVerifyU2FRegistrationResponse",
-            '403': "UserServiceRpcStatus",
-            '404': "UserServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _user_service_verify_u2_f_registration_serialize(
-        self,
-        user_id,
-        u2f_id,
-        user_service_verify_u2_f_registration_request,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+    def __user_service_verify_u2_f_registration_serialize(
+    self,
+      user_id,
+      u2f_id,
+      user_service_verify_u2_f_registration_request,
+    _request_auth,
+    _content_type,
+    _headers,
+    _host_index,
     ) -> RequestSerialized:
 
-        _host = None
+      _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+    _collection_formats: Dict[str, str] = {
+    }
 
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+    _path_params: Dict[str, str] = {}
+    _query_params: List[Tuple[str, str]] = []
+    _header_params: Dict[str, Optional[str]] = _headers or {}
+    _form_params: List[Tuple[str, str]] = []
+    _files: Dict[
+    str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+    ] = {}
+    _body_params: Optional[bytes] = None
 
-        # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
-        if u2f_id is not None:
-            _path_params['u2fId'] = u2f_id
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-        if user_service_verify_u2_f_registration_request is not None:
-            _body_params = user_service_verify_u2_f_registration_request
+    # process the path parameters
+      if user_id is not None:
+      _path_params['userId'] = user_id
+      if u2f_id is not None:
+      _path_params['u2fId'] = u2f_id
+    # process the query parameters
+    # process the header parameters
+    # process the form parameters
+    # process the body parameter
+      if user_service_verify_u2_f_registration_request is not None:
+        _body_params = user_service_verify_u2_f_registration_request
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
+      # set the HTTP header `Accept`
+      if 'Accept' not in _header_params:
+      _header_params['Accept'] = self.api_client.select_header_accept(
+      [
+        'application/json'
+      ]
+      )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+      # set the HTTP header `Content-Type`
+      if _content_type:
+      _header_params['Content-Type'] = _content_type
+      else:
+      _default_content_type = (
+      self.api_client.select_header_content_type(
+      [
+        'application/json'
+      ]
+      )
+      )
+      if _default_content_type is not None:
+      _header_params['Content-Type'] = _default_content_type
 
-        # authentication setting
-        _auth_settings: List[str] = [
-            'zitadelAccessToken'
-        ]
+    # authentication setting
+    _auth_settings: List[str] = [
+      'zitadelAccessToken'
+    ]
 
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v2/users/{userId}/u2f/{u2fId}',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+    return self.api_client.param_serialize(
+    method='POST',
+    resource_path='/v2/users/{userId}/u2f/{u2fId}',
+    path_params=_path_params,
+    query_params=_query_params,
+    header_params=_header_params,
+    body=_body_params,
+    post_params=_form_params,
+    files=_files,
+    auth_settings=_auth_settings,
+    collection_formats=_collection_formats,
+    _host=_host,
+    _request_auth=_request_auth
+    )
 
 
