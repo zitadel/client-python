@@ -29,7 +29,7 @@ jobs:
 
     steps:
       - name: Harden runner
-        uses: step-security/harden-runner@0634a2670c59f64b4a01f0f96f84700a4088b9f0 # v2.12.0
+        uses: step-security/harden-runner@002fdce3c6a235733a90a27c80493a3241e56863 # v2.12.1
         with:
           egress-policy: audit
 
@@ -51,7 +51,7 @@ jobs:
           path: ./.qodana/code-coverage
 
       - name: Run Qodana
-        uses: JetBrains/qodana-action@201551778d1453e36c5c0aa26f89a94775cb1acc # v2025.1
+        uses: JetBrains/qodana-action@f5aa2889b113c16bd6aee47817b027537ee33ac7 # v2025.1
         with:
           args: --baseline,.qodana/qodana.sarif.json
           push-fixes: true
