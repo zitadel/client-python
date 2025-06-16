@@ -92,7 +92,7 @@ class SessionServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._session_service_create_session_serialize(
+        _param = self.__session_service_create_session_serialize(
             session_service_create_session_request=session_service_create_session_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -105,6 +105,7 @@ class SessionServiceApi:
             '403': "SessionServiceRpcStatus",
             '404': "SessionServiceRpcStatus",
         }
+
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
@@ -115,142 +116,7 @@ class SessionServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-
-    @validate_call
-    def session_service_create_session_with_http_info(
-        self,
-        session_service_create_session_request: SessionServiceCreateSessionRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[SessionServiceCreateSessionResponse]:
-        """Create a new session
-
-        Create a new session. A token will be returned, which is required for further updates of the session.
-
-        :param session_service_create_session_request: (required)
-        :type session_service_create_session_request: SessionServiceCreateSessionRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._session_service_create_session_serialize(
-            session_service_create_session_request=session_service_create_session_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '201': "SessionServiceCreateSessionResponse",
-            '403': "SessionServiceRpcStatus",
-            '404': "SessionServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def session_service_create_session_without_preload_content(
-        self,
-        session_service_create_session_request: SessionServiceCreateSessionRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Create a new session
-
-        Create a new session. A token will be returned, which is required for further updates of the session.
-
-        :param session_service_create_session_request: (required)
-        :type session_service_create_session_request: SessionServiceCreateSessionRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._session_service_create_session_serialize(
-            session_service_create_session_request=session_service_create_session_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '201': "SessionServiceCreateSessionResponse",
-            '403': "SessionServiceRpcStatus",
-            '404': "SessionServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _session_service_create_session_serialize(
+    def __session_service_create_session_serialize(
         self,
         session_service_create_session_request,
         _request_auth,
@@ -375,7 +241,7 @@ class SessionServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._session_service_delete_session_serialize(
+        _param = self.__session_service_delete_session_serialize(
             session_id=session_id,
             session_service_delete_session_request=session_service_delete_session_request,
             _request_auth=_request_auth,
@@ -389,6 +255,7 @@ class SessionServiceApi:
             '403': "SessionServiceRpcStatus",
             '404': "SessionServiceRpcStatus",
         }
+
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
@@ -399,150 +266,7 @@ class SessionServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-
-    @validate_call
-    def session_service_delete_session_with_http_info(
-        self,
-        session_id: Annotated[StrictStr, Field(description="\"id of the session to terminate\"")],
-        session_service_delete_session_request: SessionServiceDeleteSessionRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[SessionServiceDeleteSessionResponse]:
-        """Terminate an existing session
-
-        Terminate your own session or if granted any other session.
-
-        :param session_id: \"id of the session to terminate\" (required)
-        :type session_id: str
-        :param session_service_delete_session_request: (required)
-        :type session_service_delete_session_request: SessionServiceDeleteSessionRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._session_service_delete_session_serialize(
-            session_id=session_id,
-            session_service_delete_session_request=session_service_delete_session_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "SessionServiceDeleteSessionResponse",
-            '403': "SessionServiceRpcStatus",
-            '404': "SessionServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def session_service_delete_session_without_preload_content(
-        self,
-        session_id: Annotated[StrictStr, Field(description="\"id of the session to terminate\"")],
-        session_service_delete_session_request: SessionServiceDeleteSessionRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Terminate an existing session
-
-        Terminate your own session or if granted any other session.
-
-        :param session_id: \"id of the session to terminate\" (required)
-        :type session_id: str
-        :param session_service_delete_session_request: (required)
-        :type session_service_delete_session_request: SessionServiceDeleteSessionRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._session_service_delete_session_serialize(
-            session_id=session_id,
-            session_service_delete_session_request=session_service_delete_session_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "SessionServiceDeleteSessionResponse",
-            '403': "SessionServiceRpcStatus",
-            '404': "SessionServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _session_service_delete_session_serialize(
+    def __session_service_delete_session_serialize(
         self,
         session_id,
         session_service_delete_session_request,
@@ -670,7 +394,7 @@ class SessionServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._session_service_get_session_serialize(
+        _param = self.__session_service_get_session_serialize(
             session_id=session_id,
             session_token=session_token,
             _request_auth=_request_auth,
@@ -684,6 +408,7 @@ class SessionServiceApi:
             '403': "SessionServiceRpcStatus",
             '404': "SessionServiceRpcStatus",
         }
+
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
@@ -694,150 +419,7 @@ class SessionServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-
-    @validate_call
-    def session_service_get_session_with_http_info(
-        self,
-        session_id: StrictStr,
-        session_token: Optional[StrictStr] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[SessionServiceGetSessionResponse]:
-        """Get a session
-
-        Get a session and all its information like the time of the user or password verification
-
-        :param session_id: (required)
-        :type session_id: str
-        :param session_token:
-        :type session_token: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._session_service_get_session_serialize(
-            session_id=session_id,
-            session_token=session_token,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "SessionServiceGetSessionResponse",
-            '403': "SessionServiceRpcStatus",
-            '404': "SessionServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def session_service_get_session_without_preload_content(
-        self,
-        session_id: StrictStr,
-        session_token: Optional[StrictStr] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Get a session
-
-        Get a session and all its information like the time of the user or password verification
-
-        :param session_id: (required)
-        :type session_id: str
-        :param session_token:
-        :type session_token: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._session_service_get_session_serialize(
-            session_id=session_id,
-            session_token=session_token,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "SessionServiceGetSessionResponse",
-            '403': "SessionServiceRpcStatus",
-            '404': "SessionServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _session_service_get_session_serialize(
+    def __session_service_get_session_serialize(
         self,
         session_id,
         session_token,
@@ -951,7 +533,7 @@ class SessionServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._session_service_list_sessions_serialize(
+        _param = self.__session_service_list_sessions_serialize(
             session_service_list_sessions_request=session_service_list_sessions_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -965,6 +547,7 @@ class SessionServiceApi:
             '403': "SessionServiceRpcStatus",
             '404': "SessionServiceRpcStatus",
         }
+
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
@@ -975,144 +558,7 @@ class SessionServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-
-    @validate_call
-    def session_service_list_sessions_with_http_info(
-        self,
-        session_service_list_sessions_request: SessionServiceListSessionsRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[SessionServiceListSessionsResponse]:
-        """Search sessions
-
-        Search for sessions
-
-        :param session_service_list_sessions_request: (required)
-        :type session_service_list_sessions_request: SessionServiceListSessionsRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._session_service_list_sessions_serialize(
-            session_service_list_sessions_request=session_service_list_sessions_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "SessionServiceListSessionsResponse",
-            '400': "SessionServiceRpcStatus",
-            '403': "SessionServiceRpcStatus",
-            '404': "SessionServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def session_service_list_sessions_without_preload_content(
-        self,
-        session_service_list_sessions_request: SessionServiceListSessionsRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Search sessions
-
-        Search for sessions
-
-        :param session_service_list_sessions_request: (required)
-        :type session_service_list_sessions_request: SessionServiceListSessionsRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._session_service_list_sessions_serialize(
-            session_service_list_sessions_request=session_service_list_sessions_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "SessionServiceListSessionsResponse",
-            '400': "SessionServiceRpcStatus",
-            '403': "SessionServiceRpcStatus",
-            '404': "SessionServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _session_service_list_sessions_serialize(
+    def __session_service_list_sessions_serialize(
         self,
         session_service_list_sessions_request,
         _request_auth,
@@ -1237,7 +683,7 @@ class SessionServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._session_service_set_session_serialize(
+        _param = self.__session_service_set_session_serialize(
             session_id=session_id,
             session_service_set_session_request=session_service_set_session_request,
             _request_auth=_request_auth,
@@ -1251,6 +697,7 @@ class SessionServiceApi:
             '403': "SessionServiceRpcStatus",
             '404': "SessionServiceRpcStatus",
         }
+
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
@@ -1261,150 +708,7 @@ class SessionServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-
-    @validate_call
-    def session_service_set_session_with_http_info(
-        self,
-        session_id: Annotated[StrictStr, Field(description="\"id of the session to update\"")],
-        session_service_set_session_request: SessionServiceSetSessionRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[SessionServiceSetSessionResponse]:
-        """Update an existing session
-
-        Update an existing session with new information.
-
-        :param session_id: \"id of the session to update\" (required)
-        :type session_id: str
-        :param session_service_set_session_request: (required)
-        :type session_service_set_session_request: SessionServiceSetSessionRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._session_service_set_session_serialize(
-            session_id=session_id,
-            session_service_set_session_request=session_service_set_session_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "SessionServiceSetSessionResponse",
-            '403': "SessionServiceRpcStatus",
-            '404': "SessionServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def session_service_set_session_without_preload_content(
-        self,
-        session_id: Annotated[StrictStr, Field(description="\"id of the session to update\"")],
-        session_service_set_session_request: SessionServiceSetSessionRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Update an existing session
-
-        Update an existing session with new information.
-
-        :param session_id: \"id of the session to update\" (required)
-        :type session_id: str
-        :param session_service_set_session_request: (required)
-        :type session_service_set_session_request: SessionServiceSetSessionRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._session_service_set_session_serialize(
-            session_id=session_id,
-            session_service_set_session_request=session_service_set_session_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "SessionServiceSetSessionResponse",
-            '403': "SessionServiceRpcStatus",
-            '404': "SessionServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _session_service_set_session_serialize(
+    def __session_service_set_session_serialize(
         self,
         session_id,
         session_service_set_session_request,

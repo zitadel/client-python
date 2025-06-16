@@ -30,6 +30,8 @@ class UserServiceRegisterU2FResponse(BaseModel):
     details: Optional[UserServiceDetails] = None
     u2f_id: Optional[StrictStr] = Field(default=None, alias="u2fId")
     public_key_credential_creation_options: Optional[Dict[str, Any]] = Field(default=None, description="Options for Credential Creation (dictionary PublicKeyCredentialCreationOptions). Generated helper methods transform the field to JSON, for use in a WebauthN client. See also:  https://www.w3.org/TR/webauthn/#dictdef-publickeycredentialcreationoptions", alias="publicKeyCredentialCreationOptions")
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = ["details", "u2fId", "publicKeyCredentialCreationOptions"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -61,8 +63,10 @@ class UserServiceRegisterU2FResponse(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -73,6 +77,11 @@ class UserServiceRegisterU2FResponse(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of details
         if self.details:
             _dict['details'] = self.details.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -89,6 +98,11 @@ class UserServiceRegisterU2FResponse(BaseModel):
             "u2fId": obj.get("u2fId"),
             "publicKeyCredentialCreationOptions": obj.get("publicKeyCredentialCreationOptions")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -55,6 +55,8 @@ class UserServiceSearchQuery(BaseModel):
     in_user_emails_query: Optional[UserServiceInUserEmailsQuery] = Field(default=None, alias="inUserEmailsQuery")
     organization_id_query: Optional[UserServiceOrganizationIdQuery] = Field(default=None, alias="organizationIdQuery")
     phone_query: Optional[UserServicePhoneQuery] = Field(default=None, alias="phoneQuery")
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = []
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -86,8 +88,10 @@ class UserServiceSearchQuery(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -95,6 +99,11 @@ class UserServiceSearchQuery(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -107,23 +116,12 @@ class UserServiceSearchQuery(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "userNameQuery": UserServiceUserNameQuery.from_dict(obj["userNameQuery"]) if obj.get("userNameQuery") is not None else None,
-            "firstNameQuery": UserServiceFirstNameQuery.from_dict(obj["firstNameQuery"]) if obj.get("firstNameQuery") is not None else None,
-            "lastNameQuery": UserServiceLastNameQuery.from_dict(obj["lastNameQuery"]) if obj.get("lastNameQuery") is not None else None,
-            "nickNameQuery": UserServiceNickNameQuery.from_dict(obj["nickNameQuery"]) if obj.get("nickNameQuery") is not None else None,
-            "displayNameQuery": UserServiceDisplayNameQuery.from_dict(obj["displayNameQuery"]) if obj.get("displayNameQuery") is not None else None,
-            "emailQuery": UserServiceEmailQuery.from_dict(obj["emailQuery"]) if obj.get("emailQuery") is not None else None,
-            "stateQuery": UserServiceStateQuery.from_dict(obj["stateQuery"]) if obj.get("stateQuery") is not None else None,
-            "typeQuery": UserServiceTypeQuery.from_dict(obj["typeQuery"]) if obj.get("typeQuery") is not None else None,
-            "loginNameQuery": UserServiceLoginNameQuery.from_dict(obj["loginNameQuery"]) if obj.get("loginNameQuery") is not None else None,
-            "inUserIdsQuery": UserServiceInUserIDQuery.from_dict(obj["inUserIdsQuery"]) if obj.get("inUserIdsQuery") is not None else None,
-            "orQuery": UserServiceOrQuery.from_dict(obj["orQuery"]) if obj.get("orQuery") is not None else None,
-            "andQuery": UserServiceAndQuery.from_dict(obj["andQuery"]) if obj.get("andQuery") is not None else None,
-            "notQuery": UserServiceNotQuery.from_dict(obj["notQuery"]) if obj.get("notQuery") is not None else None,
-            "inUserEmailsQuery": UserServiceInUserEmailsQuery.from_dict(obj["inUserEmailsQuery"]) if obj.get("inUserEmailsQuery") is not None else None,
-            "organizationIdQuery": UserServiceOrganizationIdQuery.from_dict(obj["organizationIdQuery"]) if obj.get("organizationIdQuery") is not None else None,
-            "phoneQuery": UserServicePhoneQuery.from_dict(obj["phoneQuery"]) if obj.get("phoneQuery") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 from zitadel_client.models.user_service_and_query import UserServiceAndQuery

@@ -33,6 +33,8 @@ class SAMLServiceSAMLRequest(BaseModel):
     assertion_consumer_service: Optional[StrictStr] = Field(default=None, description="URL which points back to the assertion consumer service of the application", alias="assertionConsumerService")
     relay_state: Optional[StrictStr] = Field(default=None, description="RelayState provided by the application for the request", alias="relayState")
     binding: Optional[StrictStr] = Field(default=None, description="Binding used by the application for the request")
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = ["id", "creationDate", "issuer", "assertionConsumerService", "relayState", "binding"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -64,8 +66,10 @@ class SAMLServiceSAMLRequest(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -73,6 +77,11 @@ class SAMLServiceSAMLRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -92,6 +101,11 @@ class SAMLServiceSAMLRequest(BaseModel):
             "relayState": obj.get("relayState"),
             "binding": obj.get("binding")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

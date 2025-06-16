@@ -29,6 +29,8 @@ class ActionServiceSetExecutionRequest(BaseModel):
     """ # noqa: E501
     condition: Optional[ActionServiceBetaCondition] = None
     targets: Optional[List[StrictStr]] = Field(default=None, description="Ordered list of targets called during the execution.")
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = ["condition", "targets"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -60,8 +62,10 @@ class ActionServiceSetExecutionRequest(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -72,6 +76,11 @@ class ActionServiceSetExecutionRequest(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of condition
         if self.condition:
             _dict['condition'] = self.condition.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -87,6 +96,11 @@ class ActionServiceSetExecutionRequest(BaseModel):
             "condition": ActionServiceBetaCondition.from_dict(obj["condition"]) if obj.get("condition") is not None else None,
             "targets": obj.get("targets")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

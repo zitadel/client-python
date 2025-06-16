@@ -29,6 +29,8 @@ class UserServiceResendEmailCodeRequest(BaseModel):
     """ # noqa: E501
     send_code: Optional[UserServiceSendEmailVerificationCode] = Field(default=None, alias="sendCode")
     return_code: Optional[Dict[str, Any]] = Field(default=None, alias="returnCode")
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = []
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -60,8 +62,10 @@ class UserServiceResendEmailCodeRequest(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -69,6 +73,11 @@ class UserServiceResendEmailCodeRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -81,9 +90,12 @@ class UserServiceResendEmailCodeRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "sendCode": UserServiceSendEmailVerificationCode.from_dict(obj["sendCode"]) if obj.get("sendCode") is not None else None,
-            "returnCode": obj.get("returnCode")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

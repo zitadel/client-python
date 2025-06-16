@@ -29,6 +29,8 @@ class SettingsServiceSetSecuritySettingsRequest(BaseModel):
     """ # noqa: E501
     embedded_iframe: Optional[SettingsServiceEmbeddedIframeSettings] = Field(default=None, alias="embeddedIframe")
     enable_impersonation: Optional[StrictBool] = Field(default=None, description="allows users to impersonate other users. The impersonator needs the appropriate `*_IMPERSONATOR` roles assigned as well", alias="enableImpersonation")
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = ["embeddedIframe", "enableImpersonation"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -60,8 +62,10 @@ class SettingsServiceSetSecuritySettingsRequest(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -72,6 +76,11 @@ class SettingsServiceSetSecuritySettingsRequest(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of embedded_iframe
         if self.embedded_iframe:
             _dict['embeddedIframe'] = self.embedded_iframe.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -87,6 +96,11 @@ class SettingsServiceSetSecuritySettingsRequest(BaseModel):
             "embeddedIframe": SettingsServiceEmbeddedIframeSettings.from_dict(obj["embeddedIframe"]) if obj.get("embeddedIframe") is not None else None,
             "enableImpersonation": obj.get("enableImpersonation")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

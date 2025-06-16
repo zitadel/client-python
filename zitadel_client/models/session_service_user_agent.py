@@ -31,6 +31,8 @@ class SessionServiceUserAgent(BaseModel):
     ip: Optional[StrictStr] = None
     description: Optional[StrictStr] = None
     header: Optional[Dict[str, SessionServiceUserAgentHeaderValues]] = None
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = ["fingerprintId", "ip", "description", "header"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -62,8 +64,10 @@ class SessionServiceUserAgent(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -78,6 +82,11 @@ class SessionServiceUserAgent(BaseModel):
                 if self.header[_key_header]:
                     _field_dict[_key_header] = self.header[_key_header].to_dict()
             _dict['header'] = _field_dict
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -100,6 +109,11 @@ class SessionServiceUserAgent(BaseModel):
             if obj.get("header") is not None
             else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

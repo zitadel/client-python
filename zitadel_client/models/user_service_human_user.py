@@ -42,6 +42,8 @@ class UserServiceHumanUser(BaseModel):
     password_change_required: Optional[StrictBool] = Field(default=None, description="User is required to change the used password on the next login.", alias="passwordChangeRequired")
     password_changed: Optional[datetime] = Field(default=None, description="The time the user last changed their password.", alias="passwordChanged")
     mfa_init_skipped: Optional[datetime] = Field(default=None, description="The time the user last skipped MFA initialization.", alias="mfaInitSkipped")
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = ["userId", "state", "username", "loginNames", "preferredLoginName", "profile", "email", "phone", "passwordChangeRequired", "passwordChanged", "mfaInitSkipped"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -73,8 +75,10 @@ class UserServiceHumanUser(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -91,6 +95,11 @@ class UserServiceHumanUser(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of phone
         if self.phone:
             _dict['phone'] = self.phone.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -115,6 +124,11 @@ class UserServiceHumanUser(BaseModel):
             "passwordChanged": obj.get("passwordChanged"),
             "mfaInitSkipped": obj.get("mfaInitSkipped")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

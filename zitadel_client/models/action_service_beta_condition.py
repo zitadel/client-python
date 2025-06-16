@@ -34,6 +34,8 @@ class ActionServiceBetaCondition(BaseModel):
     response: Optional[ActionServiceBetaResponseExecution] = None
     function: Optional[ActionServiceBetaFunctionExecution] = None
     event: Optional[ActionServiceBetaEventExecution] = None
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = []
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -65,8 +67,10 @@ class ActionServiceBetaCondition(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -74,6 +78,11 @@ class ActionServiceBetaCondition(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -86,11 +95,12 @@ class ActionServiceBetaCondition(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "request": ActionServiceBetaRequestExecution.from_dict(obj["request"]) if obj.get("request") is not None else None,
-            "response": ActionServiceBetaResponseExecution.from_dict(obj["response"]) if obj.get("response") is not None else None,
-            "function": ActionServiceBetaFunctionExecution.from_dict(obj["function"]) if obj.get("function") is not None else None,
-            "event": ActionServiceBetaEventExecution.from_dict(obj["event"]) if obj.get("event") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

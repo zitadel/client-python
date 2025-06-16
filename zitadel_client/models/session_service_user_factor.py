@@ -32,6 +32,8 @@ class SessionServiceUserFactor(BaseModel):
     login_name: Optional[StrictStr] = Field(default=None, description="\"login name of the checked user\"", alias="loginName")
     display_name: Optional[StrictStr] = Field(default=None, description="\"display name of the checked user\"", alias="displayName")
     organization_id: Optional[StrictStr] = Field(default=None, description="\"organization id of the checked user\"", alias="organizationId")
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = ["verifiedAt", "id", "loginName", "displayName", "organizationId"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -63,8 +65,10 @@ class SessionServiceUserFactor(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -72,6 +76,11 @@ class SessionServiceUserFactor(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -90,6 +99,11 @@ class SessionServiceUserFactor(BaseModel):
             "displayName": obj.get("displayName"),
             "organizationId": obj.get("organizationId")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

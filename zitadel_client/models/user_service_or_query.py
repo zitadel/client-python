@@ -27,6 +27,8 @@ class UserServiceOrQuery(BaseModel):
     Connect multiple sub-condition with and OR operator.
     """ # noqa: E501
     queries: Optional[List[UserServiceSearchQuery]] = Field(default=None, description="the sub queries to 'OR'")
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = ["queries"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -58,8 +60,10 @@ class UserServiceOrQuery(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -74,6 +78,11 @@ class UserServiceOrQuery(BaseModel):
                 if _item_queries:
                     _items.append(_item_queries.to_dict())
             _dict['queries'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -88,6 +97,11 @@ class UserServiceOrQuery(BaseModel):
         _obj = cls.model_validate({
             "queries": [UserServiceSearchQuery.from_dict(_item) for _item in obj["queries"]] if obj.get("queries") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 from zitadel_client.models.user_service_search_query import UserServiceSearchQuery

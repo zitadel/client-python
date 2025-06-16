@@ -39,6 +39,8 @@ class ActionServiceBetaTarget(BaseModel):
     timeout: Optional[StrictStr] = Field(default=None, description="Timeout defines the duration until ZITADEL cancels the execution. If the target doesn't respond before this timeout expires, the the connection is closed and the action fails. Depending on the target type and possible setting on `interrupt_on_error` following targets will not be called. In case of a `rest_async` target only this specific target will fail, without any influence on other targets of the same execution.")
     endpoint: Optional[StrictStr] = None
     signing_key: Optional[StrictStr] = Field(default=None, alias="signingKey")
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = []
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -70,8 +72,10 @@ class ActionServiceBetaTarget(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -79,6 +83,11 @@ class ActionServiceBetaTarget(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -91,17 +100,12 @@ class ActionServiceBetaTarget(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "id": obj.get("id"),
-            "creationDate": obj.get("creationDate"),
-            "changeDate": obj.get("changeDate"),
-            "name": obj.get("name"),
-            "restWebhook": ActionServiceBetaRESTWebhook.from_dict(obj["restWebhook"]) if obj.get("restWebhook") is not None else None,
-            "restCall": ActionServiceBetaRESTCall.from_dict(obj["restCall"]) if obj.get("restCall") is not None else None,
-            "restAsync": obj.get("restAsync"),
-            "timeout": obj.get("timeout"),
-            "endpoint": obj.get("endpoint"),
-            "signingKey": obj.get("signingKey")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

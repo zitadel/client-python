@@ -35,6 +35,8 @@ class SettingsServiceLegalAndSupportSettings(BaseModel):
     docs_link: Optional[StrictStr] = Field(default=None, description="Link to documentation to be shown in the console.", alias="docsLink")
     custom_link: Optional[StrictStr] = Field(default=None, description="Link to an external resource that will be available to users in the console.", alias="customLink")
     custom_link_text: Optional[StrictStr] = Field(default=None, description="The button text that would be shown in console pointing to custom link.", alias="customLinkText")
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = ["tosLink", "privacyPolicyLink", "helpLink", "supportEmail", "resourceOwnerType", "docsLink", "customLink", "customLinkText"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -66,8 +68,10 @@ class SettingsServiceLegalAndSupportSettings(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -75,6 +79,11 @@ class SettingsServiceLegalAndSupportSettings(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -96,6 +105,11 @@ class SettingsServiceLegalAndSupportSettings(BaseModel):
             "customLink": obj.get("customLink"),
             "customLinkText": obj.get("customLinkText")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

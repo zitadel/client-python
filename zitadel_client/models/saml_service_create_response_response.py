@@ -32,6 +32,8 @@ class SAMLServiceCreateResponseResponse(BaseModel):
     url: Optional[StrictStr] = Field(default=None, description="URL including the Assertion Consumer Service where the user should be redirected or has to call per POST, depending on the binding. Contains details for the application to obtain the response on success, or error details on failure. Note that this field must be treated as credentials, as the contained SAMLResponse or code can be used on behalve of the user.")
     redirect: Optional[Dict[str, Any]] = None
     post: Optional[SAMLServicePostResponse] = None
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = []
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -63,8 +65,10 @@ class SAMLServiceCreateResponseResponse(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -72,6 +76,11 @@ class SAMLServiceCreateResponseResponse(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -84,11 +93,12 @@ class SAMLServiceCreateResponseResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "details": SAMLServiceDetails.from_dict(obj["details"]) if obj.get("details") is not None else None,
-            "url": obj.get("url"),
-            "redirect": obj.get("redirect"),
-            "post": SAMLServicePostResponse.from_dict(obj["post"]) if obj.get("post") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

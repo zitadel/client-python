@@ -31,6 +31,8 @@ class UserServiceDetails(BaseModel):
     change_date: Optional[datetime] = Field(default=None, description="on read: the timestamp of the last event reduced by the projection  on manipulation: the timestamp of the event(s) added by the manipulation", alias="changeDate")
     resource_owner: Optional[StrictStr] = Field(default=None, alias="resourceOwner")
     creation_date: Optional[datetime] = Field(default=None, alias="creationDate")
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = ["sequence", "changeDate", "resourceOwner", "creationDate"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -62,8 +64,10 @@ class UserServiceDetails(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -71,6 +75,11 @@ class UserServiceDetails(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -88,6 +97,11 @@ class UserServiceDetails(BaseModel):
             "resourceOwner": obj.get("resourceOwner"),
             "creationDate": obj.get("creationDate")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

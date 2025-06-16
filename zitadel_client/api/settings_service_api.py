@@ -109,7 +109,7 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_get_active_identity_providers_serialize(
+        _param = self.__settings_service_get_active_identity_providers_serialize(
             ctx_org_id=ctx_org_id,
             ctx_instance=ctx_instance,
             creation_allowed=creation_allowed,
@@ -127,6 +127,7 @@ class SettingsServiceApi:
             '403': "SettingsServiceRpcStatus",
             '404': "SettingsServiceRpcStatus",
         }
+
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
@@ -137,182 +138,7 @@ class SettingsServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-
-    @validate_call
-    def settings_service_get_active_identity_providers_with_http_info(
-        self,
-        ctx_org_id: Optional[StrictStr] = None,
-        ctx_instance: Optional[StrictBool] = None,
-        creation_allowed: Optional[StrictBool] = None,
-        linking_allowed: Optional[StrictBool] = None,
-        auto_creation: Optional[StrictBool] = None,
-        auto_linking: Optional[StrictBool] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[SettingsServiceGetActiveIdentityProvidersResponse]:
-        """Get the current active identity providers
-
-        Return the current active identity providers for the requested context
-
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
-        :param creation_allowed:
-        :type creation_allowed: bool
-        :param linking_allowed:
-        :type linking_allowed: bool
-        :param auto_creation:
-        :type auto_creation: bool
-        :param auto_linking:
-        :type auto_linking: bool
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._settings_service_get_active_identity_providers_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
-            creation_allowed=creation_allowed,
-            linking_allowed=linking_allowed,
-            auto_creation=auto_creation,
-            auto_linking=auto_linking,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "SettingsServiceGetActiveIdentityProvidersResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def settings_service_get_active_identity_providers_without_preload_content(
-        self,
-        ctx_org_id: Optional[StrictStr] = None,
-        ctx_instance: Optional[StrictBool] = None,
-        creation_allowed: Optional[StrictBool] = None,
-        linking_allowed: Optional[StrictBool] = None,
-        auto_creation: Optional[StrictBool] = None,
-        auto_linking: Optional[StrictBool] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Get the current active identity providers
-
-        Return the current active identity providers for the requested context
-
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
-        :param creation_allowed:
-        :type creation_allowed: bool
-        :param linking_allowed:
-        :type linking_allowed: bool
-        :param auto_creation:
-        :type auto_creation: bool
-        :param auto_linking:
-        :type auto_linking: bool
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._settings_service_get_active_identity_providers_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
-            creation_allowed=creation_allowed,
-            linking_allowed=linking_allowed,
-            auto_creation=auto_creation,
-            auto_linking=auto_linking,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "SettingsServiceGetActiveIdentityProvidersResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _settings_service_get_active_identity_providers_serialize(
+    def __settings_service_get_active_identity_providers_serialize(
         self,
         ctx_org_id,
         ctx_instance,
@@ -451,7 +277,7 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_get_branding_settings_serialize(
+        _param = self.__settings_service_get_branding_settings_serialize(
             ctx_org_id=ctx_org_id,
             ctx_instance=ctx_instance,
             _request_auth=_request_auth,
@@ -465,6 +291,7 @@ class SettingsServiceApi:
             '403': "SettingsServiceRpcStatus",
             '404': "SettingsServiceRpcStatus",
         }
+
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
@@ -475,150 +302,7 @@ class SettingsServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-
-    @validate_call
-    def settings_service_get_branding_settings_with_http_info(
-        self,
-        ctx_org_id: Optional[StrictStr] = None,
-        ctx_instance: Optional[StrictBool] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[SettingsServiceGetBrandingSettingsResponse]:
-        """Get the current active branding settings
-
-        Return the current active branding settings for the requested context
-
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._settings_service_get_branding_settings_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "SettingsServiceGetBrandingSettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def settings_service_get_branding_settings_without_preload_content(
-        self,
-        ctx_org_id: Optional[StrictStr] = None,
-        ctx_instance: Optional[StrictBool] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Get the current active branding settings
-
-        Return the current active branding settings for the requested context
-
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._settings_service_get_branding_settings_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "SettingsServiceGetBrandingSettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _settings_service_get_branding_settings_serialize(
+    def __settings_service_get_branding_settings_serialize(
         self,
         ctx_org_id,
         ctx_instance,
@@ -737,7 +421,7 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_get_domain_settings_serialize(
+        _param = self.__settings_service_get_domain_settings_serialize(
             ctx_org_id=ctx_org_id,
             ctx_instance=ctx_instance,
             _request_auth=_request_auth,
@@ -751,6 +435,7 @@ class SettingsServiceApi:
             '403': "SettingsServiceRpcStatus",
             '404': "SettingsServiceRpcStatus",
         }
+
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
@@ -761,150 +446,7 @@ class SettingsServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-
-    @validate_call
-    def settings_service_get_domain_settings_with_http_info(
-        self,
-        ctx_org_id: Optional[StrictStr] = None,
-        ctx_instance: Optional[StrictBool] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[SettingsServiceGetDomainSettingsResponse]:
-        """Get the domain settings
-
-        Return the domain settings for the requested context
-
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._settings_service_get_domain_settings_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "SettingsServiceGetDomainSettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def settings_service_get_domain_settings_without_preload_content(
-        self,
-        ctx_org_id: Optional[StrictStr] = None,
-        ctx_instance: Optional[StrictBool] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Get the domain settings
-
-        Return the domain settings for the requested context
-
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._settings_service_get_domain_settings_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "SettingsServiceGetDomainSettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _settings_service_get_domain_settings_serialize(
+    def __settings_service_get_domain_settings_serialize(
         self,
         ctx_org_id,
         ctx_instance,
@@ -1017,7 +559,7 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_get_general_settings_serialize(
+        _param = self.__settings_service_get_general_settings_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1029,6 +571,7 @@ class SettingsServiceApi:
             '403': "SettingsServiceRpcStatus",
             '404': "SettingsServiceRpcStatus",
         }
+
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
@@ -1039,134 +582,7 @@ class SettingsServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-
-    @validate_call
-    def settings_service_get_general_settings_with_http_info(
-        self,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[SettingsServiceGetGeneralSettingsResponse]:
-        """Get basic information over the instance
-
-        Return the basic information of the instance for the requested context
-
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._settings_service_get_general_settings_serialize(
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "SettingsServiceGetGeneralSettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def settings_service_get_general_settings_without_preload_content(
-        self,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Get basic information over the instance
-
-        Return the basic information of the instance for the requested context
-
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._settings_service_get_general_settings_serialize(
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "SettingsServiceGetGeneralSettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _settings_service_get_general_settings_serialize(
+    def __settings_service_get_general_settings_serialize(
         self,
         _request_auth,
         _content_type,
@@ -1275,7 +691,7 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_get_legal_and_support_settings_serialize(
+        _param = self.__settings_service_get_legal_and_support_settings_serialize(
             ctx_org_id=ctx_org_id,
             ctx_instance=ctx_instance,
             _request_auth=_request_auth,
@@ -1289,6 +705,7 @@ class SettingsServiceApi:
             '403': "SettingsServiceRpcStatus",
             '404': "SettingsServiceRpcStatus",
         }
+
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
@@ -1299,150 +716,7 @@ class SettingsServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-
-    @validate_call
-    def settings_service_get_legal_and_support_settings_with_http_info(
-        self,
-        ctx_org_id: Optional[StrictStr] = None,
-        ctx_instance: Optional[StrictBool] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[SettingsServiceGetLegalAndSupportSettingsResponse]:
-        """Get the legal and support settings
-
-        Return the legal settings for the requested context
-
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._settings_service_get_legal_and_support_settings_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "SettingsServiceGetLegalAndSupportSettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def settings_service_get_legal_and_support_settings_without_preload_content(
-        self,
-        ctx_org_id: Optional[StrictStr] = None,
-        ctx_instance: Optional[StrictBool] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Get the legal and support settings
-
-        Return the legal settings for the requested context
-
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._settings_service_get_legal_and_support_settings_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "SettingsServiceGetLegalAndSupportSettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _settings_service_get_legal_and_support_settings_serialize(
+    def __settings_service_get_legal_and_support_settings_serialize(
         self,
         ctx_org_id,
         ctx_instance,
@@ -1561,7 +835,7 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_get_lockout_settings_serialize(
+        _param = self.__settings_service_get_lockout_settings_serialize(
             ctx_org_id=ctx_org_id,
             ctx_instance=ctx_instance,
             _request_auth=_request_auth,
@@ -1575,6 +849,7 @@ class SettingsServiceApi:
             '403': "SettingsServiceRpcStatus",
             '404': "SettingsServiceRpcStatus",
         }
+
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
@@ -1585,150 +860,7 @@ class SettingsServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-
-    @validate_call
-    def settings_service_get_lockout_settings_with_http_info(
-        self,
-        ctx_org_id: Optional[StrictStr] = None,
-        ctx_instance: Optional[StrictBool] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[SettingsServiceGetLockoutSettingsResponse]:
-        """Get the lockout settings
-
-        Return the lockout settings for the requested context, which define when a user will be locked
-
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._settings_service_get_lockout_settings_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "SettingsServiceGetLockoutSettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def settings_service_get_lockout_settings_without_preload_content(
-        self,
-        ctx_org_id: Optional[StrictStr] = None,
-        ctx_instance: Optional[StrictBool] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Get the lockout settings
-
-        Return the lockout settings for the requested context, which define when a user will be locked
-
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._settings_service_get_lockout_settings_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "SettingsServiceGetLockoutSettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _settings_service_get_lockout_settings_serialize(
+    def __settings_service_get_lockout_settings_serialize(
         self,
         ctx_org_id,
         ctx_instance,
@@ -1847,7 +979,7 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_get_login_settings_serialize(
+        _param = self.__settings_service_get_login_settings_serialize(
             ctx_org_id=ctx_org_id,
             ctx_instance=ctx_instance,
             _request_auth=_request_auth,
@@ -1861,6 +993,7 @@ class SettingsServiceApi:
             '403': "SettingsServiceRpcStatus",
             '404': "SettingsServiceRpcStatus",
         }
+
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
@@ -1871,150 +1004,7 @@ class SettingsServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-
-    @validate_call
-    def settings_service_get_login_settings_with_http_info(
-        self,
-        ctx_org_id: Optional[StrictStr] = None,
-        ctx_instance: Optional[StrictBool] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[SettingsServiceGetLoginSettingsResponse]:
-        """Get the login settings
-
-        Return the settings for the requested context
-
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._settings_service_get_login_settings_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "SettingsServiceGetLoginSettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def settings_service_get_login_settings_without_preload_content(
-        self,
-        ctx_org_id: Optional[StrictStr] = None,
-        ctx_instance: Optional[StrictBool] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Get the login settings
-
-        Return the settings for the requested context
-
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._settings_service_get_login_settings_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "SettingsServiceGetLoginSettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _settings_service_get_login_settings_serialize(
+    def __settings_service_get_login_settings_serialize(
         self,
         ctx_org_id,
         ctx_instance,
@@ -2133,7 +1123,7 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_get_password_complexity_settings_serialize(
+        _param = self.__settings_service_get_password_complexity_settings_serialize(
             ctx_org_id=ctx_org_id,
             ctx_instance=ctx_instance,
             _request_auth=_request_auth,
@@ -2147,6 +1137,7 @@ class SettingsServiceApi:
             '403': "SettingsServiceRpcStatus",
             '404': "SettingsServiceRpcStatus",
         }
+
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
@@ -2157,150 +1148,7 @@ class SettingsServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-
-    @validate_call
-    def settings_service_get_password_complexity_settings_with_http_info(
-        self,
-        ctx_org_id: Optional[StrictStr] = None,
-        ctx_instance: Optional[StrictBool] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[SettingsServiceGetPasswordComplexitySettingsResponse]:
-        """Get the password complexity settings
-
-        Return the password complexity settings for the requested context
-
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._settings_service_get_password_complexity_settings_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "SettingsServiceGetPasswordComplexitySettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def settings_service_get_password_complexity_settings_without_preload_content(
-        self,
-        ctx_org_id: Optional[StrictStr] = None,
-        ctx_instance: Optional[StrictBool] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Get the password complexity settings
-
-        Return the password complexity settings for the requested context
-
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._settings_service_get_password_complexity_settings_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "SettingsServiceGetPasswordComplexitySettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _settings_service_get_password_complexity_settings_serialize(
+    def __settings_service_get_password_complexity_settings_serialize(
         self,
         ctx_org_id,
         ctx_instance,
@@ -2419,7 +1267,7 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_get_password_expiry_settings_serialize(
+        _param = self.__settings_service_get_password_expiry_settings_serialize(
             ctx_org_id=ctx_org_id,
             ctx_instance=ctx_instance,
             _request_auth=_request_auth,
@@ -2433,6 +1281,7 @@ class SettingsServiceApi:
             '403': "SettingsServiceRpcStatus",
             '404': "SettingsServiceRpcStatus",
         }
+
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
@@ -2443,150 +1292,7 @@ class SettingsServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-
-    @validate_call
-    def settings_service_get_password_expiry_settings_with_http_info(
-        self,
-        ctx_org_id: Optional[StrictStr] = None,
-        ctx_instance: Optional[StrictBool] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[SettingsServiceGetPasswordExpirySettingsResponse]:
-        """Get the password expiry settings
-
-        Return the password expiry settings for the requested context
-
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._settings_service_get_password_expiry_settings_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "SettingsServiceGetPasswordExpirySettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def settings_service_get_password_expiry_settings_without_preload_content(
-        self,
-        ctx_org_id: Optional[StrictStr] = None,
-        ctx_instance: Optional[StrictBool] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Get the password expiry settings
-
-        Return the password expiry settings for the requested context
-
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._settings_service_get_password_expiry_settings_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "SettingsServiceGetPasswordExpirySettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _settings_service_get_password_expiry_settings_serialize(
+    def __settings_service_get_password_expiry_settings_serialize(
         self,
         ctx_org_id,
         ctx_instance,
@@ -2699,7 +1405,7 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_get_security_settings_serialize(
+        _param = self.__settings_service_get_security_settings_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2711,6 +1417,7 @@ class SettingsServiceApi:
             '403': "SettingsServiceRpcStatus",
             '404': "SettingsServiceRpcStatus",
         }
+
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
@@ -2721,134 +1428,7 @@ class SettingsServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-
-    @validate_call
-    def settings_service_get_security_settings_with_http_info(
-        self,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[SettingsServiceGetSecuritySettingsResponse]:
-        """Get Security Settings
-
-        Returns the security settings of the ZITADEL instance.
-
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._settings_service_get_security_settings_serialize(
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "SettingsServiceGetSecuritySettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def settings_service_get_security_settings_without_preload_content(
-        self,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Get Security Settings
-
-        Returns the security settings of the ZITADEL instance.
-
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._settings_service_get_security_settings_serialize(
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "SettingsServiceGetSecuritySettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _settings_service_get_security_settings_serialize(
+    def __settings_service_get_security_settings_serialize(
         self,
         _request_auth,
         _content_type,
@@ -2954,7 +1534,7 @@ class SettingsServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._settings_service_set_security_settings_serialize(
+        _param = self.__settings_service_set_security_settings_serialize(
             settings_service_set_security_settings_request=settings_service_set_security_settings_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -2967,6 +1547,7 @@ class SettingsServiceApi:
             '403': "SettingsServiceRpcStatus",
             '404': "SettingsServiceRpcStatus",
         }
+
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
@@ -2977,142 +1558,7 @@ class SettingsServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-
-    @validate_call
-    def settings_service_set_security_settings_with_http_info(
-        self,
-        settings_service_set_security_settings_request: SettingsServiceSetSecuritySettingsRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[SettingsServiceSetSecuritySettingsResponse]:
-        """Set Security Settings
-
-        Set the security settings of the ZITADEL instance.
-
-        :param settings_service_set_security_settings_request: (required)
-        :type settings_service_set_security_settings_request: SettingsServiceSetSecuritySettingsRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._settings_service_set_security_settings_serialize(
-            settings_service_set_security_settings_request=settings_service_set_security_settings_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "SettingsServiceSetSecuritySettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def settings_service_set_security_settings_without_preload_content(
-        self,
-        settings_service_set_security_settings_request: SettingsServiceSetSecuritySettingsRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Set Security Settings
-
-        Set the security settings of the ZITADEL instance.
-
-        :param settings_service_set_security_settings_request: (required)
-        :type settings_service_set_security_settings_request: SettingsServiceSetSecuritySettingsRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._settings_service_set_security_settings_serialize(
-            settings_service_set_security_settings_request=settings_service_set_security_settings_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "SettingsServiceSetSecuritySettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _settings_service_set_security_settings_serialize(
+    def __settings_service_set_security_settings_serialize(
         self,
         settings_service_set_security_settings_request,
         _request_auth,

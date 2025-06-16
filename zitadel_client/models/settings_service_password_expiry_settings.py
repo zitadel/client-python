@@ -30,6 +30,8 @@ class SettingsServicePasswordExpirySettings(BaseModel):
     max_age_days: Optional[StrictStr] = Field(default=None, description="Amount of days after which a password will expire. The user will be forced to change the password on the following authentication.", alias="maxAgeDays")
     expire_warn_days: Optional[StrictStr] = Field(default=None, description="Amount of days after which the user should be notified of the upcoming expiry. ZITADEL will not notify the user.", alias="expireWarnDays")
     resource_owner_type: Optional[SettingsServiceResourceOwnerType] = Field(default=SettingsServiceResourceOwnerType.RESOURCE_OWNER_TYPE_UNSPECIFIED, alias="resourceOwnerType")
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = ["maxAgeDays", "expireWarnDays", "resourceOwnerType"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -61,8 +63,10 @@ class SettingsServicePasswordExpirySettings(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -70,6 +74,11 @@ class SettingsServicePasswordExpirySettings(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -86,6 +95,11 @@ class SettingsServicePasswordExpirySettings(BaseModel):
             "expireWarnDays": obj.get("expireWarnDays"),
             "resourceOwnerType": obj.get("resourceOwnerType") if obj.get("resourceOwnerType") is not None else SettingsServiceResourceOwnerType.RESOURCE_OWNER_TYPE_UNSPECIFIED
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

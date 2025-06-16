@@ -86,7 +86,7 @@ class WebKeyServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._web_key_service_activate_web_key_serialize(
+        _param = self.__web_key_service_activate_web_key_serialize(
             id=id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -100,6 +100,7 @@ class WebKeyServiceApi:
             '403': "WebKeyServiceRpcStatus",
             '404': "object",
         }
+
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
@@ -110,144 +111,7 @@ class WebKeyServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-
-    @validate_call
-    def web_key_service_activate_web_key_with_http_info(
-        self,
-        id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[WebKeyServiceBetaActivateWebKeyResponse]:
-        """Activate Web Key
-
-        Switch the active signing web key. The previously active key will be deactivated. Note that the JWKs OIDC endpoint returns a cacheable response. Therefore it is not advised to activate a key that has been created within the cache duration (default is 5min), as the public key may not have been propagated to caches and clients yet.  Required permission:   - `iam.web_key.write`  Required feature flag:   - `web_key`
-
-        :param id: (required)
-        :type id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._web_key_service_activate_web_key_serialize(
-            id=id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "WebKeyServiceBetaActivateWebKeyResponse",
-            '400': "object",
-            '403': "WebKeyServiceRpcStatus",
-            '404': "object",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def web_key_service_activate_web_key_without_preload_content(
-        self,
-        id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Activate Web Key
-
-        Switch the active signing web key. The previously active key will be deactivated. Note that the JWKs OIDC endpoint returns a cacheable response. Therefore it is not advised to activate a key that has been created within the cache duration (default is 5min), as the public key may not have been propagated to caches and clients yet.  Required permission:   - `iam.web_key.write`  Required feature flag:   - `web_key`
-
-        :param id: (required)
-        :type id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._web_key_service_activate_web_key_serialize(
-            id=id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "WebKeyServiceBetaActivateWebKeyResponse",
-            '400': "object",
-            '403': "WebKeyServiceRpcStatus",
-            '404': "object",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _web_key_service_activate_web_key_serialize(
+    def __web_key_service_activate_web_key_serialize(
         self,
         id,
         _request_auth,
@@ -356,7 +220,7 @@ class WebKeyServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._web_key_service_create_web_key_serialize(
+        _param = self.__web_key_service_create_web_key_serialize(
             web_key_service_create_web_key_request=web_key_service_create_web_key_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -370,6 +234,7 @@ class WebKeyServiceApi:
             '403': "WebKeyServiceRpcStatus",
             '404': "WebKeyServiceRpcStatus",
         }
+
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
@@ -380,144 +245,7 @@ class WebKeyServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-
-    @validate_call
-    def web_key_service_create_web_key_with_http_info(
-        self,
-        web_key_service_create_web_key_request: WebKeyServiceCreateWebKeyRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[WebKeyServiceBetaCreateWebKeyResponse]:
-        """Create Web Key
-
-        Generate a private and public key pair. The private key can be used to sign OIDC tokens after activation. The public key can be used to validate OIDC tokens. The newly created key will have the state `STATE_INITIAL` and is published to the public key endpoint. Note that the JWKs OIDC endpoint returns a cacheable response.  If no key type is provided, a RSA key pair with 2048 bits and SHA256 hashing will be created.  Required permission:   - `iam.web_key.write`  Required feature flag:   - `web_key`
-
-        :param web_key_service_create_web_key_request: (required)
-        :type web_key_service_create_web_key_request: WebKeyServiceCreateWebKeyRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._web_key_service_create_web_key_serialize(
-            web_key_service_create_web_key_request=web_key_service_create_web_key_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "WebKeyServiceBetaCreateWebKeyResponse",
-            '400': "object",
-            '403': "WebKeyServiceRpcStatus",
-            '404': "WebKeyServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def web_key_service_create_web_key_without_preload_content(
-        self,
-        web_key_service_create_web_key_request: WebKeyServiceCreateWebKeyRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Create Web Key
-
-        Generate a private and public key pair. The private key can be used to sign OIDC tokens after activation. The public key can be used to validate OIDC tokens. The newly created key will have the state `STATE_INITIAL` and is published to the public key endpoint. Note that the JWKs OIDC endpoint returns a cacheable response.  If no key type is provided, a RSA key pair with 2048 bits and SHA256 hashing will be created.  Required permission:   - `iam.web_key.write`  Required feature flag:   - `web_key`
-
-        :param web_key_service_create_web_key_request: (required)
-        :type web_key_service_create_web_key_request: WebKeyServiceCreateWebKeyRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._web_key_service_create_web_key_serialize(
-            web_key_service_create_web_key_request=web_key_service_create_web_key_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "WebKeyServiceBetaCreateWebKeyResponse",
-            '400': "object",
-            '403': "WebKeyServiceRpcStatus",
-            '404': "WebKeyServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _web_key_service_create_web_key_serialize(
+    def __web_key_service_create_web_key_serialize(
         self,
         web_key_service_create_web_key_request,
         _request_auth,
@@ -639,7 +367,7 @@ class WebKeyServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._web_key_service_delete_web_key_serialize(
+        _param = self.__web_key_service_delete_web_key_serialize(
             id=id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -653,6 +381,7 @@ class WebKeyServiceApi:
             '403': "WebKeyServiceRpcStatus",
             '404': "WebKeyServiceRpcStatus",
         }
+
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
@@ -663,144 +392,7 @@ class WebKeyServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-
-    @validate_call
-    def web_key_service_delete_web_key_with_http_info(
-        self,
-        id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[WebKeyServiceBetaDeleteWebKeyResponse]:
-        """Delete Web Key
-
-        Delete a web key pair. Only inactive keys can be deleted. Once a key is deleted, any tokens signed by this key will be invalid. Note that the JWKs OIDC endpoint returns a cacheable response. In case the web key is not found, the request will return a successful response as the desired state is already achieved. You can check the change date in the response to verify if the web key was deleted during the request.  Required permission:   - `iam.web_key.delete`  Required feature flag:   - `web_key`
-
-        :param id: (required)
-        :type id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._web_key_service_delete_web_key_serialize(
-            id=id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "WebKeyServiceBetaDeleteWebKeyResponse",
-            '400': "object",
-            '403': "WebKeyServiceRpcStatus",
-            '404': "WebKeyServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def web_key_service_delete_web_key_without_preload_content(
-        self,
-        id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Delete Web Key
-
-        Delete a web key pair. Only inactive keys can be deleted. Once a key is deleted, any tokens signed by this key will be invalid. Note that the JWKs OIDC endpoint returns a cacheable response. In case the web key is not found, the request will return a successful response as the desired state is already achieved. You can check the change date in the response to verify if the web key was deleted during the request.  Required permission:   - `iam.web_key.delete`  Required feature flag:   - `web_key`
-
-        :param id: (required)
-        :type id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._web_key_service_delete_web_key_serialize(
-            id=id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "WebKeyServiceBetaDeleteWebKeyResponse",
-            '400': "object",
-            '403': "WebKeyServiceRpcStatus",
-            '404': "WebKeyServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _web_key_service_delete_web_key_serialize(
+    def __web_key_service_delete_web_key_serialize(
         self,
         id,
         _request_auth,
@@ -906,7 +498,7 @@ class WebKeyServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._web_key_service_list_web_keys_serialize(
+        _param = self.__web_key_service_list_web_keys_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -919,6 +511,7 @@ class WebKeyServiceApi:
             '403': "WebKeyServiceRpcStatus",
             '404': "WebKeyServiceRpcStatus",
         }
+
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
@@ -929,136 +522,7 @@ class WebKeyServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-
-    @validate_call
-    def web_key_service_list_web_keys_with_http_info(
-        self,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[WebKeyServiceBetaListWebKeysResponse]:
-        """List Web Keys
-
-        List all web keys and their states.  Required permission:   - `iam.web_key.read`  Required feature flag:   - `web_key`
-
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._web_key_service_list_web_keys_serialize(
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "WebKeyServiceBetaListWebKeysResponse",
-            '400': "object",
-            '403': "WebKeyServiceRpcStatus",
-            '404': "WebKeyServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def web_key_service_list_web_keys_without_preload_content(
-        self,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """List Web Keys
-
-        List all web keys and their states.  Required permission:   - `iam.web_key.read`  Required feature flag:   - `web_key`
-
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._web_key_service_list_web_keys_serialize(
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "WebKeyServiceBetaListWebKeysResponse",
-            '400': "object",
-            '403': "WebKeyServiceRpcStatus",
-            '404': "WebKeyServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _web_key_service_list_web_keys_serialize(
+    def __web_key_service_list_web_keys_serialize(
         self,
         _request_auth,
         _content_type,

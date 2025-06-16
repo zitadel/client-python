@@ -30,6 +30,8 @@ class SessionServiceChallenges(BaseModel):
     web_auth_n: Optional[SessionServiceChallengesWebAuthN] = Field(default=None, alias="webAuthN")
     otp_sms: Optional[StrictStr] = Field(default=None, alias="otpSms")
     otp_email: Optional[StrictStr] = Field(default=None, alias="otpEmail")
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = ["webAuthN", "otpSms", "otpEmail"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -61,8 +63,10 @@ class SessionServiceChallenges(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -73,6 +77,11 @@ class SessionServiceChallenges(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of web_auth_n
         if self.web_auth_n:
             _dict['webAuthN'] = self.web_auth_n.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -89,6 +98,11 @@ class SessionServiceChallenges(BaseModel):
             "otpSms": obj.get("otpSms"),
             "otpEmail": obj.get("otpEmail")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

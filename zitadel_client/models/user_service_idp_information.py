@@ -36,6 +36,8 @@ class UserServiceIDPInformation(BaseModel):
     user_id: Optional[StrictStr] = Field(default=None, description="ID of the user of the identity provider", alias="userId")
     user_name: Optional[StrictStr] = Field(default=None, description="username of the user of the identity provider", alias="userName")
     raw_information: Optional[Dict[str, Any]] = Field(default=None, description="complete information returned by the identity provider", alias="rawInformation")
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = []
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -67,8 +69,10 @@ class UserServiceIDPInformation(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -76,6 +80,11 @@ class UserServiceIDPInformation(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -88,14 +97,12 @@ class UserServiceIDPInformation(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "oauth": UserServiceIDPOAuthAccessInformation.from_dict(obj["oauth"]) if obj.get("oauth") is not None else None,
-            "ldap": UserServiceIDPLDAPAccessInformation.from_dict(obj["ldap"]) if obj.get("ldap") is not None else None,
-            "saml": UserServiceIDPSAMLAccessInformation.from_dict(obj["saml"]) if obj.get("saml") is not None else None,
-            "idpId": obj.get("idpId"),
-            "userId": obj.get("userId"),
-            "userName": obj.get("userName"),
-            "rawInformation": obj.get("rawInformation")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

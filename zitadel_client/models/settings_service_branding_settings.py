@@ -36,6 +36,8 @@ class SettingsServiceBrandingSettings(BaseModel):
     disable_watermark: Optional[StrictBool] = Field(default=None, description="boolean to disable the watermark", alias="disableWatermark")
     resource_owner_type: Optional[SettingsServiceResourceOwnerType] = Field(default=SettingsServiceResourceOwnerType.RESOURCE_OWNER_TYPE_UNSPECIFIED, alias="resourceOwnerType")
     theme_mode: Optional[SettingsServiceThemeMode] = Field(default=SettingsServiceThemeMode.THEME_MODE_UNSPECIFIED, alias="themeMode")
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = ["lightTheme", "darkTheme", "fontUrl", "hideLoginNameSuffix", "disableWatermark", "resourceOwnerType", "themeMode"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -67,8 +69,10 @@ class SettingsServiceBrandingSettings(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -82,6 +86,11 @@ class SettingsServiceBrandingSettings(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of dark_theme
         if self.dark_theme:
             _dict['darkTheme'] = self.dark_theme.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -102,6 +111,11 @@ class SettingsServiceBrandingSettings(BaseModel):
             "resourceOwnerType": obj.get("resourceOwnerType") if obj.get("resourceOwnerType") is not None else SettingsServiceResourceOwnerType.RESOURCE_OWNER_TYPE_UNSPECIFIED,
             "themeMode": obj.get("themeMode") if obj.get("themeMode") is not None else SettingsServiceThemeMode.THEME_MODE_UNSPECIFIED
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

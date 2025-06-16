@@ -29,6 +29,8 @@ class ActionServiceBetaPaginationRequest(BaseModel):
     offset: Optional[StrictStr] = Field(default=None, description="Starting point for retrieval, in combination of offset used to query a set list of objects.")
     limit: Optional[StrictInt] = Field(default=None, description="limit is the maximum amount of objects returned. The default is set to 100 with a maximum of 1000 in the runtime configuration. If the limit exceeds the maximum configured ZITADEL will throw an error. If no limit is present the default is taken.")
     asc: Optional[StrictBool] = Field(default=None, description="Asc is the sorting order. If true the list is sorted ascending, if false the list is sorted descending. The default is descending.")
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = ["offset", "limit", "asc"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -60,8 +62,10 @@ class ActionServiceBetaPaginationRequest(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -69,6 +73,11 @@ class ActionServiceBetaPaginationRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -85,6 +94,11 @@ class ActionServiceBetaPaginationRequest(BaseModel):
             "limit": obj.get("limit"),
             "asc": obj.get("asc")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

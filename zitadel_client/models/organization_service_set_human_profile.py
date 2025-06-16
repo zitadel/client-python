@@ -34,6 +34,8 @@ class OrganizationServiceSetHumanProfile(BaseModel):
     display_name: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, alias="displayName")
     preferred_language: Optional[Annotated[str, Field(strict=True, max_length=10)]] = Field(default=None, alias="preferredLanguage")
     gender: Optional[OrganizationServiceGender] = OrganizationServiceGender.GENDER_UNSPECIFIED
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = ["givenName", "familyName", "nickName", "displayName", "preferredLanguage", "gender"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -65,8 +67,10 @@ class OrganizationServiceSetHumanProfile(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -74,6 +78,11 @@ class OrganizationServiceSetHumanProfile(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -93,6 +102,11 @@ class OrganizationServiceSetHumanProfile(BaseModel):
             "preferredLanguage": obj.get("preferredLanguage"),
             "gender": obj.get("gender") if obj.get("gender") is not None else OrganizationServiceGender.GENDER_UNSPECIFIED
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

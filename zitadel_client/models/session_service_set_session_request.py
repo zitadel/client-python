@@ -34,6 +34,8 @@ class SessionServiceSetSessionRequest(BaseModel):
     metadata: Optional[Dict[str, Union[StrictBytes, StrictStr]]] = Field(default=None, description="\"custom key value list to be stored on the session\"")
     challenges: Optional[SessionServiceRequestChallenges] = None
     lifetime: Optional[StrictStr] = Field(default=None, description="\"duration (in seconds) after which the session will be automatically invalidated\"")
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = ["sessionToken", "checks", "metadata", "challenges", "lifetime"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -65,8 +67,10 @@ class SessionServiceSetSessionRequest(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -80,6 +84,11 @@ class SessionServiceSetSessionRequest(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of challenges
         if self.challenges:
             _dict['challenges'] = self.challenges.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -98,6 +107,11 @@ class SessionServiceSetSessionRequest(BaseModel):
             "challenges": SessionServiceRequestChallenges.from_dict(obj["challenges"]) if obj.get("challenges") is not None else None,
             "lifetime": obj.get("lifetime")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

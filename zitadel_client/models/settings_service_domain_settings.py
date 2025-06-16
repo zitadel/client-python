@@ -31,6 +31,8 @@ class SettingsServiceDomainSettings(BaseModel):
     require_org_domain_verification: Optional[StrictBool] = Field(default=None, description="defines if organization domains should be verified upon creation, otherwise will be created already verified", alias="requireOrgDomainVerification")
     smtp_sender_address_matches_instance_domain: Optional[StrictBool] = Field(default=None, description="defines if the SMTP sender address domain should match an existing domain on the instance", alias="smtpSenderAddressMatchesInstanceDomain")
     resource_owner_type: Optional[SettingsServiceResourceOwnerType] = Field(default=SettingsServiceResourceOwnerType.RESOURCE_OWNER_TYPE_UNSPECIFIED, alias="resourceOwnerType")
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = ["loginNameIncludesDomain", "requireOrgDomainVerification", "smtpSenderAddressMatchesInstanceDomain", "resourceOwnerType"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -62,8 +64,10 @@ class SettingsServiceDomainSettings(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -71,6 +75,11 @@ class SettingsServiceDomainSettings(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -88,6 +97,11 @@ class SettingsServiceDomainSettings(BaseModel):
             "smtpSenderAddressMatchesInstanceDomain": obj.get("smtpSenderAddressMatchesInstanceDomain"),
             "resourceOwnerType": obj.get("resourceOwnerType") if obj.get("resourceOwnerType") is not None else SettingsServiceResourceOwnerType.RESOURCE_OWNER_TYPE_UNSPECIFIED
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

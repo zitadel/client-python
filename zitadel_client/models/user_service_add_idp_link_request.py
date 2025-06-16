@@ -28,6 +28,8 @@ class UserServiceAddIDPLinkRequest(BaseModel):
     UserServiceAddIDPLinkRequest
     """ # noqa: E501
     idp_link: Optional[UserServiceIDPLink] = Field(default=None, alias="idpLink")
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = ["idpLink"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -59,8 +61,10 @@ class UserServiceAddIDPLinkRequest(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -71,6 +75,11 @@ class UserServiceAddIDPLinkRequest(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of idp_link
         if self.idp_link:
             _dict['idpLink'] = self.idp_link.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -85,6 +94,11 @@ class UserServiceAddIDPLinkRequest(BaseModel):
         _obj = cls.model_validate({
             "idpLink": UserServiceIDPLink.from_dict(obj["idpLink"]) if obj.get("idpLink") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -42,6 +42,8 @@ class FeatureServiceGetSystemFeaturesResponse(BaseModel):
     enable_back_channel_logout: Optional[FeatureServiceFeatureFlag] = Field(default=None, alias="enableBackChannelLogout")
     login_v2: Optional[FeatureServiceLoginV2FeatureFlag] = Field(default=None, alias="loginV2")
     permission_check_v2: Optional[FeatureServiceFeatureFlag] = Field(default=None, alias="permissionCheckV2")
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = ["details", "loginDefaultOrg", "oidcTriggerIntrospectionProjections", "oidcLegacyIntrospection", "userSchema", "oidcTokenExchange", "improvedPerformance", "oidcSingleV1SessionTermination", "disableUserTokenEvent", "enableBackChannelLogout", "loginV2", "permissionCheckV2"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -73,8 +75,10 @@ class FeatureServiceGetSystemFeaturesResponse(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -118,6 +122,11 @@ class FeatureServiceGetSystemFeaturesResponse(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of permission_check_v2
         if self.permission_check_v2:
             _dict['permissionCheckV2'] = self.permission_check_v2.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -143,6 +152,11 @@ class FeatureServiceGetSystemFeaturesResponse(BaseModel):
             "loginV2": FeatureServiceLoginV2FeatureFlag.from_dict(obj["loginV2"]) if obj.get("loginV2") is not None else None,
             "permissionCheckV2": FeatureServiceFeatureFlag.from_dict(obj["permissionCheckV2"]) if obj.get("permissionCheckV2") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

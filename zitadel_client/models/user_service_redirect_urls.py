@@ -29,6 +29,8 @@ class UserServiceRedirectURLs(BaseModel):
     """ # noqa: E501
     success_url: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=2048)]] = Field(default=None, description="URL on which the user will be redirected after a successful login", alias="successUrl")
     failure_url: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=2048)]] = Field(default=None, description="URL on which the user will be redirected after a failed login", alias="failureUrl")
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = ["successUrl", "failureUrl"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -60,8 +62,10 @@ class UserServiceRedirectURLs(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -69,6 +73,11 @@ class UserServiceRedirectURLs(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -84,6 +93,11 @@ class UserServiceRedirectURLs(BaseModel):
             "successUrl": obj.get("successUrl"),
             "failureUrl": obj.get("failureUrl")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

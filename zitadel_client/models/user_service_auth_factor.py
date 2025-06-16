@@ -33,6 +33,8 @@ class UserServiceAuthFactor(BaseModel):
     u2f: Optional[UserServiceAuthFactorU2F] = None
     otp_sms: Optional[Dict[str, Any]] = Field(default=None, alias="otpSms")
     otp_email: Optional[Dict[str, Any]] = Field(default=None, alias="otpEmail")
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = []
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -64,8 +66,10 @@ class UserServiceAuthFactor(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -73,6 +77,11 @@ class UserServiceAuthFactor(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -85,12 +94,12 @@ class UserServiceAuthFactor(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "state": obj.get("state") if obj.get("state") is not None else UserServiceAuthFactorState.AUTH_FACTOR_STATE_UNSPECIFIED,
-            "otp": obj.get("otp"),
-            "u2f": UserServiceAuthFactorU2F.from_dict(obj["u2f"]) if obj.get("u2f") is not None else None,
-            "otpSms": obj.get("otpSms"),
-            "otpEmail": obj.get("otpEmail")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

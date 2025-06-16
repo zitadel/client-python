@@ -42,6 +42,8 @@ class FeatureServiceSetInstanceFeaturesRequest(BaseModel):
     login_v2: Optional[FeatureServiceLoginV2] = Field(default=None, alias="loginV2")
     permission_check_v2: Optional[StrictBool] = Field(default=None, description="Enable a newer, more performant, permission check used for v2 and v3 resource based APIs.", alias="permissionCheckV2")
     console_use_v2_user_api: Optional[StrictBool] = Field(default=None, description="If this is enabled the console web client will use the new User v2 API for certain calls", alias="consoleUseV2UserApi")
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = ["loginDefaultOrg", "oidcTriggerIntrospectionProjections", "oidcLegacyIntrospection", "userSchema", "oidcTokenExchange", "improvedPerformance", "webKey", "debugOidcParentError", "oidcSingleV1SessionTermination", "disableUserTokenEvent", "enableBackChannelLogout", "loginV2", "permissionCheckV2", "consoleUseV2UserApi"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -73,8 +75,10 @@ class FeatureServiceSetInstanceFeaturesRequest(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -85,6 +89,11 @@ class FeatureServiceSetInstanceFeaturesRequest(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of login_v2
         if self.login_v2:
             _dict['loginV2'] = self.login_v2.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -112,6 +121,11 @@ class FeatureServiceSetInstanceFeaturesRequest(BaseModel):
             "permissionCheckV2": obj.get("permissionCheckV2"),
             "consoleUseV2UserApi": obj.get("consoleUseV2UserApi")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

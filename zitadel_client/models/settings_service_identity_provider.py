@@ -32,6 +32,8 @@ class SettingsServiceIdentityProvider(BaseModel):
     name: Optional[StrictStr] = None
     type: Optional[SettingsServiceIdentityProviderType] = SettingsServiceIdentityProviderType.IDENTITY_PROVIDER_TYPE_UNSPECIFIED
     options: Optional[SettingsServiceOptions] = None
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = ["id", "name", "type", "options"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -63,8 +65,10 @@ class SettingsServiceIdentityProvider(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -75,6 +79,11 @@ class SettingsServiceIdentityProvider(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of options
         if self.options:
             _dict['options'] = self.options.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -92,6 +101,11 @@ class SettingsServiceIdentityProvider(BaseModel):
             "type": obj.get("type") if obj.get("type") is not None else SettingsServiceIdentityProviderType.IDENTITY_PROVIDER_TYPE_UNSPECIFIED,
             "options": SettingsServiceOptions.from_dict(obj["options"]) if obj.get("options") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -39,6 +39,8 @@ class FeatureServiceSetSystemFeaturesRequest(BaseModel):
     enable_back_channel_logout: Optional[StrictBool] = Field(default=None, description="If the flag is enabled, you'll be able to use the OIDC Back-Channel Logout to be notified in your application about terminated user sessions.", alias="enableBackChannelLogout")
     login_v2: Optional[FeatureServiceLoginV2] = Field(default=None, alias="loginV2")
     permission_check_v2: Optional[StrictBool] = Field(default=None, description="Enable a newer, more performant, permission check used for v2 and v3 resource based APIs.", alias="permissionCheckV2")
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = ["loginDefaultOrg", "oidcTriggerIntrospectionProjections", "oidcLegacyIntrospection", "userSchema", "oidcTokenExchange", "improvedPerformance", "oidcSingleV1SessionTermination", "disableUserTokenEvent", "enableBackChannelLogout", "loginV2", "permissionCheckV2"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -70,8 +72,10 @@ class FeatureServiceSetSystemFeaturesRequest(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -82,6 +86,11 @@ class FeatureServiceSetSystemFeaturesRequest(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of login_v2
         if self.login_v2:
             _dict['loginV2'] = self.login_v2.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -106,6 +115,11 @@ class FeatureServiceSetSystemFeaturesRequest(BaseModel):
             "loginV2": FeatureServiceLoginV2.from_dict(obj["loginV2"]) if obj.get("loginV2") is not None else None,
             "permissionCheckV2": obj.get("permissionCheckV2")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

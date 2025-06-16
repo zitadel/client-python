@@ -45,6 +45,8 @@ class FeatureServiceGetInstanceFeaturesResponse(BaseModel):
     login_v2: Optional[FeatureServiceLoginV2FeatureFlag] = Field(default=None, alias="loginV2")
     permission_check_v2: Optional[FeatureServiceFeatureFlag] = Field(default=None, alias="permissionCheckV2")
     console_use_v2_user_api: Optional[FeatureServiceFeatureFlag] = Field(default=None, alias="consoleUseV2UserApi")
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = ["details", "loginDefaultOrg", "oidcTriggerIntrospectionProjections", "oidcLegacyIntrospection", "userSchema", "oidcTokenExchange", "improvedPerformance", "webKey", "debugOidcParentError", "oidcSingleV1SessionTermination", "disableUserTokenEvent", "enableBackChannelLogout", "loginV2", "permissionCheckV2", "consoleUseV2UserApi"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -76,8 +78,10 @@ class FeatureServiceGetInstanceFeaturesResponse(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -130,6 +134,11 @@ class FeatureServiceGetInstanceFeaturesResponse(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of console_use_v2_user_api
         if self.console_use_v2_user_api:
             _dict['consoleUseV2UserApi'] = self.console_use_v2_user_api.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -158,6 +167,11 @@ class FeatureServiceGetInstanceFeaturesResponse(BaseModel):
             "permissionCheckV2": FeatureServiceFeatureFlag.from_dict(obj["permissionCheckV2"]) if obj.get("permissionCheckV2") is not None else None,
             "consoleUseV2UserApi": FeatureServiceFeatureFlag.from_dict(obj["consoleUseV2UserApi"]) if obj.get("consoleUseV2UserApi") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

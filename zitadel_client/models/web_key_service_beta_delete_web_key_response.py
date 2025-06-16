@@ -28,6 +28,8 @@ class WebKeyServiceBetaDeleteWebKeyResponse(BaseModel):
     WebKeyServiceBetaDeleteWebKeyResponse
     """ # noqa: E501
     deletion_date: Optional[datetime] = Field(default=None, description="The timestamp of the deletion of the key. Note that the deletion date is only guaranteed to be set if the deletion was successful during the request. In case the deletion occurred in a previous request, the deletion date might be empty.", alias="deletionDate")
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = ["deletionDate"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -59,8 +61,10 @@ class WebKeyServiceBetaDeleteWebKeyResponse(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -68,6 +72,11 @@ class WebKeyServiceBetaDeleteWebKeyResponse(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -82,6 +91,11 @@ class WebKeyServiceBetaDeleteWebKeyResponse(BaseModel):
         _obj = cls.model_validate({
             "deletionDate": obj.get("deletionDate")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

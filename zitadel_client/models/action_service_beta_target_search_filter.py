@@ -30,6 +30,8 @@ class ActionServiceBetaTargetSearchFilter(BaseModel):
     """ # noqa: E501
     target_name_filter: Optional[ActionServiceBetaTargetNameFilter] = Field(default=None, alias="targetNameFilter")
     in_target_ids_filter: Optional[ActionServiceBetaInTargetIDsFilter] = Field(default=None, alias="inTargetIdsFilter")
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = []
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -61,8 +63,10 @@ class ActionServiceBetaTargetSearchFilter(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -70,6 +74,11 @@ class ActionServiceBetaTargetSearchFilter(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -82,9 +91,12 @@ class ActionServiceBetaTargetSearchFilter(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "targetNameFilter": ActionServiceBetaTargetNameFilter.from_dict(obj["targetNameFilter"]) if obj.get("targetNameFilter") is not None else None,
-            "inTargetIdsFilter": ActionServiceBetaInTargetIDsFilter.from_dict(obj["inTargetIdsFilter"]) if obj.get("inTargetIdsFilter") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

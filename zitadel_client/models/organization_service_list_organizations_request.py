@@ -32,6 +32,8 @@ class OrganizationServiceListOrganizationsRequest(BaseModel):
     query: Optional[OrganizationServiceListQuery] = None
     sorting_column: Optional[OrganizationServiceOrganizationFieldName] = Field(default=OrganizationServiceOrganizationFieldName.ORGANIZATION_FIELD_NAME_UNSPECIFIED, alias="sortingColumn")
     queries: Optional[List[OrganizationServiceSearchQuery]] = None
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = ["query", "sortingColumn", "queries"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -63,8 +65,10 @@ class OrganizationServiceListOrganizationsRequest(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -82,6 +86,11 @@ class OrganizationServiceListOrganizationsRequest(BaseModel):
                 if _item_queries:
                     _items.append(_item_queries.to_dict())
             _dict['queries'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -98,6 +107,11 @@ class OrganizationServiceListOrganizationsRequest(BaseModel):
             "sortingColumn": obj.get("sortingColumn") if obj.get("sortingColumn") is not None else OrganizationServiceOrganizationFieldName.ORGANIZATION_FIELD_NAME_UNSPECIFIED,
             "queries": [OrganizationServiceSearchQuery.from_dict(_item) for _item in obj["queries"]] if obj.get("queries") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

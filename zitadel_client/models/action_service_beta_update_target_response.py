@@ -29,6 +29,8 @@ class ActionServiceBetaUpdateTargetResponse(BaseModel):
     """ # noqa: E501
     change_date: Optional[datetime] = Field(default=None, description="The timestamp of the change of the target.", alias="changeDate")
     signing_key: Optional[StrictStr] = Field(default=None, description="Key used to sign and check payload sent to the target.", alias="signingKey")
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = ["changeDate", "signingKey"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -60,8 +62,10 @@ class ActionServiceBetaUpdateTargetResponse(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -69,6 +73,11 @@ class ActionServiceBetaUpdateTargetResponse(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -84,6 +93,11 @@ class ActionServiceBetaUpdateTargetResponse(BaseModel):
             "changeDate": obj.get("changeDate"),
             "signingKey": obj.get("signingKey")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

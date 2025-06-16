@@ -34,6 +34,8 @@ class IdentityProviderServiceSAMLConfig(BaseModel):
     name_id_format: Optional[IdentityProviderServiceSAMLNameIDFormat] = Field(default=IdentityProviderServiceSAMLNameIDFormat.SAML_NAME_ID_FORMAT_UNSPECIFIED, alias="nameIdFormat")
     transient_mapping_attribute_name: Optional[StrictStr] = Field(default=None, description="Optional name of the attribute, which will be used to map the user in case the nameid-format returned is `urn:oasis:names:tc:SAML:2.0:nameid-format:transient`.", alias="transientMappingAttributeName")
     federated_logout_enabled: Optional[StrictBool] = Field(default=None, description="Boolean weather federated logout is enabled. If enabled, ZITADEL will send a logout request to the identity provider, if the user terminates the session in ZITADEL. Be sure to provide a SLO endpoint as part of the metadata.", alias="federatedLogoutEnabled")
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = ["metadataXml", "binding", "withSignedRequest", "nameIdFormat", "transientMappingAttributeName", "federatedLogoutEnabled"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -65,8 +67,10 @@ class IdentityProviderServiceSAMLConfig(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -74,6 +78,11 @@ class IdentityProviderServiceSAMLConfig(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -93,6 +102,11 @@ class IdentityProviderServiceSAMLConfig(BaseModel):
             "transientMappingAttributeName": obj.get("transientMappingAttributeName"),
             "federatedLogoutEnabled": obj.get("federatedLogoutEnabled")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -97,7 +97,7 @@ class ActionServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._action_service_create_target_serialize(
+        _param = self.__action_service_create_target_serialize(
             action_service_create_target_request=action_service_create_target_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -112,6 +112,7 @@ class ActionServiceApi:
             '404': "ActionServiceRpcStatus",
             '409': "object",
         }
+
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
@@ -122,146 +123,7 @@ class ActionServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-
-    @validate_call
-    def action_service_create_target_with_http_info(
-        self,
-        action_service_create_target_request: ActionServiceCreateTargetRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[ActionServiceBetaCreateTargetResponse]:
-        """Create Target
-
-        Create a new target to your endpoint, which can be used in executions.  Required permission:   - `action.target.write`  Required feature flag:   - `actions`
-
-        :param action_service_create_target_request: (required)
-        :type action_service_create_target_request: ActionServiceCreateTargetRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._action_service_create_target_serialize(
-            action_service_create_target_request=action_service_create_target_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ActionServiceBetaCreateTargetResponse",
-            '400': "object",
-            '403': "ActionServiceRpcStatus",
-            '404': "ActionServiceRpcStatus",
-            '409': "object",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def action_service_create_target_without_preload_content(
-        self,
-        action_service_create_target_request: ActionServiceCreateTargetRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Create Target
-
-        Create a new target to your endpoint, which can be used in executions.  Required permission:   - `action.target.write`  Required feature flag:   - `actions`
-
-        :param action_service_create_target_request: (required)
-        :type action_service_create_target_request: ActionServiceCreateTargetRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._action_service_create_target_serialize(
-            action_service_create_target_request=action_service_create_target_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ActionServiceBetaCreateTargetResponse",
-            '400': "object",
-            '403': "ActionServiceRpcStatus",
-            '404': "ActionServiceRpcStatus",
-            '409': "object",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _action_service_create_target_serialize(
+    def __action_service_create_target_serialize(
         self,
         action_service_create_target_request,
         _request_auth,
@@ -383,7 +245,7 @@ class ActionServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._action_service_delete_target_serialize(
+        _param = self.__action_service_delete_target_serialize(
             id=id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -397,6 +259,7 @@ class ActionServiceApi:
             '403': "ActionServiceRpcStatus",
             '404': "ActionServiceRpcStatus",
         }
+
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
@@ -407,144 +270,7 @@ class ActionServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-
-    @validate_call
-    def action_service_delete_target_with_http_info(
-        self,
-        id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[ActionServiceBetaDeleteTargetResponse]:
-        """Delete Target
-
-        Delete an existing target. This will remove it from any configured execution as well. In case the target is not found, the request will return a successful response as the desired state is already achieved.  Required permission:   - `action.target.delete`  Required feature flag:   - `actions`
-
-        :param id: (required)
-        :type id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._action_service_delete_target_serialize(
-            id=id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ActionServiceBetaDeleteTargetResponse",
-            '400': "object",
-            '403': "ActionServiceRpcStatus",
-            '404': "ActionServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def action_service_delete_target_without_preload_content(
-        self,
-        id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Delete Target
-
-        Delete an existing target. This will remove it from any configured execution as well. In case the target is not found, the request will return a successful response as the desired state is already achieved.  Required permission:   - `action.target.delete`  Required feature flag:   - `actions`
-
-        :param id: (required)
-        :type id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._action_service_delete_target_serialize(
-            id=id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ActionServiceBetaDeleteTargetResponse",
-            '400': "object",
-            '403': "ActionServiceRpcStatus",
-            '404': "ActionServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _action_service_delete_target_serialize(
+    def __action_service_delete_target_serialize(
         self,
         id,
         _request_auth,
@@ -653,7 +379,7 @@ class ActionServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._action_service_get_target_serialize(
+        _param = self.__action_service_get_target_serialize(
             id=id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -667,6 +393,7 @@ class ActionServiceApi:
             '403': "ActionServiceRpcStatus",
             '404': "object",
         }
+
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
@@ -677,144 +404,7 @@ class ActionServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-
-    @validate_call
-    def action_service_get_target_with_http_info(
-        self,
-        id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[ActionServiceBetaGetTargetResponse]:
-        """Get Target
-
-        Returns the target identified by the requested ID.  Required permission:   - `action.target.read`  Required feature flag:   - `actions`
-
-        :param id: (required)
-        :type id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._action_service_get_target_serialize(
-            id=id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ActionServiceBetaGetTargetResponse",
-            '400': "object",
-            '403': "ActionServiceRpcStatus",
-            '404': "object",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def action_service_get_target_without_preload_content(
-        self,
-        id: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Get Target
-
-        Returns the target identified by the requested ID.  Required permission:   - `action.target.read`  Required feature flag:   - `actions`
-
-        :param id: (required)
-        :type id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._action_service_get_target_serialize(
-            id=id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ActionServiceBetaGetTargetResponse",
-            '400': "object",
-            '403': "ActionServiceRpcStatus",
-            '404': "object",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _action_service_get_target_serialize(
+    def __action_service_get_target_serialize(
         self,
         id,
         _request_auth,
@@ -920,7 +510,7 @@ class ActionServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._action_service_list_execution_functions_serialize(
+        _param = self.__action_service_list_execution_functions_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -932,6 +522,7 @@ class ActionServiceApi:
             '403': "ActionServiceRpcStatus",
             '404': "ActionServiceRpcStatus",
         }
+
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
@@ -942,134 +533,7 @@ class ActionServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-
-    @validate_call
-    def action_service_list_execution_functions_with_http_info(
-        self,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[ActionServiceBetaListExecutionFunctionsResponse]:
-        """List Execution Functions
-
-        List all available functions which can be used as condition for executions.
-
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._action_service_list_execution_functions_serialize(
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ActionServiceBetaListExecutionFunctionsResponse",
-            '403': "ActionServiceRpcStatus",
-            '404': "ActionServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def action_service_list_execution_functions_without_preload_content(
-        self,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """List Execution Functions
-
-        List all available functions which can be used as condition for executions.
-
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._action_service_list_execution_functions_serialize(
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ActionServiceBetaListExecutionFunctionsResponse",
-            '403': "ActionServiceRpcStatus",
-            '404': "ActionServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _action_service_list_execution_functions_serialize(
+    def __action_service_list_execution_functions_serialize(
         self,
         _request_auth,
         _content_type,
@@ -1172,7 +636,7 @@ class ActionServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._action_service_list_execution_methods_serialize(
+        _param = self.__action_service_list_execution_methods_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1184,6 +648,7 @@ class ActionServiceApi:
             '403': "ActionServiceRpcStatus",
             '404': "ActionServiceRpcStatus",
         }
+
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
@@ -1194,134 +659,7 @@ class ActionServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-
-    @validate_call
-    def action_service_list_execution_methods_with_http_info(
-        self,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[ActionServiceBetaListExecutionMethodsResponse]:
-        """List Execution Methods
-
-        List all available methods which can be used as condition for executions.
-
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._action_service_list_execution_methods_serialize(
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ActionServiceBetaListExecutionMethodsResponse",
-            '403': "ActionServiceRpcStatus",
-            '404': "ActionServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def action_service_list_execution_methods_without_preload_content(
-        self,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """List Execution Methods
-
-        List all available methods which can be used as condition for executions.
-
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._action_service_list_execution_methods_serialize(
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ActionServiceBetaListExecutionMethodsResponse",
-            '403': "ActionServiceRpcStatus",
-            '404': "ActionServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _action_service_list_execution_methods_serialize(
+    def __action_service_list_execution_methods_serialize(
         self,
         _request_auth,
         _content_type,
@@ -1424,7 +762,7 @@ class ActionServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._action_service_list_execution_services_serialize(
+        _param = self.__action_service_list_execution_services_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1436,6 +774,7 @@ class ActionServiceApi:
             '403': "ActionServiceRpcStatus",
             '404': "ActionServiceRpcStatus",
         }
+
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
@@ -1446,134 +785,7 @@ class ActionServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-
-    @validate_call
-    def action_service_list_execution_services_with_http_info(
-        self,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[ActionServiceBetaListExecutionServicesResponse]:
-        """List Execution Services
-
-        List all available services which can be used as condition for executions.
-
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._action_service_list_execution_services_serialize(
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ActionServiceBetaListExecutionServicesResponse",
-            '403': "ActionServiceRpcStatus",
-            '404': "ActionServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def action_service_list_execution_services_without_preload_content(
-        self,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """List Execution Services
-
-        List all available services which can be used as condition for executions.
-
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._action_service_list_execution_services_serialize(
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ActionServiceBetaListExecutionServicesResponse",
-            '403': "ActionServiceRpcStatus",
-            '404': "ActionServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _action_service_list_execution_services_serialize(
+    def __action_service_list_execution_services_serialize(
         self,
         _request_auth,
         _content_type,
@@ -1688,7 +900,7 @@ class ActionServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._action_service_list_executions_serialize(
+        _param = self.__action_service_list_executions_serialize(
             pagination_offset=pagination_offset,
             pagination_limit=pagination_limit,
             pagination_asc=pagination_asc,
@@ -1705,6 +917,7 @@ class ActionServiceApi:
             '403': "ActionServiceRpcStatus",
             '404': "ActionServiceRpcStatus",
         }
+
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
@@ -1715,168 +928,7 @@ class ActionServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-
-    @validate_call
-    def action_service_list_executions_with_http_info(
-        self,
-        pagination_offset: Annotated[Optional[StrictStr], Field(description="Starting point for retrieval, in combination of offset used to query a set list of objects.")] = None,
-        pagination_limit: Annotated[Optional[StrictInt], Field(description="limit is the maximum amount of objects returned. The default is set to 100 with a maximum of 1000 in the runtime configuration. If the limit exceeds the maximum configured ZITADEL will throw an error. If no limit is present the default is taken.")] = None,
-        pagination_asc: Annotated[Optional[StrictBool], Field(description="Asc is the sorting order. If true the list is sorted ascending, if false the list is sorted descending. The default is descending.")] = None,
-        sorting_column: Annotated[Optional[StrictStr], Field(description="The field the result is sorted by. The default is the creation date. Beware that if you change this, your result pagination might be inconsistent.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[ActionServiceBetaListExecutionsResponse]:
-        """List Executions
-
-        List all matching executions. By default all executions of the instance are returned that have at least one execution target. Make sure to include a limit and sorting for pagination.  Required permission:   - `action.execution.read`  Required feature flag:   - `actions`
-
-        :param pagination_offset: Starting point for retrieval, in combination of offset used to query a set list of objects.
-        :type pagination_offset: str
-        :param pagination_limit: limit is the maximum amount of objects returned. The default is set to 100 with a maximum of 1000 in the runtime configuration. If the limit exceeds the maximum configured ZITADEL will throw an error. If no limit is present the default is taken.
-        :type pagination_limit: int
-        :param pagination_asc: Asc is the sorting order. If true the list is sorted ascending, if false the list is sorted descending. The default is descending.
-        :type pagination_asc: bool
-        :param sorting_column: The field the result is sorted by. The default is the creation date. Beware that if you change this, your result pagination might be inconsistent.
-        :type sorting_column: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._action_service_list_executions_serialize(
-            pagination_offset=pagination_offset,
-            pagination_limit=pagination_limit,
-            pagination_asc=pagination_asc,
-            sorting_column=sorting_column,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ActionServiceBetaListExecutionsResponse",
-            '400': "object",
-            '403': "ActionServiceRpcStatus",
-            '404': "ActionServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def action_service_list_executions_without_preload_content(
-        self,
-        pagination_offset: Annotated[Optional[StrictStr], Field(description="Starting point for retrieval, in combination of offset used to query a set list of objects.")] = None,
-        pagination_limit: Annotated[Optional[StrictInt], Field(description="limit is the maximum amount of objects returned. The default is set to 100 with a maximum of 1000 in the runtime configuration. If the limit exceeds the maximum configured ZITADEL will throw an error. If no limit is present the default is taken.")] = None,
-        pagination_asc: Annotated[Optional[StrictBool], Field(description="Asc is the sorting order. If true the list is sorted ascending, if false the list is sorted descending. The default is descending.")] = None,
-        sorting_column: Annotated[Optional[StrictStr], Field(description="The field the result is sorted by. The default is the creation date. Beware that if you change this, your result pagination might be inconsistent.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """List Executions
-
-        List all matching executions. By default all executions of the instance are returned that have at least one execution target. Make sure to include a limit and sorting for pagination.  Required permission:   - `action.execution.read`  Required feature flag:   - `actions`
-
-        :param pagination_offset: Starting point for retrieval, in combination of offset used to query a set list of objects.
-        :type pagination_offset: str
-        :param pagination_limit: limit is the maximum amount of objects returned. The default is set to 100 with a maximum of 1000 in the runtime configuration. If the limit exceeds the maximum configured ZITADEL will throw an error. If no limit is present the default is taken.
-        :type pagination_limit: int
-        :param pagination_asc: Asc is the sorting order. If true the list is sorted ascending, if false the list is sorted descending. The default is descending.
-        :type pagination_asc: bool
-        :param sorting_column: The field the result is sorted by. The default is the creation date. Beware that if you change this, your result pagination might be inconsistent.
-        :type sorting_column: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._action_service_list_executions_serialize(
-            pagination_offset=pagination_offset,
-            pagination_limit=pagination_limit,
-            pagination_asc=pagination_asc,
-            sorting_column=sorting_column,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ActionServiceBetaListExecutionsResponse",
-            '400': "object",
-            '403': "ActionServiceRpcStatus",
-            '404': "ActionServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _action_service_list_executions_serialize(
+    def __action_service_list_executions_serialize(
         self,
         pagination_offset,
         pagination_limit,
@@ -2002,7 +1054,7 @@ class ActionServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._action_service_list_targets_serialize(
+        _param = self.__action_service_list_targets_serialize(
             action_service_list_targets_request=action_service_list_targets_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -2016,6 +1068,7 @@ class ActionServiceApi:
             '403': "ActionServiceRpcStatus",
             '404': "ActionServiceRpcStatus",
         }
+
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
@@ -2026,144 +1079,7 @@ class ActionServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-
-    @validate_call
-    def action_service_list_targets_with_http_info(
-        self,
-        action_service_list_targets_request: ActionServiceListTargetsRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[ActionServiceBetaListTargetsResponse]:
-        """List targets
-
-        List all matching targets. By default all targets of the instance are returned. Make sure to include a limit and sorting for pagination.  Required permission:   - `action.target.read`  Required feature flag:   - `actions`
-
-        :param action_service_list_targets_request: (required)
-        :type action_service_list_targets_request: ActionServiceListTargetsRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._action_service_list_targets_serialize(
-            action_service_list_targets_request=action_service_list_targets_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ActionServiceBetaListTargetsResponse",
-            '400': "object",
-            '403': "ActionServiceRpcStatus",
-            '404': "ActionServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def action_service_list_targets_without_preload_content(
-        self,
-        action_service_list_targets_request: ActionServiceListTargetsRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """List targets
-
-        List all matching targets. By default all targets of the instance are returned. Make sure to include a limit and sorting for pagination.  Required permission:   - `action.target.read`  Required feature flag:   - `actions`
-
-        :param action_service_list_targets_request: (required)
-        :type action_service_list_targets_request: ActionServiceListTargetsRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._action_service_list_targets_serialize(
-            action_service_list_targets_request=action_service_list_targets_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ActionServiceBetaListTargetsResponse",
-            '400': "object",
-            '403': "ActionServiceRpcStatus",
-            '404': "ActionServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _action_service_list_targets_serialize(
+    def __action_service_list_targets_serialize(
         self,
         action_service_list_targets_request,
         _request_auth,
@@ -2285,7 +1201,7 @@ class ActionServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._action_service_set_execution_serialize(
+        _param = self.__action_service_set_execution_serialize(
             action_service_set_execution_request=action_service_set_execution_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -2299,6 +1215,7 @@ class ActionServiceApi:
             '403': "ActionServiceRpcStatus",
             '404': "ActionServiceRpcStatus",
         }
+
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
@@ -2309,144 +1226,7 @@ class ActionServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-
-    @validate_call
-    def action_service_set_execution_with_http_info(
-        self,
-        action_service_set_execution_request: ActionServiceSetExecutionRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[ActionServiceBetaSetExecutionResponse]:
-        """Set Execution
-
-        Sets an execution to call a target or include the targets of another execution. Setting an empty list of targets will remove all targets from the execution, making it a noop.  Required permission:   - `action.execution.write`  Required feature flag:   - `actions`
-
-        :param action_service_set_execution_request: (required)
-        :type action_service_set_execution_request: ActionServiceSetExecutionRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._action_service_set_execution_serialize(
-            action_service_set_execution_request=action_service_set_execution_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ActionServiceBetaSetExecutionResponse",
-            '400': "object",
-            '403': "ActionServiceRpcStatus",
-            '404': "ActionServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def action_service_set_execution_without_preload_content(
-        self,
-        action_service_set_execution_request: ActionServiceSetExecutionRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Set Execution
-
-        Sets an execution to call a target or include the targets of another execution. Setting an empty list of targets will remove all targets from the execution, making it a noop.  Required permission:   - `action.execution.write`  Required feature flag:   - `actions`
-
-        :param action_service_set_execution_request: (required)
-        :type action_service_set_execution_request: ActionServiceSetExecutionRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._action_service_set_execution_serialize(
-            action_service_set_execution_request=action_service_set_execution_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ActionServiceBetaSetExecutionResponse",
-            '400': "object",
-            '403': "ActionServiceRpcStatus",
-            '404': "ActionServiceRpcStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _action_service_set_execution_serialize(
+    def __action_service_set_execution_serialize(
         self,
         action_service_set_execution_request,
         _request_auth,
@@ -2571,7 +1351,7 @@ class ActionServiceApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._action_service_update_target_serialize(
+        _param = self.__action_service_update_target_serialize(
             id=id,
             action_service_update_target_request=action_service_update_target_request,
             _request_auth=_request_auth,
@@ -2586,6 +1366,7 @@ class ActionServiceApi:
             '403': "ActionServiceRpcStatus",
             '404': "object",
         }
+
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
@@ -2596,152 +1377,7 @@ class ActionServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-
-    @validate_call
-    def action_service_update_target_with_http_info(
-        self,
-        id: StrictStr,
-        action_service_update_target_request: ActionServiceUpdateTargetRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[ActionServiceBetaUpdateTargetResponse]:
-        """Update Target
-
-        Update an existing target. To generate a new signing key set the optional expirationSigningKey.  Required permission:   - `action.target.write`  Required feature flag:   - `actions`
-
-        :param id: (required)
-        :type id: str
-        :param action_service_update_target_request: (required)
-        :type action_service_update_target_request: ActionServiceUpdateTargetRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._action_service_update_target_serialize(
-            id=id,
-            action_service_update_target_request=action_service_update_target_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ActionServiceBetaUpdateTargetResponse",
-            '400': "object",
-            '403': "ActionServiceRpcStatus",
-            '404': "object",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def action_service_update_target_without_preload_content(
-        self,
-        id: StrictStr,
-        action_service_update_target_request: ActionServiceUpdateTargetRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Update Target
-
-        Update an existing target. To generate a new signing key set the optional expirationSigningKey.  Required permission:   - `action.target.write`  Required feature flag:   - `actions`
-
-        :param id: (required)
-        :type id: str
-        :param action_service_update_target_request: (required)
-        :type action_service_update_target_request: ActionServiceUpdateTargetRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._action_service_update_target_serialize(
-            id=id,
-            action_service_update_target_request=action_service_update_target_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ActionServiceBetaUpdateTargetResponse",
-            '400': "object",
-            '403': "ActionServiceRpcStatus",
-            '404': "object",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _action_service_update_target_serialize(
+    def __action_service_update_target_serialize(
         self,
         id,
         action_service_update_target_request,
