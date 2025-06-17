@@ -21,6 +21,9 @@ For those use cases, consider using other solutions that are designed for
 user authentication across various platforms like web, mobile, or other
 client environments.
 
+> [!IMPORTANT]
+> Please be aware that this SDK is currently in an incubating stage. We are releasing it to the community to gather feedback and learn how it is being used. While you are welcome to use it, please note that the API and functionality may evolve based on community input. We encourage you to try it out and share your experiences, but advise caution when considering it for production environments as future updates may introduce changes.
+
 ## Getting Started
 
 ### Sign up for Zitadel
