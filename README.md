@@ -184,8 +184,7 @@ in terms of request handling and error management.
 
 ## Versioning
 
-This SDK follows [Semantic Versioning](https://semver.org/). You can refer to
-the releases for details on the changes between versions.
+A key aspect of our strategy is that the SDK's major version is synchronized with the ZITADEL core project's major version to ensure compatibility. For a detailed explanation of this policy and our release schedule, please see our [Versioning Guide](VERSIONING.md).
 
 ## Contributing
 
