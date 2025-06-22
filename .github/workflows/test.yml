@@ -44,7 +44,7 @@ jobs:
         run: poetry run pytest --junitxml=build/reports/junit.xml
 
       - name: Generate coverage report
-        uses: mridang/action-test-reporter@v1.2.5
+        uses: mridang/action-test-reporter@v1
         if: always()
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}

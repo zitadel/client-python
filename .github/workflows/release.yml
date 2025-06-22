@@ -47,7 +47,7 @@ jobs:
           node-version: 'lts/*'
 
       - name: Run semantic-release
-        uses: mridang/action-semantic-release@v1.2.4
+        uses: mridang/action-semantic-release@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           allow-force-install: 'true'
