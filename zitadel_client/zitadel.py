@@ -75,6 +75,7 @@ class Zitadel:
         self.users = UserServiceApi(client)
         self.webkeys = WebKeyServiceApi(client)
 
+    # noinspection PyArgumentList
     T = TypeVar("T", bound="Zitadel")
 
     def __enter__(self: T) -> T:

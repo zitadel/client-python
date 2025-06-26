@@ -7,6 +7,7 @@ from pydantic import BaseModel, Field, StrictBytes, StrictInt
 T = TypeVar("T")
 
 
+# noinspection PyTypeHints
 class ApiResponse(BaseModel, Generic[T]):
     """
     API response object

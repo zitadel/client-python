@@ -1,3 +1,5 @@
+from threading import Lock
+
 from abc import ABC, abstractmethod
 from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, Generic, Optional, TypeVar  # noqa: F401
@@ -29,16 +31,20 @@ class OAuthAuthenticator(Authenticator, ABC):
         self.open_id = open_id
         self.token: Optional[Token] = None
         self.oauth_session = oauth_session
+        self._lock = Lock()
 
     def get_auth_token(self) -> str:
         """
         Returns the current access token, refreshing it if necessary.
         """
-        if self.token is None or self.token.is_expired():
-            self.refresh_token()
+        with self._lock:
+            if self.token is None or self.token.is_expired():
+                self.refresh_token()
 
-        assert self.token is not None
-        return self.token.access_token
+            if self.token is None:
+                raise ZitadelError("Token is null even after attempting to refresh.")
+            else:
+                return self.token.access_token
 
     def get_auth_headers(self) -> Dict[str, str]:
         """
@@ -75,10 +81,11 @@ class OAuthAuthenticator(Authenticator, ABC):
             raise ZitadelError("Failed to refresh token: " + str(e)) from e
 
 
+# noinspection PyArgumentList
 T = TypeVar("T", bound="OAuthAuthenticatorBuilder[Any]")
 
 
-# noinspection PyTypeHintsInspection
+# noinspection PyTypeHintsInspection,PyTypeHints
 class OAuthAuthenticatorBuilder(ABC, Generic[T]):
     """
     Abstract builder class for constructing OAuth authenticator instances.

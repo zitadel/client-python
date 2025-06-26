@@ -69,6 +69,7 @@ class ApiClient:
             self.default_headers[header_name] = header_value
         self.client_side_validation = configuration.client_side_validation
 
+    # noinspection PyArgumentList
     T = TypeVar("T", bound="ApiClient")
 
     def __enter__(self: T) -> T:
@@ -229,8 +230,10 @@ class ApiClient:
             response_type = response_types_map.get(str(response_data.status)[0] + "XX", None)
 
         # deserialize response data
+        # noinspection PyUnusedLocal
         response_text = None
         return_data = None
+        # noinspection PyUnreachableCode
         try:
             if response_type == "bytearray":
                 return_data = response_data.data
@@ -243,6 +246,7 @@ class ApiClient:
                     match = re.search(r"charset=([a-zA-Z\-\d]+)[\s;]?", content_type)
                 encoding = match.group(1) if match else "utf-8"
                 response_text = response_data.data.decode(encoding)
+                # noinspection PyTypeChecker
                 return_data = self.deserialize(response_text, response_type, content_type)
         finally:
             if not 200 <= response_data.status <= 299:
@@ -357,12 +361,14 @@ class ApiClient:
             if klass.startswith("List["):
                 m = re.match(r"List\[(.*)]", klass)
                 assert m is not None, "Malformed List type definition"
+                # noinspection PyArgumentList
                 return [ApiClient.__deserialize(sub_data) for sub_data in data]
 
             if klass.startswith("Dict["):
                 m = re.match(r"Dict\[([^,]*), (.*)]", klass)
                 assert m is not None, "Malformed Dict type definition"
                 sub_kls = m.group(2)
+                # noinspection PyArgumentList
                 return {k: ApiClient.__deserialize(sub_kls) for k, v in data.items()}
 
             # convert str to class
