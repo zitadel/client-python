@@ -7,7 +7,9 @@ from urllib3 import BaseHTTPResponse
 class RESTResponse(io.IOBase):
     data: Optional[bytes] = None
 
-    def __init__(self, resp: BaseHTTPResponse) -> None:
+    def __init__(self, resp: BaseHTTPResponse, *args, **kwargs) -> None:  # type: ignore
+        # noinspection PyArgumentList
+        super().__init__(*args, **kwargs)
         self.response = resp
         self.status = resp.status
         self.reason = resp.reason

@@ -1,4 +1,5 @@
 import unittest
+from typing import Optional
 
 from testcontainers.core.container import DockerContainer
 
@@ -15,7 +16,7 @@ class OAuthAuthenticatorTest(unittest.TestCase):
     with a status code of 405, using HttpWaitStrategy.
     """
 
-    oauth_host: str | None = None
+    oauth_host: Optional[str] = None
     mock_oauth2_server: DockerContainer = None
 
     @classmethod
@@ -24,6 +25,7 @@ class OAuthAuthenticatorTest(unittest.TestCase):
         cls.mock_oauth2_server.start()
         host = cls.mock_oauth2_server.get_container_host_ip()
         port = cls.mock_oauth2_server.get_exposed_port(8080)
+        # noinspection HttpUrlsUsage
         cls.oauth_host = f"http://{host}:{port}"
 
     @classmethod

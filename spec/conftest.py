@@ -9,8 +9,8 @@ import re
 # noinspection PyPep8Naming
 import xml.etree.ElementTree as ET
 from collections import defaultdict
-from collections.abc import Callable
 from datetime import datetime, timezone
+from typing import Callable
 
 import pytest
 from _pytest import nodes, timing
@@ -30,6 +30,7 @@ from dotenv import load_dotenv
 xml_key = StashKey["LogXML"]()
 
 
+# noinspection PyUnresolvedReferences
 class _NodeReporter:
     def __init__(self, nodeid: str | TestReport, xml: LogXML) -> None:
         self.id = nodeid
@@ -299,6 +300,7 @@ def pytest_configure(config: Config) -> None:
 
     :param config: The pytest Config object containing CLI options and hooks.
     """
+    # noinspection PyUnresolvedReferences
     xmldir = config.option.xmldir
     if xmldir and not hasattr(config, "workerinput"):
         config.stash[xml_key] = LogXML(xmldir)
@@ -333,6 +335,7 @@ def mangle_test_address(address: str) -> list[str]:
 
 
 class LogXML:
+    # noinspection PyUnresolvedReferences
     def __init__(  # type: ignore[no-untyped-def]
         self,
         output_dir,
@@ -350,6 +353,7 @@ class LogXML:
         self.log_passing_tests = log_passing_tests
         self.report_duration = report_duration
         self.stats: dict[str, int] = dict.fromkeys(["error", "passed", "failure", "skipped"], 0)
+        # noinspection PyUnresolvedReferences
         self.node_reporters: dict[tuple[str | TestReport, object], _NodeReporter] = {}
         self.node_reporters_ordered: list[_NodeReporter] = []
 
@@ -370,6 +374,7 @@ class LogXML:
             reporter.finalize()
 
     def node_reporter(self, report: TestReport | str) -> _NodeReporter:
+        # noinspection PyUnresolvedReferences
         nodeid: str | TestReport = getattr(report, "nodeid", report)
         # Local hack to handle xdist report order.
         workernode = getattr(report, "node", None)

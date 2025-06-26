@@ -1,9 +1,9 @@
 {
   "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.10.7/.schema/devbox.schema.json",
   "packages": [
-    "python@latest",
     "poetry@latest",
-    "lefthook@latest"
+    "lefthook@latest",
+    "python39@latest"
   ],
   "env": {
     "POETRY_CACHE_DIR": "$PWD/.poetry"

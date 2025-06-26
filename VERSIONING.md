@@ -4,11 +4,11 @@ This document provides a detailed explanation of the versioning and release stra
 
 ## Versioning at a Glance
 
-| Version Change | ZITADEL Compatibility | Type of Change | Example |
-| :--- | :--- | :--- | :--- |
-| **MAJOR** (e.g., 3.x -> 4.x) | Aligned with ZITADEL Core. Requires server upgrade. | Contains breaking changes. | `v3.5.1` -> `v4.0.0` |
-| **MINOR** (e.g., 3.1 -> 3.2) | Compatible with the same ZITADEL major version. | New, non-breaking features added. | `v3.1.4` -> `v3.2.0` |
-| **PATCH** (e.g., 3.1.0 -> 3.1.1)| Compatible with the same ZITADEL major version. | Backwards-compatible bug fixes. | `v3.1.0` -> `v3.1.1` |
+| Version Change                   | ZITADEL Compatibility                               | Type of Change                    | Example              |
+|:---------------------------------|:----------------------------------------------------|:----------------------------------|:---------------------|
+| **MAJOR** (e.g., 3.x -> 4.x)     | Aligned with ZITADEL Core. Requires server upgrade. | Contains breaking changes.        | `v3.5.1` -> `v4.0.0` |
+| **MINOR** (e.g., 3.1 -> 3.2)     | Compatible with the same ZITADEL major version.     | New, non-breaking features added. | `v3.1.4` -> `v3.2.0` |
+| **PATCH** (e.g., 3.1.0 -> 3.1.1) | Compatible with the same ZITADEL major version.     | Backwards-compatible bug fixes.   | `v3.1.0` -> `v3.1.1` |
 
 ---
 

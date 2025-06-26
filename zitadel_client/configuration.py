@@ -88,6 +88,7 @@ class Configuration:
         memo[id(self)] = result
         for k, v in self.__dict__.items():
             if k not in ("logger", "logger_file_handler"):
+                # noinspection PyArgumentList
                 setattr(result, k, copy.deepcopy(v, memo))
         # shallow copy of loggers
         result.logger = copy.copy(self.logger)

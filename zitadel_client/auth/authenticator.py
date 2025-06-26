@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, Generic, TypeVar  # noqa: F401
 
 
@@ -65,4 +65,4 @@ class Token:
         Returns:
         - bool: True if expired, False otherwise.
         """
-        return datetime.now(timezone.utc) >= self.expires_at
+        return datetime.now(timezone.utc) >= (self.expires_at - timedelta(minutes=5))

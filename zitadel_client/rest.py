@@ -21,8 +21,10 @@ class RESTClientObject:
 
         # cert_reqs
         if configuration.verify_ssl:
+            # noinspection PyUnresolvedReferences
             cert_reqs = ssl.CERT_REQUIRED
         else:
+            # noinspection PyUnresolvedReferences
             cert_reqs = ssl.CERT_NONE
 
         pool_args = {
@@ -49,6 +51,7 @@ class RESTClientObject:
 
         # https pool manager
         self.pool_manager: urllib3.PoolManager
+        # noinspection PyArgumentList
         self.pool_manager = urllib3.PoolManager(**pool_args)
 
     def request(  # noqa C901 too complex
