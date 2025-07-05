@@ -27,8 +27,8 @@ class UserServiceSendInviteCode(BaseModel):
     """
     UserServiceSendInviteCode
     """ # noqa: E501
-    url_template: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]] = Field(default=None, description="Optionally set a url_template, which will be used in the invite mail sent by ZITADEL to guide the user to your invitation page. If no template is set, the default ZITADEL url will be used.  The following placeholders can be used: UserID, OrgID, Code", alias="urlTemplate")
-    application_name: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]] = Field(default=None, description="Optionally set an application name, which will be used in the invite mail sent by ZITADEL. If no application name is set, ZITADEL will be used as default.", alias="applicationName")
+    url_template: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]] = Field(default=None, description="Optionally set a url_template, which will be used in the invite mail sent by ZITADEL to guide the user to your invitation page. If no template is set and no previous code was created, the default ZITADEL url will be used.  The following placeholders can be used: UserID, OrgID, Code", alias="urlTemplate")
+    application_name: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]] = Field(default=None, description="Optionally set an application name, which will be used in the invite mail sent by ZITADEL. If no application name is set and no previous code was created, ZITADEL will be used as default.", alias="applicationName")
 
     model_config = ConfigDict(
         populate_by_name=True,
