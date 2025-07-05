@@ -130,7 +130,7 @@ class UserServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "UserServiceAddHumanUserResponse",
+            '200': "UserServiceAddHumanUserResponse",
             '403': "UserServiceRpcStatus",
             '404': "UserServiceRpcStatus",
         }
@@ -422,6 +422,19 @@ class UserServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -524,6 +537,19 @@ class UserServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -556,7 +582,7 @@ class UserServiceApi:
     ) -> UserServiceCreateInviteCodeResponse:
         """Create an invite code for a user
 
-        Create an invite code for a user to initialize their first authentication method (password, passkeys, IdP) depending on the organization's available methods.
+        Create an invite code for a user to initialize their first authentication method (password, passkeys, IdP) depending on the organization's available methods. If an invite code has been created previously, it's url template and application name will be used as defaults for the new code. The new code will overwrite the previous one and make it invalid.
 
         :param user_id: (required)
         :type user_id: str
@@ -870,6 +896,19 @@ class UserServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -1176,6 +1215,19 @@ class UserServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -1641,6 +1693,19 @@ class UserServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -1859,6 +1924,19 @@ class UserServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -2083,6 +2161,19 @@ class UserServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -2307,6 +2398,19 @@ class UserServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -2545,6 +2649,19 @@ class UserServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -2960,6 +3077,19 @@ class UserServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -3322,14 +3452,15 @@ class UserServiceApi:
     self,
       user_id: StrictStr,
     ) -> UserServiceResendInviteCodeResponse:
-        """Resend an invite code for a user
+        """(Deprecated) Resend an invite code for a user
 
-        Resend an invite code for a user to initialize their first authentication method (password, passkeys, IdP) depending on the organization's available methods. A resend is only possible if a code has been created previously and sent to the user. If there is no code or it was directly returned, an error will be returned.
+        Deprecated: Use [CreateInviteCode](apis/resources/user_service_v2/user-service-create-invite-code.api.mdx) instead.  Resend an invite code for a user to initialize their first authentication method (password, passkeys, IdP) depending on the organization's available methods. A resend is only possible if a code has been created previously and sent to the user. If there is no code or it was directly returned, an error will be returned.
 
         :param user_id: (required)
         :type user_id: str
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /v2/users/{userId}/invite_code/resend is deprecated.", DeprecationWarning)
 
         _param = self.__user_service_resend_invite_code_serialize(
             user_id=user_id,
@@ -4344,6 +4475,19 @@ class UserServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [

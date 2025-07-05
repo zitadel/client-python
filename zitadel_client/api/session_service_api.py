@@ -70,7 +70,7 @@ class SessionServiceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "SessionServiceCreateSessionResponse",
+            '200': "SessionServiceCreateSessionResponse",
             '403': "SessionServiceRpcStatus",
             '404': "SessionServiceRpcStatus",
         }
