@@ -1,14 +1,29 @@
 from types import TracebackType
 from typing import Callable, Optional, Type, TypeVar
 
-from zitadel_client.api import ActionServiceApi, SAMLServiceApi, WebKeyServiceApi
 from zitadel_client.api.feature_service_api import FeatureServiceApi
 from zitadel_client.api.identity_provider_service_api import IdentityProviderServiceApi
 from zitadel_client.api.oidc_service_api import OIDCServiceApi
 from zitadel_client.api.organization_service_api import OrganizationServiceApi
+from zitadel_client.api.saml_service_api import SAMLServiceApi
 from zitadel_client.api.session_service_api import SessionServiceApi
 from zitadel_client.api.settings_service_api import SettingsServiceApi
 from zitadel_client.api.user_service_api import UserServiceApi
+from zitadel_client.api.web_key_service_api import WebKeyServiceApi
+from zitadel_client.api.beta_project_service_api import BetaProjectServiceApi
+from zitadel_client.api.beta_app_service_api import BetaAppServiceApi
+from zitadel_client.api.beta_oidc_service_api import BetaOIDCServiceApi
+from zitadel_client.api.beta_user_service_api import BetaUserServiceApi
+from zitadel_client.api.beta_organization_service_api import BetaOrganizationServiceApi
+from zitadel_client.api.beta_settings_service_api import BetaSettingsServiceApi
+from zitadel_client.api.beta_internal_permission_service_api import BetaInternalPermissionServiceApi
+from zitadel_client.api.beta_authorization_service_api import BetaAuthorizationServiceApi
+from zitadel_client.api.beta_session_service_api import BetaSessionServiceApi
+from zitadel_client.api.beta_instance_service_api import BetaInstanceServiceApi
+from zitadel_client.api.beta_telemetry_service_api import BetaTelemetryServiceApi
+from zitadel_client.api.beta_feature_service_api import BetaFeatureServiceApi
+from zitadel_client.api.beta_web_key_service_api import BetaWebKeyServiceApi
+from zitadel_client.api.beta_action_service_api import BetaActionServiceApi
 from zitadel_client.api_client import ApiClient
 from zitadel_client.auth.authenticator import Authenticator
 from zitadel_client.auth.client_credentials_authenticator import ClientCredentialsAuthenticator
@@ -26,17 +41,52 @@ class Zitadel:
     organizations, sessions, settings, users, and more.
 
     Attributes:
-        configuration (Configuration): The configuration instance containing authentication and endpoint details.
-        actions (ActionServiceApi): Service API for actions management.
-        features (FeatureServiceApi): Service API for feature management.
-        idps (IdentityProviderServiceApi): Service API for identity provider operations.
-        oidc (OIDCServiceApi): Service API for OIDC-related operations.
-        organizations (OrganizationServiceApi): Service API for organization-related operations.
-        saml (SAMLServiceApi): Service API for SAML management.
-        sessions (SessionServiceApi): Service API for session management.
-        settings (SettingsServiceApi): Service API for settings management.
-        users (UserServiceApi): Service API for user management.
-        webkeys (WebKeyServiceApi): Service API for webkeys management.
+    features (FeatureServiceApi)
+        Endpoints for feature management.
+    idps (IdentityProviderServiceApi)
+        Endpoints for identity-provider operations.
+    oidc (OIDCServiceApi)
+        Endpoints for OIDC-related operations.
+    organizations (OrganizationServiceApi)
+        Endpoints for organization management.
+    saml (SAMLServiceApi)
+        Endpoints for SAML identity-provider management.
+    sessions (SessionServiceApi)
+        Endpoints for session lifecycle management.
+    settings (SettingsServiceApi)
+        Endpoints for organization- and instance-level settings.
+    users (UserServiceApi)
+        Endpoints for end-user management.
+    webkeys (WebKeyServiceApi)
+        Endpoints for WebCrypto keys (JWKS).
+    beta_projects (BetaProjectServiceApi)
+        Preview endpoints for project management.
+    beta_apps (BetaAppServiceApi)
+        Preview endpoints for application registration.
+    beta_oidc (BetaOIDCServiceApi)
+        Preview endpoints for OIDC features not yet GA.
+    beta_users (BetaUserServiceApi)
+        Preview endpoints for advanced user management.
+    beta_organizations (BetaOrganizationServiceApi)
+        Preview endpoints for organization features.
+    beta_settings (BetaSettingsServiceApi)
+        Preview endpoints for settings not yet GA.
+    beta_permissions (BetaInternalPermissionServiceApi)
+        Preview endpoints for fine-grained permission management.
+    beta_authorizations (BetaAuthorizationServiceApi)
+        Preview endpoints for authorization workflows.
+    beta_sessions (BetaSessionServiceApi)
+        Preview endpoints for session features not yet GA.
+    beta_instance (BetaInstanceServiceApi)
+        Preview endpoints for instance-level operations.
+    beta_telemetry (BetaTelemetryServiceApi)
+        Preview endpoints for telemetry and observability.
+    beta_features (BetaFeatureServiceApi)
+        Preview endpoints for new feature toggles.
+    beta_webkeys (BetaWebKeyServiceApi)
+        Preview endpoints for WebCrypto keys in Beta.
+    beta_actions (BetaActionServiceApi)
+        Preview endpoints for custom action workflows.
     """
 
     def __init__(
@@ -63,7 +113,6 @@ class Zitadel:
             mutate_config(self.configuration)
 
         client = ApiClient(configuration=self.configuration)
-        self.actions = ActionServiceApi(client)
         self.features = FeatureServiceApi(client)
         self.idps = IdentityProviderServiceApi(client)
         self.oidc = OIDCServiceApi(client)
@@ -72,8 +121,21 @@ class Zitadel:
         self.sessions = SessionServiceApi(client)
         self.settings = SettingsServiceApi(client)
         self.users = UserServiceApi(client)
-        self.users = UserServiceApi(client)
         self.webkeys = WebKeyServiceApi(client)
+        self.beta_projects = BetaProjectServiceApi(client)
+        self.beta_apps = BetaAppServiceApi(client)
+        self.beta_oidc = BetaOIDCServiceApi(client)
+        self.beta_users = BetaUserServiceApi(client)
+        self.beta_organizations = BetaOrganizationServiceApi(client)
+        self.beta_settings = BetaSettingsServiceApi(client)
+        self.beta_permissions = BetaInternalPermissionServiceApi(client)
+        self.beta_authorizations = BetaAuthorizationServiceApi(client)
+        self.beta_sessions = BetaSessionServiceApi(client)
+        self.beta_instance = BetaInstanceServiceApi(client)
+        self.beta_telemetry = BetaTelemetryServiceApi(client)
+        self.beta_features = BetaFeatureServiceApi(client)
+        self.beta_webkeys = BetaWebKeyServiceApi(client)
+        self.beta_actions = BetaActionServiceApi(client)
 
     # noinspection PyArgumentList
     T = TypeVar("T", bound="Zitadel")
