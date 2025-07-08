@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.saml_service_details import SAMLServiceDetails
 from zitadel_client.models.saml_service_post_response import SAMLServicePostResponse
 from typing import Optional, Set
@@ -30,8 +30,9 @@ class SAMLServiceCreateResponseResponse(BaseModel):
     """ # noqa: E501
     details: Optional[SAMLServiceDetails] = None
     url: Optional[StrictStr] = Field(default=None, description="URL including the Assertion Consumer Service where the user should be redirected or has to call per POST, depending on the binding. Contains details for the application to obtain the response on success, or error details on failure. Note that this field must be treated as credentials, as the contained SAMLResponse or code can be used on behalve of the user.")
-    redirect: Optional[Dict[str, Any]] = None
     post: Optional[SAMLServicePostResponse] = None
+    redirect: Optional[Dict[str, Any]] = None
+    __properties: ClassVar[List[str]] = ["details", "url", "post", "redirect"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -72,6 +73,12 @@ class SAMLServiceCreateResponseResponse(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of details
+        if self.details:
+            _dict['details'] = self.details.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of post
+        if self.post:
+            _dict['post'] = self.post.to_dict()
         return _dict
 
     @classmethod
@@ -86,8 +93,8 @@ class SAMLServiceCreateResponseResponse(BaseModel):
         _obj = cls.model_validate({
             "details": SAMLServiceDetails.from_dict(obj["details"]) if obj.get("details") is not None else None,
             "url": obj.get("url"),
-            "redirect": obj.get("redirect"),
-            "post": SAMLServicePostResponse.from_dict(obj["post"]) if obj.get("post") is not None else None
+            "post": SAMLServicePostResponse.from_dict(obj["post"]) if obj.get("post") is not None else None,
+            "redirect": obj.get("redirect")
         })
         return _obj
 

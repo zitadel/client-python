@@ -30,6 +30,7 @@ class SessionServiceListSessionsResponse(BaseModel):
     """ # noqa: E501
     details: Optional[SessionServiceListDetails] = None
     sessions: Optional[List[SessionServiceSession]] = None
+    __properties: ClassVar[List[str]] = ["details", "sessions"]
 
     model_config = ConfigDict(
         populate_by_name=True,

@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -28,6 +28,7 @@ class SAMLServicePostResponse(BaseModel):
     """ # noqa: E501
     relay_state: Optional[StrictStr] = Field(default=None, alias="relayState")
     saml_response: Optional[StrictStr] = Field(default=None, alias="samlResponse")
+    __properties: ClassVar[List[str]] = ["relayState", "samlResponse"]
 
     model_config = ConfigDict(
         populate_by_name=True,

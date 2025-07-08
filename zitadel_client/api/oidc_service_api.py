@@ -16,13 +16,13 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictStr
 from typing import Any, Dict
-from typing_extensions import Annotated
 from zitadel_client.models.oidc_service_authorize_or_deny_device_authorization_request import OIDCServiceAuthorizeOrDenyDeviceAuthorizationRequest
 from zitadel_client.models.oidc_service_create_callback_request import OIDCServiceCreateCallbackRequest
 from zitadel_client.models.oidc_service_create_callback_response import OIDCServiceCreateCallbackResponse
+from zitadel_client.models.oidc_service_get_auth_request_request import OIDCServiceGetAuthRequestRequest
 from zitadel_client.models.oidc_service_get_auth_request_response import OIDCServiceGetAuthRequestResponse
+from zitadel_client.models.oidc_service_get_device_authorization_request_request import OIDCServiceGetDeviceAuthorizationRequestRequest
 from zitadel_client.models.oidc_service_get_device_authorization_request_response import OIDCServiceGetDeviceAuthorizationRequestResponse
 
 from zitadel_client.api_client import ApiClient, RequestSerialized
@@ -44,40 +44,49 @@ class OIDCServiceApi:
 
 
     @validate_call
-    def o_idc_service_authorize_or_deny_device_authorization(
-    self,
-      device_authorization_id: Annotated[StrictStr, Field(description="The device authorization id returned when submitting the user code.")],
-      oidc_service_authorize_or_deny_device_authorization_request: OIDCServiceAuthorizeOrDenyDeviceAuthorizationRequest,
-    ) -> object:
-        """Authorize or deny device authorization
+    def authorize_or_deny_device_authorization(        self,                oidc_service_authorize_or_deny_device_authorization_request: OIDCServiceAuthorizeOrDenyDeviceAuthorizationRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> object:
+        """AuthorizeOrDenyDeviceAuthorization
 
-        Authorize or deny the device authorization request based on the provided device authorization id.
+        Authorize or deny device authorization   Authorize or deny the device authorization request based on the provided device authorization id.
 
-        :param device_authorization_id: The device authorization id returned when submitting the user code. (required)
-        :type device_authorization_id: str
         :param oidc_service_authorize_or_deny_device_authorization_request: (required)
         :type oidc_service_authorize_or_deny_device_authorization_request: OIDCServiceAuthorizeOrDenyDeviceAuthorizationRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self.__o_idc_service_authorize_or_deny_device_authorization_serialize(
-            device_authorization_id=device_authorization_id,
+        _param = self._authorize_or_deny_device_authorization_serialize(
             oidc_service_authorize_or_deny_device_authorization_request=oidc_service_authorize_or_deny_device_authorization_request,
-            _request_auth=None,
-            _content_type=None,
-            _headers=None,
-            _host_index=0
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "object",
-            '403': "OIDCServiceRpcStatus",
-            '404': "OIDCServiceRpcStatus",
         }
-
         response_data = self.api_client.call_api(
             *_param,
-            _request_timeout=None
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
@@ -85,9 +94,8 @@ class OIDCServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-    def __o_idc_service_authorize_or_deny_device_authorization_serialize(
+    def _authorize_or_deny_device_authorization_serialize(
         self,
-        device_authorization_id,
         oidc_service_authorize_or_deny_device_authorization_request,
         _request_auth,
         _content_type,
@@ -110,8 +118,6 @@ class OIDCServiceApi:
         _body_params: Optional[bytes] = None
 
         # process the path parameters
-        if device_authorization_id is not None:
-            _path_params['deviceAuthorizationId'] = device_authorization_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -149,7 +155,7 @@ class OIDCServiceApi:
 
         return self.api_client.param_serialize(
             method='POST',
-            resource_path='/v2/oidc/device_authorization/{deviceAuthorizationId}',
+            resource_path='/zitadel.oidc.v2.OIDCService/AuthorizeOrDenyDeviceAuthorization',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -166,40 +172,48 @@ class OIDCServiceApi:
 
 
     @validate_call
-    def o_idc_service_create_callback(
-    self,
-      auth_request_id: Annotated[StrictStr, Field(description="ID of the Auth Request.")],
-      oidc_service_create_callback_request: OIDCServiceCreateCallbackRequest,
-    ) -> OIDCServiceCreateCallbackResponse:
-        """Finalize an Auth Request and get the callback URL.
+    def create_callback(        self,                oidc_service_create_callback_request: OIDCServiceCreateCallbackRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> OIDCServiceCreateCallbackResponse:
+        """CreateCallback
 
-        Finalize an Auth Request and get the callback URL for success or failure. The user must be redirected to the URL in order to inform the application about the success or failure. On success, the URL contains details for the application to obtain the tokens. This method can only be called once for an Auth request.
 
-        :param auth_request_id: ID of the Auth Request. (required)
-        :type auth_request_id: str
         :param oidc_service_create_callback_request: (required)
         :type oidc_service_create_callback_request: OIDCServiceCreateCallbackRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self.__o_idc_service_create_callback_serialize(
-            auth_request_id=auth_request_id,
+        _param = self._create_callback_serialize(
             oidc_service_create_callback_request=oidc_service_create_callback_request,
-            _request_auth=None,
-            _content_type=None,
-            _headers=None,
-            _host_index=0
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "OIDCServiceCreateCallbackResponse",
-            '403': "OIDCServiceRpcStatus",
-            '404': "OIDCServiceRpcStatus",
         }
-
         response_data = self.api_client.call_api(
             *_param,
-            _request_timeout=None
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
@@ -207,9 +221,8 @@ class OIDCServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-    def __o_idc_service_create_callback_serialize(
+    def _create_callback_serialize(
         self,
-        auth_request_id,
         oidc_service_create_callback_request,
         _request_auth,
         _content_type,
@@ -232,8 +245,6 @@ class OIDCServiceApi:
         _body_params: Optional[bytes] = None
 
         # process the path parameters
-        if auth_request_id is not None:
-            _path_params['authRequestId'] = auth_request_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -271,7 +282,7 @@ class OIDCServiceApi:
 
         return self.api_client.param_serialize(
             method='POST',
-            resource_path='/v2/oidc/auth_requests/{authRequestId}',
+            resource_path='/zitadel.oidc.v2.OIDCService/CreateCallback',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -288,36 +299,48 @@ class OIDCServiceApi:
 
 
     @validate_call
-    def o_idc_service_get_auth_request(
-    self,
-      auth_request_id: Annotated[StrictStr, Field(description="ID of the Auth Request, as obtained from the redirect URL.")],
-    ) -> OIDCServiceGetAuthRequestResponse:
-        """Get OIDC Auth Request details
+    def get_auth_request(        self,                oidc_service_get_auth_request_request: OIDCServiceGetAuthRequestRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> OIDCServiceGetAuthRequestResponse:
+        """GetAuthRequest
 
-        Get OIDC Auth Request details by ID, obtained from the redirect URL. Returns details that are parsed from the application's Auth Request.
 
-        :param auth_request_id: ID of the Auth Request, as obtained from the redirect URL. (required)
-        :type auth_request_id: str
+        :param oidc_service_get_auth_request_request: (required)
+        :type oidc_service_get_auth_request_request: OIDCServiceGetAuthRequestRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self.__o_idc_service_get_auth_request_serialize(
-            auth_request_id=auth_request_id,
-            _request_auth=None,
-            _content_type=None,
-            _headers=None,
-            _host_index=0
+        _param = self._get_auth_request_serialize(
+            oidc_service_get_auth_request_request=oidc_service_get_auth_request_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "OIDCServiceGetAuthRequestResponse",
-            '403': "OIDCServiceRpcStatus",
-            '404': "OIDCServiceRpcStatus",
         }
-
         response_data = self.api_client.call_api(
             *_param,
-            _request_timeout=None
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
@@ -325,9 +348,9 @@ class OIDCServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-    def __o_idc_service_get_auth_request_serialize(
+    def _get_auth_request_serialize(
         self,
-        auth_request_id,
+        oidc_service_get_auth_request_request,
         _request_auth,
         _content_type,
         _headers,
@@ -349,12 +372,12 @@ class OIDCServiceApi:
         _body_params: Optional[bytes] = None
 
         # process the path parameters
-        if auth_request_id is not None:
-            _path_params['authRequestId'] = auth_request_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
         # process the body parameter
+        if oidc_service_get_auth_request_request is not None:
+            _body_params = oidc_service_get_auth_request_request
 
 
         # set the HTTP header `Accept`
@@ -365,6 +388,19 @@ class OIDCServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -372,8 +408,8 @@ class OIDCServiceApi:
         ]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/v2/oidc/auth_requests/{authRequestId}',
+            method='POST',
+            resource_path='/zitadel.oidc.v2.OIDCService/GetAuthRequest',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -390,36 +426,49 @@ class OIDCServiceApi:
 
 
     @validate_call
-    def o_idc_service_get_device_authorization_request(
-    self,
-      user_code: Annotated[StrictStr, Field(description="The user_code returned by the device authorization request and provided to the user by the device.")],
-    ) -> OIDCServiceGetDeviceAuthorizationRequestResponse:
-        """Get device authorization request
+    def get_device_authorization_request(        self,                oidc_service_get_device_authorization_request_request: OIDCServiceGetDeviceAuthorizationRequestRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> OIDCServiceGetDeviceAuthorizationRequestResponse:
+        """GetDeviceAuthorizationRequest
 
-        Get the device authorization based on the provided \"user code\". This will return the device authorization request, which contains the device authorization id that is required to authorize the request once the user signed in or to deny it.
+        Get device authorization request   Get the device authorization based on the provided \"user code\".  This will return the device authorization request, which contains the device authorization id  that is required to authorize the request once the user signed in or to deny it.
 
-        :param user_code: The user_code returned by the device authorization request and provided to the user by the device. (required)
-        :type user_code: str
+        :param oidc_service_get_device_authorization_request_request: (required)
+        :type oidc_service_get_device_authorization_request_request: OIDCServiceGetDeviceAuthorizationRequestRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self.__o_idc_service_get_device_authorization_request_serialize(
-            user_code=user_code,
-            _request_auth=None,
-            _content_type=None,
-            _headers=None,
-            _host_index=0
+        _param = self._get_device_authorization_request_serialize(
+            oidc_service_get_device_authorization_request_request=oidc_service_get_device_authorization_request_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "OIDCServiceGetDeviceAuthorizationRequestResponse",
-            '403': "OIDCServiceRpcStatus",
-            '404': "OIDCServiceRpcStatus",
         }
-
         response_data = self.api_client.call_api(
             *_param,
-            _request_timeout=None
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
@@ -427,9 +476,9 @@ class OIDCServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-    def __o_idc_service_get_device_authorization_request_serialize(
+    def _get_device_authorization_request_serialize(
         self,
-        user_code,
+        oidc_service_get_device_authorization_request_request,
         _request_auth,
         _content_type,
         _headers,
@@ -451,12 +500,12 @@ class OIDCServiceApi:
         _body_params: Optional[bytes] = None
 
         # process the path parameters
-        if user_code is not None:
-            _path_params['userCode'] = user_code
         # process the query parameters
         # process the header parameters
         # process the form parameters
         # process the body parameter
+        if oidc_service_get_device_authorization_request_request is not None:
+            _body_params = oidc_service_get_device_authorization_request_request
 
 
         # set the HTTP header `Accept`
@@ -467,6 +516,19 @@ class OIDCServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -474,8 +536,8 @@ class OIDCServiceApi:
         ]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/v2/oidc/device_authorization/{userCode}',
+            method='POST',
+            resource_path='/zitadel.oidc.v2.OIDCService/GetDeviceAuthorizationRequest',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

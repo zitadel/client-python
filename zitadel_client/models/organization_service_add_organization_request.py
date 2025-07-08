@@ -17,10 +17,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
-from zitadel_client.models.organization_service_add_organization_request_admin import OrganizationServiceAddOrganizationRequestAdmin
+from zitadel_client.models.organization_service_admin import OrganizationServiceAdmin
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -28,8 +27,10 @@ class OrganizationServiceAddOrganizationRequest(BaseModel):
     """
     OrganizationServiceAddOrganizationRequest
     """ # noqa: E501
-    name: Annotated[str, Field(min_length=1, strict=True, max_length=200)]
-    admins: Optional[List[OrganizationServiceAddOrganizationRequestAdmin]] = None
+    name: StrictStr
+    admins: Optional[List[OrganizationServiceAdmin]] = None
+    org_id: Optional[StrictStr] = Field(default=None, description="optionally set your own id unique for the organization.", alias="orgId")
+    __properties: ClassVar[List[str]] = ["name", "admins", "orgId"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -77,6 +78,11 @@ class OrganizationServiceAddOrganizationRequest(BaseModel):
                 if _item_admins:
                     _items.append(_item_admins.to_dict())
             _dict['admins'] = _items
+        # set to None if org_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.org_id is None and "org_id" in self.model_fields_set:
+            _dict['orgId'] = None
+
         return _dict
 
     @classmethod
@@ -90,7 +96,8 @@ class OrganizationServiceAddOrganizationRequest(BaseModel):
 
         _obj = cls.model_validate({
             "name": obj.get("name"),
-            "admins": [OrganizationServiceAddOrganizationRequestAdmin.from_dict(_item) for _item in obj["admins"]] if obj.get("admins") is not None else None
+            "admins": [OrganizationServiceAdmin.from_dict(_item) for _item in obj["admins"]] if obj.get("admins") is not None else None,
+            "orgId": obj.get("orgId")
         })
         return _obj
 

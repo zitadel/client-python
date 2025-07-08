@@ -31,6 +31,7 @@ class IdentityProviderServiceGitHubEnterpriseServerConfig(BaseModel):
     token_endpoint: Optional[StrictStr] = Field(default=None, alias="tokenEndpoint")
     user_endpoint: Optional[StrictStr] = Field(default=None, alias="userEndpoint")
     scopes: Optional[List[StrictStr]] = Field(default=None, description="The scopes requested by ZITADEL during the request to GitHub.")
+    __properties: ClassVar[List[str]] = ["clientId", "authorizationEndpoint", "tokenEndpoint", "userEndpoint", "scopes"]
 
     model_config = ConfigDict(
         populate_by_name=True,

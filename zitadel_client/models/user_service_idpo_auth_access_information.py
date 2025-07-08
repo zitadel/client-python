@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -28,6 +28,7 @@ class UserServiceIDPOAuthAccessInformation(BaseModel):
     """ # noqa: E501
     access_token: Optional[StrictStr] = Field(default=None, alias="accessToken")
     id_token: Optional[StrictStr] = Field(default=None, alias="idToken")
+    __properties: ClassVar[List[str]] = ["accessToken", "idToken"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -68,6 +69,11 @@ class UserServiceIDPOAuthAccessInformation(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if id_token (nullable) is None
+        # and model_fields_set contains the field
+        if self.id_token is None and "id_token" in self.model_fields_set:
+            _dict['idToken'] = None
+
         return _dict
 
     @classmethod

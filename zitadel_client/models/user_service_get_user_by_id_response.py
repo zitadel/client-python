@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.user_service_details import UserServiceDetails
 from zitadel_client.models.user_service_user import UserServiceUser
 from typing import Optional, Set
@@ -30,6 +30,7 @@ class UserServiceGetUserByIDResponse(BaseModel):
     """ # noqa: E501
     details: Optional[UserServiceDetails] = None
     user: Optional[UserServiceUser] = None
+    __properties: ClassVar[List[str]] = ["details", "user"]
 
     model_config = ConfigDict(
         populate_by_name=True,

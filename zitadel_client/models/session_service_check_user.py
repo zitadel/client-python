@@ -17,9 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,8 +26,9 @@ class SessionServiceCheckUser(BaseModel):
     """
     SessionServiceCheckUser
     """ # noqa: E501
-    user_id: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]] = Field(default=None, alias="userId")
-    login_name: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]] = Field(default=None, alias="loginName")
+    login_name: Optional[StrictStr] = Field(default=None, alias="loginName")
+    user_id: Optional[StrictStr] = Field(default=None, alias="userId")
+    __properties: ClassVar[List[str]] = ["loginName", "userId"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -81,8 +81,8 @@ class SessionServiceCheckUser(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "userId": obj.get("userId"),
-            "loginName": obj.get("loginName")
+            "loginName": obj.get("loginName"),
+            "userId": obj.get("userId")
         })
         return _obj
 

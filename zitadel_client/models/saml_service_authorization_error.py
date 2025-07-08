@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.saml_service_error_reason import SAMLServiceErrorReason
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,8 +27,9 @@ class SAMLServiceAuthorizationError(BaseModel):
     """
     SAMLServiceAuthorizationError
     """ # noqa: E501
-    error: Optional[SAMLServiceErrorReason] = SAMLServiceErrorReason.ERROR_REASON_UNSPECIFIED
+    error: Optional[SAMLServiceErrorReason] = None
     error_description: Optional[StrictStr] = Field(default=None, alias="errorDescription")
+    __properties: ClassVar[List[str]] = ["error", "errorDescription"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -69,6 +70,11 @@ class SAMLServiceAuthorizationError(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if error_description (nullable) is None
+        # and model_fields_set contains the field
+        if self.error_description is None and "error_description" in self.model_fields_set:
+            _dict['errorDescription'] = None
+
         return _dict
 
     @classmethod
@@ -81,7 +87,7 @@ class SAMLServiceAuthorizationError(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "error": obj.get("error") if obj.get("error") is not None else SAMLServiceErrorReason.ERROR_REASON_UNSPECIFIED,
+            "error": obj.get("error"),
             "errorDescription": obj.get("errorDescription")
         })
         return _obj

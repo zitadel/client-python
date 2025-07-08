@@ -18,10 +18,10 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
-from zitadel_client.models.session_service_request_challenges_otp_email import SessionServiceRequestChallengesOTPEmail
-from zitadel_client.models.session_service_request_challenges_otpsms import SessionServiceRequestChallengesOTPSMS
-from zitadel_client.models.session_service_request_challenges_web_auth_n import SessionServiceRequestChallengesWebAuthN
+from typing import Any, ClassVar, Dict, Optional
+from zitadel_client.models.session_service_otp_email import SessionServiceOTPEmail
+from zitadel_client.models.session_service_otpsms import SessionServiceOTPSMS
+from zitadel_client.models.session_service_web_auth_n import SessionServiceWebAuthN
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -29,9 +29,10 @@ class SessionServiceRequestChallenges(BaseModel):
     """
     SessionServiceRequestChallenges
     """ # noqa: E501
-    web_auth_n: Optional[SessionServiceRequestChallengesWebAuthN] = Field(default=None, alias="webAuthN")
-    otp_sms: Optional[SessionServiceRequestChallengesOTPSMS] = Field(default=None, alias="otpSms")
-    otp_email: Optional[SessionServiceRequestChallengesOTPEmail] = Field(default=None, alias="otpEmail")
+    web_auth_n: Optional[SessionServiceWebAuthN] = Field(default=None, alias="webAuthN")
+    otp_sms: Optional[SessionServiceOTPSMS] = Field(default=None, alias="otpSms")
+    otp_email: Optional[SessionServiceOTPEmail] = Field(default=None, alias="otpEmail")
+    __properties: ClassVar[List[str]] = ["webAuthN", "otpSms", "otpEmail"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -93,9 +94,9 @@ class SessionServiceRequestChallenges(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "webAuthN": SessionServiceRequestChallengesWebAuthN.from_dict(obj["webAuthN"]) if obj.get("webAuthN") is not None else None,
-            "otpSms": SessionServiceRequestChallengesOTPSMS.from_dict(obj["otpSms"]) if obj.get("otpSms") is not None else None,
-            "otpEmail": SessionServiceRequestChallengesOTPEmail.from_dict(obj["otpEmail"]) if obj.get("otpEmail") is not None else None
+            "webAuthN": SessionServiceWebAuthN.from_dict(obj["webAuthN"]) if obj.get("webAuthN") is not None else None,
+            "otpSms": SessionServiceOTPSMS.from_dict(obj["otpSms"]) if obj.get("otpSms") is not None else None,
+            "otpEmail": SessionServiceOTPEmail.from_dict(obj["otpEmail"]) if obj.get("otpEmail") is not None else None
         })
         return _obj
 

@@ -30,8 +30,9 @@ class UserServiceListUsersResponse(BaseModel):
     UserServiceListUsersResponse
     """ # noqa: E501
     details: Optional[UserServiceListDetails] = None
-    sorting_column: Optional[UserServiceUserFieldName] = Field(default=UserServiceUserFieldName.USER_FIELD_NAME_UNSPECIFIED, alias="sortingColumn")
+    sorting_column: Optional[UserServiceUserFieldName] = Field(default=None, alias="sortingColumn")
     result: Optional[List[UserServiceUser]] = None
+    __properties: ClassVar[List[str]] = ["details", "sortingColumn", "result"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -95,7 +96,7 @@ class UserServiceListUsersResponse(BaseModel):
 
         _obj = cls.model_validate({
             "details": UserServiceListDetails.from_dict(obj["details"]) if obj.get("details") is not None else None,
-            "sortingColumn": obj.get("sortingColumn") if obj.get("sortingColumn") is not None else UserServiceUserFieldName.USER_FIELD_NAME_UNSPECIFIED,
+            "sortingColumn": obj.get("sortingColumn"),
             "result": [UserServiceUser.from_dict(_item) for _item in obj["result"]] if obj.get("result") is not None else None
         })
         return _obj

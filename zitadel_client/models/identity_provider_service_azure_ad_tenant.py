@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.identity_provider_service_azure_ad_tenant_type import IdentityProviderServiceAzureADTenantType
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,8 +27,9 @@ class IdentityProviderServiceAzureADTenant(BaseModel):
     """
     IdentityProviderServiceAzureADTenant
     """ # noqa: E501
-    tenant_type: Optional[IdentityProviderServiceAzureADTenantType] = Field(default=IdentityProviderServiceAzureADTenantType.AZURE_AD_TENANT_TYPE_COMMON, alias="tenantType")
     tenant_id: Optional[StrictStr] = Field(default=None, alias="tenantId")
+    tenant_type: Optional[IdentityProviderServiceAzureADTenantType] = Field(default=None, alias="tenantType")
+    __properties: ClassVar[List[str]] = ["tenantId", "tenantType"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -81,8 +82,8 @@ class IdentityProviderServiceAzureADTenant(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "tenantType": obj.get("tenantType") if obj.get("tenantType") is not None else IdentityProviderServiceAzureADTenantType.AZURE_AD_TENANT_TYPE_COMMON,
-            "tenantId": obj.get("tenantId")
+            "tenantId": obj.get("tenantId"),
+            "tenantType": obj.get("tenantType")
         })
         return _obj
 

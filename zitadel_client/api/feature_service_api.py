@@ -16,22 +16,27 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictBool, StrictStr
-from typing import Optional
-from typing_extensions import Annotated
+from typing import Any, Dict
+from zitadel_client.models.feature_service_get_instance_features_request import FeatureServiceGetInstanceFeaturesRequest
 from zitadel_client.models.feature_service_get_instance_features_response import FeatureServiceGetInstanceFeaturesResponse
+from zitadel_client.models.feature_service_get_organization_features_request import FeatureServiceGetOrganizationFeaturesRequest
 from zitadel_client.models.feature_service_get_organization_features_response import FeatureServiceGetOrganizationFeaturesResponse
 from zitadel_client.models.feature_service_get_system_features_response import FeatureServiceGetSystemFeaturesResponse
+from zitadel_client.models.feature_service_get_user_features_request import FeatureServiceGetUserFeaturesRequest
 from zitadel_client.models.feature_service_get_user_features_response import FeatureServiceGetUserFeaturesResponse
 from zitadel_client.models.feature_service_reset_instance_features_response import FeatureServiceResetInstanceFeaturesResponse
+from zitadel_client.models.feature_service_reset_organization_features_request import FeatureServiceResetOrganizationFeaturesRequest
 from zitadel_client.models.feature_service_reset_organization_features_response import FeatureServiceResetOrganizationFeaturesResponse
 from zitadel_client.models.feature_service_reset_system_features_response import FeatureServiceResetSystemFeaturesResponse
+from zitadel_client.models.feature_service_reset_user_features_request import FeatureServiceResetUserFeaturesRequest
 from zitadel_client.models.feature_service_reset_user_features_response import FeatureServiceResetUserFeaturesResponse
 from zitadel_client.models.feature_service_set_instance_features_request import FeatureServiceSetInstanceFeaturesRequest
 from zitadel_client.models.feature_service_set_instance_features_response import FeatureServiceSetInstanceFeaturesResponse
+from zitadel_client.models.feature_service_set_organization_features_request import FeatureServiceSetOrganizationFeaturesRequest
 from zitadel_client.models.feature_service_set_organization_features_response import FeatureServiceSetOrganizationFeaturesResponse
 from zitadel_client.models.feature_service_set_system_features_request import FeatureServiceSetSystemFeaturesRequest
 from zitadel_client.models.feature_service_set_system_features_response import FeatureServiceSetSystemFeaturesResponse
+from zitadel_client.models.feature_service_set_user_feature_request import FeatureServiceSetUserFeatureRequest
 from zitadel_client.models.feature_service_set_user_features_response import FeatureServiceSetUserFeaturesResponse
 
 from zitadel_client.api_client import ApiClient, RequestSerialized
@@ -53,36 +58,49 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def feature_service_get_instance_features(
-    self,
-      inheritance: Annotated[Optional[StrictBool], Field(description="Inherit unset features from the resource owners. This option is recursive: if the flag is set, the resource's ancestors are consulted up to system defaults. If this option is disabled and the feature is not set on the instance, it will be omitted from the response or Not Found is returned when the instance has no features flags at all.")] = None,
-    ) -> FeatureServiceGetInstanceFeaturesResponse:
-        """Get Instance Features
+    def get_instance_features(        self,                feature_service_get_instance_features_request: FeatureServiceGetInstanceFeaturesRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> FeatureServiceGetInstanceFeaturesResponse:
+        """GetInstanceFeatures
 
-        Returns all configured features for an instance. Unset fields mean the feature is the current system default.  Required permissions:  - none
+        Get Instance Features   Returns all configured features for an instance. Unset fields mean the feature is the current system default.   Required permissions:   - none
 
-        :param inheritance: Inherit unset features from the resource owners. This option is recursive: if the flag is set, the resource's ancestors are consulted up to system defaults. If this option is disabled and the feature is not set on the instance, it will be omitted from the response or Not Found is returned when the instance has no features flags at all.
-        :type inheritance: bool
+        :param feature_service_get_instance_features_request: (required)
+        :type feature_service_get_instance_features_request: FeatureServiceGetInstanceFeaturesRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self.__feature_service_get_instance_features_serialize(
-            inheritance=inheritance,
-            _request_auth=None,
-            _content_type=None,
-            _headers=None,
-            _host_index=0
+        _param = self._get_instance_features_serialize(
+            feature_service_get_instance_features_request=feature_service_get_instance_features_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "FeatureServiceGetInstanceFeaturesResponse",
-            '403': "FeatureServiceRpcStatus",
-            '404': "FeatureServiceRpcStatus",
         }
-
         response_data = self.api_client.call_api(
             *_param,
-            _request_timeout=None
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
@@ -90,9 +108,9 @@ class FeatureServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-    def __feature_service_get_instance_features_serialize(
+    def _get_instance_features_serialize(
         self,
-        inheritance,
+        feature_service_get_instance_features_request,
         _request_auth,
         _content_type,
         _headers,
@@ -115,13 +133,11 @@ class FeatureServiceApi:
 
         # process the path parameters
         # process the query parameters
-        if inheritance is not None:
-            
-            _query_params.append(('inheritance', inheritance))
-            
         # process the header parameters
         # process the form parameters
         # process the body parameter
+        if feature_service_get_instance_features_request is not None:
+            _body_params = feature_service_get_instance_features_request
 
 
         # set the HTTP header `Accept`
@@ -132,6 +148,19 @@ class FeatureServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -139,8 +168,8 @@ class FeatureServiceApi:
         ]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/v2/features/instance',
+            method='POST',
+            resource_path='/zitadel.feature.v2.FeatureService/GetInstanceFeatures',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -157,40 +186,49 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def feature_service_get_organization_features(
-    self,
-      organization_id: StrictStr,
-      inheritance: Annotated[Optional[StrictBool], Field(description="Inherit unset features from the resource owners. This option is recursive: if the flag is set, the resource's ancestors are consulted up to system defaults. If this option is disabled and the feature is not set on the organization, it will be omitted from the response or Not Found is returned when the organization has no features flags at all.")] = None,
-    ) -> FeatureServiceGetOrganizationFeaturesResponse:
-        """Get Organization Features
+    def get_organization_features(        self,                feature_service_get_organization_features_request: FeatureServiceGetOrganizationFeaturesRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> FeatureServiceGetOrganizationFeaturesResponse:
+        """GetOrganizationFeatures
 
-        Returns all configured features for an organization. Unset fields mean the feature is the current instance default.  Required permissions:  - org.feature.read  - no permission required for the organization the user belongs to
+        Get Organization Features   Returns all configured features for an organization. Unset fields mean the feature is the current instance default.   Required permissions:   - org.feature.read   - no permission required for the organization the user belongs to
 
-        :param organization_id: (required)
-        :type organization_id: str
-        :param inheritance: Inherit unset features from the resource owners. This option is recursive: if the flag is set, the resource's ancestors are consulted up to system defaults. If this option is disabled and the feature is not set on the organization, it will be omitted from the response or Not Found is returned when the organization has no features flags at all.
-        :type inheritance: bool
+        :param feature_service_get_organization_features_request: (required)
+        :type feature_service_get_organization_features_request: FeatureServiceGetOrganizationFeaturesRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self.__feature_service_get_organization_features_serialize(
-            organization_id=organization_id,
-            inheritance=inheritance,
-            _request_auth=None,
-            _content_type=None,
-            _headers=None,
-            _host_index=0
+        _param = self._get_organization_features_serialize(
+            feature_service_get_organization_features_request=feature_service_get_organization_features_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "FeatureServiceGetOrganizationFeaturesResponse",
-            '403': "FeatureServiceRpcStatus",
-            '404': "FeatureServiceRpcStatus",
         }
-
         response_data = self.api_client.call_api(
             *_param,
-            _request_timeout=None
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
@@ -198,10 +236,9 @@ class FeatureServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-    def __feature_service_get_organization_features_serialize(
+    def _get_organization_features_serialize(
         self,
-        organization_id,
-        inheritance,
+        feature_service_get_organization_features_request,
         _request_auth,
         _content_type,
         _headers,
@@ -223,16 +260,12 @@ class FeatureServiceApi:
         _body_params: Optional[bytes] = None
 
         # process the path parameters
-        if organization_id is not None:
-            _path_params['organizationId'] = organization_id
         # process the query parameters
-        if inheritance is not None:
-            
-            _query_params.append(('inheritance', inheritance))
-            
         # process the header parameters
         # process the form parameters
         # process the body parameter
+        if feature_service_get_organization_features_request is not None:
+            _body_params = feature_service_get_organization_features_request
 
 
         # set the HTTP header `Accept`
@@ -243,6 +276,19 @@ class FeatureServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -250,8 +296,8 @@ class FeatureServiceApi:
         ]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/v2/features/organization/{organizationId}',
+            method='POST',
+            resource_path='/zitadel.feature.v2.FeatureService/GetOrganizationFeatures',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -268,32 +314,51 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def feature_service_get_system_features(
-    self,
-    ) -> FeatureServiceGetSystemFeaturesResponse:
-        """Get System Features
+    def get_system_features(        self,                body: Optional[Dict[str, Any]] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> FeatureServiceGetSystemFeaturesResponse:
+        if body is None:
+            body = {}
+        """GetSystemFeatures
 
-        Returns all configured features for the system. Unset fields mean the feature is the current system default.  Required permissions:  - none
+        Get System Features   Returns all configured features for the system. Unset fields mean the feature is the current system default.   Required permissions:   - none
 
+        :param body: (required)
+        :type body: object
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self.__feature_service_get_system_features_serialize(
-            _request_auth=None,
-            _content_type=None,
-            _headers=None,
-            _host_index=0
+        _param = self._get_system_features_serialize(
+            body=body,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "FeatureServiceGetSystemFeaturesResponse",
-            '403': "FeatureServiceRpcStatus",
-            '404': "FeatureServiceRpcStatus",
         }
-
         response_data = self.api_client.call_api(
             *_param,
-            _request_timeout=None
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
@@ -301,8 +366,9 @@ class FeatureServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-    def __feature_service_get_system_features_serialize(
+    def _get_system_features_serialize(
         self,
+        body,
         _request_auth,
         _content_type,
         _headers,
@@ -328,6 +394,8 @@ class FeatureServiceApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+        if body is not None:
+            _body_params = body
 
 
         # set the HTTP header `Accept`
@@ -338,6 +406,19 @@ class FeatureServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -345,8 +426,8 @@ class FeatureServiceApi:
         ]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/v2/features/system',
+            method='POST',
+            resource_path='/zitadel.feature.v2.FeatureService/GetSystemFeatures',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -363,40 +444,49 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def feature_service_get_user_features(
-    self,
-      user_id: StrictStr,
-      inheritance: Annotated[Optional[StrictBool], Field(description="Inherit unset features from the resource owners. This option is recursive: if the flag is set, the resource's ancestors are consulted up to system defaults. If this option is disabled and the feature is not set on the user, it will be ommitted from the response or Not Found is returned when the user has no features flags at all.")] = None,
-    ) -> FeatureServiceGetUserFeaturesResponse:
-        """Get User Features
+    def get_user_features(        self,                feature_service_get_user_features_request: FeatureServiceGetUserFeaturesRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> FeatureServiceGetUserFeaturesResponse:
+        """GetUserFeatures
 
-        Returns all configured features for a user. Unset fields mean the feature is the current organization default.  Required permissions:  - user.feature.read  - no permission required for the own user
+        Get User Features   Returns all configured features for a user. Unset fields mean the feature is the current organization default.   Required permissions:   - user.feature.read   - no permission required for the own user
 
-        :param user_id: (required)
-        :type user_id: str
-        :param inheritance: Inherit unset features from the resource owners. This option is recursive: if the flag is set, the resource's ancestors are consulted up to system defaults. If this option is disabled and the feature is not set on the user, it will be ommitted from the response or Not Found is returned when the user has no features flags at all.
-        :type inheritance: bool
+        :param feature_service_get_user_features_request: (required)
+        :type feature_service_get_user_features_request: FeatureServiceGetUserFeaturesRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self.__feature_service_get_user_features_serialize(
-            user_id=user_id,
-            inheritance=inheritance,
-            _request_auth=None,
-            _content_type=None,
-            _headers=None,
-            _host_index=0
+        _param = self._get_user_features_serialize(
+            feature_service_get_user_features_request=feature_service_get_user_features_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "FeatureServiceGetUserFeaturesResponse",
-            '403': "FeatureServiceRpcStatus",
-            '404': "FeatureServiceRpcStatus",
         }
-
         response_data = self.api_client.call_api(
             *_param,
-            _request_timeout=None
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
@@ -404,10 +494,9 @@ class FeatureServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-    def __feature_service_get_user_features_serialize(
+    def _get_user_features_serialize(
         self,
-        user_id,
-        inheritance,
+        feature_service_get_user_features_request,
         _request_auth,
         _content_type,
         _headers,
@@ -429,16 +518,12 @@ class FeatureServiceApi:
         _body_params: Optional[bytes] = None
 
         # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
         # process the query parameters
-        if inheritance is not None:
-            
-            _query_params.append(('inheritance', inheritance))
-            
         # process the header parameters
         # process the form parameters
         # process the body parameter
+        if feature_service_get_user_features_request is not None:
+            _body_params = feature_service_get_user_features_request
 
 
         # set the HTTP header `Accept`
@@ -449,6 +534,19 @@ class FeatureServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -456,8 +554,8 @@ class FeatureServiceApi:
         ]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/v2/features/user/{userId}',
+            method='POST',
+            resource_path='/zitadel.feature.v2.FeatureService/GetUserFeatures',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -474,32 +572,51 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def feature_service_reset_instance_features(
-    self,
-    ) -> FeatureServiceResetInstanceFeaturesResponse:
-        """Reset Instance Features
+    def reset_instance_features(        self,                body: Optional[Dict[str, Any]] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> FeatureServiceResetInstanceFeaturesResponse:
+        if body is None:
+            body = {}
+        """ResetInstanceFeatures
 
-        Deletes ALL configured features for an instance, reverting the behaviors to system defaults.  Required permissions:  - iam.feature.delete
+        Reset Instance Features   Deletes ALL configured features for an instance, reverting the behaviors to system defaults.   Required permissions:   - iam.feature.delete
 
+        :param body: (required)
+        :type body: object
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self.__feature_service_reset_instance_features_serialize(
-            _request_auth=None,
-            _content_type=None,
-            _headers=None,
-            _host_index=0
+        _param = self._reset_instance_features_serialize(
+            body=body,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "FeatureServiceResetInstanceFeaturesResponse",
-            '403': "FeatureServiceRpcStatus",
-            '404': "FeatureServiceRpcStatus",
         }
-
         response_data = self.api_client.call_api(
             *_param,
-            _request_timeout=None
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
@@ -507,8 +624,9 @@ class FeatureServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-    def __feature_service_reset_instance_features_serialize(
+    def _reset_instance_features_serialize(
         self,
+        body,
         _request_auth,
         _content_type,
         _headers,
@@ -534,6 +652,8 @@ class FeatureServiceApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+        if body is not None:
+            _body_params = body
 
 
         # set the HTTP header `Accept`
@@ -544,6 +664,19 @@ class FeatureServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -551,8 +684,8 @@ class FeatureServiceApi:
         ]
 
         return self.api_client.param_serialize(
-            method='DELETE',
-            resource_path='/v2/features/instance',
+            method='POST',
+            resource_path='/zitadel.feature.v2.FeatureService/ResetInstanceFeatures',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -569,36 +702,49 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def feature_service_reset_organization_features(
-    self,
-      organization_id: StrictStr,
-    ) -> FeatureServiceResetOrganizationFeaturesResponse:
-        """Reset Organization Features
+    def reset_organization_features(        self,                feature_service_reset_organization_features_request: FeatureServiceResetOrganizationFeaturesRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> FeatureServiceResetOrganizationFeaturesResponse:
+        """ResetOrganizationFeatures
 
-        Deletes ALL configured features for an organization, reverting the behaviors to instance defaults.  Required permissions:  - org.feature.delete
+        Reset Organization Features   Deletes ALL configured features for an organization, reverting the behaviors to instance defaults.   Required permissions:   - org.feature.delete
 
-        :param organization_id: (required)
-        :type organization_id: str
+        :param feature_service_reset_organization_features_request: (required)
+        :type feature_service_reset_organization_features_request: FeatureServiceResetOrganizationFeaturesRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self.__feature_service_reset_organization_features_serialize(
-            organization_id=organization_id,
-            _request_auth=None,
-            _content_type=None,
-            _headers=None,
-            _host_index=0
+        _param = self._reset_organization_features_serialize(
+            feature_service_reset_organization_features_request=feature_service_reset_organization_features_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "FeatureServiceResetOrganizationFeaturesResponse",
-            '403': "FeatureServiceRpcStatus",
-            '404': "FeatureServiceRpcStatus",
         }
-
         response_data = self.api_client.call_api(
             *_param,
-            _request_timeout=None
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
@@ -606,9 +752,9 @@ class FeatureServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-    def __feature_service_reset_organization_features_serialize(
+    def _reset_organization_features_serialize(
         self,
-        organization_id,
+        feature_service_reset_organization_features_request,
         _request_auth,
         _content_type,
         _headers,
@@ -630,12 +776,12 @@ class FeatureServiceApi:
         _body_params: Optional[bytes] = None
 
         # process the path parameters
-        if organization_id is not None:
-            _path_params['organizationId'] = organization_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
         # process the body parameter
+        if feature_service_reset_organization_features_request is not None:
+            _body_params = feature_service_reset_organization_features_request
 
 
         # set the HTTP header `Accept`
@@ -646,6 +792,19 @@ class FeatureServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -653,8 +812,8 @@ class FeatureServiceApi:
         ]
 
         return self.api_client.param_serialize(
-            method='DELETE',
-            resource_path='/v2/features/organization/{organizationId}',
+            method='POST',
+            resource_path='/zitadel.feature.v2.FeatureService/ResetOrganizationFeatures',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -671,32 +830,51 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def feature_service_reset_system_features(
-    self,
-    ) -> FeatureServiceResetSystemFeaturesResponse:
-        """Reset System Features
+    def reset_system_features(        self,                body: Optional[Dict[str, Any]] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> FeatureServiceResetSystemFeaturesResponse:
+        if body is None:
+            body = {}
+        """ResetSystemFeatures
 
-        Deletes ALL configured features for the system, reverting the behaviors to system defaults.  Required permissions:  - system.feature.delete
+        Reset System Features   Deletes ALL configured features for the system, reverting the behaviors to system defaults.   Required permissions:   - system.feature.delete
 
+        :param body: (required)
+        :type body: object
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self.__feature_service_reset_system_features_serialize(
-            _request_auth=None,
-            _content_type=None,
-            _headers=None,
-            _host_index=0
+        _param = self._reset_system_features_serialize(
+            body=body,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "FeatureServiceResetSystemFeaturesResponse",
-            '403': "FeatureServiceRpcStatus",
-            '404': "FeatureServiceRpcStatus",
         }
-
         response_data = self.api_client.call_api(
             *_param,
-            _request_timeout=None
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
@@ -704,8 +882,9 @@ class FeatureServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-    def __feature_service_reset_system_features_serialize(
+    def _reset_system_features_serialize(
         self,
+        body,
         _request_auth,
         _content_type,
         _headers,
@@ -731,6 +910,8 @@ class FeatureServiceApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+        if body is not None:
+            _body_params = body
 
 
         # set the HTTP header `Accept`
@@ -741,6 +922,19 @@ class FeatureServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -748,8 +942,8 @@ class FeatureServiceApi:
         ]
 
         return self.api_client.param_serialize(
-            method='DELETE',
-            resource_path='/v2/features/system',
+            method='POST',
+            resource_path='/zitadel.feature.v2.FeatureService/ResetSystemFeatures',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -766,36 +960,49 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def feature_service_reset_user_features(
-    self,
-      user_id: StrictStr,
-    ) -> FeatureServiceResetUserFeaturesResponse:
-        """Reset User Features
+    def reset_user_features(        self,                feature_service_reset_user_features_request: FeatureServiceResetUserFeaturesRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> FeatureServiceResetUserFeaturesResponse:
+        """ResetUserFeatures
 
-        Deletes ALL configured features for a user, reverting the behaviors to organization defaults.  Required permissions:  - user.feature.delete
+        Reset User Features   Deletes ALL configured features for a user, reverting the behaviors to organization defaults.   Required permissions:   - user.feature.delete
 
-        :param user_id: (required)
-        :type user_id: str
+        :param feature_service_reset_user_features_request: (required)
+        :type feature_service_reset_user_features_request: FeatureServiceResetUserFeaturesRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self.__feature_service_reset_user_features_serialize(
-            user_id=user_id,
-            _request_auth=None,
-            _content_type=None,
-            _headers=None,
-            _host_index=0
+        _param = self._reset_user_features_serialize(
+            feature_service_reset_user_features_request=feature_service_reset_user_features_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "FeatureServiceResetUserFeaturesResponse",
-            '403': "FeatureServiceRpcStatus",
-            '404': "FeatureServiceRpcStatus",
         }
-
         response_data = self.api_client.call_api(
             *_param,
-            _request_timeout=None
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
@@ -803,9 +1010,9 @@ class FeatureServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-    def __feature_service_reset_user_features_serialize(
+    def _reset_user_features_serialize(
         self,
-        user_id,
+        feature_service_reset_user_features_request,
         _request_auth,
         _content_type,
         _headers,
@@ -827,12 +1034,12 @@ class FeatureServiceApi:
         _body_params: Optional[bytes] = None
 
         # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
         # process the body parameter
+        if feature_service_reset_user_features_request is not None:
+            _body_params = feature_service_reset_user_features_request
 
 
         # set the HTTP header `Accept`
@@ -843,6 +1050,19 @@ class FeatureServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -850,8 +1070,8 @@ class FeatureServiceApi:
         ]
 
         return self.api_client.param_serialize(
-            method='DELETE',
-            resource_path='/v2/features/user/{userId}',
+            method='POST',
+            resource_path='/zitadel.feature.v2.FeatureService/ResetUserFeatures',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -868,36 +1088,49 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def feature_service_set_instance_features(
-    self,
-      feature_service_set_instance_features_request: FeatureServiceSetInstanceFeaturesRequest,
-    ) -> FeatureServiceSetInstanceFeaturesResponse:
-        """Set Instance Features
+    def set_instance_features(        self,                feature_service_set_instance_features_request: FeatureServiceSetInstanceFeaturesRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> FeatureServiceSetInstanceFeaturesResponse:
+        """SetInstanceFeatures
 
-        Configure and set features that apply to a complete instance. Only fields present in the request are set or unset.  Required permissions:  - iam.feature.write
+        Set Instance Features   Configure and set features that apply to a complete instance. Only fields present in the request are set or unset.   Required permissions:   - iam.feature.write
 
         :param feature_service_set_instance_features_request: (required)
         :type feature_service_set_instance_features_request: FeatureServiceSetInstanceFeaturesRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self.__feature_service_set_instance_features_serialize(
+        _param = self._set_instance_features_serialize(
             feature_service_set_instance_features_request=feature_service_set_instance_features_request,
-            _request_auth=None,
-            _content_type=None,
-            _headers=None,
-            _host_index=0
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "FeatureServiceSetInstanceFeaturesResponse",
-            '403': "FeatureServiceRpcStatus",
-            '404': "FeatureServiceRpcStatus",
         }
-
         response_data = self.api_client.call_api(
             *_param,
-            _request_timeout=None
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
@@ -905,7 +1138,7 @@ class FeatureServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-    def __feature_service_set_instance_features_serialize(
+    def _set_instance_features_serialize(
         self,
         feature_service_set_instance_features_request,
         _request_auth,
@@ -965,8 +1198,8 @@ class FeatureServiceApi:
         ]
 
         return self.api_client.param_serialize(
-            method='PUT',
-            resource_path='/v2/features/instance',
+            method='POST',
+            resource_path='/zitadel.feature.v2.FeatureService/SetInstanceFeatures',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -983,36 +1216,49 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def feature_service_set_organization_features(
-    self,
-      organization_id: StrictStr,
-    ) -> FeatureServiceSetOrganizationFeaturesResponse:
-        """Set Organization Features
+    def set_organization_features(        self,                feature_service_set_organization_features_request: FeatureServiceSetOrganizationFeaturesRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> FeatureServiceSetOrganizationFeaturesResponse:
+        """SetOrganizationFeatures
 
-        Configure and set features that apply to a complete instance. Only fields present in the request are set or unset.  Required permissions:  - org.feature.write
+        Set Organization Features   Configure and set features that apply to a complete instance. Only fields present in the request are set or unset.   Required permissions:   - org.feature.write
 
-        :param organization_id: (required)
-        :type organization_id: str
+        :param feature_service_set_organization_features_request: (required)
+        :type feature_service_set_organization_features_request: FeatureServiceSetOrganizationFeaturesRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self.__feature_service_set_organization_features_serialize(
-            organization_id=organization_id,
-            _request_auth=None,
-            _content_type=None,
-            _headers=None,
-            _host_index=0
+        _param = self._set_organization_features_serialize(
+            feature_service_set_organization_features_request=feature_service_set_organization_features_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "FeatureServiceSetOrganizationFeaturesResponse",
-            '403': "FeatureServiceRpcStatus",
-            '404': "FeatureServiceRpcStatus",
         }
-
         response_data = self.api_client.call_api(
             *_param,
-            _request_timeout=None
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
@@ -1020,9 +1266,9 @@ class FeatureServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-    def __feature_service_set_organization_features_serialize(
+    def _set_organization_features_serialize(
         self,
-        organization_id,
+        feature_service_set_organization_features_request,
         _request_auth,
         _content_type,
         _headers,
@@ -1044,12 +1290,12 @@ class FeatureServiceApi:
         _body_params: Optional[bytes] = None
 
         # process the path parameters
-        if organization_id is not None:
-            _path_params['organizationId'] = organization_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
         # process the body parameter
+        if feature_service_set_organization_features_request is not None:
+            _body_params = feature_service_set_organization_features_request
 
 
         # set the HTTP header `Accept`
@@ -1060,6 +1306,19 @@ class FeatureServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -1067,8 +1326,8 @@ class FeatureServiceApi:
         ]
 
         return self.api_client.param_serialize(
-            method='PUT',
-            resource_path='/v2/features/organization/{organizationId}',
+            method='POST',
+            resource_path='/zitadel.feature.v2.FeatureService/SetOrganizationFeatures',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -1085,36 +1344,49 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def feature_service_set_system_features(
-    self,
-      feature_service_set_system_features_request: FeatureServiceSetSystemFeaturesRequest,
-    ) -> FeatureServiceSetSystemFeaturesResponse:
-        """Set System Features
+    def set_system_features(        self,                feature_service_set_system_features_request: FeatureServiceSetSystemFeaturesRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> FeatureServiceSetSystemFeaturesResponse:
+        """SetSystemFeatures
 
-        Configure and set features that apply to the complete system. Only fields present in the request are set or unset.  Required permissions:  - system.feature.write
+        Set System Features   Configure and set features that apply to the complete system. Only fields present in the request are set or unset.   Required permissions:   - system.feature.write
 
         :param feature_service_set_system_features_request: (required)
         :type feature_service_set_system_features_request: FeatureServiceSetSystemFeaturesRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self.__feature_service_set_system_features_serialize(
+        _param = self._set_system_features_serialize(
             feature_service_set_system_features_request=feature_service_set_system_features_request,
-            _request_auth=None,
-            _content_type=None,
-            _headers=None,
-            _host_index=0
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "FeatureServiceSetSystemFeaturesResponse",
-            '403': "FeatureServiceRpcStatus",
-            '404': "FeatureServiceRpcStatus",
         }
-
         response_data = self.api_client.call_api(
             *_param,
-            _request_timeout=None
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
@@ -1122,7 +1394,7 @@ class FeatureServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-    def __feature_service_set_system_features_serialize(
+    def _set_system_features_serialize(
         self,
         feature_service_set_system_features_request,
         _request_auth,
@@ -1182,8 +1454,8 @@ class FeatureServiceApi:
         ]
 
         return self.api_client.param_serialize(
-            method='PUT',
-            resource_path='/v2/features/system',
+            method='POST',
+            resource_path='/zitadel.feature.v2.FeatureService/SetSystemFeatures',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -1200,36 +1472,49 @@ class FeatureServiceApi:
 
 
     @validate_call
-    def feature_service_set_user_features(
-    self,
-      user_id: StrictStr,
-    ) -> FeatureServiceSetUserFeaturesResponse:
-        """Set User Features
+    def set_user_features(        self,                feature_service_set_user_feature_request: FeatureServiceSetUserFeatureRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> FeatureServiceSetUserFeaturesResponse:
+        """SetUserFeatures
 
-        Configure and set features that apply to an user. Only fields present in the request are set or unset.  Required permissions:  - user.feature.write
+        Set User Features   Configure and set features that apply to an user. Only fields present in the request are set or unset.   Required permissions:   - user.feature.write
 
-        :param user_id: (required)
-        :type user_id: str
+        :param feature_service_set_user_feature_request: (required)
+        :type feature_service_set_user_feature_request: FeatureServiceSetUserFeatureRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self.__feature_service_set_user_features_serialize(
-            user_id=user_id,
-            _request_auth=None,
-            _content_type=None,
-            _headers=None,
-            _host_index=0
+        _param = self._set_user_features_serialize(
+            feature_service_set_user_feature_request=feature_service_set_user_feature_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "FeatureServiceSetUserFeaturesResponse",
-            '403': "FeatureServiceRpcStatus",
-            '404': "FeatureServiceRpcStatus",
         }
-
         response_data = self.api_client.call_api(
             *_param,
-            _request_timeout=None
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
@@ -1237,9 +1522,9 @@ class FeatureServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-    def __feature_service_set_user_features_serialize(
+    def _set_user_features_serialize(
         self,
-        user_id,
+        feature_service_set_user_feature_request,
         _request_auth,
         _content_type,
         _headers,
@@ -1261,12 +1546,12 @@ class FeatureServiceApi:
         _body_params: Optional[bytes] = None
 
         # process the path parameters
-        if user_id is not None:
-            _path_params['userId'] = user_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
         # process the body parameter
+        if feature_service_set_user_feature_request is not None:
+            _body_params = feature_service_set_user_feature_request
 
 
         # set the HTTP header `Accept`
@@ -1277,6 +1562,19 @@ class FeatureServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -1284,8 +1582,8 @@ class FeatureServiceApi:
         ]
 
         return self.api_client.param_serialize(
-            method='PUT',
-            resource_path='/v2/features/user/{userId}',
+            method='POST',
+            resource_path='/zitadel.feature.v2.FeatureService/SetUserFeatures',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

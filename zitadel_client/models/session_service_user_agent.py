@@ -18,8 +18,8 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from zitadel_client.models.session_service_user_agent_header_values import SessionServiceUserAgentHeaderValues
+from typing import Any, ClassVar, Dict, Optional
+from zitadel_client.models.session_service_header_values import SessionServiceHeaderValues
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -30,7 +30,8 @@ class SessionServiceUserAgent(BaseModel):
     fingerprint_id: Optional[StrictStr] = Field(default=None, alias="fingerprintId")
     ip: Optional[StrictStr] = None
     description: Optional[StrictStr] = None
-    header: Optional[Dict[str, SessionServiceUserAgentHeaderValues]] = None
+    header: Optional[Dict[str, SessionServiceHeaderValues]] = None
+    __properties: ClassVar[List[str]] = ["fingerprintId", "ip", "description", "header"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -78,6 +79,21 @@ class SessionServiceUserAgent(BaseModel):
                 if self.header[_key_header]:
                     _field_dict[_key_header] = self.header[_key_header].to_dict()
             _dict['header'] = _field_dict
+        # set to None if fingerprint_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.fingerprint_id is None and "fingerprint_id" in self.model_fields_set:
+            _dict['fingerprintId'] = None
+
+        # set to None if ip (nullable) is None
+        # and model_fields_set contains the field
+        if self.ip is None and "ip" in self.model_fields_set:
+            _dict['ip'] = None
+
+        # set to None if description (nullable) is None
+        # and model_fields_set contains the field
+        if self.description is None and "description" in self.model_fields_set:
+            _dict['description'] = None
+
         return _dict
 
     @classmethod
@@ -94,7 +110,7 @@ class SessionServiceUserAgent(BaseModel):
             "ip": obj.get("ip"),
             "description": obj.get("description"),
             "header": dict(
-                (_k, SessionServiceUserAgentHeaderValues.from_dict(_v))
+                (_k, SessionServiceHeaderValues.from_dict(_v))
                 for _k, _v in obj["header"].items()
             )
             if obj.get("header") is not None

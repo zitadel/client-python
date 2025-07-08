@@ -17,9 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.user_service_text_query_method import UserServiceTextQueryMethod
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,8 +27,9 @@ class UserServiceDisplayNameQuery(BaseModel):
     """
     Query for users with a specific display name.
     """ # noqa: E501
-    display_name: Annotated[str, Field(min_length=1, strict=True, max_length=200)] = Field(alias="displayName")
-    method: Optional[UserServiceTextQueryMethod] = UserServiceTextQueryMethod.TEXT_QUERY_METHOD_EQUALS
+    display_name: StrictStr = Field(alias="displayName")
+    method: Optional[UserServiceTextQueryMethod] = None
+    __properties: ClassVar[List[str]] = ["displayName", "method"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -83,7 +83,7 @@ class UserServiceDisplayNameQuery(BaseModel):
 
         _obj = cls.model_validate({
             "displayName": obj.get("displayName"),
-            "method": obj.get("method") if obj.get("method") is not None else UserServiceTextQueryMethod.TEXT_QUERY_METHOD_EQUALS
+            "method": obj.get("method")
         })
         return _obj
 

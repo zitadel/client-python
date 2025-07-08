@@ -17,8 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,8 +26,10 @@ class UserServiceResendPhoneCodeRequest(BaseModel):
     """
     UserServiceResendPhoneCodeRequest
     """ # noqa: E501
-    send_code: Optional[Dict[str, Any]] = Field(default=None, alias="sendCode")
+    user_id: StrictStr = Field(alias="userId")
     return_code: Optional[Dict[str, Any]] = Field(default=None, alias="returnCode")
+    send_code: Optional[Dict[str, Any]] = Field(default=None, alias="sendCode")
+    __properties: ClassVar[List[str]] = ["userId", "returnCode", "sendCode"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -80,8 +82,9 @@ class UserServiceResendPhoneCodeRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "sendCode": obj.get("sendCode"),
-            "returnCode": obj.get("returnCode")
+            "userId": obj.get("userId"),
+            "returnCode": obj.get("returnCode"),
+            "sendCode": obj.get("sendCode")
         })
         return _obj
 

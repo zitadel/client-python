@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.organization_service_organization_domain_query import OrganizationServiceOrganizationDomainQuery
 from zitadel_client.models.organization_service_organization_id_query import OrganizationServiceOrganizationIDQuery
 from zitadel_client.models.organization_service_organization_name_query import OrganizationServiceOrganizationNameQuery
@@ -30,11 +30,12 @@ class OrganizationServiceSearchQuery(BaseModel):
     """
     OrganizationServiceSearchQuery
     """ # noqa: E501
-    name_query: Optional[OrganizationServiceOrganizationNameQuery] = Field(default=None, alias="nameQuery")
-    domain_query: Optional[OrganizationServiceOrganizationDomainQuery] = Field(default=None, alias="domainQuery")
-    state_query: Optional[OrganizationServiceOrganizationStateQuery] = Field(default=None, alias="stateQuery")
-    id_query: Optional[OrganizationServiceOrganizationIDQuery] = Field(default=None, alias="idQuery")
     default_query: Optional[Dict[str, Any]] = Field(default=None, alias="defaultQuery")
+    domain_query: Optional[OrganizationServiceOrganizationDomainQuery] = Field(default=None, alias="domainQuery")
+    id_query: Optional[OrganizationServiceOrganizationIDQuery] = Field(default=None, alias="idQuery")
+    name_query: Optional[OrganizationServiceOrganizationNameQuery] = Field(default=None, alias="nameQuery")
+    state_query: Optional[OrganizationServiceOrganizationStateQuery] = Field(default=None, alias="stateQuery")
+    __properties: ClassVar[List[str]] = ["defaultQuery", "domainQuery", "idQuery", "nameQuery", "stateQuery"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -75,6 +76,18 @@ class OrganizationServiceSearchQuery(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of domain_query
+        if self.domain_query:
+            _dict['domainQuery'] = self.domain_query.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of id_query
+        if self.id_query:
+            _dict['idQuery'] = self.id_query.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of name_query
+        if self.name_query:
+            _dict['nameQuery'] = self.name_query.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of state_query
+        if self.state_query:
+            _dict['stateQuery'] = self.state_query.to_dict()
         return _dict
 
     @classmethod
@@ -87,11 +100,11 @@ class OrganizationServiceSearchQuery(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "nameQuery": OrganizationServiceOrganizationNameQuery.from_dict(obj["nameQuery"]) if obj.get("nameQuery") is not None else None,
+            "defaultQuery": obj.get("defaultQuery"),
             "domainQuery": OrganizationServiceOrganizationDomainQuery.from_dict(obj["domainQuery"]) if obj.get("domainQuery") is not None else None,
-            "stateQuery": OrganizationServiceOrganizationStateQuery.from_dict(obj["stateQuery"]) if obj.get("stateQuery") is not None else None,
             "idQuery": OrganizationServiceOrganizationIDQuery.from_dict(obj["idQuery"]) if obj.get("idQuery") is not None else None,
-            "defaultQuery": obj.get("defaultQuery")
+            "nameQuery": OrganizationServiceOrganizationNameQuery.from_dict(obj["nameQuery"]) if obj.get("nameQuery") is not None else None,
+            "stateQuery": OrganizationServiceOrganizationStateQuery.from_dict(obj["stateQuery"]) if obj.get("stateQuery") is not None else None
         })
         return _obj
 

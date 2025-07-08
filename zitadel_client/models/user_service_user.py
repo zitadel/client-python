@@ -32,12 +32,13 @@ class UserServiceUser(BaseModel):
     """ # noqa: E501
     user_id: Optional[StrictStr] = Field(default=None, alias="userId")
     details: Optional[UserServiceDetails] = None
-    state: Optional[UserServiceUserState] = UserServiceUserState.USER_STATE_UNSPECIFIED
+    state: Optional[UserServiceUserState] = None
     username: Optional[StrictStr] = None
     login_names: Optional[List[StrictStr]] = Field(default=None, alias="loginNames")
     preferred_login_name: Optional[StrictStr] = Field(default=None, alias="preferredLoginName")
     human: Optional[UserServiceHumanUser] = None
     machine: Optional[UserServiceMachineUser] = None
+    __properties: ClassVar[List[str]] = ["userId", "details", "state", "username", "loginNames", "preferredLoginName", "human", "machine"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -78,6 +79,15 @@ class UserServiceUser(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of details
+        if self.details:
+            _dict['details'] = self.details.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of human
+        if self.human:
+            _dict['human'] = self.human.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of machine
+        if self.machine:
+            _dict['machine'] = self.machine.to_dict()
         return _dict
 
     @classmethod
@@ -92,7 +102,7 @@ class UserServiceUser(BaseModel):
         _obj = cls.model_validate({
             "userId": obj.get("userId"),
             "details": UserServiceDetails.from_dict(obj["details"]) if obj.get("details") is not None else None,
-            "state": obj.get("state") if obj.get("state") is not None else UserServiceUserState.USER_STATE_UNSPECIFIED,
+            "state": obj.get("state"),
             "username": obj.get("username"),
             "loginNames": obj.get("loginNames"),
             "preferredLoginName": obj.get("preferredLoginName"),

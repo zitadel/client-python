@@ -17,9 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.user_service_set_human_email import UserServiceSetHumanEmail
 from zitadel_client.models.user_service_set_human_phone import UserServiceSetHumanPhone
 from zitadel_client.models.user_service_set_human_profile import UserServiceSetHumanProfile
@@ -31,11 +30,13 @@ class UserServiceUpdateHumanUserRequest(BaseModel):
     """
     UserServiceUpdateHumanUserRequest
     """ # noqa: E501
-    username: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]] = None
+    user_id: Optional[StrictStr] = Field(default=None, alias="userId")
+    username: Optional[StrictStr] = None
     profile: Optional[UserServiceSetHumanProfile] = None
     email: Optional[UserServiceSetHumanEmail] = None
     phone: Optional[UserServiceSetHumanPhone] = None
     password: Optional[UserServiceSetPassword] = None
+    __properties: ClassVar[List[str]] = ["userId", "username", "profile", "email", "phone", "password"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -88,6 +89,11 @@ class UserServiceUpdateHumanUserRequest(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of password
         if self.password:
             _dict['password'] = self.password.to_dict()
+        # set to None if username (nullable) is None
+        # and model_fields_set contains the field
+        if self.username is None and "username" in self.model_fields_set:
+            _dict['username'] = None
+
         return _dict
 
     @classmethod
@@ -100,6 +106,7 @@ class UserServiceUpdateHumanUserRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "userId": obj.get("userId"),
             "username": obj.get("username"),
             "profile": UserServiceSetHumanProfile.from_dict(obj["profile"]) if obj.get("profile") is not None else None,
             "email": UserServiceSetHumanEmail.from_dict(obj["email"]) if obj.get("email") is not None else None,

@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,7 +26,9 @@ class UserServiceRegisterU2FRequest(BaseModel):
     """
     UserServiceRegisterU2FRequest
     """ # noqa: E501
-    domain: Optional[StrictStr] = Field(default=None, description="\"Domain on which the user is authenticated.\"")
+    user_id: StrictStr = Field(alias="userId")
+    domain: Optional[StrictStr] = None
+    __properties: ClassVar[List[str]] = ["userId", "domain"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -79,6 +81,7 @@ class UserServiceRegisterU2FRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "userId": obj.get("userId"),
             "domain": obj.get("domain")
         })
         return _obj

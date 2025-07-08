@@ -17,9 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.user_service_notification_type import UserServiceNotificationType
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,8 +27,9 @@ class UserServiceSendPasswordResetLink(BaseModel):
     """
     UserServiceSendPasswordResetLink
     """ # noqa: E501
-    notification_type: Optional[UserServiceNotificationType] = Field(default=UserServiceNotificationType.NOTIFICATION_TYPE_UNSPECIFIED, alias="notificationType")
-    url_template: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]] = Field(default=None, description="Optionally set a url_template, which will be used in the password reset mail sent by ZITADEL to guide the user to your password change page. If no template is set, the default ZITADEL url will be used.  The following placeholders can be used: UserID, OrgID, Code", alias="urlTemplate")
+    notification_type: Optional[UserServiceNotificationType] = Field(default=None, alias="notificationType")
+    url_template: Optional[StrictStr] = Field(default=None, description="Optionally set a url_template, which will be used in the password reset mail sent by ZITADEL to guide the user to your password change page.  If no template is set, the default ZITADEL url will be used.   The following placeholders can be used: UserID, OrgID, Code", alias="urlTemplate")
+    __properties: ClassVar[List[str]] = ["notificationType", "urlTemplate"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -70,6 +70,11 @@ class UserServiceSendPasswordResetLink(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if url_template (nullable) is None
+        # and model_fields_set contains the field
+        if self.url_template is None and "url_template" in self.model_fields_set:
+            _dict['urlTemplate'] = None
+
         return _dict
 
     @classmethod
@@ -82,7 +87,7 @@ class UserServiceSendPasswordResetLink(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "notificationType": obj.get("notificationType") if obj.get("notificationType") is not None else UserServiceNotificationType.NOTIFICATION_TYPE_UNSPECIFIED,
+            "notificationType": obj.get("notificationType"),
             "urlTemplate": obj.get("urlTemplate")
         })
         return _obj

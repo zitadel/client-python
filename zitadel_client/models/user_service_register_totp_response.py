@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.user_service_details import UserServiceDetails
 from typing import Optional, Set
 from typing_extensions import Self
@@ -30,6 +30,7 @@ class UserServiceRegisterTOTPResponse(BaseModel):
     details: Optional[UserServiceDetails] = None
     uri: Optional[StrictStr] = None
     secret: Optional[StrictStr] = None
+    __properties: ClassVar[List[str]] = ["details", "uri", "secret"]
 
     model_config = ConfigDict(
         populate_by_name=True,

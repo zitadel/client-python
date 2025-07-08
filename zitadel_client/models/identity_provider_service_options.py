@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.identity_provider_service_auto_linking_option import IdentityProviderServiceAutoLinkingOption
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,11 +27,12 @@ class IdentityProviderServiceOptions(BaseModel):
     """
     IdentityProviderServiceOptions
     """ # noqa: E501
-    is_linking_allowed: Optional[StrictBool] = Field(default=None, description="Enable if users should be able to link an existing ZITADEL user with an external account.", alias="isLinkingAllowed")
-    is_creation_allowed: Optional[StrictBool] = Field(default=None, description="Enable if users should be able to create a new account in ZITADEL when using an external account.", alias="isCreationAllowed")
-    is_auto_creation: Optional[StrictBool] = Field(default=None, description="Enable if a new account in ZITADEL should be created automatically when login with an external account.", alias="isAutoCreation")
-    is_auto_update: Optional[StrictBool] = Field(default=None, description="Enable if a the ZITADEL account fields should be updated automatically on each login.", alias="isAutoUpdate")
-    auto_linking: Optional[IdentityProviderServiceAutoLinkingOption] = Field(default=IdentityProviderServiceAutoLinkingOption.AUTO_LINKING_OPTION_UNSPECIFIED, alias="autoLinking")
+    is_linking_allowed: Optional[StrictBool] = Field(default=None, description="Enable if users should be able to link an existing ZITADEL user with an  external account.", alias="isLinkingAllowed")
+    is_creation_allowed: Optional[StrictBool] = Field(default=None, description="Enable if users should be able to create a new account in ZITADEL when  using an external account.", alias="isCreationAllowed")
+    is_auto_creation: Optional[StrictBool] = Field(default=None, description="Enable if a new account in ZITADEL should be created automatically when  login with an external account.", alias="isAutoCreation")
+    is_auto_update: Optional[StrictBool] = Field(default=None, description="Enable if a the ZITADEL account fields should be updated automatically on  each login.", alias="isAutoUpdate")
+    auto_linking: Optional[IdentityProviderServiceAutoLinkingOption] = Field(default=None, alias="autoLinking")
+    __properties: ClassVar[List[str]] = ["isLinkingAllowed", "isCreationAllowed", "isAutoCreation", "isAutoUpdate", "autoLinking"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -88,7 +89,7 @@ class IdentityProviderServiceOptions(BaseModel):
             "isCreationAllowed": obj.get("isCreationAllowed"),
             "isAutoCreation": obj.get("isAutoCreation"),
             "isAutoUpdate": obj.get("isAutoUpdate"),
-            "autoLinking": obj.get("autoLinking") if obj.get("autoLinking") is not None else IdentityProviderServiceAutoLinkingOption.AUTO_LINKING_OPTION_UNSPECIFIED
+            "autoLinking": obj.get("autoLinking")
         })
         return _obj
 

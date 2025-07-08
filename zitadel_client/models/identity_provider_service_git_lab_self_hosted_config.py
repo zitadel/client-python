@@ -29,6 +29,7 @@ class IdentityProviderServiceGitLabSelfHostedConfig(BaseModel):
     issuer: Optional[StrictStr] = None
     client_id: Optional[StrictStr] = Field(default=None, description="Client id of the GitLab application.", alias="clientId")
     scopes: Optional[List[StrictStr]] = Field(default=None, description="The scopes requested by ZITADEL during the request to GitLab.")
+    __properties: ClassVar[List[str]] = ["issuer", "clientId", "scopes"]
 
     model_config = ConfigDict(
         populate_by_name=True,

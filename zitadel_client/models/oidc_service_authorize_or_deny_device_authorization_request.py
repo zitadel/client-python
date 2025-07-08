@@ -17,8 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict
-from typing import Any, ClassVar, Dict, List, Optional
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.oidc_service_session import OIDCServiceSession
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,8 +27,10 @@ class OIDCServiceAuthorizeOrDenyDeviceAuthorizationRequest(BaseModel):
     """
     OIDCServiceAuthorizeOrDenyDeviceAuthorizationRequest
     """ # noqa: E501
-    session: Optional[OIDCServiceSession] = None
+    device_authorization_id: Optional[StrictStr] = Field(default=None, description="The device authorization id returned when submitting the user code.", alias="deviceAuthorizationId")
     deny: Optional[Dict[str, Any]] = None
+    session: Optional[OIDCServiceSession] = None
+    __properties: ClassVar[List[str]] = ["deviceAuthorizationId", "deny", "session"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -69,6 +71,9 @@ class OIDCServiceAuthorizeOrDenyDeviceAuthorizationRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of session
+        if self.session:
+            _dict['session'] = self.session.to_dict()
         return _dict
 
     @classmethod
@@ -81,8 +86,9 @@ class OIDCServiceAuthorizeOrDenyDeviceAuthorizationRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "session": OIDCServiceSession.from_dict(obj["session"]) if obj.get("session") is not None else None,
-            "deny": obj.get("deny")
+            "deviceAuthorizationId": obj.get("deviceAuthorizationId"),
+            "deny": obj.get("deny"),
+            "session": OIDCServiceSession.from_dict(obj["session"]) if obj.get("session") is not None else None
         })
         return _obj
 

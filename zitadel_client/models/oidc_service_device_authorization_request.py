@@ -31,6 +31,7 @@ class OIDCServiceDeviceAuthorizationRequest(BaseModel):
     scope: Optional[List[StrictStr]] = Field(default=None, description="The scopes requested by the application.")
     app_name: Optional[StrictStr] = Field(default=None, description="Name of the client application.", alias="appName")
     project_name: Optional[StrictStr] = Field(default=None, description="Name of the project the client application is part of.", alias="projectName")
+    __properties: ClassVar[List[str]] = ["id", "clientId", "scope", "appName", "projectName"]
 
     model_config = ConfigDict(
         populate_by_name=True,
