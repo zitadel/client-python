@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.identity_provider_service_apple_config import IdentityProviderServiceAppleConfig
 from zitadel_client.models.identity_provider_service_azure_ad_config import IdentityProviderServiceAzureADConfig
 from zitadel_client.models.identity_provider_service_generic_oidc_config import IdentityProviderServiceGenericOIDCConfig
@@ -40,18 +40,19 @@ class IdentityProviderServiceIDPConfig(BaseModel):
     IdentityProviderServiceIDPConfig
     """ # noqa: E501
     options: Optional[IdentityProviderServiceOptions] = None
-    ldap: Optional[IdentityProviderServiceLDAPConfig] = None
-    google: Optional[IdentityProviderServiceGoogleConfig] = None
-    oauth: Optional[IdentityProviderServiceOAuthConfig] = None
-    oidc: Optional[IdentityProviderServiceGenericOIDCConfig] = None
-    jwt: Optional[IdentityProviderServiceJWTConfig] = None
+    apple: Optional[IdentityProviderServiceAppleConfig] = None
+    azure_ad: Optional[IdentityProviderServiceAzureADConfig] = Field(default=None, alias="azureAd")
     github: Optional[IdentityProviderServiceGitHubConfig] = None
     github_es: Optional[IdentityProviderServiceGitHubEnterpriseServerConfig] = Field(default=None, alias="githubEs")
     gitlab: Optional[IdentityProviderServiceGitLabConfig] = None
     gitlab_self_hosted: Optional[IdentityProviderServiceGitLabSelfHostedConfig] = Field(default=None, alias="gitlabSelfHosted")
-    azure_ad: Optional[IdentityProviderServiceAzureADConfig] = Field(default=None, alias="azureAd")
-    apple: Optional[IdentityProviderServiceAppleConfig] = None
+    google: Optional[IdentityProviderServiceGoogleConfig] = None
+    jwt: Optional[IdentityProviderServiceJWTConfig] = None
+    ldap: Optional[IdentityProviderServiceLDAPConfig] = None
+    oauth: Optional[IdentityProviderServiceOAuthConfig] = None
+    oidc: Optional[IdentityProviderServiceGenericOIDCConfig] = None
     saml: Optional[IdentityProviderServiceSAMLConfig] = None
+    __properties: ClassVar[List[str]] = ["options", "apple", "azureAd", "github", "githubEs", "gitlab", "gitlabSelfHosted", "google", "jwt", "ldap", "oauth", "oidc", "saml"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -92,6 +93,45 @@ class IdentityProviderServiceIDPConfig(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of options
+        if self.options:
+            _dict['options'] = self.options.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of apple
+        if self.apple:
+            _dict['apple'] = self.apple.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of azure_ad
+        if self.azure_ad:
+            _dict['azureAd'] = self.azure_ad.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of github
+        if self.github:
+            _dict['github'] = self.github.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of github_es
+        if self.github_es:
+            _dict['githubEs'] = self.github_es.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of gitlab
+        if self.gitlab:
+            _dict['gitlab'] = self.gitlab.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of gitlab_self_hosted
+        if self.gitlab_self_hosted:
+            _dict['gitlabSelfHosted'] = self.gitlab_self_hosted.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of google
+        if self.google:
+            _dict['google'] = self.google.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of jwt
+        if self.jwt:
+            _dict['jwt'] = self.jwt.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of ldap
+        if self.ldap:
+            _dict['ldap'] = self.ldap.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of oauth
+        if self.oauth:
+            _dict['oauth'] = self.oauth.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of oidc
+        if self.oidc:
+            _dict['oidc'] = self.oidc.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of saml
+        if self.saml:
+            _dict['saml'] = self.saml.to_dict()
         return _dict
 
     @classmethod
@@ -105,17 +145,17 @@ class IdentityProviderServiceIDPConfig(BaseModel):
 
         _obj = cls.model_validate({
             "options": IdentityProviderServiceOptions.from_dict(obj["options"]) if obj.get("options") is not None else None,
-            "ldap": IdentityProviderServiceLDAPConfig.from_dict(obj["ldap"]) if obj.get("ldap") is not None else None,
-            "google": IdentityProviderServiceGoogleConfig.from_dict(obj["google"]) if obj.get("google") is not None else None,
-            "oauth": IdentityProviderServiceOAuthConfig.from_dict(obj["oauth"]) if obj.get("oauth") is not None else None,
-            "oidc": IdentityProviderServiceGenericOIDCConfig.from_dict(obj["oidc"]) if obj.get("oidc") is not None else None,
-            "jwt": IdentityProviderServiceJWTConfig.from_dict(obj["jwt"]) if obj.get("jwt") is not None else None,
+            "apple": IdentityProviderServiceAppleConfig.from_dict(obj["apple"]) if obj.get("apple") is not None else None,
+            "azureAd": IdentityProviderServiceAzureADConfig.from_dict(obj["azureAd"]) if obj.get("azureAd") is not None else None,
             "github": IdentityProviderServiceGitHubConfig.from_dict(obj["github"]) if obj.get("github") is not None else None,
             "githubEs": IdentityProviderServiceGitHubEnterpriseServerConfig.from_dict(obj["githubEs"]) if obj.get("githubEs") is not None else None,
             "gitlab": IdentityProviderServiceGitLabConfig.from_dict(obj["gitlab"]) if obj.get("gitlab") is not None else None,
             "gitlabSelfHosted": IdentityProviderServiceGitLabSelfHostedConfig.from_dict(obj["gitlabSelfHosted"]) if obj.get("gitlabSelfHosted") is not None else None,
-            "azureAd": IdentityProviderServiceAzureADConfig.from_dict(obj["azureAd"]) if obj.get("azureAd") is not None else None,
-            "apple": IdentityProviderServiceAppleConfig.from_dict(obj["apple"]) if obj.get("apple") is not None else None,
+            "google": IdentityProviderServiceGoogleConfig.from_dict(obj["google"]) if obj.get("google") is not None else None,
+            "jwt": IdentityProviderServiceJWTConfig.from_dict(obj["jwt"]) if obj.get("jwt") is not None else None,
+            "ldap": IdentityProviderServiceLDAPConfig.from_dict(obj["ldap"]) if obj.get("ldap") is not None else None,
+            "oauth": IdentityProviderServiceOAuthConfig.from_dict(obj["oauth"]) if obj.get("oauth") is not None else None,
+            "oidc": IdentityProviderServiceGenericOIDCConfig.from_dict(obj["oidc"]) if obj.get("oidc") is not None else None,
             "saml": IdentityProviderServiceSAMLConfig.from_dict(obj["saml"]) if obj.get("saml") is not None else None
         })
         return _obj

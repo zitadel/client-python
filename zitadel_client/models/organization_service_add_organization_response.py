@@ -19,7 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from zitadel_client.models.organization_service_add_organization_response_created_admin import OrganizationServiceAddOrganizationResponseCreatedAdmin
+from zitadel_client.models.organization_service_created_admin import OrganizationServiceCreatedAdmin
 from zitadel_client.models.organization_service_details import OrganizationServiceDetails
 from typing import Optional, Set
 from typing_extensions import Self
@@ -30,7 +30,8 @@ class OrganizationServiceAddOrganizationResponse(BaseModel):
     """ # noqa: E501
     details: Optional[OrganizationServiceDetails] = None
     organization_id: Optional[StrictStr] = Field(default=None, alias="organizationId")
-    created_admins: Optional[List[OrganizationServiceAddOrganizationResponseCreatedAdmin]] = Field(default=None, alias="createdAdmins")
+    created_admins: Optional[List[OrganizationServiceCreatedAdmin]] = Field(default=None, alias="createdAdmins")
+    __properties: ClassVar[List[str]] = ["details", "organizationId", "createdAdmins"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -95,7 +96,7 @@ class OrganizationServiceAddOrganizationResponse(BaseModel):
         _obj = cls.model_validate({
             "details": OrganizationServiceDetails.from_dict(obj["details"]) if obj.get("details") is not None else None,
             "organizationId": obj.get("organizationId"),
-            "createdAdmins": [OrganizationServiceAddOrganizationResponseCreatedAdmin.from_dict(_item) for _item in obj["createdAdmins"]] if obj.get("createdAdmins") is not None else None
+            "createdAdmins": [OrganizationServiceCreatedAdmin.from_dict(_item) for _item in obj["createdAdmins"]] if obj.get("createdAdmins") is not None else None
         })
         return _obj
 

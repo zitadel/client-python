@@ -26,7 +26,8 @@ class UserServiceInUserEmailsQuery(BaseModel):
     """
     Query for users with email in list of emails.
     """ # noqa: E501
-    user_emails: Optional[List[StrictStr]] = Field(default=None, description="the emails of the users to include", alias="userEmails")
+    user_emails: Optional[List[StrictStr]] = Field(default=None, alias="userEmails")
+    __properties: ClassVar[List[str]] = ["userEmails"]
 
     model_config = ConfigDict(
         populate_by_name=True,

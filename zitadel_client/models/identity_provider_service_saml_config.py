@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictBytes, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional, Union
+from typing import Any, ClassVar, Dict, Optional, Union
 from zitadel_client.models.identity_provider_service_saml_binding import IdentityProviderServiceSAMLBinding
 from zitadel_client.models.identity_provider_service_saml_name_id_format import IdentityProviderServiceSAMLNameIDFormat
 from typing import Optional, Set
@@ -29,11 +29,12 @@ class IdentityProviderServiceSAMLConfig(BaseModel):
     IdentityProviderServiceSAMLConfig
     """ # noqa: E501
     metadata_xml: Optional[Union[StrictBytes, StrictStr]] = Field(default=None, description="Metadata of the SAML identity provider.", alias="metadataXml")
-    binding: Optional[IdentityProviderServiceSAMLBinding] = IdentityProviderServiceSAMLBinding.SAML_BINDING_UNSPECIFIED
+    binding: Optional[IdentityProviderServiceSAMLBinding] = None
     with_signed_request: Optional[StrictBool] = Field(default=None, description="Boolean which defines if the authentication requests are signed.", alias="withSignedRequest")
-    name_id_format: Optional[IdentityProviderServiceSAMLNameIDFormat] = Field(default=IdentityProviderServiceSAMLNameIDFormat.SAML_NAME_ID_FORMAT_UNSPECIFIED, alias="nameIdFormat")
-    transient_mapping_attribute_name: Optional[StrictStr] = Field(default=None, description="Optional name of the attribute, which will be used to map the user in case the nameid-format returned is `urn:oasis:names:tc:SAML:2.0:nameid-format:transient`.", alias="transientMappingAttributeName")
-    federated_logout_enabled: Optional[StrictBool] = Field(default=None, description="Boolean weather federated logout is enabled. If enabled, ZITADEL will send a logout request to the identity provider, if the user terminates the session in ZITADEL. Be sure to provide a SLO endpoint as part of the metadata.", alias="federatedLogoutEnabled")
+    name_id_format: Optional[IdentityProviderServiceSAMLNameIDFormat] = Field(default=None, alias="nameIdFormat")
+    transient_mapping_attribute_name: Optional[StrictStr] = Field(default=None, description="Optional name of the attribute, which will be used to map the user  in case the nameid-format returned is  `urn:oasis:names:tc:SAML:2.0:nameid-format:transient`.", alias="transientMappingAttributeName")
+    federated_logout_enabled: Optional[StrictBool] = Field(default=None, description="Boolean weather federated logout is enabled. If enabled, ZITADEL will send a logout request to the identity provider,  if the user terminates the session in ZITADEL. Be sure to provide a SLO endpoint as part of the metadata.", alias="federatedLogoutEnabled")
+    __properties: ClassVar[List[str]] = ["metadataXml", "binding", "withSignedRequest", "nameIdFormat", "transientMappingAttributeName", "federatedLogoutEnabled"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -74,6 +75,16 @@ class IdentityProviderServiceSAMLConfig(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if transient_mapping_attribute_name (nullable) is None
+        # and model_fields_set contains the field
+        if self.transient_mapping_attribute_name is None and "transient_mapping_attribute_name" in self.model_fields_set:
+            _dict['transientMappingAttributeName'] = None
+
+        # set to None if federated_logout_enabled (nullable) is None
+        # and model_fields_set contains the field
+        if self.federated_logout_enabled is None and "federated_logout_enabled" in self.model_fields_set:
+            _dict['federatedLogoutEnabled'] = None
+
         return _dict
 
     @classmethod
@@ -87,9 +98,9 @@ class IdentityProviderServiceSAMLConfig(BaseModel):
 
         _obj = cls.model_validate({
             "metadataXml": obj.get("metadataXml"),
-            "binding": obj.get("binding") if obj.get("binding") is not None else IdentityProviderServiceSAMLBinding.SAML_BINDING_UNSPECIFIED,
+            "binding": obj.get("binding"),
             "withSignedRequest": obj.get("withSignedRequest"),
-            "nameIdFormat": obj.get("nameIdFormat") if obj.get("nameIdFormat") is not None else IdentityProviderServiceSAMLNameIDFormat.SAML_NAME_ID_FORMAT_UNSPECIFIED,
+            "nameIdFormat": obj.get("nameIdFormat"),
             "transientMappingAttributeName": obj.get("transientMappingAttributeName"),
             "federatedLogoutEnabled": obj.get("federatedLogoutEnabled")
         })

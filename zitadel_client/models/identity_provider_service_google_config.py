@@ -28,6 +28,7 @@ class IdentityProviderServiceGoogleConfig(BaseModel):
     """ # noqa: E501
     client_id: Optional[StrictStr] = Field(default=None, description="Client id of the Google application.", alias="clientId")
     scopes: Optional[List[StrictStr]] = Field(default=None, description="The scopes requested by ZITADEL during the request to Google.")
+    __properties: ClassVar[List[str]] = ["clientId", "scopes"]
 
     model_config = ConfigDict(
         populate_by_name=True,

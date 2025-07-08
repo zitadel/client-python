@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.feature_service_details import FeatureServiceDetails
 from zitadel_client.models.feature_service_feature_flag import FeatureServiceFeatureFlag
 from zitadel_client.models.feature_service_improved_performance_feature_flag import FeatureServiceImprovedPerformanceFeatureFlag
@@ -32,8 +32,6 @@ class FeatureServiceGetSystemFeaturesResponse(BaseModel):
     """ # noqa: E501
     details: Optional[FeatureServiceDetails] = None
     login_default_org: Optional[FeatureServiceFeatureFlag] = Field(default=None, alias="loginDefaultOrg")
-    oidc_trigger_introspection_projections: Optional[FeatureServiceFeatureFlag] = Field(default=None, alias="oidcTriggerIntrospectionProjections")
-    oidc_legacy_introspection: Optional[FeatureServiceFeatureFlag] = Field(default=None, alias="oidcLegacyIntrospection")
     user_schema: Optional[FeatureServiceFeatureFlag] = Field(default=None, alias="userSchema")
     oidc_token_exchange: Optional[FeatureServiceFeatureFlag] = Field(default=None, alias="oidcTokenExchange")
     improved_performance: Optional[FeatureServiceImprovedPerformanceFeatureFlag] = Field(default=None, alias="improvedPerformance")
@@ -42,6 +40,7 @@ class FeatureServiceGetSystemFeaturesResponse(BaseModel):
     enable_back_channel_logout: Optional[FeatureServiceFeatureFlag] = Field(default=None, alias="enableBackChannelLogout")
     login_v2: Optional[FeatureServiceLoginV2FeatureFlag] = Field(default=None, alias="loginV2")
     permission_check_v2: Optional[FeatureServiceFeatureFlag] = Field(default=None, alias="permissionCheckV2")
+    __properties: ClassVar[List[str]] = ["details", "loginDefaultOrg", "userSchema", "oidcTokenExchange", "improvedPerformance", "oidcSingleV1SessionTermination", "disableUserTokenEvent", "enableBackChannelLogout", "loginV2", "permissionCheckV2"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -88,12 +87,6 @@ class FeatureServiceGetSystemFeaturesResponse(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of login_default_org
         if self.login_default_org:
             _dict['loginDefaultOrg'] = self.login_default_org.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of oidc_trigger_introspection_projections
-        if self.oidc_trigger_introspection_projections:
-            _dict['oidcTriggerIntrospectionProjections'] = self.oidc_trigger_introspection_projections.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of oidc_legacy_introspection
-        if self.oidc_legacy_introspection:
-            _dict['oidcLegacyIntrospection'] = self.oidc_legacy_introspection.to_dict()
         # override the default output from pydantic by calling `to_dict()` of user_schema
         if self.user_schema:
             _dict['userSchema'] = self.user_schema.to_dict()
@@ -132,8 +125,6 @@ class FeatureServiceGetSystemFeaturesResponse(BaseModel):
         _obj = cls.model_validate({
             "details": FeatureServiceDetails.from_dict(obj["details"]) if obj.get("details") is not None else None,
             "loginDefaultOrg": FeatureServiceFeatureFlag.from_dict(obj["loginDefaultOrg"]) if obj.get("loginDefaultOrg") is not None else None,
-            "oidcTriggerIntrospectionProjections": FeatureServiceFeatureFlag.from_dict(obj["oidcTriggerIntrospectionProjections"]) if obj.get("oidcTriggerIntrospectionProjections") is not None else None,
-            "oidcLegacyIntrospection": FeatureServiceFeatureFlag.from_dict(obj["oidcLegacyIntrospection"]) if obj.get("oidcLegacyIntrospection") is not None else None,
             "userSchema": FeatureServiceFeatureFlag.from_dict(obj["userSchema"]) if obj.get("userSchema") is not None else None,
             "oidcTokenExchange": FeatureServiceFeatureFlag.from_dict(obj["oidcTokenExchange"]) if obj.get("oidcTokenExchange") is not None else None,
             "improvedPerformance": FeatureServiceImprovedPerformanceFeatureFlag.from_dict(obj["improvedPerformance"]) if obj.get("improvedPerformance") is not None else None,

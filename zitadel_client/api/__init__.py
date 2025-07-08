@@ -1,7 +1,20 @@
 # flake8: noqa
 
 # import apis into api package
-from zitadel_client.api.action_service_api import ActionServiceApi
+from zitadel_client.api.beta_action_service_api import BetaActionServiceApi
+from zitadel_client.api.beta_app_service_api import BetaAppServiceApi
+from zitadel_client.api.beta_authorization_service_api import BetaAuthorizationServiceApi
+from zitadel_client.api.beta_feature_service_api import BetaFeatureServiceApi
+from zitadel_client.api.beta_instance_service_api import BetaInstanceServiceApi
+from zitadel_client.api.beta_internal_permission_service_api import BetaInternalPermissionServiceApi
+from zitadel_client.api.beta_oidc_service_api import BetaOIDCServiceApi
+from zitadel_client.api.beta_organization_service_api import BetaOrganizationServiceApi
+from zitadel_client.api.beta_project_service_api import BetaProjectServiceApi
+from zitadel_client.api.beta_session_service_api import BetaSessionServiceApi
+from zitadel_client.api.beta_settings_service_api import BetaSettingsServiceApi
+from zitadel_client.api.beta_telemetry_service_api import BetaTelemetryServiceApi
+from zitadel_client.api.beta_user_service_api import BetaUserServiceApi
+from zitadel_client.api.beta_web_key_service_api import BetaWebKeyServiceApi
 from zitadel_client.api.feature_service_api import FeatureServiceApi
 from zitadel_client.api.identity_provider_service_api import IdentityProviderServiceApi
 from zitadel_client.api.oidc_service_api import OIDCServiceApi

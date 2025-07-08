@@ -17,8 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from pydantic import BaseModel, ConfigDict, Field
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.settings_service_resource_owner_type import SettingsServiceResourceOwnerType
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,9 +27,10 @@ class SettingsServicePasswordExpirySettings(BaseModel):
     """
     SettingsServicePasswordExpirySettings
     """ # noqa: E501
-    max_age_days: Optional[StrictStr] = Field(default=None, description="Amount of days after which a password will expire. The user will be forced to change the password on the following authentication.", alias="maxAgeDays")
-    expire_warn_days: Optional[StrictStr] = Field(default=None, description="Amount of days after which the user should be notified of the upcoming expiry. ZITADEL will not notify the user.", alias="expireWarnDays")
-    resource_owner_type: Optional[SettingsServiceResourceOwnerType] = Field(default=SettingsServiceResourceOwnerType.RESOURCE_OWNER_TYPE_UNSPECIFIED, alias="resourceOwnerType")
+    max_age_days: Optional[Any] = Field(default=None, description="Amount of days after which a password will expire. The user will be forced to change the password on the following authentication.", alias="maxAgeDays")
+    expire_warn_days: Optional[Any] = Field(default=None, description="Amount of days after which the user should be notified of the upcoming expiry. ZITADEL will not notify the user.", alias="expireWarnDays")
+    resource_owner_type: Optional[SettingsServiceResourceOwnerType] = Field(default=None, alias="resourceOwnerType")
+    __properties: ClassVar[List[str]] = ["maxAgeDays", "expireWarnDays", "resourceOwnerType"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -70,6 +71,16 @@ class SettingsServicePasswordExpirySettings(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if max_age_days (nullable) is None
+        # and model_fields_set contains the field
+        if self.max_age_days is None and "max_age_days" in self.model_fields_set:
+            _dict['maxAgeDays'] = None
+
+        # set to None if expire_warn_days (nullable) is None
+        # and model_fields_set contains the field
+        if self.expire_warn_days is None and "expire_warn_days" in self.model_fields_set:
+            _dict['expireWarnDays'] = None
+
         return _dict
 
     @classmethod
@@ -84,7 +95,7 @@ class SettingsServicePasswordExpirySettings(BaseModel):
         _obj = cls.model_validate({
             "maxAgeDays": obj.get("maxAgeDays"),
             "expireWarnDays": obj.get("expireWarnDays"),
-            "resourceOwnerType": obj.get("resourceOwnerType") if obj.get("resourceOwnerType") is not None else SettingsServiceResourceOwnerType.RESOURCE_OWNER_TYPE_UNSPECIFIED
+            "resourceOwnerType": obj.get("resourceOwnerType")
         })
         return _obj
 

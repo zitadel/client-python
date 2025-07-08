@@ -18,10 +18,11 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.user_service_idpldap_access_information import UserServiceIDPLDAPAccessInformation
 from zitadel_client.models.user_service_idpo_auth_access_information import UserServiceIDPOAuthAccessInformation
 from zitadel_client.models.user_service_idpsaml_access_information import UserServiceIDPSAMLAccessInformation
+from zitadel_client.models.user_service_value import UserServiceValue
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -29,13 +30,14 @@ class UserServiceIDPInformation(BaseModel):
     """
     UserServiceIDPInformation
     """ # noqa: E501
-    oauth: Optional[UserServiceIDPOAuthAccessInformation] = None
+    idp_id: Optional[StrictStr] = Field(default=None, alias="idpId")
+    user_id: Optional[StrictStr] = Field(default=None, alias="userId")
+    user_name: Optional[StrictStr] = Field(default=None, alias="userName")
+    raw_information: Optional[Dict[str, UserServiceValue]] = Field(default=None, description="`Struct` represents a structured data value, consisting of fields  which map to dynamically typed values. In some languages, `Struct`  might be supported by a native representation. For example, in  scripting languages like JS a struct is represented as an  object. The details of that representation are described together  with the proto support for the language.   The JSON representation for `Struct` is JSON object.", alias="rawInformation")
     ldap: Optional[UserServiceIDPLDAPAccessInformation] = None
+    oauth: Optional[UserServiceIDPOAuthAccessInformation] = None
     saml: Optional[UserServiceIDPSAMLAccessInformation] = None
-    idp_id: Optional[StrictStr] = Field(default=None, description="ID of the identity provider", alias="idpId")
-    user_id: Optional[StrictStr] = Field(default=None, description="ID of the user of the identity provider", alias="userId")
-    user_name: Optional[StrictStr] = Field(default=None, description="username of the user of the identity provider", alias="userName")
-    raw_information: Optional[Dict[str, Any]] = Field(default=None, description="complete information returned by the identity provider", alias="rawInformation")
+    __properties: ClassVar[List[str]] = ["idpId", "userId", "userName", "rawInformation", "ldap", "oauth", "saml"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -76,6 +78,22 @@ class UserServiceIDPInformation(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each value in raw_information (dict)
+        _field_dict = {}
+        if self.raw_information:
+            for _key_raw_information in self.raw_information:
+                if self.raw_information[_key_raw_information]:
+                    _field_dict[_key_raw_information] = self.raw_information[_key_raw_information].to_dict()
+            _dict['rawInformation'] = _field_dict
+        # override the default output from pydantic by calling `to_dict()` of ldap
+        if self.ldap:
+            _dict['ldap'] = self.ldap.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of oauth
+        if self.oauth:
+            _dict['oauth'] = self.oauth.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of saml
+        if self.saml:
+            _dict['saml'] = self.saml.to_dict()
         return _dict
 
     @classmethod
@@ -88,13 +106,18 @@ class UserServiceIDPInformation(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "oauth": UserServiceIDPOAuthAccessInformation.from_dict(obj["oauth"]) if obj.get("oauth") is not None else None,
-            "ldap": UserServiceIDPLDAPAccessInformation.from_dict(obj["ldap"]) if obj.get("ldap") is not None else None,
-            "saml": UserServiceIDPSAMLAccessInformation.from_dict(obj["saml"]) if obj.get("saml") is not None else None,
             "idpId": obj.get("idpId"),
             "userId": obj.get("userId"),
             "userName": obj.get("userName"),
-            "rawInformation": obj.get("rawInformation")
+            "rawInformation": dict(
+                (_k, UserServiceValue.from_dict(_v))
+                for _k, _v in obj["rawInformation"].items()
+            )
+            if obj.get("rawInformation") is not None
+            else None,
+            "ldap": UserServiceIDPLDAPAccessInformation.from_dict(obj["ldap"]) if obj.get("ldap") is not None else None,
+            "oauth": UserServiceIDPOAuthAccessInformation.from_dict(obj["oauth"]) if obj.get("oauth") is not None else None,
+            "saml": UserServiceIDPSAMLAccessInformation.from_dict(obj["saml"]) if obj.get("saml") is not None else None
         })
         return _obj
 

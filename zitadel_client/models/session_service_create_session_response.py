@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.session_service_challenges import SessionServiceChallenges
 from zitadel_client.models.session_service_details import SessionServiceDetails
 from typing import Optional, Set
@@ -29,9 +29,10 @@ class SessionServiceCreateSessionResponse(BaseModel):
     SessionServiceCreateSessionResponse
     """ # noqa: E501
     details: Optional[SessionServiceDetails] = None
-    session_id: Optional[StrictStr] = Field(default=None, description="\"id of the session\"", alias="sessionId")
-    session_token: Optional[StrictStr] = Field(default=None, description="\"The current token of the session, which is required for delete session, get session or the request of other resources.\"", alias="sessionToken")
+    session_id: Optional[StrictStr] = Field(default=None, alias="sessionId")
+    session_token: Optional[StrictStr] = Field(default=None, alias="sessionToken")
     challenges: Optional[SessionServiceChallenges] = None
+    __properties: ClassVar[List[str]] = ["details", "sessionId", "sessionToken", "challenges"]
 
     model_config = ConfigDict(
         populate_by_name=True,

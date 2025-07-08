@@ -18,8 +18,9 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBytes, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional, Union
+from typing import Any, ClassVar, Dict, Optional, Union
 from zitadel_client.models.user_service_details import UserServiceDetails
+from zitadel_client.models.user_service_form_data import UserServiceFormData
 from zitadel_client.models.user_service_idp_intent import UserServiceIDPIntent
 from typing import Optional, Set
 from typing_extensions import Self
@@ -29,9 +30,11 @@ class UserServiceStartIdentityProviderIntentResponse(BaseModel):
     UserServiceStartIdentityProviderIntentResponse
     """ # noqa: E501
     details: Optional[UserServiceDetails] = None
-    auth_url: Optional[StrictStr] = Field(default=None, description="URL to which the client should redirect", alias="authUrl")
+    auth_url: Optional[StrictStr] = Field(default=None, alias="authUrl")
+    form_data: Optional[UserServiceFormData] = Field(default=None, alias="formData")
     idp_intent: Optional[UserServiceIDPIntent] = Field(default=None, alias="idpIntent")
-    post_form: Optional[Union[StrictBytes, StrictStr]] = Field(default=None, description="POST call information", alias="postForm")
+    post_form: Optional[Union[StrictBytes, StrictStr]] = Field(default=None, description="POST call information  Deprecated: Use form_data instead", alias="postForm")
+    __properties: ClassVar[List[str]] = ["details", "authUrl", "formData", "idpIntent", "postForm"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -72,6 +75,15 @@ class UserServiceStartIdentityProviderIntentResponse(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of details
+        if self.details:
+            _dict['details'] = self.details.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of form_data
+        if self.form_data:
+            _dict['formData'] = self.form_data.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of idp_intent
+        if self.idp_intent:
+            _dict['idpIntent'] = self.idp_intent.to_dict()
         return _dict
 
     @classmethod
@@ -86,6 +98,7 @@ class UserServiceStartIdentityProviderIntentResponse(BaseModel):
         _obj = cls.model_validate({
             "details": UserServiceDetails.from_dict(obj["details"]) if obj.get("details") is not None else None,
             "authUrl": obj.get("authUrl"),
+            "formData": UserServiceFormData.from_dict(obj["formData"]) if obj.get("formData") is not None else None,
             "idpIntent": UserServiceIDPIntent.from_dict(obj["idpIntent"]) if obj.get("idpIntent") is not None else None,
             "postForm": obj.get("postForm")
         })

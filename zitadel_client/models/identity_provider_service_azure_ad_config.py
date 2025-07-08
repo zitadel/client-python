@@ -27,10 +27,11 @@ class IdentityProviderServiceAzureADConfig(BaseModel):
     """
     IdentityProviderServiceAzureADConfig
     """ # noqa: E501
-    client_id: Optional[StrictStr] = Field(default=None, alias="clientId")
+    client_id: Optional[StrictStr] = Field(default=None, description="Client id of the Azure AD application", alias="clientId")
     tenant: Optional[IdentityProviderServiceAzureADTenant] = None
-    email_verified: Optional[StrictBool] = Field(default=None, description="Azure AD doesn't send if the email has been verified. Enable this if the user email should always be added verified in ZITADEL (no verification emails will be sent).", alias="emailVerified")
+    email_verified: Optional[StrictBool] = Field(default=None, description="Azure AD doesn't send if the email has been verified. Enable this if the  user email should always be added verified in ZITADEL (no verification  emails will be sent).", alias="emailVerified")
     scopes: Optional[List[StrictStr]] = Field(default=None, description="The scopes requested by ZITADEL during the request to Azure AD.")
+    __properties: ClassVar[List[str]] = ["clientId", "tenant", "emailVerified", "scopes"]
 
     model_config = ConfigDict(
         populate_by_name=True,

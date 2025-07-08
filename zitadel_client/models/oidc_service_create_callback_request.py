@@ -17,8 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict
-from typing import Any, ClassVar, Dict, List, Optional
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.oidc_service_authorization_error import OIDCServiceAuthorizationError
 from zitadel_client.models.oidc_service_session import OIDCServiceSession
 from typing import Optional, Set
@@ -28,8 +28,10 @@ class OIDCServiceCreateCallbackRequest(BaseModel):
     """
     OIDCServiceCreateCallbackRequest
     """ # noqa: E501
-    session: Optional[OIDCServiceSession] = None
+    auth_request_id: Optional[StrictStr] = Field(default=None, alias="authRequestId")
     error: Optional[OIDCServiceAuthorizationError] = None
+    session: Optional[OIDCServiceSession] = None
+    __properties: ClassVar[List[str]] = ["authRequestId", "error", "session"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -70,6 +72,12 @@ class OIDCServiceCreateCallbackRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of error
+        if self.error:
+            _dict['error'] = self.error.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of session
+        if self.session:
+            _dict['session'] = self.session.to_dict()
         return _dict
 
     @classmethod
@@ -82,8 +90,9 @@ class OIDCServiceCreateCallbackRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "session": OIDCServiceSession.from_dict(obj["session"]) if obj.get("session") is not None else None,
-            "error": OIDCServiceAuthorizationError.from_dict(obj["error"]) if obj.get("error") is not None else None
+            "authRequestId": obj.get("authRequestId"),
+            "error": OIDCServiceAuthorizationError.from_dict(obj["error"]) if obj.get("error") is not None else None,
+            "session": OIDCServiceSession.from_dict(obj["session"]) if obj.get("session") is not None else None
         })
         return _obj
 

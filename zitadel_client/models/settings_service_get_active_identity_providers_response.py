@@ -30,6 +30,7 @@ class SettingsServiceGetActiveIdentityProvidersResponse(BaseModel):
     """ # noqa: E501
     details: Optional[SettingsServiceListDetails] = None
     identity_providers: Optional[List[SettingsServiceIdentityProvider]] = Field(default=None, alias="identityProviders")
+    __properties: ClassVar[List[str]] = ["details", "identityProviders"]
 
     model_config = ConfigDict(
         populate_by_name=True,

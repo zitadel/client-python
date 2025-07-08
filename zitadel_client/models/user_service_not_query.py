@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,6 +27,7 @@ class UserServiceNotQuery(BaseModel):
     Negate the sub-condition.
     """ # noqa: E501
     query: Optional[UserServiceSearchQuery] = None
+    __properties: ClassVar[List[str]] = ["query"]
 
     model_config = ConfigDict(
         populate_by_name=True,

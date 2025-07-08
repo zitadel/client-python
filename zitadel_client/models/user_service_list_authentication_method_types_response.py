@@ -30,6 +30,7 @@ class UserServiceListAuthenticationMethodTypesResponse(BaseModel):
     """ # noqa: E501
     details: Optional[UserServiceListDetails] = None
     auth_method_types: Optional[List[UserServiceAuthenticationMethodType]] = Field(default=None, alias="authMethodTypes")
+    __properties: ClassVar[List[str]] = ["details", "authMethodTypes"]
 
     model_config = ConfigDict(
         populate_by_name=True,

@@ -16,18 +16,29 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import StrictBool, StrictStr
-from typing import Optional
+from typing import Any, Dict
+from zitadel_client.models.settings_service_get_active_identity_providers_request import SettingsServiceGetActiveIdentityProvidersRequest
 from zitadel_client.models.settings_service_get_active_identity_providers_response import SettingsServiceGetActiveIdentityProvidersResponse
+from zitadel_client.models.settings_service_get_branding_settings_request import SettingsServiceGetBrandingSettingsRequest
 from zitadel_client.models.settings_service_get_branding_settings_response import SettingsServiceGetBrandingSettingsResponse
+from zitadel_client.models.settings_service_get_domain_settings_request import SettingsServiceGetDomainSettingsRequest
 from zitadel_client.models.settings_service_get_domain_settings_response import SettingsServiceGetDomainSettingsResponse
 from zitadel_client.models.settings_service_get_general_settings_response import SettingsServiceGetGeneralSettingsResponse
+from zitadel_client.models.settings_service_get_hosted_login_translation_request import SettingsServiceGetHostedLoginTranslationRequest
+from zitadel_client.models.settings_service_get_hosted_login_translation_response import SettingsServiceGetHostedLoginTranslationResponse
+from zitadel_client.models.settings_service_get_legal_and_support_settings_request import SettingsServiceGetLegalAndSupportSettingsRequest
 from zitadel_client.models.settings_service_get_legal_and_support_settings_response import SettingsServiceGetLegalAndSupportSettingsResponse
+from zitadel_client.models.settings_service_get_lockout_settings_request import SettingsServiceGetLockoutSettingsRequest
 from zitadel_client.models.settings_service_get_lockout_settings_response import SettingsServiceGetLockoutSettingsResponse
+from zitadel_client.models.settings_service_get_login_settings_request import SettingsServiceGetLoginSettingsRequest
 from zitadel_client.models.settings_service_get_login_settings_response import SettingsServiceGetLoginSettingsResponse
+from zitadel_client.models.settings_service_get_password_complexity_settings_request import SettingsServiceGetPasswordComplexitySettingsRequest
 from zitadel_client.models.settings_service_get_password_complexity_settings_response import SettingsServiceGetPasswordComplexitySettingsResponse
+from zitadel_client.models.settings_service_get_password_expiry_settings_request import SettingsServiceGetPasswordExpirySettingsRequest
 from zitadel_client.models.settings_service_get_password_expiry_settings_response import SettingsServiceGetPasswordExpirySettingsResponse
 from zitadel_client.models.settings_service_get_security_settings_response import SettingsServiceGetSecuritySettingsResponse
+from zitadel_client.models.settings_service_set_hosted_login_translation_request import SettingsServiceSetHostedLoginTranslationRequest
+from zitadel_client.models.settings_service_set_hosted_login_translation_response import SettingsServiceSetHostedLoginTranslationResponse
 from zitadel_client.models.settings_service_set_security_settings_request import SettingsServiceSetSecuritySettingsRequest
 from zitadel_client.models.settings_service_set_security_settings_response import SettingsServiceSetSecuritySettingsResponse
 
@@ -50,56 +61,49 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_get_active_identity_providers(
-    self,
-      ctx_org_id: Optional[StrictStr] = None,
-      ctx_instance: Optional[StrictBool] = None,
-      creation_allowed: Optional[StrictBool] = None,
-      linking_allowed: Optional[StrictBool] = None,
-      auto_creation: Optional[StrictBool] = None,
-      auto_linking: Optional[StrictBool] = None,
-    ) -> SettingsServiceGetActiveIdentityProvidersResponse:
-        """Get the current active identity providers
+    def get_active_identity_providers(        self,                settings_service_get_active_identity_providers_request: SettingsServiceGetActiveIdentityProvidersRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SettingsServiceGetActiveIdentityProvidersResponse:
+        """GetActiveIdentityProviders
 
-        Return the current active identity providers for the requested context
+        Get the current active identity providers
 
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
-        :param creation_allowed:
-        :type creation_allowed: bool
-        :param linking_allowed:
-        :type linking_allowed: bool
-        :param auto_creation:
-        :type auto_creation: bool
-        :param auto_linking:
-        :type auto_linking: bool
+        :param settings_service_get_active_identity_providers_request: (required)
+        :type settings_service_get_active_identity_providers_request: SettingsServiceGetActiveIdentityProvidersRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self.__settings_service_get_active_identity_providers_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
-            creation_allowed=creation_allowed,
-            linking_allowed=linking_allowed,
-            auto_creation=auto_creation,
-            auto_linking=auto_linking,
-            _request_auth=None,
-            _content_type=None,
-            _headers=None,
-            _host_index=0
+        _param = self._get_active_identity_providers_serialize(
+            settings_service_get_active_identity_providers_request=settings_service_get_active_identity_providers_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SettingsServiceGetActiveIdentityProvidersResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
         }
-
         response_data = self.api_client.call_api(
             *_param,
-            _request_timeout=None
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
@@ -107,14 +111,9 @@ class SettingsServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-    def __settings_service_get_active_identity_providers_serialize(
+    def _get_active_identity_providers_serialize(
         self,
-        ctx_org_id,
-        ctx_instance,
-        creation_allowed,
-        linking_allowed,
-        auto_creation,
-        auto_linking,
+        settings_service_get_active_identity_providers_request,
         _request_auth,
         _content_type,
         _headers,
@@ -137,33 +136,11 @@ class SettingsServiceApi:
 
         # process the path parameters
         # process the query parameters
-        if ctx_org_id is not None:
-            
-            _query_params.append(('ctx.orgId', ctx_org_id))
-            
-        if ctx_instance is not None:
-            
-            _query_params.append(('ctx.instance', ctx_instance))
-            
-        if creation_allowed is not None:
-            
-            _query_params.append(('creationAllowed', creation_allowed))
-            
-        if linking_allowed is not None:
-            
-            _query_params.append(('linkingAllowed', linking_allowed))
-            
-        if auto_creation is not None:
-            
-            _query_params.append(('autoCreation', auto_creation))
-            
-        if auto_linking is not None:
-            
-            _query_params.append(('autoLinking', auto_linking))
-            
         # process the header parameters
         # process the form parameters
         # process the body parameter
+        if settings_service_get_active_identity_providers_request is not None:
+            _body_params = settings_service_get_active_identity_providers_request
 
 
         # set the HTTP header `Accept`
@@ -174,6 +151,19 @@ class SettingsServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -181,8 +171,8 @@ class SettingsServiceApi:
         ]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/v2/settings/login/idps',
+            method='POST',
+            resource_path='/zitadel.settings.v2.SettingsService/GetActiveIdentityProviders',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -199,40 +189,49 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_get_branding_settings(
-    self,
-      ctx_org_id: Optional[StrictStr] = None,
-      ctx_instance: Optional[StrictBool] = None,
-    ) -> SettingsServiceGetBrandingSettingsResponse:
-        """Get the current active branding settings
+    def get_branding_settings(        self,                settings_service_get_branding_settings_request: SettingsServiceGetBrandingSettingsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SettingsServiceGetBrandingSettingsResponse:
+        """GetBrandingSettings
 
-        Return the current active branding settings for the requested context
+        Get the current active branding settings
 
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
+        :param settings_service_get_branding_settings_request: (required)
+        :type settings_service_get_branding_settings_request: SettingsServiceGetBrandingSettingsRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self.__settings_service_get_branding_settings_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
-            _request_auth=None,
-            _content_type=None,
-            _headers=None,
-            _host_index=0
+        _param = self._get_branding_settings_serialize(
+            settings_service_get_branding_settings_request=settings_service_get_branding_settings_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SettingsServiceGetBrandingSettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
         }
-
         response_data = self.api_client.call_api(
             *_param,
-            _request_timeout=None
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
@@ -240,10 +239,9 @@ class SettingsServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-    def __settings_service_get_branding_settings_serialize(
+    def _get_branding_settings_serialize(
         self,
-        ctx_org_id,
-        ctx_instance,
+        settings_service_get_branding_settings_request,
         _request_auth,
         _content_type,
         _headers,
@@ -266,17 +264,11 @@ class SettingsServiceApi:
 
         # process the path parameters
         # process the query parameters
-        if ctx_org_id is not None:
-            
-            _query_params.append(('ctx.orgId', ctx_org_id))
-            
-        if ctx_instance is not None:
-            
-            _query_params.append(('ctx.instance', ctx_instance))
-            
         # process the header parameters
         # process the form parameters
         # process the body parameter
+        if settings_service_get_branding_settings_request is not None:
+            _body_params = settings_service_get_branding_settings_request
 
 
         # set the HTTP header `Accept`
@@ -287,6 +279,19 @@ class SettingsServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -294,8 +299,8 @@ class SettingsServiceApi:
         ]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/v2/settings/branding',
+            method='POST',
+            resource_path='/zitadel.settings.v2.SettingsService/GetBrandingSettings',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -312,40 +317,49 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_get_domain_settings(
-    self,
-      ctx_org_id: Optional[StrictStr] = None,
-      ctx_instance: Optional[StrictBool] = None,
-    ) -> SettingsServiceGetDomainSettingsResponse:
-        """Get the domain settings
+    def get_domain_settings(        self,                settings_service_get_domain_settings_request: SettingsServiceGetDomainSettingsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SettingsServiceGetDomainSettingsResponse:
+        """GetDomainSettings
 
-        Return the domain settings for the requested context
+        Get the domain settings
 
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
+        :param settings_service_get_domain_settings_request: (required)
+        :type settings_service_get_domain_settings_request: SettingsServiceGetDomainSettingsRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self.__settings_service_get_domain_settings_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
-            _request_auth=None,
-            _content_type=None,
-            _headers=None,
-            _host_index=0
+        _param = self._get_domain_settings_serialize(
+            settings_service_get_domain_settings_request=settings_service_get_domain_settings_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SettingsServiceGetDomainSettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
         }
-
         response_data = self.api_client.call_api(
             *_param,
-            _request_timeout=None
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
@@ -353,10 +367,9 @@ class SettingsServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-    def __settings_service_get_domain_settings_serialize(
+    def _get_domain_settings_serialize(
         self,
-        ctx_org_id,
-        ctx_instance,
+        settings_service_get_domain_settings_request,
         _request_auth,
         _content_type,
         _headers,
@@ -379,17 +392,11 @@ class SettingsServiceApi:
 
         # process the path parameters
         # process the query parameters
-        if ctx_org_id is not None:
-            
-            _query_params.append(('ctx.orgId', ctx_org_id))
-            
-        if ctx_instance is not None:
-            
-            _query_params.append(('ctx.instance', ctx_instance))
-            
         # process the header parameters
         # process the form parameters
         # process the body parameter
+        if settings_service_get_domain_settings_request is not None:
+            _body_params = settings_service_get_domain_settings_request
 
 
         # set the HTTP header `Accept`
@@ -400,6 +407,19 @@ class SettingsServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -407,8 +427,8 @@ class SettingsServiceApi:
         ]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/v2/settings/domain',
+            method='POST',
+            resource_path='/zitadel.settings.v2.SettingsService/GetDomainSettings',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -425,32 +445,51 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_get_general_settings(
-    self,
-    ) -> SettingsServiceGetGeneralSettingsResponse:
-        """Get basic information over the instance
+    def get_general_settings(        self,                body: Optional[Dict[str, Any]] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SettingsServiceGetGeneralSettingsResponse:
+        if body is None:
+            body = {}
+        """GetGeneralSettings
 
-        Return the basic information of the instance for the requested context
+        Get basic information over the instance
 
+        :param body: (required)
+        :type body: object
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self.__settings_service_get_general_settings_serialize(
-            _request_auth=None,
-            _content_type=None,
-            _headers=None,
-            _host_index=0
+        _param = self._get_general_settings_serialize(
+            body=body,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SettingsServiceGetGeneralSettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
         }
-
         response_data = self.api_client.call_api(
             *_param,
-            _request_timeout=None
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
@@ -458,8 +497,9 @@ class SettingsServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-    def __settings_service_get_general_settings_serialize(
+    def _get_general_settings_serialize(
         self,
+        body,
         _request_auth,
         _content_type,
         _headers,
@@ -485,6 +525,8 @@ class SettingsServiceApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+        if body is not None:
+            _body_params = body
 
 
         # set the HTTP header `Accept`
@@ -495,6 +537,19 @@ class SettingsServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -502,8 +557,8 @@ class SettingsServiceApi:
         ]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/v2/settings',
+            method='POST',
+            resource_path='/zitadel.settings.v2.SettingsService/GetGeneralSettings',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -520,40 +575,177 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_get_legal_and_support_settings(
-    self,
-      ctx_org_id: Optional[StrictStr] = None,
-      ctx_instance: Optional[StrictBool] = None,
-    ) -> SettingsServiceGetLegalAndSupportSettingsResponse:
-        """Get the legal and support settings
+    def get_hosted_login_translation(        self,                settings_service_get_hosted_login_translation_request: SettingsServiceGetHostedLoginTranslationRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SettingsServiceGetHostedLoginTranslationResponse:
+        """GetHostedLoginTranslation
 
-        Return the legal settings for the requested context
+        Get Hosted Login Translation   Returns the translations in the requested locale for the hosted login.  The translations returned are based on the input level specified (system, instance or organization).   If the requested level doesn't contain all translations, and ignore_inheritance is set to false,  a merging process fallbacks onto the higher levels ensuring all keys in the file have a translation,  which could be in the default language if the one of the locale is missing on all levels.   The etag returned in the response represents the hash of the translations as they are stored on DB  and its reliable only if ignore_inheritance = true.   Required permissions:    - `iam.policy.read`
 
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
+        :param settings_service_get_hosted_login_translation_request: (required)
+        :type settings_service_get_hosted_login_translation_request: SettingsServiceGetHostedLoginTranslationRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self.__settings_service_get_legal_and_support_settings_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
-            _request_auth=None,
-            _content_type=None,
-            _headers=None,
-            _host_index=0
+        _param = self._get_hosted_login_translation_serialize(
+            settings_service_get_hosted_login_translation_request=settings_service_get_hosted_login_translation_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "SettingsServiceGetHostedLoginTranslationResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+    def _get_hosted_login_translation_serialize(
+        self,
+        settings_service_get_hosted_login_translation_request,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if settings_service_get_hosted_login_translation_request is not None:
+            _body_params = settings_service_get_hosted_login_translation_request
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'zitadelAccessToken'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/zitadel.settings.v2.SettingsService/GetHostedLoginTranslation',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def get_legal_and_support_settings(        self,                settings_service_get_legal_and_support_settings_request: SettingsServiceGetLegalAndSupportSettingsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SettingsServiceGetLegalAndSupportSettingsResponse:
+        """GetLegalAndSupportSettings
+
+        Get the legal and support settings
+
+        :param settings_service_get_legal_and_support_settings_request: (required)
+        :type settings_service_get_legal_and_support_settings_request: SettingsServiceGetLegalAndSupportSettingsRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_legal_and_support_settings_serialize(
+            settings_service_get_legal_and_support_settings_request=settings_service_get_legal_and_support_settings_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SettingsServiceGetLegalAndSupportSettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
         }
-
         response_data = self.api_client.call_api(
             *_param,
-            _request_timeout=None
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
@@ -561,10 +753,9 @@ class SettingsServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-    def __settings_service_get_legal_and_support_settings_serialize(
+    def _get_legal_and_support_settings_serialize(
         self,
-        ctx_org_id,
-        ctx_instance,
+        settings_service_get_legal_and_support_settings_request,
         _request_auth,
         _content_type,
         _headers,
@@ -587,17 +778,11 @@ class SettingsServiceApi:
 
         # process the path parameters
         # process the query parameters
-        if ctx_org_id is not None:
-            
-            _query_params.append(('ctx.orgId', ctx_org_id))
-            
-        if ctx_instance is not None:
-            
-            _query_params.append(('ctx.instance', ctx_instance))
-            
         # process the header parameters
         # process the form parameters
         # process the body parameter
+        if settings_service_get_legal_and_support_settings_request is not None:
+            _body_params = settings_service_get_legal_and_support_settings_request
 
 
         # set the HTTP header `Accept`
@@ -608,6 +793,19 @@ class SettingsServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -615,8 +813,8 @@ class SettingsServiceApi:
         ]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/v2/settings/legal_support',
+            method='POST',
+            resource_path='/zitadel.settings.v2.SettingsService/GetLegalAndSupportSettings',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -633,40 +831,49 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_get_lockout_settings(
-    self,
-      ctx_org_id: Optional[StrictStr] = None,
-      ctx_instance: Optional[StrictBool] = None,
-    ) -> SettingsServiceGetLockoutSettingsResponse:
-        """Get the lockout settings
+    def get_lockout_settings(        self,                settings_service_get_lockout_settings_request: SettingsServiceGetLockoutSettingsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SettingsServiceGetLockoutSettingsResponse:
+        """GetLockoutSettings
 
-        Return the lockout settings for the requested context, which define when a user will be locked
+        Get the lockout settings
 
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
+        :param settings_service_get_lockout_settings_request: (required)
+        :type settings_service_get_lockout_settings_request: SettingsServiceGetLockoutSettingsRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self.__settings_service_get_lockout_settings_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
-            _request_auth=None,
-            _content_type=None,
-            _headers=None,
-            _host_index=0
+        _param = self._get_lockout_settings_serialize(
+            settings_service_get_lockout_settings_request=settings_service_get_lockout_settings_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SettingsServiceGetLockoutSettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
         }
-
         response_data = self.api_client.call_api(
             *_param,
-            _request_timeout=None
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
@@ -674,10 +881,9 @@ class SettingsServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-    def __settings_service_get_lockout_settings_serialize(
+    def _get_lockout_settings_serialize(
         self,
-        ctx_org_id,
-        ctx_instance,
+        settings_service_get_lockout_settings_request,
         _request_auth,
         _content_type,
         _headers,
@@ -700,17 +906,11 @@ class SettingsServiceApi:
 
         # process the path parameters
         # process the query parameters
-        if ctx_org_id is not None:
-            
-            _query_params.append(('ctx.orgId', ctx_org_id))
-            
-        if ctx_instance is not None:
-            
-            _query_params.append(('ctx.instance', ctx_instance))
-            
         # process the header parameters
         # process the form parameters
         # process the body parameter
+        if settings_service_get_lockout_settings_request is not None:
+            _body_params = settings_service_get_lockout_settings_request
 
 
         # set the HTTP header `Accept`
@@ -721,6 +921,19 @@ class SettingsServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -728,8 +941,8 @@ class SettingsServiceApi:
         ]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/v2/settings/lockout',
+            method='POST',
+            resource_path='/zitadel.settings.v2.SettingsService/GetLockoutSettings',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -746,40 +959,49 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_get_login_settings(
-    self,
-      ctx_org_id: Optional[StrictStr] = None,
-      ctx_instance: Optional[StrictBool] = None,
-    ) -> SettingsServiceGetLoginSettingsResponse:
-        """Get the login settings
+    def get_login_settings(        self,                settings_service_get_login_settings_request: SettingsServiceGetLoginSettingsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SettingsServiceGetLoginSettingsResponse:
+        """GetLoginSettings
 
-        Return the settings for the requested context
+        Get the login settings
 
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
+        :param settings_service_get_login_settings_request: (required)
+        :type settings_service_get_login_settings_request: SettingsServiceGetLoginSettingsRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self.__settings_service_get_login_settings_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
-            _request_auth=None,
-            _content_type=None,
-            _headers=None,
-            _host_index=0
+        _param = self._get_login_settings_serialize(
+            settings_service_get_login_settings_request=settings_service_get_login_settings_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SettingsServiceGetLoginSettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
         }
-
         response_data = self.api_client.call_api(
             *_param,
-            _request_timeout=None
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
@@ -787,10 +1009,9 @@ class SettingsServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-    def __settings_service_get_login_settings_serialize(
+    def _get_login_settings_serialize(
         self,
-        ctx_org_id,
-        ctx_instance,
+        settings_service_get_login_settings_request,
         _request_auth,
         _content_type,
         _headers,
@@ -813,17 +1034,11 @@ class SettingsServiceApi:
 
         # process the path parameters
         # process the query parameters
-        if ctx_org_id is not None:
-            
-            _query_params.append(('ctx.orgId', ctx_org_id))
-            
-        if ctx_instance is not None:
-            
-            _query_params.append(('ctx.instance', ctx_instance))
-            
         # process the header parameters
         # process the form parameters
         # process the body parameter
+        if settings_service_get_login_settings_request is not None:
+            _body_params = settings_service_get_login_settings_request
 
 
         # set the HTTP header `Accept`
@@ -834,6 +1049,19 @@ class SettingsServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -841,8 +1069,8 @@ class SettingsServiceApi:
         ]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/v2/settings/login',
+            method='POST',
+            resource_path='/zitadel.settings.v2.SettingsService/GetLoginSettings',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -859,40 +1087,49 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_get_password_complexity_settings(
-    self,
-      ctx_org_id: Optional[StrictStr] = None,
-      ctx_instance: Optional[StrictBool] = None,
-    ) -> SettingsServiceGetPasswordComplexitySettingsResponse:
-        """Get the password complexity settings
+    def get_password_complexity_settings(        self,                settings_service_get_password_complexity_settings_request: SettingsServiceGetPasswordComplexitySettingsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SettingsServiceGetPasswordComplexitySettingsResponse:
+        """GetPasswordComplexitySettings
 
-        Return the password complexity settings for the requested context
+        Get the password complexity settings
 
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
+        :param settings_service_get_password_complexity_settings_request: (required)
+        :type settings_service_get_password_complexity_settings_request: SettingsServiceGetPasswordComplexitySettingsRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self.__settings_service_get_password_complexity_settings_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
-            _request_auth=None,
-            _content_type=None,
-            _headers=None,
-            _host_index=0
+        _param = self._get_password_complexity_settings_serialize(
+            settings_service_get_password_complexity_settings_request=settings_service_get_password_complexity_settings_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SettingsServiceGetPasswordComplexitySettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
         }
-
         response_data = self.api_client.call_api(
             *_param,
-            _request_timeout=None
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
@@ -900,10 +1137,9 @@ class SettingsServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-    def __settings_service_get_password_complexity_settings_serialize(
+    def _get_password_complexity_settings_serialize(
         self,
-        ctx_org_id,
-        ctx_instance,
+        settings_service_get_password_complexity_settings_request,
         _request_auth,
         _content_type,
         _headers,
@@ -926,17 +1162,11 @@ class SettingsServiceApi:
 
         # process the path parameters
         # process the query parameters
-        if ctx_org_id is not None:
-            
-            _query_params.append(('ctx.orgId', ctx_org_id))
-            
-        if ctx_instance is not None:
-            
-            _query_params.append(('ctx.instance', ctx_instance))
-            
         # process the header parameters
         # process the form parameters
         # process the body parameter
+        if settings_service_get_password_complexity_settings_request is not None:
+            _body_params = settings_service_get_password_complexity_settings_request
 
 
         # set the HTTP header `Accept`
@@ -947,6 +1177,19 @@ class SettingsServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -954,8 +1197,8 @@ class SettingsServiceApi:
         ]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/v2/settings/password/complexity',
+            method='POST',
+            resource_path='/zitadel.settings.v2.SettingsService/GetPasswordComplexitySettings',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -972,40 +1215,49 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_get_password_expiry_settings(
-    self,
-      ctx_org_id: Optional[StrictStr] = None,
-      ctx_instance: Optional[StrictBool] = None,
-    ) -> SettingsServiceGetPasswordExpirySettingsResponse:
-        """Get the password expiry settings
+    def get_password_expiry_settings(        self,                settings_service_get_password_expiry_settings_request: SettingsServiceGetPasswordExpirySettingsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SettingsServiceGetPasswordExpirySettingsResponse:
+        """GetPasswordExpirySettings
 
-        Return the password expiry settings for the requested context
+        Get the password expiry settings
 
-        :param ctx_org_id:
-        :type ctx_org_id: str
-        :param ctx_instance:
-        :type ctx_instance: bool
+        :param settings_service_get_password_expiry_settings_request: (required)
+        :type settings_service_get_password_expiry_settings_request: SettingsServiceGetPasswordExpirySettingsRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self.__settings_service_get_password_expiry_settings_serialize(
-            ctx_org_id=ctx_org_id,
-            ctx_instance=ctx_instance,
-            _request_auth=None,
-            _content_type=None,
-            _headers=None,
-            _host_index=0
+        _param = self._get_password_expiry_settings_serialize(
+            settings_service_get_password_expiry_settings_request=settings_service_get_password_expiry_settings_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SettingsServiceGetPasswordExpirySettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
         }
-
         response_data = self.api_client.call_api(
             *_param,
-            _request_timeout=None
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
@@ -1013,10 +1265,9 @@ class SettingsServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-    def __settings_service_get_password_expiry_settings_serialize(
+    def _get_password_expiry_settings_serialize(
         self,
-        ctx_org_id,
-        ctx_instance,
+        settings_service_get_password_expiry_settings_request,
         _request_auth,
         _content_type,
         _headers,
@@ -1039,17 +1290,11 @@ class SettingsServiceApi:
 
         # process the path parameters
         # process the query parameters
-        if ctx_org_id is not None:
-            
-            _query_params.append(('ctx.orgId', ctx_org_id))
-            
-        if ctx_instance is not None:
-            
-            _query_params.append(('ctx.instance', ctx_instance))
-            
         # process the header parameters
         # process the form parameters
         # process the body parameter
+        if settings_service_get_password_expiry_settings_request is not None:
+            _body_params = settings_service_get_password_expiry_settings_request
 
 
         # set the HTTP header `Accept`
@@ -1060,6 +1305,19 @@ class SettingsServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -1067,8 +1325,8 @@ class SettingsServiceApi:
         ]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/v2/settings/password/expiry',
+            method='POST',
+            resource_path='/zitadel.settings.v2.SettingsService/GetPasswordExpirySettings',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -1085,32 +1343,51 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_get_security_settings(
-    self,
-    ) -> SettingsServiceGetSecuritySettingsResponse:
-        """Get Security Settings
+    def get_security_settings(        self,                body: Optional[Dict[str, Any]] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SettingsServiceGetSecuritySettingsResponse:
+        if body is None:
+            body = {}
+        """GetSecuritySettings
 
-        Returns the security settings of the ZITADEL instance.
+        Get the security settings
 
+        :param body: (required)
+        :type body: object
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self.__settings_service_get_security_settings_serialize(
-            _request_auth=None,
-            _content_type=None,
-            _headers=None,
-            _host_index=0
+        _param = self._get_security_settings_serialize(
+            body=body,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SettingsServiceGetSecuritySettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
         }
-
         response_data = self.api_client.call_api(
             *_param,
-            _request_timeout=None
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
@@ -1118,8 +1395,9 @@ class SettingsServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-    def __settings_service_get_security_settings_serialize(
+    def _get_security_settings_serialize(
         self,
+        body,
         _request_auth,
         _content_type,
         _headers,
@@ -1145,6 +1423,8 @@ class SettingsServiceApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+        if body is not None:
+            _body_params = body
 
 
         # set the HTTP header `Accept`
@@ -1155,6 +1435,19 @@ class SettingsServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -1162,8 +1455,8 @@ class SettingsServiceApi:
         ]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/v2/settings/security',
+            method='POST',
+            resource_path='/zitadel.settings.v2.SettingsService/GetSecuritySettings',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -1180,36 +1473,49 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def settings_service_set_security_settings(
-    self,
-      settings_service_set_security_settings_request: SettingsServiceSetSecuritySettingsRequest,
-    ) -> SettingsServiceSetSecuritySettingsResponse:
-        """Set Security Settings
+    def set_hosted_login_translation(        self,                settings_service_set_hosted_login_translation_request: SettingsServiceSetHostedLoginTranslationRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SettingsServiceSetHostedLoginTranslationResponse:
+        """SetHostedLoginTranslation
 
-        Set the security settings of the ZITADEL instance.
+        Set Hosted Login Translation   Sets the input translations at the specified level (instance or organization) for the input language.   Required permissions:    - `iam.policy.write`
 
-        :param settings_service_set_security_settings_request: (required)
-        :type settings_service_set_security_settings_request: SettingsServiceSetSecuritySettingsRequest
+        :param settings_service_set_hosted_login_translation_request: (required)
+        :type settings_service_set_hosted_login_translation_request: SettingsServiceSetHostedLoginTranslationRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self.__settings_service_set_security_settings_serialize(
-            settings_service_set_security_settings_request=settings_service_set_security_settings_request,
-            _request_auth=None,
-            _content_type=None,
-            _headers=None,
-            _host_index=0
+        _param = self._set_hosted_login_translation_serialize(
+            settings_service_set_hosted_login_translation_request=settings_service_set_hosted_login_translation_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "SettingsServiceSetSecuritySettingsResponse",
-            '403': "SettingsServiceRpcStatus",
-            '404': "SettingsServiceRpcStatus",
+            '200': "SettingsServiceSetHostedLoginTranslationResponse",
         }
-
         response_data = self.api_client.call_api(
             *_param,
-            _request_timeout=None
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
@@ -1217,7 +1523,135 @@ class SettingsServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-    def __settings_service_set_security_settings_serialize(
+    def _set_hosted_login_translation_serialize(
+        self,
+        settings_service_set_hosted_login_translation_request,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if settings_service_set_hosted_login_translation_request is not None:
+            _body_params = settings_service_set_hosted_login_translation_request
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'zitadelAccessToken'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/zitadel.settings.v2.SettingsService/SetHostedLoginTranslation',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def set_security_settings(        self,                settings_service_set_security_settings_request: SettingsServiceSetSecuritySettingsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SettingsServiceSetSecuritySettingsResponse:
+        """SetSecuritySettings
+
+        Set the security settings
+
+        :param settings_service_set_security_settings_request: (required)
+        :type settings_service_set_security_settings_request: SettingsServiceSetSecuritySettingsRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._set_security_settings_serialize(
+            settings_service_set_security_settings_request=settings_service_set_security_settings_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "SettingsServiceSetSecuritySettingsResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+    def _set_security_settings_serialize(
         self,
         settings_service_set_security_settings_request,
         _request_auth,
@@ -1277,8 +1711,8 @@ class SettingsServiceApi:
         ]
 
         return self.api_client.param_serialize(
-            method='PUT',
-            resource_path='/v2/policies/security',
+            method='POST',
+            resource_path='/zitadel.settings.v2.SettingsService/SetSecuritySettings',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

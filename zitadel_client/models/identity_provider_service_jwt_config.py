@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -30,6 +30,7 @@ class IdentityProviderServiceJWTConfig(BaseModel):
     issuer: Optional[StrictStr] = Field(default=None, description="The issuer of the JWT (for validation).")
     keys_endpoint: Optional[StrictStr] = Field(default=None, description="The endpoint to the key (JWK) which is used to sign the JWT with.", alias="keysEndpoint")
     header_name: Optional[StrictStr] = Field(default=None, description="The name of the header where the JWT is sent in, default is authorization.", alias="headerName")
+    __properties: ClassVar[List[str]] = ["jwtEndpoint", "issuer", "keysEndpoint", "headerName"]
 
     model_config = ConfigDict(
         populate_by_name=True,

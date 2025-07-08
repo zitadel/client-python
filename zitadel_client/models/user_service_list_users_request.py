@@ -30,8 +30,9 @@ class UserServiceListUsersRequest(BaseModel):
     UserServiceListUsersRequest
     """ # noqa: E501
     query: Optional[UserServiceListQuery] = None
-    sorting_column: Optional[UserServiceUserFieldName] = Field(default=UserServiceUserFieldName.USER_FIELD_NAME_UNSPECIFIED, alias="sortingColumn")
-    queries: Optional[List[UserServiceSearchQuery]] = None
+    sorting_column: Optional[UserServiceUserFieldName] = Field(default=None, alias="sortingColumn")
+    queries: Optional[List[UserServiceSearchQuery]] = Field(default=None, description="criteria the client is looking for")
+    __properties: ClassVar[List[str]] = ["query", "sortingColumn", "queries"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -95,7 +96,7 @@ class UserServiceListUsersRequest(BaseModel):
 
         _obj = cls.model_validate({
             "query": UserServiceListQuery.from_dict(obj["query"]) if obj.get("query") is not None else None,
-            "sortingColumn": obj.get("sortingColumn") if obj.get("sortingColumn") is not None else UserServiceUserFieldName.USER_FIELD_NAME_UNSPECIFIED,
+            "sortingColumn": obj.get("sortingColumn"),
             "queries": [UserServiceSearchQuery.from_dict(_item) for _item in obj["queries"]] if obj.get("queries") is not None else None
         })
         return _obj

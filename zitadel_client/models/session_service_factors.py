@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.session_service_intent_factor import SessionServiceIntentFactor
 from zitadel_client.models.session_service_otp_factor import SessionServiceOTPFactor
 from zitadel_client.models.session_service_password_factor import SessionServicePasswordFactor
@@ -39,6 +39,7 @@ class SessionServiceFactors(BaseModel):
     totp: Optional[SessionServiceTOTPFactor] = None
     otp_sms: Optional[SessionServiceOTPFactor] = Field(default=None, alias="otpSms")
     otp_email: Optional[SessionServiceOTPFactor] = Field(default=None, alias="otpEmail")
+    __properties: ClassVar[List[str]] = ["user", "password", "webAuthN", "intent", "totp", "otpSms", "otpEmail"]
 
     model_config = ConfigDict(
         populate_by_name=True,

@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -28,10 +28,11 @@ class SettingsServiceTheme(BaseModel):
     """ # noqa: E501
     primary_color: Optional[StrictStr] = Field(default=None, description="hex value for primary color", alias="primaryColor")
     background_color: Optional[StrictStr] = Field(default=None, description="hex value for background color", alias="backgroundColor")
-    warn_color: Optional[StrictStr] = Field(default=None, description="hex value for warn color", alias="warnColor")
+    warn_color: Optional[StrictStr] = Field(default=None, description="hex value for warning color", alias="warnColor")
     font_color: Optional[StrictStr] = Field(default=None, description="hex value for font color", alias="fontColor")
-    logo_url: Optional[StrictStr] = Field(default=None, description="url to the logo", alias="logoUrl")
-    icon_url: Optional[StrictStr] = Field(default=None, description="url to the icon", alias="iconUrl")
+    logo_url: Optional[StrictStr] = Field(default=None, description="url where the logo is served", alias="logoUrl")
+    icon_url: Optional[StrictStr] = Field(default=None, description="url where the icon is served", alias="iconUrl")
+    __properties: ClassVar[List[str]] = ["primaryColor", "backgroundColor", "warnColor", "fontColor", "logoUrl", "iconUrl"]
 
     model_config = ConfigDict(
         populate_by_name=True,

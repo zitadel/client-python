@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict
 from zitadel_client.models.user_service_user_state import UserServiceUserState
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,6 +28,7 @@ class UserServiceStateQuery(BaseModel):
     Query for users with a specific state.
     """ # noqa: E501
     state: UserServiceUserState
+    __properties: ClassVar[List[str]] = ["state"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -80,7 +81,7 @@ class UserServiceStateQuery(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "state": obj.get("state") if obj.get("state") is not None else UserServiceUserState.USER_STATE_UNSPECIFIED
+            "state": obj.get("state")
         })
         return _obj
 

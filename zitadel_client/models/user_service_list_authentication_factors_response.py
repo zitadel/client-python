@@ -28,6 +28,7 @@ class UserServiceListAuthenticationFactorsResponse(BaseModel):
     UserServiceListAuthenticationFactorsResponse
     """ # noqa: E501
     result: Optional[List[UserServiceAuthFactor]] = None
+    __properties: ClassVar[List[str]] = ["result"]
 
     model_config = ConfigDict(
         populate_by_name=True,

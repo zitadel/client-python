@@ -18,8 +18,9 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.user_service_details import UserServiceDetails
+from zitadel_client.models.user_service_value import UserServiceValue
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -29,7 +30,8 @@ class UserServiceRegisterPasskeyResponse(BaseModel):
     """ # noqa: E501
     details: Optional[UserServiceDetails] = None
     passkey_id: Optional[StrictStr] = Field(default=None, alias="passkeyId")
-    public_key_credential_creation_options: Optional[Dict[str, Any]] = Field(default=None, description="Options for Credential Creation (dictionary PublicKeyCredentialCreationOptions). Generated helper methods transform the field to JSON, for use in a WebauthN client. See also:  https://www.w3.org/TR/webauthn/#dictdef-publickeycredentialcreationoptions", alias="publicKeyCredentialCreationOptions")
+    public_key_credential_creation_options: Optional[Dict[str, UserServiceValue]] = Field(default=None, description="`Struct` represents a structured data value, consisting of fields  which map to dynamically typed values. In some languages, `Struct`  might be supported by a native representation. For example, in  scripting languages like JS a struct is represented as an  object. The details of that representation are described together  with the proto support for the language.   The JSON representation for `Struct` is JSON object.", alias="publicKeyCredentialCreationOptions")
+    __properties: ClassVar[List[str]] = ["details", "passkeyId", "publicKeyCredentialCreationOptions"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -73,6 +75,13 @@ class UserServiceRegisterPasskeyResponse(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of details
         if self.details:
             _dict['details'] = self.details.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of each value in public_key_credential_creation_options (dict)
+        _field_dict = {}
+        if self.public_key_credential_creation_options:
+            for _key_public_key_credential_creation_options in self.public_key_credential_creation_options:
+                if self.public_key_credential_creation_options[_key_public_key_credential_creation_options]:
+                    _field_dict[_key_public_key_credential_creation_options] = self.public_key_credential_creation_options[_key_public_key_credential_creation_options].to_dict()
+            _dict['publicKeyCredentialCreationOptions'] = _field_dict
         return _dict
 
     @classmethod
@@ -87,7 +96,12 @@ class UserServiceRegisterPasskeyResponse(BaseModel):
         _obj = cls.model_validate({
             "details": UserServiceDetails.from_dict(obj["details"]) if obj.get("details") is not None else None,
             "passkeyId": obj.get("passkeyId"),
-            "publicKeyCredentialCreationOptions": obj.get("publicKeyCredentialCreationOptions")
+            "publicKeyCredentialCreationOptions": dict(
+                (_k, UserServiceValue.from_dict(_v))
+                for _k, _v in obj["publicKeyCredentialCreationOptions"].items()
+            )
+            if obj.get("publicKeyCredentialCreationOptions") is not None
+            else None
         })
         return _obj
 

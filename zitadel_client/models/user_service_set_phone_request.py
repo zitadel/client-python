@@ -17,9 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool
-from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
+from typing import Any, ClassVar, Dict, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,10 +26,12 @@ class UserServiceSetPhoneRequest(BaseModel):
     """
     UserServiceSetPhoneRequest
     """ # noqa: E501
-    phone: Annotated[str, Field(min_length=1, strict=True, max_length=200)]
-    send_code: Optional[Dict[str, Any]] = Field(default=None, alias="sendCode")
-    return_code: Optional[Dict[str, Any]] = Field(default=None, alias="returnCode")
+    user_id: StrictStr = Field(alias="userId")
+    phone: StrictStr
     is_verified: Optional[StrictBool] = Field(default=None, alias="isVerified")
+    return_code: Optional[Dict[str, Any]] = Field(default=None, alias="returnCode")
+    send_code: Optional[Dict[str, Any]] = Field(default=None, alias="sendCode")
+    __properties: ClassVar[List[str]] = ["userId", "phone", "isVerified", "returnCode", "sendCode"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -83,10 +84,11 @@ class UserServiceSetPhoneRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "userId": obj.get("userId"),
             "phone": obj.get("phone"),
-            "sendCode": obj.get("sendCode"),
+            "isVerified": obj.get("isVerified"),
             "returnCode": obj.get("returnCode"),
-            "isVerified": obj.get("isVerified")
+            "sendCode": obj.get("sendCode")
         })
         return _obj
 

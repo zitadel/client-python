@@ -17,9 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,7 +26,8 @@ class SessionServiceUserAgentQuery(BaseModel):
     """
     SessionServiceUserAgentQuery
     """ # noqa: E501
-    fingerprint_id: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="Finger print id of the user agent used for the session. Set an empty fingerprint_id to use the user agent from the call. If the user agent is not available from the current token, an error will be returned.", alias="fingerprintId")
+    fingerprint_id: Optional[StrictStr] = Field(default=None, description="Finger print id of the user agent used for the session.  Set an empty fingerprint_id to use the user agent from the call.  If the user agent is not available from the current token, an error will be returned.", alias="fingerprintId")
+    __properties: ClassVar[List[str]] = ["fingerprintId"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -68,6 +68,11 @@ class SessionServiceUserAgentQuery(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if fingerprint_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.fingerprint_id is None and "fingerprint_id" in self.model_fields_set:
+            _dict['fingerprintId'] = None
+
         return _dict
 
     @classmethod
