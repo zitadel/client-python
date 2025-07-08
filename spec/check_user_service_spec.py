@@ -38,9 +38,7 @@ def user(client: zitadel.Zitadel) -> Generator[UserServiceAddHumanUserResponse, 
     response = client.users.add_human_user(request)
     yield response
     try:
-        client.users.delete_user(UserServiceDeleteUserRequest(
-            userId=response.user_id or ""
-        ))
+        client.users.delete_user(UserServiceDeleteUserRequest(userId=response.user_id or ""))
     except ApiError:
         pass
 
@@ -95,9 +93,11 @@ class TestUserServiceSanityCheckSpec:
             userId=user.user_id, email=UserServiceSetHumanEmail(email=f"updated{uuid.uuid4().hex}@example.com")
         )
         client.users.update_human_user(request)
-        response = client.users.get_user_by_id(UserServiceGetUserByIDRequest(
+        response = client.users.get_user_by_id(
+            UserServiceGetUserByIDRequest(
                 userId=user.user_id or "",
-            ))
+            )
+        )
         assert "updated" in response.user.human.email.email  # type: ignore
 
     def test_raises_api_exception_for_nonexistent_user(
