@@ -12,11 +12,10 @@ from zitadel_client.models import (
     SessionServiceCreateSessionRequest,
     SessionServiceCreateSessionResponse,
     SessionServiceDeleteSessionRequest,
+    SessionServiceGetSessionRequest,
     SessionServiceGetSessionResponse,
     SessionServiceListSessionsRequest,
-    SessionServiceListSessionsResponse,
     SessionServiceSetSessionRequest,
-    SessionServiceSetSessionResponse,
     UserServiceAddHumanUserRequest,
     UserServiceSetHumanEmail,
     UserServiceSetHumanProfile,
@@ -40,19 +39,20 @@ def session(client: zitadel.Zitadel) -> Generator[SessionServiceCreateSessionRes
         profile=UserServiceSetHumanProfile(given_name="John", family_name="Doe"),  # type: ignore[call-arg]
         email=UserServiceSetHumanEmail(email=f"johndoe{uuid.uuid4().hex}@example.com"),
     )
-    client.users.user_service_add_human_user(request1)
+    client.users.add_human_user(request1)
 
     request = SessionServiceCreateSessionRequest(
         checks=SessionServiceChecks(user=SessionServiceCheckUser(loginName=username)),
         lifetime="18000s",
     )
-    response = client.sessions.session_service_create_session(request)
+    response = client.sessions.create_session(request)
     yield response
     # Teardown
-    delete_body = SessionServiceDeleteSessionRequest()
+    delete_body = SessionServiceDeleteSessionRequest(
+        sessionId=response.session_id if response.session_id is not None else "",
+    )
     try:
-        client.sessions.session_service_delete_session(
-            response.session_id if response.session_id is not None else "",
+        client.sessions.delete_session(
             delete_body,
         )
     except ApiError:
@@ -82,9 +82,8 @@ class TestSessionServiceSanityCheckSpec:
         session: SessionServiceCreateSessionResponse,
     ) -> None:
         """Retrieves the session details by ID."""
-        response: SessionServiceGetSessionResponse = client.sessions.session_service_get_session(
-            session.session_id if session.session_id is not None else ""
-        )
+        request = SessionServiceGetSessionRequest(sessionId=session.session_id if session.session_id is not None else "")
+        response: SessionServiceGetSessionResponse = client.sessions.get_session(request)
         assert response.session is not None
         assert response.session.id == session.session_id
 
@@ -95,7 +94,7 @@ class TestSessionServiceSanityCheckSpec:
     ) -> None:
         """Includes the created session when listing all sessions."""
         request = SessionServiceListSessionsRequest(queries=[])
-        response: SessionServiceListSessionsResponse = client.sessions.session_service_list_sessions(request)
+        response = client.sessions.list_sessions(request)
         assert response.sessions is not None
         assert session.session_id in [session.id for session in response.sessions]
 
@@ -105,11 +104,10 @@ class TestSessionServiceSanityCheckSpec:
         session: SessionServiceCreateSessionResponse,
     ) -> None:
         """Updates the session lifetime and returns a new token."""
-        request = SessionServiceSetSessionRequest(lifetime="36000s")
-        response: SessionServiceSetSessionResponse = client.sessions.session_service_set_session(
-            session.session_id if session.session_id is not None else "",
-            request,
+        request = SessionServiceSetSessionRequest(
+            sessionId=session.session_id if session.session_id is not None else "", lifetime="36000s"
         )
+        response = client.sessions.set_session(request)
         assert isinstance(response.session_token, str)
 
     def test_raises_api_exception_for_nonexistent_session(
@@ -119,7 +117,8 @@ class TestSessionServiceSanityCheckSpec:
     ) -> None:
         """Raises an ApiException when retrieving a non-existent session."""
         with pytest.raises(ApiError):
-            client.sessions.session_service_get_session(
-                str(uuid.uuid4()),
-                session_token=session.session_token,
+            request = SessionServiceGetSessionRequest(
+                sessionId=str(uuid.uuid4()),
+                sessionToken=session.session_token,
             )
+            client.sessions.get_session(request)

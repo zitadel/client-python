@@ -1,3 +1,4 @@
+import time
 import uuid
 from typing import Dict, Generator
 
@@ -9,6 +10,7 @@ from zitadel_client.exceptions import ApiError
 from zitadel_client.models import (
     UserServiceAddHumanUserRequest,
     UserServiceAddHumanUserResponse,
+    UserServiceGetUserByIDRequest,
     UserServiceGetUserByIDResponse,
     UserServiceListUsersRequest,
     UserServiceSetHumanEmail,
@@ -33,10 +35,12 @@ def user(client: zitadel.Zitadel) -> Generator[UserServiceAddHumanUserResponse, 
         profile=UserServiceSetHumanProfile(given_name="John", family_name="Doe"),  # type: ignore[call-arg]
         email=UserServiceSetHumanEmail(email=f"johndoe{uuid.uuid4().hex}@example.com"),
     )
-    response = client.users.user_service_add_human_user(request)
+    response = client.users.add_human_user(request)
+    print(response)
+    time.sleep(4)
     yield response
     try:
-        client.users.user_service_delete_user(response.user_id)  # type: ignore[arg-type]
+        pass
     except ApiError:
         pass
 
@@ -64,7 +68,10 @@ class TestUserServiceSanityCheckSpec:
         user: UserServiceAddHumanUserResponse,
     ) -> None:
         """Retrieves the user details by ID."""
-        response: UserServiceGetUserByIDResponse = client.users.user_service_get_user_by_id(user.user_id)  # type: ignore[arg-type]
+        request = UserServiceGetUserByIDRequest(
+            userId=user.user_id or "",
+        )
+        response: UserServiceGetUserByIDResponse = client.users.get_user_by_id(request)
         assert response.user.user_id == user.user_id  # type: ignore[union-attr]
 
     def test_includes_created_user_when_listing(
@@ -74,7 +81,7 @@ class TestUserServiceSanityCheckSpec:
     ) -> None:
         """Includes the created user when listing all users."""
         request = UserServiceListUsersRequest(queries=[])
-        response = client.users.user_service_list_users(request)
+        response = client.users.list_users(request)
         ids = [u.user_id for u in response.result]  # type: ignore
         assert user.user_id in ids
 
@@ -84,11 +91,15 @@ class TestUserServiceSanityCheckSpec:
         user: UserServiceAddHumanUserResponse,
     ) -> None:
         """Updates the user's email and verifies the change."""
-        client.users.user_service_update_human_user(
-            user.user_id,  # type: ignore[arg-type]
-            UserServiceUpdateHumanUserRequest(email=UserServiceSetHumanEmail(email=f"updated{uuid.uuid4().hex}@example.com")),
+        request = UserServiceUpdateHumanUserRequest(
+            userId=user.user_id, email=UserServiceSetHumanEmail(email=f"updated{uuid.uuid4().hex}@example.com")
         )
-        response = client.users.user_service_get_user_by_id(user.user_id)  # type: ignore[arg-type]
+        client.users.update_human_user(request)
+        response = client.users.get_user_by_id(
+            UserServiceGetUserByIDRequest(
+                userId=user.user_id or "",
+            )
+        )
         assert "updated" in response.user.human.email.email  # type: ignore
 
     def test_raises_api_exception_for_nonexistent_user(
@@ -97,4 +108,7 @@ class TestUserServiceSanityCheckSpec:
     ) -> None:
         """Raises an ApiException when retrieving a non-existent user."""
         with pytest.raises(ApiError):
-            client.users.user_service_get_user_by_id(str(uuid.uuid4()))
+            request = UserServiceGetUserByIDRequest(
+                userId=str(uuid.uuid4()),
+            )
+            client.users.get_user_by_id(request)

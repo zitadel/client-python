@@ -59,7 +59,7 @@ addopts = [
   "--cov-report=html:build/coverage/html",
   "--cov-report=xml:build/coverage/clover.xml",
   "--cov-report=term",
-  "--xml-junit-dir=build/reports/"
+
 ]
 junit_family = "legacy"
 
