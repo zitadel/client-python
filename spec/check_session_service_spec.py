@@ -12,13 +12,13 @@ from zitadel_client.models import (
     SessionServiceCreateSessionRequest,
     SessionServiceCreateSessionResponse,
     SessionServiceDeleteSessionRequest,
+    SessionServiceGetSessionRequest,
     SessionServiceGetSessionResponse,
     SessionServiceListSessionsRequest,
     SessionServiceSetSessionRequest,
     UserServiceAddHumanUserRequest,
     UserServiceSetHumanEmail,
     UserServiceSetHumanProfile,
-    SessionServiceGetSessionRequest
 )
 
 

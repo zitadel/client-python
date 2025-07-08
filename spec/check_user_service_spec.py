@@ -2,7 +2,6 @@ import uuid
 from typing import Dict, Generator
 
 import pytest
-import time
 
 import zitadel_client as zitadel
 from spec.base_spec import docker_compose as docker_compose
@@ -11,12 +10,12 @@ from zitadel_client.exceptions import ApiError
 from zitadel_client.models import (
     UserServiceAddHumanUserRequest,
     UserServiceAddHumanUserResponse,
+    UserServiceGetUserByIDRequest,
     UserServiceGetUserByIDResponse,
     UserServiceListUsersRequest,
     UserServiceSetHumanEmail,
     UserServiceSetHumanProfile,
     UserServiceUpdateHumanUserRequest,
-   UserServiceGetUserByIDRequest,
 )
 
 
@@ -37,11 +36,11 @@ def user(client: zitadel.Zitadel) -> Generator[UserServiceAddHumanUserResponse, 
         email=UserServiceSetHumanEmail(email=f"johndoe{uuid.uuid4().hex}@example.com"),
     )
     response = client.users.add_human_user(request)
-    print(response)
-    time.sleep(4)
     yield response
     try:
-        pass
+        client.users.delete_user(UserServiceDeleteUserRequest(
+            userId=response.user_id or ""
+        ))
     except ApiError:
         pass
 
@@ -69,14 +68,10 @@ class TestUserServiceSanityCheckSpec:
         user: UserServiceAddHumanUserResponse,
     ) -> None:
         """Retrieves the user details by ID."""
-        print(user)
-        print("moo")
-        print(user.user_id)
         request = UserServiceGetUserByIDRequest(
             userId=user.user_id or "",
         )
         response: UserServiceGetUserByIDResponse = client.users.get_user_by_id(request)
-        print(response)
         assert response.user.user_id == user.user_id  # type: ignore[union-attr]
 
     def test_includes_created_user_when_listing(
