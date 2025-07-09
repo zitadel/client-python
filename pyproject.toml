@@ -24,7 +24,7 @@ dependencies = [
 [project.urls]
 homepage = "https://zitadel.com/"
 repository = "https://github.com/zitadel/client-python"
-documentation = "https://python-poetry.org/docs/"
+documentation = "https://github.com/zitadel/client-python"
 "Bug Tracker" = "https://github.com/zitadel/client-python/issues"
 
 [tool.poetry]
