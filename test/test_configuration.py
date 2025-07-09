@@ -15,7 +15,7 @@ class ConfigurationTest(unittest.TestCase):
 
         self.assertRegex(
             config.user_agent,
-            r"^zitadel-client/\d\.\d\.\d \(lang=python; lang_version=[^;]+; os=[^;]+; arch=[^;]+\)$",
+            r"^zitadel-client/\d+\.\d+\.\d+ \(lang=python; lang_version=[^;]+; os=[^;]+; arch=[^;]+\)$",
         )
         config.user_agent = "CustomUserAgent/1.0"
         self.assertEqual(config.user_agent, "CustomUserAgent/1.0")
