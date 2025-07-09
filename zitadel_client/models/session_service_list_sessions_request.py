@@ -31,7 +31,8 @@ class SessionServiceListSessionsRequest(BaseModel):
     """ # noqa: E501
     query: Optional[SessionServiceListQuery] = None
     queries: Optional[List[SessionServiceSearchQuery]] = None
-    sorting_column: Optional[SessionServiceSessionFieldName] = Field(default=SessionServiceSessionFieldName.SESSION_FIELD_NAME_UNSPECIFIED, alias="sortingColumn")
+    sorting_column: Optional[SessionServiceSessionFieldName] = Field(default=None, alias="sortingColumn")
+    __properties: ClassVar[List[str]] = ["query", "queries", "sortingColumn"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -96,7 +97,7 @@ class SessionServiceListSessionsRequest(BaseModel):
         _obj = cls.model_validate({
             "query": SessionServiceListQuery.from_dict(obj["query"]) if obj.get("query") is not None else None,
             "queries": [SessionServiceSearchQuery.from_dict(_item) for _item in obj["queries"]] if obj.get("queries") is not None else None,
-            "sortingColumn": obj.get("sortingColumn") if obj.get("sortingColumn") is not None else SessionServiceSessionFieldName.SESSION_FIELD_NAME_UNSPECIFIED
+            "sortingColumn": obj.get("sortingColumn")
         })
         return _obj
 

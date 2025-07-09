@@ -17,9 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool
-from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.user_service_send_email_verification_code import UserServiceSendEmailVerificationCode
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,10 +27,12 @@ class UserServiceSetEmailRequest(BaseModel):
     """
     UserServiceSetEmailRequest
     """ # noqa: E501
-    email: Annotated[str, Field(min_length=1, strict=True, max_length=200)]
-    send_code: Optional[UserServiceSendEmailVerificationCode] = Field(default=None, alias="sendCode")
-    return_code: Optional[Dict[str, Any]] = Field(default=None, alias="returnCode")
+    user_id: StrictStr = Field(alias="userId")
+    email: StrictStr
     is_verified: Optional[StrictBool] = Field(default=None, alias="isVerified")
+    return_code: Optional[Dict[str, Any]] = Field(default=None, alias="returnCode")
+    send_code: Optional[UserServiceSendEmailVerificationCode] = Field(default=None, alias="sendCode")
+    __properties: ClassVar[List[str]] = ["userId", "email", "isVerified", "returnCode", "sendCode"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -72,6 +73,9 @@ class UserServiceSetEmailRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of send_code
+        if self.send_code:
+            _dict['sendCode'] = self.send_code.to_dict()
         return _dict
 
     @classmethod
@@ -84,10 +88,11 @@ class UserServiceSetEmailRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "userId": obj.get("userId"),
             "email": obj.get("email"),
-            "sendCode": UserServiceSendEmailVerificationCode.from_dict(obj["sendCode"]) if obj.get("sendCode") is not None else None,
+            "isVerified": obj.get("isVerified"),
             "returnCode": obj.get("returnCode"),
-            "isVerified": obj.get("isVerified")
+            "sendCode": UserServiceSendEmailVerificationCode.from_dict(obj["sendCode"]) if obj.get("sendCode") is not None else None
         })
         return _obj
 

@@ -26,7 +26,7 @@ class TestUsePrivateKeySpec:
             docker_compose["base_url"],
             docker_compose["jwt_key"],
         )
-        client.settings.settings_service_get_general_settings()
+        client.settings.get_general_settings()
 
     def test_raises_api_exception_with_invalid_private_key(self, docker_compose: Dict[str, str]) -> None:  # noqa F811
         """Raises ApiException when using an invalid private key path."""
@@ -35,4 +35,4 @@ class TestUsePrivateKeySpec:
             docker_compose["jwt_key"],
         )
         with pytest.raises(ZitadelError):
-            client.settings.settings_service_get_general_settings()
+            client.settings.get_general_settings()

@@ -17,8 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.user_service_send_passkey_registration_link import UserServiceSendPasskeyRegistrationLink
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,8 +27,10 @@ class UserServiceCreatePasskeyRegistrationLinkRequest(BaseModel):
     """
     UserServiceCreatePasskeyRegistrationLinkRequest
     """ # noqa: E501
-    send_link: Optional[UserServiceSendPasskeyRegistrationLink] = Field(default=None, alias="sendLink")
+    user_id: StrictStr = Field(alias="userId")
     return_code: Optional[Dict[str, Any]] = Field(default=None, alias="returnCode")
+    send_link: Optional[UserServiceSendPasskeyRegistrationLink] = Field(default=None, alias="sendLink")
+    __properties: ClassVar[List[str]] = ["userId", "returnCode", "sendLink"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -69,6 +71,9 @@ class UserServiceCreatePasskeyRegistrationLinkRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of send_link
+        if self.send_link:
+            _dict['sendLink'] = self.send_link.to_dict()
         return _dict
 
     @classmethod
@@ -81,8 +86,9 @@ class UserServiceCreatePasskeyRegistrationLinkRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "sendLink": UserServiceSendPasskeyRegistrationLink.from_dict(obj["sendLink"]) if obj.get("sendLink") is not None else None,
-            "returnCode": obj.get("returnCode")
+            "userId": obj.get("userId"),
+            "returnCode": obj.get("returnCode"),
+            "sendLink": UserServiceSendPasskeyRegistrationLink.from_dict(obj["sendLink"]) if obj.get("sendLink") is not None else None
         })
         return _obj
 

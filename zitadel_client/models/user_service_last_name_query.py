@@ -17,9 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.user_service_text_query_method import UserServiceTextQueryMethod
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,8 +27,9 @@ class UserServiceLastNameQuery(BaseModel):
     """
     Query for users with a specific last name.
     """ # noqa: E501
-    last_name: Annotated[str, Field(min_length=1, strict=True, max_length=200)] = Field(alias="lastName")
-    method: Optional[UserServiceTextQueryMethod] = UserServiceTextQueryMethod.TEXT_QUERY_METHOD_EQUALS
+    last_name: StrictStr = Field(alias="lastName")
+    method: Optional[UserServiceTextQueryMethod] = None
+    __properties: ClassVar[List[str]] = ["lastName", "method"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -83,7 +83,7 @@ class UserServiceLastNameQuery(BaseModel):
 
         _obj = cls.model_validate({
             "lastName": obj.get("lastName"),
-            "method": obj.get("method") if obj.get("method") is not None else UserServiceTextQueryMethod.TEXT_QUERY_METHOD_EQUALS
+            "method": obj.get("method")
         })
         return _obj
 

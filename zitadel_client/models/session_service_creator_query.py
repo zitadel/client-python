@@ -17,9 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,7 +26,8 @@ class SessionServiceCreatorQuery(BaseModel):
     """
     SessionServiceCreatorQuery
     """ # noqa: E501
-    id: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="ID of the user who created the session. If empty, the calling user's ID is used.")
+    id: Optional[StrictStr] = Field(default=None, description="ID of the user who created the session. If empty, the calling user's ID is used.")
+    __properties: ClassVar[List[str]] = ["id"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -68,6 +68,11 @@ class SessionServiceCreatorQuery(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if id (nullable) is None
+        # and model_fields_set contains the field
+        if self.id is None and "id" in self.model_fields_set:
+            _dict['id'] = None
+
         return _dict
 
     @classmethod

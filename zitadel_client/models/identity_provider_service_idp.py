@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.identity_provider_service_details import IdentityProviderServiceDetails
 from zitadel_client.models.identity_provider_service_idp_config import IdentityProviderServiceIDPConfig
 from zitadel_client.models.identity_provider_service_idp_state import IdentityProviderServiceIDPState
@@ -32,10 +32,11 @@ class IdentityProviderServiceIDP(BaseModel):
     """ # noqa: E501
     id: Optional[StrictStr] = Field(default=None, description="Unique identifier for the identity provider.")
     details: Optional[IdentityProviderServiceDetails] = None
-    state: Optional[IdentityProviderServiceIDPState] = IdentityProviderServiceIDPState.IDP_STATE_UNSPECIFIED
+    state: Optional[IdentityProviderServiceIDPState] = None
     name: Optional[StrictStr] = None
-    type: Optional[IdentityProviderServiceIDPType] = IdentityProviderServiceIDPType.IDP_TYPE_UNSPECIFIED
+    type: Optional[IdentityProviderServiceIDPType] = None
     config: Optional[IdentityProviderServiceIDPConfig] = None
+    __properties: ClassVar[List[str]] = ["id", "details", "state", "name", "type", "config"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -96,9 +97,9 @@ class IdentityProviderServiceIDP(BaseModel):
         _obj = cls.model_validate({
             "id": obj.get("id"),
             "details": IdentityProviderServiceDetails.from_dict(obj["details"]) if obj.get("details") is not None else None,
-            "state": obj.get("state") if obj.get("state") is not None else IdentityProviderServiceIDPState.IDP_STATE_UNSPECIFIED,
+            "state": obj.get("state"),
             "name": obj.get("name"),
-            "type": obj.get("type") if obj.get("type") is not None else IdentityProviderServiceIDPType.IDP_TYPE_UNSPECIFIED,
+            "type": obj.get("type"),
             "config": IdentityProviderServiceIDPConfig.from_dict(obj["config"]) if obj.get("config") is not None else None
         })
         return _obj

@@ -28,6 +28,7 @@ class IdentityProviderServiceGitHubConfig(BaseModel):
     """ # noqa: E501
     client_id: Optional[StrictStr] = Field(default=None, description="The client ID of the GitHub App.", alias="clientId")
     scopes: Optional[List[StrictStr]] = Field(default=None, description="The scopes requested by ZITADEL during the request to GitHub.")
+    __properties: ClassVar[List[str]] = ["clientId", "scopes"]
 
     model_config = ConfigDict(
         populate_by_name=True,

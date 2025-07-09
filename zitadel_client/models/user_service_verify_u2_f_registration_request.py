@@ -17,9 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List
-from typing_extensions import Annotated
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,8 +26,11 @@ class UserServiceVerifyU2FRegistrationRequest(BaseModel):
     """
     UserServiceVerifyU2FRegistrationRequest
     """ # noqa: E501
-    public_key_credential: Dict[str, Any] = Field(description="PublicKeyCredential Interface. Generated helper methods populate the field from JSON created by a WebauthN client. See also:  https://www.w3.org/TR/webauthn/#publickeycredential", alias="publicKeyCredential")
-    token_name: Annotated[str, Field(min_length=1, strict=True, max_length=200)] = Field(alias="tokenName")
+    user_id: StrictStr = Field(alias="userId")
+    u2f_id: StrictStr = Field(alias="u2fId")
+    public_key_credential: Dict[str, Any] = Field(description="`Struct` represents a structured data value, consisting of fields  which map to dynamically typed values. In some languages, `Struct`  might be supported by a native representation. For example, in  scripting languages like JS a struct is represented as an  object. The details of that representation are described together  with the proto support for the language.   The JSON representation for `Struct` is JSON object.", alias="publicKeyCredential")
+    token_name: StrictStr = Field(alias="tokenName")
+    __properties: ClassVar[List[str]] = ["userId", "u2fId", "publicKeyCredential", "tokenName"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -81,6 +83,8 @@ class UserServiceVerifyU2FRegistrationRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "userId": obj.get("userId"),
+            "u2fId": obj.get("u2fId"),
             "publicKeyCredential": obj.get("publicKeyCredential"),
             "tokenName": obj.get("tokenName")
         })

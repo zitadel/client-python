@@ -28,8 +28,9 @@ class FeatureServiceImprovedPerformanceFeatureFlag(BaseModel):
     """
     FeatureServiceImprovedPerformanceFeatureFlag
     """ # noqa: E501
-    execution_paths: Optional[List[FeatureServiceImprovedPerformance]] = Field(default=None, description="Which of the performance improvements is enabled", alias="executionPaths")
-    source: Optional[FeatureServiceSource] = FeatureServiceSource.SOURCE_UNSPECIFIED
+    execution_paths: Optional[List[FeatureServiceImprovedPerformance]] = Field(default=None, alias="executionPaths")
+    source: Optional[FeatureServiceSource] = None
+    __properties: ClassVar[List[str]] = ["executionPaths", "source"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -83,7 +84,7 @@ class FeatureServiceImprovedPerformanceFeatureFlag(BaseModel):
 
         _obj = cls.model_validate({
             "executionPaths": obj.get("executionPaths"),
-            "source": obj.get("source") if obj.get("source") is not None else FeatureServiceSource.SOURCE_UNSPECIFIED
+            "source": obj.get("source")
         })
         return _obj
 

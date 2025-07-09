@@ -17,8 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from pydantic import BaseModel, ConfigDict, Field
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.settings_service_resource_owner_type import SettingsServiceResourceOwnerType
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,9 +27,10 @@ class SettingsServiceLockoutSettings(BaseModel):
     """
     SettingsServiceLockoutSettings
     """ # noqa: E501
-    max_password_attempts: Optional[StrictStr] = Field(default=None, description="Maximum password check attempts before the account gets locked. Attempts are reset as soon as the password is entered correctly or the password is reset. If set to 0 the account will never be locked.", alias="maxPasswordAttempts")
-    resource_owner_type: Optional[SettingsServiceResourceOwnerType] = Field(default=SettingsServiceResourceOwnerType.RESOURCE_OWNER_TYPE_UNSPECIFIED, alias="resourceOwnerType")
-    max_otp_attempts: Optional[StrictStr] = Field(default=None, description="Maximum failed attempts for a single OTP type (TOTP, SMS, Email) before the account gets locked. Attempts are reset as soon as the OTP is entered correctly. If set to 0 the account will never be locked.", alias="maxOtpAttempts")
+    max_password_attempts: Optional[Any] = Field(default=None, alias="maxPasswordAttempts")
+    resource_owner_type: Optional[SettingsServiceResourceOwnerType] = Field(default=None, alias="resourceOwnerType")
+    max_otp_attempts: Optional[Any] = Field(default=None, alias="maxOtpAttempts")
+    __properties: ClassVar[List[str]] = ["maxPasswordAttempts", "resourceOwnerType", "maxOtpAttempts"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -70,6 +71,16 @@ class SettingsServiceLockoutSettings(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if max_password_attempts (nullable) is None
+        # and model_fields_set contains the field
+        if self.max_password_attempts is None and "max_password_attempts" in self.model_fields_set:
+            _dict['maxPasswordAttempts'] = None
+
+        # set to None if max_otp_attempts (nullable) is None
+        # and model_fields_set contains the field
+        if self.max_otp_attempts is None and "max_otp_attempts" in self.model_fields_set:
+            _dict['maxOtpAttempts'] = None
+
         return _dict
 
     @classmethod
@@ -83,7 +94,7 @@ class SettingsServiceLockoutSettings(BaseModel):
 
         _obj = cls.model_validate({
             "maxPasswordAttempts": obj.get("maxPasswordAttempts"),
-            "resourceOwnerType": obj.get("resourceOwnerType") if obj.get("resourceOwnerType") is not None else SettingsServiceResourceOwnerType.RESOURCE_OWNER_TYPE_UNSPECIFIED,
+            "resourceOwnerType": obj.get("resourceOwnerType"),
             "maxOtpAttempts": obj.get("maxOtpAttempts")
         })
         return _obj

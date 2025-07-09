@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.user_service_passkey_authenticator import UserServicePasskeyAuthenticator
 from zitadel_client.models.user_service_passkey_registration_code import UserServicePasskeyRegistrationCode
 from typing import Optional, Set
@@ -28,9 +28,11 @@ class UserServiceRegisterPasskeyRequest(BaseModel):
     """
     UserServiceRegisterPasskeyRequest
     """ # noqa: E501
+    user_id: StrictStr = Field(alias="userId")
     code: Optional[UserServicePasskeyRegistrationCode] = None
-    authenticator: Optional[UserServicePasskeyAuthenticator] = UserServicePasskeyAuthenticator.PASSKEY_AUTHENTICATOR_UNSPECIFIED
-    domain: Optional[StrictStr] = Field(default=None, description="\"Domain on which the user is authenticated.\"")
+    authenticator: Optional[UserServicePasskeyAuthenticator] = None
+    domain: Optional[StrictStr] = None
+    __properties: ClassVar[List[str]] = ["userId", "code", "authenticator", "domain"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -86,8 +88,9 @@ class UserServiceRegisterPasskeyRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "userId": obj.get("userId"),
             "code": UserServicePasskeyRegistrationCode.from_dict(obj["code"]) if obj.get("code") is not None else None,
-            "authenticator": obj.get("authenticator") if obj.get("authenticator") is not None else UserServicePasskeyAuthenticator.PASSKEY_AUTHENTICATOR_UNSPECIFIED,
+            "authenticator": obj.get("authenticator"),
             "domain": obj.get("domain")
         })
         return _obj

@@ -72,17 +72,29 @@ JSON file. This process creates a secure token.
 
 ```python
 import zitadel_client as zitadel
+from zitadel_client.exceptions import ApiError
+from zitadel_client.models import (
+    UserServiceAddHumanUserRequest,
+    UserServiceSetHumanEmail,
+    UserServiceSetHumanProfile,
+)
 
 zitadel = zitadel.Zitadel.with_private_key("https://example.us1.zitadel.cloud", "path/to/jwt-key.json")
 
 try:
-    response = zitadel.users.user_service_add_human_user({
-        "username": "john.doe",
-        "profile": {"givenName": "John", "familyName": "Doe"},
-        "email": {"email": "john@doe.com"}
-    })
+    request = UserServiceAddHumanUserRequest(
+        username="john.doe",
+        profile=UserServiceSetHumanProfile(
+            givenName="John",
+            familyName="Doe"
+        ),
+        email=UserServiceSetHumanEmail(
+            email="john@doe.com"
+        ),
+    )
+    response = zitadel.users.add_human_user(request)
     print("User created:", response)
-except Exception as e:
+except ApiError as e:
     print("Error:", e)
 ```
 
@@ -106,17 +118,29 @@ which is then used to authenticate.
 
 ```python
 import zitadel_client as zitadel
+from zitadel_client.exceptions import ApiError
+from zitadel_client.models import (
+    UserServiceAddHumanUserRequest,
+    UserServiceSetHumanEmail,
+    UserServiceSetHumanProfile,
+)
 
 zitadel = zitadel.Zitadel.with_client_credentials("https://example.us1.zitadel.cloud", "id", "secret")
 
 try:
-    response = zitadel.users.user_service_add_human_user({
-        "username": "john.doe",
-        "profile": {"givenName": "John", "familyName": "Doe"},
-        "email": {"email": "john@doe.com"}
-    })
+    request = UserServiceAddHumanUserRequest(
+        username="john.doe",
+        profile=UserServiceSetHumanProfile(
+            givenName="John",
+            familyName="Doe"
+        ),
+        email=UserServiceSetHumanEmail(
+            email="john@doe.com"
+        ),
+    )
+    response = zitadel.users.add_human_user(request)
     print("User created:", response)
-except Exception as e:
+except ApiError as e:
     print("Error:", e)
 ```
 
@@ -140,17 +164,29 @@ authenticate without exchanging credentials every time.
 
 ```python
 import zitadel_client as zitadel
+from zitadel_client.exceptions import ApiError
+from zitadel_client.models import (
+    UserServiceAddHumanUserRequest,
+    UserServiceSetHumanEmail,
+    UserServiceSetHumanProfile,
+)
 
 zitadel = zitadel.Zitadel.with_access_token("https://example.us1.zitadel.cloud", "token")
 
 try:
-    response = zitadel.users.user_service_add_human_user({
-        "username": "john.doe",
-        "profile": {"givenName": "John", "familyName": "Doe"},
-        "email": {"email": "john@doe.com"}
-    })
+    request = UserServiceAddHumanUserRequest(
+        username="john.doe",
+        profile=UserServiceSetHumanProfile(
+            givenName="John",
+            familyName="Doe"
+        ),
+        email=UserServiceSetHumanEmail(
+            email="john@doe.com"
+        ),
+    )
+    response = zitadel.users.add_human_user(request)
     print("User created:", response)
-except Exception as e:
+except ApiError as e:
     print("Error:", e)
 ```
 
@@ -159,20 +195,6 @@ except Exception as e:
 Choose the authentication method that best suits your needs based on your
 environment and security requirements. For more details, please refer to the
 [Zitadel documentation on authenticating service users](https://zitadel.com/docs/guides/integrate/service-users/authenticate-service-users).
-
-### Debugging
-
-The SDK supports debug logging, which can be enabled for troubleshooting
-and debugging purposes. You can enable debug logging by setting the `debug`
-flag to `true` when initializing the `Zitadel` client, like this:
-
-```python
-zitadel = zitadel.Zitadel("your-zitadel-base-url", 'your-valid-token', lambda config: config.debug = True)
-```
-
-When enabled, the SDK will log additional information, such as HTTP request
-and response details, which can be useful for identifying issues in the
-integration or troubleshooting unexpected behavior.
 
 ## Design and Dependencies
 

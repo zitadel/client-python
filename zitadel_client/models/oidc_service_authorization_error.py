@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.oidc_service_error_reason import OIDCServiceErrorReason
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,9 +27,10 @@ class OIDCServiceAuthorizationError(BaseModel):
     """
     OIDCServiceAuthorizationError
     """ # noqa: E501
-    error: Optional[OIDCServiceErrorReason] = OIDCServiceErrorReason.ERROR_REASON_UNSPECIFIED
+    error: Optional[OIDCServiceErrorReason] = None
     error_description: Optional[StrictStr] = Field(default=None, alias="errorDescription")
     error_uri: Optional[StrictStr] = Field(default=None, alias="errorUri")
+    __properties: ClassVar[List[str]] = ["error", "errorDescription", "errorUri"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -70,6 +71,16 @@ class OIDCServiceAuthorizationError(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if error_description (nullable) is None
+        # and model_fields_set contains the field
+        if self.error_description is None and "error_description" in self.model_fields_set:
+            _dict['errorDescription'] = None
+
+        # set to None if error_uri (nullable) is None
+        # and model_fields_set contains the field
+        if self.error_uri is None and "error_uri" in self.model_fields_set:
+            _dict['errorUri'] = None
+
         return _dict
 
     @classmethod
@@ -82,7 +93,7 @@ class OIDCServiceAuthorizationError(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "error": obj.get("error") if obj.get("error") is not None else OIDCServiceErrorReason.ERROR_REASON_UNSPECIFIED,
+            "error": obj.get("error"),
             "errorDescription": obj.get("errorDescription"),
             "errorUri": obj.get("errorUri")
         })

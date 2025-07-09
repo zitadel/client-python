@@ -17,8 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.user_service_send_email_verification_code import UserServiceSendEmailVerificationCode
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,8 +27,10 @@ class UserServiceResendEmailCodeRequest(BaseModel):
     """
     UserServiceResendEmailCodeRequest
     """ # noqa: E501
-    send_code: Optional[UserServiceSendEmailVerificationCode] = Field(default=None, alias="sendCode")
+    user_id: StrictStr = Field(alias="userId")
     return_code: Optional[Dict[str, Any]] = Field(default=None, alias="returnCode")
+    send_code: Optional[UserServiceSendEmailVerificationCode] = Field(default=None, alias="sendCode")
+    __properties: ClassVar[List[str]] = ["userId", "returnCode", "sendCode"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -69,6 +71,9 @@ class UserServiceResendEmailCodeRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of send_code
+        if self.send_code:
+            _dict['sendCode'] = self.send_code.to_dict()
         return _dict
 
     @classmethod
@@ -81,8 +86,9 @@ class UserServiceResendEmailCodeRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "sendCode": UserServiceSendEmailVerificationCode.from_dict(obj["sendCode"]) if obj.get("sendCode") is not None else None,
-            "returnCode": obj.get("returnCode")
+            "userId": obj.get("userId"),
+            "returnCode": obj.get("returnCode"),
+            "sendCode": UserServiceSendEmailVerificationCode.from_dict(obj["sendCode"]) if obj.get("sendCode") is not None else None
         })
         return _obj
 

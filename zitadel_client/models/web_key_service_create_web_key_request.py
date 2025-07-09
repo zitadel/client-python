@@ -18,9 +18,9 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict
-from typing import Any, ClassVar, Dict, List, Optional
-from zitadel_client.models.web_key_service_beta_ecdsa import WebKeyServiceBetaECDSA
-from zitadel_client.models.web_key_service_beta_rsa import WebKeyServiceBetaRSA
+from typing import Any, ClassVar, Dict, Optional
+from zitadel_client.models.web_key_service_ecdsa import WebKeyServiceECDSA
+from zitadel_client.models.web_key_service_rsa import WebKeyServiceRSA
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -28,9 +28,10 @@ class WebKeyServiceCreateWebKeyRequest(BaseModel):
     """
     WebKeyServiceCreateWebKeyRequest
     """ # noqa: E501
-    rsa: Optional[WebKeyServiceBetaRSA] = None
-    ecdsa: Optional[WebKeyServiceBetaECDSA] = None
+    ecdsa: Optional[WebKeyServiceECDSA] = None
     ed25519: Optional[Dict[str, Any]] = None
+    rsa: Optional[WebKeyServiceRSA] = None
+    __properties: ClassVar[List[str]] = ["ecdsa", "ed25519", "rsa"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -71,6 +72,12 @@ class WebKeyServiceCreateWebKeyRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of ecdsa
+        if self.ecdsa:
+            _dict['ecdsa'] = self.ecdsa.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of rsa
+        if self.rsa:
+            _dict['rsa'] = self.rsa.to_dict()
         return _dict
 
     @classmethod
@@ -83,9 +90,9 @@ class WebKeyServiceCreateWebKeyRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "rsa": WebKeyServiceBetaRSA.from_dict(obj["rsa"]) if obj.get("rsa") is not None else None,
-            "ecdsa": WebKeyServiceBetaECDSA.from_dict(obj["ecdsa"]) if obj.get("ecdsa") is not None else None,
-            "ed25519": obj.get("ed25519")
+            "ecdsa": WebKeyServiceECDSA.from_dict(obj["ecdsa"]) if obj.get("ecdsa") is not None else None,
+            "ed25519": obj.get("ed25519"),
+            "rsa": WebKeyServiceRSA.from_dict(obj["rsa"]) if obj.get("rsa") is not None else None
         })
         return _obj
 

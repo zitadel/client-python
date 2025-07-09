@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,8 +26,9 @@ class UserServiceOrganization(BaseModel):
     """
     UserServiceOrganization
     """ # noqa: E501
-    org_id: Optional[StrictStr] = Field(default=None, alias="orgId")
     org_domain: Optional[StrictStr] = Field(default=None, alias="orgDomain")
+    org_id: Optional[StrictStr] = Field(default=None, alias="orgId")
+    __properties: ClassVar[List[str]] = ["orgDomain", "orgId"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -80,8 +81,8 @@ class UserServiceOrganization(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "orgId": obj.get("orgId"),
-            "orgDomain": obj.get("orgDomain")
+            "orgDomain": obj.get("orgDomain"),
+            "orgId": obj.get("orgId")
         })
         return _obj
 

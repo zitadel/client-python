@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -40,6 +40,7 @@ class IdentityProviderServiceLDAPAttributes(BaseModel):
     avatar_url_attribute: Optional[StrictStr] = Field(default=None, alias="avatarUrlAttribute")
     profile_attribute: Optional[StrictStr] = Field(default=None, alias="profileAttribute")
     root_ca: Optional[StrictStr] = Field(default=None, alias="rootCa")
+    __properties: ClassVar[List[str]] = ["idAttribute", "firstNameAttribute", "lastNameAttribute", "displayNameAttribute", "nickNameAttribute", "preferredUsernameAttribute", "emailAttribute", "emailVerifiedAttribute", "phoneAttribute", "phoneVerifiedAttribute", "preferredLanguageAttribute", "avatarUrlAttribute", "profileAttribute", "rootCa"]
 
     model_config = ConfigDict(
         populate_by_name=True,

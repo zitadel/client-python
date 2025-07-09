@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.oidc_service_device_authorization_request import OIDCServiceDeviceAuthorizationRequest
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,6 +28,7 @@ class OIDCServiceGetDeviceAuthorizationRequestResponse(BaseModel):
     OIDCServiceGetDeviceAuthorizationRequestResponse
     """ # noqa: E501
     device_authorization_request: Optional[OIDCServiceDeviceAuthorizationRequest] = Field(default=None, alias="deviceAuthorizationRequest")
+    __properties: ClassVar[List[str]] = ["deviceAuthorizationRequest"]
 
     model_config = ConfigDict(
         populate_by_name=True,

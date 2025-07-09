@@ -17,9 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.user_service_ldap_credentials import UserServiceLDAPCredentials
 from zitadel_client.models.user_service_redirect_urls import UserServiceRedirectURLs
 from typing import Optional, Set
@@ -29,9 +28,10 @@ class UserServiceStartIdentityProviderIntentRequest(BaseModel):
     """
     UserServiceStartIdentityProviderIntentRequest
     """ # noqa: E501
-    idp_id: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]] = Field(default=None, description="ID for existing identity provider", alias="idpId")
-    urls: Optional[UserServiceRedirectURLs] = None
+    idp_id: Optional[StrictStr] = Field(default=None, alias="idpId")
     ldap: Optional[UserServiceLDAPCredentials] = None
+    urls: Optional[UserServiceRedirectURLs] = None
+    __properties: ClassVar[List[str]] = ["idpId", "ldap", "urls"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -72,6 +72,12 @@ class UserServiceStartIdentityProviderIntentRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of ldap
+        if self.ldap:
+            _dict['ldap'] = self.ldap.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of urls
+        if self.urls:
+            _dict['urls'] = self.urls.to_dict()
         return _dict
 
     @classmethod
@@ -85,8 +91,8 @@ class UserServiceStartIdentityProviderIntentRequest(BaseModel):
 
         _obj = cls.model_validate({
             "idpId": obj.get("idpId"),
-            "urls": UserServiceRedirectURLs.from_dict(obj["urls"]) if obj.get("urls") is not None else None,
-            "ldap": UserServiceLDAPCredentials.from_dict(obj["ldap"]) if obj.get("ldap") is not None else None
+            "ldap": UserServiceLDAPCredentials.from_dict(obj["ldap"]) if obj.get("ldap") is not None else None,
+            "urls": UserServiceRedirectURLs.from_dict(obj["urls"]) if obj.get("urls") is not None else None
         })
         return _obj
 

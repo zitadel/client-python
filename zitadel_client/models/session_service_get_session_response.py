@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.session_service_session import SessionServiceSession
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,6 +28,7 @@ class SessionServiceGetSessionResponse(BaseModel):
     SessionServiceGetSessionResponse
     """ # noqa: E501
     session: Optional[SessionServiceSession] = None
+    __properties: ClassVar[List[str]] = ["session"]
 
     model_config = ConfigDict(
         populate_by_name=True,

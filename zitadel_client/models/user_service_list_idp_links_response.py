@@ -30,6 +30,7 @@ class UserServiceListIDPLinksResponse(BaseModel):
     """ # noqa: E501
     details: Optional[UserServiceListDetails] = None
     result: Optional[List[UserServiceIDPLink]] = None
+    __properties: ClassVar[List[str]] = ["details", "result"]
 
     model_config = ConfigDict(
         populate_by_name=True,

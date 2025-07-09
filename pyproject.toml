@@ -3,7 +3,7 @@ name = "zitadel_client"
 description = "Official Zitadel SDK for Python. Authenticate and access Zitadel's authentication and management APIs in Python."
 license = { text = "Apache-2.0" }
 readme = "README.md"
-requires-python = ">=3.8, !=3.9.0, !=3.9.1"
+requires-python = ">=3.9, !=3.9.0, !=3.9.1"
 authors = [
   { name = "Mridang Agarwalla", email = "mridang@zitadel.com" }
 ]
@@ -16,7 +16,7 @@ dependencies = [
   "python-dateutil>=2.8.2",
   "pydantic>=2",
   "typing-extensions>=4.7.1",
-  "authlib (==1.3.2)",
+  "authlib>=1.3.2,<2.0.0",
   "cryptography (>=44.0.1,<45.0.0)",
   "requests (>=2.32.3,<3.0.0)"
 ]
@@ -24,7 +24,7 @@ dependencies = [
 [project.urls]
 homepage = "https://zitadel.com/"
 repository = "https://github.com/zitadel/client-python"
-documentation = "https://python-poetry.org/docs/"
+documentation = "https://github.com/zitadel/client-python"
 "Bug Tracker" = "https://github.com/zitadel/client-python/issues"
 
 [tool.poetry]
@@ -35,7 +35,6 @@ version = "1.7.0"
 pytest = ">= 7.2.1"
 pytest-cov = ">= 2.8.1"
 tox = ">= 3.9.0"
-flake8 = ">= 4.0.0"
 types-python-dateutil = ">= 2.8.19.14"
 mypy = ">= 1.5"
 testcontainers = "3.7.1"
@@ -49,7 +48,7 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.tox]
-envlist = ["py3"]
+envlist = ["py39", "py310", "py311", "py312"]
 
 [tool.pytest.ini_options]
 testpaths = ["test", "spec"]
@@ -59,7 +58,7 @@ addopts = [
   "--cov-report=html:build/coverage/html",
   "--cov-report=xml:build/coverage/clover.xml",
   "--cov-report=term",
-  "--xml-junit-dir=build/reports/"
+
 ]
 junit_family = "legacy"
 
@@ -69,9 +68,6 @@ omit = [
   "zitadel_client/api/*",
   "zitadel_client/models/*"
 ]
-
-[tool.pylint.'MESSAGES CONTROL']
-extension-pkg-whitelist = "pydantic"
 
 [tool.mypy]
 files = [
@@ -93,9 +89,6 @@ module = [
 ]
 ignore_missing_imports = true
 disable_error_code = ["import-untyped"]
-
-[tool.flake8]
-max-line-length = 99
 
 [tool.ruff]
 line-length = 130

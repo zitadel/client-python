@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.user_service_details import UserServiceDetails
 from typing import Optional, Set
 from typing_extensions import Self
@@ -29,7 +29,8 @@ class UserServiceRegisterPasskeyResponse(BaseModel):
     """ # noqa: E501
     details: Optional[UserServiceDetails] = None
     passkey_id: Optional[StrictStr] = Field(default=None, alias="passkeyId")
-    public_key_credential_creation_options: Optional[Dict[str, Any]] = Field(default=None, description="Options for Credential Creation (dictionary PublicKeyCredentialCreationOptions). Generated helper methods transform the field to JSON, for use in a WebauthN client. See also:  https://www.w3.org/TR/webauthn/#dictdef-publickeycredentialcreationoptions", alias="publicKeyCredentialCreationOptions")
+    public_key_credential_creation_options: Optional[Dict[str, Any]] = Field(default=None, description="`Struct` represents a structured data value, consisting of fields  which map to dynamically typed values. In some languages, `Struct`  might be supported by a native representation. For example, in  scripting languages like JS a struct is represented as an  object. The details of that representation are described together  with the proto support for the language.   The JSON representation for `Struct` is JSON object.", alias="publicKeyCredentialCreationOptions")
+    __properties: ClassVar[List[str]] = ["details", "passkeyId", "publicKeyCredentialCreationOptions"]
 
     model_config = ConfigDict(
         populate_by_name=True,

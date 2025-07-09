@@ -17,9 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,8 +26,9 @@ class UserServiceRedirectURLs(BaseModel):
     """
     UserServiceRedirectURLs
     """ # noqa: E501
-    success_url: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=2048)]] = Field(default=None, description="URL on which the user will be redirected after a successful login", alias="successUrl")
-    failure_url: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=2048)]] = Field(default=None, description="URL on which the user will be redirected after a failed login", alias="failureUrl")
+    success_url: Optional[StrictStr] = Field(default=None, alias="successUrl")
+    failure_url: Optional[StrictStr] = Field(default=None, alias="failureUrl")
+    __properties: ClassVar[List[str]] = ["successUrl", "failureUrl"]
 
     model_config = ConfigDict(
         populate_by_name=True,

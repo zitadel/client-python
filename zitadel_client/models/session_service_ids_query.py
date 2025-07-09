@@ -27,6 +27,7 @@ class SessionServiceIDsQuery(BaseModel):
     SessionServiceIDsQuery
     """ # noqa: E501
     ids: Optional[List[StrictStr]] = None
+    __properties: ClassVar[List[str]] = ["ids"]
 
     model_config = ConfigDict(
         populate_by_name=True,

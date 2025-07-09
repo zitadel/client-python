@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.feature_service_details import FeatureServiceDetails
 from zitadel_client.models.feature_service_feature_flag import FeatureServiceFeatureFlag
 from zitadel_client.models.feature_service_improved_performance_feature_flag import FeatureServiceImprovedPerformanceFeatureFlag
@@ -32,12 +32,9 @@ class FeatureServiceGetInstanceFeaturesResponse(BaseModel):
     """ # noqa: E501
     details: Optional[FeatureServiceDetails] = None
     login_default_org: Optional[FeatureServiceFeatureFlag] = Field(default=None, alias="loginDefaultOrg")
-    oidc_trigger_introspection_projections: Optional[FeatureServiceFeatureFlag] = Field(default=None, alias="oidcTriggerIntrospectionProjections")
-    oidc_legacy_introspection: Optional[FeatureServiceFeatureFlag] = Field(default=None, alias="oidcLegacyIntrospection")
     user_schema: Optional[FeatureServiceFeatureFlag] = Field(default=None, alias="userSchema")
     oidc_token_exchange: Optional[FeatureServiceFeatureFlag] = Field(default=None, alias="oidcTokenExchange")
     improved_performance: Optional[FeatureServiceImprovedPerformanceFeatureFlag] = Field(default=None, alias="improvedPerformance")
-    web_key: Optional[FeatureServiceFeatureFlag] = Field(default=None, alias="webKey")
     debug_oidc_parent_error: Optional[FeatureServiceFeatureFlag] = Field(default=None, alias="debugOidcParentError")
     oidc_single_v1_session_termination: Optional[FeatureServiceFeatureFlag] = Field(default=None, alias="oidcSingleV1SessionTermination")
     disable_user_token_event: Optional[FeatureServiceFeatureFlag] = Field(default=None, alias="disableUserTokenEvent")
@@ -45,6 +42,7 @@ class FeatureServiceGetInstanceFeaturesResponse(BaseModel):
     login_v2: Optional[FeatureServiceLoginV2FeatureFlag] = Field(default=None, alias="loginV2")
     permission_check_v2: Optional[FeatureServiceFeatureFlag] = Field(default=None, alias="permissionCheckV2")
     console_use_v2_user_api: Optional[FeatureServiceFeatureFlag] = Field(default=None, alias="consoleUseV2UserApi")
+    __properties: ClassVar[List[str]] = ["details", "loginDefaultOrg", "userSchema", "oidcTokenExchange", "improvedPerformance", "debugOidcParentError", "oidcSingleV1SessionTermination", "disableUserTokenEvent", "enableBackChannelLogout", "loginV2", "permissionCheckV2", "consoleUseV2UserApi"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -91,12 +89,6 @@ class FeatureServiceGetInstanceFeaturesResponse(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of login_default_org
         if self.login_default_org:
             _dict['loginDefaultOrg'] = self.login_default_org.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of oidc_trigger_introspection_projections
-        if self.oidc_trigger_introspection_projections:
-            _dict['oidcTriggerIntrospectionProjections'] = self.oidc_trigger_introspection_projections.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of oidc_legacy_introspection
-        if self.oidc_legacy_introspection:
-            _dict['oidcLegacyIntrospection'] = self.oidc_legacy_introspection.to_dict()
         # override the default output from pydantic by calling `to_dict()` of user_schema
         if self.user_schema:
             _dict['userSchema'] = self.user_schema.to_dict()
@@ -106,9 +98,6 @@ class FeatureServiceGetInstanceFeaturesResponse(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of improved_performance
         if self.improved_performance:
             _dict['improvedPerformance'] = self.improved_performance.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of web_key
-        if self.web_key:
-            _dict['webKey'] = self.web_key.to_dict()
         # override the default output from pydantic by calling `to_dict()` of debug_oidc_parent_error
         if self.debug_oidc_parent_error:
             _dict['debugOidcParentError'] = self.debug_oidc_parent_error.to_dict()
@@ -144,12 +133,9 @@ class FeatureServiceGetInstanceFeaturesResponse(BaseModel):
         _obj = cls.model_validate({
             "details": FeatureServiceDetails.from_dict(obj["details"]) if obj.get("details") is not None else None,
             "loginDefaultOrg": FeatureServiceFeatureFlag.from_dict(obj["loginDefaultOrg"]) if obj.get("loginDefaultOrg") is not None else None,
-            "oidcTriggerIntrospectionProjections": FeatureServiceFeatureFlag.from_dict(obj["oidcTriggerIntrospectionProjections"]) if obj.get("oidcTriggerIntrospectionProjections") is not None else None,
-            "oidcLegacyIntrospection": FeatureServiceFeatureFlag.from_dict(obj["oidcLegacyIntrospection"]) if obj.get("oidcLegacyIntrospection") is not None else None,
             "userSchema": FeatureServiceFeatureFlag.from_dict(obj["userSchema"]) if obj.get("userSchema") is not None else None,
             "oidcTokenExchange": FeatureServiceFeatureFlag.from_dict(obj["oidcTokenExchange"]) if obj.get("oidcTokenExchange") is not None else None,
             "improvedPerformance": FeatureServiceImprovedPerformanceFeatureFlag.from_dict(obj["improvedPerformance"]) if obj.get("improvedPerformance") is not None else None,
-            "webKey": FeatureServiceFeatureFlag.from_dict(obj["webKey"]) if obj.get("webKey") is not None else None,
             "debugOidcParentError": FeatureServiceFeatureFlag.from_dict(obj["debugOidcParentError"]) if obj.get("debugOidcParentError") is not None else None,
             "oidcSingleV1SessionTermination": FeatureServiceFeatureFlag.from_dict(obj["oidcSingleV1SessionTermination"]) if obj.get("oidcSingleV1SessionTermination") is not None else None,
             "disableUserTokenEvent": FeatureServiceFeatureFlag.from_dict(obj["disableUserTokenEvent"]) if obj.get("disableUserTokenEvent") is not None else None,

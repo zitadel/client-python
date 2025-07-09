@@ -17,9 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool
-from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
+from typing import Any, ClassVar, Dict, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,8 +26,9 @@ class UserServiceHumanEmail(BaseModel):
     """
     UserServiceHumanEmail
     """ # noqa: E501
-    email: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]] = None
+    email: Optional[StrictStr] = None
     is_verified: Optional[StrictBool] = Field(default=None, alias="isVerified")
+    __properties: ClassVar[List[str]] = ["email", "isVerified"]
 
     model_config = ConfigDict(
         populate_by_name=True,

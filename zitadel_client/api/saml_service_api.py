@@ -16,10 +16,9 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictStr
-from typing_extensions import Annotated
 from zitadel_client.models.saml_service_create_response_request import SAMLServiceCreateResponseRequest
 from zitadel_client.models.saml_service_create_response_response import SAMLServiceCreateResponseResponse
+from zitadel_client.models.saml_service_get_saml_request_request import SAMLServiceGetSAMLRequestRequest
 from zitadel_client.models.saml_service_get_saml_request_response import SAMLServiceGetSAMLRequestResponse
 
 from zitadel_client.api_client import ApiClient, RequestSerialized
@@ -41,40 +40,48 @@ class SAMLServiceApi:
 
 
     @validate_call
-    def s_aml_service_create_response(
-    self,
-      saml_request_id: Annotated[StrictStr, Field(description="ID of the SAML Request.")],
-      saml_service_create_response_request: SAMLServiceCreateResponseRequest,
-    ) -> SAMLServiceCreateResponseResponse:
-        """Finalize a SAML Request and get the response.
+    def create_response(        self,                saml_service_create_response_request: SAMLServiceCreateResponseRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SAMLServiceCreateResponseResponse:
+        """CreateResponse
 
-        Finalize a SAML Request and get the response definition for success or failure. The response must be handled as per the SAML definition to inform the application about the success or failure. On success, the response contains details for the application to obtain the SAMLResponse. This method can only be called once for an SAML request.
 
-        :param saml_request_id: ID of the SAML Request. (required)
-        :type saml_request_id: str
         :param saml_service_create_response_request: (required)
         :type saml_service_create_response_request: SAMLServiceCreateResponseRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self.__s_aml_service_create_response_serialize(
-            saml_request_id=saml_request_id,
+        _param = self._create_response_serialize(
             saml_service_create_response_request=saml_service_create_response_request,
-            _request_auth=None,
-            _content_type=None,
-            _headers=None,
-            _host_index=0
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SAMLServiceCreateResponseResponse",
-            '403': "SAMLServiceRpcStatus",
-            '404': "SAMLServiceRpcStatus",
         }
-
         response_data = self.api_client.call_api(
             *_param,
-            _request_timeout=None
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
@@ -82,9 +89,8 @@ class SAMLServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-    def __s_aml_service_create_response_serialize(
+    def _create_response_serialize(
         self,
-        saml_request_id,
         saml_service_create_response_request,
         _request_auth,
         _content_type,
@@ -107,8 +113,6 @@ class SAMLServiceApi:
         _body_params: Optional[bytes] = None
 
         # process the path parameters
-        if saml_request_id is not None:
-            _path_params['samlRequestId'] = saml_request_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -146,7 +150,7 @@ class SAMLServiceApi:
 
         return self.api_client.param_serialize(
             method='POST',
-            resource_path='/v2/saml/saml_requests/{samlRequestId}',
+            resource_path='/zitadel.saml.v2.SAMLService/CreateResponse',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -163,36 +167,48 @@ class SAMLServiceApi:
 
 
     @validate_call
-    def s_aml_service_get_saml_request(
-    self,
-      saml_request_id: Annotated[StrictStr, Field(description="ID of the SAML Request, as obtained from the redirect URL.")],
-    ) -> SAMLServiceGetSAMLRequestResponse:
-        """Get SAML Request details
+    def get_saml_request(        self,                saml_service_get_saml_request_request: SAMLServiceGetSAMLRequestRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SAMLServiceGetSAMLRequestResponse:
+        """GetSAMLRequest
 
-        Get SAML Request details by ID. Returns details that are parsed from the application's SAML Request.
 
-        :param saml_request_id: ID of the SAML Request, as obtained from the redirect URL. (required)
-        :type saml_request_id: str
+        :param saml_service_get_saml_request_request: (required)
+        :type saml_service_get_saml_request_request: SAMLServiceGetSAMLRequestRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self.__s_aml_service_get_saml_request_serialize(
-            saml_request_id=saml_request_id,
-            _request_auth=None,
-            _content_type=None,
-            _headers=None,
-            _host_index=0
+        _param = self._get_saml_request_serialize(
+            saml_service_get_saml_request_request=saml_service_get_saml_request_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SAMLServiceGetSAMLRequestResponse",
-            '403': "SAMLServiceRpcStatus",
-            '404': "SAMLServiceRpcStatus",
         }
-
         response_data = self.api_client.call_api(
             *_param,
-            _request_timeout=None
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
@@ -200,9 +216,9 @@ class SAMLServiceApi:
             response_types_map=_response_types_map,
         ).data
 
-    def __s_aml_service_get_saml_request_serialize(
+    def _get_saml_request_serialize(
         self,
-        saml_request_id,
+        saml_service_get_saml_request_request,
         _request_auth,
         _content_type,
         _headers,
@@ -224,12 +240,12 @@ class SAMLServiceApi:
         _body_params: Optional[bytes] = None
 
         # process the path parameters
-        if saml_request_id is not None:
-            _path_params['samlRequestId'] = saml_request_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
         # process the body parameter
+        if saml_service_get_saml_request_request is not None:
+            _body_params = saml_service_get_saml_request_request
 
 
         # set the HTTP header `Accept`
@@ -240,6 +256,19 @@ class SAMLServiceApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -247,8 +276,8 @@ class SAMLServiceApi:
         ]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/v2/saml/saml_requests/{samlRequestId}',
+            method='POST',
+            resource_path='/zitadel.saml.v2.SAMLService/GetSAMLRequest',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

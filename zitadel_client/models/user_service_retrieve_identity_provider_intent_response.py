@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.user_service_add_human_user_request import UserServiceAddHumanUserRequest
 from zitadel_client.models.user_service_details import UserServiceDetails
 from zitadel_client.models.user_service_idp_information import UserServiceIDPInformation
@@ -31,8 +31,9 @@ class UserServiceRetrieveIdentityProviderIntentResponse(BaseModel):
     """ # noqa: E501
     details: Optional[UserServiceDetails] = None
     idp_information: Optional[UserServiceIDPInformation] = Field(default=None, alias="idpInformation")
-    user_id: Optional[StrictStr] = Field(default=None, description="ID of the user in ZITADEL if external user is linked", alias="userId")
+    user_id: Optional[StrictStr] = Field(default=None, alias="userId")
     add_human_user: Optional[UserServiceAddHumanUserRequest] = Field(default=None, alias="addHumanUser")
+    __properties: ClassVar[List[str]] = ["details", "idpInformation", "userId", "addHumanUser"]
 
     model_config = ConfigDict(
         populate_by_name=True,

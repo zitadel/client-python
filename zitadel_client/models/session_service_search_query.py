@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.session_service_creation_date_query import SessionServiceCreationDateQuery
 from zitadel_client.models.session_service_creator_query import SessionServiceCreatorQuery
 from zitadel_client.models.session_service_ids_query import SessionServiceIDsQuery
@@ -31,11 +31,12 @@ class SessionServiceSearchQuery(BaseModel):
     """
     SessionServiceSearchQuery
     """ # noqa: E501
-    ids_query: Optional[SessionServiceIDsQuery] = Field(default=None, alias="idsQuery")
-    user_id_query: Optional[SessionServiceUserIDQuery] = Field(default=None, alias="userIdQuery")
     creation_date_query: Optional[SessionServiceCreationDateQuery] = Field(default=None, alias="creationDateQuery")
     creator_query: Optional[SessionServiceCreatorQuery] = Field(default=None, alias="creatorQuery")
+    ids_query: Optional[SessionServiceIDsQuery] = Field(default=None, alias="idsQuery")
     user_agent_query: Optional[SessionServiceUserAgentQuery] = Field(default=None, alias="userAgentQuery")
+    user_id_query: Optional[SessionServiceUserIDQuery] = Field(default=None, alias="userIdQuery")
+    __properties: ClassVar[List[str]] = ["creationDateQuery", "creatorQuery", "idsQuery", "userAgentQuery", "userIdQuery"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -76,6 +77,21 @@ class SessionServiceSearchQuery(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of creation_date_query
+        if self.creation_date_query:
+            _dict['creationDateQuery'] = self.creation_date_query.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of creator_query
+        if self.creator_query:
+            _dict['creatorQuery'] = self.creator_query.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of ids_query
+        if self.ids_query:
+            _dict['idsQuery'] = self.ids_query.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of user_agent_query
+        if self.user_agent_query:
+            _dict['userAgentQuery'] = self.user_agent_query.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of user_id_query
+        if self.user_id_query:
+            _dict['userIdQuery'] = self.user_id_query.to_dict()
         return _dict
 
     @classmethod
@@ -88,11 +104,11 @@ class SessionServiceSearchQuery(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "idsQuery": SessionServiceIDsQuery.from_dict(obj["idsQuery"]) if obj.get("idsQuery") is not None else None,
-            "userIdQuery": SessionServiceUserIDQuery.from_dict(obj["userIdQuery"]) if obj.get("userIdQuery") is not None else None,
             "creationDateQuery": SessionServiceCreationDateQuery.from_dict(obj["creationDateQuery"]) if obj.get("creationDateQuery") is not None else None,
             "creatorQuery": SessionServiceCreatorQuery.from_dict(obj["creatorQuery"]) if obj.get("creatorQuery") is not None else None,
-            "userAgentQuery": SessionServiceUserAgentQuery.from_dict(obj["userAgentQuery"]) if obj.get("userAgentQuery") is not None else None
+            "idsQuery": SessionServiceIDsQuery.from_dict(obj["idsQuery"]) if obj.get("idsQuery") is not None else None,
+            "userAgentQuery": SessionServiceUserAgentQuery.from_dict(obj["userAgentQuery"]) if obj.get("userAgentQuery") is not None else None,
+            "userIdQuery": SessionServiceUserIDQuery.from_dict(obj["userIdQuery"]) if obj.get("userIdQuery") is not None else None
         })
         return _obj
 

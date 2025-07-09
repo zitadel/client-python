@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -28,6 +28,7 @@ class FeatureServiceLoginV2(BaseModel):
     """ # noqa: E501
     required: Optional[StrictBool] = Field(default=None, description="Require that all users must use the new login UI. If enabled, all users will be redirected to the login V2 regardless of the application's preference.")
     base_uri: Optional[StrictStr] = Field(default=None, description="Optionally specify a base uri of the login UI. If unspecified the default URI will be used.", alias="baseUri")
+    __properties: ClassVar[List[str]] = ["required", "baseUri"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -68,6 +69,11 @@ class FeatureServiceLoginV2(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if base_uri (nullable) is None
+        # and model_fields_set contains the field
+        if self.base_uri is None and "base_uri" in self.model_fields_set:
+            _dict['baseUri'] = None
+
         return _dict
 
     @classmethod

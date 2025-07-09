@@ -26,7 +26,7 @@ class TestUseAccessTokenSpec:
             docker_compose["base_url"],
             docker_compose["auth_token"],
         )
-        client.settings.settings_service_get_general_settings()
+        client.settings.get_general_settings()
 
     def test_raises_api_exception_with_invalid_token(self, docker_compose: Dict[str, str]) -> None:  # noqa F811
         """Raises ApiException when using an invalid access token."""
@@ -35,4 +35,4 @@ class TestUseAccessTokenSpec:
             "invalid",
         )
         with pytest.raises(ZitadelError):
-            client.settings.settings_service_get_general_settings()
+            client.settings.get_general_settings()

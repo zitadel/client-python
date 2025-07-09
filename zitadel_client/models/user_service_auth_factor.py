@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.user_service_auth_factor_state import UserServiceAuthFactorState
 from zitadel_client.models.user_service_auth_factor_u2_f import UserServiceAuthFactorU2F
 from typing import Optional, Set
@@ -28,11 +28,12 @@ class UserServiceAuthFactor(BaseModel):
     """
     UserServiceAuthFactor
     """ # noqa: E501
-    state: Optional[UserServiceAuthFactorState] = UserServiceAuthFactorState.AUTH_FACTOR_STATE_UNSPECIFIED
+    state: Optional[UserServiceAuthFactorState] = None
     otp: Optional[Dict[str, Any]] = None
-    u2f: Optional[UserServiceAuthFactorU2F] = None
-    otp_sms: Optional[Dict[str, Any]] = Field(default=None, alias="otpSms")
     otp_email: Optional[Dict[str, Any]] = Field(default=None, alias="otpEmail")
+    otp_sms: Optional[Dict[str, Any]] = Field(default=None, alias="otpSms")
+    u2f: Optional[UserServiceAuthFactorU2F] = None
+    __properties: ClassVar[List[str]] = ["state", "otp", "otpEmail", "otpSms", "u2f"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -73,6 +74,9 @@ class UserServiceAuthFactor(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of u2f
+        if self.u2f:
+            _dict['u2f'] = self.u2f.to_dict()
         return _dict
 
     @classmethod
@@ -85,11 +89,11 @@ class UserServiceAuthFactor(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "state": obj.get("state") if obj.get("state") is not None else UserServiceAuthFactorState.AUTH_FACTOR_STATE_UNSPECIFIED,
+            "state": obj.get("state"),
             "otp": obj.get("otp"),
-            "u2f": UserServiceAuthFactorU2F.from_dict(obj["u2f"]) if obj.get("u2f") is not None else None,
+            "otpEmail": obj.get("otpEmail"),
             "otpSms": obj.get("otpSms"),
-            "otpEmail": obj.get("otpEmail")
+            "u2f": UserServiceAuthFactorU2F.from_dict(obj["u2f"]) if obj.get("u2f") is not None else None
         })
         return _obj
 

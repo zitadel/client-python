@@ -17,9 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.organization_service_text_query_method import OrganizationServiceTextQueryMethod
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,8 +27,9 @@ class OrganizationServiceOrganizationDomainQuery(BaseModel):
     """
     OrganizationServiceOrganizationDomainQuery
     """ # noqa: E501
-    domain: Annotated[str, Field(min_length=1, strict=True, max_length=200)] = Field(description="Domain used in organization, not necessary primary domain.")
-    method: Optional[OrganizationServiceTextQueryMethod] = OrganizationServiceTextQueryMethod.TEXT_QUERY_METHOD_EQUALS
+    domain: StrictStr = Field(description="Domain used in organization, not necessary primary domain.")
+    method: Optional[OrganizationServiceTextQueryMethod] = None
+    __properties: ClassVar[List[str]] = ["domain", "method"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -83,7 +83,7 @@ class OrganizationServiceOrganizationDomainQuery(BaseModel):
 
         _obj = cls.model_validate({
             "domain": obj.get("domain"),
-            "method": obj.get("method") if obj.get("method") is not None else OrganizationServiceTextQueryMethod.TEXT_QUERY_METHOD_EQUALS
+            "method": obj.get("method")
         })
         return _obj
 

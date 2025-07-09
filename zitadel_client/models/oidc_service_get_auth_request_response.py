@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.oidc_service_auth_request import OIDCServiceAuthRequest
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,6 +28,7 @@ class OIDCServiceGetAuthRequestResponse(BaseModel):
     OIDCServiceGetAuthRequestResponse
     """ # noqa: E501
     auth_request: Optional[OIDCServiceAuthRequest] = Field(default=None, alias="authRequest")
+    __properties: ClassVar[List[str]] = ["authRequest"]
 
     model_config = ConfigDict(
         populate_by_name=True,

@@ -78,7 +78,7 @@ class TestUseClientCredentialsSpec:
             credentials["client_id"],
             credentials["client_secret"],
         )
-        client.settings.settings_service_get_general_settings()
+        client.settings.get_general_settings()
 
     def test_raises_api_exception_with_invalid_client_credentials(self, docker_compose: Dict[str, str]) -> None:  # noqa F811
         """Raises ApiException when using invalid client credentials."""
@@ -88,4 +88,4 @@ class TestUseClientCredentialsSpec:
             "invalid",
         )
         with pytest.raises(ZitadelError):
-            client.settings.settings_service_get_general_settings()
+            client.settings.get_general_settings()

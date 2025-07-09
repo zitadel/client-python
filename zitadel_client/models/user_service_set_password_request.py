@@ -17,9 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.user_service_password import UserServicePassword
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,9 +27,11 @@ class UserServiceSetPasswordRequest(BaseModel):
     """
     UserServiceSetPasswordRequest
     """ # noqa: E501
+    user_id: StrictStr = Field(alias="userId")
     new_password: Optional[UserServicePassword] = Field(default=None, alias="newPassword")
-    current_password: Annotated[str, Field(min_length=1, strict=True, max_length=200)] = Field(alias="currentPassword")
-    verification_code: Annotated[str, Field(min_length=1, strict=True, max_length=20)] = Field(description="\"the verification code generated during password reset request\"", alias="verificationCode")
+    current_password: Optional[StrictStr] = Field(default=None, alias="currentPassword")
+    verification_code: Optional[StrictStr] = Field(default=None, alias="verificationCode")
+    __properties: ClassVar[List[str]] = ["userId", "newPassword", "currentPassword", "verificationCode"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -71,6 +72,9 @@ class UserServiceSetPasswordRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of new_password
+        if self.new_password:
+            _dict['newPassword'] = self.new_password.to_dict()
         return _dict
 
     @classmethod
@@ -83,6 +87,7 @@ class UserServiceSetPasswordRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "userId": obj.get("userId"),
             "newPassword": UserServicePassword.from_dict(obj["newPassword"]) if obj.get("newPassword") is not None else None,
             "currentPassword": obj.get("currentPassword"),
             "verificationCode": obj.get("verificationCode")
