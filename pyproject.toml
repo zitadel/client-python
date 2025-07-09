@@ -35,7 +35,6 @@ version = "1.7.0"
 pytest = ">= 7.2.1"
 pytest-cov = ">= 2.8.1"
 tox = ">= 3.9.0"
-flake8 = ">= 4.0.0"
 types-python-dateutil = ">= 2.8.19.14"
 mypy = ">= 1.5"
 testcontainers = "3.7.1"
@@ -70,9 +69,6 @@ omit = [
   "zitadel_client/models/*"
 ]
 
-[tool.pylint.'MESSAGES CONTROL']
-extension-pkg-whitelist = "pydantic"
-
 [tool.mypy]
 files = [
   "zitadel_client",
@@ -93,9 +89,6 @@ module = [
 ]
 ignore_missing_imports = true
 disable_error_code = ["import-untyped"]
-
-[tool.flake8]
-max-line-length = 99
 
 [tool.ruff]
 line-length = 130
