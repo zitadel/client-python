@@ -1,8 +1,8 @@
 import json
 import urllib.parse
-from typing import Type, TypeVar, Optional, Any, Dict, Callable
+from typing import Any, Callable, Dict, Optional, Type, TypeVar
 
-from zitadel_client import Configuration, ApiError
+from zitadel_client import ApiError, Configuration
 from zitadel_client.i_api_client import IApiClient
 from zitadel_client.object_serializer import ObjectSerializer
 

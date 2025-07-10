@@ -1,28 +1,11 @@
 import datetime
 import decimal
-import json
-import mimetypes
-import os
-import re
-import tempfile
 from enum import Enum
-from types import TracebackType
-from typing import Any, Dict, List, Optional, Tuple, Type, TypeVar, Union, no_type_check, Protocol
-from urllib.parse import quote
+from typing import Any, Protocol, Type, TypeVar, no_type_check
 
-from dateutil.parser import parse
 from pydantic import SecretStr
 
-import zitadel_client.models
-import zitadel_client.rest_response
-from zitadel_client import rest
-from zitadel_client.api_response import ApiResponse
-
 # noinspection PyPep8Naming
-from zitadel_client.api_response import T as ApiResponseT
-from zitadel_client.auth.no_auth_authenticator import NoAuthAuthenticator
-from zitadel_client.configuration import Configuration
-from zitadel_client.exceptions import ApiError
 
 T = TypeVar("T")
 
