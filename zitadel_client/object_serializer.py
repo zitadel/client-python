@@ -7,12 +7,12 @@ from pydantic import SecretStr
 
 # noinspection PyPep8Naming
 
-T = TypeVar("T")
+T = TypeVar("T", bound="Deserializable")
 
 class Deserializable(Protocol):
     """A protocol for objects that can be created from a dictionary."""
     @classmethod
-    def from_dict(cls, data: Any) -> "Deserializable":
+    def from_dict(cls: Type[T], data: Any) -> T:
         ...
 
 class ObjectSerializer:
@@ -68,7 +68,11 @@ class ObjectSerializer:
         return {key: self.sanitize_for_serialization(val) for key, val in obj_dict.items()}
 
     @staticmethod
-    def deserialize(data: Any, cls: Type[Deserializable]) -> Any:
-        if hasattr(cls, "from_dict"):
-            return cls.from_dict(data)
-        return data
+    def deserialize(data: Any, cls: Type[T]) -> T:
+        """
+        data: parsed JSON or raw
+        cls: a real class implementing Deserializable
+        returns: an instance of cls
+        """
+        # now mypy knows cls is Type[T], with T bound to Deserializable
+        return cls.from_dict(data)

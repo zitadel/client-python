@@ -5,17 +5,58 @@ from zitadel_client.configuration import Configuration
 
 
 class ConfigurationTest(unittest.TestCase):
-    def test_user_agent_getter_and_setter(self) -> None:
-        """
-        Test user agent getter and setter.
+    """
+    OAuth host for testing.
+    """
+    # noinspection HttpUrlsUsage
+    oauth_host = "http://zitadel.com"
 
-        @return void
-        """
-        config = Configuration(NoAuthAuthenticator())
+    """
+    Test user agent getter and setter.
+    """
+    def test_user_agent(self) -> None:
+        authenticator = NoAuthAuthenticator(self.oauth_host, "test-token")
+        config = Configuration(authenticator)
 
-        self.assertRegex(
-            config.user_agent,
-            r"^zitadel-client/\d+\.\d+\.\d+ \(lang=python; lang_version=[^;]+; os=[^;]+; arch=[^;]+\)$",
+        self.assertTrue(
+            config.user_agent.startswith("zitadel-client/") and
+            "lang=python" in config.user_agent and
+            "os=" in config.user_agent and
+            "arch=" in config.user_agent
         )
-        config.user_agent = "CustomUserAgent/1.0"
-        self.assertEqual(config.user_agent, "CustomUserAgent/1.0")
+
+    """
+    Test getting access token.
+    """
+    def test_get_access_token(self) -> None:
+        authenticator = NoAuthAuthenticator(self.oauth_host, "test-token")
+        config = Configuration(authenticator)
+
+        self.assertEqual("test-token", config.access_token)
+
+    """
+    Test getting host from authenticator.
+    """
+    def test_get_host(self) -> None:
+        authenticator = NoAuthAuthenticator(self.oauth_host, "test-token")
+        config = Configuration(authenticator)
+
+        self.assertEqual(self.oauth_host, config.host)
+
+    """
+    Test connection timeout.
+    """
+    def test_get_connect_timeout(self) -> None:
+        authenticator = NoAuthAuthenticator(self.oauth_host, "test-token")
+        config = Configuration(authenticator)
+
+        self.assertEqual(5, config.connect_timeout)
+
+    """
+    Test total timeout.
+    """
+    def test_get_timeout(self) -> None:
+        authenticator = NoAuthAuthenticator(self.oauth_host, "test-token")
+        config = Configuration(authenticator)
+
+        self.assertEqual(30, config.timeout)

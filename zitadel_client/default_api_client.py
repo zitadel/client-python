@@ -2,14 +2,48 @@ import json
 import urllib.parse
 from typing import Any, Callable, Dict, Optional, Type, TypeVar
 
+import urllib3
+
 from zitadel_client import ApiError, Configuration
 from zitadel_client.i_api_client import IApiClient
-from zitadel_client.object_serializer import ObjectSerializer
+from zitadel_client.object_serializer import Deserializable, ObjectSerializer
 
 T = TypeVar("T")
 
 
 class DefaultApiClient(IApiClient):
+    """
+    A self-contained, urllib3-based API client.
+
+    This client supports custom PoolManager configuration via an optional callable,
+    allowing proxy settings, disabling TLS verification, adding custom headers, etc.
+
+    Example:
+    ```python
+    from zitadel_client.auth import PersonalAccessTokenAuthenticator
+    from zitadel_client import Configuration
+    from zitadel_client.default_api_client import DefaultApiClient
+
+    # 1) Create Configuration with NoAuthAuthenticator
+    config = Configuration(
+        authenticator=PersonalAccessTokenAuthenticator("https://api.example.com", "test-token")
+    )
+
+    # 2) Define a configurator for proxy, headers, and disable TLS
+    def client_configurator(pool_args: Dict[str, Any]) -> Dict[str, Any]:
+        # Disable TLS certificate verification
+        pool_args["cert_reqs"] = "CERT_NONE"
+        # Set HTTP/S proxy
+        pool_args["proxy_url"] = "https://username:password@proxy.example.com:3128"
+        # Add a custom header to every request
+        pool_args["headers"] = {"X-My-Custom-Header": "custom-value"}
+        return pool_args
+
+    # 3) Instantiate DefaultApiClient with configurator
+    client = DefaultApiClient(config, client_configurator)
+    ```
+    """
+
     VALID_METHODS = {"GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"}
 
     def __init__(
@@ -35,8 +69,8 @@ class DefaultApiClient(IApiClient):
         query_params: Dict[str, Any],
         header_params: Dict[str, Any],
         body: Optional[Any],
-        response_types: Dict[int, Type[T]],
-    ) -> Optional[T]:
+        response_types: Dict[int, Type[Deserializable]],
+    ) -> Optional[Deserializable]:
         if method.upper() not in self.VALID_METHODS:
             raise ValueError(f"Invalid HTTP method: {method}")
 
@@ -76,7 +110,8 @@ class DefaultApiClient(IApiClient):
 
         if 200 <= response.status < 300:
             if response_cls:
-                return ObjectSerializer.deserialize(response_body, response_cls)
+                ff = response_cls
+                return ObjectSerializer.deserialize(response_body, ff)
             else:
                 return None
         elif response_cls:
@@ -85,15 +120,15 @@ class DefaultApiClient(IApiClient):
             except Exception:
                 error_body = response_body
             raise ApiError(
-                status=response.status,
-                headers=response.headers,
-                body=error_body,
+                code=response.status,
+                response_headers=dict(response.headers),
+                response_body=error_body,
             )
         else:
             raise ApiError(
-                status=response.status,
-                headers=response.headers,
-                body=response_body,
+                code=response.status,
+                response_headers=dict(response.headers),
+                response_body=response_body,
             )
 
     @staticmethod

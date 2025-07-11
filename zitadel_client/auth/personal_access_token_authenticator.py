@@ -22,3 +22,11 @@ class PersonalAccessTokenAuthenticator(Authenticator):
         :return: A dictionary containing the 'Authorization' header.
         """
         return {"Authorization": "Bearer " + self.token}
+
+    def get_auth_token(self) -> str:
+        """
+        Retrieve authentication token using the personal access token.
+
+        :return: The authentication token
+        """
+        return self.token

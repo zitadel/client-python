@@ -38,6 +38,15 @@ class Authenticator(ABC):
         """
         return self.host
 
+    @abstractmethod
+    def get_auth_token(self) -> str:
+        """
+        Retrieve the authentication token needed for API requests.
+
+        :return: The authentication token
+        """
+        pass
+
 
 class Token:
     def __init__(self, access_token: str, expires_at: datetime):

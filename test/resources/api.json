@@ -1,0 +1,202 @@
+{
+  "mappings": [
+    {
+      "name": "GET Success",
+      "request": {
+        "method": "GET",
+        "url": "/users/123",
+        "headers": {
+          "Authorization": {
+            "equalTo": "Bearer test-token"
+          },
+          "X-Operation-Id": {
+            "equalTo": "testGetSuccess"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"status\":\"ok\"}"
+      }
+    },
+    {
+      "name": "POST Success",
+      "request": {
+        "method": "POST",
+        "url": "/users",
+        "headers": {
+          "X-Operation-Id": {
+            "equalTo": "testPost"
+          }
+        }
+      },
+      "response": {
+        "status": 201,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"status\":\"created\"}"
+      }
+    },
+    {
+      "name": "PUT Success with Custom Header",
+      "request": {
+        "method": "PUT",
+        "url": "/users/123",
+        "headers": {
+          "X-Request-ID": {
+            "equalTo": "test-uuid-123"
+          },
+          "X-Operation-Id": {
+            "equalTo": "testCustomHeaders"
+          }
+        }
+      },
+      "response": {
+        "status": 200
+      }
+    },
+    {
+      "name": "PATCH Success",
+      "request": {
+        "method": "PATCH",
+        "url": "/users/123",
+        "headers": {
+          "X-Operation-Id": {
+            "equalTo": "testPatch"
+          }
+        }
+      },
+      "response": {
+        "status": 200
+      }
+    },
+    {
+      "name": "DELETE Success",
+      "request": {
+        "method": "DELETE",
+        "url": "/users/123",
+        "headers": {
+          "X-Operation-Id": {
+            "equalTo": "testVoid"
+          }
+        }
+      },
+      "response": {
+        "status": 204
+      }
+    },
+    {
+      "name": "HEAD Success",
+      "request": {
+        "method": "HEAD",
+        "url": "/health",
+        "headers": {
+          "X-Operation-Id": {
+            "equalTo": "testHead"
+          }
+        }
+      },
+      "response": {
+        "status": 200
+      }
+    },
+    {
+      "name": "OPTIONS Success",
+      "request": {
+        "method": "OPTIONS",
+        "url": "/users",
+        "headers": {
+          "X-Operation-Id": {
+            "equalTo": "testOptions"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Allow": "GET, POST"
+        }
+      }
+    },
+    {
+      "name": "GET 404 Not Found",
+      "request": {
+        "method": "GET",
+        "url": "/users/notfound",
+        "headers": {
+          "X-Operation-Id": {
+            "equalTo": "test404"
+          }
+        }
+      },
+      "response": {
+        "status": 404,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"message\":\"The requested resource was not found.\"}"
+      }
+    },
+    {
+      "name": "POST 400 Typed Error",
+      "request": {
+        "method": "POST",
+        "url": "/users/bad",
+        "headers": {
+          "X-Operation-Id": {
+            "equalTo": "test400"
+          }
+        }
+      },
+      "response": {
+        "status": 400,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"errorCode\":\"INVALID_ARGUMENT\", \"field\":\"email\"}"
+      }
+    },
+    {
+      "name": "GET 500 Server Error",
+      "request": {
+        "method": "GET",
+        "url": "/error",
+        "headers": {
+          "X-Operation-Id": {
+            "equalTo": "test500"
+          }
+        }
+      },
+      "response": {
+        "status": 500,
+        "headers": {
+          "Content-Type": "text/html"
+        },
+        "body": "<h1>Internal Server Error</h1>"
+      }
+    },
+    {
+      "name": "GET Malformed JSON",
+      "request": {
+        "method": "GET",
+        "url": "/malformed",
+        "headers": {
+          "X-Operation-Id": {
+            "equalTo": "testMalformed"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"status\":\"ok\","
+      }
+    }
+  ]
+}

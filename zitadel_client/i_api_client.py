@@ -1,6 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import Any, Dict, Optional, Type, TypeVar
 
+from zitadel_client.object_serializer import Deserializable
+
 T = TypeVar("T")
 
 class IApiClient(ABC):
@@ -14,6 +16,6 @@ class IApiClient(ABC):
         query_params: Dict[str, Any],
         header_params: Dict[str, Any],
         body: Optional[Any],
-        response_types: Dict[int, Type[T]],
-    ) -> Optional[T]:
+        response_types: Dict[int, Type[Deserializable]],
+    ) -> Optional[Deserializable]:
         raise NotImplementedError
