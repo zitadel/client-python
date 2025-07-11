@@ -5,6 +5,7 @@ from zitadel_client.object_serializer import Deserializable
 
 T = TypeVar("T")
 
+
 class IApiClient(ABC):
     @abstractmethod
     def invoke_api(

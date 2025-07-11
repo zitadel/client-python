@@ -67,7 +67,6 @@ class ApiClient:
         self.default_headers = {"User-Agent": configuration.user_agent}
         if header_name is not None and header_value is not None:
             self.default_headers[header_name] = header_value
-        self.client_side_validation = configuration.client_side_validation
 
     # noinspection PyArgumentList
     T = TypeVar("T", bound="ApiClient")

@@ -8,26 +8,29 @@ class ConfigurationTest(unittest.TestCase):
     """
     OAuth host for testing.
     """
+
     # noinspection HttpUrlsUsage
     oauth_host = "http://zitadel.com"
 
     """
     Test user agent getter and setter.
     """
+
     def test_user_agent(self) -> None:
         authenticator = NoAuthAuthenticator(self.oauth_host, "test-token")
         config = Configuration(authenticator)
 
         self.assertTrue(
-            config.user_agent.startswith("zitadel-client/") and
-            "lang=python" in config.user_agent and
-            "os=" in config.user_agent and
-            "arch=" in config.user_agent
+            config.user_agent.startswith("zitadel-client/")
+            and "lang=python" in config.user_agent
+            and "os=" in config.user_agent
+            and "arch=" in config.user_agent
         )
 
     """
     Test getting access token.
     """
+
     def test_get_access_token(self) -> None:
         authenticator = NoAuthAuthenticator(self.oauth_host, "test-token")
         config = Configuration(authenticator)
@@ -37,6 +40,7 @@ class ConfigurationTest(unittest.TestCase):
     """
     Test getting host from authenticator.
     """
+
     def test_get_host(self) -> None:
         authenticator = NoAuthAuthenticator(self.oauth_host, "test-token")
         config = Configuration(authenticator)
@@ -46,6 +50,7 @@ class ConfigurationTest(unittest.TestCase):
     """
     Test connection timeout.
     """
+
     def test_get_connect_timeout(self) -> None:
         authenticator = NoAuthAuthenticator(self.oauth_host, "test-token")
         config = Configuration(authenticator)
@@ -55,6 +60,7 @@ class ConfigurationTest(unittest.TestCase):
     """
     Test total timeout.
     """
+
     def test_get_timeout(self) -> None:
         authenticator = NoAuthAuthenticator(self.oauth_host, "test-token")
         config = Configuration(authenticator)

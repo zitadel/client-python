@@ -1,23 +1,39 @@
 import datetime
 import decimal
 from enum import Enum
-from typing import Any, Protocol, Type, TypeVar, no_type_check
+from typing import Any, Protocol, Type, TypeVar, no_type_check, Union, Optional
 
+from dateutil.parser import parse
 from pydantic import SecretStr
 
 # noinspection PyPep8Naming
 
 T = TypeVar("T", bound="Deserializable")
+E = TypeVar("E", bound=Enum)
+P = TypeVar("P", int, float, bool, str)
+
 
 class Deserializable(Protocol):
     """A protocol for objects that can be created from a dictionary."""
+
     @classmethod
-    def from_dict(cls: Type[T], data: Any) -> T:
-        ...
+    def from_dict(cls: Type[T], data: Any) -> T: ...
+
 
 class ObjectSerializer:
-    @staticmethod
-    @no_type_check
+    PRIMITIVE_TYPES = (float, bool, bytes, str, int)
+    NATIVE_TYPES_MAPPING = {
+        "int": int,
+        "long": int,
+        "float": float,
+        "str": str,
+        "bool": bool,
+        "date": datetime.date,
+        "datetime": datetime.datetime,
+        "decimal": decimal.Decimal,
+        "object": object,
+    }
+
     def sanitize_for_serialization(self, obj: Any) -> Any:
         """Builds a JSON POST object.
 
@@ -67,12 +83,127 @@ class ObjectSerializer:
 
         return {key: self.sanitize_for_serialization(val) for key, val in obj_dict.items()}
 
-    @staticmethod
-    def deserialize(data: Any, cls: Type[T]) -> T:
+    # noinspection PyMethodMayBeStatic
+    def deserialize(self, data: Any, cls: Type[T]) -> T:
         """
         data: parsed JSON or raw
         cls: a real class implementing Deserializable
         returns: an instance of cls
         """
-        # now mypy knows cls is Type[T], with T bound to Deserializable
         return cls.from_dict(data)
+
+    # noinspection PyTypeChecker
+    @no_type_check
+    def __deserialize(
+        self,
+        data: Any,
+        klass: Type[T],
+    ) -> Optional[T]:
+        """
+        Deserializes JSON-style data into an instance of `klass`.
+
+        :param data: the JSON-decoded payload (None, dict, list, or primitive)
+        :param klass: the actual target class (primitive, date, enum, or a model
+                      with a `from_dict` method)
+        :return: an instance of `klass`, or `None` if `data is None`
+        """
+        if data is None:
+            return None
+
+        if klass in self.PRIMITIVE_TYPES:
+            return self.__deserialize_primitive(data, klass)
+
+        if klass is object:
+            return self.__deserialize_object(data)
+
+        if klass is datetime.date:
+            return self.__deserialize_date(data)
+        if klass is datetime.datetime:
+            return self.__deserialize_datetime(data)
+
+        if klass is decimal.Decimal:
+            return decimal.Decimal(data)
+
+        if issubclass(klass, Enum):
+            return self.__deserialize_enum(data, klass)
+
+        return self.__deserialize_model(data, klass)
+
+    # noinspection PyMethodMayBeStatic
+    def __deserialize_object(self, value: T) -> T:
+        """
+        Returns the original value unchanged.
+
+        :param value: any value to return.
+        :return: the same value passed in.
+        """
+        return value
+
+    # noinspection PyMethodMayBeStatic
+    def __deserialize_primitive(self, data: Any, klass: Type[P]) -> Union[P, str]:
+        """
+        Deserializes a primitive value into the specified primitive type.
+
+        :param data: the value to convert (often a str).
+        :param klass: the target primitive type (int, float, bool, or str).
+        :return: an instance of klass, or str(data) on UnicodeEncodeError,
+                 or the original data on TypeError.
+        """
+        try:
+            return klass(data)  # now mypy knows klass is e.g. int, float, bool or str
+        except UnicodeEncodeError:
+            return str(data)
+
+    # noinspection PyMethodMayBeStatic
+    def __deserialize_date(self, string: str) -> datetime.date:
+        """
+        Deserializes an ISO8601 date string into a datetime.date.
+
+        :param string: the date string to parse.
+        :return: a date object if parsing succeeds; otherwise the original string.
+        :raises RuntimeError: if the string cannot be parsed as a date.
+        """
+        try:
+            return parse(string).date()
+        except (ValueError, TypeError) as err:
+            raise RuntimeError(f"Failed to parse `{string}` as date object") from err
+
+    # noinspection PyMethodMayBeStatic
+    def __deserialize_datetime(self, string: str) -> datetime.datetime:
+        """
+        Deserializes an ISO8601 datetime string.
+
+        :param string: the datetime string to parse.
+        :return: a datetime object if parsing succeeds, otherwise the original string.
+        :raises RuntimeError: if the string cannot be parsed as ISO8601.
+        """
+        try:
+            return parse(string)
+        except ValueError as err:
+            raise RuntimeError(f"Failed to parse `{string}` as datetime object") from err
+
+    # noinspection PyMethodMayBeStatic
+    def __deserialize_enum(self, data: Any, klass: Type[E]) -> E:
+        """
+        Deserializes a primitive value into the given Enum class.
+
+        :param data: primitive type to convert (e.g. str or int)
+        :param klass: the Enum class literal
+        :return: an instance of klass
+        :raises RuntimeError: if the data cannot be parsed as klass
+        """
+        try:
+            return klass(data)
+        except ValueError as err:
+            raise RuntimeError(f"Failed to parse `{data}` as `{klass}`") from err
+
+    # noinspection PyMethodMayBeStatic
+    def __deserialize_model(self, data: Any, klass: Type[T]) -> T:
+        """
+        Deserializes a dict or list into the given model class.
+
+        :param data: the JSON-decoded dict or list
+        :param klass: the model class implementing `from_dict`
+        :return: an instance of klass
+        """
+        return klass.from_dict(data)

@@ -39,7 +39,7 @@ class DefaultApiClient(IApiClient):
         pool_args["headers"] = {"X-My-Custom-Header": "custom-value"}
         return pool_args
 
-    # 3) Instantiate DefaultApiClient with configurator
+    # 3) Instantiate DefaultApiClient with the configurator
     client = DefaultApiClient(config, client_configurator)
     ```
     """
@@ -49,15 +49,12 @@ class DefaultApiClient(IApiClient):
     def __init__(
         self, config: Configuration, client_configurator: Optional[Callable[[Dict[str, Any]], Dict[str, Any]]] = None
     ) -> None:
-        import urllib3
-
         self._config = config
+        self._serde = ObjectSerializer()
 
         pool_args: Dict[str, Any] = {"timeout": urllib3.Timeout(connect=config.connect_timeout, total=config.timeout)}
-
         if client_configurator:
             pool_args = client_configurator(pool_args)
-
         self._pool_manager = urllib3.PoolManager(**pool_args)
 
     def invoke_api(
@@ -88,7 +85,7 @@ class DefaultApiClient(IApiClient):
 
         if body is not None:
             headers["Content-Type"] = "application/json"
-            payload = json.dumps(ObjectSerializer.sanitize_for_serialization(body)).encode("utf-8")
+            payload = json.dumps(self._serde.sanitize_for_serialization(body)).encode("utf-8")
 
         try:
             response = self._pool_manager.request(
@@ -110,13 +107,15 @@ class DefaultApiClient(IApiClient):
 
         if 200 <= response.status < 300:
             if response_cls:
-                ff = response_cls
-                return ObjectSerializer.deserialize(response_body, ff)
+                try:
+                    return self._serde.deserialize(response_body, response_cls)
+                except Exception as e:
+                    raise RuntimeError(f"[{operation_id}] Failed to deserialize successful response.") from e
             else:
                 return None
         elif response_cls:
             try:
-                error_body = ObjectSerializer.deserialize(response_body, response_cls)
+                error_body = self._serde.deserialize(response_body, response_cls)
             except Exception:
                 error_body = response_body
             raise ApiError(

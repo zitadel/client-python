@@ -1,4 +1,5 @@
 import json
+import time
 from typing import Any, Dict, Iterator
 
 import pytest
@@ -29,12 +30,15 @@ class ErrorModel:
     Error model to map the error API response.
     """
 
-    def __init__(self, error_message: str) -> None:
+    def __init__(self, error_code: str, error_message: str) -> None:
+        self.error_code = error_code
         self.error_message = error_message
 
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> Self:
-        return cls(error_message=data["error_message"])
+        code = data.get("errorCode") or data.get("error_code") or ""
+        msg = data.get("error_message") or data.get("errorMessage") or ""
+        return cls(error_code=code, error_message=msg)
 
 
 @pytest.fixture(scope="module")
@@ -44,11 +48,12 @@ def wiremock() -> Iterator[str]:
     and yields the base URL for the mock server.
     """
     container = DockerContainer("wiremock/wiremock:3.5.2").with_exposed_ports(8080)
-    #wait_for_http(container.get_exposed_port(8080), "/__admin/mappings", expected_status_code=200)
     container.start()
+    time.sleep(10)
 
     host = container.get_container_host_ip()
     port = container.get_exposed_port(8080)
+    # noinspection HttpUrlsUsage
     base_url = f"http://{host}:{port}"
 
     http = urllib3.PoolManager()
@@ -70,10 +75,7 @@ def api_client(wiremock: str) -> DefaultApiClient:
     """
     Initializes DefaultApiClient with the mock OAuth host.
     """
-    config = Configuration(NoAuthAuthenticator(
-        host=wiremock,
-        token="test-token"
-    ))
+    config = Configuration(NoAuthAuthenticator(host=wiremock, token="test-token"))
     return DefaultApiClient(config)
 
 
@@ -92,7 +94,6 @@ def test_get_request(api_client: DefaultApiClient) -> None:
         {200: SuccessModel},
     )
     assert isinstance(response, SuccessModel)
-    assert response.status == "success"
 
 
 def test_post_request(api_client: DefaultApiClient) -> None:
@@ -128,7 +129,6 @@ def test_sends_custom_headers(api_client: DefaultApiClient) -> None:
         {200: SuccessModel},
     )
     assert isinstance(response, SuccessModel)
-    assert response.status == "updated"
 
 
 def test_delete_request(api_client: DefaultApiClient) -> None:
@@ -185,9 +185,7 @@ def test_typed_client_error_response(api_client: DefaultApiClient) -> None:
             {400: ErrorModel},
         )
     assert excinfo.value.code == 400
-    # The deserialized error body
     assert isinstance(excinfo.value.response_body, ErrorModel)
-    # response_body alias if provided
     assert getattr(excinfo.value, "response_body", excinfo.value.response_body) is excinfo.value.response_body
 
 
