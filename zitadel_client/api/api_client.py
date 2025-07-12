@@ -14,12 +14,11 @@ from dateutil.parser import parse
 from pydantic import SecretStr
 
 import zitadel_client.models
-import zitadel_client.rest_response
-from zitadel_client import rest
-from zitadel_client.api_response import ApiResponse
+from zitadel_client.api import rest
 
 # noinspection PyPep8Naming
-from zitadel_client.api_response import T as ApiResponseT
+from zitadel_client.api.api_response import T as ApiResponseT, ApiResponse
+from .rest_response import RESTResponse
 from zitadel_client.auth.no_auth_authenticator import NoAuthAuthenticator
 from zitadel_client.configuration import Configuration
 from zitadel_client.exceptions import ApiError
@@ -178,7 +177,7 @@ class ApiClient:
         body=None,
         post_params=None,
         _request_timeout=None,
-    ) -> zitadel_client.rest_response.RESTResponse:
+    ) -> 'RESTResponse':
         """Makes the HTTP request (synchronous)
         :param post_params:
         :param method: Method to call.
@@ -211,7 +210,7 @@ class ApiClient:
     @no_type_check
     def response_deserialize(
         self,
-        response_data: zitadel_client.rest_response.RESTResponse,
+        response_data: RESTResponse,
         response_types_map: Optional[Dict[str, ApiResponseT]] = None,
     ) -> ApiResponse[ApiResponseT]:
         """Deserializes response into an object.

@@ -11,7 +11,6 @@
     Do not edit the class manually.
 """  # noqa: E501
 
-import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
@@ -29,9 +28,7 @@ from zitadel_client.models.beta_authorization_service_list_authorizations_respon
 from zitadel_client.models.beta_authorization_service_update_authorization_request import BetaAuthorizationServiceUpdateAuthorizationRequest
 from zitadel_client.models.beta_authorization_service_update_authorization_response import BetaAuthorizationServiceUpdateAuthorizationResponse
 
-from zitadel_client.api_client import ApiClient, RequestSerialized
-from zitadel_client.api_response import ApiResponse
-from zitadel_client.rest import RESTResponseType
+from zitadel_client.api.api_client import ApiClient, RequestSerialized
 
 
 class BetaAuthorizationServiceApi:
@@ -811,5 +808,3 @@ class BetaAuthorizationServiceApi:
             _host=_host,
             _request_auth=_request_auth
         )
-
-

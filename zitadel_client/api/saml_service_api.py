@@ -11,7 +11,6 @@
     Do not edit the class manually.
 """  # noqa: E501
 
-import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
@@ -21,9 +20,7 @@ from zitadel_client.models.saml_service_create_response_response import SAMLServ
 from zitadel_client.models.saml_service_get_saml_request_request import SAMLServiceGetSAMLRequestRequest
 from zitadel_client.models.saml_service_get_saml_request_response import SAMLServiceGetSAMLRequestResponse
 
-from zitadel_client.api_client import ApiClient, RequestSerialized
-from zitadel_client.api_response import ApiResponse
-from zitadel_client.rest import RESTResponseType
+from zitadel_client.api.api_client import ApiClient, RequestSerialized
 
 
 class SAMLServiceApi:
@@ -289,5 +286,3 @@ class SAMLServiceApi:
             _host=_host,
             _request_auth=_request_auth
         )
-
-

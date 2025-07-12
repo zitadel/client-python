@@ -11,7 +11,6 @@
     Do not edit the class manually.
 """  # noqa: E501
 
-import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
@@ -133,9 +132,7 @@ from zitadel_client.models.user_service_verify_totp_registration_response import
 from zitadel_client.models.user_service_verify_u2_f_registration_request import UserServiceVerifyU2FRegistrationRequest
 from zitadel_client.models.user_service_verify_u2_f_registration_response import UserServiceVerifyU2FRegistrationResponse
 
-from zitadel_client.api_client import ApiClient, RequestSerialized
-from zitadel_client.api_response import ApiResponse
-from zitadel_client.rest import RESTResponseType
+from zitadel_client.api.api_client import ApiClient, RequestSerialized
 
 
 class UserServiceApi:
@@ -7570,5 +7567,3 @@ class UserServiceApi:
             _host=_host,
             _request_auth=_request_auth
         )
-
-

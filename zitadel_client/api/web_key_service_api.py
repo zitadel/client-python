@@ -11,9 +11,8 @@
     Do not edit the class manually.
 """  # noqa: E501
 
-import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from typing import Any, Dict
@@ -25,9 +24,7 @@ from zitadel_client.models.web_key_service_delete_web_key_request import WebKeyS
 from zitadel_client.models.web_key_service_delete_web_key_response import WebKeyServiceDeleteWebKeyResponse
 from zitadel_client.models.web_key_service_list_web_keys_response import WebKeyServiceListWebKeysResponse
 
-from zitadel_client.api_client import ApiClient, RequestSerialized
-from zitadel_client.api_response import ApiResponse
-from zitadel_client.rest import RESTResponseType
+from zitadel_client.api.api_client import ApiClient, RequestSerialized
 
 
 class WebKeyServiceApi:
@@ -553,5 +550,3 @@ class WebKeyServiceApi:
             _host=_host,
             _request_auth=_request_auth
         )
-
-

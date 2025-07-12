@@ -11,7 +11,6 @@
     Do not edit the class manually.
 """  # noqa: E501
 
-import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
@@ -21,9 +20,7 @@ from zitadel_client.models.organization_service_add_organization_response import
 from zitadel_client.models.organization_service_list_organizations_request import OrganizationServiceListOrganizationsRequest
 from zitadel_client.models.organization_service_list_organizations_response import OrganizationServiceListOrganizationsResponse
 
-from zitadel_client.api_client import ApiClient, RequestSerialized
-from zitadel_client.api_response import ApiResponse
-from zitadel_client.rest import RESTResponseType
+from zitadel_client.api.api_client import ApiClient, RequestSerialized
 
 
 class OrganizationServiceApi:
@@ -291,5 +288,3 @@ class OrganizationServiceApi:
             _host=_host,
             _request_auth=_request_auth
         )
-
-

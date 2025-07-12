@@ -11,7 +11,6 @@
     Do not edit the class manually.
 """  # noqa: E501
 
-import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
@@ -19,9 +18,7 @@ from typing_extensions import Annotated
 from zitadel_client.models.identity_provider_service_get_idpby_id_request import IdentityProviderServiceGetIDPByIDRequest
 from zitadel_client.models.identity_provider_service_get_idpby_id_response import IdentityProviderServiceGetIDPByIDResponse
 
-from zitadel_client.api_client import ApiClient, RequestSerialized
-from zitadel_client.api_response import ApiResponse
-from zitadel_client.rest import RESTResponseType
+from zitadel_client.api.api_client import ApiClient, RequestSerialized
 
 
 class IdentityProviderServiceApi:
@@ -161,5 +158,3 @@ class IdentityProviderServiceApi:
             _host=_host,
             _request_auth=_request_auth
         )
-
-

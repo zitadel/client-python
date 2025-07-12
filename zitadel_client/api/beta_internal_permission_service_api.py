@@ -11,7 +11,6 @@
     Do not edit the class manually.
 """  # noqa: E501
 
-import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
@@ -25,9 +24,7 @@ from zitadel_client.models.beta_internal_permission_service_list_administrators_
 from zitadel_client.models.beta_internal_permission_service_update_administrator_request import BetaInternalPermissionServiceUpdateAdministratorRequest
 from zitadel_client.models.beta_internal_permission_service_update_administrator_response import BetaInternalPermissionServiceUpdateAdministratorResponse
 
-from zitadel_client.api_client import ApiClient, RequestSerialized
-from zitadel_client.api_response import ApiResponse
-from zitadel_client.rest import RESTResponseType
+from zitadel_client.api.api_client import ApiClient, RequestSerialized
 
 
 class BetaInternalPermissionServiceApi:
@@ -551,5 +548,3 @@ class BetaInternalPermissionServiceApi:
             _host=_host,
             _request_auth=_request_auth
         )
-
-

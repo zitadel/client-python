@@ -2,57 +2,19 @@
 
 import json
 import re
-import ssl
 from typing import Dict, Optional
 
 import urllib3
 
-from zitadel_client.rest_response import RESTResponse
+from zitadel_client.configuration import Configuration
+from zitadel_client.api.rest_response import RESTResponse
 
 RESTResponseType = urllib3.HTTPResponse
 
 
 class RESTClientObject:
-    def __init__(self, configuration) -> None:  # type: ignore
-        # urllib3.PoolManager will pass all kw parameters to connectionpool
-        # https://github.com/shazow/urllib3/blob/f9409436f83aeb79fbaf090181cd81b784f1b8ce/urllib3/poolmanager.py#L75  # noqa: E501
-        # https://github.com/shazow/urllib3/blob/f9409436f83aeb79fbaf090181cd81b784f1b8ce/urllib3/connectionpool.py#L680  # noqa: E501
-        # Custom SSL certificates and client certificates: http://urllib3.readthedocs.io/en/latest/advanced-usage.html  # noqa: E501
-
-        # cert_reqs
-        if configuration.verify_ssl:
-            # noinspection PyUnresolvedReferences
-            cert_reqs = ssl.CERT_REQUIRED
-        else:
-            # noinspection PyUnresolvedReferences
-            cert_reqs = ssl.CERT_NONE
-
-        pool_args = {
-            "cert_reqs": cert_reqs,
-            "ca_certs": configuration.ssl_ca_cert,
-            "cert_file": configuration.cert_file,
-            "key_file": configuration.key_file,
-            "ca_cert_data": configuration.ca_cert_data,
-        }
-        if configuration.assert_hostname is not None:
-            pool_args["assert_hostname"] = configuration.assert_hostname
-
-        if configuration.retries is not None:
-            pool_args["retries"] = configuration.retries
-
-        if configuration.tls_server_name:
-            pool_args["server_hostname"] = configuration.tls_server_name
-
-        if configuration.socket_options is not None:
-            pool_args["socket_options"] = configuration.socket_options
-
-        if configuration.connection_pool_maxsize is not None:
-            pool_args["maxsize"] = configuration.connection_pool_maxsize
-
-        # https pool manager
-        self.pool_manager: urllib3.PoolManager
-        # noinspection PyArgumentList
-        self.pool_manager = urllib3.PoolManager(**pool_args)
+    def __init__(self, configuration: Configuration) -> None:  # type: ignore
+        self.pool_manager = urllib3.PoolManager()
 
     def request(  # noqa C901 too complex
         self,

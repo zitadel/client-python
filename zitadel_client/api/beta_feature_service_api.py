@@ -11,9 +11,8 @@
     Do not edit the class manually.
 """  # noqa: E501
 
-import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from typing import Any, Dict
@@ -39,9 +38,7 @@ from zitadel_client.models.beta_feature_service_set_system_features_response imp
 from zitadel_client.models.beta_feature_service_set_user_feature_request import BetaFeatureServiceSetUserFeatureRequest
 from zitadel_client.models.beta_feature_service_set_user_features_response import BetaFeatureServiceSetUserFeaturesResponse
 
-from zitadel_client.api_client import ApiClient, RequestSerialized
-from zitadel_client.api_response import ApiResponse
-from zitadel_client.rest import RESTResponseType
+from zitadel_client.api.api_client import ApiClient, RequestSerialized
 
 
 class BetaFeatureServiceApi:
@@ -1583,5 +1580,3 @@ class BetaFeatureServiceApi:
             _host=_host,
             _request_auth=_request_auth
         )
-
-

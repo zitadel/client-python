@@ -29,41 +29,6 @@ class Configuration:
         self.authenticator = authenticator
         self._timeout = timeout
         self._connect_timeout = connect_timeout
-        # self.refresh_api_key_hook = None
-        # self.logger = {
-        #    "package_logger": logging.getLogger("zitadel_client"),
-        #    "urllib3_logger": logging.getLogger("urllib3"),
-        # }
-        # self.logger_stream_handler = None
-        # self.verify_ssl = True
-        # self.ssl_ca_cert = ssl_ca_cert
-        # self.ca_cert_data = ca_cert_data
-        # self.cert_file = None
-        # self.key_file = None
-        # self.assert_hostname = None
-        # self.tls_server_name = None
-
-        # noinspection PyUnresolvedReferences
-        # self.connection_pool_maxsize = multiprocessing.cpu_count() * 5
-        """urllib3 connection pool's maximum number of connections saved
-       per pool. urllib3 uses 1 connection as default value, but this is
-       not the best value when you are making a lot of possibly parallel
-       requests to the same host, which is often the case here.
-       cpu_count * 5 is used as default value to increase performance.
-    """
-
-        # self.safe_chars_for_path_param = ""
-        # self.retries = retries
-        # Enable client side validation
-        # self.client_side_validation = True
-        # self.socket_options = None
-        # self.datetime_format = "%Y-%m-%dT%H:%M:%S.%f%z"
-        # self.date_format = "%Y-%m-%d"
-        # self._host = host
-        # self._access_token = access_token
-        # self._timeout = timeout
-        # self._connect_timeout = connect_timeout
-        # self._user_agent = user_agent
 
     @property
     def host(self) -> str:

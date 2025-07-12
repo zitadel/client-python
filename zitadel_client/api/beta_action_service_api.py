@@ -11,9 +11,8 @@
     Do not edit the class manually.
 """  # noqa: E501
 
-import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from typing import Any, Dict
@@ -35,9 +34,7 @@ from zitadel_client.models.beta_action_service_set_execution_response import Bet
 from zitadel_client.models.beta_action_service_update_target_request import BetaActionServiceUpdateTargetRequest
 from zitadel_client.models.beta_action_service_update_target_response import BetaActionServiceUpdateTargetResponse
 
-from zitadel_client.api_client import ApiClient, RequestSerialized
-from zitadel_client.api_response import ApiResponse
-from zitadel_client.rest import RESTResponseType
+from zitadel_client.api.api_client import ApiClient, RequestSerialized
 
 
 class BetaActionServiceApi:
@@ -1335,5 +1332,3 @@ class BetaActionServiceApi:
             _host=_host,
             _request_auth=_request_auth
         )
-
-

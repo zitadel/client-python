@@ -24,7 +24,7 @@ from zitadel_client.api.session_service_api import SessionServiceApi
 from zitadel_client.api.settings_service_api import SettingsServiceApi
 from zitadel_client.api.user_service_api import UserServiceApi
 from zitadel_client.api.web_key_service_api import WebKeyServiceApi
-from zitadel_client.api_client import ApiClient
+from zitadel_client.api.api_client import ApiClient
 from zitadel_client.auth.authenticator import Authenticator
 from zitadel_client.auth.client_credentials_authenticator import ClientCredentialsAuthenticator
 from zitadel_client.auth.personal_access_token_authenticator import PersonalAccessTokenAuthenticator
