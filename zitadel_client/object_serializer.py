@@ -1,7 +1,7 @@
 import datetime
 import decimal
 from enum import Enum
-from typing import Any, Protocol, Type, TypeVar, no_type_check, Union, Optional
+from typing import Any, Optional, Protocol, Type, TypeVar, Union, no_type_check
 
 from dateutil.parser import parse
 from pydantic import SecretStr
@@ -21,6 +21,11 @@ class Deserializable(Protocol):
 
 
 class ObjectSerializer:
+    """
+    A utility class to handle serialization and deserialization of API models.
+    It converts model objects to hashes and JSON strings back to typed objects.
+    """
+
     PRIMITIVE_TYPES = (float, bool, bytes, str, int)
     NATIVE_TYPES_MAPPING = {
         "int": int,
@@ -34,7 +39,7 @@ class ObjectSerializer:
         "object": object,
     }
 
-    def sanitize_for_serialization(self, obj: Any) -> Any:
+    def serialize(self, obj: Any) -> Any:  # noqa C901
         """Builds a JSON POST object.
 
         If obj is None, return None.
@@ -60,9 +65,9 @@ class ObjectSerializer:
         elif isinstance(obj, self.PRIMITIVE_TYPES):
             return obj
         elif isinstance(obj, list):
-            return [self.sanitize_for_serialization(sub_obj) for sub_obj in obj]
+            return [self.serialize(sub_obj) for sub_obj in obj]
         elif isinstance(obj, tuple):
-            return tuple(self.sanitize_for_serialization(sub_obj) for sub_obj in obj)
+            return tuple(self.serialize(sub_obj) for sub_obj in obj)
         elif isinstance(obj, (datetime.datetime, datetime.date)):
             return obj.isoformat()
         elif isinstance(obj, decimal.Decimal):
@@ -81,7 +86,7 @@ class ObjectSerializer:
             else:
                 obj_dict = obj.__dict__
 
-        return {key: self.sanitize_for_serialization(val) for key, val in obj_dict.items()}
+        return {key: self.serialize(val) for key, val in obj_dict.items()}
 
     # noinspection PyMethodMayBeStatic
     def deserialize(self, data: Any, cls: Type[T]) -> T:

@@ -75,7 +75,7 @@ def api_client(wiremock: str) -> DefaultApiClient:
     """
     Initializes DefaultApiClient with the mock OAuth host.
     """
-    config = Configuration(NoAuthAuthenticator(host=wiremock, token="test-token"))
+    config = Configuration(NoAuthAuthenticator(host=wiremock, token="test-token"))  # noqa S106
     return DefaultApiClient(config)
 
 
@@ -91,6 +91,7 @@ def test_get_request(api_client: DefaultApiClient) -> None:
         {},
         {},
         None,
+        SuccessModel,
         {200: SuccessModel},
     )
     assert isinstance(response, SuccessModel)
@@ -108,6 +109,7 @@ def test_post_request(api_client: DefaultApiClient) -> None:
         {},
         {},
         {"name": "John"},
+        SuccessModel,
         {201: SuccessModel},
     )
     assert isinstance(response, SuccessModel)
@@ -126,6 +128,7 @@ def test_sends_custom_headers(api_client: DefaultApiClient) -> None:
         {},
         {"X-Request-ID": "test-uuid-123"},
         {"name": "John"},
+        SuccessModel,
         {200: SuccessModel},
     )
     assert isinstance(response, SuccessModel)
@@ -143,6 +146,7 @@ def test_delete_request(api_client: DefaultApiClient) -> None:
         {},
         {},
         None,
+        SuccessModel,
         {},
     )
     assert result is None
@@ -152,7 +156,7 @@ def test_api_client_error_response(api_client: DefaultApiClient) -> None:
     """
     Handles 404 Not Found error.
     """
-    with pytest.raises(ApiError) as excinfo:
+    with pytest.raises(ApiError) as problem:
         api_client.invoke_api(
             "test404",
             "/users/notfound",
@@ -161,19 +165,18 @@ def test_api_client_error_response(api_client: DefaultApiClient) -> None:
             {},
             {},
             None,
+            SuccessModel,
             {},
         )
-    # ApiError.status holds the HTTP status
-    assert excinfo.value.code == 404
-    # code alias if provided
-    assert getattr(excinfo.value, "code", excinfo.value.code) == 404
+    assert problem.value.code == 404
+    assert getattr(problem.value, "code", problem.value.code) == 404
 
 
 def test_typed_client_error_response(api_client: DefaultApiClient) -> None:
     """
     Handles 400 Bad Request with a typed error model.
     """
-    with pytest.raises(ApiError) as excinfo:
+    with pytest.raises(ApiError) as problem:
         api_client.invoke_api(
             "test400",
             "/users/bad",
@@ -182,11 +185,12 @@ def test_typed_client_error_response(api_client: DefaultApiClient) -> None:
             {},
             {},
             {"invalid": True},
+            SuccessModel,
             {400: ErrorModel},
         )
-    assert excinfo.value.code == 400
-    assert isinstance(excinfo.value.response_body, ErrorModel)
-    assert getattr(excinfo.value, "response_body", excinfo.value.response_body) is excinfo.value.response_body
+    assert problem.value.code == 400
+    assert isinstance(problem.value.response_body, ErrorModel)
+    assert getattr(problem.value, "response_body", problem.value.response_body) is problem.value.response_body
 
 
 def test_deserialization_failure(api_client: DefaultApiClient) -> None:
@@ -202,5 +206,6 @@ def test_deserialization_failure(api_client: DefaultApiClient) -> None:
             {},
             {},
             None,
+            SuccessModel,
             {200: SuccessModel},
         )
