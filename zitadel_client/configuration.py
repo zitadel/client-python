@@ -7,33 +7,31 @@ from zitadel_client.version import Version
 class Configuration:
     """This class contains various settings of the API client."""
 
-    USER_AGENT = " ".join(
-        [
-            f"zitadel-client/{Version.VERSION}",
-            "("
-            + "; ".join(
-                [
-                    "lang=python",
-                    f"lang_version={platform.python_version()}",
-                    f"os={platform.system()}",
-                    f"arch={platform.machine()}",
-                ]
-            )
-            + ")",
-        ]
-    ).lower()
-
     def __init__(self, authenticator: Authenticator, timeout: int = 30, connect_timeout: int = 5) -> None:
         """Constructor"""
-        self._user_agent = Configuration.USER_AGENT
-        self.authenticator = authenticator
+        self._user_agent = " ".join(
+            [
+                f"zitadel-client/{Version.VERSION}",
+                "("
+                + "; ".join(
+                    [
+                        "lang=python",
+                        f"lang_version={platform.python_version()}",
+                        f"os={platform.system()}",
+                        f"arch={platform.machine()}",
+                    ]
+                )
+                + ")",
+            ]
+        ).lower()
+        self._authenticator = authenticator
         self._timeout = timeout
         self._connect_timeout = connect_timeout
 
     @property
     def host(self) -> str:
         """Return generated host."""
-        return self.authenticator.get_host()
+        return self._authenticator.get_host()
 
     @property
     def user_agent(self) -> str:
@@ -50,7 +48,7 @@ class Configuration:
         """
         Gets the authentication access token (Bearer Token).
         """
-        return self.authenticator.get_auth_token()
+        return self._authenticator.get_auth_token()
 
     @property
     def timeout(self) -> int:
