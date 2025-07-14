@@ -8,7 +8,7 @@
   "some_email": "user@example.com",
   "some_hostname": "example.com",
   "some_ipv4": "192.168.0.1",
-  "some_ipv6": "2001:db8:85a3:0:0:8a2e:370:7334",
+  "some_ipv6": "2001:db8:85a3::8a2e:370:7334",
   "some_uri": "https://example.com/path?query=param",
   "some_uri_reference": "/path/resource?query=value",
   "some_uri_template": "https://example.com/users/{id}",

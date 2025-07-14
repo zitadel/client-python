@@ -2,7 +2,8 @@ import json
 import unittest
 from datetime import date, datetime
 from decimal import Decimal
-from typing import Any, Dict, List, Optional
+from ipaddress import IPv4Address, IPv6Address
+from typing import Any, Dict, List, Optional, Pattern
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -18,14 +19,14 @@ class SerdeModel(BaseModel):
     some_password: Optional[str] = Field(default=None, alias="some_password")
     some_email: Optional[str] = Field(default=None, alias="some_email")
     some_hostname: Optional[str] = Field(default=None, alias="some_hostname")
-    some_ipv4: Optional[str] = Field(default=None, alias="some_ipv4")
-    some_ipv6: Optional[str] = Field(default=None, alias="some_ipv6")
+    some_ipv4: Optional[IPv4Address] = Field(default=None, alias="some_ipv4")
+    some_ipv6: Optional[IPv6Address] = Field(default=None, alias="some_ipv6")
     some_uri: Optional[str] = Field(default=None, alias="some_uri")
     some_uri_reference: Optional[str] = Field(default=None, alias="some_uri_reference")
     some_uri_template: Optional[str] = Field(default=None, alias="some_uri_template")
     some_json_pointer: Optional[str] = Field(default=None, alias="some_json_pointer")
     some_relative_json_pointer: Optional[str] = Field(default=None, alias="some_relative_json_pointer")
-    some_regex: Optional[str] = Field(default=None, alias="some_regex")
+    some_regex: Optional[Pattern[str]] = Field(default=None, alias="some_regex")
     some_number: Optional[Decimal] = Field(default=None, alias="some_number")
     some_float: Optional[float] = Field(default=None, alias="some_float")
     some_double: Optional[float] = Field(default=None, alias="some_double")

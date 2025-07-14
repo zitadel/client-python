@@ -1,6 +1,8 @@
 import datetime
 import decimal
 from enum import Enum
+from ipaddress import IPv4Address, IPv6Address
+from re import Pattern
 from typing import Any, Optional, Protocol, Type, TypeVar, Union, no_type_check
 
 from dateutil.parser import parse
@@ -72,6 +74,12 @@ class ObjectSerializer:
             return obj.isoformat()
         elif isinstance(obj, decimal.Decimal):
             return float(obj)
+        elif isinstance(obj, IPv6Address):
+            return str(obj)
+        elif isinstance(obj, IPv4Address):
+            return str(obj)
+        elif isinstance(obj, Pattern):
+            return str(obj.pattern)
 
         elif isinstance(obj, dict):
             obj_dict = obj
