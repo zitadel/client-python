@@ -71,7 +71,7 @@ class ObjectSerializer:
         elif isinstance(obj, (datetime.datetime, datetime.date)):
             return obj.isoformat()
         elif isinstance(obj, decimal.Decimal):
-            return str(obj)
+            return float(obj)
 
         elif isinstance(obj, dict):
             obj_dict = obj

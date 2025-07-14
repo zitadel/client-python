@@ -1,0 +1,42 @@
+{
+  "some_string": "example string",
+  "some_binary": "SGVsbG8gV29ybGQ=",
+  "some_byte": "SGVsbG8gd29ybGQ=",
+  "some_date": "2025-07-14",
+  "some_date_time": "2025-07-14T15:30:00+00:00",
+  "some_password": "P@ssw0rd!",
+  "some_email": "user@example.com",
+  "some_hostname": "example.com",
+  "some_ipv4": "192.168.0.1",
+  "some_ipv6": "2001:db8:85a3:0:0:8a2e:370:7334",
+  "some_uri": "https://example.com/path?query=param",
+  "some_uri_reference": "/path/resource?query=value",
+  "some_uri_template": "https://example.com/users/{id}",
+  "some_json_pointer": "/user/name",
+  "some_relative_json_pointer": "address/street",
+  "some_regex": "^[A-Za-z0-9]+$",
+  "some_number": 123.456,
+  "some_float": 1.23,
+  "some_double": 1.23456789012345,
+  "some_integer": 123,
+  "some_int32": 2147483647,
+  "some_int64": 9223372036854775807,
+  "some_boolean": true,
+  "some_array": ["one", "two", "three"],
+  "some_object": {
+    "key1": "value1",
+    "key2": 2
+  },
+  "some_nested_object": {
+    "some_level1": {
+      "some_level2": {
+        "some_level3_string": "deep",
+        "some_level3_number": 3.14
+      }
+    }
+  },
+  "some_array_of_objects": [
+    { "some_id": 1, "some_name": "Alice" },
+    { "some_id": 2, "some_name": "Bob"   }
+  ]
+}
