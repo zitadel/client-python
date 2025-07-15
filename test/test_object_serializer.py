@@ -1,4 +1,5 @@
 import json
+import os
 import unittest
 from datetime import date, datetime
 from decimal import Decimal
@@ -60,7 +61,7 @@ class ObjectSerializerTest(unittest.TestCase):
         self.serializer = ObjectSerializer()
 
     def test_round_trip(self) -> None:
-        orig = json.loads(open("test/resources/serde.json").read())
+        orig = json.loads(open(os.path.join(os.path.dirname(__file__), "resources/serde.json")).read())
         model = self.serializer.deserialize(orig, SerdeModel)
         out_data = self.serializer.serialize(model)
         self.assertDictEqual(orig, out_data)

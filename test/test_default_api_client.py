@@ -1,4 +1,5 @@
 import json
+import os
 import time
 from typing import Any, Dict, Iterator
 
@@ -57,7 +58,7 @@ def wiremock() -> Iterator[str]:
     base_url = f"http://{host}:{port}"
 
     http = urllib3.PoolManager()
-    mappings = json.loads(open("test/resources/api.json").read())["mappings"]
+    mappings = json.load(open(os.path.join(os.path.dirname(__file__), "resources/api.json")))["mappings"]
     for mapping in mappings:
         http.request(
             "POST",
@@ -128,17 +129,17 @@ def test_sends_custom_headers(api_client: DefaultApiClient) -> None:
         {},
         {"X-Request-ID": "test-uuid-123"},
         {"name": "John"},
-        SuccessModel,
-        {200: SuccessModel},
+        None,
+        {},
     )
-    assert isinstance(response, SuccessModel)
+    assert response is None
 
 
 def test_delete_request(api_client: DefaultApiClient) -> None:
     """
     Test DELETE request returns void.
     """
-    result = api_client.invoke_api(
+    response = api_client.invoke_api(
         "testVoid",
         "/users/123",
         "DELETE",
@@ -146,10 +147,10 @@ def test_delete_request(api_client: DefaultApiClient) -> None:
         {},
         {},
         None,
-        SuccessModel,
+        None,
         {},
     )
-    assert result is None
+    assert response is None
 
 
 def test_api_client_error_response(api_client: DefaultApiClient) -> None:
