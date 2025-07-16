@@ -68,9 +68,9 @@ class DefaultApiClient(IApiClient):
         query_params: Dict[str, Any],
         header_params: Dict[str, Any],
         body: Optional[Any],
-        success_type: Optional[Type[Deserializable]] = None,
+        success_type: Optional[Type[T]] = None,
         error_types: Optional[Dict[Union[int, str], Type[Deserializable]]] = None,
-    ) -> Optional[Deserializable]:
+    ) -> T:
         """
         Invokes a remote API endpoint.
 
@@ -125,7 +125,7 @@ class DefaultApiClient(IApiClient):
                     return self._serde.deserialize(decoded_body, success_type)
                 except Exception as e:
                     raise RuntimeError(f"[{operation_id}] Failed to deserialize successful response.") from e
-            return None
+            return None  # type: ignore
 
         error_class = self._find_error_type(response.status, error_types)
         error_body: Any = None

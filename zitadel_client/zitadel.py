@@ -1,7 +1,6 @@
 from types import TracebackType
 from typing import Callable, Optional, Type, TypeVar
 
-from zitadel_client.api.api_client import ApiClient
 from zitadel_client.api.beta_action_service_api import BetaActionServiceApi
 from zitadel_client.api.beta_app_service_api import BetaAppServiceApi
 from zitadel_client.api.beta_authorization_service_api import BetaAuthorizationServiceApi
@@ -30,6 +29,7 @@ from zitadel_client.auth.client_credentials_authenticator import ClientCredentia
 from zitadel_client.auth.personal_access_token_authenticator import PersonalAccessTokenAuthenticator
 from zitadel_client.auth.web_token_authenticator import WebTokenAuthenticator
 from zitadel_client.configuration import Configuration
+from zitadel_client.default_api_client import DefaultApiClient
 
 
 class Zitadel:
@@ -112,7 +112,7 @@ class Zitadel:
         if mutate_config:
             mutate_config(self.configuration)
 
-        client = ApiClient(configuration=self.configuration)
+        client = DefaultApiClient(self.configuration)
         self.features = FeatureServiceApi(client)
         self.idps = IdentityProviderServiceApi(client)
         self.oidc = OIDCServiceApi(client)

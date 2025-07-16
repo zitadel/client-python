@@ -84,7 +84,7 @@ def test_get_request(api_client: DefaultApiClient) -> None:
     """
     Test GET request is successful.
     """
-    response = api_client.invoke_api(
+    response: SuccessModel = api_client.invoke_api(
         "testGetSuccess",
         "/users/123",
         "GET",
@@ -102,7 +102,7 @@ def test_post_request(api_client: DefaultApiClient) -> None:
     """
     Test POST request is successful.
     """
-    response = api_client.invoke_api(
+    response: SuccessModel = api_client.invoke_api(
         "testPost",
         "/users",
         "POST",
@@ -121,7 +121,7 @@ def test_sends_custom_headers(api_client: DefaultApiClient) -> None:
     """
     Test PUT request sends custom headers.
     """
-    response = api_client.invoke_api(
+    response: None = api_client.invoke_api(
         "testCustomHeaders",
         "/users/123",
         "PUT",
@@ -139,7 +139,7 @@ def test_delete_request(api_client: DefaultApiClient) -> None:
     """
     Test DELETE request returns void.
     """
-    response = api_client.invoke_api(
+    response: None = api_client.invoke_api(
         "testVoid",
         "/users/123",
         "DELETE",

@@ -1,7 +1,9 @@
 from abc import ABC, abstractmethod
-from typing import Any, Dict, Optional, Type, Union
+from typing import Any, Dict, Optional, Type, TypeVar, Union
 
 from zitadel_client.object_serializer import Deserializable
+
+T = TypeVar("T", bound=Deserializable)
 
 
 class IApiClient(ABC):
@@ -19,9 +21,9 @@ class IApiClient(ABC):
         query_params: Dict[str, Any],
         header_params: Dict[str, Any],
         body: Optional[Any],
-        success_type: Optional[Type[Deserializable]] = None,
+        success_type: Optional[Type[T]] = None,
         error_types: Optional[Dict[Union[int, str], Type[Deserializable]]] = None,
-    ) -> Optional[Deserializable]:
+    ) -> T:
         """
         Invokes a remote API endpoint.
 
