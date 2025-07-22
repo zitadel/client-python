@@ -22,6 +22,7 @@ class Deserializable(Protocol):
     def from_dict(cls: Type[T], data: Any) -> T: ...
 
 
+# noinspection PyCoverageInspection
 class ObjectSerializer:
     """
     A utility class to handle serialization and deserialization of API models.

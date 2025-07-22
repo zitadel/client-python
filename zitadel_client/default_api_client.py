@@ -12,6 +12,7 @@ T = TypeVar("T", bound=Deserializable)
 
 
 class DefaultApiClient(IApiClient):
+    # noinspection HardcodedPasswords
     """
     A self-contained, urllib3-based API client implementation.
 
