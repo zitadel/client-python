@@ -20,11 +20,9 @@ class ConfigurationTest(unittest.TestCase):
         authenticator = NoAuthAuthenticator(self.oauth_host, "test-token")
         config = Configuration(authenticator)
 
-        self.assertTrue(
-            config.user_agent.startswith("zitadel-client/")
-            and "lang=python" in config.user_agent
-            and "os=" in config.user_agent
-            and "arch=" in config.user_agent
+        self.assertRegex(
+            config.user_agent,
+            r"^zitadel-client/\d+\.\d+\.\d+(-[a-zA-Z0-9]+(\.\d+)?)? \(lang=python; lang_version=[^;]+; os=[^;]+; arch=[^;]+\)$",
         )
 
     """
