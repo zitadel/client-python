@@ -30,6 +30,9 @@
       ],
       "docgen": [
         "composer docgen"
+      ],
+      "depcheck": [
+        "poetry run fawltydeps"
       ]
     }
   }
