@@ -58,7 +58,6 @@ addopts = [
   "--cov-report=html:build/coverage/html",
   "--cov-report=xml:build/coverage/clover.xml",
   "--cov-report=term",
-
 ]
 junit_family = "legacy"
 
@@ -103,3 +102,14 @@ exclude = [
 select = ["E", "F", "I", "B", "C", "N", "Q", "S", "T"]
 extend-select = ["A"]
 ignore = ["S101"]  # Ignore assert statements
+
+[tool.fawltydeps]
+ignore_unused = [
+  "fawltydeps",
+  "mypy",
+  "pytest-cov",
+  "ruff",
+  "sphinx",
+  "tox",
+  "requests"
+]
