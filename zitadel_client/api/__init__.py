@@ -1,6 +1,7 @@
 # flake8: noqa
 
 # import apis into api package
+from zitadel_client.api.action_service_api import ActionServiceApi
 from zitadel_client.api.beta_action_service_api import BetaActionServiceApi
 from zitadel_client.api.beta_app_service_api import BetaAppServiceApi
 from zitadel_client.api.beta_authorization_service_api import BetaAuthorizationServiceApi

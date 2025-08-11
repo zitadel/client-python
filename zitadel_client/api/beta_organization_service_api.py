@@ -323,7 +323,7 @@ class BetaOrganizationServiceApi:
     def create_organization(        self,                beta_organization_service_create_organization_request: BetaOrganizationServiceCreateOrganizationRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaOrganizationServiceCreateOrganizationResponse:
         """CreateOrganization
 
-        Create Organization   Create a new organization with an administrative user. If no specific roles are sent for the users, they will be granted the role ORG_OWNER.   Required permission:   - `org.create`
+        Create Organization   Create a new organization with an administrative user. If no specific roles are sent for the users, they will be granted the role ORG_OWNER.   Required permission:   - `org.create`   Deprecated: Use [AddOrganization](/apis/resources/org_service_v2/organization-service-add-organization.api.mdx) instead to create an organization.
 
         :param beta_organization_service_create_organization_request: (required)
         :type beta_organization_service_create_organization_request: BetaOrganizationServiceCreateOrganizationRequest
@@ -1347,7 +1347,7 @@ class BetaOrganizationServiceApi:
     def list_organizations(        self,                beta_organization_service_list_organizations_request: BetaOrganizationServiceListOrganizationsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaOrganizationServiceListOrganizationsResponse:
         """ListOrganizations
 
-        List Organizations   Returns a list of organizations that match the requesting filters. All filters are applied with an AND condition.   Required permission:   - `iam.read`
+        List Organizations   Returns a list of organizations that match the requesting filters. All filters are applied with an AND condition.   Required permission:   - `iam.read`   Deprecated: Use [ListOrganizations](/apis/resources/org_service_v2/organization-service-list-organizations.api.mdx) instead to list organizations.
 
         :param beta_organization_service_list_organizations_request: (required)
         :type beta_organization_service_list_organizations_request: BetaOrganizationServiceListOrganizationsRequest

@@ -17,20 +17,17 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict
-from typing import Any, ClassVar, Dict, List, Optional
-from zitadel_client.models.beta_action_service_pagination_response import BetaActionServicePaginationResponse
-from zitadel_client.models.beta_action_service_target import BetaActionServiceTarget
+from pydantic import BaseModel, ConfigDict, StrictStr
+from typing import Any, ClassVar, Dict, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
-class BetaActionServiceListTargetsResponse(BaseModel):
+class ActionServiceFunctionExecution(BaseModel):
     """
-    BetaActionServiceListTargetsResponse
+    Executed on the specified function
     """ # noqa: E501
-    pagination: Optional[BetaActionServicePaginationResponse] = None
-    targets: Optional[List[BetaActionServiceTarget]] = None
-    __properties: ClassVar[List[str]] = ["pagination", "targets"]
+    name: Optional[StrictStr] = None
+    __properties: ClassVar[List[str]] = ["name"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -50,7 +47,7 @@ class BetaActionServiceListTargetsResponse(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of BetaActionServiceListTargetsResponse from a JSON string"""
+        """Create an instance of ActionServiceFunctionExecution from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -71,21 +68,11 @@ class BetaActionServiceListTargetsResponse(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of pagination
-        if self.pagination:
-            _dict['pagination'] = self.pagination.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of each item in targets (list)
-        _items = []
-        if self.targets:
-            for _item_targets in self.targets:
-                if _item_targets:
-                    _items.append(_item_targets.to_dict())
-            _dict['targets'] = _items
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of BetaActionServiceListTargetsResponse from a dict"""
+        """Create an instance of ActionServiceFunctionExecution from a dict"""
         if obj is None:
             return None
 
@@ -93,8 +80,7 @@ class BetaActionServiceListTargetsResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "pagination": BetaActionServicePaginationResponse.from_dict(obj["pagination"]) if obj.get("pagination") is not None else None,
-            "targets": [BetaActionServiceTarget.from_dict(_item) for _item in obj["targets"]] if obj.get("targets") is not None else None
+            "name": obj.get("name")
         })
         return _obj
 

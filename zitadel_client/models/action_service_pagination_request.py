@@ -17,20 +17,19 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict
-from typing import Any, ClassVar, Dict, List, Optional
-from zitadel_client.models.beta_action_service_pagination_response import BetaActionServicePaginationResponse
-from zitadel_client.models.beta_action_service_target import BetaActionServiceTarget
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt
+from typing import Any, ClassVar, Dict, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
-class BetaActionServiceListTargetsResponse(BaseModel):
+class ActionServicePaginationRequest(BaseModel):
     """
-    BetaActionServiceListTargetsResponse
+    ActionServicePaginationRequest
     """ # noqa: E501
-    pagination: Optional[BetaActionServicePaginationResponse] = None
-    targets: Optional[List[BetaActionServiceTarget]] = None
-    __properties: ClassVar[List[str]] = ["pagination", "targets"]
+    offset: Optional[Any] = Field(default=None, description="Starting point for retrieval, in combination of offset used to query a set list of objects.")
+    limit: Optional[StrictInt] = Field(default=None, description="limit is the maximum amount of objects returned. The default is set to 100  with a maximum of 1000 in the runtime configuration.  If the limit exceeds the maximum configured ZITADEL will throw an error.  If no limit is present the default is taken.")
+    asc: Optional[StrictBool] = Field(default=None, description="Asc is the sorting order. If true the list is sorted ascending, if false  the list is sorted descending. The default is descending.")
+    __properties: ClassVar[List[str]] = ["offset", "limit", "asc"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -50,7 +49,7 @@ class BetaActionServiceListTargetsResponse(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of BetaActionServiceListTargetsResponse from a JSON string"""
+        """Create an instance of ActionServicePaginationRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -71,21 +70,16 @@ class BetaActionServiceListTargetsResponse(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of pagination
-        if self.pagination:
-            _dict['pagination'] = self.pagination.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of each item in targets (list)
-        _items = []
-        if self.targets:
-            for _item_targets in self.targets:
-                if _item_targets:
-                    _items.append(_item_targets.to_dict())
-            _dict['targets'] = _items
+        # set to None if offset (nullable) is None
+        # and model_fields_set contains the field
+        if self.offset is None and "offset" in self.model_fields_set:
+            _dict['offset'] = None
+
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of BetaActionServiceListTargetsResponse from a dict"""
+        """Create an instance of ActionServicePaginationRequest from a dict"""
         if obj is None:
             return None
 
@@ -93,8 +87,9 @@ class BetaActionServiceListTargetsResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "pagination": BetaActionServicePaginationResponse.from_dict(obj["pagination"]) if obj.get("pagination") is not None else None,
-            "targets": [BetaActionServiceTarget.from_dict(_item) for _item in obj["targets"]] if obj.get("targets") is not None else None
+            "offset": obj.get("offset"),
+            "limit": obj.get("limit"),
+            "asc": obj.get("asc")
         })
         return _obj
 
