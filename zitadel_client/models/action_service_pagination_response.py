@@ -17,20 +17,18 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict
-from typing import Any, ClassVar, Dict, List, Optional
-from zitadel_client.models.beta_action_service_pagination_response import BetaActionServicePaginationResponse
-from zitadel_client.models.beta_action_service_target import BetaActionServiceTarget
+from pydantic import BaseModel, ConfigDict, Field
+from typing import Any, ClassVar, Dict, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
-class BetaActionServiceListTargetsResponse(BaseModel):
+class ActionServicePaginationResponse(BaseModel):
     """
-    BetaActionServiceListTargetsResponse
+    ActionServicePaginationResponse
     """ # noqa: E501
-    pagination: Optional[BetaActionServicePaginationResponse] = None
-    targets: Optional[List[BetaActionServiceTarget]] = None
-    __properties: ClassVar[List[str]] = ["pagination", "targets"]
+    total_result: Optional[Any] = Field(default=None, description="Absolute number of objects matching the query, regardless of applied limit.", alias="totalResult")
+    applied_limit: Optional[Any] = Field(default=None, description="Applied limit from query, defines maximum amount of objects per request, to compare if all objects are returned.", alias="appliedLimit")
+    __properties: ClassVar[List[str]] = ["totalResult", "appliedLimit"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -50,7 +48,7 @@ class BetaActionServiceListTargetsResponse(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of BetaActionServiceListTargetsResponse from a JSON string"""
+        """Create an instance of ActionServicePaginationResponse from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -71,21 +69,21 @@ class BetaActionServiceListTargetsResponse(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of pagination
-        if self.pagination:
-            _dict['pagination'] = self.pagination.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of each item in targets (list)
-        _items = []
-        if self.targets:
-            for _item_targets in self.targets:
-                if _item_targets:
-                    _items.append(_item_targets.to_dict())
-            _dict['targets'] = _items
+        # set to None if total_result (nullable) is None
+        # and model_fields_set contains the field
+        if self.total_result is None and "total_result" in self.model_fields_set:
+            _dict['totalResult'] = None
+
+        # set to None if applied_limit (nullable) is None
+        # and model_fields_set contains the field
+        if self.applied_limit is None and "applied_limit" in self.model_fields_set:
+            _dict['appliedLimit'] = None
+
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of BetaActionServiceListTargetsResponse from a dict"""
+        """Create an instance of ActionServicePaginationResponse from a dict"""
         if obj is None:
             return None
 
@@ -93,8 +91,8 @@ class BetaActionServiceListTargetsResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "pagination": BetaActionServicePaginationResponse.from_dict(obj["pagination"]) if obj.get("pagination") is not None else None,
-            "targets": [BetaActionServiceTarget.from_dict(_item) for _item in obj["targets"]] if obj.get("targets") is not None else None
+            "totalResult": obj.get("totalResult"),
+            "appliedLimit": obj.get("appliedLimit")
         })
         return _obj
 

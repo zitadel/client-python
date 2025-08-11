@@ -18,19 +18,23 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict
-from typing import Any, ClassVar, Dict, List, Optional
-from zitadel_client.models.beta_action_service_pagination_response import BetaActionServicePaginationResponse
-from zitadel_client.models.beta_action_service_target import BetaActionServiceTarget
+from typing import Any, ClassVar, Dict, Optional
+from zitadel_client.models.action_service_event_execution import ActionServiceEventExecution
+from zitadel_client.models.action_service_function_execution import ActionServiceFunctionExecution
+from zitadel_client.models.action_service_request_execution import ActionServiceRequestExecution
+from zitadel_client.models.action_service_response_execution import ActionServiceResponseExecution
 from typing import Optional, Set
 from typing_extensions import Self
 
-class BetaActionServiceListTargetsResponse(BaseModel):
+class ActionServiceCondition(BaseModel):
     """
-    BetaActionServiceListTargetsResponse
+    ActionServiceCondition
     """ # noqa: E501
-    pagination: Optional[BetaActionServicePaginationResponse] = None
-    targets: Optional[List[BetaActionServiceTarget]] = None
-    __properties: ClassVar[List[str]] = ["pagination", "targets"]
+    event: Optional[ActionServiceEventExecution] = None
+    function: Optional[ActionServiceFunctionExecution] = None
+    request: Optional[ActionServiceRequestExecution] = None
+    response: Optional[ActionServiceResponseExecution] = None
+    __properties: ClassVar[List[str]] = ["event", "function", "request", "response"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -50,7 +54,7 @@ class BetaActionServiceListTargetsResponse(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of BetaActionServiceListTargetsResponse from a JSON string"""
+        """Create an instance of ActionServiceCondition from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -71,21 +75,23 @@ class BetaActionServiceListTargetsResponse(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of pagination
-        if self.pagination:
-            _dict['pagination'] = self.pagination.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of each item in targets (list)
-        _items = []
-        if self.targets:
-            for _item_targets in self.targets:
-                if _item_targets:
-                    _items.append(_item_targets.to_dict())
-            _dict['targets'] = _items
+        # override the default output from pydantic by calling `to_dict()` of event
+        if self.event:
+            _dict['event'] = self.event.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of function
+        if self.function:
+            _dict['function'] = self.function.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of request
+        if self.request:
+            _dict['request'] = self.request.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of response
+        if self.response:
+            _dict['response'] = self.response.to_dict()
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of BetaActionServiceListTargetsResponse from a dict"""
+        """Create an instance of ActionServiceCondition from a dict"""
         if obj is None:
             return None
 
@@ -93,8 +99,10 @@ class BetaActionServiceListTargetsResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "pagination": BetaActionServicePaginationResponse.from_dict(obj["pagination"]) if obj.get("pagination") is not None else None,
-            "targets": [BetaActionServiceTarget.from_dict(_item) for _item in obj["targets"]] if obj.get("targets") is not None else None
+            "event": ActionServiceEventExecution.from_dict(obj["event"]) if obj.get("event") is not None else None,
+            "function": ActionServiceFunctionExecution.from_dict(obj["function"]) if obj.get("function") is not None else None,
+            "request": ActionServiceRequestExecution.from_dict(obj["request"]) if obj.get("request") is not None else None,
+            "response": ActionServiceResponseExecution.from_dict(obj["response"]) if obj.get("response") is not None else None
         })
         return _obj
 

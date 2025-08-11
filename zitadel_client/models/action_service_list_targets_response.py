@@ -19,17 +19,17 @@ import json
 
 from pydantic import BaseModel, ConfigDict
 from typing import Any, ClassVar, Dict, List, Optional
-from zitadel_client.models.beta_action_service_pagination_response import BetaActionServicePaginationResponse
-from zitadel_client.models.beta_action_service_target import BetaActionServiceTarget
+from zitadel_client.models.action_service_pagination_response import ActionServicePaginationResponse
+from zitadel_client.models.action_service_target import ActionServiceTarget
 from typing import Optional, Set
 from typing_extensions import Self
 
-class BetaActionServiceListTargetsResponse(BaseModel):
+class ActionServiceListTargetsResponse(BaseModel):
     """
-    BetaActionServiceListTargetsResponse
+    ActionServiceListTargetsResponse
     """ # noqa: E501
-    pagination: Optional[BetaActionServicePaginationResponse] = None
-    targets: Optional[List[BetaActionServiceTarget]] = None
+    pagination: Optional[ActionServicePaginationResponse] = None
+    targets: Optional[List[ActionServiceTarget]] = None
     __properties: ClassVar[List[str]] = ["pagination", "targets"]
 
     model_config = ConfigDict(
@@ -50,7 +50,7 @@ class BetaActionServiceListTargetsResponse(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of BetaActionServiceListTargetsResponse from a JSON string"""
+        """Create an instance of ActionServiceListTargetsResponse from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -85,7 +85,7 @@ class BetaActionServiceListTargetsResponse(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of BetaActionServiceListTargetsResponse from a dict"""
+        """Create an instance of ActionServiceListTargetsResponse from a dict"""
         if obj is None:
             return None
 
@@ -93,8 +93,8 @@ class BetaActionServiceListTargetsResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "pagination": BetaActionServicePaginationResponse.from_dict(obj["pagination"]) if obj.get("pagination") is not None else None,
-            "targets": [BetaActionServiceTarget.from_dict(_item) for _item in obj["targets"]] if obj.get("targets") is not None else None
+            "pagination": ActionServicePaginationResponse.from_dict(obj["pagination"]) if obj.get("pagination") is not None else None,
+            "targets": [ActionServiceTarget.from_dict(_item) for _item in obj["targets"]] if obj.get("targets") is not None else None
         })
         return _obj
 

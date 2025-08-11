@@ -17,20 +17,20 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict
-from typing import Any, ClassVar, Dict, List, Optional
-from zitadel_client.models.beta_action_service_pagination_response import BetaActionServicePaginationResponse
-from zitadel_client.models.beta_action_service_target import BetaActionServiceTarget
+from pydantic import BaseModel, ConfigDict, Field
+from typing import Any, ClassVar, Dict, Optional
+from zitadel_client.models.action_service_in_target_ids_filter import ActionServiceInTargetIDsFilter
+from zitadel_client.models.action_service_target_name_filter import ActionServiceTargetNameFilter
 from typing import Optional, Set
 from typing_extensions import Self
 
-class BetaActionServiceListTargetsResponse(BaseModel):
+class ActionServiceTargetSearchFilter(BaseModel):
     """
-    BetaActionServiceListTargetsResponse
+    ActionServiceTargetSearchFilter
     """ # noqa: E501
-    pagination: Optional[BetaActionServicePaginationResponse] = None
-    targets: Optional[List[BetaActionServiceTarget]] = None
-    __properties: ClassVar[List[str]] = ["pagination", "targets"]
+    in_target_ids_filter: Optional[ActionServiceInTargetIDsFilter] = Field(default=None, alias="inTargetIdsFilter")
+    target_name_filter: Optional[ActionServiceTargetNameFilter] = Field(default=None, alias="targetNameFilter")
+    __properties: ClassVar[List[str]] = ["inTargetIdsFilter", "targetNameFilter"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -50,7 +50,7 @@ class BetaActionServiceListTargetsResponse(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of BetaActionServiceListTargetsResponse from a JSON string"""
+        """Create an instance of ActionServiceTargetSearchFilter from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -71,21 +71,17 @@ class BetaActionServiceListTargetsResponse(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of pagination
-        if self.pagination:
-            _dict['pagination'] = self.pagination.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of each item in targets (list)
-        _items = []
-        if self.targets:
-            for _item_targets in self.targets:
-                if _item_targets:
-                    _items.append(_item_targets.to_dict())
-            _dict['targets'] = _items
+        # override the default output from pydantic by calling `to_dict()` of in_target_ids_filter
+        if self.in_target_ids_filter:
+            _dict['inTargetIdsFilter'] = self.in_target_ids_filter.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of target_name_filter
+        if self.target_name_filter:
+            _dict['targetNameFilter'] = self.target_name_filter.to_dict()
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of BetaActionServiceListTargetsResponse from a dict"""
+        """Create an instance of ActionServiceTargetSearchFilter from a dict"""
         if obj is None:
             return None
 
@@ -93,8 +89,8 @@ class BetaActionServiceListTargetsResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "pagination": BetaActionServicePaginationResponse.from_dict(obj["pagination"]) if obj.get("pagination") is not None else None,
-            "targets": [BetaActionServiceTarget.from_dict(_item) for _item in obj["targets"]] if obj.get("targets") is not None else None
+            "inTargetIdsFilter": ActionServiceInTargetIDsFilter.from_dict(obj["inTargetIdsFilter"]) if obj.get("inTargetIdsFilter") is not None else None,
+            "targetNameFilter": ActionServiceTargetNameFilter.from_dict(obj["targetNameFilter"]) if obj.get("targetNameFilter") is not None else None
         })
         return _obj
 

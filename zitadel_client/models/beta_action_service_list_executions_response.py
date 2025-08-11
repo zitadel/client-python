@@ -29,8 +29,8 @@ class BetaActionServiceListExecutionsResponse(BaseModel):
     BetaActionServiceListExecutionsResponse
     """ # noqa: E501
     pagination: Optional[BetaActionServicePaginationResponse] = None
-    result: Optional[List[BetaActionServiceExecution]] = None
-    __properties: ClassVar[List[str]] = ["pagination", "result"]
+    executions: Optional[List[BetaActionServiceExecution]] = None
+    __properties: ClassVar[List[str]] = ["pagination", "executions"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -74,13 +74,13 @@ class BetaActionServiceListExecutionsResponse(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of pagination
         if self.pagination:
             _dict['pagination'] = self.pagination.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of each item in result (list)
+        # override the default output from pydantic by calling `to_dict()` of each item in executions (list)
         _items = []
-        if self.result:
-            for _item_result in self.result:
-                if _item_result:
-                    _items.append(_item_result.to_dict())
-            _dict['result'] = _items
+        if self.executions:
+            for _item_executions in self.executions:
+                if _item_executions:
+                    _items.append(_item_executions.to_dict())
+            _dict['executions'] = _items
         return _dict
 
     @classmethod
@@ -94,7 +94,7 @@ class BetaActionServiceListExecutionsResponse(BaseModel):
 
         _obj = cls.model_validate({
             "pagination": BetaActionServicePaginationResponse.from_dict(obj["pagination"]) if obj.get("pagination") is not None else None,
-            "result": [BetaActionServiceExecution.from_dict(_item) for _item in obj["result"]] if obj.get("result") is not None else None
+            "executions": [BetaActionServiceExecution.from_dict(_item) for _item in obj["executions"]] if obj.get("executions") is not None else None
         })
         return _obj
 
