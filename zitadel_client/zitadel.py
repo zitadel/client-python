@@ -24,6 +24,7 @@ from zitadel_client.api.session_service_api import SessionServiceApi
 from zitadel_client.api.settings_service_api import SettingsServiceApi
 from zitadel_client.api.user_service_api import UserServiceApi
 from zitadel_client.api.web_key_service_api import WebKeyServiceApi
+from zitadel_client.api.action_service_api import ActionServiceApi
 from zitadel_client.api_client import ApiClient
 from zitadel_client.auth.authenticator import Authenticator
 from zitadel_client.auth.client_credentials_authenticator import ClientCredentialsAuthenticator
@@ -59,6 +60,8 @@ class Zitadel:
         Endpoints for end-user management.
     webkeys (WebKeyServiceApi)
         Endpoints for WebCrypto keys (JWKS).
+    actions (ActionServiceApi))
+        Endpoints for custom action workflows.
     beta_projects (BetaProjectServiceApi)
         Preview endpoints for project management.
     beta_apps (BetaAppServiceApi)
@@ -122,6 +125,7 @@ class Zitadel:
         self.settings = SettingsServiceApi(client)
         self.users = UserServiceApi(client)
         self.webkeys = WebKeyServiceApi(client)
+        self.actions = ActionServiceApi(client)
         self.beta_projects = BetaProjectServiceApi(client)
         self.beta_apps = BetaAppServiceApi(client)
         self.beta_oidc = BetaOIDCServiceApi(client)
