@@ -54,10 +54,12 @@ class BetaActionServiceApi:
 
 
     @validate_call
-    def create_target(        self,                beta_action_service_create_target_request: BetaActionServiceCreateTargetRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaActionServiceCreateTargetResponse:
-        """CreateTarget
+    def create_target(        self,                beta_action_service_create_target_request: Optional[BetaActionServiceCreateTargetRequest] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaActionServiceCreateTargetResponse:
+        if beta_action_service_create_target_request is None:
+            beta_action_service_create_target_request = {}
+        """Create Target
 
-        Create Target   Create a new target to your endpoint, which can be used in executions.   Required permission:    - `action.target.write`   Required feature flag:    - `actions`
+        Create a new target to your endpoint, which can be used in executions.   Required permission:    - `action.target.write`   Required feature flag:    - `actions`
 
         :param beta_action_service_create_target_request: (required)
         :type beta_action_service_create_target_request: BetaActionServiceCreateTargetRequest
@@ -183,9 +185,9 @@ class BetaActionServiceApi:
 
     @validate_call
     def delete_target(        self,                beta_action_service_delete_target_request: BetaActionServiceDeleteTargetRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaActionServiceDeleteTargetResponse:
-        """DeleteTarget
+        """Delete Target
 
-        Delete Target   Delete an existing target. This will remove it from any configured execution as well.  In case the target is not found, the request will return a successful response as  the desired state is already achieved.   Required permission:    - `action.target.delete`   Required feature flag:    - `actions`
+        Delete an existing target. This will remove it from any configured execution as well.  In case the target is not found, the request will return a successful response as  the desired state is already achieved.   Required permission:    - `action.target.delete`   Required feature flag:    - `actions`
 
         :param beta_action_service_delete_target_request: (required)
         :type beta_action_service_delete_target_request: BetaActionServiceDeleteTargetRequest
@@ -311,9 +313,9 @@ class BetaActionServiceApi:
 
     @validate_call
     def get_target(        self,                beta_action_service_get_target_request: BetaActionServiceGetTargetRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaActionServiceGetTargetResponse:
-        """GetTarget
+        """Get Target
 
-        Get Target   Returns the target identified by the requested ID.   Required permission:    - `action.target.read`   Required feature flag:    - `actions`
+        Returns the target identified by the requested ID.   Required permission:    - `action.target.read`   Required feature flag:    - `actions`
 
         :param beta_action_service_get_target_request: (required)
         :type beta_action_service_get_target_request: BetaActionServiceGetTargetRequest
@@ -441,9 +443,9 @@ class BetaActionServiceApi:
     def list_execution_functions(        self,                body: Optional[Dict[str, Any]] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaActionServiceListExecutionFunctionsResponse:
         if body is None:
             body = {}
-        """ListExecutionFunctions
+        """List Execution Functions
 
-        List Execution Functions   List all available functions which can be used as condition for executions.
+        List all available functions which can be used as condition for executions.
 
         :param body: (required)
         :type body: object
@@ -571,9 +573,9 @@ class BetaActionServiceApi:
     def list_execution_methods(        self,                body: Optional[Dict[str, Any]] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaActionServiceListExecutionMethodsResponse:
         if body is None:
             body = {}
-        """ListExecutionMethods
+        """List Execution Methods
 
-        List Execution Methods   List all available methods which can be used as condition for executions.
+        List all available methods which can be used as condition for executions.
 
         :param body: (required)
         :type body: object
@@ -701,9 +703,9 @@ class BetaActionServiceApi:
     def list_execution_services(        self,                body: Optional[Dict[str, Any]] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaActionServiceListExecutionServicesResponse:
         if body is None:
             body = {}
-        """ListExecutionServices
+        """List Execution Services
 
-        List Execution Services   List all available services which can be used as condition for executions.
+        List all available services which can be used as condition for executions.
 
         :param body: (required)
         :type body: object
@@ -829,9 +831,9 @@ class BetaActionServiceApi:
 
     @validate_call
     def list_executions(        self,                beta_action_service_list_executions_request: BetaActionServiceListExecutionsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaActionServiceListExecutionsResponse:
-        """ListExecutions
+        """List Executions
 
-        List Executions   List all matching executions. By default all executions of the instance are returned that have at least one execution target.  Make sure to include a limit and sorting for pagination.   Required permission:    - `action.execution.read`   Required feature flag:    - `actions`
+        List all matching executions. By default all executions of the instance are returned that have at least one execution target.  Make sure to include a limit and sorting for pagination.   Required permission:    - `action.execution.read`   Required feature flag:    - `actions`
 
         :param beta_action_service_list_executions_request: (required)
         :type beta_action_service_list_executions_request: BetaActionServiceListExecutionsRequest
@@ -957,9 +959,9 @@ class BetaActionServiceApi:
 
     @validate_call
     def list_targets(        self,                beta_action_service_list_targets_request: BetaActionServiceListTargetsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaActionServiceListTargetsResponse:
-        """ListTargets
+        """List targets
 
-        List targets   List all matching targets. By default all targets of the instance are returned.  Make sure to include a limit and sorting for pagination.   Required permission:    - `action.target.read`   Required feature flag:    - `actions`
+        List all matching targets. By default all targets of the instance are returned.  Make sure to include a limit and sorting for pagination.   Required permission:    - `action.target.read`   Required feature flag:    - `actions`
 
         :param beta_action_service_list_targets_request: (required)
         :type beta_action_service_list_targets_request: BetaActionServiceListTargetsRequest
@@ -1085,9 +1087,9 @@ class BetaActionServiceApi:
 
     @validate_call
     def set_execution(        self,                beta_action_service_set_execution_request: BetaActionServiceSetExecutionRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaActionServiceSetExecutionResponse:
-        """SetExecution
+        """Set Execution
 
-        Set Execution   Sets an execution to call a target or include the targets of another execution.  Setting an empty list of targets will remove all targets from the execution, making it a noop.   Required permission:    - `action.execution.write`   Required feature flag:    - `actions`
+        Sets an execution to call a target or include the targets of another execution.  Setting an empty list of targets will remove all targets from the execution, making it a noop.   Required permission:    - `action.execution.write`   Required feature flag:    - `actions`
 
         :param beta_action_service_set_execution_request: (required)
         :type beta_action_service_set_execution_request: BetaActionServiceSetExecutionRequest
@@ -1212,10 +1214,12 @@ class BetaActionServiceApi:
 
 
     @validate_call
-    def update_target(        self,                beta_action_service_update_target_request: BetaActionServiceUpdateTargetRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaActionServiceUpdateTargetResponse:
-        """UpdateTarget
+    def update_target(        self,                beta_action_service_update_target_request: Optional[BetaActionServiceUpdateTargetRequest] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaActionServiceUpdateTargetResponse:
+        if beta_action_service_update_target_request is None:
+            beta_action_service_update_target_request = {}
+        """Update Target
 
-        Update Target   Update an existing target.  To generate a new signing key set the optional expirationSigningKey.   Required permission:    - `action.target.write`   Required feature flag:    - `actions`
+        Update an existing target.  To generate a new signing key set the optional expirationSigningKey.   Required permission:    - `action.target.write`   Required feature flag:    - `actions`
 
         :param beta_action_service_update_target_request: (required)
         :type beta_action_service_update_target_request: BetaActionServiceUpdateTargetRequest

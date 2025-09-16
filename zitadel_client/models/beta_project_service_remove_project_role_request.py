@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict
+from typing import Any, ClassVar, Dict, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,8 +26,8 @@ class BetaProjectServiceRemoveProjectRoleRequest(BaseModel):
     """
     BetaProjectServiceRemoveProjectRoleRequest
     """ # noqa: E501
-    project_id: StrictStr = Field(description="ID of the project.", alias="projectId")
-    role_key: StrictStr = Field(description="The key is the only relevant attribute for ZITADEL regarding the authorization checks.", alias="roleKey")
+    project_id: Optional[StrictStr] = Field(default=None, description="ID of the project.", alias="projectId")
+    role_key: Optional[StrictStr] = Field(default=None, description="The key is the only relevant attribute for ZITADEL regarding the authorization checks.", alias="roleKey")
     __properties: ClassVar[List[str]] = ["projectId", "roleKey"]
 
     model_config = ConfigDict(

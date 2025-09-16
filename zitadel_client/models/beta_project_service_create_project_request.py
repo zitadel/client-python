@@ -18,7 +18,8 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
-from typing import Any, ClassVar, Dict, Optional
+from typing import Any, ClassVar, Dict, List, Optional
+from zitadel_client.models.beta_project_service_admin import BetaProjectServiceAdmin
 from zitadel_client.models.beta_project_service_private_labeling_setting import BetaProjectServicePrivateLabelingSetting
 from typing import Optional, Set
 from typing_extensions import Self
@@ -29,12 +30,13 @@ class BetaProjectServiceCreateProjectRequest(BaseModel):
     """ # noqa: E501
     organization_id: Optional[StrictStr] = Field(default=None, description="The unique identifier of the organization the project belongs to.", alias="organizationId")
     id: Optional[StrictStr] = Field(default=None, description="The unique identifier of the project.")
-    name: StrictStr = Field(description="Name of the project.")
+    name: Optional[StrictStr] = Field(default=None, description="Name of the project.")
     project_role_assertion: Optional[StrictBool] = Field(default=None, description="Enable this setting to have role information included in the user info endpoint. It is also dependent on your application settings to include it in tokens and other types.", alias="projectRoleAssertion")
     authorization_required: Optional[StrictBool] = Field(default=None, description="When enabled ZITADEL will check if a user has an authorization to use this project assigned when login into an application of this project.", alias="authorizationRequired")
     project_access_required: Optional[StrictBool] = Field(default=None, description="When enabled ZITADEL will check if the organization of the user, that is trying to log in, has access to this project (either owns the project or is granted).", alias="projectAccessRequired")
     private_labeling_setting: Optional[BetaProjectServicePrivateLabelingSetting] = Field(default=None, alias="privateLabelingSetting")
-    __properties: ClassVar[List[str]] = ["organizationId", "id", "name", "projectRoleAssertion", "authorizationRequired", "projectAccessRequired", "privateLabelingSetting"]
+    admins: Optional[List[BetaProjectServiceAdmin]] = Field(default=None, description="List of users and Project Member roles (PROJECT_OWNER, by default) to be assigned to those users.")
+    __properties: ClassVar[List[str]] = ["organizationId", "id", "name", "projectRoleAssertion", "authorizationRequired", "projectAccessRequired", "privateLabelingSetting", "admins"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -75,6 +77,13 @@ class BetaProjectServiceCreateProjectRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in admins (list)
+        _items = []
+        if self.admins:
+            for _item_admins in self.admins:
+                if _item_admins:
+                    _items.append(_item_admins.to_dict())
+            _dict['admins'] = _items
         # set to None if id (nullable) is None
         # and model_fields_set contains the field
         if self.id is None and "id" in self.model_fields_set:
@@ -98,7 +107,8 @@ class BetaProjectServiceCreateProjectRequest(BaseModel):
             "projectRoleAssertion": obj.get("projectRoleAssertion"),
             "authorizationRequired": obj.get("authorizationRequired"),
             "projectAccessRequired": obj.get("projectAccessRequired"),
-            "privateLabelingSetting": obj.get("privateLabelingSetting")
+            "privateLabelingSetting": obj.get("privateLabelingSetting"),
+            "admins": [BetaProjectServiceAdmin.from_dict(_item) for _item in obj["admins"]] if obj.get("admins") is not None else None
         })
         return _obj
 

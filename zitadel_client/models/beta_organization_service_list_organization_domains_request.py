@@ -28,7 +28,7 @@ class BetaOrganizationServiceListOrganizationDomainsRequest(BaseModel):
     """
     BetaOrganizationServiceListOrganizationDomainsRequest
     """ # noqa: E501
-    organization_id: StrictStr = Field(description="Organization Id for the Organization which domains are to be listed.", alias="organizationId")
+    organization_id: Optional[StrictStr] = Field(default=None, description="Organization Id for the Organization which domains are to be listed.", alias="organizationId")
     pagination: Optional[BetaOrganizationServicePaginationRequest] = None
     filters: Optional[List[BetaOrganizationServiceDomainSearchFilter]] = Field(default=None, description="Define the criteria to query for.")
     __properties: ClassVar[List[str]] = ["organizationId", "pagination", "filters"]

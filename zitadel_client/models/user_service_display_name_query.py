@@ -27,7 +27,7 @@ class UserServiceDisplayNameQuery(BaseModel):
     """
     Query for users with a specific display name.
     """ # noqa: E501
-    display_name: StrictStr = Field(alias="displayName")
+    display_name: Optional[StrictStr] = Field(default=None, alias="displayName")
     method: Optional[UserServiceTextQueryMethod] = None
     __properties: ClassVar[List[str]] = ["displayName", "method"]
 

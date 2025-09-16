@@ -30,7 +30,7 @@ class BetaAppServiceUpdateApplicationRequest(BaseModel):
     BetaAppServiceUpdateApplicationRequest
     """ # noqa: E501
     project_id: Optional[StrictStr] = Field(default=None, alias="projectId")
-    id: StrictStr
+    id: Optional[StrictStr] = None
     name: Optional[StrictStr] = None
     api_configuration_request: Optional[BetaAppServiceUpdateAPIApplicationConfigurationRequest] = Field(default=None, alias="apiConfigurationRequest")
     oidc_configuration_request: Optional[BetaAppServiceUpdateOIDCApplicationConfigurationRequest] = Field(default=None, alias="oidcConfigurationRequest")

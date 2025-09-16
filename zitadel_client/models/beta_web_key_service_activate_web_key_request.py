@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, StrictStr
-from typing import Any, ClassVar, Dict
+from typing import Any, ClassVar, Dict, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,7 +26,7 @@ class BetaWebKeyServiceActivateWebKeyRequest(BaseModel):
     """
     BetaWebKeyServiceActivateWebKeyRequest
     """ # noqa: E501
-    id: StrictStr
+    id: Optional[StrictStr] = None
     __properties: ClassVar[List[str]] = ["id"]
 
     model_config = ConfigDict(

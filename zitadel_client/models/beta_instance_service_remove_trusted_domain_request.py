@@ -27,7 +27,7 @@ class BetaInstanceServiceRemoveTrustedDomainRequest(BaseModel):
     BetaInstanceServiceRemoveTrustedDomainRequest
     """ # noqa: E501
     instance_id: Optional[StrictStr] = Field(default=None, alias="instanceId")
-    domain: StrictStr
+    domain: Optional[StrictStr] = None
     __properties: ClassVar[List[str]] = ["instanceId", "domain"]
 
     model_config = ConfigDict(

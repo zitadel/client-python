@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict
-from typing import Any, ClassVar, Dict
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.user_service_type import UserServiceType
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,7 +27,7 @@ class UserServiceTypeQuery(BaseModel):
     """
     Query for users with a specific type.
     """ # noqa: E501
-    type: UserServiceType
+    type: Optional[UserServiceType] = None
     __properties: ClassVar[List[str]] = ["type"]
 
     model_config = ConfigDict(

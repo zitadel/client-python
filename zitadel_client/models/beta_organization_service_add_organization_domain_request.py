@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict
+from typing import Any, ClassVar, Dict, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,8 +26,8 @@ class BetaOrganizationServiceAddOrganizationDomainRequest(BaseModel):
     """
     BetaOrganizationServiceAddOrganizationDomainRequest
     """ # noqa: E501
-    organization_id: StrictStr = Field(description="Organization Id for the Organization for which the domain is to be added to.", alias="organizationId")
-    domain: StrictStr = Field(description="The domain you want to add to the organization.")
+    organization_id: Optional[StrictStr] = Field(default=None, description="Organization Id for the Organization for which the domain is to be added to.", alias="organizationId")
+    domain: Optional[StrictStr] = Field(default=None, description="The domain you want to add to the organization.")
     __properties: ClassVar[List[str]] = ["organizationId", "domain"]
 
     model_config = ConfigDict(

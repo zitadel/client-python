@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict
+from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.beta_session_service_user_verification_requirement import BetaSessionServiceUserVerificationRequirement
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,8 +27,8 @@ class BetaSessionServiceWebAuthN(BaseModel):
     """
     BetaSessionServiceWebAuthN
     """ # noqa: E501
-    domain: StrictStr
-    user_verification_requirement: BetaSessionServiceUserVerificationRequirement = Field(alias="userVerificationRequirement")
+    domain: Optional[StrictStr] = None
+    user_verification_requirement: Optional[BetaSessionServiceUserVerificationRequirement] = Field(default=None, alias="userVerificationRequirement")
     __properties: ClassVar[List[str]] = ["domain", "userVerificationRequirement"]
 
     model_config = ConfigDict(

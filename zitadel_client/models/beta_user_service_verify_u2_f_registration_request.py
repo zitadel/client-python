@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict
+from typing import Any, ClassVar, Dict, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,10 +26,10 @@ class BetaUserServiceVerifyU2FRegistrationRequest(BaseModel):
     """
     BetaUserServiceVerifyU2FRegistrationRequest
     """ # noqa: E501
-    user_id: StrictStr = Field(alias="userId")
-    u2f_id: StrictStr = Field(alias="u2fId")
-    public_key_credential: Dict[str, Any] = Field(description="`Struct` represents a structured data value, consisting of fields  which map to dynamically typed values. In some languages, `Struct`  might be supported by a native representation. For example, in  scripting languages like JS a struct is represented as an  object. The details of that representation are described together  with the proto support for the language.   The JSON representation for `Struct` is JSON object.", alias="publicKeyCredential")
-    token_name: StrictStr = Field(alias="tokenName")
+    user_id: Optional[StrictStr] = Field(default=None, alias="userId")
+    u2f_id: Optional[StrictStr] = Field(default=None, alias="u2fId")
+    public_key_credential: Optional[Dict[str, Any]] = Field(default=None, description="`Struct` represents a structured data value, consisting of fields  which map to dynamically typed values. In some languages, `Struct`  might be supported by a native representation. For example, in  scripting languages like JS a struct is represented as an  object. The details of that representation are described together  with the proto support for the language.   The JSON representation for `Struct` is JSON object.", alias="publicKeyCredential")
+    token_name: Optional[StrictStr] = Field(default=None, alias="tokenName")
     __properties: ClassVar[List[str]] = ["userId", "u2fId", "publicKeyCredential", "tokenName"]
 
     model_config = ConfigDict(

@@ -26,7 +26,7 @@ class BetaOrganizationServicePassword(BaseModel):
     """
     BetaOrganizationServicePassword
     """ # noqa: E501
-    password: StrictStr
+    password: Optional[StrictStr] = None
     change_required: Optional[StrictBool] = Field(default=None, alias="changeRequired")
     __properties: ClassVar[List[str]] = ["password", "changeRequired"]
 

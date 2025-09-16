@@ -49,9 +49,9 @@ class BetaAuthorizationServiceApi:
 
     @validate_call
     def activate_authorization(        self,                beta_authorization_service_activate_authorization_request: BetaAuthorizationServiceActivateAuthorizationRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaAuthorizationServiceActivateAuthorizationResponse:
-        """ActivateAuthorization
+        """Activate Authorization
 
-        Activate Authorization   ActivateAuthorization activates an existing but inactive authorization.   In case the authorization is already active, the request will return a successful response as  the desired state is already achieved.  You can check the change date in the response to verify if the authorization was activated by the request.   Required permissions:    - \"user.grant.write\"
+        ActivateAuthorization activates an existing but inactive authorization.   In case the authorization is already active, the request will return a successful response as  the desired state is already achieved.  You can check the change date in the response to verify if the authorization was activated by the request.   Required permissions:    - \"user.grant.write\"
 
         :param beta_authorization_service_activate_authorization_request: (required)
         :type beta_authorization_service_activate_authorization_request: BetaAuthorizationServiceActivateAuthorizationRequest
@@ -177,9 +177,9 @@ class BetaAuthorizationServiceApi:
 
     @validate_call
     def create_authorization(        self,                beta_authorization_service_create_authorization_request: BetaAuthorizationServiceCreateAuthorizationRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaAuthorizationServiceCreateAuthorizationResponse:
-        """CreateAuthorization
+        """Create Authorization
 
-        Create Authorization   CreateAuthorization creates a new authorization for a user in an owned or granted project.   Required permissions:    - \"user.grant.write\"
+        CreateAuthorization creates a new authorization for a user in an owned or granted project.   Required permissions:    - \"user.grant.write\"
 
         :param beta_authorization_service_create_authorization_request: (required)
         :type beta_authorization_service_create_authorization_request: BetaAuthorizationServiceCreateAuthorizationRequest
@@ -305,9 +305,9 @@ class BetaAuthorizationServiceApi:
 
     @validate_call
     def deactivate_authorization(        self,                beta_authorization_service_deactivate_authorization_request: BetaAuthorizationServiceDeactivateAuthorizationRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaAuthorizationServiceDeactivateAuthorizationResponse:
-        """DeactivateAuthorization
+        """Deactivate Authorization
 
-        Deactivate Authorization   DeactivateAuthorization deactivates an existing and active authorization.   In case the authorization is already inactive, the request will return a successful response as  the desired state is already achieved.  You can check the change date in the response to verify if the authorization was deactivated by the request.   Required permissions:    - \"user.grant.write\"
+        DeactivateAuthorization deactivates an existing and active authorization.   In case the authorization is already inactive, the request will return a successful response as  the desired state is already achieved.  You can check the change date in the response to verify if the authorization was deactivated by the request.   Required permissions:    - \"user.grant.write\"
 
         :param beta_authorization_service_deactivate_authorization_request: (required)
         :type beta_authorization_service_deactivate_authorization_request: BetaAuthorizationServiceDeactivateAuthorizationRequest
@@ -433,9 +433,9 @@ class BetaAuthorizationServiceApi:
 
     @validate_call
     def delete_authorization(        self,                beta_authorization_service_delete_authorization_request: BetaAuthorizationServiceDeleteAuthorizationRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaAuthorizationServiceDeleteAuthorizationResponse:
-        """DeleteAuthorization
+        """Delete Authorization
 
-        Delete Authorization   DeleteAuthorization deletes the authorization.   In case the authorization is not found, the request will return a successful response as  the desired state is already achieved.  You can check the deletion date in the response to verify if the authorization was deleted by the request.   Required permissions:    - \"user.grant.delete\"
+        DeleteAuthorization deletes the authorization.   In case the authorization is not found, the request will return a successful response as  the desired state is already achieved.  You can check the deletion date in the response to verify if the authorization was deleted by the request.   Required permissions:    - \"user.grant.delete\"
 
         :param beta_authorization_service_delete_authorization_request: (required)
         :type beta_authorization_service_delete_authorization_request: BetaAuthorizationServiceDeleteAuthorizationRequest
@@ -561,9 +561,9 @@ class BetaAuthorizationServiceApi:
 
     @validate_call
     def list_authorizations(        self,                beta_authorization_service_list_authorizations_request: BetaAuthorizationServiceListAuthorizationsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaAuthorizationServiceListAuthorizationsResponse:
-        """ListAuthorizations
+        """List Authorizations
 
-        List Authorizations   ListAuthorizations returns all authorizations matching the request and necessary permissions.   Required permissions:    - \"user.grant.read\"    - no permissions required for listing own authorizations
+        ListAuthorizations returns all authorizations matching the request and necessary permissions.   Required permissions:    - \"user.grant.read\"    - no permissions required for listing own authorizations
 
         :param beta_authorization_service_list_authorizations_request: (required)
         :type beta_authorization_service_list_authorizations_request: BetaAuthorizationServiceListAuthorizationsRequest
@@ -689,9 +689,9 @@ class BetaAuthorizationServiceApi:
 
     @validate_call
     def update_authorization(        self,                beta_authorization_service_update_authorization_request: BetaAuthorizationServiceUpdateAuthorizationRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaAuthorizationServiceUpdateAuthorizationResponse:
-        """UpdateAuthorization
+        """Update Authorization
 
-        Update Authorization   UpdateAuthorization updates the authorization.   Note that any role keys previously granted to the user and not present in the request will be revoked.   Required permissions:    - \"user.grant.write\"
+        UpdateAuthorization updates the authorization.   Note that any role keys previously granted to the user and not present in the request will be revoked.   Required permissions:    - \"user.grant.write\"
 
         :param beta_authorization_service_update_authorization_request: (required)
         :type beta_authorization_service_update_authorization_request: BetaAuthorizationServiceUpdateAuthorizationRequest

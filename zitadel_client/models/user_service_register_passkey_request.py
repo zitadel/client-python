@@ -28,7 +28,7 @@ class UserServiceRegisterPasskeyRequest(BaseModel):
     """
     UserServiceRegisterPasskeyRequest
     """ # noqa: E501
-    user_id: StrictStr = Field(alias="userId")
+    user_id: Optional[StrictStr] = Field(default=None, alias="userId")
     code: Optional[UserServicePasskeyRegistrationCode] = None
     authenticator: Optional[UserServicePasskeyAuthenticator] = None
     domain: Optional[StrictStr] = None

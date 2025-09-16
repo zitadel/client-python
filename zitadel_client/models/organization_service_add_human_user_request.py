@@ -37,8 +37,8 @@ class OrganizationServiceAddHumanUserRequest(BaseModel):
     user_id: Optional[StrictStr] = Field(default=None, description="optionally set your own id unique for the user.", alias="userId")
     username: Optional[StrictStr] = Field(default=None, description="optionally set a unique username, if none is provided the email will be used.")
     organization: Optional[OrganizationServiceOrganization] = None
-    profile: OrganizationServiceSetHumanProfile
-    email: OrganizationServiceSetHumanEmail
+    profile: Optional[OrganizationServiceSetHumanProfile] = None
+    email: Optional[OrganizationServiceSetHumanEmail] = None
     phone: Optional[OrganizationServiceSetHumanPhone] = None
     metadata: Optional[List[OrganizationServiceSetMetadataEntry]] = None
     idp_links: Optional[List[OrganizationServiceIDPLink]] = Field(default=None, alias="idpLinks")

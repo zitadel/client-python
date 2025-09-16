@@ -1,6 +1,7 @@
 from types import TracebackType
 from typing import Callable, Optional, Type, TypeVar
 
+from zitadel_client.api.action_service_api import ActionServiceApi
 from zitadel_client.api.beta_action_service_api import BetaActionServiceApi
 from zitadel_client.api.beta_app_service_api import BetaAppServiceApi
 from zitadel_client.api.beta_authorization_service_api import BetaAuthorizationServiceApi
@@ -24,7 +25,6 @@ from zitadel_client.api.session_service_api import SessionServiceApi
 from zitadel_client.api.settings_service_api import SettingsServiceApi
 from zitadel_client.api.user_service_api import UserServiceApi
 from zitadel_client.api.web_key_service_api import WebKeyServiceApi
-from zitadel_client.api.action_service_api import ActionServiceApi
 from zitadel_client.api_client import ApiClient
 from zitadel_client.auth.authenticator import Authenticator
 from zitadel_client.auth.client_credentials_authenticator import ClientCredentialsAuthenticator

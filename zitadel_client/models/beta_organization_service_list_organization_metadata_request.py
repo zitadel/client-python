@@ -28,7 +28,7 @@ class BetaOrganizationServiceListOrganizationMetadataRequest(BaseModel):
     """
     BetaOrganizationServiceListOrganizationMetadataRequest
     """ # noqa: E501
-    organization_id: StrictStr = Field(description="Organization ID of Orgalization which metadata is to be listed.", alias="organizationId")
+    organization_id: Optional[StrictStr] = Field(default=None, description="Organization ID of Orgalization which metadata is to be listed.", alias="organizationId")
     pagination: Optional[BetaOrganizationServicePaginationRequest] = None
     filter: Optional[List[BetaOrganizationServiceMetadataQuery]] = Field(default=None, description="Define the criteria to query for.")
     __properties: ClassVar[List[str]] = ["organizationId", "pagination", "filter"]

@@ -27,8 +27,8 @@ class UserServiceSetEmailRequest(BaseModel):
     """
     UserServiceSetEmailRequest
     """ # noqa: E501
-    user_id: StrictStr = Field(alias="userId")
-    email: StrictStr
+    user_id: Optional[StrictStr] = Field(default=None, alias="userId")
+    email: Optional[StrictStr] = None
     is_verified: Optional[StrictBool] = Field(default=None, alias="isVerified")
     return_code: Optional[Dict[str, Any]] = Field(default=None, alias="returnCode")
     send_code: Optional[UserServiceSendEmailVerificationCode] = Field(default=None, alias="sendCode")

@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict
+from typing import Any, ClassVar, Dict, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,8 +26,8 @@ class UserServiceRemovePasskeyRequest(BaseModel):
     """
     UserServiceRemovePasskeyRequest
     """ # noqa: E501
-    user_id: StrictStr = Field(alias="userId")
-    passkey_id: StrictStr = Field(alias="passkeyId")
+    user_id: Optional[StrictStr] = Field(default=None, alias="userId")
+    passkey_id: Optional[StrictStr] = Field(default=None, alias="passkeyId")
     __properties: ClassVar[List[str]] = ["userId", "passkeyId"]
 
     model_config = ConfigDict(

@@ -45,9 +45,9 @@ class BetaInternalPermissionServiceApi:
 
     @validate_call
     def create_administrator(        self,                beta_internal_permission_service_create_administrator_request: BetaInternalPermissionServiceCreateAdministratorRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaInternalPermissionServiceCreateAdministratorResponse:
-        """CreateAdministrator
+        """CreateAdministrator grants a administrator role to a user for a specific resource.
 
-        CreateAdministrator grants a administrator role to a user for a specific resource.   Note that the roles are specific to the resource type.  This means that if you want to grant a user the administrator role for an organization and a project,  you need to create two administrator roles.   Required permissions depend on the resource type:    - \"iam.member.write\" for instance administrators    - \"org.member.write\" for organization administrators    - \"project.member.write\" for project administrators    - \"project.grant.member.write\" for project grant administrators
+        Note that the roles are specific to the resource type.  This means that if you want to grant a user the administrator role for an organization and a project,  you need to create two administrator roles.   Required permissions depend on the resource type:    - \"iam.member.write\" for instance administrators    - \"org.member.write\" for organization administrators    - \"project.member.write\" for project administrators    - \"project.grant.member.write\" for project grant administrators
 
         :param beta_internal_permission_service_create_administrator_request: (required)
         :type beta_internal_permission_service_create_administrator_request: BetaInternalPermissionServiceCreateAdministratorRequest
@@ -173,9 +173,9 @@ class BetaInternalPermissionServiceApi:
 
     @validate_call
     def delete_administrator(        self,                beta_internal_permission_service_delete_administrator_request: BetaInternalPermissionServiceDeleteAdministratorRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaInternalPermissionServiceDeleteAdministratorResponse:
-        """DeleteAdministrator
+        """DeleteAdministrator revokes a administrator role from a user.
 
-        DeleteAdministrator revokes a administrator role from a user.   In case the administrator role is not found, the request will return a successful response as  the desired state is already achieved.  You can check the deletion date in the response to verify if the administrator role was deleted during the request.   Required permissions depend on the resource type:    - \"iam.member.delete\" for instance administrators    - \"org.member.delete\" for organization administrators    - \"project.member.delete\" for project administrators    - \"project.grant.member.delete\" for project grant administrators
+        In case the administrator role is not found, the request will return a successful response as  the desired state is already achieved.  You can check the deletion date in the response to verify if the administrator role was deleted during the request.   Required permissions depend on the resource type:    - \"iam.member.delete\" for instance administrators    - \"org.member.delete\" for organization administrators    - \"project.member.delete\" for project administrators    - \"project.grant.member.delete\" for project grant administrators
 
         :param beta_internal_permission_service_delete_administrator_request: (required)
         :type beta_internal_permission_service_delete_administrator_request: BetaInternalPermissionServiceDeleteAdministratorRequest
@@ -301,9 +301,9 @@ class BetaInternalPermissionServiceApi:
 
     @validate_call
     def list_administrators(        self,                beta_internal_permission_service_list_administrators_request: BetaInternalPermissionServiceListAdministratorsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaInternalPermissionServiceListAdministratorsResponse:
-        """ListAdministrators
+        """ListAdministrators returns all administrators and its roles matching the request and necessary permissions.
 
-        ListAdministrators returns all administrators and its roles matching the request and necessary permissions.   Required permissions depend on the resource type:    - \"iam.member.read\" for instance administrators    - \"org.member.read\" for organization administrators    - \"project.member.read\" for project administrators    - \"project.grant.member.read\" for project grant administrators    - no permissions required for listing own administrator roles
+        Required permissions depend on the resource type:    - \"iam.member.read\" for instance administrators    - \"org.member.read\" for organization administrators    - \"project.member.read\" for project administrators    - \"project.grant.member.read\" for project grant administrators    - no permissions required for listing own administrator roles
 
         :param beta_internal_permission_service_list_administrators_request: (required)
         :type beta_internal_permission_service_list_administrators_request: BetaInternalPermissionServiceListAdministratorsRequest
@@ -429,9 +429,9 @@ class BetaInternalPermissionServiceApi:
 
     @validate_call
     def update_administrator(        self,                beta_internal_permission_service_update_administrator_request: BetaInternalPermissionServiceUpdateAdministratorRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaInternalPermissionServiceUpdateAdministratorResponse:
-        """UpdateAdministrator
+        """UpdateAdministrator updates the specific administrator role.
 
-        UpdateAdministrator updates the specific administrator role.   Note that any role previously granted to the user and not present in the request will be revoked.   Required permissions depend on the resource type:    - \"iam.member.write\" for instance administrators    - \"org.member.write\" for organization administrators    - \"project.member.write\" for project administrators    - \"project.grant.member.write\" for project grant administrators
+        Note that any role previously granted to the user and not present in the request will be revoked.   Required permissions depend on the resource type:    - \"iam.member.write\" for instance administrators    - \"org.member.write\" for organization administrators    - \"project.member.write\" for project administrators    - \"project.grant.member.write\" for project grant administrators
 
         :param beta_internal_permission_service_update_administrator_request: (required)
         :type beta_internal_permission_service_update_administrator_request: BetaInternalPermissionServiceUpdateAdministratorRequest

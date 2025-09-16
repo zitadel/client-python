@@ -27,7 +27,7 @@ class UserServiceLoginNameQuery(BaseModel):
     """
     Query for users with a specific state.
     """ # noqa: E501
-    login_name: StrictStr = Field(alias="loginName")
+    login_name: Optional[StrictStr] = Field(default=None, alias="loginName")
     method: Optional[UserServiceTextQueryMethod] = None
     __properties: ClassVar[List[str]] = ["loginName", "method"]
 

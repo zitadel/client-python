@@ -27,7 +27,7 @@ class OrganizationServiceOrganizationDomainQuery(BaseModel):
     """
     OrganizationServiceOrganizationDomainQuery
     """ # noqa: E501
-    domain: StrictStr = Field(description="Domain used in organization, not necessary primary domain.")
+    domain: Optional[StrictStr] = Field(default=None, description="Domain used in organization, not necessary primary domain.")
     method: Optional[OrganizationServiceTextQueryMethod] = None
     __properties: ClassVar[List[str]] = ["domain", "method"]
 

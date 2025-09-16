@@ -27,7 +27,7 @@ class OrganizationServiceAddOrganizationRequest(BaseModel):
     """
     OrganizationServiceAddOrganizationRequest
     """ # noqa: E501
-    name: StrictStr
+    name: Optional[StrictStr] = None
     admins: Optional[List[OrganizationServiceAdmin]] = None
     org_id: Optional[StrictStr] = Field(default=None, description="optionally set your own id unique for the organization.", alias="orgId")
     __properties: ClassVar[List[str]] = ["name", "admins", "orgId"]

@@ -26,7 +26,7 @@ class UserServiceResendPhoneCodeRequest(BaseModel):
     """
     UserServiceResendPhoneCodeRequest
     """ # noqa: E501
-    user_id: StrictStr = Field(alias="userId")
+    user_id: Optional[StrictStr] = Field(default=None, alias="userId")
     return_code: Optional[Dict[str, Any]] = Field(default=None, alias="returnCode")
     send_code: Optional[Dict[str, Any]] = Field(default=None, alias="sendCode")
     __properties: ClassVar[List[str]] = ["userId", "returnCode", "sendCode"]

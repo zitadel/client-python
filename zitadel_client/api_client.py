@@ -250,7 +250,25 @@ class ApiClient:
                 return_data = self.deserialize(response_text, response_type, content_type)
         finally:
             if not 200 <= response_data.status <= 299:
-                raise ApiError(response_data.status, response_data.getheaders(), return_data)
+                body = None
+                if response_data.data:
+                    content_type = response_data.getheader("content-type") or ""
+
+                    # Manually check if the content type is JSON-like
+                    is_json = re.match(r"^(application/json|[^;/ \t]+/[^;/ \t]+[+]json)", content_type, re.IGNORECASE)
+
+                    if is_json:
+                        try:
+                            # Attempt to decode the JSON into a standard dictionary
+                            body = json.loads(response_data.data.decode("utf-8"))
+                        except (json.JSONDecodeError, UnicodeDecodeError):
+                            # Fallback to raw text if JSON is malformed
+                            body = response_data.data.decode("utf-8", errors="ignore")
+                    else:
+                        # If content type is not JSON, use the raw text
+                        body = response_data.data.decode("utf-8", errors="ignore")
+
+                raise ApiError(response_data.status, response_data.getheaders(), body)
             else:
                 return ApiResponse(
                     status_code=response_data.status,

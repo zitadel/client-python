@@ -27,7 +27,7 @@ class BetaOrganizationServiceSetOrganizationMetadataRequest(BaseModel):
     """
     BetaOrganizationServiceSetOrganizationMetadataRequest
     """ # noqa: E501
-    organization_id: StrictStr = Field(description="Organization Id for the Organization doman to be verified.", alias="organizationId")
+    organization_id: Optional[StrictStr] = Field(default=None, description="Organization Id for the Organization doman to be verified.", alias="organizationId")
     metadata: Optional[List[BetaOrganizationServiceMetadata]] = Field(default=None, description="Metadata to set.")
     __properties: ClassVar[List[str]] = ["organizationId", "metadata"]
 

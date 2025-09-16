@@ -26,7 +26,7 @@ class OrganizationServiceHashedPassword(BaseModel):
     """
     OrganizationServiceHashedPassword
     """ # noqa: E501
-    hash: StrictStr
+    hash: Optional[StrictStr] = None
     change_required: Optional[StrictBool] = Field(default=None, alias="changeRequired")
     __properties: ClassVar[List[str]] = ["hash", "changeRequired"]
 

@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, StrictStr
-from typing import Any, ClassVar, Dict
+from typing import Any, ClassVar, Dict, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,8 +26,8 @@ class UserServicePasskeyRegistrationCode(BaseModel):
     """
     UserServicePasskeyRegistrationCode
     """ # noqa: E501
-    id: StrictStr
-    code: StrictStr
+    id: Optional[StrictStr] = None
+    code: Optional[StrictStr] = None
     __properties: ClassVar[List[str]] = ["id", "code"]
 
     model_config = ConfigDict(

@@ -45,9 +45,9 @@ class BetaWebKeyServiceApi:
 
     @validate_call
     def activate_web_key(        self,                beta_web_key_service_activate_web_key_request: BetaWebKeyServiceActivateWebKeyRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaWebKeyServiceActivateWebKeyResponse:
-        """ActivateWebKey
+        """Activate Web Key
 
-        Activate Web Key   Switch the active signing web key. The previously active key will be deactivated.  Note that the JWKs OIDC endpoint returns a cacheable response.  Therefore it is not advised to activate a key that has been created within the cache duration (default is 5min),  as the public key may not have been propagated to caches and clients yet.   Required permission:    - `iam.web_key.write`   Required feature flag:    - `web_key`
+        Switch the active signing web key. The previously active key will be deactivated.  Note that the JWKs OIDC endpoint returns a cacheable response.  Therefore it is not advised to activate a key that has been created within the cache duration (default is 5min),  as the public key may not have been propagated to caches and clients yet.   Required permission:    - `iam.web_key.write`   Required feature flag:    - `web_key`
 
         :param beta_web_key_service_activate_web_key_request: (required)
         :type beta_web_key_service_activate_web_key_request: BetaWebKeyServiceActivateWebKeyRequest
@@ -173,9 +173,9 @@ class BetaWebKeyServiceApi:
 
     @validate_call
     def create_web_key(        self,                beta_web_key_service_create_web_key_request: BetaWebKeyServiceCreateWebKeyRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaWebKeyServiceCreateWebKeyResponse:
-        """CreateWebKey
+        """Create Web Key
 
-        Create Web Key   Generate a private and public key pair. The private key can be used to sign OIDC tokens after activation.  The public key can be used to validate OIDC tokens.  The newly created key will have the state `STATE_INITIAL` and is published to the public key endpoint.  Note that the JWKs OIDC endpoint returns a cacheable response.   If no key type is provided, a RSA key pair with 2048 bits and SHA256 hashing will be created.   Required permission:    - `iam.web_key.write`   Required feature flag:    - `web_key`
+        Generate a private and public key pair. The private key can be used to sign OIDC tokens after activation.  The public key can be used to validate OIDC tokens.  The newly created key will have the state `STATE_INITIAL` and is published to the public key endpoint.  Note that the JWKs OIDC endpoint returns a cacheable response.   If no key type is provided, a RSA key pair with 2048 bits and SHA256 hashing will be created.   Required permission:    - `iam.web_key.write`   Required feature flag:    - `web_key`
 
         :param beta_web_key_service_create_web_key_request: (required)
         :type beta_web_key_service_create_web_key_request: BetaWebKeyServiceCreateWebKeyRequest
@@ -301,9 +301,9 @@ class BetaWebKeyServiceApi:
 
     @validate_call
     def delete_web_key(        self,                beta_web_key_service_delete_web_key_request: BetaWebKeyServiceDeleteWebKeyRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaWebKeyServiceDeleteWebKeyResponse:
-        """DeleteWebKey
+        """Delete Web Key
 
-        Delete Web Key   Delete a web key pair. Only inactive keys can be deleted. Once a key is deleted,  any tokens signed by this key will be invalid.  Note that the JWKs OIDC endpoint returns a cacheable response.  In case the web key is not found, the request will return a successful response as  the desired state is already achieved.  You can check the change date in the response to verify if the web key was deleted during the request.   Required permission:    - `iam.web_key.delete`   Required feature flag:    - `web_key`
+        Delete a web key pair. Only inactive keys can be deleted. Once a key is deleted,  any tokens signed by this key will be invalid.  Note that the JWKs OIDC endpoint returns a cacheable response.  In case the web key is not found, the request will return a successful response as  the desired state is already achieved.  You can check the change date in the response to verify if the web key was deleted during the request.   Required permission:    - `iam.web_key.delete`   Required feature flag:    - `web_key`
 
         :param beta_web_key_service_delete_web_key_request: (required)
         :type beta_web_key_service_delete_web_key_request: BetaWebKeyServiceDeleteWebKeyRequest
@@ -431,9 +431,9 @@ class BetaWebKeyServiceApi:
     def list_web_keys(        self,                body: Optional[Dict[str, Any]] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaWebKeyServiceListWebKeysResponse:
         if body is None:
             body = {}
-        """ListWebKeys
+        """List Web Keys
 
-        List Web Keys   List all web keys and their states.   Required permission:    - `iam.web_key.read`   Required feature flag:    - `web_key`
+        List all web keys and their states.   Required permission:    - `iam.web_key.read`   Required feature flag:    - `web_key`
 
         :param body: (required)
         :type body: object

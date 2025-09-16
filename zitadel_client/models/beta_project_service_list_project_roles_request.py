@@ -29,7 +29,7 @@ class BetaProjectServiceListProjectRolesRequest(BaseModel):
     """
     BetaProjectServiceListProjectRolesRequest
     """ # noqa: E501
-    project_id: StrictStr = Field(description="ID of the project.", alias="projectId")
+    project_id: Optional[StrictStr] = Field(default=None, description="ID of the project.", alias="projectId")
     pagination: Optional[BetaProjectServicePaginationRequest] = None
     sorting_column: Optional[BetaProjectServiceProjectRoleFieldName] = Field(default=None, alias="sortingColumn")
     filters: Optional[List[BetaProjectServiceProjectRoleSearchFilter]] = Field(default=None, description="Define the criteria to query for.")

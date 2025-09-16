@@ -26,7 +26,7 @@ class BetaUserServiceRegisterU2FRequest(BaseModel):
     """
     BetaUserServiceRegisterU2FRequest
     """ # noqa: E501
-    user_id: StrictStr = Field(alias="userId")
+    user_id: Optional[StrictStr] = Field(default=None, alias="userId")
     domain: Optional[StrictStr] = None
     __properties: ClassVar[List[str]] = ["userId", "domain"]
 

@@ -41,9 +41,9 @@ class OrganizationServiceApi:
 
     @validate_call
     def add_organization(        self,                organization_service_add_organization_request: OrganizationServiceAddOrganizationRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> OrganizationServiceAddOrganizationResponse:
-        """AddOrganization
+        """Create an Organization
 
-        Create an Organization   Create a new organization with an administrative user. If no specific roles are sent for the users, they will be granted the role ORG_OWNER.
+        Create a new organization with an administrative user. If no specific roles are sent for the users, they will be granted the role ORG_OWNER.
 
         :param organization_service_add_organization_request: (required)
         :type organization_service_add_organization_request: OrganizationServiceAddOrganizationRequest
@@ -169,9 +169,9 @@ class OrganizationServiceApi:
 
     @validate_call
     def list_organizations(        self,                organization_service_list_organizations_request: OrganizationServiceListOrganizationsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> OrganizationServiceListOrganizationsResponse:
-        """ListOrganizations
+        """Search Organizations
 
-        Search Organizations   Search for Organizations. By default, we will return all organization of the instance. Make sure to include a limit and sorting for pagination..
+        Search for Organizations. By default, we will return all organization of the instance. Make sure to include a limit and sorting for pagination..
 
         :param organization_service_list_organizations_request: (required)
         :type organization_service_list_organizations_request: OrganizationServiceListOrganizationsRequest

@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict
+from typing import Any, ClassVar, Dict, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,7 +26,7 @@ class SessionServiceCheckWebAuthN(BaseModel):
     """
     SessionServiceCheckWebAuthN
     """ # noqa: E501
-    credential_assertion_data: Dict[str, Any] = Field(description="`Struct` represents a structured data value, consisting of fields  which map to dynamically typed values. In some languages, `Struct`  might be supported by a native representation. For example, in  scripting languages like JS a struct is represented as an  object. The details of that representation are described together  with the proto support for the language.   The JSON representation for `Struct` is JSON object.", alias="credentialAssertionData")
+    credential_assertion_data: Optional[Dict[str, Any]] = Field(default=None, description="`Struct` represents a structured data value, consisting of fields  which map to dynamically typed values. In some languages, `Struct`  might be supported by a native representation. For example, in  scripting languages like JS a struct is represented as an  object. The details of that representation are described together  with the proto support for the language.   The JSON representation for `Struct` is JSON object.", alias="credentialAssertionData")
     __properties: ClassVar[List[str]] = ["credentialAssertionData"]
 
     model_config = ConfigDict(

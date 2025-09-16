@@ -27,7 +27,7 @@ class BetaProjectServiceUpdateProjectRequest(BaseModel):
     """
     BetaProjectServiceUpdateProjectRequest
     """ # noqa: E501
-    id: StrictStr
+    id: Optional[StrictStr] = None
     name: Optional[StrictStr] = Field(default=None, description="Name of the project.")
     project_role_assertion: Optional[StrictBool] = Field(default=None, description="Enable this setting to have role information included in the user info endpoint. It is also dependent on your application settings to include it in tokens and other types.", alias="projectRoleAssertion")
     project_role_check: Optional[StrictBool] = Field(default=None, description="When enabled ZITADEL will check if a user has a role of this project assigned when login into an application of this project.", alias="projectRoleCheck")

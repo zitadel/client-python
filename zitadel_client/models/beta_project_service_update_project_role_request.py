@@ -26,9 +26,9 @@ class BetaProjectServiceUpdateProjectRoleRequest(BaseModel):
     """
     BetaProjectServiceUpdateProjectRoleRequest
     """ # noqa: E501
-    project_id: StrictStr = Field(description="ID of the project.", alias="projectId")
-    role_key: StrictStr = Field(description="The key is the only relevant attribute for ZITADEL regarding the authorization checks.", alias="roleKey")
-    display_name: Optional[StrictStr] = Field(description="Name displayed for the role.", alias="displayName")
+    project_id: Optional[StrictStr] = Field(default=None, description="ID of the project.", alias="projectId")
+    role_key: Optional[StrictStr] = Field(default=None, description="The key is the only relevant attribute for ZITADEL regarding the authorization checks.", alias="roleKey")
+    display_name: Optional[StrictStr] = Field(default=None, description="Name displayed for the role.", alias="displayName")
     group: Optional[StrictStr] = Field(default=None, description="The group is only used for display purposes. That you have better handling, like giving all the roles from a group to a user.")
     __properties: ClassVar[List[str]] = ["projectId", "roleKey", "displayName", "group"]
 

@@ -27,7 +27,7 @@ class UserServiceNickNameQuery(BaseModel):
     """
     Query for users with a specific nickname.
     """ # noqa: E501
-    nick_name: StrictStr = Field(alias="nickName")
+    nick_name: Optional[StrictStr] = Field(default=None, alias="nickName")
     method: Optional[UserServiceTextQueryMethod] = None
     __properties: ClassVar[List[str]] = ["nickName", "method"]
 

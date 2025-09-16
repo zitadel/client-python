@@ -47,7 +47,7 @@ class BetaSessionServiceApi:
 
     @validate_call
     def create_session(        self,                beta_session_service_create_session_request: BetaSessionServiceCreateSessionRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaSessionServiceCreateSessionResponse:
-        """CreateSession
+        """Create a new session
 
         Create a new session
 
@@ -175,7 +175,7 @@ class BetaSessionServiceApi:
 
     @validate_call
     def delete_session(        self,                beta_session_service_delete_session_request: BetaSessionServiceDeleteSessionRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaSessionServiceDeleteSessionResponse:
-        """DeleteSession
+        """Terminate a session
 
         Terminate a session
 
@@ -303,7 +303,7 @@ class BetaSessionServiceApi:
 
     @validate_call
     def get_session(        self,                beta_session_service_get_session_request: BetaSessionServiceGetSessionRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaSessionServiceGetSessionResponse:
-        """GetSession
+        """GetSession a session
 
         GetSession a session
 
@@ -431,7 +431,7 @@ class BetaSessionServiceApi:
 
     @validate_call
     def list_sessions(        self,                beta_session_service_list_sessions_request: BetaSessionServiceListSessionsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaSessionServiceListSessionsResponse:
-        """ListSessions
+        """Search sessions
 
         Search sessions
 
@@ -559,7 +559,7 @@ class BetaSessionServiceApi:
 
     @validate_call
     def set_session(        self,                beta_session_service_set_session_request: BetaSessionServiceSetSessionRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaSessionServiceSetSessionResponse:
-        """SetSession
+        """Update a session
 
         Update a session
 

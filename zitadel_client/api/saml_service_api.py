@@ -40,7 +40,9 @@ class SAMLServiceApi:
 
 
     @validate_call
-    def create_response(        self,                saml_service_create_response_request: SAMLServiceCreateResponseRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SAMLServiceCreateResponseResponse:
+    def create_response(        self,                saml_service_create_response_request: Optional[SAMLServiceCreateResponseRequest] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SAMLServiceCreateResponseResponse:
+        if saml_service_create_response_request is None:
+            saml_service_create_response_request = {}
         """CreateResponse
 
 

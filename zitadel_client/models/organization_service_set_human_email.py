@@ -27,7 +27,7 @@ class OrganizationServiceSetHumanEmail(BaseModel):
     """
     OrganizationServiceSetHumanEmail
     """ # noqa: E501
-    email: StrictStr
+    email: Optional[StrictStr] = None
     is_verified: Optional[StrictBool] = Field(default=None, alias="isVerified")
     return_code: Optional[Dict[str, Any]] = Field(default=None, alias="returnCode")
     send_code: Optional[OrganizationServiceSendEmailVerificationCode] = Field(default=None, alias="sendCode")

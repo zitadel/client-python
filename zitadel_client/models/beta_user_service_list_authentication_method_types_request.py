@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict
+from typing import Any, ClassVar, Dict, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,7 +26,7 @@ class BetaUserServiceListAuthenticationMethodTypesRequest(BaseModel):
     """
     BetaUserServiceListAuthenticationMethodTypesRequest
     """ # noqa: E501
-    user_id: StrictStr = Field(alias="userId")
+    user_id: Optional[StrictStr] = Field(default=None, alias="userId")
     __properties: ClassVar[List[str]] = ["userId"]
 
     model_config = ConfigDict(

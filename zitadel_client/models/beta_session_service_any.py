@@ -17,18 +17,18 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictBytes, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBytes, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Tuple, Union
 from typing import Optional, Set
 from typing_extensions import Self
 
 class BetaSessionServiceAny(BaseModel):
     """
-    Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
+    Contains an arbitrary serialized message along with a @type that describes the type of the serialized message, with an additional debug field for ConnectRPC error details.
     """ # noqa: E501
-    type: Optional[StrictStr] = None
-    value: Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]] = None
-    debug: Optional[Dict[str, Any]] = None
+    type: Optional[StrictStr] = Field(default=None, description="A URL that acts as a globally unique identifier for the type of the serialized message. For example: `type.googleapis.com/google.rpc.ErrorInfo`. This is used to determine the schema of the data in the `value` field and is the discriminator for the `debug` field.")
+    value: Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]] = Field(default=None, description="The Protobuf message, serialized as bytes and base64-encoded. The specific message type is identified by the `type` field.")
+    debug: Optional[Any] = Field(default=None, description="Deserialized error detail payload. The 'type' field indicates the schema. This field is for easier debugging and should not be relied upon for application logic.")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["type", "value", "debug"]
 
@@ -77,6 +77,11 @@ class BetaSessionServiceAny(BaseModel):
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
                 _dict[_key] = _value
+
+        # set to None if debug (nullable) is None
+        # and model_fields_set contains the field
+        if self.debug is None and "debug" in self.model_fields_set:
+            _dict['debug'] = None
 
         return _dict
 
