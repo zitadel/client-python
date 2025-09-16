@@ -65,9 +65,9 @@ class BetaOrganizationServiceApi:
 
     @validate_call
     def activate_organization(        self,                beta_organization_service_activate_organization_request: BetaOrganizationServiceActivateOrganizationRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaOrganizationServiceActivateOrganizationResponse:
-        """ActivateOrganization
+        """Activate Organization
 
-        Activate Organization   Set the state of my organization to active. The state of the organization has to be deactivated to perform the request. Users of this organization will be able to log in again.   Required permission:   - `org.write`
+        Set the state of my organization to active. The state of the organization has to be deactivated to perform the request. Users of this organization will be able to log in again.   Required permission:   - `org.write`
 
         :param beta_organization_service_activate_organization_request: (required)
         :type beta_organization_service_activate_organization_request: BetaOrganizationServiceActivateOrganizationRequest
@@ -193,9 +193,9 @@ class BetaOrganizationServiceApi:
 
     @validate_call
     def add_organization_domain(        self,                beta_organization_service_add_organization_domain_request: BetaOrganizationServiceAddOrganizationDomainRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaOrganizationServiceAddOrganizationDomainResponse:
-        """AddOrganizationDomain
+        """Add Organization Domain
 
-        Add Organization Domain   Add a new domain to an organization. The domains are used to identify to which organization a user belongs.   Required permission:   - `org.write`
+        Add a new domain to an organization. The domains are used to identify to which organization a user belongs.   Required permission:   - `org.write`
 
         :param beta_organization_service_add_organization_domain_request: (required)
         :type beta_organization_service_add_organization_domain_request: BetaOrganizationServiceAddOrganizationDomainRequest
@@ -321,9 +321,9 @@ class BetaOrganizationServiceApi:
 
     @validate_call
     def create_organization(        self,                beta_organization_service_create_organization_request: BetaOrganizationServiceCreateOrganizationRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaOrganizationServiceCreateOrganizationResponse:
-        """CreateOrganization
+        """Create Organization
 
-        Create Organization   Create a new organization with an administrative user. If no specific roles are sent for the users, they will be granted the role ORG_OWNER.   Required permission:   - `org.create`   Deprecated: Use [AddOrganization](/apis/resources/org_service_v2/organization-service-add-organization.api.mdx) instead to create an organization.
+        Create a new organization with an administrative user. If no specific roles are sent for the users, they will be granted the role ORG_OWNER.   Required permission:   - `org.create`   Deprecated: Use [AddOrganization](/apis/resources/org_service_v2/organization-service-add-organization.api.mdx) instead to create an organization.
 
         :param beta_organization_service_create_organization_request: (required)
         :type beta_organization_service_create_organization_request: BetaOrganizationServiceCreateOrganizationRequest
@@ -449,9 +449,9 @@ class BetaOrganizationServiceApi:
 
     @validate_call
     def deactivate_organization(        self,                beta_organization_service_deactivate_organization_request: BetaOrganizationServiceDeactivateOrganizationRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaOrganizationServiceDeactivateOrganizationResponse:
-        """DeactivateOrganization
+        """Deactivate Organization
 
-        Deactivate Organization   Sets the state of my organization to deactivated. Users of this organization will not be able to log in.   Required permission:   - `org.write`
+        Sets the state of my organization to deactivated. Users of this organization will not be able to log in.   Required permission:   - `org.write`
 
         :param beta_organization_service_deactivate_organization_request: (required)
         :type beta_organization_service_deactivate_organization_request: BetaOrganizationServiceDeactivateOrganizationRequest
@@ -577,9 +577,9 @@ class BetaOrganizationServiceApi:
 
     @validate_call
     def delete_organization(        self,                beta_organization_service_delete_organization_request: BetaOrganizationServiceDeleteOrganizationRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaOrganizationServiceDeleteOrganizationResponse:
-        """DeleteOrganization
+        """Delete Organization
 
-        Delete Organization   Deletes the organization and all its resources (Users, Projects, Grants to and from the org). Users of this organization will not be able to log in.   Required permission:   - `org.delete`
+        Deletes the organization and all its resources (Users, Projects, Grants to and from the org). Users of this organization will not be able to log in.   Required permission:   - `org.delete`
 
         :param beta_organization_service_delete_organization_request: (required)
         :type beta_organization_service_delete_organization_request: BetaOrganizationServiceDeleteOrganizationRequest
@@ -705,9 +705,9 @@ class BetaOrganizationServiceApi:
 
     @validate_call
     def delete_organization_domain(        self,                beta_organization_service_delete_organization_domain_request: BetaOrganizationServiceDeleteOrganizationDomainRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaOrganizationServiceDeleteOrganizationDomainResponse:
-        """DeleteOrganizationDomain
+        """Delete Organization Domain
 
-        Delete Organization Domain   Delete a new domain from an organization. The domains are used to identify to which organization a user belongs. If the uses use the domain for login, this will not be possible afterwards. They have to use another domain instead.   Required permission:   - `org.write`
+        Delete a new domain from an organization. The domains are used to identify to which organization a user belongs. If the uses use the domain for login, this will not be possible afterwards. They have to use another domain instead.   Required permission:   - `org.write`
 
         :param beta_organization_service_delete_organization_domain_request: (required)
         :type beta_organization_service_delete_organization_domain_request: BetaOrganizationServiceDeleteOrganizationDomainRequest
@@ -833,9 +833,9 @@ class BetaOrganizationServiceApi:
 
     @validate_call
     def delete_organization_metadata(        self,                beta_organization_service_delete_organization_metadata_request: BetaOrganizationServiceDeleteOrganizationMetadataRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaOrganizationServiceDeleteOrganizationMetadataResponse:
-        """DeleteOrganizationMetadata
+        """Delete Organization Metadata
 
-        Delete Organization Metadata   Delete metadata objects from an organization with a specific key.   Required permission:   - `org.write`
+        Delete metadata objects from an organization with a specific key.   Required permission:   - `org.write`
 
         :param beta_organization_service_delete_organization_metadata_request: (required)
         :type beta_organization_service_delete_organization_metadata_request: BetaOrganizationServiceDeleteOrganizationMetadataRequest
@@ -961,9 +961,9 @@ class BetaOrganizationServiceApi:
 
     @validate_call
     def generate_organization_domain_validation(        self,                beta_organization_service_generate_organization_domain_validation_request: BetaOrganizationServiceGenerateOrganizationDomainValidationRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaOrganizationServiceGenerateOrganizationDomainValidationResponse:
-        """GenerateOrganizationDomainValidation
+        """Generate Organization Domain Validation
 
-        Generate Organization Domain Validation   Generate a new file to be able to verify your domain with DNS or HTTP challenge.   Required permission:   - `org.write`
+        Generate a new file to be able to verify your domain with DNS or HTTP challenge.   Required permission:   - `org.write`
 
         :param beta_organization_service_generate_organization_domain_validation_request: (required)
         :type beta_organization_service_generate_organization_domain_validation_request: BetaOrganizationServiceGenerateOrganizationDomainValidationRequest
@@ -1089,9 +1089,9 @@ class BetaOrganizationServiceApi:
 
     @validate_call
     def list_organization_domains(        self,                beta_organization_service_list_organization_domains_request: BetaOrganizationServiceListOrganizationDomainsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaOrganizationServiceListOrganizationDomainsResponse:
-        """ListOrganizationDomains
+        """List Organization Domains
 
-        List Organization Domains   Returns the list of registered domains of an organization. The domains are used to identify to which organization a user belongs.    Required permission:   - `org.read`
+        Returns the list of registered domains of an organization. The domains are used to identify to which organization a user belongs.    Required permission:   - `org.read`
 
         :param beta_organization_service_list_organization_domains_request: (required)
         :type beta_organization_service_list_organization_domains_request: BetaOrganizationServiceListOrganizationDomainsRequest
@@ -1217,9 +1217,9 @@ class BetaOrganizationServiceApi:
 
     @validate_call
     def list_organization_metadata(        self,                beta_organization_service_list_organization_metadata_request: BetaOrganizationServiceListOrganizationMetadataRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaOrganizationServiceListOrganizationMetadataResponse:
-        """ListOrganizationMetadata
+        """List Organization Metadata
 
-        List Organization Metadata   List metadata of an organization filtered by query.   Required permission:   - `org.read`
+        List metadata of an organization filtered by query.   Required permission:   - `org.read`
 
         :param beta_organization_service_list_organization_metadata_request: (required)
         :type beta_organization_service_list_organization_metadata_request: BetaOrganizationServiceListOrganizationMetadataRequest
@@ -1345,9 +1345,9 @@ class BetaOrganizationServiceApi:
 
     @validate_call
     def list_organizations(        self,                beta_organization_service_list_organizations_request: BetaOrganizationServiceListOrganizationsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaOrganizationServiceListOrganizationsResponse:
-        """ListOrganizations
+        """List Organizations
 
-        List Organizations   Returns a list of organizations that match the requesting filters. All filters are applied with an AND condition.   Required permission:   - `iam.read`   Deprecated: Use [ListOrganizations](/apis/resources/org_service_v2/organization-service-list-organizations.api.mdx) instead to list organizations.
+        Returns a list of organizations that match the requesting filters. All filters are applied with an AND condition.   Required permission:   - `iam.read`   Deprecated: Use [ListOrganizations](/apis/resources/org_service_v2/organization-service-list-organizations.api.mdx) instead to list organizations.
 
         :param beta_organization_service_list_organizations_request: (required)
         :type beta_organization_service_list_organizations_request: BetaOrganizationServiceListOrganizationsRequest
@@ -1473,9 +1473,9 @@ class BetaOrganizationServiceApi:
 
     @validate_call
     def set_organization_metadata(        self,                beta_organization_service_set_organization_metadata_request: BetaOrganizationServiceSetOrganizationMetadataRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaOrganizationServiceSetOrganizationMetadataResponse:
-        """SetOrganizationMetadata
+        """Set Organization Metadata
 
-        Set Organization Metadata   Adds or updates a metadata value for the requested key. Make sure the value is base64 encoded.   Required permission:   - `org.write`
+        Adds or updates a metadata value for the requested key. Make sure the value is base64 encoded.   Required permission:   - `org.write`
 
         :param beta_organization_service_set_organization_metadata_request: (required)
         :type beta_organization_service_set_organization_metadata_request: BetaOrganizationServiceSetOrganizationMetadataRequest
@@ -1601,9 +1601,9 @@ class BetaOrganizationServiceApi:
 
     @validate_call
     def update_organization(        self,                beta_organization_service_update_organization_request: BetaOrganizationServiceUpdateOrganizationRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaOrganizationServiceUpdateOrganizationResponse:
-        """UpdateOrganization
+        """Update Organization
 
-        Update Organization   Change the name of the organization.   Required permission:   - `org.write`
+        Change the name of the organization.   Required permission:   - `org.write`
 
         :param beta_organization_service_update_organization_request: (required)
         :type beta_organization_service_update_organization_request: BetaOrganizationServiceUpdateOrganizationRequest
@@ -1729,9 +1729,9 @@ class BetaOrganizationServiceApi:
 
     @validate_call
     def verify_organization_domain(        self,                beta_organization_service_verify_organization_domain_request: BetaOrganizationServiceVerifyOrganizationDomainRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaOrganizationServiceVerifyOrganizationDomainResponse:
-        """VerifyOrganizationDomain
+        """Verify Organization Domain
 
-        Verify Organization Domain   Make sure you have added the required verification to your domain, depending on the method you have chosen (HTTP or DNS challenge). ZITADEL will check it and set the domain as verified if it was successful. A verify domain has to be unique.   Required permission:   - `org.write`
+        Make sure you have added the required verification to your domain, depending on the method you have chosen (HTTP or DNS challenge). ZITADEL will check it and set the domain as verified if it was successful. A verify domain has to be unique.   Required permission:   - `org.write`
 
         :param beta_organization_service_verify_organization_domain_request: (required)
         :type beta_organization_service_verify_organization_domain_request: BetaOrganizationServiceVerifyOrganizationDomainRequest

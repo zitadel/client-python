@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict
+from typing import Any, ClassVar, Dict, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,8 +26,8 @@ class BetaOrganizationServiceDeleteOrganizationDomainRequest(BaseModel):
     """
     BetaOrganizationServiceDeleteOrganizationDomainRequest
     """ # noqa: E501
-    organization_id: StrictStr = Field(description="Organization Id for the Organization which domain is to be deleted.", alias="organizationId")
-    domain: StrictStr
+    organization_id: Optional[StrictStr] = Field(default=None, description="Organization Id for the Organization which domain is to be deleted.", alias="organizationId")
+    domain: Optional[StrictStr] = None
     __properties: ClassVar[List[str]] = ["organizationId", "domain"]
 
     model_config = ConfigDict(

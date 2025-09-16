@@ -27,7 +27,7 @@ class BetaOrganizationServiceCreateOrganizationRequest(BaseModel):
     """
     BetaOrganizationServiceCreateOrganizationRequest
     """ # noqa: E501
-    name: StrictStr = Field(description="name of the Organization to be created.")
+    name: Optional[StrictStr] = Field(default=None, description="name of the Organization to be created.")
     id: Optional[StrictStr] = Field(default=None, description="Optionally set your own id unique for the organization.")
     admins: Optional[List[BetaOrganizationServiceAdmin]] = Field(default=None, description="Additional Admins for the Organization.")
     __properties: ClassVar[List[str]] = ["name", "id", "admins"]

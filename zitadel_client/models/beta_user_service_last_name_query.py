@@ -27,7 +27,7 @@ class BetaUserServiceLastNameQuery(BaseModel):
     """
     Query for users with a specific last name.
     """ # noqa: E501
-    last_name: StrictStr = Field(alias="lastName")
+    last_name: Optional[StrictStr] = Field(default=None, alias="lastName")
     method: Optional[BetaUserServiceTextQueryMethod] = None
     __properties: ClassVar[List[str]] = ["lastName", "method"]
 

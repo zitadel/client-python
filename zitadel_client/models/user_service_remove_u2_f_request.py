@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict
+from typing import Any, ClassVar, Dict, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,8 +26,8 @@ class UserServiceRemoveU2FRequest(BaseModel):
     """
     UserServiceRemoveU2FRequest
     """ # noqa: E501
-    user_id: StrictStr = Field(alias="userId")
-    u2f_id: StrictStr = Field(alias="u2fId")
+    user_id: Optional[StrictStr] = Field(default=None, alias="userId")
+    u2f_id: Optional[StrictStr] = Field(default=None, alias="u2fId")
     __properties: ClassVar[List[str]] = ["userId", "u2fId"]
 
     model_config = ConfigDict(

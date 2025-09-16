@@ -37,8 +37,8 @@ class BetaOrganizationServiceAddHumanUserRequest(BaseModel):
     user_id: Optional[StrictStr] = Field(default=None, description="optionally set your own id unique for the user.", alias="userId")
     username: Optional[StrictStr] = Field(default=None, description="optionally set a unique username, if none is provided the email will be used.")
     organization: Optional[BetaOrganizationServiceOrganization] = None
-    profile: BetaOrganizationServiceSetHumanProfile
-    email: BetaOrganizationServiceSetHumanEmail
+    profile: Optional[BetaOrganizationServiceSetHumanProfile] = None
+    email: Optional[BetaOrganizationServiceSetHumanEmail] = None
     phone: Optional[BetaOrganizationServiceSetHumanPhone] = None
     metadata: Optional[List[BetaOrganizationServiceSetMetadataEntry]] = None
     idp_links: Optional[List[BetaOrganizationServiceIDPLink]] = Field(default=None, alias="idpLinks")

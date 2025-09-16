@@ -59,9 +59,9 @@ class FeatureServiceApi:
 
     @validate_call
     def get_instance_features(        self,                feature_service_get_instance_features_request: FeatureServiceGetInstanceFeaturesRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> FeatureServiceGetInstanceFeaturesResponse:
-        """GetInstanceFeatures
+        """Get Instance Features
 
-        Get Instance Features   Returns all configured features for an instance. Unset fields mean the feature is the current system default.   Required permissions:   - none
+        Returns all configured features for an instance. Unset fields mean the feature is the current system default.   Required permissions:   - none
 
         :param feature_service_get_instance_features_request: (required)
         :type feature_service_get_instance_features_request: FeatureServiceGetInstanceFeaturesRequest
@@ -187,9 +187,9 @@ class FeatureServiceApi:
 
     @validate_call
     def get_organization_features(        self,                feature_service_get_organization_features_request: FeatureServiceGetOrganizationFeaturesRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> FeatureServiceGetOrganizationFeaturesResponse:
-        """GetOrganizationFeatures
+        """Get Organization Features
 
-        Get Organization Features   Returns all configured features for an organization. Unset fields mean the feature is the current instance default.   Required permissions:   - org.feature.read   - no permission required for the organization the user belongs to
+        Returns all configured features for an organization. Unset fields mean the feature is the current instance default.   Required permissions:   - org.feature.read   - no permission required for the organization the user belongs to
 
         :param feature_service_get_organization_features_request: (required)
         :type feature_service_get_organization_features_request: FeatureServiceGetOrganizationFeaturesRequest
@@ -317,9 +317,9 @@ class FeatureServiceApi:
     def get_system_features(        self,                body: Optional[Dict[str, Any]] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> FeatureServiceGetSystemFeaturesResponse:
         if body is None:
             body = {}
-        """GetSystemFeatures
+        """Get System Features
 
-        Get System Features   Returns all configured features for the system. Unset fields mean the feature is the current system default.   Required permissions:   - none
+        Returns all configured features for the system. Unset fields mean the feature is the current system default.   Required permissions:   - none
 
         :param body: (required)
         :type body: object
@@ -445,9 +445,9 @@ class FeatureServiceApi:
 
     @validate_call
     def get_user_features(        self,                feature_service_get_user_features_request: FeatureServiceGetUserFeaturesRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> FeatureServiceGetUserFeaturesResponse:
-        """GetUserFeatures
+        """Get User Features
 
-        Get User Features   Returns all configured features for a user. Unset fields mean the feature is the current organization default.   Required permissions:   - user.feature.read   - no permission required for the own user
+        Returns all configured features for a user. Unset fields mean the feature is the current organization default.   Required permissions:   - user.feature.read   - no permission required for the own user
 
         :param feature_service_get_user_features_request: (required)
         :type feature_service_get_user_features_request: FeatureServiceGetUserFeaturesRequest
@@ -575,9 +575,9 @@ class FeatureServiceApi:
     def reset_instance_features(        self,                body: Optional[Dict[str, Any]] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> FeatureServiceResetInstanceFeaturesResponse:
         if body is None:
             body = {}
-        """ResetInstanceFeatures
+        """Reset Instance Features
 
-        Reset Instance Features   Deletes ALL configured features for an instance, reverting the behaviors to system defaults.   Required permissions:   - iam.feature.delete
+        Deletes ALL configured features for an instance, reverting the behaviors to system defaults.   Required permissions:   - iam.feature.delete
 
         :param body: (required)
         :type body: object
@@ -703,9 +703,9 @@ class FeatureServiceApi:
 
     @validate_call
     def reset_organization_features(        self,                feature_service_reset_organization_features_request: FeatureServiceResetOrganizationFeaturesRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> FeatureServiceResetOrganizationFeaturesResponse:
-        """ResetOrganizationFeatures
+        """Reset Organization Features
 
-        Reset Organization Features   Deletes ALL configured features for an organization, reverting the behaviors to instance defaults.   Required permissions:   - org.feature.delete
+        Deletes ALL configured features for an organization, reverting the behaviors to instance defaults.   Required permissions:   - org.feature.delete
 
         :param feature_service_reset_organization_features_request: (required)
         :type feature_service_reset_organization_features_request: FeatureServiceResetOrganizationFeaturesRequest
@@ -833,9 +833,9 @@ class FeatureServiceApi:
     def reset_system_features(        self,                body: Optional[Dict[str, Any]] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> FeatureServiceResetSystemFeaturesResponse:
         if body is None:
             body = {}
-        """ResetSystemFeatures
+        """Reset System Features
 
-        Reset System Features   Deletes ALL configured features for the system, reverting the behaviors to system defaults.   Required permissions:   - system.feature.delete
+        Deletes ALL configured features for the system, reverting the behaviors to system defaults.   Required permissions:   - system.feature.delete
 
         :param body: (required)
         :type body: object
@@ -961,9 +961,9 @@ class FeatureServiceApi:
 
     @validate_call
     def reset_user_features(        self,                feature_service_reset_user_features_request: FeatureServiceResetUserFeaturesRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> FeatureServiceResetUserFeaturesResponse:
-        """ResetUserFeatures
+        """Reset User Features
 
-        Reset User Features   Deletes ALL configured features for a user, reverting the behaviors to organization defaults.   Required permissions:   - user.feature.delete
+        Deletes ALL configured features for a user, reverting the behaviors to organization defaults.   Required permissions:   - user.feature.delete
 
         :param feature_service_reset_user_features_request: (required)
         :type feature_service_reset_user_features_request: FeatureServiceResetUserFeaturesRequest
@@ -1089,9 +1089,9 @@ class FeatureServiceApi:
 
     @validate_call
     def set_instance_features(        self,                feature_service_set_instance_features_request: FeatureServiceSetInstanceFeaturesRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> FeatureServiceSetInstanceFeaturesResponse:
-        """SetInstanceFeatures
+        """Set Instance Features
 
-        Set Instance Features   Configure and set features that apply to a complete instance. Only fields present in the request are set or unset.   Required permissions:   - iam.feature.write
+        Configure and set features that apply to a complete instance. Only fields present in the request are set or unset.   Required permissions:   - iam.feature.write
 
         :param feature_service_set_instance_features_request: (required)
         :type feature_service_set_instance_features_request: FeatureServiceSetInstanceFeaturesRequest
@@ -1217,9 +1217,9 @@ class FeatureServiceApi:
 
     @validate_call
     def set_organization_features(        self,                feature_service_set_organization_features_request: FeatureServiceSetOrganizationFeaturesRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> FeatureServiceSetOrganizationFeaturesResponse:
-        """SetOrganizationFeatures
+        """Set Organization Features
 
-        Set Organization Features   Configure and set features that apply to a complete instance. Only fields present in the request are set or unset.   Required permissions:   - org.feature.write
+        Configure and set features that apply to a complete instance. Only fields present in the request are set or unset.   Required permissions:   - org.feature.write
 
         :param feature_service_set_organization_features_request: (required)
         :type feature_service_set_organization_features_request: FeatureServiceSetOrganizationFeaturesRequest
@@ -1345,9 +1345,9 @@ class FeatureServiceApi:
 
     @validate_call
     def set_system_features(        self,                feature_service_set_system_features_request: FeatureServiceSetSystemFeaturesRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> FeatureServiceSetSystemFeaturesResponse:
-        """SetSystemFeatures
+        """Set System Features
 
-        Set System Features   Configure and set features that apply to the complete system. Only fields present in the request are set or unset.   Required permissions:   - system.feature.write
+        Configure and set features that apply to the complete system. Only fields present in the request are set or unset.   Required permissions:   - system.feature.write
 
         :param feature_service_set_system_features_request: (required)
         :type feature_service_set_system_features_request: FeatureServiceSetSystemFeaturesRequest
@@ -1473,9 +1473,9 @@ class FeatureServiceApi:
 
     @validate_call
     def set_user_features(        self,                feature_service_set_user_feature_request: FeatureServiceSetUserFeatureRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> FeatureServiceSetUserFeaturesResponse:
-        """SetUserFeatures
+        """Set User Features
 
-        Set User Features   Configure and set features that apply to an user. Only fields present in the request are set or unset.   Required permissions:   - user.feature.write
+        Configure and set features that apply to an user. Only fields present in the request are set or unset.   Required permissions:   - user.feature.write
 
         :param feature_service_set_user_feature_request: (required)
         :type feature_service_set_user_feature_request: FeatureServiceSetUserFeatureRequest

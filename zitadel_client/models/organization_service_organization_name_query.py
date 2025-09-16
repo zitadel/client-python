@@ -27,7 +27,7 @@ class OrganizationServiceOrganizationNameQuery(BaseModel):
     """
     OrganizationServiceOrganizationNameQuery
     """ # noqa: E501
-    name: StrictStr = Field(description="Name of the organization.")
+    name: Optional[StrictStr] = Field(default=None, description="Name of the organization.")
     method: Optional[OrganizationServiceTextQueryMethod] = None
     __properties: ClassVar[List[str]] = ["name", "method"]
 

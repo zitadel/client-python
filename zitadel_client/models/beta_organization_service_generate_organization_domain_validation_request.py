@@ -27,8 +27,8 @@ class BetaOrganizationServiceGenerateOrganizationDomainValidationRequest(BaseMod
     """
     BetaOrganizationServiceGenerateOrganizationDomainValidationRequest
     """ # noqa: E501
-    organization_id: StrictStr = Field(description="Organization Id for the Organization which doman to be validated.", alias="organizationId")
-    domain: StrictStr = Field(description="The domain which to be deleted.")
+    organization_id: Optional[StrictStr] = Field(default=None, description="Organization Id for the Organization which doman to be validated.", alias="organizationId")
+    domain: Optional[StrictStr] = Field(default=None, description="The domain which to be deleted.")
     type: Optional[BetaOrganizationServiceDomainValidationType] = None
     __properties: ClassVar[List[str]] = ["organizationId", "domain", "type"]
 

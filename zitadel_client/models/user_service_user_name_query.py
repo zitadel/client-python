@@ -27,7 +27,7 @@ class UserServiceUserNameQuery(BaseModel):
     """
     Query for users with a specific user name.
     """ # noqa: E501
-    user_name: StrictStr = Field(alias="userName")
+    user_name: Optional[StrictStr] = Field(default=None, alias="userName")
     method: Optional[UserServiceTextQueryMethod] = None
     __properties: ClassVar[List[str]] = ["userName", "method"]
 

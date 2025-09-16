@@ -26,7 +26,7 @@ class BetaOrganizationServiceDeleteOrganizationMetadataRequest(BaseModel):
     """
     BetaOrganizationServiceDeleteOrganizationMetadataRequest
     """ # noqa: E501
-    organization_id: StrictStr = Field(description="Organization ID of Orgalization which metadata is to be deleted is stored on.", alias="organizationId")
+    organization_id: Optional[StrictStr] = Field(default=None, description="Organization ID of Orgalization which metadata is to be deleted is stored on.", alias="organizationId")
     keys: Optional[List[StrictStr]] = Field(default=None, description="The keys for the Organization metadata to be deleted.")
     __properties: ClassVar[List[str]] = ["organizationId", "keys"]
 

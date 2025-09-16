@@ -27,7 +27,7 @@ class BetaUserServicePhoneQuery(BaseModel):
     """
     Query for users with a specific phone.
     """ # noqa: E501
-    number: StrictStr
+    number: Optional[StrictStr] = None
     method: Optional[BetaUserServiceTextQueryMethod] = None
     __properties: ClassVar[List[str]] = ["number", "method"]
 

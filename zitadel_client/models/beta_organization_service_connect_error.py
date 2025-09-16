@@ -29,9 +29,9 @@ class BetaOrganizationServiceConnectError(BaseModel):
     """ # noqa: E501
     code: Optional[StrictStr] = Field(default=None, description="The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].")
     message: Optional[StrictStr] = Field(default=None, description="A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.")
-    detail: Optional[BetaOrganizationServiceAny] = None
+    details: Optional[List[BetaOrganizationServiceAny]] = Field(default=None, description="A list of messages that carry the error details. There is no limit on the number of messages.")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["code", "message", "detail"]
+    __properties: ClassVar[List[str]] = ["code", "message", "details"]
 
     @field_validator('code')
     def code_validate_enum(cls, value):
@@ -84,9 +84,13 @@ class BetaOrganizationServiceConnectError(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of detail
-        if self.detail:
-            _dict['detail'] = self.detail.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of each item in details (list)
+        _items = []
+        if self.details:
+            for _item_details in self.details:
+                if _item_details:
+                    _items.append(_item_details.to_dict())
+            _dict['details'] = _items
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
@@ -106,7 +110,7 @@ class BetaOrganizationServiceConnectError(BaseModel):
         _obj = cls.model_validate({
             "code": obj.get("code"),
             "message": obj.get("message"),
-            "detail": BetaOrganizationServiceAny.from_dict(obj["detail"]) if obj.get("detail") is not None else None
+            "details": [BetaOrganizationServiceAny.from_dict(_item) for _item in obj["details"]] if obj.get("details") is not None else None
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

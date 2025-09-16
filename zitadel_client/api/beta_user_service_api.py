@@ -104,10 +104,12 @@ class BetaUserServiceApi:
 
 
     @validate_call
-    def add_human_user(        self,                beta_user_service_add_human_user_request: BetaUserServiceAddHumanUserRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaUserServiceAddHumanUserResponse:
-        """AddHumanUser
+    def add_human_user(        self,                beta_user_service_add_human_user_request: Optional[BetaUserServiceAddHumanUserRequest] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaUserServiceAddHumanUserResponse:
+        if beta_user_service_add_human_user_request is None:
+            beta_user_service_add_human_user_request = {}
+        """Create a new human user
 
-        Create a new human user   Create/import a new user with the type human. The newly created user will get a verification email if either the email address is not marked as verified and you did not request the verification to be returned.   Deprecated: please move to the corresponding endpoint under user service v2 (GA)
+        Create/import a new user with the type human. The newly created user will get a verification email if either the email address is not marked as verified and you did not request the verification to be returned.   Deprecated: please move to the corresponding endpoint under user service v2 (GA)
 
         :param beta_user_service_add_human_user_request: (required)
         :type beta_user_service_add_human_user_request: BetaUserServiceAddHumanUserRequest
@@ -233,9 +235,9 @@ class BetaUserServiceApi:
 
     @validate_call
     def add_idp_link(        self,                beta_user_service_add_idp_link_request: BetaUserServiceAddIDPLinkRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaUserServiceAddIDPLinkResponse:
-        """AddIDPLink
+        """Add link to an identity provider to an user
 
-        Add link to an identity provider to an user   Add link to an identity provider to an user.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
+        Add link to an identity provider to an user.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
 
         :param beta_user_service_add_idp_link_request: (required)
         :type beta_user_service_add_idp_link_request: BetaUserServiceAddIDPLinkRequest
@@ -361,9 +363,9 @@ class BetaUserServiceApi:
 
     @validate_call
     def add_otp_email(        self,                beta_user_service_add_otp_email_request: BetaUserServiceAddOTPEmailRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaUserServiceAddOTPEmailResponse:
-        """AddOTPEmail
+        """Add OTP Email for a user
 
-        Add OTP Email for a user   Add a new One-Time Password (OTP) Email factor to the authenticated user. OTP Email will enable the user to verify a OTP with the latest verified email. The email has to be verified to add the second factor.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
+        Add a new One-Time Password (OTP) Email factor to the authenticated user. OTP Email will enable the user to verify a OTP with the latest verified email. The email has to be verified to add the second factor.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
 
         :param beta_user_service_add_otp_email_request: (required)
         :type beta_user_service_add_otp_email_request: BetaUserServiceAddOTPEmailRequest
@@ -489,9 +491,9 @@ class BetaUserServiceApi:
 
     @validate_call
     def add_otpsms(        self,                beta_user_service_add_otpsms_request: BetaUserServiceAddOTPSMSRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaUserServiceAddOTPSMSResponse:
-        """AddOTPSMS
+        """Add OTP SMS for a user
 
-        Add OTP SMS for a user   Add a new One-Time Password (OTP) SMS factor to the authenticated user. OTP SMS will enable the user to verify a OTP with the latest verified phone number. The phone number has to be verified to add the second factor.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
+        Add a new One-Time Password (OTP) SMS factor to the authenticated user. OTP SMS will enable the user to verify a OTP with the latest verified phone number. The phone number has to be verified to add the second factor.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
 
         :param beta_user_service_add_otpsms_request: (required)
         :type beta_user_service_add_otpsms_request: BetaUserServiceAddOTPSMSRequest
@@ -616,10 +618,12 @@ class BetaUserServiceApi:
 
 
     @validate_call
-    def create_passkey_registration_link(        self,                beta_user_service_create_passkey_registration_link_request: BetaUserServiceCreatePasskeyRegistrationLinkRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaUserServiceCreatePasskeyRegistrationLinkResponse:
-        """CreatePasskeyRegistrationLink
+    def create_passkey_registration_link(        self,                beta_user_service_create_passkey_registration_link_request: Optional[BetaUserServiceCreatePasskeyRegistrationLinkRequest] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaUserServiceCreatePasskeyRegistrationLinkResponse:
+        if beta_user_service_create_passkey_registration_link_request is None:
+            beta_user_service_create_passkey_registration_link_request = {}
+        """Create a passkey registration link for a user
 
-        Create a passkey registration link for a user   Create a passkey registration link which includes a code and either return it or send it to the user.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
+        Create a passkey registration link which includes a code and either return it or send it to the user.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
 
         :param beta_user_service_create_passkey_registration_link_request: (required)
         :type beta_user_service_create_passkey_registration_link_request: BetaUserServiceCreatePasskeyRegistrationLinkRequest
@@ -745,9 +749,9 @@ class BetaUserServiceApi:
 
     @validate_call
     def deactivate_user(        self,                beta_user_service_deactivate_user_request: BetaUserServiceDeactivateUserRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaUserServiceDeactivateUserResponse:
-        """DeactivateUser
+        """Deactivate user
 
-        Deactivate user   The state of the user will be changed to 'deactivated'. The user will not be able to log in anymore. The endpoint returns an error if the user is already in the state 'deactivated'. Use deactivate user when the user should not be able to use the account anymore, but you still need access to the user data.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
+        The state of the user will be changed to 'deactivated'. The user will not be able to log in anymore. The endpoint returns an error if the user is already in the state 'deactivated'. Use deactivate user when the user should not be able to use the account anymore, but you still need access to the user data.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
 
         :param beta_user_service_deactivate_user_request: (required)
         :type beta_user_service_deactivate_user_request: BetaUserServiceDeactivateUserRequest
@@ -873,9 +877,9 @@ class BetaUserServiceApi:
 
     @validate_call
     def delete_user(        self,                beta_user_service_delete_user_request: BetaUserServiceDeleteUserRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaUserServiceDeleteUserResponse:
-        """DeleteUser
+        """Delete user
 
-        Delete user   The state of the user will be changed to 'deleted'. The user will not be able to log in anymore. Endpoints requesting this user will return an error 'User not found.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
+        The state of the user will be changed to 'deleted'. The user will not be able to log in anymore. Endpoints requesting this user will return an error 'User not found.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
 
         :param beta_user_service_delete_user_request: (required)
         :type beta_user_service_delete_user_request: BetaUserServiceDeleteUserRequest
@@ -1001,9 +1005,9 @@ class BetaUserServiceApi:
 
     @validate_call
     def get_user_by_id(        self,                beta_user_service_get_user_by_id_request: BetaUserServiceGetUserByIDRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaUserServiceGetUserByIDResponse:
-        """GetUserByID
+        """User by ID
 
-        User by ID   Returns the full user object (human or machine) including the profile, email, etc.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
+        Returns the full user object (human or machine) including the profile, email, etc.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
 
         :param beta_user_service_get_user_by_id_request: (required)
         :type beta_user_service_get_user_by_id_request: BetaUserServiceGetUserByIDRequest
@@ -1129,9 +1133,9 @@ class BetaUserServiceApi:
 
     @validate_call
     def list_authentication_method_types(        self,                beta_user_service_list_authentication_method_types_request: BetaUserServiceListAuthenticationMethodTypesRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaUserServiceListAuthenticationMethodTypesResponse:
-        """ListAuthenticationMethodTypes
+        """List all possible authentication methods of a user
 
-        List all possible authentication methods of a user   List all possible authentication methods of a user like password, passwordless, (T)OTP and more.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
+        List all possible authentication methods of a user like password, passwordless, (T)OTP and more.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
 
         :param beta_user_service_list_authentication_method_types_request: (required)
         :type beta_user_service_list_authentication_method_types_request: BetaUserServiceListAuthenticationMethodTypesRequest
@@ -1257,9 +1261,9 @@ class BetaUserServiceApi:
 
     @validate_call
     def list_users(        self,                beta_user_service_list_users_request: BetaUserServiceListUsersRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaUserServiceListUsersResponse:
-        """ListUsers
+        """Search Users
 
-        Search Users   Search for users. By default, we will return all users of your instance that you have permission to read. Make sure to include a limit and sorting for pagination.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
+        Search for users. By default, we will return all users of your instance that you have permission to read. Make sure to include a limit and sorting for pagination.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
 
         :param beta_user_service_list_users_request: (required)
         :type beta_user_service_list_users_request: BetaUserServiceListUsersRequest
@@ -1385,9 +1389,9 @@ class BetaUserServiceApi:
 
     @validate_call
     def lock_user(        self,                beta_user_service_lock_user_request: BetaUserServiceLockUserRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaUserServiceLockUserResponse:
-        """LockUser
+        """Lock user
 
-        Lock user   The state of the user will be changed to 'locked'. The user will not be able to log in anymore. The endpoint returns an error if the user is already in the state 'locked'. Use this endpoint if the user should not be able to log in temporarily because of an event that happened (wrong password, etc.).   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
+        The state of the user will be changed to 'locked'. The user will not be able to log in anymore. The endpoint returns an error if the user is already in the state 'locked'. Use this endpoint if the user should not be able to log in temporarily because of an event that happened (wrong password, etc.).   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
 
         :param beta_user_service_lock_user_request: (required)
         :type beta_user_service_lock_user_request: BetaUserServiceLockUserRequest
@@ -1512,10 +1516,12 @@ class BetaUserServiceApi:
 
 
     @validate_call
-    def password_reset(        self,                beta_user_service_password_reset_request: BetaUserServicePasswordResetRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaUserServicePasswordResetResponse:
-        """PasswordReset
+    def password_reset(        self,                beta_user_service_password_reset_request: Optional[BetaUserServicePasswordResetRequest] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaUserServicePasswordResetResponse:
+        if beta_user_service_password_reset_request is None:
+            beta_user_service_password_reset_request = {}
+        """Request a code to reset a password
 
-        Request a code to reset a password   Request a code to reset a password.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
+        Request a code to reset a password.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
 
         :param beta_user_service_password_reset_request: (required)
         :type beta_user_service_password_reset_request: BetaUserServicePasswordResetRequest
@@ -1641,9 +1647,9 @@ class BetaUserServiceApi:
 
     @validate_call
     def reactivate_user(        self,                beta_user_service_reactivate_user_request: BetaUserServiceReactivateUserRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaUserServiceReactivateUserResponse:
-        """ReactivateUser
+        """Reactivate user
 
-        Reactivate user   Reactivate a user with the state 'deactivated'. The user will be able to log in again afterward. The endpoint returns an error if the user is not in the state 'deactivated'.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
+        Reactivate a user with the state 'deactivated'. The user will be able to log in again afterward. The endpoint returns an error if the user is not in the state 'deactivated'.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
 
         :param beta_user_service_reactivate_user_request: (required)
         :type beta_user_service_reactivate_user_request: BetaUserServiceReactivateUserRequest
@@ -1769,9 +1775,9 @@ class BetaUserServiceApi:
 
     @validate_call
     def register_passkey(        self,                beta_user_service_register_passkey_request: BetaUserServiceRegisterPasskeyRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaUserServiceRegisterPasskeyResponse:
-        """RegisterPasskey
+        """Start the registration of passkey for a user
 
-        Start the registration of passkey for a user   Start the registration of a passkey for a user, as a response the public key credential creation options are returned, which are used to verify the passkey.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
+        Start the registration of a passkey for a user, as a response the public key credential creation options are returned, which are used to verify the passkey.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
 
         :param beta_user_service_register_passkey_request: (required)
         :type beta_user_service_register_passkey_request: BetaUserServiceRegisterPasskeyRequest
@@ -1897,9 +1903,9 @@ class BetaUserServiceApi:
 
     @validate_call
     def register_totp(        self,                beta_user_service_register_totp_request: BetaUserServiceRegisterTOTPRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaUserServiceRegisterTOTPResponse:
-        """RegisterTOTP
+        """Start the registration of a TOTP generator for a user
 
-        Start the registration of a TOTP generator for a user   Start the registration of a TOTP generator for a user, as a response a secret returned, which is used to initialize a TOTP app or device.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
+        Start the registration of a TOTP generator for a user, as a response a secret returned, which is used to initialize a TOTP app or device.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
 
         :param beta_user_service_register_totp_request: (required)
         :type beta_user_service_register_totp_request: BetaUserServiceRegisterTOTPRequest
@@ -2025,9 +2031,9 @@ class BetaUserServiceApi:
 
     @validate_call
     def register_u2_f(        self,                beta_user_service_register_u2_f_request: BetaUserServiceRegisterU2FRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaUserServiceRegisterU2FResponse:
-        """RegisterU2F
+        """Start the registration of a u2f token for a user
 
-        Start the registration of a u2f token for a user   Start the registration of a u2f token for a user, as a response the public key credential creation options are returned, which are used to verify the u2f token.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
+        Start the registration of a u2f token for a user, as a response the public key credential creation options are returned, which are used to verify the u2f token.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
 
         :param beta_user_service_register_u2_f_request: (required)
         :type beta_user_service_register_u2_f_request: BetaUserServiceRegisterU2FRequest
@@ -2153,9 +2159,9 @@ class BetaUserServiceApi:
 
     @validate_call
     def remove_otp_email(        self,                beta_user_service_remove_otp_email_request: BetaUserServiceRemoveOTPEmailRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaUserServiceRemoveOTPEmailResponse:
-        """RemoveOTPEmail
+        """Remove One-Time Password (OTP) Email from a user
 
-        Remove One-Time Password (OTP) Email from a user   Remove the configured One-Time Password (OTP) Email factor of a user. As only one OTP Email per user is allowed, the user will not have OTP Email as a second factor afterward.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
+        Remove the configured One-Time Password (OTP) Email factor of a user. As only one OTP Email per user is allowed, the user will not have OTP Email as a second factor afterward.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
 
         :param beta_user_service_remove_otp_email_request: (required)
         :type beta_user_service_remove_otp_email_request: BetaUserServiceRemoveOTPEmailRequest
@@ -2281,9 +2287,9 @@ class BetaUserServiceApi:
 
     @validate_call
     def remove_otpsms(        self,                beta_user_service_remove_otpsms_request: BetaUserServiceRemoveOTPSMSRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaUserServiceRemoveOTPSMSResponse:
-        """RemoveOTPSMS
+        """Remove One-Time Password (OTP) SMS from a user
 
-        Remove One-Time Password (OTP) SMS from a user   Remove the configured One-Time Password (OTP) SMS factor of a user. As only one OTP SMS per user is allowed, the user will not have OTP SMS as a second factor afterward.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
+        Remove the configured One-Time Password (OTP) SMS factor of a user. As only one OTP SMS per user is allowed, the user will not have OTP SMS as a second factor afterward.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
 
         :param beta_user_service_remove_otpsms_request: (required)
         :type beta_user_service_remove_otpsms_request: BetaUserServiceRemoveOTPSMSRequest
@@ -2409,9 +2415,9 @@ class BetaUserServiceApi:
 
     @validate_call
     def remove_phone(        self,                beta_user_service_remove_phone_request: BetaUserServiceRemovePhoneRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaUserServiceRemovePhoneResponse:
-        """RemovePhone
+        """Remove the user phone
 
-        Remove the user phone   Remove the user phone   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
+        Remove the user phone   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
 
         :param beta_user_service_remove_phone_request: (required)
         :type beta_user_service_remove_phone_request: BetaUserServiceRemovePhoneRequest
@@ -2537,9 +2543,9 @@ class BetaUserServiceApi:
 
     @validate_call
     def remove_totp(        self,                beta_user_service_remove_totp_request: BetaUserServiceRemoveTOTPRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaUserServiceRemoveTOTPResponse:
-        """RemoveTOTP
+        """Remove TOTP generator from a user
 
-        Remove TOTP generator from a user   Remove the configured TOTP generator of a user. As only one TOTP generator per user is allowed, the user will not have TOTP as a second factor afterward.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
+        Remove the configured TOTP generator of a user. As only one TOTP generator per user is allowed, the user will not have TOTP as a second factor afterward.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
 
         :param beta_user_service_remove_totp_request: (required)
         :type beta_user_service_remove_totp_request: BetaUserServiceRemoveTOTPRequest
@@ -2664,10 +2670,12 @@ class BetaUserServiceApi:
 
 
     @validate_call
-    def resend_email_code(        self,                beta_user_service_resend_email_code_request: BetaUserServiceResendEmailCodeRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaUserServiceResendEmailCodeResponse:
-        """ResendEmailCode
+    def resend_email_code(        self,                beta_user_service_resend_email_code_request: Optional[BetaUserServiceResendEmailCodeRequest] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaUserServiceResendEmailCodeResponse:
+        if beta_user_service_resend_email_code_request is None:
+            beta_user_service_resend_email_code_request = {}
+        """Resend code to verify user email
 
-        Resend code to verify user email   Resend code to verify user email   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
+        Resend code to verify user email   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
 
         :param beta_user_service_resend_email_code_request: (required)
         :type beta_user_service_resend_email_code_request: BetaUserServiceResendEmailCodeRequest
@@ -2792,10 +2800,12 @@ class BetaUserServiceApi:
 
 
     @validate_call
-    def resend_phone_code(        self,                beta_user_service_resend_phone_code_request: BetaUserServiceResendPhoneCodeRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaUserServiceResendPhoneCodeResponse:
-        """ResendPhoneCode
+    def resend_phone_code(        self,                beta_user_service_resend_phone_code_request: Optional[BetaUserServiceResendPhoneCodeRequest] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaUserServiceResendPhoneCodeResponse:
+        if beta_user_service_resend_phone_code_request is None:
+            beta_user_service_resend_phone_code_request = {}
+        """Resend code to verify user phone
 
-        Resend code to verify user phone   Resend code to verify user phone   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
+        Resend code to verify user phone   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
 
         :param beta_user_service_resend_phone_code_request: (required)
         :type beta_user_service_resend_phone_code_request: BetaUserServiceResendPhoneCodeRequest
@@ -2921,9 +2931,9 @@ class BetaUserServiceApi:
 
     @validate_call
     def retrieve_identity_provider_intent(        self,                beta_user_service_retrieve_identity_provider_intent_request: BetaUserServiceRetrieveIdentityProviderIntentRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaUserServiceRetrieveIdentityProviderIntentResponse:
-        """RetrieveIdentityProviderIntent
+        """Retrieve the information returned by the identity provider
 
-        Retrieve the information returned by the identity provider   Retrieve the information returned by the identity provider for registration or updating an existing user with new information.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
+        Retrieve the information returned by the identity provider for registration or updating an existing user with new information.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
 
         :param beta_user_service_retrieve_identity_provider_intent_request: (required)
         :type beta_user_service_retrieve_identity_provider_intent_request: BetaUserServiceRetrieveIdentityProviderIntentRequest
@@ -3048,10 +3058,12 @@ class BetaUserServiceApi:
 
 
     @validate_call
-    def set_email(        self,                beta_user_service_set_email_request: BetaUserServiceSetEmailRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaUserServiceSetEmailResponse:
-        """SetEmail
+    def set_email(        self,                beta_user_service_set_email_request: Optional[BetaUserServiceSetEmailRequest] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaUserServiceSetEmailResponse:
+        if beta_user_service_set_email_request is None:
+            beta_user_service_set_email_request = {}
+        """Change the user email
 
-        Change the user email   Change the email address of a user. If the state is set to not verified, a verification code will be generated, which can be either returned or sent to the user by email.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
+        Change the email address of a user. If the state is set to not verified, a verification code will be generated, which can be either returned or sent to the user by email.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
 
         :param beta_user_service_set_email_request: (required)
         :type beta_user_service_set_email_request: BetaUserServiceSetEmailRequest
@@ -3176,10 +3188,12 @@ class BetaUserServiceApi:
 
 
     @validate_call
-    def set_password(        self,                beta_user_service_set_password_request: BetaUserServiceSetPasswordRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaUserServiceSetPasswordResponse:
-        """SetPassword
+    def set_password(        self,                beta_user_service_set_password_request: Optional[BetaUserServiceSetPasswordRequest] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaUserServiceSetPasswordResponse:
+        if beta_user_service_set_password_request is None:
+            beta_user_service_set_password_request = {}
+        """Change password
 
-        Change password   Change the password of a user with either a verification code or the current password.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
+        Change the password of a user with either a verification code or the current password.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
 
         :param beta_user_service_set_password_request: (required)
         :type beta_user_service_set_password_request: BetaUserServiceSetPasswordRequest
@@ -3304,10 +3318,12 @@ class BetaUserServiceApi:
 
 
     @validate_call
-    def set_phone(        self,                beta_user_service_set_phone_request: BetaUserServiceSetPhoneRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaUserServiceSetPhoneResponse:
-        """SetPhone
+    def set_phone(        self,                beta_user_service_set_phone_request: Optional[BetaUserServiceSetPhoneRequest] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaUserServiceSetPhoneResponse:
+        if beta_user_service_set_phone_request is None:
+            beta_user_service_set_phone_request = {}
+        """Set the user phone
 
-        Set the user phone   Set the phone number of a user. If the state is set to not verified, a verification code will be generated, which can be either returned or sent to the user by sms.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
+        Set the phone number of a user. If the state is set to not verified, a verification code will be generated, which can be either returned or sent to the user by sms.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
 
         :param beta_user_service_set_phone_request: (required)
         :type beta_user_service_set_phone_request: BetaUserServiceSetPhoneRequest
@@ -3432,10 +3448,12 @@ class BetaUserServiceApi:
 
 
     @validate_call
-    def start_identity_provider_intent(        self,                beta_user_service_start_identity_provider_intent_request: BetaUserServiceStartIdentityProviderIntentRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaUserServiceStartIdentityProviderIntentResponse:
-        """StartIdentityProviderIntent
+    def start_identity_provider_intent(        self,                beta_user_service_start_identity_provider_intent_request: Optional[BetaUserServiceStartIdentityProviderIntentRequest] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaUserServiceStartIdentityProviderIntentResponse:
+        if beta_user_service_start_identity_provider_intent_request is None:
+            beta_user_service_start_identity_provider_intent_request = {}
+        """Start flow with an identity provider
 
-        Start flow with an identity provider   Start a flow with an identity provider, for external login, registration or linking.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
+        Start a flow with an identity provider, for external login, registration or linking.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
 
         :param beta_user_service_start_identity_provider_intent_request: (required)
         :type beta_user_service_start_identity_provider_intent_request: BetaUserServiceStartIdentityProviderIntentRequest
@@ -3561,9 +3579,9 @@ class BetaUserServiceApi:
 
     @validate_call
     def unlock_user(        self,                beta_user_service_unlock_user_request: BetaUserServiceUnlockUserRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaUserServiceUnlockUserResponse:
-        """UnlockUser
+        """Unlock user
 
-        Unlock user   The state of the user will be changed to 'locked'. The user will not be able to log in anymore. The endpoint returns an error if the user is already in the state 'locked'. Use this endpoint if the user should not be able to log in temporarily because of an event that happened (wrong password, etc.).   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
+        The state of the user will be changed to 'locked'. The user will not be able to log in anymore. The endpoint returns an error if the user is already in the state 'locked'. Use this endpoint if the user should not be able to log in temporarily because of an event that happened (wrong password, etc.).   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
 
         :param beta_user_service_unlock_user_request: (required)
         :type beta_user_service_unlock_user_request: BetaUserServiceUnlockUserRequest
@@ -3689,9 +3707,9 @@ class BetaUserServiceApi:
 
     @validate_call
     def update_human_user(        self,                beta_user_service_update_human_user_request: BetaUserServiceUpdateHumanUserRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaUserServiceUpdateHumanUserResponse:
-        """UpdateHumanUser
+        """Update User
 
-        Update User   Update all information from a user.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
+        Update all information from a user.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
 
         :param beta_user_service_update_human_user_request: (required)
         :type beta_user_service_update_human_user_request: BetaUserServiceUpdateHumanUserRequest
@@ -3817,9 +3835,9 @@ class BetaUserServiceApi:
 
     @validate_call
     def verify_email(        self,                beta_user_service_verify_email_request: BetaUserServiceVerifyEmailRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaUserServiceVerifyEmailResponse:
-        """VerifyEmail
+        """Verify the email
 
-        Verify the email   Verify the email with the generated code.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
+        Verify the email with the generated code.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
 
         :param beta_user_service_verify_email_request: (required)
         :type beta_user_service_verify_email_request: BetaUserServiceVerifyEmailRequest
@@ -3945,9 +3963,9 @@ class BetaUserServiceApi:
 
     @validate_call
     def verify_passkey_registration(        self,                beta_user_service_verify_passkey_registration_request: BetaUserServiceVerifyPasskeyRegistrationRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaUserServiceVerifyPasskeyRegistrationResponse:
-        """VerifyPasskeyRegistration
+        """Verify a passkey for a user
 
-        Verify a passkey for a user   Verify the passkey registration with the public key credential.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
+        Verify the passkey registration with the public key credential.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
 
         :param beta_user_service_verify_passkey_registration_request: (required)
         :type beta_user_service_verify_passkey_registration_request: BetaUserServiceVerifyPasskeyRegistrationRequest
@@ -4073,9 +4091,9 @@ class BetaUserServiceApi:
 
     @validate_call
     def verify_phone(        self,                beta_user_service_verify_phone_request: BetaUserServiceVerifyPhoneRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaUserServiceVerifyPhoneResponse:
-        """VerifyPhone
+        """Verify the phone
 
-        Verify the phone   Verify the phone with the generated code.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
+        Verify the phone with the generated code.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
 
         :param beta_user_service_verify_phone_request: (required)
         :type beta_user_service_verify_phone_request: BetaUserServiceVerifyPhoneRequest
@@ -4201,9 +4219,9 @@ class BetaUserServiceApi:
 
     @validate_call
     def verify_totp_registration(        self,                beta_user_service_verify_totp_registration_request: BetaUserServiceVerifyTOTPRegistrationRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaUserServiceVerifyTOTPRegistrationResponse:
-        """VerifyTOTPRegistration
+        """Verify a TOTP generator for a user
 
-        Verify a TOTP generator for a user   Verify the TOTP registration with a generated code.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
+        Verify the TOTP registration with a generated code.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
 
         :param beta_user_service_verify_totp_registration_request: (required)
         :type beta_user_service_verify_totp_registration_request: BetaUserServiceVerifyTOTPRegistrationRequest
@@ -4329,9 +4347,9 @@ class BetaUserServiceApi:
 
     @validate_call
     def verify_u2_f_registration(        self,                beta_user_service_verify_u2_f_registration_request: BetaUserServiceVerifyU2FRegistrationRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaUserServiceVerifyU2FRegistrationResponse:
-        """VerifyU2FRegistration
+        """Verify a u2f token for a user
 
-        Verify a u2f token for a user   Verify the u2f token registration with the public key credential.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
+        Verify the u2f token registration with the public key credential.   Deprecated: please move to the corresponding endpoint under user service v2 (GA).
 
         :param beta_user_service_verify_u2_f_registration_request: (required)
         :type beta_user_service_verify_u2_f_registration_request: BetaUserServiceVerifyU2FRegistrationRequest

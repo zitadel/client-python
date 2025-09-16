@@ -31,7 +31,7 @@ class BetaAppServiceCreateApplicationRequest(BaseModel):
     """ # noqa: E501
     project_id: Optional[StrictStr] = Field(default=None, alias="projectId")
     id: Optional[StrictStr] = None
-    name: StrictStr
+    name: Optional[StrictStr] = None
     api_request: Optional[BetaAppServiceCreateAPIApplicationRequest] = Field(default=None, alias="apiRequest")
     oidc_request: Optional[BetaAppServiceCreateOIDCApplicationRequest] = Field(default=None, alias="oidcRequest")
     saml_request: Optional[BetaAppServiceCreateSAMLApplicationRequest] = Field(default=None, alias="samlRequest")

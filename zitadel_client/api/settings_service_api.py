@@ -62,7 +62,7 @@ class SettingsServiceApi:
 
     @validate_call
     def get_active_identity_providers(        self,                settings_service_get_active_identity_providers_request: SettingsServiceGetActiveIdentityProvidersRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SettingsServiceGetActiveIdentityProvidersResponse:
-        """GetActiveIdentityProviders
+        """Get the current active identity providers
 
         Get the current active identity providers
 
@@ -190,7 +190,7 @@ class SettingsServiceApi:
 
     @validate_call
     def get_branding_settings(        self,                settings_service_get_branding_settings_request: SettingsServiceGetBrandingSettingsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SettingsServiceGetBrandingSettingsResponse:
-        """GetBrandingSettings
+        """Get the current active branding settings
 
         Get the current active branding settings
 
@@ -318,7 +318,7 @@ class SettingsServiceApi:
 
     @validate_call
     def get_domain_settings(        self,                settings_service_get_domain_settings_request: SettingsServiceGetDomainSettingsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SettingsServiceGetDomainSettingsResponse:
-        """GetDomainSettings
+        """Get the domain settings
 
         Get the domain settings
 
@@ -448,7 +448,7 @@ class SettingsServiceApi:
     def get_general_settings(        self,                body: Optional[Dict[str, Any]] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SettingsServiceGetGeneralSettingsResponse:
         if body is None:
             body = {}
-        """GetGeneralSettings
+        """Get basic information over the instance
 
         Get basic information over the instance
 
@@ -575,10 +575,12 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def get_hosted_login_translation(        self,                settings_service_get_hosted_login_translation_request: SettingsServiceGetHostedLoginTranslationRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SettingsServiceGetHostedLoginTranslationResponse:
-        """GetHostedLoginTranslation
+    def get_hosted_login_translation(        self,                settings_service_get_hosted_login_translation_request: Optional[SettingsServiceGetHostedLoginTranslationRequest] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SettingsServiceGetHostedLoginTranslationResponse:
+        if settings_service_get_hosted_login_translation_request is None:
+            settings_service_get_hosted_login_translation_request = {}
+        """Get Hosted Login Translation
 
-        Get Hosted Login Translation   Returns the translations in the requested locale for the hosted login.  The translations returned are based on the input level specified (system, instance or organization).   If the requested level doesn't contain all translations, and ignore_inheritance is set to false,  a merging process fallbacks onto the higher levels ensuring all keys in the file have a translation,  which could be in the default language if the one of the locale is missing on all levels.   The etag returned in the response represents the hash of the translations as they are stored on DB  and its reliable only if ignore_inheritance = true.   Required permissions:    - `iam.policy.read`
+        Returns the translations in the requested locale for the hosted login.  The translations returned are based on the input level specified (system, instance or organization).   If the requested level doesn't contain all translations, and ignore_inheritance is set to false,  a merging process fallbacks onto the higher levels ensuring all keys in the file have a translation,  which could be in the default language if the one of the locale is missing on all levels.   The etag returned in the response represents the hash of the translations as they are stored on DB  and its reliable only if ignore_inheritance = true.   Required permissions:    - `iam.policy.read`
 
         :param settings_service_get_hosted_login_translation_request: (required)
         :type settings_service_get_hosted_login_translation_request: SettingsServiceGetHostedLoginTranslationRequest
@@ -704,7 +706,7 @@ class SettingsServiceApi:
 
     @validate_call
     def get_legal_and_support_settings(        self,                settings_service_get_legal_and_support_settings_request: SettingsServiceGetLegalAndSupportSettingsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SettingsServiceGetLegalAndSupportSettingsResponse:
-        """GetLegalAndSupportSettings
+        """Get the legal and support settings
 
         Get the legal and support settings
 
@@ -832,7 +834,7 @@ class SettingsServiceApi:
 
     @validate_call
     def get_lockout_settings(        self,                settings_service_get_lockout_settings_request: SettingsServiceGetLockoutSettingsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SettingsServiceGetLockoutSettingsResponse:
-        """GetLockoutSettings
+        """Get the lockout settings
 
         Get the lockout settings
 
@@ -960,7 +962,7 @@ class SettingsServiceApi:
 
     @validate_call
     def get_login_settings(        self,                settings_service_get_login_settings_request: SettingsServiceGetLoginSettingsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SettingsServiceGetLoginSettingsResponse:
-        """GetLoginSettings
+        """Get the login settings
 
         Get the login settings
 
@@ -1088,7 +1090,7 @@ class SettingsServiceApi:
 
     @validate_call
     def get_password_complexity_settings(        self,                settings_service_get_password_complexity_settings_request: SettingsServiceGetPasswordComplexitySettingsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SettingsServiceGetPasswordComplexitySettingsResponse:
-        """GetPasswordComplexitySettings
+        """Get the password complexity settings
 
         Get the password complexity settings
 
@@ -1216,7 +1218,7 @@ class SettingsServiceApi:
 
     @validate_call
     def get_password_expiry_settings(        self,                settings_service_get_password_expiry_settings_request: SettingsServiceGetPasswordExpirySettingsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SettingsServiceGetPasswordExpirySettingsResponse:
-        """GetPasswordExpirySettings
+        """Get the password expiry settings
 
         Get the password expiry settings
 
@@ -1346,7 +1348,7 @@ class SettingsServiceApi:
     def get_security_settings(        self,                body: Optional[Dict[str, Any]] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SettingsServiceGetSecuritySettingsResponse:
         if body is None:
             body = {}
-        """GetSecuritySettings
+        """Get the security settings
 
         Get the security settings
 
@@ -1473,10 +1475,12 @@ class SettingsServiceApi:
 
 
     @validate_call
-    def set_hosted_login_translation(        self,                settings_service_set_hosted_login_translation_request: SettingsServiceSetHostedLoginTranslationRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SettingsServiceSetHostedLoginTranslationResponse:
-        """SetHostedLoginTranslation
+    def set_hosted_login_translation(        self,                settings_service_set_hosted_login_translation_request: Optional[SettingsServiceSetHostedLoginTranslationRequest] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SettingsServiceSetHostedLoginTranslationResponse:
+        if settings_service_set_hosted_login_translation_request is None:
+            settings_service_set_hosted_login_translation_request = {}
+        """Set Hosted Login Translation
 
-        Set Hosted Login Translation   Sets the input translations at the specified level (instance or organization) for the input language.   Required permissions:    - `iam.policy.write`
+        Sets the input translations at the specified level (instance or organization) for the input language.   Required permissions:    - `iam.policy.write`
 
         :param settings_service_set_hosted_login_translation_request: (required)
         :type settings_service_set_hosted_login_translation_request: SettingsServiceSetHostedLoginTranslationRequest
@@ -1602,7 +1606,7 @@ class SettingsServiceApi:
 
     @validate_call
     def set_security_settings(        self,                settings_service_set_security_settings_request: SettingsServiceSetSecuritySettingsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SettingsServiceSetSecuritySettingsResponse:
-        """SetSecuritySettings
+        """Set the security settings
 
         Set the security settings
 

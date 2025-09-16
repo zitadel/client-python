@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, StrictBytes, StrictStr
-from typing import Any, ClassVar, Dict, Union
+from typing import Any, ClassVar, Dict, Optional, Union
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,8 +26,8 @@ class UserServiceSetMetadataEntry(BaseModel):
     """
     UserServiceSetMetadataEntry
     """ # noqa: E501
-    key: StrictStr
-    value: Union[StrictBytes, StrictStr]
+    key: Optional[StrictStr] = None
+    value: Optional[Union[StrictBytes, StrictStr]] = None
     __properties: ClassVar[List[str]] = ["key", "value"]
 
     model_config = ConfigDict(

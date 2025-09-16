@@ -27,7 +27,7 @@ class UserServiceSetUserMetadataRequest(BaseModel):
     """
     UserServiceSetUserMetadataRequest
     """ # noqa: E501
-    user_id: StrictStr = Field(description="ID of the user under which the metadata gets set.", alias="userId")
+    user_id: Optional[StrictStr] = Field(default=None, description="ID of the user under which the metadata gets set.", alias="userId")
     metadata: Optional[List[UserServiceMetadata]] = Field(default=None, description="Metadata to bet set. The values have to be base64 encoded.")
     __properties: ClassVar[List[str]] = ["userId", "metadata"]
 

@@ -60,10 +60,12 @@ class BetaAppServiceApi:
 
 
     @validate_call
-    def create_application(        self,                beta_app_service_create_application_request: BetaAppServiceCreateApplicationRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaAppServiceCreateApplicationResponse:
-        """CreateApplication
+    def create_application(        self,                beta_app_service_create_application_request: Optional[BetaAppServiceCreateApplicationRequest] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaAppServiceCreateApplicationResponse:
+        if beta_app_service_create_application_request is None:
+            beta_app_service_create_application_request = {}
+        """Create Application
 
-        Create Application   Create an application. The application can be OIDC, API or SAML type, based on the input.   Required permissions:    - project.app.write
+        Create an application. The application can be OIDC, API or SAML type, based on the input.   Required permissions:    - project.app.write
 
         :param beta_app_service_create_application_request: (required)
         :type beta_app_service_create_application_request: BetaAppServiceCreateApplicationRequest
@@ -189,9 +191,9 @@ class BetaAppServiceApi:
 
     @validate_call
     def create_application_key(        self,                beta_app_service_create_application_key_request: BetaAppServiceCreateApplicationKeyRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaAppServiceCreateApplicationKeyResponse:
-        """CreateApplicationKey
+        """Create Application Key
 
-        Create Application Key    Create a new application key, which is used to authorize an API application.   Key details are returned in the response. They must be stored safely, as it will not  be possible to retrieve them again.   Required permissions:    - `project.app.write`
+        Create a new application key, which is used to authorize an API application.   Key details are returned in the response. They must be stored safely, as it will not  be possible to retrieve them again.   Required permissions:    - `project.app.write`
 
         :param beta_app_service_create_application_key_request: (required)
         :type beta_app_service_create_application_key_request: BetaAppServiceCreateApplicationKeyRequest
@@ -317,9 +319,9 @@ class BetaAppServiceApi:
 
     @validate_call
     def deactivate_application(        self,                beta_app_service_deactivate_application_request: BetaAppServiceDeactivateApplicationRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaAppServiceDeactivateApplicationResponse:
-        """DeactivateApplication
+        """Deactivate Application
 
-        Deactivate Application   Deactivates the application belonging to the input project and matching the provided  application ID.   Required permissions:    - project.app.write
+        Deactivates the application belonging to the input project and matching the provided  application ID.   Required permissions:    - project.app.write
 
         :param beta_app_service_deactivate_application_request: (required)
         :type beta_app_service_deactivate_application_request: BetaAppServiceDeactivateApplicationRequest
@@ -445,9 +447,9 @@ class BetaAppServiceApi:
 
     @validate_call
     def delete_application(        self,                beta_app_service_delete_application_request: BetaAppServiceDeleteApplicationRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaAppServiceDeleteApplicationResponse:
-        """DeleteApplication
+        """Delete Application
 
-        Delete Application   Deletes the application belonging to the input project and matching the provided  application ID.   Required permissions:    - project.app.delete
+        Deletes the application belonging to the input project and matching the provided  application ID.   Required permissions:    - project.app.delete
 
         :param beta_app_service_delete_application_request: (required)
         :type beta_app_service_delete_application_request: BetaAppServiceDeleteApplicationRequest
@@ -573,9 +575,9 @@ class BetaAppServiceApi:
 
     @validate_call
     def delete_application_key(        self,                beta_app_service_delete_application_key_request: BetaAppServiceDeleteApplicationKeyRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaAppServiceDeleteApplicationKeyResponse:
-        """DeleteApplicationKey
+        """Delete Application Key
 
-        Delete Application Key    Deletes an application key matching the provided ID.   Organization ID is not mandatory, but helps with filtering/performance.   The deletion time is returned in response message.   Required permissions:    - `project.app.write`
+        Deletes an application key matching the provided ID.   Organization ID is not mandatory, but helps with filtering/performance.   The deletion time is returned in response message.   Required permissions:    - `project.app.write`
 
         :param beta_app_service_delete_application_key_request: (required)
         :type beta_app_service_delete_application_key_request: BetaAppServiceDeleteApplicationKeyRequest
@@ -701,9 +703,9 @@ class BetaAppServiceApi:
 
     @validate_call
     def get_application(        self,                beta_app_service_get_application_request: BetaAppServiceGetApplicationRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaAppServiceGetApplicationResponse:
-        """GetApplication
+        """Get Application
 
-        Get Application   Retrieves the application matching the provided ID.   Required permissions:    - project.app.read
+        Retrieves the application matching the provided ID.   Required permissions:    - project.app.read
 
         :param beta_app_service_get_application_request: (required)
         :type beta_app_service_get_application_request: BetaAppServiceGetApplicationRequest
@@ -829,9 +831,9 @@ class BetaAppServiceApi:
 
     @validate_call
     def get_application_key(        self,                beta_app_service_get_application_key_request: BetaAppServiceGetApplicationKeyRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaAppServiceGetApplicationKeyResponse:
-        """GetApplicationKey
+        """Get Application Key
 
-        Get Application Key   Retrieves the application key matching the provided ID.   Specifying a project, organization and app ID is optional but help with filtering/performance.   Required permissions:    - project.app.read
+        Retrieves the application key matching the provided ID.   Specifying a project, organization and app ID is optional but help with filtering/performance.   Required permissions:    - project.app.read
 
         :param beta_app_service_get_application_key_request: (required)
         :type beta_app_service_get_application_key_request: BetaAppServiceGetApplicationKeyRequest
@@ -956,10 +958,12 @@ class BetaAppServiceApi:
 
 
     @validate_call
-    def list_application_keys(        self,                beta_app_service_list_application_keys_request: BetaAppServiceListApplicationKeysRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaAppServiceListApplicationKeysResponse:
-        """ListApplicationKeys
+    def list_application_keys(        self,                beta_app_service_list_application_keys_request: Optional[BetaAppServiceListApplicationKeysRequest] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaAppServiceListApplicationKeysResponse:
+        if beta_app_service_list_application_keys_request is None:
+            beta_app_service_list_application_keys_request = {}
+        """List Application Keys
 
-        List Application Keys   Returns a list of application keys matching the input parameters.   The result can be sorted by id, aggregate, creation date, expiration date, resource owner or type.  It can also be filtered by app, project or organization ID.   Required permissions:    - project.app.read
+        Returns a list of application keys matching the input parameters.   The result can be sorted by id, aggregate, creation date, expiration date, resource owner or type.  It can also be filtered by app, project or organization ID.   Required permissions:    - project.app.read
 
         :param beta_app_service_list_application_keys_request: (required)
         :type beta_app_service_list_application_keys_request: BetaAppServiceListApplicationKeysRequest
@@ -1085,9 +1089,9 @@ class BetaAppServiceApi:
 
     @validate_call
     def list_applications(        self,                beta_app_service_list_applications_request: BetaAppServiceListApplicationsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaAppServiceListApplicationsResponse:
-        """ListApplications
+        """List Applications
 
-        List Applications   Returns a list of applications matching the input parameters that belong to the provided  project.   The result can be sorted by app id, name, creation date, change date or state. It can also  be filtered by app state, app type and app name.   Required permissions:    - project.app.read
+        Returns a list of applications matching the input parameters that belong to the provided  project.   The result can be sorted by app id, name, creation date, change date or state. It can also  be filtered by app state, app type and app name.   Required permissions:    - project.app.read
 
         :param beta_app_service_list_applications_request: (required)
         :type beta_app_service_list_applications_request: BetaAppServiceListApplicationsRequest
@@ -1213,9 +1217,9 @@ class BetaAppServiceApi:
 
     @validate_call
     def reactivate_application(        self,                beta_app_service_reactivate_application_request: BetaAppServiceReactivateApplicationRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaAppServiceReactivateApplicationResponse:
-        """ReactivateApplication
+        """Reactivate Application
 
-        Reactivate Application   Reactivates the application belonging to the input project and matching the provided  application ID.   Required permissions:    - project.app.write
+        Reactivates the application belonging to the input project and matching the provided  application ID.   Required permissions:    - project.app.write
 
         :param beta_app_service_reactivate_application_request: (required)
         :type beta_app_service_reactivate_application_request: BetaAppServiceReactivateApplicationRequest
@@ -1340,10 +1344,12 @@ class BetaAppServiceApi:
 
 
     @validate_call
-    def regenerate_client_secret(        self,                beta_app_service_regenerate_client_secret_request: BetaAppServiceRegenerateClientSecretRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaAppServiceRegenerateClientSecretResponse:
-        """RegenerateClientSecret
+    def regenerate_client_secret(        self,                beta_app_service_regenerate_client_secret_request: Optional[BetaAppServiceRegenerateClientSecretRequest] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaAppServiceRegenerateClientSecretResponse:
+        if beta_app_service_regenerate_client_secret_request is None:
+            beta_app_service_regenerate_client_secret_request = {}
+        """Regenerate Client Secret
 
-        Regenerate Client Secret   Regenerates the client secret of an API or OIDC application that belongs to the input project.    Required permissions:    - project.app.write
+        Regenerates the client secret of an API or OIDC application that belongs to the input project.    Required permissions:    - project.app.write
 
         :param beta_app_service_regenerate_client_secret_request: (required)
         :type beta_app_service_regenerate_client_secret_request: BetaAppServiceRegenerateClientSecretRequest
@@ -1468,10 +1474,12 @@ class BetaAppServiceApi:
 
 
     @validate_call
-    def update_application(        self,                beta_app_service_update_application_request: BetaAppServiceUpdateApplicationRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaAppServiceUpdateApplicationResponse:
-        """UpdateApplication
+    def update_application(        self,                beta_app_service_update_application_request: Optional[BetaAppServiceUpdateApplicationRequest] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaAppServiceUpdateApplicationResponse:
+        if beta_app_service_update_application_request is None:
+            beta_app_service_update_application_request = {}
+        """Update Application
 
-        Update Application   Changes the configuration of an OIDC, API or SAML type application, as well as  the application name, based on the input provided.   Required permissions:    - project.app.write
+        Changes the configuration of an OIDC, API or SAML type application, as well as  the application name, based on the input provided.   Required permissions:    - project.app.write
 
         :param beta_app_service_update_application_request: (required)
         :type beta_app_service_update_application_request: BetaAppServiceUpdateApplicationRequest

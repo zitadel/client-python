@@ -41,7 +41,7 @@ class BetaTelemetryServiceApi:
 
     @validate_call
     def report_base_information(        self,                beta_telemetry_service_report_base_information_request: BetaTelemetryServiceReportBaseInformationRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaTelemetryServiceReportBaseInformationResponse:
-        """ReportBaseInformation
+        """ReportBaseInformation is used to report the base information of the ZITADEL system,  including the version, instances, their creation date and domains.  The response contains a report ID to link it to the resource counts or other reports.  The report ID is only valid for the same system ID.
 
         ReportBaseInformation is used to report the base information of the ZITADEL system,  including the version, instances, their creation date and domains.  The response contains a report ID to link it to the resource counts or other reports.  The report ID is only valid for the same system ID.
 
@@ -169,7 +169,7 @@ class BetaTelemetryServiceApi:
 
     @validate_call
     def report_resource_counts(        self,                beta_telemetry_service_report_resource_counts_request: BetaTelemetryServiceReportResourceCountsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaTelemetryServiceReportResourceCountsResponse:
-        """ReportResourceCounts
+        """ReportResourceCounts is used to report the resource counts such as amount of organizations  or users per organization and much more.  Since the resource counts can be reported in multiple batches,  the response contains a report ID to continue reporting.  The report ID is only valid for the same system ID.
 
         ReportResourceCounts is used to report the resource counts such as amount of organizations  or users per organization and much more.  Since the resource counts can be reported in multiple batches,  the response contains a report ID to continue reporting.  The report ID is only valid for the same system ID.
 

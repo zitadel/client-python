@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict
+from typing import Any, ClassVar, Dict, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,9 +26,9 @@ class UserServiceRemoveIDPLinkRequest(BaseModel):
     """
     UserServiceRemoveIDPLinkRequest
     """ # noqa: E501
-    user_id: StrictStr = Field(alias="userId")
-    idp_id: StrictStr = Field(alias="idpId")
-    linked_user_id: StrictStr = Field(alias="linkedUserId")
+    user_id: Optional[StrictStr] = Field(default=None, alias="userId")
+    idp_id: Optional[StrictStr] = Field(default=None, alias="idpId")
+    linked_user_id: Optional[StrictStr] = Field(default=None, alias="linkedUserId")
     __properties: ClassVar[List[str]] = ["userId", "idpId", "linkedUserId"]
 
     model_config = ConfigDict(

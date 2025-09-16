@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict
+from typing import Any, ClassVar, Dict, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,7 +26,7 @@ class BetaProjectServiceDeactivateProjectRequest(BaseModel):
     """
     BetaProjectServiceDeactivateProjectRequest
     """ # noqa: E501
-    id: StrictStr = Field(description="The unique identifier of the project.")
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier of the project.")
     __properties: ClassVar[List[str]] = ["id"]
 
     model_config = ConfigDict(

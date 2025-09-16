@@ -27,7 +27,7 @@ class UserServiceListAuthenticationMethodTypesRequest(BaseModel):
     """
     UserServiceListAuthenticationMethodTypesRequest
     """ # noqa: E501
-    user_id: StrictStr = Field(alias="userId")
+    user_id: Optional[StrictStr] = Field(default=None, alias="userId")
     domain_query: Optional[UserServiceDomainQuery] = Field(default=None, alias="domainQuery")
     __properties: ClassVar[List[str]] = ["userId", "domainQuery"]
 

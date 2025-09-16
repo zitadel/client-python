@@ -44,10 +44,12 @@ class OIDCServiceApi:
 
 
     @validate_call
-    def authorize_or_deny_device_authorization(        self,                oidc_service_authorize_or_deny_device_authorization_request: OIDCServiceAuthorizeOrDenyDeviceAuthorizationRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> object:
-        """AuthorizeOrDenyDeviceAuthorization
+    def authorize_or_deny_device_authorization(        self,                oidc_service_authorize_or_deny_device_authorization_request: Optional[OIDCServiceAuthorizeOrDenyDeviceAuthorizationRequest] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> object:
+        if oidc_service_authorize_or_deny_device_authorization_request is None:
+            oidc_service_authorize_or_deny_device_authorization_request = {}
+        """Authorize or deny device authorization
 
-        Authorize or deny device authorization   Authorize or deny the device authorization request based on the provided device authorization id.
+        Authorize or deny the device authorization request based on the provided device authorization id.
 
         :param oidc_service_authorize_or_deny_device_authorization_request: (required)
         :type oidc_service_authorize_or_deny_device_authorization_request: OIDCServiceAuthorizeOrDenyDeviceAuthorizationRequest
@@ -172,7 +174,9 @@ class OIDCServiceApi:
 
 
     @validate_call
-    def create_callback(        self,                oidc_service_create_callback_request: OIDCServiceCreateCallbackRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> OIDCServiceCreateCallbackResponse:
+    def create_callback(        self,                oidc_service_create_callback_request: Optional[OIDCServiceCreateCallbackRequest] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> OIDCServiceCreateCallbackResponse:
+        if oidc_service_create_callback_request is None:
+            oidc_service_create_callback_request = {}
         """CreateCallback
 
 
@@ -427,9 +431,9 @@ class OIDCServiceApi:
 
     @validate_call
     def get_device_authorization_request(        self,                oidc_service_get_device_authorization_request_request: OIDCServiceGetDeviceAuthorizationRequestRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> OIDCServiceGetDeviceAuthorizationRequestResponse:
-        """GetDeviceAuthorizationRequest
+        """Get device authorization request
 
-        Get device authorization request   Get the device authorization based on the provided \"user code\".  This will return the device authorization request, which contains the device authorization id  that is required to authorize the request once the user signed in or to deny it.
+        Get the device authorization based on the provided \"user code\".  This will return the device authorization request, which contains the device authorization id  that is required to authorize the request once the user signed in or to deny it.
 
         :param oidc_service_get_device_authorization_request_request: (required)
         :type oidc_service_get_device_authorization_request_request: OIDCServiceGetDeviceAuthorizationRequestRequest

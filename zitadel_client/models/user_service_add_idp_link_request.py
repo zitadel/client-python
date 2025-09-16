@@ -27,7 +27,7 @@ class UserServiceAddIDPLinkRequest(BaseModel):
     """
     UserServiceAddIDPLinkRequest
     """ # noqa: E501
-    user_id: StrictStr = Field(alias="userId")
+    user_id: Optional[StrictStr] = Field(default=None, alias="userId")
     idp_link: Optional[UserServiceIDPLink] = Field(default=None, alias="idpLink")
     __properties: ClassVar[List[str]] = ["userId", "idpLink"]
 

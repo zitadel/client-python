@@ -27,7 +27,7 @@ class UserServiceCreatePasskeyRegistrationLinkRequest(BaseModel):
     """
     UserServiceCreatePasskeyRegistrationLinkRequest
     """ # noqa: E501
-    user_id: StrictStr = Field(alias="userId")
+    user_id: Optional[StrictStr] = Field(default=None, alias="userId")
     return_code: Optional[Dict[str, Any]] = Field(default=None, alias="returnCode")
     send_link: Optional[UserServiceSendPasskeyRegistrationLink] = Field(default=None, alias="sendLink")
     __properties: ClassVar[List[str]] = ["userId", "returnCode", "sendLink"]

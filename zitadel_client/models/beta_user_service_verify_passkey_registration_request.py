@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict
+from typing import Any, ClassVar, Dict, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,10 +26,10 @@ class BetaUserServiceVerifyPasskeyRegistrationRequest(BaseModel):
     """
     BetaUserServiceVerifyPasskeyRegistrationRequest
     """ # noqa: E501
-    user_id: StrictStr = Field(alias="userId")
-    passkey_id: StrictStr = Field(alias="passkeyId")
-    public_key_credential: Dict[str, Any] = Field(description="`Struct` represents a structured data value, consisting of fields  which map to dynamically typed values. In some languages, `Struct`  might be supported by a native representation. For example, in  scripting languages like JS a struct is represented as an  object. The details of that representation are described together  with the proto support for the language.   The JSON representation for `Struct` is JSON object.", alias="publicKeyCredential")
-    passkey_name: StrictStr = Field(alias="passkeyName")
+    user_id: Optional[StrictStr] = Field(default=None, alias="userId")
+    passkey_id: Optional[StrictStr] = Field(default=None, alias="passkeyId")
+    public_key_credential: Optional[Dict[str, Any]] = Field(default=None, description="`Struct` represents a structured data value, consisting of fields  which map to dynamically typed values. In some languages, `Struct`  might be supported by a native representation. For example, in  scripting languages like JS a struct is represented as an  object. The details of that representation are described together  with the proto support for the language.   The JSON representation for `Struct` is JSON object.", alias="publicKeyCredential")
+    passkey_name: Optional[StrictStr] = Field(default=None, alias="passkeyName")
     __properties: ClassVar[List[str]] = ["userId", "passkeyId", "publicKeyCredential", "passkeyName"]
 
     model_config = ConfigDict(

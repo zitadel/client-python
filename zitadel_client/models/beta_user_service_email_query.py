@@ -27,7 +27,7 @@ class BetaUserServiceEmailQuery(BaseModel):
     """
     Query for users with a specific email.
     """ # noqa: E501
-    email_address: StrictStr = Field(alias="emailAddress")
+    email_address: Optional[StrictStr] = Field(default=None, alias="emailAddress")
     method: Optional[BetaUserServiceTextQueryMethod] = None
     __properties: ClassVar[List[str]] = ["emailAddress", "method"]
 

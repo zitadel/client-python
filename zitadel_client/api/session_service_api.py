@@ -47,7 +47,7 @@ class SessionServiceApi:
 
     @validate_call
     def create_session(        self,                session_service_create_session_request: SessionServiceCreateSessionRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SessionServiceCreateSessionResponse:
-        """CreateSession
+        """Create a new session
 
         Create a new session
 
@@ -175,7 +175,7 @@ class SessionServiceApi:
 
     @validate_call
     def delete_session(        self,                session_service_delete_session_request: SessionServiceDeleteSessionRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SessionServiceDeleteSessionResponse:
-        """DeleteSession
+        """Terminate a session
 
         Terminate a session
 
@@ -303,7 +303,7 @@ class SessionServiceApi:
 
     @validate_call
     def get_session(        self,                session_service_get_session_request: SessionServiceGetSessionRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SessionServiceGetSessionResponse:
-        """GetSession
+        """GetSession a session
 
         GetSession a session
 
@@ -431,7 +431,7 @@ class SessionServiceApi:
 
     @validate_call
     def list_sessions(        self,                session_service_list_sessions_request: SessionServiceListSessionsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SessionServiceListSessionsResponse:
-        """ListSessions
+        """Search sessions
 
         Search sessions
 
@@ -559,7 +559,7 @@ class SessionServiceApi:
 
     @validate_call
     def set_session(        self,                session_service_set_session_request: SessionServiceSetSessionRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SessionServiceSetSessionResponse:
-        """SetSession
+        """Update a session
 
         Update a session
 

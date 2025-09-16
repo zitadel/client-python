@@ -152,10 +152,12 @@ class UserServiceApi:
 
 
     @validate_call
-    def add_human_user(        self,                user_service_add_human_user_request: UserServiceAddHumanUserRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceAddHumanUserResponse:
-        """AddHumanUser
+    def add_human_user(        self,                user_service_add_human_user_request: Optional[UserServiceAddHumanUserRequest] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceAddHumanUserResponse:
+        if user_service_add_human_user_request is None:
+            user_service_add_human_user_request = {}
+        """Create a new human user
 
-        Create a new human user   Deprecated: Use [CreateUser](apis/resources/user_service_v2/user-service-create-user.api.mdx) to create a new user of type human instead.   Create/import a new user with the type human. The newly created user will get a verification email if either the email address is not marked as verified and you did not request the verification to be returned.
+        Deprecated: Use [CreateUser](apis/resources/user_service_v2/user-service-create-user.api.mdx) to create a new user of type human instead.   Create/import a new user with the type human. The newly created user will get a verification email if either the email address is not marked as verified and you did not request the verification to be returned.
 
         :param user_service_add_human_user_request: (required)
         :type user_service_add_human_user_request: UserServiceAddHumanUserRequest
@@ -281,9 +283,9 @@ class UserServiceApi:
 
     @validate_call
     def add_idp_link(        self,                user_service_add_idp_link_request: UserServiceAddIDPLinkRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceAddIDPLinkResponse:
-        """AddIDPLink
+        """Add link to an identity provider to an user
 
-        Add link to an identity provider to an user   Add link to an identity provider to an user..
+        Add link to an identity provider to an user..
 
         :param user_service_add_idp_link_request: (required)
         :type user_service_add_idp_link_request: UserServiceAddIDPLinkRequest
@@ -409,9 +411,9 @@ class UserServiceApi:
 
     @validate_call
     def add_key(        self,                user_service_add_key_request: UserServiceAddKeyRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceAddKeyResponse:
-        """AddKey
+        """Add a Key
 
-        Add a Key   Add a keys that can be used to securely authenticate at the Zitadel APIs using JWT profile authentication using short-lived tokens.  Make sure you store the returned key safely, as you won't be able to read it from the Zitadel API anymore.  Only users of type machine can have keys.   Required permission:    - user.write
+        Add a keys that can be used to securely authenticate at the Zitadel APIs using JWT profile authentication using short-lived tokens.  Make sure you store the returned key safely, as you won't be able to read it from the Zitadel API anymore.  Only users of type machine can have keys.   Required permission:    - user.write
 
         :param user_service_add_key_request: (required)
         :type user_service_add_key_request: UserServiceAddKeyRequest
@@ -537,9 +539,9 @@ class UserServiceApi:
 
     @validate_call
     def add_otp_email(        self,                user_service_add_otp_email_request: UserServiceAddOTPEmailRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceAddOTPEmailResponse:
-        """AddOTPEmail
+        """Add OTP Email for a user
 
-        Add OTP Email for a user   Add a new One-Time Password (OTP) Email factor to the authenticated user. OTP Email will enable the user to verify a OTP with the latest verified email. The email has to be verified to add the second factor..
+        Add a new One-Time Password (OTP) Email factor to the authenticated user. OTP Email will enable the user to verify a OTP with the latest verified email. The email has to be verified to add the second factor..
 
         :param user_service_add_otp_email_request: (required)
         :type user_service_add_otp_email_request: UserServiceAddOTPEmailRequest
@@ -665,9 +667,9 @@ class UserServiceApi:
 
     @validate_call
     def add_otpsms(        self,                user_service_add_otpsms_request: UserServiceAddOTPSMSRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceAddOTPSMSResponse:
-        """AddOTPSMS
+        """Add OTP SMS for a user
 
-        Add OTP SMS for a user   Add a new One-Time Password (OTP) SMS factor to the authenticated user. OTP SMS will enable the user to verify a OTP with the latest verified phone number. The phone number has to be verified to add the second factor..
+        Add a new One-Time Password (OTP) SMS factor to the authenticated user. OTP SMS will enable the user to verify a OTP with the latest verified phone number. The phone number has to be verified to add the second factor..
 
         :param user_service_add_otpsms_request: (required)
         :type user_service_add_otpsms_request: UserServiceAddOTPSMSRequest
@@ -793,9 +795,9 @@ class UserServiceApi:
 
     @validate_call
     def add_personal_access_token(        self,                user_service_add_personal_access_token_request: UserServiceAddPersonalAccessTokenRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceAddPersonalAccessTokenResponse:
-        """AddPersonalAccessToken
+        """Add a Personal Access Token
 
-        Add a Personal Access Token   Personal access tokens (PAT) are the easiest way to authenticate to the Zitadel APIs.  Make sure you store the returned PAT safely, as you won't be able to read it from the Zitadel API anymore.  Only users of type machine can have personal access tokens.   Required permission:    - user.write
+        Personal access tokens (PAT) are the easiest way to authenticate to the Zitadel APIs.  Make sure you store the returned PAT safely, as you won't be able to read it from the Zitadel API anymore.  Only users of type machine can have personal access tokens.   Required permission:    - user.write
 
         :param user_service_add_personal_access_token_request: (required)
         :type user_service_add_personal_access_token_request: UserServiceAddPersonalAccessTokenRequest
@@ -921,9 +923,9 @@ class UserServiceApi:
 
     @validate_call
     def add_secret(        self,                user_service_add_secret_request: UserServiceAddSecretRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceAddSecretResponse:
-        """AddSecret
+        """Add a Users Secret
 
-        Add a Users Secret   Generates a client secret for the user.  The client id is the users username.  If the user already has a secret, it is overwritten.  Only users of type machine can have a secret.   Required permission:    - user.write
+        Generates a client secret for the user.  The client id is the users username.  If the user already has a secret, it is overwritten.  Only users of type machine can have a secret.   Required permission:    - user.write
 
         :param user_service_add_secret_request: (required)
         :type user_service_add_secret_request: UserServiceAddSecretRequest
@@ -1048,10 +1050,12 @@ class UserServiceApi:
 
 
     @validate_call
-    def create_invite_code(        self,                user_service_create_invite_code_request: UserServiceCreateInviteCodeRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceCreateInviteCodeResponse:
-        """CreateInviteCode
+    def create_invite_code(        self,                user_service_create_invite_code_request: Optional[UserServiceCreateInviteCodeRequest] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceCreateInviteCodeResponse:
+        if user_service_create_invite_code_request is None:
+            user_service_create_invite_code_request = {}
+        """Create an invite code for a user
 
-        Create an invite code for a user   Create an invite code for a user to initialize their first authentication method (password, passkeys, IdP) depending on the organization's available methods.  If an invite code has been created previously, it's url template and application name will be used as defaults for the new code.  The new code will overwrite the previous one and make it invalid.  Note: It is possible to reissue a new code only when the previous code has expired, or when the user provides a wrong code three or more times during verification.
+        Create an invite code for a user to initialize their first authentication method (password, passkeys, IdP) depending on the organization's available methods.  If an invite code has been created previously, it's url template and application name will be used as defaults for the new code.  The new code will overwrite the previous one and make it invalid.  Note: It is possible to reissue a new code only when the previous code has expired, or when the user provides a wrong code three or more times during verification.
 
         :param user_service_create_invite_code_request: (required)
         :type user_service_create_invite_code_request: UserServiceCreateInviteCodeRequest
@@ -1176,10 +1180,12 @@ class UserServiceApi:
 
 
     @validate_call
-    def create_passkey_registration_link(        self,                user_service_create_passkey_registration_link_request: UserServiceCreatePasskeyRegistrationLinkRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceCreatePasskeyRegistrationLinkResponse:
-        """CreatePasskeyRegistrationLink
+    def create_passkey_registration_link(        self,                user_service_create_passkey_registration_link_request: Optional[UserServiceCreatePasskeyRegistrationLinkRequest] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceCreatePasskeyRegistrationLinkResponse:
+        if user_service_create_passkey_registration_link_request is None:
+            user_service_create_passkey_registration_link_request = {}
+        """Create a passkey registration link for a user
 
-        Create a passkey registration link for a user   Create a passkey registration link which includes a code and either return it or send it to the user..
+        Create a passkey registration link which includes a code and either return it or send it to the user..
 
         :param user_service_create_passkey_registration_link_request: (required)
         :type user_service_create_passkey_registration_link_request: UserServiceCreatePasskeyRegistrationLinkRequest
@@ -1304,10 +1310,12 @@ class UserServiceApi:
 
 
     @validate_call
-    def create_user(        self,                user_service_create_user_request: UserServiceCreateUserRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceCreateUserResponse:
-        """CreateUser
+    def create_user(        self,                user_service_create_user_request: Optional[UserServiceCreateUserRequest] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceCreateUserResponse:
+        if user_service_create_user_request is None:
+            user_service_create_user_request = {}
+        """Create a User
 
-        Create a User   Create a new human or machine user in the specified organization.   Required permission:    - user.write
+        Create a new human or machine user in the specified organization.   Required permission:    - user.write
 
         :param user_service_create_user_request: (required)
         :type user_service_create_user_request: UserServiceCreateUserRequest
@@ -1433,9 +1441,9 @@ class UserServiceApi:
 
     @validate_call
     def deactivate_user(        self,                user_service_deactivate_user_request: UserServiceDeactivateUserRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceDeactivateUserResponse:
-        """DeactivateUser
+        """Deactivate user
 
-        Deactivate user   The state of the user will be changed to 'deactivated'. The user will not be able to log in anymore. The endpoint returns an error if the user is already in the state 'deactivated'. Use deactivate user when the user should not be able to use the account anymore, but you still need access to the user data..
+        The state of the user will be changed to 'deactivated'. The user will not be able to log in anymore. The endpoint returns an error if the user is already in the state 'deactivated'. Use deactivate user when the user should not be able to use the account anymore, but you still need access to the user data..
 
         :param user_service_deactivate_user_request: (required)
         :type user_service_deactivate_user_request: UserServiceDeactivateUserRequest
@@ -1561,9 +1569,9 @@ class UserServiceApi:
 
     @validate_call
     def delete_user(        self,                user_service_delete_user_request: UserServiceDeleteUserRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceDeleteUserResponse:
-        """DeleteUser
+        """Delete user
 
-        Delete user   The state of the user will be changed to 'deleted'. The user will not be able to log in anymore. Endpoints requesting this user will return an error 'User not found..
+        The state of the user will be changed to 'deleted'. The user will not be able to log in anymore. Endpoints requesting this user will return an error 'User not found..
 
         :param user_service_delete_user_request: (required)
         :type user_service_delete_user_request: UserServiceDeleteUserRequest
@@ -1689,9 +1697,9 @@ class UserServiceApi:
 
     @validate_call
     def delete_user_metadata(        self,                user_service_delete_user_metadata_request: UserServiceDeleteUserMetadataRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceDeleteUserMetadataResponse:
-        """DeleteUserMetadata
+        """Delete User Metadata
 
-        Delete User Metadata   Delete metadata objects from an user with a specific key.   Required permission:   - `user.write`
+        Delete metadata objects from an user with a specific key.   Required permission:   - `user.write`
 
         :param user_service_delete_user_metadata_request: (required)
         :type user_service_delete_user_metadata_request: UserServiceDeleteUserMetadataRequest
@@ -1817,9 +1825,9 @@ class UserServiceApi:
 
     @validate_call
     def get_user_by_id(        self,                user_service_get_user_by_id_request: UserServiceGetUserByIDRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceGetUserByIDResponse:
-        """GetUserByID
+        """User by ID
 
-        User by ID   Returns the full user object (human or machine) including the profile, email, etc..
+        Returns the full user object (human or machine) including the profile, email, etc..
 
         :param user_service_get_user_by_id_request: (required)
         :type user_service_get_user_by_id_request: UserServiceGetUserByIDRequest
@@ -1945,9 +1953,9 @@ class UserServiceApi:
 
     @validate_call
     def human_mfa_init_skipped(        self,                user_service_human_mfa_init_skipped_request: UserServiceHumanMFAInitSkippedRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceHumanMFAInitSkippedResponse:
-        """HumanMFAInitSkipped
+        """MFA Init Skipped
 
-        MFA Init Skipped   Update the last time the user has skipped MFA initialization. The server timestamp is used.
+        Update the last time the user has skipped MFA initialization. The server timestamp is used.
 
         :param user_service_human_mfa_init_skipped_request: (required)
         :type user_service_human_mfa_init_skipped_request: UserServiceHumanMFAInitSkippedRequest
@@ -2200,9 +2208,9 @@ class UserServiceApi:
 
     @validate_call
     def list_authentication_method_types(        self,                user_service_list_authentication_method_types_request: UserServiceListAuthenticationMethodTypesRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceListAuthenticationMethodTypesResponse:
-        """ListAuthenticationMethodTypes
+        """List all possible authentication methods of a user
 
-        List all possible authentication methods of a user   List all possible authentication methods of a user like password, passwordless, (T)OTP and more..
+        List all possible authentication methods of a user like password, passwordless, (T)OTP and more..
 
         :param user_service_list_authentication_method_types_request: (required)
         :type user_service_list_authentication_method_types_request: UserServiceListAuthenticationMethodTypesRequest
@@ -2328,9 +2336,9 @@ class UserServiceApi:
 
     @validate_call
     def list_idp_links(        self,                user_service_list_idp_links_request: UserServiceListIDPLinksRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceListIDPLinksResponse:
-        """ListIDPLinks
+        """List links to an identity provider of an user
 
-        List links to an identity provider of an user   List links to an identity provider of an user.
+        List links to an identity provider of an user.
 
         :param user_service_list_idp_links_request: (required)
         :type user_service_list_idp_links_request: UserServiceListIDPLinksRequest
@@ -2456,9 +2464,9 @@ class UserServiceApi:
 
     @validate_call
     def list_keys(        self,                user_service_list_keys_request: UserServiceListKeysRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceListKeysResponse:
-        """ListKeys
+        """Search Keys
 
-        Search Keys   List all matching keys. By default all keys of the instance on which the caller has permission to read the owning users are returned.  Make sure to include a limit and sorting for pagination.   Required permission:    - user.read
+        List all matching keys. By default all keys of the instance on which the caller has permission to read the owning users are returned.  Make sure to include a limit and sorting for pagination.   Required permission:    - user.read
 
         :param user_service_list_keys_request: (required)
         :type user_service_list_keys_request: UserServiceListKeysRequest
@@ -2584,9 +2592,9 @@ class UserServiceApi:
 
     @validate_call
     def list_passkeys(        self,                user_service_list_passkeys_request: UserServiceListPasskeysRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceListPasskeysResponse:
-        """ListPasskeys
+        """List passkeys of an user
 
-        List passkeys of an user   List passkeys of an user
+        List passkeys of an user
 
         :param user_service_list_passkeys_request: (required)
         :type user_service_list_passkeys_request: UserServiceListPasskeysRequest
@@ -2712,9 +2720,9 @@ class UserServiceApi:
 
     @validate_call
     def list_personal_access_tokens(        self,                user_service_list_personal_access_tokens_request: UserServiceListPersonalAccessTokensRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceListPersonalAccessTokensResponse:
-        """ListPersonalAccessTokens
+        """Search Personal Access Tokens
 
-        Search Personal Access Tokens   List all personal access tokens. By default all personal access tokens of the instance on which the caller has permission to read the owning users are returned.  Make sure to include a limit and sorting for pagination.   Required permission:    - user.read
+        List all personal access tokens. By default all personal access tokens of the instance on which the caller has permission to read the owning users are returned.  Make sure to include a limit and sorting for pagination.   Required permission:    - user.read
 
         :param user_service_list_personal_access_tokens_request: (required)
         :type user_service_list_personal_access_tokens_request: UserServiceListPersonalAccessTokensRequest
@@ -2840,9 +2848,9 @@ class UserServiceApi:
 
     @validate_call
     def list_user_metadata(        self,                user_service_list_user_metadata_request: UserServiceListUserMetadataRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceListUserMetadataResponse:
-        """ListUserMetadata
+        """List User Metadata
 
-        List User Metadata   List metadata of an user filtered by query.   Required permission:   - `user.read`
+        List metadata of an user filtered by query.   Required permission:   - `user.read`
 
         :param user_service_list_user_metadata_request: (required)
         :type user_service_list_user_metadata_request: UserServiceListUserMetadataRequest
@@ -2968,9 +2976,9 @@ class UserServiceApi:
 
     @validate_call
     def list_users(        self,                user_service_list_users_request: UserServiceListUsersRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceListUsersResponse:
-        """ListUsers
+        """Search Users
 
-        Search Users   Search for users. By default, we will return all users of your instance that you have permission to read. Make sure to include a limit and sorting for pagination.
+        Search for users. By default, we will return all users of your instance that you have permission to read. Make sure to include a limit and sorting for pagination.
 
         :param user_service_list_users_request: (required)
         :type user_service_list_users_request: UserServiceListUsersRequest
@@ -3096,9 +3104,9 @@ class UserServiceApi:
 
     @validate_call
     def lock_user(        self,                user_service_lock_user_request: UserServiceLockUserRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceLockUserResponse:
-        """LockUser
+        """Lock user
 
-        Lock user   The state of the user will be changed to 'locked'. The user will not be able to log in anymore. The endpoint returns an error if the user is already in the state 'locked'. Use this endpoint if the user should not be able to log in temporarily because of an event that happened (wrong password, etc.)..
+        The state of the user will be changed to 'locked'. The user will not be able to log in anymore. The endpoint returns an error if the user is already in the state 'locked'. Use this endpoint if the user should not be able to log in temporarily because of an event that happened (wrong password, etc.)..
 
         :param user_service_lock_user_request: (required)
         :type user_service_lock_user_request: UserServiceLockUserRequest
@@ -3223,10 +3231,12 @@ class UserServiceApi:
 
 
     @validate_call
-    def password_reset(        self,                user_service_password_reset_request: UserServicePasswordResetRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServicePasswordResetResponse:
-        """PasswordReset
+    def password_reset(        self,                user_service_password_reset_request: Optional[UserServicePasswordResetRequest] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServicePasswordResetResponse:
+        if user_service_password_reset_request is None:
+            user_service_password_reset_request = {}
+        """Request a code to reset a password
 
-        Request a code to reset a password   Request a code to reset a password..
+        Request a code to reset a password..
 
         :param user_service_password_reset_request: (required)
         :type user_service_password_reset_request: UserServicePasswordResetRequest
@@ -3352,9 +3362,9 @@ class UserServiceApi:
 
     @validate_call
     def reactivate_user(        self,                user_service_reactivate_user_request: UserServiceReactivateUserRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceReactivateUserResponse:
-        """ReactivateUser
+        """Reactivate user
 
-        Reactivate user   Reactivate a user with the state 'deactivated'. The user will be able to log in again afterward. The endpoint returns an error if the user is not in the state 'deactivated'..
+        Reactivate a user with the state 'deactivated'. The user will be able to log in again afterward. The endpoint returns an error if the user is not in the state 'deactivated'..
 
         :param user_service_reactivate_user_request: (required)
         :type user_service_reactivate_user_request: UserServiceReactivateUserRequest
@@ -3480,9 +3490,9 @@ class UserServiceApi:
 
     @validate_call
     def register_passkey(        self,                user_service_register_passkey_request: UserServiceRegisterPasskeyRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceRegisterPasskeyResponse:
-        """RegisterPasskey
+        """Start the registration of passkey for a user
 
-        Start the registration of passkey for a user   Start the registration of a passkey for a user, as a response the public key credential creation options are returned, which are used to verify the passkey..
+        Start the registration of a passkey for a user, as a response the public key credential creation options are returned, which are used to verify the passkey..
 
         :param user_service_register_passkey_request: (required)
         :type user_service_register_passkey_request: UserServiceRegisterPasskeyRequest
@@ -3608,9 +3618,9 @@ class UserServiceApi:
 
     @validate_call
     def register_totp(        self,                user_service_register_totp_request: UserServiceRegisterTOTPRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceRegisterTOTPResponse:
-        """RegisterTOTP
+        """Start the registration of a TOTP generator for a user
 
-        Start the registration of a TOTP generator for a user   Start the registration of a TOTP generator for a user, as a response a secret returned, which is used to initialize a TOTP app or device..
+        Start the registration of a TOTP generator for a user, as a response a secret returned, which is used to initialize a TOTP app or device..
 
         :param user_service_register_totp_request: (required)
         :type user_service_register_totp_request: UserServiceRegisterTOTPRequest
@@ -3736,9 +3746,9 @@ class UserServiceApi:
 
     @validate_call
     def register_u2_f(        self,                user_service_register_u2_f_request: UserServiceRegisterU2FRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceRegisterU2FResponse:
-        """RegisterU2F
+        """Start the registration of a u2f token for a user
 
-        Start the registration of a u2f token for a user   Start the registration of a u2f token for a user, as a response the public key credential creation options are returned, which are used to verify the u2f token..
+        Start the registration of a u2f token for a user, as a response the public key credential creation options are returned, which are used to verify the u2f token..
 
         :param user_service_register_u2_f_request: (required)
         :type user_service_register_u2_f_request: UserServiceRegisterU2FRequest
@@ -3864,9 +3874,9 @@ class UserServiceApi:
 
     @validate_call
     def remove_idp_link(        self,                user_service_remove_idp_link_request: UserServiceRemoveIDPLinkRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceRemoveIDPLinkResponse:
-        """RemoveIDPLink
+        """Remove link of an identity provider to an user
 
-        Remove link of an identity provider to an user   Remove link of an identity provider to an user.
+        Remove link of an identity provider to an user.
 
         :param user_service_remove_idp_link_request: (required)
         :type user_service_remove_idp_link_request: UserServiceRemoveIDPLinkRequest
@@ -3992,9 +4002,9 @@ class UserServiceApi:
 
     @validate_call
     def remove_key(        self,                user_service_remove_key_request: UserServiceRemoveKeyRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceRemoveKeyResponse:
-        """RemoveKey
+        """Remove a Key
 
-        Remove a Key   Remove a machine users key by the given key ID and an optionally given user ID.   Required permission:    - user.write
+        Remove a machine users key by the given key ID and an optionally given user ID.   Required permission:    - user.write
 
         :param user_service_remove_key_request: (required)
         :type user_service_remove_key_request: UserServiceRemoveKeyRequest
@@ -4120,9 +4130,9 @@ class UserServiceApi:
 
     @validate_call
     def remove_otp_email(        self,                user_service_remove_otp_email_request: UserServiceRemoveOTPEmailRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceRemoveOTPEmailResponse:
-        """RemoveOTPEmail
+        """Remove One-Time Password (OTP) Email from a user
 
-        Remove One-Time Password (OTP) Email from a user   Remove the configured One-Time Password (OTP) Email factor of a user. As only one OTP Email per user is allowed, the user will not have OTP Email as a second factor afterward.
+        Remove the configured One-Time Password (OTP) Email factor of a user. As only one OTP Email per user is allowed, the user will not have OTP Email as a second factor afterward.
 
         :param user_service_remove_otp_email_request: (required)
         :type user_service_remove_otp_email_request: UserServiceRemoveOTPEmailRequest
@@ -4248,9 +4258,9 @@ class UserServiceApi:
 
     @validate_call
     def remove_otpsms(        self,                user_service_remove_otpsms_request: UserServiceRemoveOTPSMSRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceRemoveOTPSMSResponse:
-        """RemoveOTPSMS
+        """Remove One-Time Password (OTP) SMS from a user
 
-        Remove One-Time Password (OTP) SMS from a user   Remove the configured One-Time Password (OTP) SMS factor of a user. As only one OTP SMS per user is allowed, the user will not have OTP SMS as a second factor afterward.
+        Remove the configured One-Time Password (OTP) SMS factor of a user. As only one OTP SMS per user is allowed, the user will not have OTP SMS as a second factor afterward.
 
         :param user_service_remove_otpsms_request: (required)
         :type user_service_remove_otpsms_request: UserServiceRemoveOTPSMSRequest
@@ -4376,9 +4386,9 @@ class UserServiceApi:
 
     @validate_call
     def remove_passkey(        self,                user_service_remove_passkey_request: UserServiceRemovePasskeyRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceRemovePasskeyResponse:
-        """RemovePasskey
+        """Remove passkey from a user
 
-        Remove passkey from a user   Remove passkey from a user.
+        Remove passkey from a user.
 
         :param user_service_remove_passkey_request: (required)
         :type user_service_remove_passkey_request: UserServiceRemovePasskeyRequest
@@ -4504,9 +4514,9 @@ class UserServiceApi:
 
     @validate_call
     def remove_personal_access_token(        self,                user_service_remove_personal_access_token_request: UserServiceRemovePersonalAccessTokenRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceRemovePersonalAccessTokenResponse:
-        """RemovePersonalAccessToken
+        """Remove a Personal Access Token
 
-        Remove a Personal Access Token   Removes a machine users personal access token by the given token ID and an optionally given user ID.   Required permission:    - user.write
+        Removes a machine users personal access token by the given token ID and an optionally given user ID.   Required permission:    - user.write
 
         :param user_service_remove_personal_access_token_request: (required)
         :type user_service_remove_personal_access_token_request: UserServiceRemovePersonalAccessTokenRequest
@@ -4632,9 +4642,9 @@ class UserServiceApi:
 
     @validate_call
     def remove_phone(        self,                user_service_remove_phone_request: UserServiceRemovePhoneRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceRemovePhoneResponse:
-        """RemovePhone
+        """Delete the user phone
 
-        Delete the user phone   Deprecated: [Update the users phone field](apis/resources/user_service_v2/user-service-update-user.api.mdx) to remove the phone number.   Delete the phone number of a user.
+        Deprecated: [Update the users phone field](apis/resources/user_service_v2/user-service-update-user.api.mdx) to remove the phone number.   Delete the phone number of a user.
 
         :param user_service_remove_phone_request: (required)
         :type user_service_remove_phone_request: UserServiceRemovePhoneRequest
@@ -4760,9 +4770,9 @@ class UserServiceApi:
 
     @validate_call
     def remove_secret(        self,                user_service_remove_secret_request: UserServiceRemoveSecretRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceRemoveSecretResponse:
-        """RemoveSecret
+        """Remove a Users Secret
 
-        Remove a Users Secret   Remove the current client ID and client secret from a machine user.   Required permission:    - user.write
+        Remove the current client ID and client secret from a machine user.   Required permission:    - user.write
 
         :param user_service_remove_secret_request: (required)
         :type user_service_remove_secret_request: UserServiceRemoveSecretRequest
@@ -4888,9 +4898,9 @@ class UserServiceApi:
 
     @validate_call
     def remove_totp(        self,                user_service_remove_totp_request: UserServiceRemoveTOTPRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceRemoveTOTPResponse:
-        """RemoveTOTP
+        """Remove TOTP generator from a user
 
-        Remove TOTP generator from a user   Remove the configured TOTP generator of a user. As only one TOTP generator per user is allowed, the user will not have TOTP as a second factor afterward.
+        Remove the configured TOTP generator of a user. As only one TOTP generator per user is allowed, the user will not have TOTP as a second factor afterward.
 
         :param user_service_remove_totp_request: (required)
         :type user_service_remove_totp_request: UserServiceRemoveTOTPRequest
@@ -5016,9 +5026,9 @@ class UserServiceApi:
 
     @validate_call
     def remove_u2_f(        self,                user_service_remove_u2_f_request: UserServiceRemoveU2FRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceRemoveU2FResponse:
-        """RemoveU2F
+        """Remove u2f token from a user
 
-        Remove u2f token from a user   Remove u2f token from a user.
+        Remove u2f token from a user.
 
         :param user_service_remove_u2_f_request: (required)
         :type user_service_remove_u2_f_request: UserServiceRemoveU2FRequest
@@ -5143,8 +5153,10 @@ class UserServiceApi:
 
 
     @validate_call
-    def resend_email_code(        self,                user_service_resend_email_code_request: UserServiceResendEmailCodeRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceResendEmailCodeResponse:
-        """ResendEmailCode
+    def resend_email_code(        self,                user_service_resend_email_code_request: Optional[UserServiceResendEmailCodeRequest] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceResendEmailCodeResponse:
+        if user_service_resend_email_code_request is None:
+            user_service_resend_email_code_request = {}
+        """Resend code to verify user email
 
         Resend code to verify user email
 
@@ -5272,9 +5284,9 @@ class UserServiceApi:
 
     @validate_call
     def resend_invite_code(        self,                user_service_resend_invite_code_request: UserServiceResendInviteCodeRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceResendInviteCodeResponse:
-        """ResendInviteCode
+        """Resend an invite code for a user
 
-        Resend an invite code for a user   Deprecated: Use [CreateInviteCode](apis/resources/user_service_v2/user-service-create-invite-code.api.mdx) instead.   Resend an invite code for a user to initialize their first authentication method (password, passkeys, IdP) depending on the organization's available methods.  A resend is only possible if a code has been created previously and sent to the user. If there is no code or it was directly returned, an error will be returned.
+        Deprecated: Use [CreateInviteCode](apis/resources/user_service_v2/user-service-create-invite-code.api.mdx) instead.   Resend an invite code for a user to initialize their first authentication method (password, passkeys, IdP) depending on the organization's available methods.  A resend is only possible if a code has been created previously and sent to the user. If there is no code or it was directly returned, an error will be returned.
 
         :param user_service_resend_invite_code_request: (required)
         :type user_service_resend_invite_code_request: UserServiceResendInviteCodeRequest
@@ -5399,10 +5411,12 @@ class UserServiceApi:
 
 
     @validate_call
-    def resend_phone_code(        self,                user_service_resend_phone_code_request: UserServiceResendPhoneCodeRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceResendPhoneCodeResponse:
-        """ResendPhoneCode
+    def resend_phone_code(        self,                user_service_resend_phone_code_request: Optional[UserServiceResendPhoneCodeRequest] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceResendPhoneCodeResponse:
+        if user_service_resend_phone_code_request is None:
+            user_service_resend_phone_code_request = {}
+        """Resend code to verify user phone number
 
-        Resend code to verify user phone number   Resend code to verify user phone number.
+        Resend code to verify user phone number.
 
         :param user_service_resend_phone_code_request: (required)
         :type user_service_resend_phone_code_request: UserServiceResendPhoneCodeRequest
@@ -5528,9 +5542,9 @@ class UserServiceApi:
 
     @validate_call
     def retrieve_identity_provider_intent(        self,                user_service_retrieve_identity_provider_intent_request: UserServiceRetrieveIdentityProviderIntentRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceRetrieveIdentityProviderIntentResponse:
-        """RetrieveIdentityProviderIntent
+        """Retrieve the information returned by the identity provider
 
-        Retrieve the information returned by the identity provider   Retrieve the information returned by the identity provider for registration or updating an existing user with new information..
+        Retrieve the information returned by the identity provider for registration or updating an existing user with new information..
 
         :param user_service_retrieve_identity_provider_intent_request: (required)
         :type user_service_retrieve_identity_provider_intent_request: UserServiceRetrieveIdentityProviderIntentRequest
@@ -5655,8 +5669,10 @@ class UserServiceApi:
 
 
     @validate_call
-    def send_email_code(        self,                user_service_send_email_code_request: UserServiceSendEmailCodeRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceSendEmailCodeResponse:
-        """SendEmailCode
+    def send_email_code(        self,                user_service_send_email_code_request: Optional[UserServiceSendEmailCodeRequest] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceSendEmailCodeResponse:
+        if user_service_send_email_code_request is None:
+            user_service_send_email_code_request = {}
+        """Send code to verify user email
 
         Send code to verify user email
 
@@ -5783,10 +5799,12 @@ class UserServiceApi:
 
 
     @validate_call
-    def set_email(        self,                user_service_set_email_request: UserServiceSetEmailRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceSetEmailResponse:
-        """SetEmail
+    def set_email(        self,                user_service_set_email_request: Optional[UserServiceSetEmailRequest] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceSetEmailResponse:
+        if user_service_set_email_request is None:
+            user_service_set_email_request = {}
+        """Change the user email
 
-        Change the user email   Deprecated: [Update the users email field](apis/resources/user_service_v2/user-service-update-user.api.mdx).   Change the email address of a user. If the state is set to not verified, a verification code will be generated, which can be either returned or sent to the user by email..
+        Deprecated: [Update the users email field](apis/resources/user_service_v2/user-service-update-user.api.mdx).   Change the email address of a user. If the state is set to not verified, a verification code will be generated, which can be either returned or sent to the user by email..
 
         :param user_service_set_email_request: (required)
         :type user_service_set_email_request: UserServiceSetEmailRequest
@@ -5911,10 +5929,12 @@ class UserServiceApi:
 
 
     @validate_call
-    def set_password(        self,                user_service_set_password_request: UserServiceSetPasswordRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceSetPasswordResponse:
-        """SetPassword
+    def set_password(        self,                user_service_set_password_request: Optional[UserServiceSetPasswordRequest] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceSetPasswordResponse:
+        if user_service_set_password_request is None:
+            user_service_set_password_request = {}
+        """Change password
 
-        Change password   Deprecated: [Update the users password](apis/resources/user_service_v2/user-service-update-user.api.mdx) instead.   Change the password of a user with either a verification code or the current password..
+        Deprecated: [Update the users password](apis/resources/user_service_v2/user-service-update-user.api.mdx) instead.   Change the password of a user with either a verification code or the current password..
 
         :param user_service_set_password_request: (required)
         :type user_service_set_password_request: UserServiceSetPasswordRequest
@@ -6039,10 +6059,12 @@ class UserServiceApi:
 
 
     @validate_call
-    def set_phone(        self,                user_service_set_phone_request: UserServiceSetPhoneRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceSetPhoneResponse:
-        """SetPhone
+    def set_phone(        self,                user_service_set_phone_request: Optional[UserServiceSetPhoneRequest] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceSetPhoneResponse:
+        if user_service_set_phone_request is None:
+            user_service_set_phone_request = {}
+        """Set the user phone
 
-        Set the user phone   Deprecated: [Update the users phone field](apis/resources/user_service_v2/user-service-update-user.api.mdx).   Set the phone number of a user. If the state is set to not verified, a verification code will be generated, which can be either returned or sent to the user by sms..
+        Deprecated: [Update the users phone field](apis/resources/user_service_v2/user-service-update-user.api.mdx).   Set the phone number of a user. If the state is set to not verified, a verification code will be generated, which can be either returned or sent to the user by sms..
 
         :param user_service_set_phone_request: (required)
         :type user_service_set_phone_request: UserServiceSetPhoneRequest
@@ -6168,9 +6190,9 @@ class UserServiceApi:
 
     @validate_call
     def set_user_metadata(        self,                user_service_set_user_metadata_request: UserServiceSetUserMetadataRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceSetUserMetadataResponse:
-        """SetUserMetadata
+        """Set User Metadata
 
-        Set User Metadata   Sets a list of key value pairs. Existing metadata entries with matching keys are overwritten. Existing metadata entries without matching keys are untouched. To remove metadata entries, use [DeleteUserMetadata](apis/resources/user_service_v2/user-service-delete-user-metadata.api.mdx). For HTTP requests, make sure the bytes array value is base64 encoded.   Required permission:   - `user.write`
+        Sets a list of key value pairs. Existing metadata entries with matching keys are overwritten. Existing metadata entries without matching keys are untouched. To remove metadata entries, use [DeleteUserMetadata](apis/resources/user_service_v2/user-service-delete-user-metadata.api.mdx). For HTTP requests, make sure the bytes array value is base64 encoded.   Required permission:   - `user.write`
 
         :param user_service_set_user_metadata_request: (required)
         :type user_service_set_user_metadata_request: UserServiceSetUserMetadataRequest
@@ -6295,10 +6317,12 @@ class UserServiceApi:
 
 
     @validate_call
-    def start_identity_provider_intent(        self,                user_service_start_identity_provider_intent_request: UserServiceStartIdentityProviderIntentRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceStartIdentityProviderIntentResponse:
-        """StartIdentityProviderIntent
+    def start_identity_provider_intent(        self,                user_service_start_identity_provider_intent_request: Optional[UserServiceStartIdentityProviderIntentRequest] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceStartIdentityProviderIntentResponse:
+        if user_service_start_identity_provider_intent_request is None:
+            user_service_start_identity_provider_intent_request = {}
+        """Start flow with an identity provider
 
-        Start flow with an identity provider   Start a flow with an identity provider, for external login, registration or linking..
+        Start a flow with an identity provider, for external login, registration or linking..
 
         :param user_service_start_identity_provider_intent_request: (required)
         :type user_service_start_identity_provider_intent_request: UserServiceStartIdentityProviderIntentRequest
@@ -6424,9 +6448,9 @@ class UserServiceApi:
 
     @validate_call
     def unlock_user(        self,                user_service_unlock_user_request: UserServiceUnlockUserRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceUnlockUserResponse:
-        """UnlockUser
+        """Unlock user
 
-        Unlock user   The state of the user will be changed to 'active'. The user will be able to log in again. The endpoint returns an error if the user is not in the state 'locked'.
+        The state of the user will be changed to 'active'. The user will be able to log in again. The endpoint returns an error if the user is not in the state 'locked'.
 
         :param user_service_unlock_user_request: (required)
         :type user_service_unlock_user_request: UserServiceUnlockUserRequest
@@ -6552,9 +6576,9 @@ class UserServiceApi:
 
     @validate_call
     def update_human_user(        self,                user_service_update_human_user_request: UserServiceUpdateHumanUserRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceUpdateHumanUserResponse:
-        """UpdateHumanUser
+        """Update Human User
 
-        Update Human User   Deprecated: Use [UpdateUser](apis/resources/user_service_v2/user-service-update-user.api.mdx) to update a user of type human instead.   Update all information from a user.
+        Deprecated: Use [UpdateUser](apis/resources/user_service_v2/user-service-update-user.api.mdx) to update a user of type human instead.   Update all information from a user.
 
         :param user_service_update_human_user_request: (required)
         :type user_service_update_human_user_request: UserServiceUpdateHumanUserRequest
@@ -6679,10 +6703,12 @@ class UserServiceApi:
 
 
     @validate_call
-    def update_user(        self,                user_service_update_user_request: UserServiceUpdateUserRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceUpdateUserResponse:
-        """UpdateUser
+    def update_user(        self,                user_service_update_user_request: Optional[UserServiceUpdateUserRequest] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceUpdateUserResponse:
+        if user_service_update_user_request is None:
+            user_service_update_user_request = {}
+        """Update a User
 
-        Update a User   Partially update an existing user.  If you change the users email or phone, you can specify how the ownership should be verified.  If you change the users password, you can specify if the password should be changed again on the users next login.   Required permission:    - user.write
+        Partially update an existing user.  If you change the users email or phone, you can specify how the ownership should be verified.  If you change the users password, you can specify if the password should be changed again on the users next login.   Required permission:    - user.write
 
         :param user_service_update_user_request: (required)
         :type user_service_update_user_request: UserServiceUpdateUserRequest
@@ -6808,9 +6834,9 @@ class UserServiceApi:
 
     @validate_call
     def verify_email(        self,                user_service_verify_email_request: UserServiceVerifyEmailRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceVerifyEmailResponse:
-        """VerifyEmail
+        """Verify the email
 
-        Verify the email   Verify the email with the generated code.
+        Verify the email with the generated code.
 
         :param user_service_verify_email_request: (required)
         :type user_service_verify_email_request: UserServiceVerifyEmailRequest
@@ -6936,9 +6962,9 @@ class UserServiceApi:
 
     @validate_call
     def verify_invite_code(        self,                user_service_verify_invite_code_request: UserServiceVerifyInviteCodeRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceVerifyInviteCodeResponse:
-        """VerifyInviteCode
+        """Verify an invite code for a user
 
-        Verify an invite code for a user   Verify the invite code of a user previously issued. This will set their email to a verified state and  allow the user to set up their first authentication method (password, passkeys, IdP) depending on the organization's available methods.
+        Verify the invite code of a user previously issued. This will set their email to a verified state and  allow the user to set up their first authentication method (password, passkeys, IdP) depending on the organization's available methods.
 
         :param user_service_verify_invite_code_request: (required)
         :type user_service_verify_invite_code_request: UserServiceVerifyInviteCodeRequest
@@ -7064,9 +7090,9 @@ class UserServiceApi:
 
     @validate_call
     def verify_passkey_registration(        self,                user_service_verify_passkey_registration_request: UserServiceVerifyPasskeyRegistrationRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceVerifyPasskeyRegistrationResponse:
-        """VerifyPasskeyRegistration
+        """Verify a passkey for a user
 
-        Verify a passkey for a user   Verify the passkey registration with the public key credential..
+        Verify the passkey registration with the public key credential..
 
         :param user_service_verify_passkey_registration_request: (required)
         :type user_service_verify_passkey_registration_request: UserServiceVerifyPasskeyRegistrationRequest
@@ -7192,9 +7218,9 @@ class UserServiceApi:
 
     @validate_call
     def verify_phone(        self,                user_service_verify_phone_request: UserServiceVerifyPhoneRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceVerifyPhoneResponse:
-        """VerifyPhone
+        """Verify the phone number
 
-        Verify the phone number   Verify the phone number with the generated code.
+        Verify the phone number with the generated code.
 
         :param user_service_verify_phone_request: (required)
         :type user_service_verify_phone_request: UserServiceVerifyPhoneRequest
@@ -7320,9 +7346,9 @@ class UserServiceApi:
 
     @validate_call
     def verify_totp_registration(        self,                user_service_verify_totp_registration_request: UserServiceVerifyTOTPRegistrationRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceVerifyTOTPRegistrationResponse:
-        """VerifyTOTPRegistration
+        """Verify a TOTP generator for a user
 
-        Verify a TOTP generator for a user   Verify the TOTP registration with a generated code..
+        Verify the TOTP registration with a generated code..
 
         :param user_service_verify_totp_registration_request: (required)
         :type user_service_verify_totp_registration_request: UserServiceVerifyTOTPRegistrationRequest
@@ -7448,9 +7474,9 @@ class UserServiceApi:
 
     @validate_call
     def verify_u2_f_registration(        self,                user_service_verify_u2_f_registration_request: UserServiceVerifyU2FRegistrationRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceVerifyU2FRegistrationResponse:
-        """VerifyU2FRegistration
+        """Verify a u2f token for a user
 
-        Verify a u2f token for a user   Verify the u2f token registration with the public key credential..
+        Verify the u2f token registration with the public key credential..
 
         :param user_service_verify_u2_f_registration_request: (required)
         :type user_service_verify_u2_f_registration_request: UserServiceVerifyU2FRegistrationRequest

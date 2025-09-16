@@ -40,7 +40,9 @@ class BetaOIDCServiceApi:
 
 
     @validate_call
-    def create_callback(        self,                beta_oidc_service_create_callback_request: BetaOIDCServiceCreateCallbackRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaOIDCServiceCreateCallbackResponse:
+    def create_callback(        self,                beta_oidc_service_create_callback_request: Optional[BetaOIDCServiceCreateCallbackRequest] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaOIDCServiceCreateCallbackResponse:
+        if beta_oidc_service_create_callback_request is None:
+            beta_oidc_service_create_callback_request = {}
         """CreateCallback
 
 

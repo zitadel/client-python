@@ -27,8 +27,8 @@ class OrganizationServiceSetHumanProfile(BaseModel):
     """
     OrganizationServiceSetHumanProfile
     """ # noqa: E501
-    given_name: StrictStr = Field(alias="givenName")
-    family_name: StrictStr = Field(alias="familyName")
+    given_name: Optional[StrictStr] = Field(default=None, alias="givenName")
+    family_name: Optional[StrictStr] = Field(default=None, alias="familyName")
     nick_name: Optional[StrictStr] = Field(default=None, alias="nickName")
     display_name: Optional[StrictStr] = Field(default=None, alias="displayName")
     preferred_language: Optional[StrictStr] = Field(default=None, alias="preferredLanguage")

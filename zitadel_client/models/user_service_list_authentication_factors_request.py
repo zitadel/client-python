@@ -28,7 +28,7 @@ class UserServiceListAuthenticationFactorsRequest(BaseModel):
     """
     UserServiceListAuthenticationFactorsRequest
     """ # noqa: E501
-    user_id: StrictStr = Field(alias="userId")
+    user_id: Optional[StrictStr] = Field(default=None, alias="userId")
     auth_factors: Optional[List[UserServiceAuthFactors]] = Field(default=None, alias="authFactors")
     states: Optional[List[UserServiceAuthFactorState]] = None
     __properties: ClassVar[List[str]] = ["userId", "authFactors", "states"]

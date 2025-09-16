@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict
+from typing import Any, ClassVar, Dict, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,8 +26,8 @@ class BetaProjectServiceDeactivateProjectGrantRequest(BaseModel):
     """
     BetaProjectServiceDeactivateProjectGrantRequest
     """ # noqa: E501
-    project_id: StrictStr = Field(description="ID of the project.", alias="projectId")
-    granted_organization_id: StrictStr = Field(description="Organization the project is granted to.", alias="grantedOrganizationId")
+    project_id: Optional[StrictStr] = Field(default=None, description="ID of the project.", alias="projectId")
+    granted_organization_id: Optional[StrictStr] = Field(default=None, description="Organization the project is granted to.", alias="grantedOrganizationId")
     __properties: ClassVar[List[str]] = ["projectId", "grantedOrganizationId"]
 
     model_config = ConfigDict(

@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict
+from typing import Any, ClassVar, Dict, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,7 +26,7 @@ class BetaUserServiceOrganizationIdQuery(BaseModel):
     """
     Query for users under a specific organization as resource owner.
     """ # noqa: E501
-    organization_id: StrictStr = Field(alias="organizationId")
+    organization_id: Optional[StrictStr] = Field(default=None, alias="organizationId")
     __properties: ClassVar[List[str]] = ["organizationId"]
 
     model_config = ConfigDict(

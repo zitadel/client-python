@@ -28,7 +28,7 @@ class UserServiceListUserMetadataRequest(BaseModel):
     """
     UserServiceListUserMetadataRequest
     """ # noqa: E501
-    user_id: StrictStr = Field(description="ID of the user under which the metadata is to be listed.", alias="userId")
+    user_id: Optional[StrictStr] = Field(default=None, description="ID of the user under which the metadata is to be listed.", alias="userId")
     pagination: Optional[UserServicePaginationRequest] = None
     filters: Optional[List[UserServiceMetadataSearchFilter]] = Field(default=None, description="Define the criteria to query for.")
     __properties: ClassVar[List[str]] = ["userId", "pagination", "filters"]

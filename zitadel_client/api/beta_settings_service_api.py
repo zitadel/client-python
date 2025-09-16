@@ -58,7 +58,7 @@ class BetaSettingsServiceApi:
 
     @validate_call
     def get_active_identity_providers(        self,                beta_settings_service_get_active_identity_providers_request: BetaSettingsServiceGetActiveIdentityProvidersRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaSettingsServiceGetActiveIdentityProvidersResponse:
-        """GetActiveIdentityProviders
+        """Get the current active identity providers
 
         Get the current active identity providers
 
@@ -186,7 +186,7 @@ class BetaSettingsServiceApi:
 
     @validate_call
     def get_branding_settings(        self,                beta_settings_service_get_branding_settings_request: BetaSettingsServiceGetBrandingSettingsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaSettingsServiceGetBrandingSettingsResponse:
-        """GetBrandingSettings
+        """Get the current active branding settings
 
         Get the current active branding settings
 
@@ -314,7 +314,7 @@ class BetaSettingsServiceApi:
 
     @validate_call
     def get_domain_settings(        self,                beta_settings_service_get_domain_settings_request: BetaSettingsServiceGetDomainSettingsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaSettingsServiceGetDomainSettingsResponse:
-        """GetDomainSettings
+        """Get the domain settings
 
         Get the domain settings
 
@@ -444,7 +444,7 @@ class BetaSettingsServiceApi:
     def get_general_settings(        self,                body: Optional[Dict[str, Any]] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaSettingsServiceGetGeneralSettingsResponse:
         if body is None:
             body = {}
-        """GetGeneralSettings
+        """Get basic information over the instance
 
         Get basic information over the instance
 
@@ -572,7 +572,7 @@ class BetaSettingsServiceApi:
 
     @validate_call
     def get_legal_and_support_settings(        self,                beta_settings_service_get_legal_and_support_settings_request: BetaSettingsServiceGetLegalAndSupportSettingsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaSettingsServiceGetLegalAndSupportSettingsResponse:
-        """GetLegalAndSupportSettings
+        """Get the legal and support settings
 
         Get the legal and support settings
 
@@ -700,7 +700,7 @@ class BetaSettingsServiceApi:
 
     @validate_call
     def get_lockout_settings(        self,                beta_settings_service_get_lockout_settings_request: BetaSettingsServiceGetLockoutSettingsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaSettingsServiceGetLockoutSettingsResponse:
-        """GetLockoutSettings
+        """Get the lockout settings
 
         Get the lockout settings
 
@@ -828,7 +828,7 @@ class BetaSettingsServiceApi:
 
     @validate_call
     def get_login_settings(        self,                beta_settings_service_get_login_settings_request: BetaSettingsServiceGetLoginSettingsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaSettingsServiceGetLoginSettingsResponse:
-        """GetLoginSettings
+        """Get the login settings
 
         Get the login settings
 
@@ -956,7 +956,7 @@ class BetaSettingsServiceApi:
 
     @validate_call
     def get_password_complexity_settings(        self,                beta_settings_service_get_password_complexity_settings_request: BetaSettingsServiceGetPasswordComplexitySettingsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaSettingsServiceGetPasswordComplexitySettingsResponse:
-        """GetPasswordComplexitySettings
+        """Get the password complexity settings
 
         Get the password complexity settings
 
@@ -1084,7 +1084,7 @@ class BetaSettingsServiceApi:
 
     @validate_call
     def get_password_expiry_settings(        self,                beta_settings_service_get_password_expiry_settings_request: BetaSettingsServiceGetPasswordExpirySettingsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaSettingsServiceGetPasswordExpirySettingsResponse:
-        """GetPasswordExpirySettings
+        """Get the password expiry settings
 
         Get the password expiry settings
 
@@ -1214,7 +1214,7 @@ class BetaSettingsServiceApi:
     def get_security_settings(        self,                body: Optional[Dict[str, Any]] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaSettingsServiceGetSecuritySettingsResponse:
         if body is None:
             body = {}
-        """GetSecuritySettings
+        """Get the security settings
 
         Get the security settings
 
@@ -1342,7 +1342,7 @@ class BetaSettingsServiceApi:
 
     @validate_call
     def set_security_settings(        self,                beta_settings_service_set_security_settings_request: BetaSettingsServiceSetSecuritySettingsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaSettingsServiceSetSecuritySettingsResponse:
-        """SetSecuritySettings
+        """Set the security settings
 
         Set the security settings
 

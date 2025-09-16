@@ -27,7 +27,7 @@ class UserServiceSetPasswordRequest(BaseModel):
     """
     UserServiceSetPasswordRequest
     """ # noqa: E501
-    user_id: StrictStr = Field(alias="userId")
+    user_id: Optional[StrictStr] = Field(default=None, alias="userId")
     new_password: Optional[UserServicePassword] = Field(default=None, alias="newPassword")
     current_password: Optional[StrictStr] = Field(default=None, alias="currentPassword")
     verification_code: Optional[StrictStr] = Field(default=None, alias="verificationCode")

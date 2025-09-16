@@ -39,9 +39,9 @@ class IdentityProviderServiceApi:
 
     @validate_call
     def get_idpby_id(        self,                identity_provider_service_get_idpby_id_request: IdentityProviderServiceGetIDPByIDRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> IdentityProviderServiceGetIDPByIDResponse:
-        """GetIDPByID
+        """Get identity provider (IdP) by ID
 
-        Get identity provider (IdP) by ID   Returns an identity provider (social/enterprise login) by its ID, which can be of the type Google, AzureAD, etc.
+        Returns an identity provider (social/enterprise login) by its ID, which can be of the type Google, AzureAD, etc.
 
         :param identity_provider_service_get_idpby_id_request: (required)
         :type identity_provider_service_get_idpby_id_request: IdentityProviderServiceGetIDPByIDRequest
