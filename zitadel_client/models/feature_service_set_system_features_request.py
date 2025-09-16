@@ -33,11 +33,10 @@ class FeatureServiceSetSystemFeaturesRequest(BaseModel):
     oidc_token_exchange: Optional[StrictBool] = Field(default=None, alias="oidcTokenExchange")
     improved_performance: Optional[List[FeatureServiceImprovedPerformance]] = Field(default=None, alias="improvedPerformance")
     oidc_single_v1_session_termination: Optional[StrictBool] = Field(default=None, alias="oidcSingleV1SessionTermination")
-    disable_user_token_event: Optional[StrictBool] = Field(default=None, alias="disableUserTokenEvent")
     enable_back_channel_logout: Optional[StrictBool] = Field(default=None, alias="enableBackChannelLogout")
     login_v2: Optional[FeatureServiceLoginV2] = Field(default=None, alias="loginV2")
     permission_check_v2: Optional[StrictBool] = Field(default=None, alias="permissionCheckV2")
-    __properties: ClassVar[List[str]] = ["loginDefaultOrg", "userSchema", "oidcTokenExchange", "improvedPerformance", "oidcSingleV1SessionTermination", "disableUserTokenEvent", "enableBackChannelLogout", "loginV2", "permissionCheckV2"]
+    __properties: ClassVar[List[str]] = ["loginDefaultOrg", "userSchema", "oidcTokenExchange", "improvedPerformance", "oidcSingleV1SessionTermination", "enableBackChannelLogout", "loginV2", "permissionCheckV2"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -101,11 +100,6 @@ class FeatureServiceSetSystemFeaturesRequest(BaseModel):
         if self.oidc_single_v1_session_termination is None and "oidc_single_v1_session_termination" in self.model_fields_set:
             _dict['oidcSingleV1SessionTermination'] = None
 
-        # set to None if disable_user_token_event (nullable) is None
-        # and model_fields_set contains the field
-        if self.disable_user_token_event is None and "disable_user_token_event" in self.model_fields_set:
-            _dict['disableUserTokenEvent'] = None
-
         # set to None if enable_back_channel_logout (nullable) is None
         # and model_fields_set contains the field
         if self.enable_back_channel_logout is None and "enable_back_channel_logout" in self.model_fields_set:
@@ -133,7 +127,6 @@ class FeatureServiceSetSystemFeaturesRequest(BaseModel):
             "oidcTokenExchange": obj.get("oidcTokenExchange"),
             "improvedPerformance": obj.get("improvedPerformance"),
             "oidcSingleV1SessionTermination": obj.get("oidcSingleV1SessionTermination"),
-            "disableUserTokenEvent": obj.get("disableUserTokenEvent"),
             "enableBackChannelLogout": obj.get("enableBackChannelLogout"),
             "loginV2": FeatureServiceLoginV2.from_dict(obj["loginV2"]) if obj.get("loginV2") is not None else None,
             "permissionCheckV2": obj.get("permissionCheckV2")

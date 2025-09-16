@@ -18,23 +18,20 @@ from enum import Enum
 from typing_extensions import Self
 
 
-class BetaFeatureServiceImprovedPerformance(str, Enum):
+class UserServiceByteFilterMethod(str, Enum):
     """
-    BetaFeatureServiceImprovedPerformance
+    UserServiceByteFilterMethod
     """
 
     """
     allowed enum values
     """
-    IMPROVED_PERFORMANCE_UNSPECIFIED = 'IMPROVED_PERFORMANCE_UNSPECIFIED'
-    IMPROVED_PERFORMANCE_PROJECT_GRANT = 'IMPROVED_PERFORMANCE_PROJECT_GRANT'
-    IMPROVED_PERFORMANCE_PROJECT = 'IMPROVED_PERFORMANCE_PROJECT'
-    IMPROVED_PERFORMANCE_USER_GRANT = 'IMPROVED_PERFORMANCE_USER_GRANT'
-    IMPROVED_PERFORMANCE_ORG_DOMAIN_VERIFIED = 'IMPROVED_PERFORMANCE_ORG_DOMAIN_VERIFIED'
+    BYTE_FILTER_METHOD_EQUALS = 'BYTE_FILTER_METHOD_EQUALS'
+    BYTE_FILTER_METHOD_NOT_EQUALS = 'BYTE_FILTER_METHOD_NOT_EQUALS'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:
-        """Create an instance of BetaFeatureServiceImprovedPerformance from a JSON string"""
+        """Create an instance of UserServiceByteFilterMethod from a JSON string"""
         return cls(json.loads(json_str))
 
 

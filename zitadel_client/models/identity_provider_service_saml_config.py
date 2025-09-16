@@ -21,6 +21,7 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictBytes, Stri
 from typing import Any, ClassVar, Dict, Optional, Union
 from zitadel_client.models.identity_provider_service_saml_binding import IdentityProviderServiceSAMLBinding
 from zitadel_client.models.identity_provider_service_saml_name_id_format import IdentityProviderServiceSAMLNameIDFormat
+from zitadel_client.models.identity_provider_service_saml_signature_algorithm import IdentityProviderServiceSAMLSignatureAlgorithm
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -34,7 +35,8 @@ class IdentityProviderServiceSAMLConfig(BaseModel):
     name_id_format: Optional[IdentityProviderServiceSAMLNameIDFormat] = Field(default=None, alias="nameIdFormat")
     transient_mapping_attribute_name: Optional[StrictStr] = Field(default=None, description="Optional name of the attribute, which will be used to map the user  in case the nameid-format returned is  `urn:oasis:names:tc:SAML:2.0:nameid-format:transient`.", alias="transientMappingAttributeName")
     federated_logout_enabled: Optional[StrictBool] = Field(default=None, description="Boolean weather federated logout is enabled. If enabled, ZITADEL will send a logout request to the identity provider,  if the user terminates the session in ZITADEL. Be sure to provide a SLO endpoint as part of the metadata.", alias="federatedLogoutEnabled")
-    __properties: ClassVar[List[str]] = ["metadataXml", "binding", "withSignedRequest", "nameIdFormat", "transientMappingAttributeName", "federatedLogoutEnabled"]
+    signature_algorithm: Optional[IdentityProviderServiceSAMLSignatureAlgorithm] = Field(default=None, alias="signatureAlgorithm")
+    __properties: ClassVar[List[str]] = ["metadataXml", "binding", "withSignedRequest", "nameIdFormat", "transientMappingAttributeName", "federatedLogoutEnabled", "signatureAlgorithm"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -102,7 +104,8 @@ class IdentityProviderServiceSAMLConfig(BaseModel):
             "withSignedRequest": obj.get("withSignedRequest"),
             "nameIdFormat": obj.get("nameIdFormat"),
             "transientMappingAttributeName": obj.get("transientMappingAttributeName"),
-            "federatedLogoutEnabled": obj.get("federatedLogoutEnabled")
+            "federatedLogoutEnabled": obj.get("federatedLogoutEnabled"),
+            "signatureAlgorithm": obj.get("signatureAlgorithm")
         })
         return _obj
 

@@ -443,7 +443,7 @@ class BetaInstanceServiceApi:
     def get_instance(        self,                beta_instance_service_get_instance_request: BetaInstanceServiceGetInstanceRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaInstanceServiceGetInstanceResponse:
         """GetInstance
 
-        Get Instance   Returns the instance in the current context.   The instace_id in the input message will be used in the future.   Required permissions:    - `iam.read`
+        Get Instance   Returns the instance in the current context.   The instance_id in the input message will be used in the future.   Required permissions:    - `iam.read`
 
         :param beta_instance_service_get_instance_request: (required)
         :type beta_instance_service_get_instance_request: BetaInstanceServiceGetInstanceRequest

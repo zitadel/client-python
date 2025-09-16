@@ -18,23 +18,22 @@ from enum import Enum
 from typing_extensions import Self
 
 
-class BetaFeatureServiceImprovedPerformance(str, Enum):
+class IdentityProviderServiceSAMLSignatureAlgorithm(str, Enum):
     """
-    BetaFeatureServiceImprovedPerformance
+    IdentityProviderServiceSAMLSignatureAlgorithm
     """
 
     """
     allowed enum values
     """
-    IMPROVED_PERFORMANCE_UNSPECIFIED = 'IMPROVED_PERFORMANCE_UNSPECIFIED'
-    IMPROVED_PERFORMANCE_PROJECT_GRANT = 'IMPROVED_PERFORMANCE_PROJECT_GRANT'
-    IMPROVED_PERFORMANCE_PROJECT = 'IMPROVED_PERFORMANCE_PROJECT'
-    IMPROVED_PERFORMANCE_USER_GRANT = 'IMPROVED_PERFORMANCE_USER_GRANT'
-    IMPROVED_PERFORMANCE_ORG_DOMAIN_VERIFIED = 'IMPROVED_PERFORMANCE_ORG_DOMAIN_VERIFIED'
+    SAML_SIGNATURE_UNSPECIFIED = 'SAML_SIGNATURE_UNSPECIFIED'
+    SAML_SIGNATURE_RSA_SHA1 = 'SAML_SIGNATURE_RSA_SHA1'
+    SAML_SIGNATURE_RSA_SHA256 = 'SAML_SIGNATURE_RSA_SHA256'
+    SAML_SIGNATURE_RSA_SHA512 = 'SAML_SIGNATURE_RSA_SHA512'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:
-        """Create an instance of BetaFeatureServiceImprovedPerformance from a JSON string"""
+        """Create an instance of IdentityProviderServiceSAMLSignatureAlgorithm from a JSON string"""
         return cls(json.loads(json_str))
 
 
