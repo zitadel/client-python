@@ -26,6 +26,8 @@ from zitadel_client.models.user_service_in_user_emails_query import UserServiceI
 from zitadel_client.models.user_service_in_user_id_query import UserServiceInUserIDQuery
 from zitadel_client.models.user_service_last_name_query import UserServiceLastNameQuery
 from zitadel_client.models.user_service_login_name_query import UserServiceLoginNameQuery
+from zitadel_client.models.user_service_metadata_key_filter import UserServiceMetadataKeyFilter
+from zitadel_client.models.user_service_metadata_value_filter import UserServiceMetadataValueFilter
 from zitadel_client.models.user_service_nick_name_query import UserServiceNickNameQuery
 from zitadel_client.models.user_service_organization_id_query import UserServiceOrganizationIdQuery
 from zitadel_client.models.user_service_phone_query import UserServicePhoneQuery
@@ -47,6 +49,8 @@ class UserServiceSearchQuery(BaseModel):
     in_user_ids_query: Optional[UserServiceInUserIDQuery] = Field(default=None, alias="inUserIdsQuery")
     last_name_query: Optional[UserServiceLastNameQuery] = Field(default=None, alias="lastNameQuery")
     login_name_query: Optional[UserServiceLoginNameQuery] = Field(default=None, alias="loginNameQuery")
+    metadata_key_filter: Optional[UserServiceMetadataKeyFilter] = Field(default=None, alias="metadataKeyFilter")
+    metadata_value_filter: Optional[UserServiceMetadataValueFilter] = Field(default=None, alias="metadataValueFilter")
     nick_name_query: Optional[UserServiceNickNameQuery] = Field(default=None, alias="nickNameQuery")
     not_query: Optional[UserServiceNotQuery] = Field(default=None, alias="notQuery")
     or_query: Optional[UserServiceOrQuery] = Field(default=None, alias="orQuery")
@@ -55,7 +59,7 @@ class UserServiceSearchQuery(BaseModel):
     state_query: Optional[UserServiceStateQuery] = Field(default=None, alias="stateQuery")
     type_query: Optional[UserServiceTypeQuery] = Field(default=None, alias="typeQuery")
     user_name_query: Optional[UserServiceUserNameQuery] = Field(default=None, alias="userNameQuery")
-    __properties: ClassVar[List[str]] = ["andQuery", "displayNameQuery", "emailQuery", "firstNameQuery", "inUserEmailsQuery", "inUserIdsQuery", "lastNameQuery", "loginNameQuery", "nickNameQuery", "notQuery", "orQuery", "organizationIdQuery", "phoneQuery", "stateQuery", "typeQuery", "userNameQuery"]
+    __properties: ClassVar[List[str]] = ["andQuery", "displayNameQuery", "emailQuery", "firstNameQuery", "inUserEmailsQuery", "inUserIdsQuery", "lastNameQuery", "loginNameQuery", "metadataKeyFilter", "metadataValueFilter", "nickNameQuery", "notQuery", "orQuery", "organizationIdQuery", "phoneQuery", "stateQuery", "typeQuery", "userNameQuery"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -120,6 +124,12 @@ class UserServiceSearchQuery(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of login_name_query
         if self.login_name_query:
             _dict['loginNameQuery'] = self.login_name_query.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of metadata_key_filter
+        if self.metadata_key_filter:
+            _dict['metadataKeyFilter'] = self.metadata_key_filter.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of metadata_value_filter
+        if self.metadata_value_filter:
+            _dict['metadataValueFilter'] = self.metadata_value_filter.to_dict()
         # override the default output from pydantic by calling `to_dict()` of nick_name_query
         if self.nick_name_query:
             _dict['nickNameQuery'] = self.nick_name_query.to_dict()
@@ -164,6 +174,8 @@ class UserServiceSearchQuery(BaseModel):
             "inUserIdsQuery": UserServiceInUserIDQuery.from_dict(obj["inUserIdsQuery"]) if obj.get("inUserIdsQuery") is not None else None,
             "lastNameQuery": UserServiceLastNameQuery.from_dict(obj["lastNameQuery"]) if obj.get("lastNameQuery") is not None else None,
             "loginNameQuery": UserServiceLoginNameQuery.from_dict(obj["loginNameQuery"]) if obj.get("loginNameQuery") is not None else None,
+            "metadataKeyFilter": UserServiceMetadataKeyFilter.from_dict(obj["metadataKeyFilter"]) if obj.get("metadataKeyFilter") is not None else None,
+            "metadataValueFilter": UserServiceMetadataValueFilter.from_dict(obj["metadataValueFilter"]) if obj.get("metadataValueFilter") is not None else None,
             "nickNameQuery": UserServiceNickNameQuery.from_dict(obj["nickNameQuery"]) if obj.get("nickNameQuery") is not None else None,
             "notQuery": UserServiceNotQuery.from_dict(obj["notQuery"]) if obj.get("notQuery") is not None else None,
             "orQuery": UserServiceOrQuery.from_dict(obj["orQuery"]) if obj.get("orQuery") is not None else None,

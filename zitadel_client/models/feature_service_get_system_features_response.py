@@ -36,11 +36,10 @@ class FeatureServiceGetSystemFeaturesResponse(BaseModel):
     oidc_token_exchange: Optional[FeatureServiceFeatureFlag] = Field(default=None, alias="oidcTokenExchange")
     improved_performance: Optional[FeatureServiceImprovedPerformanceFeatureFlag] = Field(default=None, alias="improvedPerformance")
     oidc_single_v1_session_termination: Optional[FeatureServiceFeatureFlag] = Field(default=None, alias="oidcSingleV1SessionTermination")
-    disable_user_token_event: Optional[FeatureServiceFeatureFlag] = Field(default=None, alias="disableUserTokenEvent")
     enable_back_channel_logout: Optional[FeatureServiceFeatureFlag] = Field(default=None, alias="enableBackChannelLogout")
     login_v2: Optional[FeatureServiceLoginV2FeatureFlag] = Field(default=None, alias="loginV2")
     permission_check_v2: Optional[FeatureServiceFeatureFlag] = Field(default=None, alias="permissionCheckV2")
-    __properties: ClassVar[List[str]] = ["details", "loginDefaultOrg", "userSchema", "oidcTokenExchange", "improvedPerformance", "oidcSingleV1SessionTermination", "disableUserTokenEvent", "enableBackChannelLogout", "loginV2", "permissionCheckV2"]
+    __properties: ClassVar[List[str]] = ["details", "loginDefaultOrg", "userSchema", "oidcTokenExchange", "improvedPerformance", "oidcSingleV1SessionTermination", "enableBackChannelLogout", "loginV2", "permissionCheckV2"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -99,9 +98,6 @@ class FeatureServiceGetSystemFeaturesResponse(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of oidc_single_v1_session_termination
         if self.oidc_single_v1_session_termination:
             _dict['oidcSingleV1SessionTermination'] = self.oidc_single_v1_session_termination.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of disable_user_token_event
-        if self.disable_user_token_event:
-            _dict['disableUserTokenEvent'] = self.disable_user_token_event.to_dict()
         # override the default output from pydantic by calling `to_dict()` of enable_back_channel_logout
         if self.enable_back_channel_logout:
             _dict['enableBackChannelLogout'] = self.enable_back_channel_logout.to_dict()
@@ -129,7 +125,6 @@ class FeatureServiceGetSystemFeaturesResponse(BaseModel):
             "oidcTokenExchange": FeatureServiceFeatureFlag.from_dict(obj["oidcTokenExchange"]) if obj.get("oidcTokenExchange") is not None else None,
             "improvedPerformance": FeatureServiceImprovedPerformanceFeatureFlag.from_dict(obj["improvedPerformance"]) if obj.get("improvedPerformance") is not None else None,
             "oidcSingleV1SessionTermination": FeatureServiceFeatureFlag.from_dict(obj["oidcSingleV1SessionTermination"]) if obj.get("oidcSingleV1SessionTermination") is not None else None,
-            "disableUserTokenEvent": FeatureServiceFeatureFlag.from_dict(obj["disableUserTokenEvent"]) if obj.get("disableUserTokenEvent") is not None else None,
             "enableBackChannelLogout": FeatureServiceFeatureFlag.from_dict(obj["enableBackChannelLogout"]) if obj.get("enableBackChannelLogout") is not None else None,
             "loginV2": FeatureServiceLoginV2FeatureFlag.from_dict(obj["loginV2"]) if obj.get("loginV2") is not None else None,
             "permissionCheckV2": FeatureServiceFeatureFlag.from_dict(obj["permissionCheckV2"]) if obj.get("permissionCheckV2") is not None else None
