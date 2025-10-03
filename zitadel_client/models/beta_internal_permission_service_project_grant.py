@@ -27,8 +27,8 @@ class BetaInternalPermissionServiceProjectGrant(BaseModel):
     BetaInternalPermissionServiceProjectGrant
     """ # noqa: E501
     project_id: Optional[StrictStr] = Field(default=None, description="ProjectID is required to grant administrator privileges for a specific project.", alias="projectId")
-    project_grant_id: Optional[StrictStr] = Field(default=None, description="ProjectGrantID is required to grant administrator privileges for a specific project grant.", alias="projectGrantId")
-    __properties: ClassVar[List[str]] = ["projectId", "projectGrantId"]
+    organization_id: Optional[StrictStr] = Field(default=None, description="OrganizationID is required to grant administrator privileges for a specific project grant.", alias="organizationId")
+    __properties: ClassVar[List[str]] = ["projectId", "organizationId"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -82,7 +82,7 @@ class BetaInternalPermissionServiceProjectGrant(BaseModel):
 
         _obj = cls.model_validate({
             "projectId": obj.get("projectId"),
-            "projectGrantId": obj.get("projectGrantId")
+            "organizationId": obj.get("organizationId")
         })
         return _obj
 
