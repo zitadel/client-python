@@ -40,7 +40,7 @@ jobs:
           cache: 'poetry'
 
       - name: Install Dependencies
-        run: poetry install --no-interaction --sync --all-extras
+        run: poetry install --no-interaction --sync --with dev --all-extras
 
       - name: Inspect Dependencies
         uses: mridang/action-dependency-insight@v1
