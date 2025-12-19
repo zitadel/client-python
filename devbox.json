@@ -3,7 +3,7 @@
   "packages": [
     "poetry@latest",
     "lefthook@latest",
-    "python39@latest"
+    "python310@latest"
   ],
   "env": {
     "POETRY_CACHE_DIR": "$PWD/.poetry"
