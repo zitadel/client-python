@@ -2,115 +2,50 @@
   "lockfile_version": "1",
   "packages": {
     "lefthook@latest": {
-      "last_modified": "2025-04-07T13:23:10Z",
-      "resolved": "github:NixOS/nixpkgs/b0b4b5f8f621bfe213b8b21694bab52ecfcbf30b#lefthook",
+      "last_modified": "2025-12-09T08:49:39Z",
+      "resolved": "github:NixOS/nixpkgs/677fbe97984e7af3175b6c121f3c39ee5c8d62c9#lefthook",
       "source": "devbox-search",
-      "version": "1.11.5",
+      "version": "2.0.7",
       "systems": {
         "aarch64-darwin": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/4fmy4hm7wq4knkgr22afradj65dhl44j-lefthook-1.11.5",
+              "path": "/nix/store/7abrixpmc3jy90ckm090qlvw04038h2g-lefthook-2.0.7",
               "default": true
             }
           ],
-          "store_path": "/nix/store/4fmy4hm7wq4knkgr22afradj65dhl44j-lefthook-1.11.5"
+          "store_path": "/nix/store/7abrixpmc3jy90ckm090qlvw04038h2g-lefthook-2.0.7"
         },
         "aarch64-linux": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/gbzlzd5kri8q91hsr0a5ndsqwzar6c80-lefthook-1.11.5",
+              "path": "/nix/store/sighx46zkcvc6mhv2pb55yic2aqmzjig-lefthook-2.0.7",
               "default": true
             }
           ],
-          "store_path": "/nix/store/gbzlzd5kri8q91hsr0a5ndsqwzar6c80-lefthook-1.11.5"
+          "store_path": "/nix/store/sighx46zkcvc6mhv2pb55yic2aqmzjig-lefthook-2.0.7"
         },
         "x86_64-darwin": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/91ngsvl5frcd6fa21b2wp0mrz2mxv0c9-lefthook-1.11.5",
+              "path": "/nix/store/0y2ni7hvwx5rsqhnh4j57imb8lcy03gm-lefthook-2.0.7",
               "default": true
             }
           ],
-          "store_path": "/nix/store/91ngsvl5frcd6fa21b2wp0mrz2mxv0c9-lefthook-1.11.5"
+          "store_path": "/nix/store/0y2ni7hvwx5rsqhnh4j57imb8lcy03gm-lefthook-2.0.7"
         },
         "x86_64-linux": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/bza0zs1fhm718vq4xr0n8rg4lnbj65p2-lefthook-1.11.5",
+              "path": "/nix/store/f1sn8v6nbhfxc7c33lxh4xyhzah0b30d-lefthook-2.0.7",
               "default": true
             }
           ],
-          "store_path": "/nix/store/bza0zs1fhm718vq4xr0n8rg4lnbj65p2-lefthook-1.11.5"
-        }
-      }
-    },
-    "poetry@latest": {
-      "last_modified": "2025-11-26T06:22:50Z",
-      "plugin_version": "0.0.4",
-      "resolved": "github:NixOS/nixpkgs/bb813de6d2241bcb1b5af2d3059f560c66329967#poetry",
-      "source": "devbox-search",
-      "version": "2.2.1",
-      "systems": {
-        "aarch64-darwin": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/sfsxq068qvwpq7vwb0743m7isk7mbhwv-python3.13-poetry-2.2.1",
-              "default": true
-            },
-            {
-              "name": "dist",
-              "path": "/nix/store/4yfah728gxi2p5gmn5mb5civh5cd3pi7-python3.13-poetry-2.2.1-dist"
-            }
-          ],
-          "store_path": "/nix/store/sfsxq068qvwpq7vwb0743m7isk7mbhwv-python3.13-poetry-2.2.1"
-        },
-        "aarch64-linux": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/jaah5kv576z0i6sl8zcjxwnd1nf8xhqm-python3.13-poetry-2.2.1",
-              "default": true
-            },
-            {
-              "name": "dist",
-              "path": "/nix/store/jn3mq4ccbvpnhgiki3n9q2pl3wsllhzr-python3.13-poetry-2.2.1-dist"
-            }
-          ],
-          "store_path": "/nix/store/jaah5kv576z0i6sl8zcjxwnd1nf8xhqm-python3.13-poetry-2.2.1"
-        },
-        "x86_64-darwin": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/aj5kr9p7d7skbacqkk949yk1s9axxka2-python3.13-poetry-2.2.1",
-              "default": true
-            },
-            {
-              "name": "dist",
-              "path": "/nix/store/w6ipm3dpg44xcfks78n2iqdg5mq51n4d-python3.13-poetry-2.2.1-dist"
-            }
-          ],
-          "store_path": "/nix/store/aj5kr9p7d7skbacqkk949yk1s9axxka2-python3.13-poetry-2.2.1"
-        },
-        "x86_64-linux": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/jgi0jzxlm08qk7vnx1w3wmhyn4cchf47-python3.13-poetry-2.2.1",
-              "default": true
-            },
-            {
-              "name": "dist",
-              "path": "/nix/store/mmhq14nsa1vqkw4rqr7lcbhvih3fm4nk-python3.13-poetry-2.2.1-dist"
-            }
-          ],
-          "store_path": "/nix/store/jgi0jzxlm08qk7vnx1w3wmhyn4cchf47-python3.13-poetry-2.2.1"
+          "store_path": "/nix/store/f1sn8v6nbhfxc7c33lxh4xyhzah0b30d-lefthook-2.0.7"
         }
       }
     },
@@ -168,6 +103,54 @@
             }
           ],
           "store_path": "/nix/store/y497kak0610kfdvswb0pjiaf5yq4d8zk-python3-3.10.19"
+        }
+      }
+    },
+    "uv@latest": {
+      "last_modified": "2025-12-11T04:04:52Z",
+      "resolved": "github:NixOS/nixpkgs/5d6bdbddb4695a62f0d00a3620b37a15275a5093#uv",
+      "source": "devbox-search",
+      "version": "0.9.17",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/s76k2a0z3kjdpnzdd84mj80zxij0s0q5-uv-0.9.17",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/s76k2a0z3kjdpnzdd84mj80zxij0s0q5-uv-0.9.17"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/83m98ym7hgd4h17l9gcj2j07jvkbvs4n-uv-0.9.17",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/83m98ym7hgd4h17l9gcj2j07jvkbvs4n-uv-0.9.17"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/89h92dwway6vvv4wl4r2vblrsiq3r33i-uv-0.9.17",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/89h92dwway6vvv4wl4r2vblrsiq3r33i-uv-0.9.17"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/xy57b66dwdpc554zxh43ya7d980k5gsw-uv-0.9.17",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/xy57b66dwdpc554zxh43ya7d980k5gsw-uv-0.9.17"
         }
       }
     }
