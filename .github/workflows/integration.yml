@@ -40,19 +40,16 @@ jobs:
           ref: ${{ inputs.sanity_ref }}
           path: project/sanity
 
-      - name: Install poetry
-        run: |
-          echo "Installing latest Poetry for Python ${{ matrix.python-version }}"
-          pipx install poetry
-
-      - name: Setup Python
-        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v4
         with:
           python-version: ${{ matrix.python-version }}
-          cache: 'poetry'
 
       - name: Check Installability
         working-directory: project/sanity
         run: |
-          poetry add zitadel-client@../library
-          poetry run python main.py
+          uv venv --python ${{ matrix.python-version }}
+          source .venv/bin/activate
+          if [ -f requirements.txt ]; then uv pip install -r requirements.txt; fi
+          uv pip install ../library
+          python main.py

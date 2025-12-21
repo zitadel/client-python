@@ -24,7 +24,7 @@
     [
       "@semantic-release/exec",
       {
-        "prepareCmd": "poetry install --no-interaction --sync --all-extras"
+        "prepareCmd": "uv sync --group dev --frozen"
       }
     ],
     [

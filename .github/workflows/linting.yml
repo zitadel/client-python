@@ -36,21 +36,16 @@ jobs:
         with:
           ref: ${{ inputs.ref }}
 
-      - name: Install poetry
-        run: |
-          pipx install poetry
-
-      - name: Setup Python
-        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v4
         with:
-          python-version-file: 'pyproject.toml'
-          cache: 'poetry'
+          python-version: "3.10"
 
-      - name: Install Dependencies
-        run: poetry install --no-interaction --sync --with dev --all-extras
+      - name: Install dependencies
+        run: uv sync --group dev --frozen
 
       - name: Run Formatter
-        run: poetry run ruff format .
+        run: uv run ruff format .
 
       - name: Commit Changes
         if: ${{ inputs.commit_changes == true }}
