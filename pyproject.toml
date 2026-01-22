@@ -60,6 +60,7 @@ include-package-data = true
 envlist = ["py310", "py311", "py312"]
 
 [tool.pytest.ini_options]
+cache_dir = ".pytest"
 testpaths = ["test", "spec"]
 python_files = "test_*.py *_spec.py"
 addopts = [
@@ -78,6 +79,7 @@ omit = [
 ]
 
 [tool.ruff]
+cache-dir = ".ruff"
 line-length = 130
 fix = true
 target-version = "py310"
@@ -99,7 +101,8 @@ ignore_unused = [
   "sphinx",
   "tox",
   "requests",
-  "ty"
+  "ty",
+  "tomlkit"
 ]
 
 [tool.ty.environment]
