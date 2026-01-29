@@ -33,8 +33,8 @@ Zitadel website and obtain the necessary credentials to access the API.
 
 ### Minimum Requirements
 
-Ensure you have Python 3 or higher installed. You also need Poetry to
-install dependencies.
+Ensure you have Python 3 or higher installed. You also need
+[uv](https://docs.astral.sh/uv/) to install dependencies (`uv sync --group dev`).
 
 ## Using the SDK
 

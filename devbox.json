@@ -1,28 +1,28 @@
 {
   "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.10.7/.schema/devbox.schema.json",
   "packages": [
-    "poetry@latest",
+    "uv@latest",
     "lefthook@latest",
     "python310@latest"
   ],
   "env": {
-    "POETRY_CACHE_DIR": "$PWD/.poetry"
+    "UV_CACHE_DIR": "$PWD/.uv-cache"
   },
   "shell": {
     "init_hook": [
       "lefthook install",
-      "poetry install"
+      "uv sync --all-extras --group dev"
     ],
     "scripts": {
       "format": [
-        "poetry run ruff format ."
+        "uv run ruff format ."
       ],
       "test": [
-        "poetry run pytest"
+        "uv run pytest"
       ],
       "check": [
-        "poetry run ruff check .",
-        "poetry run mypy"
+        "uv run ruff check .",
+        "uv run ty check"
       ],
       "replit": [
         "docker build --tag python-repl --file Dockerfile .",
@@ -32,7 +32,7 @@
         "composer docgen"
       ],
       "depcheck": [
-        "poetry run fawltydeps"
+        "uv run fawltydeps"
       ]
     }
   }

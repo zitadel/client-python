@@ -24,7 +24,7 @@
     [
       "@semantic-release/exec",
       {
-        "prepareCmd": "poetry install --no-interaction --sync --all-extras"
+        "prepareCmd": "uv sync --group dev --frozen"
       }
     ],
     [
@@ -50,7 +50,12 @@
         ]
       }
     ],
-    "semantic-release-pypi",
+    [
+      "semantic-release-pypi",
+      {
+        "versionCmd": "uv version ${version}"
+      }
+    ],
     [
       "@semantic-release/git",
       {

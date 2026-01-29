@@ -4,10 +4,10 @@ pre-commit:
   commands:
     format:
       glob: "*.py"
-      run: poetry run ruff format .
+      run: uv run ruff format .
 
     check:
       glob: "*.py"
       run: |
-        poetry run ruff check .
-        poetry run mypy
+        uv run ruff check .
+        uv run ty check
