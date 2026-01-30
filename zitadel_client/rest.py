@@ -1,5 +1,3 @@
-# mypy: ignore-errors
-
 import json
 import re
 import ssl
@@ -52,7 +50,7 @@ class RESTClientObject:
         # https pool manager
         self.pool_manager: urllib3.PoolManager
         # noinspection PyArgumentList
-        self.pool_manager = urllib3.PoolManager(**pool_args)
+        self.pool_manager = urllib3.PoolManager(**pool_args)  # ty: ignore[invalid-argument-type]
 
     def request(  # noqa C901 too complex
         self,

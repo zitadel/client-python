@@ -24,7 +24,7 @@
     [
       "@semantic-release/exec",
       {
-        "prepareCmd": "poetry install --no-interaction --sync --all-extras"
+        "prepareCmd": "uv sync --group dev --frozen"
       }
     ],
     [
@@ -50,7 +50,13 @@
         ]
       }
     ],
-    "semantic-release-pypi",
+    [
+      "@semantic-release/exec",
+      {
+        "prepareCmd": "uv version ${nextRelease.version} && uv lock --upgrade-package zitadel-client && uv build",
+        "publishCmd": "uv publish --token $PYPI_TOKEN"
+      }
+    ],
     [
       "@semantic-release/git",
       {
