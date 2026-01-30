@@ -48,7 +48,7 @@ coverage.xml
 venv/
 .venv/
 .python-version
-.pytest_cache
+.pytest
 
 # Translations
 *.mo
@@ -73,3 +73,6 @@ devbox.lock
 .devbox
 
 .uv-cache
+
+.ruff
+.ty
