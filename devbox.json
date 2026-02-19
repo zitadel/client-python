@@ -6,7 +6,7 @@
     "python310@latest"
   ],
   "env": {
-    "UV_CACHE_DIR": "$PWD/.uv-cache"
+    "UV_CACHE_DIR": "$PWD/.uv"
   },
   "shell": {
     "init_hook": [

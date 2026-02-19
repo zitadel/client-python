@@ -40,7 +40,7 @@ htmlcov/
 .coverage
 .coverage.*
 .cache
-.uv-cache/
+.uv/
 nosetests.xml
 coverage.xml
 *,cover
@@ -72,7 +72,7 @@ devbox.json
 devbox.lock
 .devbox
 
-.uv-cache
+.uv
 
 .ruff
 .ty
