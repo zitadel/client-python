@@ -17,8 +17,14 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from typing import Any, Dict
+from zitadel_client.models.action_service_activate_public_key_request import ActionServiceActivatePublicKeyRequest
+from zitadel_client.models.action_service_activate_public_key_response import ActionServiceActivatePublicKeyResponse
+from zitadel_client.models.action_service_add_public_key_request import ActionServiceAddPublicKeyRequest
+from zitadel_client.models.action_service_add_public_key_response import ActionServiceAddPublicKeyResponse
 from zitadel_client.models.action_service_create_target_request import ActionServiceCreateTargetRequest
 from zitadel_client.models.action_service_create_target_response import ActionServiceCreateTargetResponse
+from zitadel_client.models.action_service_deactivate_public_key_request import ActionServiceDeactivatePublicKeyRequest
+from zitadel_client.models.action_service_deactivate_public_key_response import ActionServiceDeactivatePublicKeyResponse
 from zitadel_client.models.action_service_delete_target_request import ActionServiceDeleteTargetRequest
 from zitadel_client.models.action_service_delete_target_response import ActionServiceDeleteTargetResponse
 from zitadel_client.models.action_service_get_target_request import ActionServiceGetTargetRequest
@@ -28,8 +34,12 @@ from zitadel_client.models.action_service_list_execution_methods_response import
 from zitadel_client.models.action_service_list_execution_services_response import ActionServiceListExecutionServicesResponse
 from zitadel_client.models.action_service_list_executions_request import ActionServiceListExecutionsRequest
 from zitadel_client.models.action_service_list_executions_response import ActionServiceListExecutionsResponse
+from zitadel_client.models.action_service_list_public_keys_request import ActionServiceListPublicKeysRequest
+from zitadel_client.models.action_service_list_public_keys_response import ActionServiceListPublicKeysResponse
 from zitadel_client.models.action_service_list_targets_request import ActionServiceListTargetsRequest
 from zitadel_client.models.action_service_list_targets_response import ActionServiceListTargetsResponse
+from zitadel_client.models.action_service_remove_public_key_request import ActionServiceRemovePublicKeyRequest
+from zitadel_client.models.action_service_remove_public_key_response import ActionServiceRemovePublicKeyResponse
 from zitadel_client.models.action_service_set_execution_request import ActionServiceSetExecutionRequest
 from zitadel_client.models.action_service_set_execution_response import ActionServiceSetExecutionResponse
 from zitadel_client.models.action_service_update_target_request import ActionServiceUpdateTargetRequest
@@ -54,12 +64,268 @@ class ActionServiceApi:
 
 
     @validate_call
+    def activate_public_key(        self,                action_service_activate_public_key_request: ActionServiceActivatePublicKeyRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> ActionServiceActivatePublicKeyResponse:
+        """Activate Public Key
+
+        Activates the public key for payload encryption.  The public key is used to encrypt the payload sent to the target when the payload type is set to `PAYLOAD_TYPE_JWE`.  Activating a new key will deactivate the current active key. Only one key can be active at a time.  The active key is indicated in the `kid` header in the JWE token sent to the target.  Activating a key that is already active is a no-op.   Required permission:    - `action.target.write`
+
+        :param action_service_activate_public_key_request: (required)
+        :type action_service_activate_public_key_request: ActionServiceActivatePublicKeyRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._activate_public_key_serialize(
+            action_service_activate_public_key_request=action_service_activate_public_key_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ActionServiceActivatePublicKeyResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+    def _activate_public_key_serialize(
+        self,
+        action_service_activate_public_key_request,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if action_service_activate_public_key_request is not None:
+            _body_params = action_service_activate_public_key_request
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'zitadelAccessToken'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/zitadel.action.v2.ActionService/ActivatePublicKey',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def add_public_key(        self,                action_service_add_public_key_request: ActionServiceAddPublicKeyRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> ActionServiceAddPublicKeyResponse:
+        """Add Public Key
+
+        Adds a public key to the target for payload encryption.  The public key is used to encrypt the payload sent to the target when the payload type is set to `PAYLOAD_TYPE_JWE`.  The public key must be in PEM format and be either an RSA or an EC key.  On a successful addition, a key ID is returned which can not only be used to manage the key (activate, remove),  but also will be used as the `kid` header in the JWE token sent to the target to indicate which key was used for encryption.  Note that newly added keys are inactive by default. You must activate the key to use it for payload encryption.  Providing an optional expiration date allows you to set a validity period for the key.  After the expiration date, the key will be automatically deactivated and no longer used for payload encryption.  Be sure to activate a new key before the current active key expires to avoid interruptions in your target executions.  You can have multiple inactive keys for rotation purposes, but only one active key at a time.   Required permission:    - `action.target.write`
+
+        :param action_service_add_public_key_request: (required)
+        :type action_service_add_public_key_request: ActionServiceAddPublicKeyRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._add_public_key_serialize(
+            action_service_add_public_key_request=action_service_add_public_key_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ActionServiceAddPublicKeyResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+    def _add_public_key_serialize(
+        self,
+        action_service_add_public_key_request,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if action_service_add_public_key_request is not None:
+            _body_params = action_service_add_public_key_request
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'zitadelAccessToken'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/zitadel.action.v2.ActionService/AddPublicKey',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def create_target(        self,                action_service_create_target_request: Optional[ActionServiceCreateTargetRequest] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> ActionServiceCreateTargetResponse:
         if action_service_create_target_request is None:
             action_service_create_target_request = {}
         """Create Target
 
-        Create a new target to your endpoint, which can be used in executions.   Required permission:    - `action.target.write`   Required feature flag:    - `actions`
+        Create a new target to your endpoint, which can be used in executions.   Required permission:    - `action.target.write`
 
         :param action_service_create_target_request: (required)
         :type action_service_create_target_request: ActionServiceCreateTargetRequest
@@ -184,10 +450,138 @@ class ActionServiceApi:
 
 
     @validate_call
+    def deactivate_public_key(        self,                action_service_deactivate_public_key_request: ActionServiceDeactivatePublicKeyRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> ActionServiceDeactivatePublicKeyResponse:
+        """Deactivate Public Key
+
+        Deactivates the public key for payload encryption.  The public key will no longer be used to encrypt payloads sent to the target.  Be aware that deactivating the active key will leave the target without an active key.  Subsequent calls to the target with payload type `PAYLOAD_TYPE_JWE` will fail until a new key is activated.  This endpoint can be used in break glass scenarios to quickly disable a compromised key.  Deactivating a key that is already inactive is a no-op.   Required permission:    - `action.target.write`
+
+        :param action_service_deactivate_public_key_request: (required)
+        :type action_service_deactivate_public_key_request: ActionServiceDeactivatePublicKeyRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._deactivate_public_key_serialize(
+            action_service_deactivate_public_key_request=action_service_deactivate_public_key_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ActionServiceDeactivatePublicKeyResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+    def _deactivate_public_key_serialize(
+        self,
+        action_service_deactivate_public_key_request,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if action_service_deactivate_public_key_request is not None:
+            _body_params = action_service_deactivate_public_key_request
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'zitadelAccessToken'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/zitadel.action.v2.ActionService/DeactivatePublicKey',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def delete_target(        self,                action_service_delete_target_request: ActionServiceDeleteTargetRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> ActionServiceDeleteTargetResponse:
         """Delete Target
 
-        Delete an existing target. This will remove it from any configured execution as well.  In case the target is not found, the request will return a successful response as  the desired state is already achieved.   Required permission:    - `action.target.delete`   Required feature flag:    - `actions`
+        Delete an existing target. This will remove it from any configured execution as well.  In case the target is not found, the request will return a successful response as  the desired state is already achieved.   Required permission:    - `action.target.delete`
 
         :param action_service_delete_target_request: (required)
         :type action_service_delete_target_request: ActionServiceDeleteTargetRequest
@@ -315,7 +709,7 @@ class ActionServiceApi:
     def get_target(        self,                action_service_get_target_request: ActionServiceGetTargetRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> ActionServiceGetTargetResponse:
         """Get Target
 
-        Returns the target identified by the requested ID.   Required permission:    - `action.target.read`   Required feature flag:    - `actions`
+        Returns the target identified by the requested ID.   Required permission:    - `action.target.read`
 
         :param action_service_get_target_request: (required)
         :type action_service_get_target_request: ActionServiceGetTargetRequest
@@ -833,7 +1227,7 @@ class ActionServiceApi:
     def list_executions(        self,                action_service_list_executions_request: ActionServiceListExecutionsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> ActionServiceListExecutionsResponse:
         """List Executions
 
-        List all matching executions. By default all executions of the instance are returned that have at least one execution target.  Make sure to include a limit and sorting for pagination.   Required permission:    - `action.execution.read`   Required feature flag:    - `actions`
+        List all matching executions. By default all executions of the instance are returned that have at least one execution target.  Make sure to include a limit and sorting for pagination.   Required permission:    - `action.execution.read`
 
         :param action_service_list_executions_request: (required)
         :type action_service_list_executions_request: ActionServiceListExecutionsRequest
@@ -958,10 +1352,138 @@ class ActionServiceApi:
 
 
     @validate_call
+    def list_public_keys(        self,                action_service_list_public_keys_request: ActionServiceListPublicKeysRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> ActionServiceListPublicKeysResponse:
+        """List Public Keys
+
+        Lists all public keys of a target.  The response includes which key is active and the key's expiration dates.  This allows you to manage key rotations and ensure that your target always has an active key for payload encryption.   Required permission:    - `action.target.read`
+
+        :param action_service_list_public_keys_request: (required)
+        :type action_service_list_public_keys_request: ActionServiceListPublicKeysRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._list_public_keys_serialize(
+            action_service_list_public_keys_request=action_service_list_public_keys_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ActionServiceListPublicKeysResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+    def _list_public_keys_serialize(
+        self,
+        action_service_list_public_keys_request,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if action_service_list_public_keys_request is not None:
+            _body_params = action_service_list_public_keys_request
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'zitadelAccessToken'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/zitadel.action.v2.ActionService/ListPublicKeys',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def list_targets(        self,                action_service_list_targets_request: ActionServiceListTargetsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> ActionServiceListTargetsResponse:
         """List targets
 
-        List all matching targets. By default all targets of the instance are returned.  Make sure to include a limit and sorting for pagination.   Required permission:    - `action.target.read`   Required feature flag:    - `actions`
+        List all matching targets. By default all targets of the instance are returned.  Make sure to include a limit and sorting for pagination.   Required permission:    - `action.target.read`
 
         :param action_service_list_targets_request: (required)
         :type action_service_list_targets_request: ActionServiceListTargetsRequest
@@ -1086,10 +1608,138 @@ class ActionServiceApi:
 
 
     @validate_call
+    def remove_public_key(        self,                action_service_remove_public_key_request: ActionServiceRemovePublicKeyRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> ActionServiceRemovePublicKeyResponse:
+        """Remove Public Key
+
+        Removes the public key from the target. This is a permanent action and can not be undone.  Note that you can only remove inactive keys. Attempting to remove an active key will result in an error.  For break glass scenarios, deactivate the key first and then remove it.  Removing a non-existing key is a no-op.   Required permission:    - `action.target.write`
+
+        :param action_service_remove_public_key_request: (required)
+        :type action_service_remove_public_key_request: ActionServiceRemovePublicKeyRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._remove_public_key_serialize(
+            action_service_remove_public_key_request=action_service_remove_public_key_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ActionServiceRemovePublicKeyResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+    def _remove_public_key_serialize(
+        self,
+        action_service_remove_public_key_request,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if action_service_remove_public_key_request is not None:
+            _body_params = action_service_remove_public_key_request
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'zitadelAccessToken'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/zitadel.action.v2.ActionService/RemovePublicKey',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def set_execution(        self,                action_service_set_execution_request: ActionServiceSetExecutionRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> ActionServiceSetExecutionResponse:
         """Set Execution
 
-        Sets an execution to call a target or include the targets of another execution.  Setting an empty list of targets will remove all targets from the execution, making it a noop.   Required permission:    - `action.execution.write`   Required feature flag:    - `actions`
+        Sets an execution to call a target or include the targets of another execution.  Setting an empty list of targets will remove all targets from the execution, making it a noop.   Required permission:    - `action.execution.write`
 
         :param action_service_set_execution_request: (required)
         :type action_service_set_execution_request: ActionServiceSetExecutionRequest
@@ -1219,7 +1869,7 @@ class ActionServiceApi:
             action_service_update_target_request = {}
         """Update Target
 
-        Update an existing target.  To generate a new signing key set the optional expirationSigningKey.   Required permission:    - `action.target.write`   Required feature flag:    - `actions`
+        Update an existing target.  To generate a new signing key set the optional expirationSigningKey.   Required permission:    - `action.target.write`
 
         :param action_service_update_target_request: (required)
         :type action_service_update_target_request: ActionServiceUpdateTargetRequest

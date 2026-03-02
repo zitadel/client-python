@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
@@ -26,7 +26,7 @@ class SessionServiceIDsQuery(BaseModel):
     """
     SessionServiceIDsQuery
     """ # noqa: E501
-    ids: Optional[List[StrictStr]] = None
+    ids: Optional[List[StrictStr]] = Field(default=None, description="List of session IDs to search for.  If multiple IDs are provided, sessions matching any of the IDs will be returned.")
     __properties: ClassVar[List[str]] = ["ids"]
 
     model_config = ConfigDict(

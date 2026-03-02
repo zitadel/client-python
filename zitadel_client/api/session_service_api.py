@@ -47,9 +47,9 @@ class SessionServiceApi:
 
     @validate_call
     def create_session(        self,                session_service_create_session_request: SessionServiceCreateSessionRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SessionServiceCreateSessionResponse:
-        """Create a new session
+        """Create Session
 
-        Create a new session
+        Create a new session with initial checks, metadata and challenges for further verification.  A token will be returned, which is required for using the session as authentication, e.g.  when authenticating an OIDC auth request or SAML request.  Additionally, the session token can be used as OAuth2 access token to authenticate against  the ZITADEL APIs.   Required permissions:    - `session.write`
 
         :param session_service_create_session_request: (required)
         :type session_service_create_session_request: SessionServiceCreateSessionRequest
@@ -175,9 +175,9 @@ class SessionServiceApi:
 
     @validate_call
     def delete_session(        self,                session_service_delete_session_request: SessionServiceDeleteSessionRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SessionServiceDeleteSessionResponse:
-        """Terminate a session
+        """DeleteSession
 
-        Terminate a session
+        Terminate an existing session. This invalidates the session and its token.  The session can no longer be used for the authentication of other resources  or to authenticate against the ZITADEL APIs.   You can only terminate your own session, unless you are granted the `session.delete` permission.   Required permissions:    - `session.delete`    - no permission required for own sessions or when providing the current session token
 
         :param session_service_delete_session_request: (required)
         :type session_service_delete_session_request: SessionServiceDeleteSessionRequest
@@ -303,9 +303,9 @@ class SessionServiceApi:
 
     @validate_call
     def get_session(        self,                session_service_get_session_request: SessionServiceGetSessionRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SessionServiceGetSessionResponse:
-        """GetSession a session
+        """Get Session
 
-        GetSession a session
+        Retrieve a session by its ID. Returns all information about the session, including  the factors that were verified, the metadata, user agent information and possible expiration date.  The session token is required unless either of the following conditions is met:    - the caller created the session    - the authenticated user requests their own session (checked user)    - the security token provided in the authorization header has the same user agent as the session    - the caller is granted the permission session.read permission on either the instance or on the checked user's organization   Required permissions:    - `session.read`    - no permission required to get own sessions (see above) or when providing the current session token
 
         :param session_service_get_session_request: (required)
         :type session_service_get_session_request: SessionServiceGetSessionRequest
@@ -431,9 +431,9 @@ class SessionServiceApi:
 
     @validate_call
     def list_sessions(        self,                session_service_list_sessions_request: SessionServiceListSessionsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SessionServiceListSessionsResponse:
-        """Search sessions
+        """List sessions
 
-        Search sessions
+        Searches for sessions matching the given query. You can search by session ID, user ID,  creation date, creator, user agent or expiration date.   Required permissions:    - `session.read`    - no permission required to search for own sessions
 
         :param session_service_list_sessions_request: (required)
         :type session_service_list_sessions_request: SessionServiceListSessionsRequest
@@ -559,9 +559,9 @@ class SessionServiceApi:
 
     @validate_call
     def set_session(        self,                session_service_set_session_request: SessionServiceSetSessionRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SessionServiceSetSessionResponse:
-        """Update a session
+        """Set Session
 
-        Update a session
+        Update an existing session with new information like additional checks or metadata  or request additional challenges.  A new session token will be returned. Note that the previous token will be invalidated.   Required permissions:    - `session.write`
 
         :param session_service_set_session_request: (required)
         :type session_service_set_session_request: SessionServiceSetSessionRequest

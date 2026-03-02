@@ -27,11 +27,11 @@ class SettingsServicePasswordComplexitySettings(BaseModel):
     """
     SettingsServicePasswordComplexitySettings
     """ # noqa: E501
-    min_length: Optional[Any] = Field(default=None, alias="minLength")
-    requires_uppercase: Optional[StrictBool] = Field(default=None, alias="requiresUppercase")
-    requires_lowercase: Optional[StrictBool] = Field(default=None, alias="requiresLowercase")
-    requires_number: Optional[StrictBool] = Field(default=None, alias="requiresNumber")
-    requires_symbol: Optional[StrictBool] = Field(default=None, alias="requiresSymbol")
+    min_length: Optional[Any] = Field(default=None, description="The minimum length a password must have.", alias="minLength")
+    requires_uppercase: Optional[StrictBool] = Field(default=None, description="Defines if the password MUST contain an upper case letter.", alias="requiresUppercase")
+    requires_lowercase: Optional[StrictBool] = Field(default=None, description="Defines if the password MUST contain a lowercase letter.", alias="requiresLowercase")
+    requires_number: Optional[StrictBool] = Field(default=None, description="Defines if the password MUST contain a number.", alias="requiresNumber")
+    requires_symbol: Optional[StrictBool] = Field(default=None, description="Defines if the password MUST contain a symbol or special character. E.g. \"$\"", alias="requiresSymbol")
     resource_owner_type: Optional[SettingsServiceResourceOwnerType] = Field(default=None, alias="resourceOwnerType")
     __properties: ClassVar[List[str]] = ["minLength", "requiresUppercase", "requiresLowercase", "requiresNumber", "requiresSymbol", "resourceOwnerType"]
 

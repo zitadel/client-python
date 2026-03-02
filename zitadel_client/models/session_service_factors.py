@@ -22,6 +22,7 @@ from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.session_service_intent_factor import SessionServiceIntentFactor
 from zitadel_client.models.session_service_otp_factor import SessionServiceOTPFactor
 from zitadel_client.models.session_service_password_factor import SessionServicePasswordFactor
+from zitadel_client.models.session_service_recovery_code_factor import SessionServiceRecoveryCodeFactor
 from zitadel_client.models.session_service_totp_factor import SessionServiceTOTPFactor
 from zitadel_client.models.session_service_user_factor import SessionServiceUserFactor
 from zitadel_client.models.session_service_web_auth_n_factor import SessionServiceWebAuthNFactor
@@ -39,7 +40,8 @@ class SessionServiceFactors(BaseModel):
     totp: Optional[SessionServiceTOTPFactor] = None
     otp_sms: Optional[SessionServiceOTPFactor] = Field(default=None, alias="otpSms")
     otp_email: Optional[SessionServiceOTPFactor] = Field(default=None, alias="otpEmail")
-    __properties: ClassVar[List[str]] = ["user", "password", "webAuthN", "intent", "totp", "otpSms", "otpEmail"]
+    recovery_code: Optional[SessionServiceRecoveryCodeFactor] = Field(default=None, alias="recoveryCode")
+    __properties: ClassVar[List[str]] = ["user", "password", "webAuthN", "intent", "totp", "otpSms", "otpEmail", "recoveryCode"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -101,6 +103,9 @@ class SessionServiceFactors(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of otp_email
         if self.otp_email:
             _dict['otpEmail'] = self.otp_email.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of recovery_code
+        if self.recovery_code:
+            _dict['recoveryCode'] = self.recovery_code.to_dict()
         return _dict
 
     @classmethod
@@ -119,7 +124,8 @@ class SessionServiceFactors(BaseModel):
             "intent": SessionServiceIntentFactor.from_dict(obj["intent"]) if obj.get("intent") is not None else None,
             "totp": SessionServiceTOTPFactor.from_dict(obj["totp"]) if obj.get("totp") is not None else None,
             "otpSms": SessionServiceOTPFactor.from_dict(obj["otpSms"]) if obj.get("otpSms") is not None else None,
-            "otpEmail": SessionServiceOTPFactor.from_dict(obj["otpEmail"]) if obj.get("otpEmail") is not None else None
+            "otpEmail": SessionServiceOTPFactor.from_dict(obj["otpEmail"]) if obj.get("otpEmail") is not None else None,
+            "recoveryCode": SessionServiceRecoveryCodeFactor.from_dict(obj["recoveryCode"]) if obj.get("recoveryCode") is not None else None
         })
         return _obj
 

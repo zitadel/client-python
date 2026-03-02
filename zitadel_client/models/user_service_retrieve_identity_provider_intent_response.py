@@ -22,6 +22,7 @@ from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.user_service_add_human_user_request import UserServiceAddHumanUserRequest
 from zitadel_client.models.user_service_details import UserServiceDetails
 from zitadel_client.models.user_service_idp_information import UserServiceIDPInformation
+from zitadel_client.models.user_service_update_human_user_request import UserServiceUpdateHumanUserRequest
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -33,7 +34,8 @@ class UserServiceRetrieveIdentityProviderIntentResponse(BaseModel):
     idp_information: Optional[UserServiceIDPInformation] = Field(default=None, alias="idpInformation")
     user_id: Optional[StrictStr] = Field(default=None, alias="userId")
     add_human_user: Optional[UserServiceAddHumanUserRequest] = Field(default=None, alias="addHumanUser")
-    __properties: ClassVar[List[str]] = ["details", "idpInformation", "userId", "addHumanUser"]
+    update_human_user: Optional[UserServiceUpdateHumanUserRequest] = Field(default=None, alias="updateHumanUser")
+    __properties: ClassVar[List[str]] = ["details", "idpInformation", "userId", "addHumanUser", "updateHumanUser"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -83,6 +85,9 @@ class UserServiceRetrieveIdentityProviderIntentResponse(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of add_human_user
         if self.add_human_user:
             _dict['addHumanUser'] = self.add_human_user.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of update_human_user
+        if self.update_human_user:
+            _dict['updateHumanUser'] = self.update_human_user.to_dict()
         return _dict
 
     @classmethod
@@ -98,7 +103,8 @@ class UserServiceRetrieveIdentityProviderIntentResponse(BaseModel):
             "details": UserServiceDetails.from_dict(obj["details"]) if obj.get("details") is not None else None,
             "idpInformation": UserServiceIDPInformation.from_dict(obj["idpInformation"]) if obj.get("idpInformation") is not None else None,
             "userId": obj.get("userId"),
-            "addHumanUser": UserServiceAddHumanUserRequest.from_dict(obj["addHumanUser"]) if obj.get("addHumanUser") is not None else None
+            "addHumanUser": UserServiceAddHumanUserRequest.from_dict(obj["addHumanUser"]) if obj.get("addHumanUser") is not None else None,
+            "updateHumanUser": UserServiceUpdateHumanUserRequest.from_dict(obj["updateHumanUser"]) if obj.get("updateHumanUser") is not None else None
         })
         return _obj
 

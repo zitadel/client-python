@@ -26,8 +26,8 @@ class SAMLServicePostResponse(BaseModel):
     """
     SAMLServicePostResponse
     """ # noqa: E501
-    relay_state: Optional[StrictStr] = Field(default=None, alias="relayState")
-    saml_response: Optional[StrictStr] = Field(default=None, alias="samlResponse")
+    relay_state: Optional[StrictStr] = Field(default=None, description="The SAML RelaySate, that needs to be returned to the application to match the response to the request.", alias="relayState")
+    saml_response: Optional[StrictStr] = Field(default=None, description="The SAML Response, that needs to be returned to the application to complete the SAML flow.", alias="samlResponse")
     __properties: ClassVar[List[str]] = ["relayState", "samlResponse"]
 
     model_config = ConfigDict(

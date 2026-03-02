@@ -26,7 +26,7 @@ class ActionServiceListExecutionMethodsResponse(BaseModel):
     """
     ActionServiceListExecutionMethodsResponse
     """ # noqa: E501
-    methods: Optional[List[StrictStr]] = Field(default=None, description="All available methods")
+    methods: Optional[List[StrictStr]] = Field(default=None, description="All available methods to use in conditions.")
     __properties: ClassVar[List[str]] = ["methods"]
 
     model_config = ConfigDict(

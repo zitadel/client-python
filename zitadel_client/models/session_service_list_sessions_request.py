@@ -30,7 +30,7 @@ class SessionServiceListSessionsRequest(BaseModel):
     SessionServiceListSessionsRequest
     """ # noqa: E501
     query: Optional[SessionServiceListQuery] = None
-    queries: Optional[List[SessionServiceSearchQuery]] = None
+    queries: Optional[List[SessionServiceSearchQuery]] = Field(default=None, description="The criteria to be used when searching for sessions.  Multiple queries will be combined with a logical AND.")
     sorting_column: Optional[SessionServiceSessionFieldName] = Field(default=None, alias="sortingColumn")
     __properties: ClassVar[List[str]] = ["query", "queries", "sortingColumn"]
 

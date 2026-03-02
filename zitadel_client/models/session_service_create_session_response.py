@@ -29,8 +29,8 @@ class SessionServiceCreateSessionResponse(BaseModel):
     SessionServiceCreateSessionResponse
     """ # noqa: E501
     details: Optional[SessionServiceDetails] = None
-    session_id: Optional[StrictStr] = Field(default=None, alias="sessionId")
-    session_token: Optional[StrictStr] = Field(default=None, alias="sessionToken")
+    session_id: Optional[StrictStr] = Field(default=None, description="Unique identifier of the session.", alias="sessionId")
+    session_token: Optional[StrictStr] = Field(default=None, description="The current token of the session, which is required for using the session as authentication,  e.g.when authenticating an OIDC auth request or SAML request.  Additionally, the session token can be used as OAuth2 access token to authenticate against  the ZITADEL APIs.", alias="sessionToken")
     challenges: Optional[SessionServiceChallenges] = None
     __properties: ClassVar[List[str]] = ["details", "sessionId", "sessionToken", "challenges"]
 

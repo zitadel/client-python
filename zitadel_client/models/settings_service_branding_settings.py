@@ -31,9 +31,9 @@ class SettingsServiceBrandingSettings(BaseModel):
     """ # noqa: E501
     light_theme: Optional[SettingsServiceTheme] = Field(default=None, alias="lightTheme")
     dark_theme: Optional[SettingsServiceTheme] = Field(default=None, alias="darkTheme")
-    font_url: Optional[StrictStr] = Field(default=None, alias="fontUrl")
-    hide_login_name_suffix: Optional[StrictBool] = Field(default=None, description="hides the org suffix on the login form if the scope \\\"urn:zitadel:iam:org:domain:primary:{domainname}\\\" is set", alias="hideLoginNameSuffix")
-    disable_watermark: Optional[StrictBool] = Field(default=None, alias="disableWatermark")
+    font_url: Optional[StrictStr] = Field(default=None, description="The url where the font is served.", alias="fontUrl")
+    hide_login_name_suffix: Optional[StrictBool] = Field(default=None, description="If enabled, the organization suffix will be hidden on the login form if the scope \\\"urn:zitadel:iam:org:domain:primary:{domainname}\\\" is used.", alias="hideLoginNameSuffix")
+    disable_watermark: Optional[StrictBool] = Field(default=None, description="If enabled, the Zitadel logo will not be displayed on the login screen.", alias="disableWatermark")
     resource_owner_type: Optional[SettingsServiceResourceOwnerType] = Field(default=None, alias="resourceOwnerType")
     theme_mode: Optional[SettingsServiceThemeMode] = Field(default=None, alias="themeMode")
     __properties: ClassVar[List[str]] = ["lightTheme", "darkTheme", "fontUrl", "hideLoginNameSuffix", "disableWatermark", "resourceOwnerType", "themeMode"]

@@ -26,12 +26,12 @@ class SettingsServiceTheme(BaseModel):
     """
     SettingsServiceTheme
     """ # noqa: E501
-    primary_color: Optional[StrictStr] = Field(default=None, description="hex value for primary color", alias="primaryColor")
-    background_color: Optional[StrictStr] = Field(default=None, description="hex value for background color", alias="backgroundColor")
-    warn_color: Optional[StrictStr] = Field(default=None, description="hex value for warning color", alias="warnColor")
-    font_color: Optional[StrictStr] = Field(default=None, description="hex value for font color", alias="fontColor")
-    logo_url: Optional[StrictStr] = Field(default=None, description="url where the logo is served", alias="logoUrl")
-    icon_url: Optional[StrictStr] = Field(default=None, description="url where the icon is served", alias="iconUrl")
+    primary_color: Optional[StrictStr] = Field(default=None, description="The hex value for primary color.", alias="primaryColor")
+    background_color: Optional[StrictStr] = Field(default=None, description="The hex value for background color.", alias="backgroundColor")
+    warn_color: Optional[StrictStr] = Field(default=None, description="The hex value for warning color.", alias="warnColor")
+    font_color: Optional[StrictStr] = Field(default=None, description="The value for font color.", alias="fontColor")
+    logo_url: Optional[StrictStr] = Field(default=None, description="The URL where the logo is served.", alias="logoUrl")
+    icon_url: Optional[StrictStr] = Field(default=None, description="The URL where the icon is served.", alias="iconUrl")
     __properties: ClassVar[List[str]] = ["primaryColor", "backgroundColor", "warnColor", "fontColor", "logoUrl", "iconUrl"]
 
     model_config = ConfigDict(

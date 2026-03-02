@@ -27,7 +27,7 @@ class SessionServiceWebAuthN(BaseModel):
     """
     SessionServiceWebAuthN
     """ # noqa: E501
-    domain: Optional[StrictStr] = None
+    domain: Optional[StrictStr] = Field(default=None, description="The domain on which the session was created. Will be used in the WebAuthN challenge.  It must be either the exact domain or a top-level domain of the origin of the request.  For example if the request is coming from \"login.example.com\", the domain can be  \"login.example.com\" or \"example.com\", but not \"other.com\" or \"sub.login.example.com\".  See also: https://www.w3.org/TR/webauthn/#relying-party-identifier")
     user_verification_requirement: Optional[SessionServiceUserVerificationRequirement] = Field(default=None, alias="userVerificationRequirement")
     __properties: ClassVar[List[str]] = ["domain", "userVerificationRequirement"]
 

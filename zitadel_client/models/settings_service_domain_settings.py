@@ -27,9 +27,9 @@ class SettingsServiceDomainSettings(BaseModel):
     """
     SettingsServiceDomainSettings
     """ # noqa: E501
-    login_name_includes_domain: Optional[StrictBool] = Field(default=None, alias="loginNameIncludesDomain")
-    require_org_domain_verification: Optional[StrictBool] = Field(default=None, alias="requireOrgDomainVerification")
-    smtp_sender_address_matches_instance_domain: Optional[StrictBool] = Field(default=None, alias="smtpSenderAddressMatchesInstanceDomain")
+    login_name_includes_domain: Optional[StrictBool] = Field(default=None, description="If enabled, the login name will automatically be suffixed with the domain of the organization.  This ensures that the login name is unique across the instance.", alias="loginNameIncludesDomain")
+    require_org_domain_verification: Optional[StrictBool] = Field(default=None, description="If enabled, organization domains must be verified (through an DNS or HTTP challenge) upon creation.  If disabled, organization domains will be created as already verified automatically.", alias="requireOrgDomainVerification")
+    smtp_sender_address_matches_instance_domain: Optional[StrictBool] = Field(default=None, description="If enabled, the SMTP sender address domain must match custom domain on the instance.", alias="smtpSenderAddressMatchesInstanceDomain")
     resource_owner_type: Optional[SettingsServiceResourceOwnerType] = Field(default=None, alias="resourceOwnerType")
     __properties: ClassVar[List[str]] = ["loginNameIncludesDomain", "requireOrgDomainVerification", "smtpSenderAddressMatchesInstanceDomain", "resourceOwnerType"]
 

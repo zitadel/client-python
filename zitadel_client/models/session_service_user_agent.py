@@ -27,9 +27,9 @@ class SessionServiceUserAgent(BaseModel):
     """
     SessionServiceUserAgent
     """ # noqa: E501
-    fingerprint_id: Optional[StrictStr] = Field(default=None, alias="fingerprintId")
-    ip: Optional[StrictStr] = None
-    description: Optional[StrictStr] = None
+    fingerprint_id: Optional[StrictStr] = Field(default=None, description="FingerprintID is a unique identifier for the user agent's fingerprint.  It can be used to group sessions by device or browser.", alias="fingerprintId")
+    ip: Optional[StrictStr] = Field(default=None, description="IP is the IP address from which the session was created.")
+    description: Optional[StrictStr] = Field(default=None, description="Description is a human-readable description of the user agent.")
     header: Optional[Dict[str, SessionServiceHeaderValues]] = None
     __properties: ClassVar[List[str]] = ["fingerprintId", "ip", "description", "header"]
 

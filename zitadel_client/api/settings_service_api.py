@@ -62,9 +62,9 @@ class SettingsServiceApi:
 
     @validate_call
     def get_active_identity_providers(        self,                settings_service_get_active_identity_providers_request: SettingsServiceGetActiveIdentityProvidersRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SettingsServiceGetActiveIdentityProvidersResponse:
-        """Get the current active identity providers
+        """Get Active Identity Providers
 
-        Get the current active identity providers
+        Get the current active identity providers for the requested context.  This can be the instance or an organization. In case of an organization,  the returned identity providers will fall back to the active instance identity providers  if not explicitly set on the organization.   Optionally, filter the identity providers by their allowed actions:    - creation_allowed: only return identity providers that are allowed for user creation    - linking_allowed: only return identity providers that are allowed for linking to existing users    - auto_creation: only return identity providers that are allowed for automatic user creation    - auto_linking: only return identity providers that are allowed for automatic linking to existing users   Required permissions:    - `policy.read`
 
         :param settings_service_get_active_identity_providers_request: (required)
         :type settings_service_get_active_identity_providers_request: SettingsServiceGetActiveIdentityProvidersRequest
@@ -190,9 +190,9 @@ class SettingsServiceApi:
 
     @validate_call
     def get_branding_settings(        self,                settings_service_get_branding_settings_request: SettingsServiceGetBrandingSettingsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SettingsServiceGetBrandingSettingsResponse:
-        """Get the current active branding settings
+        """Get Branding Settings
 
-        Get the current active branding settings
+        Get the current active branding settings for the requested context.  This can be the instance or an organization. In case of an organization,  the returned settings will fall back to the instance settings if not explicitly set on the organization.   Required permissions:    - `policy.read`
 
         :param settings_service_get_branding_settings_request: (required)
         :type settings_service_get_branding_settings_request: SettingsServiceGetBrandingSettingsRequest
@@ -318,9 +318,9 @@ class SettingsServiceApi:
 
     @validate_call
     def get_domain_settings(        self,                settings_service_get_domain_settings_request: SettingsServiceGetDomainSettingsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SettingsServiceGetDomainSettingsResponse:
-        """Get the domain settings
+        """Get Domain Settings
 
-        Get the domain settings
+        Get the domain settings for the requested context.  This can be the instance or an organization. In case of an organization,  the returned settings will fall back to the instance settings if not explicitly set on the organization.   Required permissions:    - `policy.read`
 
         :param settings_service_get_domain_settings_request: (required)
         :type settings_service_get_domain_settings_request: SettingsServiceGetDomainSettingsRequest
@@ -448,9 +448,9 @@ class SettingsServiceApi:
     def get_general_settings(        self,                body: Optional[Dict[str, Any]] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SettingsServiceGetGeneralSettingsResponse:
         if body is None:
             body = {}
-        """Get basic information over the instance
+        """Get General Settings
 
-        Get basic information over the instance
+        Get basic information of the instance like the default organization, default language and supported languages.   Required permissions:    - `policy.read`
 
         :param body: (required)
         :type body: object
@@ -706,9 +706,9 @@ class SettingsServiceApi:
 
     @validate_call
     def get_legal_and_support_settings(        self,                settings_service_get_legal_and_support_settings_request: SettingsServiceGetLegalAndSupportSettingsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SettingsServiceGetLegalAndSupportSettingsResponse:
-        """Get the legal and support settings
+        """Get Legal and Support Settings
 
-        Get the legal and support settings
+        Get the legal and support settings for the requested context.  This can be the instance or an organization. In case of an organization,  the returned settings will fall back to the instance settings if not explicitly set on the organization.   Required permissions:    - `policy.read`
 
         :param settings_service_get_legal_and_support_settings_request: (required)
         :type settings_service_get_legal_and_support_settings_request: SettingsServiceGetLegalAndSupportSettingsRequest
@@ -834,9 +834,9 @@ class SettingsServiceApi:
 
     @validate_call
     def get_lockout_settings(        self,                settings_service_get_lockout_settings_request: SettingsServiceGetLockoutSettingsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SettingsServiceGetLockoutSettingsResponse:
-        """Get the lockout settings
+        """Get Lockout Settings
 
-        Get the lockout settings
+        Get the lockout settings for the requested context.  This can be the instance or an organization. In case of an organization,  the returned settings will fall back to the instance settings if not explicitly set on the organization.   Lockout settings define how many failed attempts are allowed before a user is locked out.   Required permissions:    - `policy.read`
 
         :param settings_service_get_lockout_settings_request: (required)
         :type settings_service_get_lockout_settings_request: SettingsServiceGetLockoutSettingsRequest
@@ -962,9 +962,9 @@ class SettingsServiceApi:
 
     @validate_call
     def get_login_settings(        self,                settings_service_get_login_settings_request: SettingsServiceGetLoginSettingsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SettingsServiceGetLoginSettingsResponse:
-        """Get the login settings
+        """Get Login Settings
 
-        Get the login settings
+        Get the login settings for the requested context.  This can be the instance or an organization. In case of an organization,  the returned settings will fall back to the instance settings if not explicitly set on the organization.   Required permissions:    - `policy.read`
 
         :param settings_service_get_login_settings_request: (required)
         :type settings_service_get_login_settings_request: SettingsServiceGetLoginSettingsRequest
@@ -1090,9 +1090,9 @@ class SettingsServiceApi:
 
     @validate_call
     def get_password_complexity_settings(        self,                settings_service_get_password_complexity_settings_request: SettingsServiceGetPasswordComplexitySettingsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SettingsServiceGetPasswordComplexitySettingsResponse:
-        """Get the password complexity settings
+        """Get Password Complexity Settings
 
-        Get the password complexity settings
+        Get the password complexity settings for the requested context.  This can be the instance or an organization. In case of an organization,  the returned settings will fall back to the instance settings if not explicitly set on the organization.   Required permissions:    - `policy.read`
 
         :param settings_service_get_password_complexity_settings_request: (required)
         :type settings_service_get_password_complexity_settings_request: SettingsServiceGetPasswordComplexitySettingsRequest
@@ -1218,9 +1218,9 @@ class SettingsServiceApi:
 
     @validate_call
     def get_password_expiry_settings(        self,                settings_service_get_password_expiry_settings_request: SettingsServiceGetPasswordExpirySettingsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SettingsServiceGetPasswordExpirySettingsResponse:
-        """Get the password expiry settings
+        """Get Password Expiry Settings
 
-        Get the password expiry settings
+        Get the password expiry settings for the requested context.  This can be the instance or an organization. In case of an organization,  the returned settings will fall back to the instance settings if not explicitly set on the organization.   Required permissions:    - `policy.read`
 
         :param settings_service_get_password_expiry_settings_request: (required)
         :type settings_service_get_password_expiry_settings_request: SettingsServiceGetPasswordExpirySettingsRequest
@@ -1348,9 +1348,9 @@ class SettingsServiceApi:
     def get_security_settings(        self,                body: Optional[Dict[str, Any]] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SettingsServiceGetSecuritySettingsResponse:
         if body is None:
             body = {}
-        """Get the security settings
+        """Get Security Settings
 
-        Get the security settings
+        Get the security settings of the ZITADEL instance.  Security settings include settings like enabling impersonation and embedded iframe settings.   Required permissions:    - `iam.policy.read`
 
         :param body: (required)
         :type body: object
@@ -1606,9 +1606,9 @@ class SettingsServiceApi:
 
     @validate_call
     def set_security_settings(        self,                settings_service_set_security_settings_request: SettingsServiceSetSecuritySettingsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SettingsServiceSetSecuritySettingsResponse:
-        """Set the security settings
+        """Set Security Settings
 
-        Set the security settings
+        Set the security settings of the instance.   Required permissions:    - `iam.policy.write`
 
         :param settings_service_set_security_settings_request: (required)
         :type settings_service_set_security_settings_request: SettingsServiceSetSecuritySettingsRequest

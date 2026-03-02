@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 from typing import Any, ClassVar, Dict, List, Optional
 from zitadel_client.models.session_service_list_details import SessionServiceListDetails
 from zitadel_client.models.session_service_session import SessionServiceSession
@@ -29,7 +29,7 @@ class SessionServiceListSessionsResponse(BaseModel):
     SessionServiceListSessionsResponse
     """ # noqa: E501
     details: Optional[SessionServiceListDetails] = None
-    sessions: Optional[List[SessionServiceSession]] = None
+    sessions: Optional[List[SessionServiceSession]] = Field(default=None, description="The sessions matching the search query. There might be more sessions available  than returned in this response. Use the details field to see if there are more sessions  available and to get the total count of sessions matching the query.")
     __properties: ClassVar[List[str]] = ["details", "sessions"]
 
     model_config = ConfigDict(

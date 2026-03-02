@@ -2,6 +2,8 @@ from types import TracebackType
 from typing import Callable, Optional, Type, TypeVar
 
 from zitadel_client.api.action_service_api import ActionServiceApi
+from zitadel_client.api.application_service_api import ApplicationServiceApi
+from zitadel_client.api.authorization_service_api import AuthorizationServiceApi
 from zitadel_client.api.beta_action_service_api import BetaActionServiceApi
 from zitadel_client.api.beta_app_service_api import BetaAppServiceApi
 from zitadel_client.api.beta_authorization_service_api import BetaAuthorizationServiceApi
@@ -18,8 +20,11 @@ from zitadel_client.api.beta_user_service_api import BetaUserServiceApi
 from zitadel_client.api.beta_web_key_service_api import BetaWebKeyServiceApi
 from zitadel_client.api.feature_service_api import FeatureServiceApi
 from zitadel_client.api.identity_provider_service_api import IdentityProviderServiceApi
+from zitadel_client.api.instance_service_api import InstanceServiceApi
+from zitadel_client.api.internal_permission_service_api import InternalPermissionServiceApi
 from zitadel_client.api.oidc_service_api import OIDCServiceApi
 from zitadel_client.api.organization_service_api import OrganizationServiceApi
+from zitadel_client.api.project_service_api import ProjectServiceApi
 from zitadel_client.api.saml_service_api import SAMLServiceApi
 from zitadel_client.api.session_service_api import SessionServiceApi
 from zitadel_client.api.settings_service_api import SettingsServiceApi
@@ -126,6 +131,8 @@ class Zitadel:
         self.users = UserServiceApi(client)
         self.webkeys = WebKeyServiceApi(client)
         self.actions = ActionServiceApi(client)
+        self.applications = ApplicationServiceApi(client)
+        self.authorizations = AuthorizationServiceApi(client)
         self.beta_projects = BetaProjectServiceApi(client)
         self.beta_apps = BetaAppServiceApi(client)
         self.beta_oidc = BetaOIDCServiceApi(client)
@@ -137,9 +144,12 @@ class Zitadel:
         self.beta_sessions = BetaSessionServiceApi(client)
         self.beta_instance = BetaInstanceServiceApi(client)
         self.beta_telemetry = BetaTelemetryServiceApi(client)
+        self.instances = InstanceServiceApi(client)
+        self.internal_permissions = InternalPermissionServiceApi(client)
         self.beta_features = BetaFeatureServiceApi(client)
         self.beta_webkeys = BetaWebKeyServiceApi(client)
         self.beta_actions = BetaActionServiceApi(client)
+        self.projects = ProjectServiceApi(client)
 
     # noinspection PyArgumentList
     T = TypeVar("T", bound="Zitadel")

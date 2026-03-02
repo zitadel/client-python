@@ -26,7 +26,7 @@ class ActionServiceTargetFilter(BaseModel):
     """
     ActionServiceTargetFilter
     """ # noqa: E501
-    target_id: Optional[StrictStr] = Field(default=None, description="Defines the id to query for.", alias="targetId")
+    target_id: Optional[StrictStr] = Field(default=None, description="Defines the id of the target that needs to be part of the execution.", alias="targetId")
     __properties: ClassVar[List[str]] = ["targetId"]
 
     model_config = ConfigDict(

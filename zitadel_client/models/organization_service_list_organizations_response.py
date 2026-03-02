@@ -31,7 +31,7 @@ class OrganizationServiceListOrganizationsResponse(BaseModel):
     """ # noqa: E501
     details: Optional[OrganizationServiceListDetails] = None
     sorting_column: Optional[OrganizationServiceOrganizationFieldName] = Field(default=None, alias="sortingColumn")
-    result: Optional[List[OrganizationServiceOrganization]] = None
+    result: Optional[List[OrganizationServiceOrganization]] = Field(default=None, description="The Result is a list of organizations matching the query.")
     __properties: ClassVar[List[str]] = ["details", "sortingColumn", "result"]
 
     model_config = ConfigDict(

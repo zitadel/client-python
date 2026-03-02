@@ -26,9 +26,9 @@ class ActionServiceEventExecution(BaseModel):
     """
     ActionServiceEventExecution
     """ # noqa: E501
-    all: Optional[StrictBool] = Field(default=None, description="all events as condition.")
-    event: Optional[StrictStr] = Field(default=None, description="Event name as condition.")
-    group: Optional[StrictStr] = Field(default=None, description="Event group as condition, all events under this group.")
+    all: Optional[StrictBool] = Field(default=None, description="Define all events as condition.  After any event is created, the execution is triggered.")
+    event: Optional[StrictStr] = Field(default=None, description="Define a specific event as condition.  After this event is created, the execution is triggered.")
+    group: Optional[StrictStr] = Field(default=None, description="Define an event group as condition.  After any event under this group is created, the execution is triggered.")
     __properties: ClassVar[List[str]] = ["all", "event", "group"]
 
     model_config = ConfigDict(

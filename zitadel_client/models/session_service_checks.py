@@ -22,6 +22,7 @@ from typing import Any, ClassVar, Dict, Optional
 from zitadel_client.models.session_service_check_idp_intent import SessionServiceCheckIDPIntent
 from zitadel_client.models.session_service_check_otp import SessionServiceCheckOTP
 from zitadel_client.models.session_service_check_password import SessionServiceCheckPassword
+from zitadel_client.models.session_service_check_recovery_code import SessionServiceCheckRecoveryCode
 from zitadel_client.models.session_service_check_totp import SessionServiceCheckTOTP
 from zitadel_client.models.session_service_check_user import SessionServiceCheckUser
 from zitadel_client.models.session_service_check_web_auth_n import SessionServiceCheckWebAuthN
@@ -39,7 +40,8 @@ class SessionServiceChecks(BaseModel):
     totp: Optional[SessionServiceCheckTOTP] = None
     otp_sms: Optional[SessionServiceCheckOTP] = Field(default=None, alias="otpSms")
     otp_email: Optional[SessionServiceCheckOTP] = Field(default=None, alias="otpEmail")
-    __properties: ClassVar[List[str]] = ["user", "password", "webAuthN", "idpIntent", "totp", "otpSms", "otpEmail"]
+    recovery_code: Optional[SessionServiceCheckRecoveryCode] = Field(default=None, alias="recoveryCode")
+    __properties: ClassVar[List[str]] = ["user", "password", "webAuthN", "idpIntent", "totp", "otpSms", "otpEmail", "recoveryCode"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -101,6 +103,9 @@ class SessionServiceChecks(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of otp_email
         if self.otp_email:
             _dict['otpEmail'] = self.otp_email.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of recovery_code
+        if self.recovery_code:
+            _dict['recoveryCode'] = self.recovery_code.to_dict()
         return _dict
 
     @classmethod
@@ -119,7 +124,8 @@ class SessionServiceChecks(BaseModel):
             "idpIntent": SessionServiceCheckIDPIntent.from_dict(obj["idpIntent"]) if obj.get("idpIntent") is not None else None,
             "totp": SessionServiceCheckTOTP.from_dict(obj["totp"]) if obj.get("totp") is not None else None,
             "otpSms": SessionServiceCheckOTP.from_dict(obj["otpSms"]) if obj.get("otpSms") is not None else None,
-            "otpEmail": SessionServiceCheckOTP.from_dict(obj["otpEmail"]) if obj.get("otpEmail") is not None else None
+            "otpEmail": SessionServiceCheckOTP.from_dict(obj["otpEmail"]) if obj.get("otpEmail") is not None else None,
+            "recoveryCode": SessionServiceCheckRecoveryCode.from_dict(obj["recoveryCode"]) if obj.get("recoveryCode") is not None else None
         })
         return _obj
 

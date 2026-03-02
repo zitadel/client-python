@@ -59,7 +59,7 @@ class BetaInstanceServiceApi:
     def add_custom_domain(        self,                beta_instance_service_add_custom_domain_request: BetaInstanceServiceAddCustomDomainRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaInstanceServiceAddCustomDomainResponse:
         """Add Custom Domain
 
-        Adds a custom domain to the instance in context.   The instance_id in the input message will be used in the future   Required permissions:    - `system.domain.write`
+        Deprecated: please move to the corresponding endpoint under instance service v2. This endpoint will be removed with the next major version of ZITADEL.   Adds a custom domain to the instance in context.   The instance_id in the input message will be used in the future   Required permissions:    - `system.domain.write`
 
         :param beta_instance_service_add_custom_domain_request: (required)
         :type beta_instance_service_add_custom_domain_request: BetaInstanceServiceAddCustomDomainRequest
@@ -187,7 +187,7 @@ class BetaInstanceServiceApi:
     def add_trusted_domain(        self,                beta_instance_service_add_trusted_domain_request: BetaInstanceServiceAddTrustedDomainRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaInstanceServiceAddTrustedDomainResponse:
         """Add Trusted Domain
 
-        Adds a trusted domain to the instance.   The instance_id in the input message will be used in the future.   Required permissions:   - `iam.write`
+        Deprecated: please move to the corresponding endpoint under instance service v2. This endpoint will be removed with the next major version of ZITADEL.   Adds a trusted domain to the instance.   The instance_id in the input message will be used in the future.   Required permissions:   - `iam.write`
 
         :param beta_instance_service_add_trusted_domain_request: (required)
         :type beta_instance_service_add_trusted_domain_request: BetaInstanceServiceAddTrustedDomainRequest
@@ -315,7 +315,7 @@ class BetaInstanceServiceApi:
     def delete_instance(        self,                beta_instance_service_delete_instance_request: BetaInstanceServiceDeleteInstanceRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaInstanceServiceDeleteInstanceResponse:
         """Delete Instance
 
-        Deletes an instance with the given ID.   Required permissions:    - `system.instance.delete`
+        Deprecated: please move to the corresponding endpoint under instance service v2. This endpoint will be removed with the next major version of ZITADEL.   Deletes an instance with the given ID.   Required permissions:    - `system.instance.delete`
 
         :param beta_instance_service_delete_instance_request: (required)
         :type beta_instance_service_delete_instance_request: BetaInstanceServiceDeleteInstanceRequest
@@ -443,7 +443,7 @@ class BetaInstanceServiceApi:
     def get_instance(        self,                beta_instance_service_get_instance_request: BetaInstanceServiceGetInstanceRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaInstanceServiceGetInstanceResponse:
         """Get Instance
 
-        Returns the instance in the current context.   The instance_id in the input message will be used in the future.   Required permissions:    - `iam.read`
+        Deprecated: please move to the corresponding endpoint under instance service v2. This endpoint will be removed with the next major version of ZITADEL.   Returns the instance in the current context.   The instance_id in the input message will be used in the future.   Required permissions:    - `iam.read`
 
         :param beta_instance_service_get_instance_request: (required)
         :type beta_instance_service_get_instance_request: BetaInstanceServiceGetInstanceRequest
@@ -571,7 +571,7 @@ class BetaInstanceServiceApi:
     def list_custom_domains(        self,                beta_instance_service_list_custom_domains_request: BetaInstanceServiceListCustomDomainsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaInstanceServiceListCustomDomainsResponse:
         """List Custom Domains
 
-        Lists custom domains of the instance.   The instance_id in the input message will be used in the future.   Required permissions:   - `iam.read`
+        Deprecated: please move to the corresponding endpoint under instance service v2. This endpoint will be removed with the next major version of ZITADEL.   Lists custom domains of the instance.   The instance_id in the input message will be used in the future.   Required permissions:   - `iam.read`
 
         :param beta_instance_service_list_custom_domains_request: (required)
         :type beta_instance_service_list_custom_domains_request: BetaInstanceServiceListCustomDomainsRequest
@@ -699,7 +699,7 @@ class BetaInstanceServiceApi:
     def list_instances(        self,                beta_instance_service_list_instances_request: BetaInstanceServiceListInstancesRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaInstanceServiceListInstancesResponse:
         """List Instances
 
-        Lists instances matching the given query.  The query can be used to filter either by instance ID or domain.  The request is paginated and returns 100 results by default.   Required permissions:   - `system.instance.read`
+        Deprecated: please move to the corresponding endpoint under instance service v2. This endpoint will be removed with the next major version of ZITADEL.   Lists instances matching the given query.  The query can be used to filter either by instance ID or domain.  The request is paginated and returns 100 results by default.   Required permissions:   - `system.instance.read`
 
         :param beta_instance_service_list_instances_request: (required)
         :type beta_instance_service_list_instances_request: BetaInstanceServiceListInstancesRequest
@@ -827,7 +827,7 @@ class BetaInstanceServiceApi:
     def list_trusted_domains(        self,                beta_instance_service_list_trusted_domains_request: BetaInstanceServiceListTrustedDomainsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaInstanceServiceListTrustedDomainsResponse:
         """List Trusted Domains
 
-        Lists trusted domains of the instance.   The instance_id in the input message will be used in the future.   Required permissions:    - `iam.read`
+        Deprecated: please move to the corresponding endpoint under instance service v2. This endpoint will be removed with the next major version of ZITADEL.   Lists trusted domains of the instance.   The instance_id in the input message will be used in the future.   Required permissions:    - `iam.read`
 
         :param beta_instance_service_list_trusted_domains_request: (required)
         :type beta_instance_service_list_trusted_domains_request: BetaInstanceServiceListTrustedDomainsRequest
@@ -955,7 +955,7 @@ class BetaInstanceServiceApi:
     def remove_custom_domain(        self,                beta_instance_service_remove_custom_domain_request: BetaInstanceServiceRemoveCustomDomainRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaInstanceServiceRemoveCustomDomainResponse:
         """Remove Custom Domain
 
-        Removes a custom domain from the instance.   The instance_id in the input message will be used in the future.   Required permissions:   - `system.domain.write`
+        Deprecated: please move to the corresponding endpoint under instance service v2. This endpoint will be removed with the next major version of ZITADEL.   Removes a custom domain from the instance.   The instance_id in the input message will be used in the future.   Required permissions:   - `system.domain.write`
 
         :param beta_instance_service_remove_custom_domain_request: (required)
         :type beta_instance_service_remove_custom_domain_request: BetaInstanceServiceRemoveCustomDomainRequest
@@ -1083,7 +1083,7 @@ class BetaInstanceServiceApi:
     def remove_trusted_domain(        self,                beta_instance_service_remove_trusted_domain_request: BetaInstanceServiceRemoveTrustedDomainRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaInstanceServiceRemoveTrustedDomainResponse:
         """Remove Trusted Domain
 
-        Removes a trusted domain from the instance.   The instance_id in the input message will be used in the future.   Required permissions:   - `iam.write`
+        Deprecated: please move to the corresponding endpoint under instance service v2. This endpoint will be removed with the next major version of ZITADEL.   Removes a trusted domain from the instance.   The instance_id in the input message will be used in the future.   Required permissions:   - `iam.write`
 
         :param beta_instance_service_remove_trusted_domain_request: (required)
         :type beta_instance_service_remove_trusted_domain_request: BetaInstanceServiceRemoveTrustedDomainRequest
@@ -1211,7 +1211,7 @@ class BetaInstanceServiceApi:
     def update_instance(        self,                beta_instance_service_update_instance_request: BetaInstanceServiceUpdateInstanceRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaInstanceServiceUpdateInstanceResponse:
         """Update Instance
 
-        Updates instance in context with the given name.   The instance_id in the input message will be used in the future.   Required permissions:    - `iam.write`
+        Deprecated: please move to the corresponding endpoint under instance service v2. This endpoint will be removed with the next major version of ZITADEL.   Updates instance in context with the given name.   The instance_id in the input message will be used in the future.   Required permissions:    - `iam.write`
 
         :param beta_instance_service_update_instance_request: (required)
         :type beta_instance_service_update_instance_request: BetaInstanceServiceUpdateInstanceRequest

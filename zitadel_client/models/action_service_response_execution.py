@@ -26,9 +26,9 @@ class ActionServiceResponseExecution(BaseModel):
     """
     ActionServiceResponseExecution
     """ # noqa: E501
-    all: Optional[StrictBool] = Field(default=None, description="All calls to any available services and methods as condition.")
-    method: Optional[StrictStr] = Field(default=None, description="GRPC-method as condition.")
-    service: Optional[StrictStr] = Field(default=None, description="GRPC-service as condition.")
+    all: Optional[StrictBool] = Field(default=None, description="Define all calls as condition.  Before a response is returned to the client from any available service,  the execution is triggered.")
+    method: Optional[StrictStr] = Field(default=None, description="Define a GRPC-method as condition.  Before a response is returned to the client from this method, the execution is triggered.")
+    service: Optional[StrictStr] = Field(default=None, description="Define a GRPC-service as condition.  Before a response is returned to the client from any method of this service, the execution is triggered.")
     __properties: ClassVar[List[str]] = ["all", "method", "service"]
 
     model_config = ConfigDict(

@@ -65,7 +65,7 @@ class BetaAppServiceApi:
             beta_app_service_create_application_request = {}
         """Create Application
 
-        Create an application. The application can be OIDC, API or SAML type, based on the input.   Required permissions:    - project.app.write
+        Deprecated: use [application service v2 CreateApplication](apis/resources/application_service_v2/application-service-create-application.api.mdx) instead.   Create an application. The application can be OIDC, API or SAML type, based on the input.   Required permissions:    - project.app.write
 
         :param beta_app_service_create_application_request: (required)
         :type beta_app_service_create_application_request: BetaAppServiceCreateApplicationRequest
@@ -193,7 +193,7 @@ class BetaAppServiceApi:
     def create_application_key(        self,                beta_app_service_create_application_key_request: BetaAppServiceCreateApplicationKeyRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaAppServiceCreateApplicationKeyResponse:
         """Create Application Key
 
-        Create a new application key, which is used to authorize an API application.   Key details are returned in the response. They must be stored safely, as it will not  be possible to retrieve them again.   Required permissions:    - `project.app.write`
+        Deprecated: use [application service v2 CreateApplicationKey](apis/resources/application_service_v2/application-service-create-application-key.api.mdx) instead.   Create a new application key, which is used to authorize an API application.   Key details are returned in the response. They must be stored safely, as it will not  be possible to retrieve them again.   Required permissions:    - `project.app.write`
 
         :param beta_app_service_create_application_key_request: (required)
         :type beta_app_service_create_application_key_request: BetaAppServiceCreateApplicationKeyRequest
@@ -321,7 +321,7 @@ class BetaAppServiceApi:
     def deactivate_application(        self,                beta_app_service_deactivate_application_request: BetaAppServiceDeactivateApplicationRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaAppServiceDeactivateApplicationResponse:
         """Deactivate Application
 
-        Deactivates the application belonging to the input project and matching the provided  application ID.   Required permissions:    - project.app.write
+        Deprecated: use [application service v2 DeactivateApplication](apis/resources/application_service_v2/application-service-deactivate-application.api.mdx) instead.   Deactivates the application belonging to the input project and matching the provided  application ID.   Required permissions:    - project.app.write
 
         :param beta_app_service_deactivate_application_request: (required)
         :type beta_app_service_deactivate_application_request: BetaAppServiceDeactivateApplicationRequest
@@ -449,7 +449,7 @@ class BetaAppServiceApi:
     def delete_application(        self,                beta_app_service_delete_application_request: BetaAppServiceDeleteApplicationRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaAppServiceDeleteApplicationResponse:
         """Delete Application
 
-        Deletes the application belonging to the input project and matching the provided  application ID.   Required permissions:    - project.app.delete
+        Deprecated: use [application service v2 DeleteApplication](apis/resources/application_service_v2/application-service-delete-application.api.mdx) instead.   Deletes the application belonging to the input project and matching the provided  application ID.   Required permissions:    - project.app.delete
 
         :param beta_app_service_delete_application_request: (required)
         :type beta_app_service_delete_application_request: BetaAppServiceDeleteApplicationRequest
@@ -577,7 +577,7 @@ class BetaAppServiceApi:
     def delete_application_key(        self,                beta_app_service_delete_application_key_request: BetaAppServiceDeleteApplicationKeyRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaAppServiceDeleteApplicationKeyResponse:
         """Delete Application Key
 
-        Deletes an application key matching the provided ID.   Organization ID is not mandatory, but helps with filtering/performance.   The deletion time is returned in response message.   Required permissions:    - `project.app.write`
+        Deprecated: use [application service v2 DeleteApplicationKey](apis/resources/application_service_v2/application-service-delete-application-key.api.mdx) instead.   Deletes an application key matching the provided ID.   Organization ID is not mandatory, but helps with filtering/performance.   The deletion time is returned in response message.   Required permissions:    - `project.app.write`
 
         :param beta_app_service_delete_application_key_request: (required)
         :type beta_app_service_delete_application_key_request: BetaAppServiceDeleteApplicationKeyRequest
@@ -705,7 +705,7 @@ class BetaAppServiceApi:
     def get_application(        self,                beta_app_service_get_application_request: BetaAppServiceGetApplicationRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaAppServiceGetApplicationResponse:
         """Get Application
 
-        Retrieves the application matching the provided ID.   Required permissions:    - project.app.read
+        Deprecated: use [application service v2 GetApplication](apis/resources/application_service_v2/application-service-get-application.api.mdx) instead.   Retrieves the application matching the provided ID.   Required permissions:    - project.app.read
 
         :param beta_app_service_get_application_request: (required)
         :type beta_app_service_get_application_request: BetaAppServiceGetApplicationRequest
@@ -833,7 +833,7 @@ class BetaAppServiceApi:
     def get_application_key(        self,                beta_app_service_get_application_key_request: BetaAppServiceGetApplicationKeyRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaAppServiceGetApplicationKeyResponse:
         """Get Application Key
 
-        Retrieves the application key matching the provided ID.   Specifying a project, organization and app ID is optional but help with filtering/performance.   Required permissions:    - project.app.read
+        Deprecated: use [application service v2 GetApplicationKey](apis/resources/application_service_v2/application-service-get-application-key.api.mdx) instead.   Retrieves the application key matching the provided ID.   Specifying a project, organization and app ID is optional but help with filtering/performance.   Required permissions:    - project.app.read
 
         :param beta_app_service_get_application_key_request: (required)
         :type beta_app_service_get_application_key_request: BetaAppServiceGetApplicationKeyRequest
@@ -963,7 +963,7 @@ class BetaAppServiceApi:
             beta_app_service_list_application_keys_request = {}
         """List Application Keys
 
-        Returns a list of application keys matching the input parameters.   The result can be sorted by id, aggregate, creation date, expiration date, resource owner or type.  It can also be filtered by app, project or organization ID.   Required permissions:    - project.app.read
+        Deprecated: use [application service v2 ListApplicationKeys](apis/resources/application_service_v2/application-service-list-application-keys.api.mdx) instead.   Returns a list of application keys matching the input parameters.   The result can be sorted by id, aggregate, creation date, expiration date, resource owner or type.  It can also be filtered by app, project or organization ID.   Required permissions:    - project.app.read
 
         :param beta_app_service_list_application_keys_request: (required)
         :type beta_app_service_list_application_keys_request: BetaAppServiceListApplicationKeysRequest
@@ -1091,7 +1091,7 @@ class BetaAppServiceApi:
     def list_applications(        self,                beta_app_service_list_applications_request: BetaAppServiceListApplicationsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaAppServiceListApplicationsResponse:
         """List Applications
 
-        Returns a list of applications matching the input parameters that belong to the provided  project.   The result can be sorted by app id, name, creation date, change date or state. It can also  be filtered by app state, app type and app name.   Required permissions:    - project.app.read
+        Deprecated: use [application service v2 ListApplications](apis/resources/application_service_v2/application-service-list-applications.api.mdx) instead.   Returns a list of applications matching the input parameters that belong to the provided  project.   The result can be sorted by app id, name, creation date, change date or state. It can also  be filtered by app state, app type and app name.   Required permissions:    - project.app.read
 
         :param beta_app_service_list_applications_request: (required)
         :type beta_app_service_list_applications_request: BetaAppServiceListApplicationsRequest
@@ -1219,7 +1219,7 @@ class BetaAppServiceApi:
     def reactivate_application(        self,                beta_app_service_reactivate_application_request: BetaAppServiceReactivateApplicationRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaAppServiceReactivateApplicationResponse:
         """Reactivate Application
 
-        Reactivates the application belonging to the input project and matching the provided  application ID.   Required permissions:    - project.app.write
+        Deprecated: use [application service v2 ReactivateApplication](apis/resources/application_service_v2/application-service-reactivate-application.api.mdx) instead.   Reactivates the application belonging to the input project and matching the provided  application ID.   Required permissions:    - project.app.write
 
         :param beta_app_service_reactivate_application_request: (required)
         :type beta_app_service_reactivate_application_request: BetaAppServiceReactivateApplicationRequest
@@ -1349,7 +1349,7 @@ class BetaAppServiceApi:
             beta_app_service_regenerate_client_secret_request = {}
         """Regenerate Client Secret
 
-        Regenerates the client secret of an API or OIDC application that belongs to the input project.    Required permissions:    - project.app.write
+        Deprecated: use [application service v2 GenerateClientSecret](apis/resources/application_service_v2/application-service-generate-client-secret.api.mdx) instead.   Regenerates the client secret of an API or OIDC application that belongs to the input project.    Required permissions:    - project.app.write
 
         :param beta_app_service_regenerate_client_secret_request: (required)
         :type beta_app_service_regenerate_client_secret_request: BetaAppServiceRegenerateClientSecretRequest
@@ -1479,7 +1479,7 @@ class BetaAppServiceApi:
             beta_app_service_update_application_request = {}
         """Update Application
 
-        Changes the configuration of an OIDC, API or SAML type application, as well as  the application name, based on the input provided.   Required permissions:    - project.app.write
+        Deprecated: use [application service v2 UpdateApplication](apis/resources/application_service_v2/zitadel-app-v-2-application-service-update-application.api.mdx) instead.   Changes the configuration of an OIDC, API or SAML type application, as well as  the application name, based on the input provided.   Required permissions:    - project.app.write
 
         :param beta_app_service_update_application_request: (required)
         :type beta_app_service_update_application_request: BetaAppServiceUpdateApplicationRequest

@@ -26,8 +26,8 @@ class SettingsServiceEmbeddedIframeSettings(BaseModel):
     """
     SettingsServiceEmbeddedIframeSettings
     """ # noqa: E501
-    enabled: Optional[StrictBool] = None
-    allowed_origins: Optional[List[StrictStr]] = Field(default=None, alias="allowedOrigins")
+    enabled: Optional[StrictBool] = Field(default=None, description="Enabled states if iframe embedding is enabled or disabled.")
+    allowed_origins: Optional[List[StrictStr]] = Field(default=None, description="AllowedOrigins defines which origins are allowed to embed ZITADEL in an iframe.", alias="allowedOrigins")
     __properties: ClassVar[List[str]] = ["enabled", "allowedOrigins"]
 
     model_config = ConfigDict(

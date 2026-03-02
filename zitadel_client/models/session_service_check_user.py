@@ -26,8 +26,8 @@ class SessionServiceCheckUser(BaseModel):
     """
     SessionServiceCheckUser
     """ # noqa: E501
-    login_name: Optional[StrictStr] = Field(default=None, alias="loginName")
-    user_id: Optional[StrictStr] = Field(default=None, alias="userId")
+    login_name: Optional[StrictStr] = Field(default=None, description="The login name of the user to be checked. It will search case insensitive.  Note this only checks for the computed login name and not for any organization scoped usernames.  Also note that it will not check for emails or phone numbers, even if the corresponding  setting is enabled. Use the user service ListUsers method to find a user by email or phone number first  to obtain the user ID or login name.", alias="loginName")
+    user_id: Optional[StrictStr] = Field(default=None, description="The unique identifier of the user to be checked.", alias="userId")
     __properties: ClassVar[List[str]] = ["loginName", "userId"]
 
     model_config = ConfigDict(

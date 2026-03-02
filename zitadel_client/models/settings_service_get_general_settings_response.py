@@ -26,10 +26,12 @@ class SettingsServiceGetGeneralSettingsResponse(BaseModel):
     """
     SettingsServiceGetGeneralSettingsResponse
     """ # noqa: E501
-    default_org_id: Optional[StrictStr] = Field(default=None, alias="defaultOrgId")
-    default_language: Optional[StrictStr] = Field(default=None, alias="defaultLanguage")
-    supported_languages: Optional[List[StrictStr]] = Field(default=None, alias="supportedLanguages")
-    __properties: ClassVar[List[str]] = ["defaultOrgId", "defaultLanguage", "supportedLanguages"]
+    default_org_id: Optional[StrictStr] = Field(default=None, description="The unique identifier of the default organization.  The default organization is used to assign new users to an organization if no other organization is specified.  Deprecated: use default_organization_id instead.", alias="defaultOrgId")
+    default_language: Optional[StrictStr] = Field(default=None, description="The default language is use if no other language is specified or detected.  The format is a BCP 47 language tag (e.g. \"en\", \"de\", \"fr-CH\").", alias="defaultLanguage")
+    supported_languages: Optional[List[StrictStr]] = Field(default=None, description="The list of supported languages.  Note that the instance might restrict the languages further  only allowing a subset of these languages to be used.  The format is a BCP 47 language tag (e.g. \"en\", \"de\", \"fr-CH\").", alias="supportedLanguages")
+    default_organization_id: Optional[StrictStr] = Field(default=None, description="The unique identifier of the default organization.  The default organization is used to assign new users to an organization if no other organization is specified.", alias="defaultOrganizationId")
+    allowed_languages: Optional[List[StrictStr]] = Field(default=None, description="The list of allowed languages for the instance.  This is a subset of the supported languages to be used in the instance  e.g. for user selection during registration or language detection in the UI.  The format is a BCP 47 language tag (e.g. \"en\", \"de\", \"fr-CH\").", alias="allowedLanguages")
+    __properties: ClassVar[List[str]] = ["defaultOrgId", "defaultLanguage", "supportedLanguages", "defaultOrganizationId", "allowedLanguages"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -84,7 +86,9 @@ class SettingsServiceGetGeneralSettingsResponse(BaseModel):
         _obj = cls.model_validate({
             "defaultOrgId": obj.get("defaultOrgId"),
             "defaultLanguage": obj.get("defaultLanguage"),
-            "supportedLanguages": obj.get("supportedLanguages")
+            "supportedLanguages": obj.get("supportedLanguages"),
+            "defaultOrganizationId": obj.get("defaultOrganizationId"),
+            "allowedLanguages": obj.get("allowedLanguages")
         })
         return _obj
 

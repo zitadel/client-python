@@ -26,7 +26,7 @@ class SessionServiceOTPSMS(BaseModel):
     """
     SessionServiceOTPSMS
     """ # noqa: E501
-    return_code: Optional[StrictBool] = Field(default=None, alias="returnCode")
+    return_code: Optional[StrictBool] = Field(default=None, description="Request the code to be returned instead of sending an SMS.  This is useful for testing or in case you want to send the code yourself.", alias="returnCode")
     __properties: ClassVar[List[str]] = ["returnCode"]
 
     model_config = ConfigDict(

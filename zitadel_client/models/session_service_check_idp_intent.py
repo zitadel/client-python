@@ -26,8 +26,8 @@ class SessionServiceCheckIDPIntent(BaseModel):
     """
     SessionServiceCheckIDPIntent
     """ # noqa: E501
-    idp_intent_id: Optional[StrictStr] = Field(default=None, alias="idpIntentId")
-    idp_intent_token: Optional[StrictStr] = Field(default=None, alias="idpIntentToken")
+    idp_intent_id: Optional[StrictStr] = Field(default=None, description="The ID of the idp intent, previously returned on the success response of the IDP callback.", alias="idpIntentId")
+    idp_intent_token: Optional[StrictStr] = Field(default=None, description="The token of the idp intent, previously returned on the success response of the IDP callback.", alias="idpIntentToken")
     __properties: ClassVar[List[str]] = ["idpIntentId", "idpIntentToken"]
 
     model_config = ConfigDict(

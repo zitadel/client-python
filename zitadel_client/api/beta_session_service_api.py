@@ -49,7 +49,7 @@ class BetaSessionServiceApi:
     def create_session(        self,                beta_session_service_create_session_request: BetaSessionServiceCreateSessionRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaSessionServiceCreateSessionResponse:
         """Create a new session
 
-        Create a new session
+        Deprecated: please move to the corresponding endpoint under session service v2. This endpoint will be removed with the next major version of ZITADEL.
 
         :param beta_session_service_create_session_request: (required)
         :type beta_session_service_create_session_request: BetaSessionServiceCreateSessionRequest
@@ -177,7 +177,7 @@ class BetaSessionServiceApi:
     def delete_session(        self,                beta_session_service_delete_session_request: BetaSessionServiceDeleteSessionRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaSessionServiceDeleteSessionResponse:
         """Terminate a session
 
-        Terminate a session
+        Deprecated: please move to the corresponding endpoint under session service v2. This endpoint will be removed with the next major version of ZITADEL.
 
         :param beta_session_service_delete_session_request: (required)
         :type beta_session_service_delete_session_request: BetaSessionServiceDeleteSessionRequest
@@ -305,7 +305,7 @@ class BetaSessionServiceApi:
     def get_session(        self,                beta_session_service_get_session_request: BetaSessionServiceGetSessionRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaSessionServiceGetSessionResponse:
         """GetSession a session
 
-        GetSession a session
+        Deprecated: please move to the corresponding endpoint under session service v2. This endpoint will be removed with the next major version of ZITADEL.
 
         :param beta_session_service_get_session_request: (required)
         :type beta_session_service_get_session_request: BetaSessionServiceGetSessionRequest
@@ -433,7 +433,7 @@ class BetaSessionServiceApi:
     def list_sessions(        self,                beta_session_service_list_sessions_request: BetaSessionServiceListSessionsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaSessionServiceListSessionsResponse:
         """Search sessions
 
-        Search sessions
+        Deprecated: please move to the corresponding endpoint under session service v2. This endpoint will be removed with the next major version of ZITADEL.
 
         :param beta_session_service_list_sessions_request: (required)
         :type beta_session_service_list_sessions_request: BetaSessionServiceListSessionsRequest
@@ -561,7 +561,7 @@ class BetaSessionServiceApi:
     def set_session(        self,                beta_session_service_set_session_request: BetaSessionServiceSetSessionRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaSessionServiceSetSessionResponse:
         """Update a session
 
-        Update a session
+        Deprecated: please move to the corresponding endpoint under session service v2. This endpoint will be removed with the next major version of ZITADEL.
 
         :param beta_session_service_set_session_request: (required)
         :type beta_session_service_set_session_request: BetaSessionServiceSetSessionRequest

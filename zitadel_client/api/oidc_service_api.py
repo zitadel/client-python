@@ -47,9 +47,9 @@ class OIDCServiceApi:
     def authorize_or_deny_device_authorization(        self,                oidc_service_authorize_or_deny_device_authorization_request: Optional[OIDCServiceAuthorizeOrDenyDeviceAuthorizationRequest] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> object:
         if oidc_service_authorize_or_deny_device_authorization_request is None:
             oidc_service_authorize_or_deny_device_authorization_request = {}
-        """Authorize or deny device authorization
+        """Authorize or Deny Device Authorization
 
-        Authorize or deny the device authorization request based on the provided device authorization id.
+        Authorize or deny the device authorization request based on the provided device authorization id.   Required permissions:    - `session.link`
 
         :param oidc_service_authorize_or_deny_device_authorization_request: (required)
         :type oidc_service_authorize_or_deny_device_authorization_request: OIDCServiceAuthorizeOrDenyDeviceAuthorizationRequest
@@ -177,8 +177,9 @@ class OIDCServiceApi:
     def create_callback(        self,                oidc_service_create_callback_request: Optional[OIDCServiceCreateCallbackRequest] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> OIDCServiceCreateCallbackResponse:
         if oidc_service_create_callback_request is None:
             oidc_service_create_callback_request = {}
-        """CreateCallback
+        """Create Callback
 
+        Finalize an Auth Request and get the callback URL for success or failure.  The user must be redirected to the URL in order to inform the application about the success or failure.  On success, the URL contains details for the application to obtain the tokens.  This method can only be called once for an Auth request.   Required permissions:    - `session.link`
 
         :param oidc_service_create_callback_request: (required)
         :type oidc_service_create_callback_request: OIDCServiceCreateCallbackRequest
@@ -304,8 +305,9 @@ class OIDCServiceApi:
 
     @validate_call
     def get_auth_request(        self,                oidc_service_get_auth_request_request: OIDCServiceGetAuthRequestRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> OIDCServiceGetAuthRequestResponse:
-        """GetAuthRequest
+        """Get Auth Request
 
+        Get OIDC Auth Request details by ID, obtained from the redirect URL.  Returns details that are parsed from the application's Auth Request.   Required permissions:    - `session.read`
 
         :param oidc_service_get_auth_request_request: (required)
         :type oidc_service_get_auth_request_request: OIDCServiceGetAuthRequestRequest
@@ -431,9 +433,9 @@ class OIDCServiceApi:
 
     @validate_call
     def get_device_authorization_request(        self,                oidc_service_get_device_authorization_request_request: OIDCServiceGetDeviceAuthorizationRequestRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> OIDCServiceGetDeviceAuthorizationRequestResponse:
-        """Get device authorization request
+        """Get Device Authorization Request
 
-        Get the device authorization based on the provided \"user code\".  This will return the device authorization request, which contains the device authorization id  that is required to authorize the request once the user signed in or to deny it.
+        Get the device authorization based on the provided \"user code\".  This will return the device authorization request, which contains the device authorization id  that is required to authorize the request once the user signed in or to deny it.   Required permissions:    - `session.read`
 
         :param oidc_service_get_device_authorization_request_request: (required)
         :type oidc_service_get_device_authorization_request_request: OIDCServiceGetDeviceAuthorizationRequestRequest

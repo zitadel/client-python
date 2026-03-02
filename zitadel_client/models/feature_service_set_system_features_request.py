@@ -30,10 +30,10 @@ class FeatureServiceSetSystemFeaturesRequest(BaseModel):
     """ # noqa: E501
     login_default_org: Optional[StrictBool] = Field(default=None, alias="loginDefaultOrg")
     user_schema: Optional[StrictBool] = Field(default=None, alias="userSchema")
-    oidc_token_exchange: Optional[StrictBool] = Field(default=None, alias="oidcTokenExchange")
+    oidc_token_exchange: Optional[StrictBool] = Field(default=None, description="Deprecated: the flag has been removed and `urn:ietf:params:oauth:grant-type:token-exchange`  grant type for the OIDC token endpoint is enabled by default.  Token exchange can be used to request tokens with a lesser scope or impersonate other users.  See the security policy to allow impersonation on an instance.  This field is only kept for backward compatibility and will be removed in the next major version of Zitadel.  Setting the field will have no effect.", alias="oidcTokenExchange")
     improved_performance: Optional[List[FeatureServiceImprovedPerformance]] = Field(default=None, alias="improvedPerformance")
     oidc_single_v1_session_termination: Optional[StrictBool] = Field(default=None, alias="oidcSingleV1SessionTermination")
-    enable_back_channel_logout: Optional[StrictBool] = Field(default=None, alias="enableBackChannelLogout")
+    enable_back_channel_logout: Optional[StrictBool] = Field(default=None, description="Deprecated: the flag has been removed and OIDC Back-Channel Logout is always enabled.  This field is only kept for backward compatibility and will be removed in the next major version of Zitadel.  Setting the field will have no effect.", alias="enableBackChannelLogout")
     login_v2: Optional[FeatureServiceLoginV2] = Field(default=None, alias="loginV2")
     permission_check_v2: Optional[StrictBool] = Field(default=None, alias="permissionCheckV2")
     __properties: ClassVar[List[str]] = ["loginDefaultOrg", "userSchema", "oidcTokenExchange", "improvedPerformance", "oidcSingleV1SessionTermination", "enableBackChannelLogout", "loginV2", "permissionCheckV2"]
