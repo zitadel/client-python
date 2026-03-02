@@ -42,6 +42,8 @@ from zitadel_client.models.user_service_delete_user_metadata_request import User
 from zitadel_client.models.user_service_delete_user_metadata_response import UserServiceDeleteUserMetadataResponse
 from zitadel_client.models.user_service_delete_user_request import UserServiceDeleteUserRequest
 from zitadel_client.models.user_service_delete_user_response import UserServiceDeleteUserResponse
+from zitadel_client.models.user_service_generate_recovery_codes_request import UserServiceGenerateRecoveryCodesRequest
+from zitadel_client.models.user_service_generate_recovery_codes_response import UserServiceGenerateRecoveryCodesResponse
 from zitadel_client.models.user_service_get_user_by_id_request import UserServiceGetUserByIDRequest
 from zitadel_client.models.user_service_get_user_by_id_response import UserServiceGetUserByIDResponse
 from zitadel_client.models.user_service_human_mfa_init_skipped_request import UserServiceHumanMFAInitSkippedRequest
@@ -88,6 +90,8 @@ from zitadel_client.models.user_service_remove_personal_access_token_request imp
 from zitadel_client.models.user_service_remove_personal_access_token_response import UserServiceRemovePersonalAccessTokenResponse
 from zitadel_client.models.user_service_remove_phone_request import UserServiceRemovePhoneRequest
 from zitadel_client.models.user_service_remove_phone_response import UserServiceRemovePhoneResponse
+from zitadel_client.models.user_service_remove_recovery_codes_request import UserServiceRemoveRecoveryCodesRequest
+from zitadel_client.models.user_service_remove_recovery_codes_response import UserServiceRemoveRecoveryCodesResponse
 from zitadel_client.models.user_service_remove_secret_request import UserServiceRemoveSecretRequest
 from zitadel_client.models.user_service_remove_secret_response import UserServiceRemoveSecretResponse
 from zitadel_client.models.user_service_remove_totp_request import UserServiceRemoveTOTPRequest
@@ -1808,6 +1812,134 @@ class UserServiceApi:
         return self.api_client.param_serialize(
             method='POST',
             resource_path='/zitadel.user.v2.UserService/DeleteUserMetadata',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def generate_recovery_codes(        self,                user_service_generate_recovery_codes_request: UserServiceGenerateRecoveryCodesRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceGenerateRecoveryCodesResponse:
+        """Generate single-use recovery codes for a user
+
+        Generate new single-use recovery codes for the authenticated user. Recovery codes can be used to recover access to the account if other second factors are not available.
+
+        :param user_service_generate_recovery_codes_request: (required)
+        :type user_service_generate_recovery_codes_request: UserServiceGenerateRecoveryCodesRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._generate_recovery_codes_serialize(
+            user_service_generate_recovery_codes_request=user_service_generate_recovery_codes_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "UserServiceGenerateRecoveryCodesResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+    def _generate_recovery_codes_serialize(
+        self,
+        user_service_generate_recovery_codes_request,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if user_service_generate_recovery_codes_request is not None:
+            _body_params = user_service_generate_recovery_codes_request
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'zitadelAccessToken'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/zitadel.user.v2.UserService/GenerateRecoveryCodes',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -4753,6 +4885,134 @@ class UserServiceApi:
         return self.api_client.param_serialize(
             method='POST',
             resource_path='/zitadel.user.v2.UserService/RemovePhone',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def remove_recovery_codes(        self,                user_service_remove_recovery_codes_request: UserServiceRemoveRecoveryCodesRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> UserServiceRemoveRecoveryCodesResponse:
+        """Remove recovery codes from a user
+
+        Remove all recovery codes from the authenticated user. This will disable the recovery code second factor.
+
+        :param user_service_remove_recovery_codes_request: (required)
+        :type user_service_remove_recovery_codes_request: UserServiceRemoveRecoveryCodesRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._remove_recovery_codes_serialize(
+            user_service_remove_recovery_codes_request=user_service_remove_recovery_codes_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "UserServiceRemoveRecoveryCodesResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+    def _remove_recovery_codes_serialize(
+        self,
+        user_service_remove_recovery_codes_request,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if user_service_remove_recovery_codes_request is not None:
+            _body_params = user_service_remove_recovery_codes_request
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'zitadelAccessToken'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/zitadel.user.v2.UserService/RemoveRecoveryCodes',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

@@ -28,6 +28,7 @@ class OrganizationServiceOrganizationFieldName(str, Enum):
     """
     ORGANIZATION_FIELD_NAME_UNSPECIFIED = 'ORGANIZATION_FIELD_NAME_UNSPECIFIED'
     ORGANIZATION_FIELD_NAME_NAME = 'ORGANIZATION_FIELD_NAME_NAME'
+    ORGANIZATION_FIELD_NAME_CREATION_DATE = 'ORGANIZATION_FIELD_NAME_CREATION_DATE'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

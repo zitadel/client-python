@@ -43,8 +43,9 @@ class BetaOIDCServiceApi:
     def create_callback(        self,                beta_oidc_service_create_callback_request: Optional[BetaOIDCServiceCreateCallbackRequest] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaOIDCServiceCreateCallbackResponse:
         if beta_oidc_service_create_callback_request is None:
             beta_oidc_service_create_callback_request = {}
-        """CreateCallback
+        """Create Callback
 
+        Deprecated: please move to the corresponding endpoint under oidc service v2. This endpoint will be removed with the next major version of ZITADEL.   Finalize an Auth Request and get the callback URL for success or failure.  The user must be redirected to the URL in order to inform the application about the success or failure.  On success, the URL contains details for the application to obtain the tokens.  This method can only be called once for an Auth request.
 
         :param beta_oidc_service_create_callback_request: (required)
         :type beta_oidc_service_create_callback_request: BetaOIDCServiceCreateCallbackRequest
@@ -170,8 +171,9 @@ class BetaOIDCServiceApi:
 
     @validate_call
     def get_auth_request(        self,                beta_oidc_service_get_auth_request_request: BetaOIDCServiceGetAuthRequestRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaOIDCServiceGetAuthRequestResponse:
-        """GetAuthRequest
+        """Get AuthRequest
 
+        Deprecated: please move to the corresponding endpoint under oidc service v2. This endpoint will be removed with the next major version of ZITADEL.   Get OIDC Auth Request details by ID, obtained from the redirect URL. Returns details that are parsed from the application's Auth Request.
 
         :param beta_oidc_service_get_auth_request_request: (required)
         :type beta_oidc_service_get_auth_request_request: BetaOIDCServiceGetAuthRequestRequest

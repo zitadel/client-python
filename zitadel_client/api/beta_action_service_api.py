@@ -59,7 +59,7 @@ class BetaActionServiceApi:
             beta_action_service_create_target_request = {}
         """Create Target
 
-        Create a new target to your endpoint, which can be used in executions.   Required permission:    - `action.target.write`   Required feature flag:    - `actions`
+        Deprecated: please move to the corresponding endpoint under action service v2. This endpoint will be removed with the next major version of ZITADEL.   Create a new target to your endpoint, which can be used in executions.   Required permission:    - `action.target.write`
 
         :param beta_action_service_create_target_request: (required)
         :type beta_action_service_create_target_request: BetaActionServiceCreateTargetRequest
@@ -187,7 +187,7 @@ class BetaActionServiceApi:
     def delete_target(        self,                beta_action_service_delete_target_request: BetaActionServiceDeleteTargetRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaActionServiceDeleteTargetResponse:
         """Delete Target
 
-        Delete an existing target. This will remove it from any configured execution as well.  In case the target is not found, the request will return a successful response as  the desired state is already achieved.   Required permission:    - `action.target.delete`   Required feature flag:    - `actions`
+        Deprecated: please move to the corresponding endpoint under action service v2. This endpoint will be removed with the next major version of ZITADEL.   Delete an existing target. This will remove it from any configured execution as well.  In case the target is not found, the request will return a successful response as  the desired state is already achieved.   Required permission:    - `action.target.delete`
 
         :param beta_action_service_delete_target_request: (required)
         :type beta_action_service_delete_target_request: BetaActionServiceDeleteTargetRequest
@@ -315,7 +315,7 @@ class BetaActionServiceApi:
     def get_target(        self,                beta_action_service_get_target_request: BetaActionServiceGetTargetRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaActionServiceGetTargetResponse:
         """Get Target
 
-        Returns the target identified by the requested ID.   Required permission:    - `action.target.read`   Required feature flag:    - `actions`
+        Deprecated: please move to the corresponding endpoint under action service v2. This endpoint will be removed with the next major version of ZITADEL.   Returns the target identified by the requested ID.   Required permission:    - `action.target.read`
 
         :param beta_action_service_get_target_request: (required)
         :type beta_action_service_get_target_request: BetaActionServiceGetTargetRequest
@@ -445,7 +445,7 @@ class BetaActionServiceApi:
             body = {}
         """List Execution Functions
 
-        List all available functions which can be used as condition for executions.
+        Deprecated: please move to the corresponding endpoint under action service v2. This endpoint will be removed with the next major version of ZITADEL.   List all available functions which can be used as condition for executions.
 
         :param body: (required)
         :type body: object
@@ -575,7 +575,7 @@ class BetaActionServiceApi:
             body = {}
         """List Execution Methods
 
-        List all available methods which can be used as condition for executions.
+        Deprecated: please move to the corresponding endpoint under action service v2. This endpoint will be removed with the next major version of ZITADEL.   List all available methods which can be used as condition for executions.
 
         :param body: (required)
         :type body: object
@@ -705,7 +705,7 @@ class BetaActionServiceApi:
             body = {}
         """List Execution Services
 
-        List all available services which can be used as condition for executions.
+        Deprecated: please move to the corresponding endpoint under action service v2. This endpoint will be removed with the next major version of ZITADEL.   List all available services which can be used as condition for executions.
 
         :param body: (required)
         :type body: object
@@ -833,7 +833,7 @@ class BetaActionServiceApi:
     def list_executions(        self,                beta_action_service_list_executions_request: BetaActionServiceListExecutionsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaActionServiceListExecutionsResponse:
         """List Executions
 
-        List all matching executions. By default all executions of the instance are returned that have at least one execution target.  Make sure to include a limit and sorting for pagination.   Required permission:    - `action.execution.read`   Required feature flag:    - `actions`
+        Deprecated: please move to the corresponding endpoint under action service v2. This endpoint will be removed with the next major version of ZITADEL.   List all matching executions. By default all executions of the instance are returned that have at least one execution target.  Make sure to include a limit and sorting for pagination.   Required permission:    - `action.execution.read`
 
         :param beta_action_service_list_executions_request: (required)
         :type beta_action_service_list_executions_request: BetaActionServiceListExecutionsRequest
@@ -961,7 +961,7 @@ class BetaActionServiceApi:
     def list_targets(        self,                beta_action_service_list_targets_request: BetaActionServiceListTargetsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaActionServiceListTargetsResponse:
         """List targets
 
-        List all matching targets. By default all targets of the instance are returned.  Make sure to include a limit and sorting for pagination.   Required permission:    - `action.target.read`   Required feature flag:    - `actions`
+        Deprecated: please move to the corresponding endpoint under action service v2. This endpoint will be removed with the next major version of ZITADEL.   List all matching targets. By default all targets of the instance are returned.  Make sure to include a limit and sorting for pagination.   Required permission:    - `action.target.read`
 
         :param beta_action_service_list_targets_request: (required)
         :type beta_action_service_list_targets_request: BetaActionServiceListTargetsRequest
@@ -1089,7 +1089,7 @@ class BetaActionServiceApi:
     def set_execution(        self,                beta_action_service_set_execution_request: BetaActionServiceSetExecutionRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaActionServiceSetExecutionResponse:
         """Set Execution
 
-        Sets an execution to call a target or include the targets of another execution.  Setting an empty list of targets will remove all targets from the execution, making it a noop.   Required permission:    - `action.execution.write`   Required feature flag:    - `actions`
+        Deprecated: please move to the corresponding endpoint under action service v2. This endpoint will be removed with the next major version of ZITADEL.   Sets an execution to call a target or include the targets of another execution.  Setting an empty list of targets will remove all targets from the execution, making it a noop.   Required permission:    - `action.execution.write`
 
         :param beta_action_service_set_execution_request: (required)
         :type beta_action_service_set_execution_request: BetaActionServiceSetExecutionRequest
@@ -1219,7 +1219,7 @@ class BetaActionServiceApi:
             beta_action_service_update_target_request = {}
         """Update Target
 
-        Update an existing target.  To generate a new signing key set the optional expirationSigningKey.   Required permission:    - `action.target.write`   Required feature flag:    - `actions`
+        Deprecated: please move to the corresponding endpoint under action service v2. This endpoint will be removed with the next major version of ZITADEL.   Update an existing target.  To generate a new signing key set the optional expirationSigningKey.   Required permission:    - `action.target.write`
 
         :param beta_action_service_update_target_request: (required)
         :type beta_action_service_update_target_request: BetaActionServiceUpdateTargetRequest

@@ -27,14 +27,14 @@ class SettingsServiceLegalAndSupportSettings(BaseModel):
     """
     SettingsServiceLegalAndSupportSettings
     """ # noqa: E501
-    tos_link: Optional[StrictStr] = Field(default=None, alias="tosLink")
-    privacy_policy_link: Optional[StrictStr] = Field(default=None, alias="privacyPolicyLink")
-    help_link: Optional[StrictStr] = Field(default=None, alias="helpLink")
-    support_email: Optional[StrictStr] = Field(default=None, alias="supportEmail")
+    tos_link: Optional[StrictStr] = Field(default=None, description="Link to the Terms of Service. Can be a relative or absolute URL.", alias="tosLink")
+    privacy_policy_link: Optional[StrictStr] = Field(default=None, description="Link to the Privacy Policy. Can be a relative or absolute URL.", alias="privacyPolicyLink")
+    help_link: Optional[StrictStr] = Field(default=None, description="Link to a help page. Can be a relative or absolute URL.", alias="helpLink")
+    support_email: Optional[StrictStr] = Field(default=None, description="Email address for support issues.", alias="supportEmail")
     resource_owner_type: Optional[SettingsServiceResourceOwnerType] = Field(default=None, alias="resourceOwnerType")
-    docs_link: Optional[StrictStr] = Field(default=None, alias="docsLink")
-    custom_link: Optional[StrictStr] = Field(default=None, alias="customLink")
-    custom_link_text: Optional[StrictStr] = Field(default=None, alias="customLinkText")
+    docs_link: Optional[StrictStr] = Field(default=None, description="Link to documentation to be shown in the console.", alias="docsLink")
+    custom_link: Optional[StrictStr] = Field(default=None, description="Link to an external resource that will be available to users in the console.", alias="customLink")
+    custom_link_text: Optional[StrictStr] = Field(default=None, description="The button text that would be shown in console pointing to custom link.", alias="customLinkText")
     __properties: ClassVar[List[str]] = ["tosLink", "privacyPolicyLink", "helpLink", "supportEmail", "resourceOwnerType", "docsLink", "customLink", "customLinkText"]
 
     model_config = ConfigDict(

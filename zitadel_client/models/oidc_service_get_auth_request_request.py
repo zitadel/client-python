@@ -26,7 +26,7 @@ class OIDCServiceGetAuthRequestRequest(BaseModel):
     """
     OIDCServiceGetAuthRequestRequest
     """ # noqa: E501
-    auth_request_id: Optional[StrictStr] = Field(default=None, alias="authRequestId")
+    auth_request_id: Optional[StrictStr] = Field(default=None, description="The ID of the Auth Request, as obtained from the redirect URL.", alias="authRequestId")
     __properties: ClassVar[List[str]] = ["authRequestId"]
 
     model_config = ConfigDict(

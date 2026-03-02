@@ -27,10 +27,11 @@ class OrganizationServiceAddOrganizationRequest(BaseModel):
     """
     OrganizationServiceAddOrganizationRequest
     """ # noqa: E501
-    name: Optional[StrictStr] = None
-    admins: Optional[List[OrganizationServiceAdmin]] = None
-    org_id: Optional[StrictStr] = Field(default=None, description="optionally set your own id unique for the organization.", alias="orgId")
-    __properties: ClassVar[List[str]] = ["name", "admins", "orgId"]
+    name: Optional[StrictStr] = Field(default=None, description="Name is the unique name of the organization to be created.  This must be unique across the instance.")
+    admins: Optional[List[OrganizationServiceAdmin]] = Field(default=None, description="Specify users to be assigned as organization admins.  If no users are specified here, the organization will be created without any admin users.  The organization can still be managed by any instance administrator.  If no roles are specified for a user, they will be assigned the role ORG_OWNER.")
+    organization_id: Optional[StrictStr] = Field(default=None, description="OrganizationID is the unique identifier of the organization. This field is optional.  If omitted, the system will generate one,  which is the recommended way. The generated ID will be returned in the response.", alias="organizationId")
+    org_id: Optional[StrictStr] = Field(default=None, description="Optionally, set a unique id for the organization. If omitted, the system will generate one,  which is the recommended way. The generated ID will be returned in the response.   Deprecated: use 'organization_id' field instead.  If both org_id and organization_id are set, organization_id will take precedence.", alias="orgId")
+    __properties: ClassVar[List[str]] = ["name", "admins", "organizationId", "orgId"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -78,6 +79,11 @@ class OrganizationServiceAddOrganizationRequest(BaseModel):
                 if _item_admins:
                     _items.append(_item_admins.to_dict())
             _dict['admins'] = _items
+        # set to None if organization_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.organization_id is None and "organization_id" in self.model_fields_set:
+            _dict['organizationId'] = None
+
         # set to None if org_id (nullable) is None
         # and model_fields_set contains the field
         if self.org_id is None and "org_id" in self.model_fields_set:
@@ -97,6 +103,7 @@ class OrganizationServiceAddOrganizationRequest(BaseModel):
         _obj = cls.model_validate({
             "name": obj.get("name"),
             "admins": [OrganizationServiceAdmin.from_dict(_item) for _item in obj["admins"]] if obj.get("admins") is not None else None,
+            "organizationId": obj.get("organizationId"),
             "orgId": obj.get("orgId")
         })
         return _obj

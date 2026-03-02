@@ -28,7 +28,7 @@ class OIDCServiceCreateCallbackRequest(BaseModel):
     """
     OIDCServiceCreateCallbackRequest
     """ # noqa: E501
-    auth_request_id: Optional[StrictStr] = Field(default=None, alias="authRequestId")
+    auth_request_id: Optional[StrictStr] = Field(default=None, description="The ID of the Auth Request to finalize.", alias="authRequestId")
     error: Optional[OIDCServiceAuthorizationError] = None
     session: Optional[OIDCServiceSession] = None
     __properties: ClassVar[List[str]] = ["authRequestId", "error", "session"]

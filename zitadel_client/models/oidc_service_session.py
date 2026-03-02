@@ -26,8 +26,8 @@ class OIDCServiceSession(BaseModel):
     """
     OIDCServiceSession
     """ # noqa: E501
-    session_id: Optional[StrictStr] = Field(default=None, alias="sessionId")
-    session_token: Optional[StrictStr] = Field(default=None, alias="sessionToken")
+    session_id: Optional[StrictStr] = Field(default=None, description="ID of the session, used to login the user. Connects the session to the Auth Request.", alias="sessionId")
+    session_token: Optional[StrictStr] = Field(default=None, description="Token of the session used to login the user. This token verifies that the session is valid.", alias="sessionToken")
     __properties: ClassVar[List[str]] = ["sessionId", "sessionToken"]
 
     model_config = ConfigDict(

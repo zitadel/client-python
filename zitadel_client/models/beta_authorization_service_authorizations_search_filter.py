@@ -34,6 +34,7 @@ class BetaAuthorizationServiceAuthorizationsSearchFilter(BaseModel):
     BetaAuthorizationServiceAuthorizationsSearchFilter
     """ # noqa: E501
     authorization_ids: Optional[BetaAuthorizationServiceInIDsFilter] = Field(default=None, alias="authorizationIds")
+    in_user_ids: Optional[BetaAuthorizationServiceInIDsFilter] = Field(default=None, alias="inUserIds")
     organization_id: Optional[BetaAuthorizationServiceIDFilter] = Field(default=None, alias="organizationId")
     project_grant_id: Optional[BetaAuthorizationServiceIDFilter] = Field(default=None, alias="projectGrantId")
     project_id: Optional[BetaAuthorizationServiceIDFilter] = Field(default=None, alias="projectId")
@@ -44,7 +45,7 @@ class BetaAuthorizationServiceAuthorizationsSearchFilter(BaseModel):
     user_id: Optional[BetaAuthorizationServiceIDFilter] = Field(default=None, alias="userId")
     user_organization_id: Optional[BetaAuthorizationServiceIDFilter] = Field(default=None, alias="userOrganizationId")
     user_preferred_login_name: Optional[BetaAuthorizationServiceUserPreferredLoginNameQuery] = Field(default=None, alias="userPreferredLoginName")
-    __properties: ClassVar[List[str]] = ["authorizationIds", "organizationId", "projectGrantId", "projectId", "projectName", "roleKey", "state", "userDisplayName", "userId", "userOrganizationId", "userPreferredLoginName"]
+    __properties: ClassVar[List[str]] = ["authorizationIds", "inUserIds", "organizationId", "projectGrantId", "projectId", "projectName", "roleKey", "state", "userDisplayName", "userId", "userOrganizationId", "userPreferredLoginName"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -88,6 +89,9 @@ class BetaAuthorizationServiceAuthorizationsSearchFilter(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of authorization_ids
         if self.authorization_ids:
             _dict['authorizationIds'] = self.authorization_ids.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of in_user_ids
+        if self.in_user_ids:
+            _dict['inUserIds'] = self.in_user_ids.to_dict()
         # override the default output from pydantic by calling `to_dict()` of organization_id
         if self.organization_id:
             _dict['organizationId'] = self.organization_id.to_dict()
@@ -131,6 +135,7 @@ class BetaAuthorizationServiceAuthorizationsSearchFilter(BaseModel):
 
         _obj = cls.model_validate({
             "authorizationIds": BetaAuthorizationServiceInIDsFilter.from_dict(obj["authorizationIds"]) if obj.get("authorizationIds") is not None else None,
+            "inUserIds": BetaAuthorizationServiceInIDsFilter.from_dict(obj["inUserIds"]) if obj.get("inUserIds") is not None else None,
             "organizationId": BetaAuthorizationServiceIDFilter.from_dict(obj["organizationId"]) if obj.get("organizationId") is not None else None,
             "projectGrantId": BetaAuthorizationServiceIDFilter.from_dict(obj["projectGrantId"]) if obj.get("projectGrantId") is not None else None,
             "projectId": BetaAuthorizationServiceIDFilter.from_dict(obj["projectId"]) if obj.get("projectId") is not None else None,

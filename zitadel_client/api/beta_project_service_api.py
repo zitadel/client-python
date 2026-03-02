@@ -73,7 +73,7 @@ class BetaProjectServiceApi:
     def activate_project(        self,                beta_project_service_activate_project_request: BetaProjectServiceActivateProjectRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaProjectServiceActivateProjectResponse:
         """Activate Project
 
-        Set the state of a project to active. Request returns no error if the project is already activated.   Required permission:    - `project.write`
+        Deprecated: please move to the corresponding endpoint under project service v2. This endpoint will be removed with the next major version of ZITADEL.   Set the state of a project to active. Request returns no error if the project is already activated.   Required permission:    - `project.write`
 
         :param beta_project_service_activate_project_request: (required)
         :type beta_project_service_activate_project_request: BetaProjectServiceActivateProjectRequest
@@ -201,7 +201,7 @@ class BetaProjectServiceApi:
     def activate_project_grant(        self,                beta_project_service_activate_project_grant_request: BetaProjectServiceActivateProjectGrantRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaProjectServiceActivateProjectGrantResponse:
         """Activate Project Grant
 
-        Set the state of the project grant to activated.   Required permission:    - `project.grant.write`
+        Deprecated: please move to the corresponding endpoint under project service v2. This endpoint will be removed with the next major version of ZITADEL.   Set the state of the project grant to activated.   Required permission:    - `project.grant.write`
 
         :param beta_project_service_activate_project_grant_request: (required)
         :type beta_project_service_activate_project_grant_request: BetaProjectServiceActivateProjectGrantRequest
@@ -329,7 +329,7 @@ class BetaProjectServiceApi:
     def add_project_role(        self,                beta_project_service_add_project_role_request: BetaProjectServiceAddProjectRoleRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaProjectServiceAddProjectRoleResponse:
         """Add Project Role
 
-        Add a new project role to a project. The key must be unique within the project.   Required permission:    - `project.role.write`
+        Deprecated: please move to the corresponding endpoint under project service v2. This endpoint will be removed with the next major version of ZITADEL.   Add a new project role to a project. The key must be unique within the project.   Required permission:    - `project.role.write`
 
         :param beta_project_service_add_project_role_request: (required)
         :type beta_project_service_add_project_role_request: BetaProjectServiceAddProjectRoleRequest
@@ -457,7 +457,7 @@ class BetaProjectServiceApi:
     def create_project(        self,                beta_project_service_create_project_request: BetaProjectServiceCreateProjectRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaProjectServiceCreateProjectResponse:
         """Create Project
 
-        Create a new Project.   Required permission:    - `project.create`
+        Deprecated: please move to the corresponding endpoint under project service v2. This endpoint will be removed with the next major version of ZITADEL.   Create a new Project.   Required permission:    - `project.create`
 
         :param beta_project_service_create_project_request: (required)
         :type beta_project_service_create_project_request: BetaProjectServiceCreateProjectRequest
@@ -585,7 +585,7 @@ class BetaProjectServiceApi:
     def create_project_grant(        self,                beta_project_service_create_project_grant_request: BetaProjectServiceCreateProjectGrantRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaProjectServiceCreateProjectGrantResponse:
         """Create Project Grant
 
-        Grant a project to another organization.  The project grant will allow the granted organization to access the project and manage the authorizations for its users.   Required permission:    - `project.grant.create`
+        Deprecated: please move to the corresponding endpoint under project service v2. This endpoint will be removed with the next major version of ZITADEL.   Grant a project to another organization.  The project grant will allow the granted organization to access the project and manage the authorizations for its users.   Required permission:    - `project.grant.create`
 
         :param beta_project_service_create_project_grant_request: (required)
         :type beta_project_service_create_project_grant_request: BetaProjectServiceCreateProjectGrantRequest
@@ -713,7 +713,7 @@ class BetaProjectServiceApi:
     def deactivate_project(        self,                beta_project_service_deactivate_project_request: BetaProjectServiceDeactivateProjectRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaProjectServiceDeactivateProjectResponse:
         """Deactivate Project
 
-        Set the state of a project to deactivated. Request returns no error if the project is already deactivated.  Applications under deactivated projects are not able to login anymore.   Required permission:    - `project.write`
+        Deprecated: please move to the corresponding endpoint under project service v2. This endpoint will be removed with the next major version of ZITADEL.   Set the state of a project to deactivated. Request returns no error if the project is already deactivated.  Applications under deactivated projects are not able to login anymore.   Required permission:    - `project.write`
 
         :param beta_project_service_deactivate_project_request: (required)
         :type beta_project_service_deactivate_project_request: BetaProjectServiceDeactivateProjectRequest
@@ -841,7 +841,7 @@ class BetaProjectServiceApi:
     def deactivate_project_grant(        self,                beta_project_service_deactivate_project_grant_request: BetaProjectServiceDeactivateProjectGrantRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaProjectServiceDeactivateProjectGrantResponse:
         """Deactivate Project Grant
 
-        Set the state of the project grant to deactivated.  Applications under deactivated projects grants are not able to login anymore.   Required permission:    - `project.grant.write`
+        Deprecated: please move to the corresponding endpoint under project service v2. This endpoint will be removed with the next major version of ZITADEL.   Set the state of the project grant to deactivated.  Applications under deactivated projects grants are not able to login anymore.   Required permission:    - `project.grant.write`
 
         :param beta_project_service_deactivate_project_grant_request: (required)
         :type beta_project_service_deactivate_project_grant_request: BetaProjectServiceDeactivateProjectGrantRequest
@@ -969,7 +969,7 @@ class BetaProjectServiceApi:
     def delete_project(        self,                beta_project_service_delete_project_request: BetaProjectServiceDeleteProjectRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaProjectServiceDeleteProjectResponse:
         """Delete Project
 
-        Delete an existing project.  In case the project is not found, the request will return a successful response as  the desired state is already achieved.   Required permission:    - `project.delete`
+        Deprecated: please move to the corresponding endpoint under project service v2. This endpoint will be removed with the next major version of ZITADEL.   Delete an existing project.  In case the project is not found, the request will return a successful response as  the desired state is already achieved.   Required permission:    - `project.delete`
 
         :param beta_project_service_delete_project_request: (required)
         :type beta_project_service_delete_project_request: BetaProjectServiceDeleteProjectRequest
@@ -1097,7 +1097,7 @@ class BetaProjectServiceApi:
     def delete_project_grant(        self,                beta_project_service_delete_project_grant_request: BetaProjectServiceDeleteProjectGrantRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaProjectServiceDeleteProjectGrantResponse:
         """Delete Project Grant
 
-        Delete a project grant. All user grants for this project grant will also be removed.  A user will not have access to the project afterward (if permissions are checked).  In case the project grant is not found, the request will return a successful response as  the desired state is already achieved.   Required permission:    - `project.grant.delete`
+        Deprecated: please move to the corresponding endpoint under project service v2. This endpoint will be removed with the next major version of ZITADEL.   Delete a project grant. All user grants for this project grant will also be removed.  A user will not have access to the project afterward (if permissions are checked).  In case the project grant is not found, the request will return a successful response as  the desired state is already achieved.   Required permission:    - `project.grant.delete`
 
         :param beta_project_service_delete_project_grant_request: (required)
         :type beta_project_service_delete_project_grant_request: BetaProjectServiceDeleteProjectGrantRequest
@@ -1225,7 +1225,7 @@ class BetaProjectServiceApi:
     def get_project(        self,                beta_project_service_get_project_request: BetaProjectServiceGetProjectRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaProjectServiceGetProjectResponse:
         """Get Project
 
-        Returns the project identified by the requested ID.   Required permission:    - `project.read`
+        Deprecated: please move to the corresponding endpoint under project service v2. This endpoint will be removed with the next major version of ZITADEL.   Returns the project identified by the requested ID.   Required permission:    - `project.read`
 
         :param beta_project_service_get_project_request: (required)
         :type beta_project_service_get_project_request: BetaProjectServiceGetProjectRequest
@@ -1353,7 +1353,7 @@ class BetaProjectServiceApi:
     def list_project_grants(        self,                beta_project_service_list_project_grants_request: BetaProjectServiceListProjectGrantsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaProjectServiceListProjectGrantsResponse:
         """List Project Grants
 
-        Returns a list of project grants. A project grant is when the organization grants its project to another organization.   Required permission:    - `project.grant.write`
+        Deprecated: please move to the corresponding endpoint under project service v2. This endpoint will be removed with the next major version of ZITADEL.   Returns a list of project grants. A project grant is when the organization grants its project to another organization.   Required permission:    - `project.grant.write`
 
         :param beta_project_service_list_project_grants_request: (required)
         :type beta_project_service_list_project_grants_request: BetaProjectServiceListProjectGrantsRequest
@@ -1481,7 +1481,7 @@ class BetaProjectServiceApi:
     def list_project_roles(        self,                beta_project_service_list_project_roles_request: BetaProjectServiceListProjectRolesRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaProjectServiceListProjectRolesResponse:
         """List Project Roles
 
-        Returns all roles of a project matching the search query.   Required permission:    - `project.role.read`
+        Deprecated: please move to the corresponding endpoint under project service v2. This endpoint will be removed with the next major version of ZITADEL.   Returns all roles of a project matching the search query.   Required permission:    - `project.role.read`
 
         :param beta_project_service_list_project_roles_request: (required)
         :type beta_project_service_list_project_roles_request: BetaProjectServiceListProjectRolesRequest
@@ -1609,7 +1609,7 @@ class BetaProjectServiceApi:
     def list_projects(        self,                beta_project_service_list_projects_request: BetaProjectServiceListProjectsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaProjectServiceListProjectsResponse:
         """List Projects
 
-        List all matching projects. By default all projects of the instance that the caller has permission to read are returned.  Make sure to include a limit and sorting for pagination.   Required permission:    - `project.read`
+        Deprecated: please move to the corresponding endpoint under project service v2. This endpoint will be removed with the next major version of ZITADEL.   List all matching projects. By default all projects of the instance that the caller has permission to read are returned.  Make sure to include a limit and sorting for pagination.   Required permission:    - `project.read`
 
         :param beta_project_service_list_projects_request: (required)
         :type beta_project_service_list_projects_request: BetaProjectServiceListProjectsRequest
@@ -1737,7 +1737,7 @@ class BetaProjectServiceApi:
     def remove_project_role(        self,                beta_project_service_remove_project_role_request: BetaProjectServiceRemoveProjectRoleRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaProjectServiceRemoveProjectRoleResponse:
         """Remove Project Role
 
-        Removes the role from the project and on every resource it has a dependency. This includes project grants and user grants.   Required permission:    - `project.role.write`
+        Deprecated: please move to the corresponding endpoint under project service v2. This endpoint will be removed with the next major version of ZITADEL.   Removes the role from the project and on every resource it has a dependency. This includes project grants and user grants.   Required permission:    - `project.role.write`
 
         :param beta_project_service_remove_project_role_request: (required)
         :type beta_project_service_remove_project_role_request: BetaProjectServiceRemoveProjectRoleRequest
@@ -1865,7 +1865,7 @@ class BetaProjectServiceApi:
     def update_project(        self,                beta_project_service_update_project_request: BetaProjectServiceUpdateProjectRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaProjectServiceUpdateProjectResponse:
         """Update Project
 
-        Update an existing project.   Required permission:    - `project.write`
+        Deprecated: please move to the corresponding endpoint under project service v2. This endpoint will be removed with the next major version of ZITADEL.   Update an existing project.   Required permission:    - `project.write`
 
         :param beta_project_service_update_project_request: (required)
         :type beta_project_service_update_project_request: BetaProjectServiceUpdateProjectRequest
@@ -1993,7 +1993,7 @@ class BetaProjectServiceApi:
     def update_project_grant(        self,                beta_project_service_update_project_grant_request: BetaProjectServiceUpdateProjectGrantRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaProjectServiceUpdateProjectGrantResponse:
         """Update Project Grant
 
-        Change the roles of the project that is granted to another organization.  The project grant will allow the granted organization to access the project and manage the authorizations for its users.   Required permission:    - `project.grant.write`
+        Deprecated: please move to the corresponding endpoint under project service v2. This endpoint will be removed with the next major version of ZITADEL.   Change the roles of the project that is granted to another organization.  The project grant will allow the granted organization to access the project and manage the authorizations for its users.   Required permission:    - `project.grant.write`
 
         :param beta_project_service_update_project_grant_request: (required)
         :type beta_project_service_update_project_grant_request: BetaProjectServiceUpdateProjectGrantRequest
@@ -2121,7 +2121,7 @@ class BetaProjectServiceApi:
     def update_project_role(        self,                beta_project_service_update_project_role_request: BetaProjectServiceUpdateProjectRoleRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaProjectServiceUpdateProjectRoleResponse:
         """Update Project Role
 
-        Change a project role. The key is not editable. If a key should change, remove the role and create a new one.   Required permission:    - `project.role.write`
+        Deprecated: please move to the corresponding endpoint under project service v2. This endpoint will be removed with the next major version of ZITADEL.   Change a project role. The key is not editable. If a key should change, remove the role and create a new one.   Required permission:    - `project.role.write`
 
         :param beta_project_service_update_project_role_request: (required)
         :type beta_project_service_update_project_role_request: BetaProjectServiceUpdateProjectRoleRequest

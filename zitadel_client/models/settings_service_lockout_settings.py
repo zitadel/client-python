@@ -27,9 +27,9 @@ class SettingsServiceLockoutSettings(BaseModel):
     """
     SettingsServiceLockoutSettings
     """ # noqa: E501
-    max_password_attempts: Optional[Any] = Field(default=None, alias="maxPasswordAttempts")
+    max_password_attempts: Optional[Any] = Field(default=None, description="The amount of failed password attempts before the account gets locked.  Attempts are reset as soon as the password is entered correctly or the password is reset.  If set to 0 the account will never be locked.", alias="maxPasswordAttempts")
     resource_owner_type: Optional[SettingsServiceResourceOwnerType] = Field(default=None, alias="resourceOwnerType")
-    max_otp_attempts: Optional[Any] = Field(default=None, alias="maxOtpAttempts")
+    max_otp_attempts: Optional[Any] = Field(default=None, description="THe amount of failed OTP (TOTP, SMS, Email) attempts before the account gets locked.  Attempts are reset as soon as the OTP is entered correctly.  If set to 0 the account will never be locked.", alias="maxOtpAttempts")
     __properties: ClassVar[List[str]] = ["maxPasswordAttempts", "resourceOwnerType", "maxOtpAttempts"]
 
     model_config = ConfigDict(

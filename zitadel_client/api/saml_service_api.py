@@ -43,8 +43,9 @@ class SAMLServiceApi:
     def create_response(        self,                saml_service_create_response_request: Optional[SAMLServiceCreateResponseRequest] = None,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SAMLServiceCreateResponseResponse:
         if saml_service_create_response_request is None:
             saml_service_create_response_request = {}
-        """CreateResponse
+        """Create Response
 
+        Finalize a SAML Request and get the response definition for success or failure.  The response must be handled as per the SAML definition to inform the application about the success or failure.  On success, the response contains details for the application to obtain the SAMLResponse.  This method can only be called once for an SAML request.   Required permissions:    - `session.link`
 
         :param saml_service_create_response_request: (required)
         :type saml_service_create_response_request: SAMLServiceCreateResponseRequest
@@ -170,8 +171,9 @@ class SAMLServiceApi:
 
     @validate_call
     def get_saml_request(        self,                saml_service_get_saml_request_request: SAMLServiceGetSAMLRequestRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> SAMLServiceGetSAMLRequestResponse:
-        """GetSAMLRequest
+        """Get SAML Request
 
+        Get SAML Request details by ID. Returns details that are parsed from the application's SAML Request.   Required permissions:    - `session.read`
 
         :param saml_service_get_saml_request_request: (required)
         :type saml_service_get_saml_request_request: SAMLServiceGetSAMLRequestRequest

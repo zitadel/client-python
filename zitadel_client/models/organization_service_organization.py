@@ -28,7 +28,7 @@ class OrganizationServiceOrganization(BaseModel):
     """
     OrganizationServiceOrganization
     """ # noqa: E501
-    id: Optional[StrictStr] = Field(default=None, description="Unique identifier of the organization.")
+    id: Optional[StrictStr] = Field(default=None, description="ID is the unique identifier of the organization.")
     details: Optional[OrganizationServiceDetails] = None
     state: Optional[OrganizationServiceOrganizationState] = None
     name: Optional[StrictStr] = Field(default=None, description="Name of the organization.")

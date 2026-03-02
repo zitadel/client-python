@@ -26,7 +26,7 @@ class SettingsServiceGetHostedLoginTranslationRequest(BaseModel):
     """
     SettingsServiceGetHostedLoginTranslationRequest
     """ # noqa: E501
-    locale: Optional[StrictStr] = None
+    locale: Optional[StrictStr] = Field(default=None, description="The locale of the translations to be returned.  Needs to be a BCP 47 language tag (e.g. \"en\", \"de\", \"fr-CH\").")
     ignore_inheritance: Optional[StrictBool] = Field(default=None, description="if set to true, higher levels are ignored, if false higher levels are merged into the file", alias="ignoreInheritance")
     instance: Optional[StrictBool] = None
     organization_id: Optional[StrictStr] = Field(default=None, alias="organizationId")

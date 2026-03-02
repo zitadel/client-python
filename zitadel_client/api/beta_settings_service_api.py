@@ -60,7 +60,7 @@ class BetaSettingsServiceApi:
     def get_active_identity_providers(        self,                beta_settings_service_get_active_identity_providers_request: BetaSettingsServiceGetActiveIdentityProvidersRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaSettingsServiceGetActiveIdentityProvidersResponse:
         """Get the current active identity providers
 
-        Get the current active identity providers
+        Deprecated: please move to the corresponding endpoint under settings service v2. This endpoint will be removed with the next major version of ZITADEL.
 
         :param beta_settings_service_get_active_identity_providers_request: (required)
         :type beta_settings_service_get_active_identity_providers_request: BetaSettingsServiceGetActiveIdentityProvidersRequest
@@ -188,7 +188,7 @@ class BetaSettingsServiceApi:
     def get_branding_settings(        self,                beta_settings_service_get_branding_settings_request: BetaSettingsServiceGetBrandingSettingsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaSettingsServiceGetBrandingSettingsResponse:
         """Get the current active branding settings
 
-        Get the current active branding settings
+        Deprecated: please move to the corresponding endpoint under settings service v2. This endpoint will be removed with the next major version of ZITADEL.
 
         :param beta_settings_service_get_branding_settings_request: (required)
         :type beta_settings_service_get_branding_settings_request: BetaSettingsServiceGetBrandingSettingsRequest
@@ -316,7 +316,7 @@ class BetaSettingsServiceApi:
     def get_domain_settings(        self,                beta_settings_service_get_domain_settings_request: BetaSettingsServiceGetDomainSettingsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaSettingsServiceGetDomainSettingsResponse:
         """Get the domain settings
 
-        Get the domain settings
+        Deprecated: please move to the corresponding endpoint under settings service v2. This endpoint will be removed with the next major version of ZITADEL.
 
         :param beta_settings_service_get_domain_settings_request: (required)
         :type beta_settings_service_get_domain_settings_request: BetaSettingsServiceGetDomainSettingsRequest
@@ -446,7 +446,7 @@ class BetaSettingsServiceApi:
             body = {}
         """Get basic information over the instance
 
-        Get basic information over the instance
+        Deprecated: please move to the corresponding endpoint under settings service v2. This endpoint will be removed with the next major version of ZITADEL.
 
         :param body: (required)
         :type body: object
@@ -574,7 +574,7 @@ class BetaSettingsServiceApi:
     def get_legal_and_support_settings(        self,                beta_settings_service_get_legal_and_support_settings_request: BetaSettingsServiceGetLegalAndSupportSettingsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaSettingsServiceGetLegalAndSupportSettingsResponse:
         """Get the legal and support settings
 
-        Get the legal and support settings
+        Deprecated: please move to the corresponding endpoint under settings service v2. This endpoint will be removed with the next major version of ZITADEL.
 
         :param beta_settings_service_get_legal_and_support_settings_request: (required)
         :type beta_settings_service_get_legal_and_support_settings_request: BetaSettingsServiceGetLegalAndSupportSettingsRequest
@@ -702,7 +702,7 @@ class BetaSettingsServiceApi:
     def get_lockout_settings(        self,                beta_settings_service_get_lockout_settings_request: BetaSettingsServiceGetLockoutSettingsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaSettingsServiceGetLockoutSettingsResponse:
         """Get the lockout settings
 
-        Get the lockout settings
+        Deprecated: please move to the corresponding endpoint under settings service v2. This endpoint will be removed with the next major version of ZITADEL.
 
         :param beta_settings_service_get_lockout_settings_request: (required)
         :type beta_settings_service_get_lockout_settings_request: BetaSettingsServiceGetLockoutSettingsRequest
@@ -830,7 +830,7 @@ class BetaSettingsServiceApi:
     def get_login_settings(        self,                beta_settings_service_get_login_settings_request: BetaSettingsServiceGetLoginSettingsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaSettingsServiceGetLoginSettingsResponse:
         """Get the login settings
 
-        Get the login settings
+        Deprecated: please move to the corresponding endpoint under settings service v2. This endpoint will be removed with the next major version of ZITADEL.
 
         :param beta_settings_service_get_login_settings_request: (required)
         :type beta_settings_service_get_login_settings_request: BetaSettingsServiceGetLoginSettingsRequest
@@ -958,7 +958,7 @@ class BetaSettingsServiceApi:
     def get_password_complexity_settings(        self,                beta_settings_service_get_password_complexity_settings_request: BetaSettingsServiceGetPasswordComplexitySettingsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaSettingsServiceGetPasswordComplexitySettingsResponse:
         """Get the password complexity settings
 
-        Get the password complexity settings
+        Deprecated: please move to the corresponding endpoint under settings service v2. This endpoint will be removed with the next major version of ZITADEL.
 
         :param beta_settings_service_get_password_complexity_settings_request: (required)
         :type beta_settings_service_get_password_complexity_settings_request: BetaSettingsServiceGetPasswordComplexitySettingsRequest
@@ -1086,7 +1086,7 @@ class BetaSettingsServiceApi:
     def get_password_expiry_settings(        self,                beta_settings_service_get_password_expiry_settings_request: BetaSettingsServiceGetPasswordExpirySettingsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaSettingsServiceGetPasswordExpirySettingsResponse:
         """Get the password expiry settings
 
-        Get the password expiry settings
+        Deprecated: please move to the corresponding endpoint under settings service v2. This endpoint will be removed with the next major version of ZITADEL.
 
         :param beta_settings_service_get_password_expiry_settings_request: (required)
         :type beta_settings_service_get_password_expiry_settings_request: BetaSettingsServiceGetPasswordExpirySettingsRequest
@@ -1216,7 +1216,7 @@ class BetaSettingsServiceApi:
             body = {}
         """Get the security settings
 
-        Get the security settings
+        Deprecated: please move to the corresponding endpoint under settings service v2. This endpoint will be removed with the next major version of ZITADEL.
 
         :param body: (required)
         :type body: object
@@ -1344,7 +1344,7 @@ class BetaSettingsServiceApi:
     def set_security_settings(        self,                beta_settings_service_set_security_settings_request: BetaSettingsServiceSetSecuritySettingsRequest,                _request_timeout: Union[            None,            Annotated[StrictFloat, Field(gt=0)],            Tuple[                Annotated[StrictFloat, Field(gt=0)],                Annotated[StrictFloat, Field(gt=0)]            ]        ] = None,        _request_auth: Optional[Dict[StrictStr, Any]] = None,        _content_type: Optional[StrictStr] = None,        _headers: Optional[Dict[StrictStr, Any]] = None,        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,    ) -> BetaSettingsServiceSetSecuritySettingsResponse:
         """Set the security settings
 
-        Set the security settings
+        Deprecated: please move to the corresponding endpoint under settings service v2. This endpoint will be removed with the next major version of ZITADEL.
 
         :param beta_settings_service_set_security_settings_request: (required)
         :type beta_settings_service_set_security_settings_request: BetaSettingsServiceSetSecuritySettingsRequest

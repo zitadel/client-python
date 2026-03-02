@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 from typing import Any, ClassVar, Dict, List, Optional
 from zitadel_client.models.action_service_execution import ActionServiceExecution
 from zitadel_client.models.action_service_pagination_response import ActionServicePaginationResponse
@@ -29,7 +29,7 @@ class ActionServiceListExecutionsResponse(BaseModel):
     ActionServiceListExecutionsResponse
     """ # noqa: E501
     pagination: Optional[ActionServicePaginationResponse] = None
-    executions: Optional[List[ActionServiceExecution]] = None
+    executions: Optional[List[ActionServiceExecution]] = Field(default=None, description="List of all executions matching the query.")
     __properties: ClassVar[List[str]] = ["pagination", "executions"]
 
     model_config = ConfigDict(

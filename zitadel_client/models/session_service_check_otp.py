@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, Optional
 from typing import Optional, Set
 from typing_extensions import Self
@@ -26,7 +26,7 @@ class SessionServiceCheckOTP(BaseModel):
     """
     SessionServiceCheckOTP
     """ # noqa: E501
-    code: Optional[StrictStr] = None
+    code: Optional[StrictStr] = Field(default=None, description="The One-Time Password sent over SMS or Email of the user to be checked.")
     __properties: ClassVar[List[str]] = ["code"]
 
     model_config = ConfigDict(

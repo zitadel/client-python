@@ -28,7 +28,7 @@ class SettingsServiceSecuritySettings(BaseModel):
     SettingsServiceSecuritySettings
     """ # noqa: E501
     embedded_iframe: Optional[SettingsServiceEmbeddedIframeSettings] = Field(default=None, alias="embeddedIframe")
-    enable_impersonation: Optional[StrictBool] = Field(default=None, alias="enableImpersonation")
+    enable_impersonation: Optional[StrictBool] = Field(default=None, description="If enabled, users are allowed to impersonate other users.  The impersonator needs the appropriate `*_IMPERSONATOR` roles assigned as well\".", alias="enableImpersonation")
     __properties: ClassVar[List[str]] = ["embeddedIframe", "enableImpersonation"]
 
     model_config = ConfigDict(
