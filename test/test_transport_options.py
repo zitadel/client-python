@@ -184,11 +184,9 @@ class TransportOptionsTest(unittest.TestCase):
         self.assertGreaterEqual(result["count"], 1, "Custom header should be present on API call")
 
     def test_proxy_url(self) -> None:
-        # Use HTTP (not HTTPS) to avoid TLS complications with the proxy
-        zitadel = Zitadel.with_client_credentials(
+        zitadel = Zitadel.with_access_token(
             f"http://{self.host}:{self.http_port}",
-            "dummy-client",
-            "dummy-secret",
+            "test-token",
             transport_options=TransportOptions(proxy_url=f"http://{self.host}:{self.http_port}"),
         )
         self.assertIsNotNone(zitadel)
