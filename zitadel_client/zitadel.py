@@ -204,7 +204,7 @@ class Zitadel:
         config: Configuration,
         transport_options: TransportOptions,
     ) -> None:
-        config.default_headers = transport_options.default_headers
+        config.default_headers = dict(transport_options.default_headers)
         if transport_options.ca_cert_path:
             config.ssl_ca_cert = transport_options.ca_cert_path
         if transport_options.insecure:
