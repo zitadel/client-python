@@ -106,6 +106,30 @@ class TransportOptionsTest(unittest.TestCase):
         with urllib.request.urlopen(req) as resp:  # noqa: S310
             assert resp.status == 201
 
+        # Register stub for Settings API endpoint (for verifying headers on API calls)
+        settings_stub = json.dumps(
+            {
+                "request": {
+                    "method": "POST",
+                    "url": "/zitadel.settings.v2.SettingsService/GetGeneralSettings",
+                },
+                "response": {
+                    "status": 200,
+                    "headers": {"Content-Type": "application/json"},
+                    "jsonBody": {},
+                },
+            }
+        ).encode()
+
+        req = urllib.request.Request(
+            f"http://{cls.host}:{cls.http_port}/__admin/mappings",
+            data=settings_stub,
+            headers={"Content-Type": "application/json"},
+            method="POST",
+        )
+        with urllib.request.urlopen(req) as resp:  # noqa: S310
+            assert resp.status == 201
+
     @classmethod
     def teardown_class(cls) -> None:
         if cls.wiremock is not None:
@@ -139,18 +163,25 @@ class TransportOptionsTest(unittest.TestCase):
         )
         self.assertIsNotNone(zitadel)
 
-        # Verify via WireMock request journal
-        journal_url = f"http://{self.host}:{self.http_port}/__admin/requests"
-        with urllib.request.urlopen(journal_url) as response:  # noqa: S310
-            journal = json.loads(response.read().decode())
+        # Make an actual API call to verify headers propagate to service requests
+        zitadel.settings.get_general_settings({})
 
-        found_header = False
-        for req in journal.get("requests", []):
-            headers = req.get("request", {}).get("headers", {})
-            if "X-Custom-Header" in headers:
-                found_header = True
-                break
-        self.assertTrue(found_header, "Custom header should be present in WireMock request journal")
+        # Use WireMock's verification API to assert the header was sent on the API call
+        verify_body = json.dumps(
+            {
+                "url": "/zitadel.settings.v2.SettingsService/GetGeneralSettings",
+                "headers": {"X-Custom-Header": {"equalTo": "test-value"}},
+            }
+        ).encode()
+        req = urllib.request.Request(
+            f"http://{self.host}:{self.http_port}/__admin/requests/count",
+            data=verify_body,
+            headers={"Content-Type": "application/json"},
+            method="POST",
+        )
+        with urllib.request.urlopen(req) as resp:  # noqa: S310
+            result = json.loads(resp.read().decode())
+        self.assertGreaterEqual(result["count"], 1, "Custom header should be present on API call")
 
     def test_proxy_url(self) -> None:
         # Use HTTP (not HTTPS) to avoid TLS complications with the proxy
