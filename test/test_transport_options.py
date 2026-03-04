@@ -5,12 +5,20 @@ import urllib.request
 from typing import Optional
 
 from testcontainers.core.container import DockerContainer
-from testcontainers.core.wait_strategies import HttpWaitStrategy
+from testcontainers.core.waiting_utils import wait_container_is_ready
 
 from zitadel_client.transport_options import TransportOptions
 from zitadel_client.zitadel import Zitadel
 
 FIXTURES_DIR = os.path.join(os.path.dirname(__file__), "fixtures")
+
+
+@wait_container_is_ready()
+def _wait_for_wiremock(host: str, port: str) -> None:
+    url = f"http://{host}:{port}/__admin/mappings"
+    with urllib.request.urlopen(url, timeout=5) as resp:  # noqa: S310
+        if resp.status != 200:
+            raise ConnectionError(f"WireMock not ready: {resp.status}")
 
 
 class TransportOptionsTest(unittest.TestCase):
@@ -46,13 +54,14 @@ class TransportOptionsTest(unittest.TestCase):
                 " --keystore-type PKCS12"
                 " --global-response-templating"
             )
-            .waiting_for(HttpWaitStrategy(8080, "/__admin/mappings").for_status_code(200))
         )
         cls.wiremock.start()
 
         cls.host = cls.wiremock.get_container_host_ip()
         cls.http_port = cls.wiremock.get_exposed_port(8080)
         cls.https_port = cls.wiremock.get_exposed_port(8443)
+
+        _wait_for_wiremock(cls.host, cls.http_port)
 
         # Register stub for OpenID Configuration discovery
         oidc_stub = json.dumps(
