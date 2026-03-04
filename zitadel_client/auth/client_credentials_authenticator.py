@@ -23,7 +23,14 @@ class ClientCredentialsAuthenticator(OAuthAuthenticator):
     Uses client_id and client_secret to obtain an access token from the OAuth2 token endpoint.
     """
 
-    def __init__(self, open_id: OpenId, client_id: str, client_secret: str, auth_scopes: Set[str]):
+    def __init__(
+        self,
+        open_id: OpenId,
+        client_id: str,
+        client_secret: str,
+        auth_scopes: Set[str],
+        transport_options: Optional[TransportOptions] = None,
+    ):
         """
         Constructs a ClientCredentialsAuthenticator.
 
@@ -31,14 +38,32 @@ class ClientCredentialsAuthenticator(OAuthAuthenticator):
         :param client_id: The OAuth client identifier.
         :param client_secret: The OAuth client secret.
         :param auth_scopes: The scope(s) for the token request.
+        :param transport_options: Optional TransportOptions for configuring HTTP connections.
         """
+        opts = transport_options or TransportOptions.defaults()
+
+        session_kwargs: Dict[str, object] = {}
+        if opts.insecure:
+            session_kwargs["verify"] = False
+        elif opts.ca_cert_path:
+            session_kwargs["verify"] = opts.ca_cert_path
+        if opts.proxy_url:
+            session_kwargs["proxies"] = {"http": opts.proxy_url, "https": opts.proxy_url}
+
+        session = OAuth2Session(
+            client_id=client_id,
+            client_secret=client_secret,
+            scope=" ".join(auth_scopes),
+            **session_kwargs,
+        )
+
+        if opts.default_headers:
+            session.headers.update(opts.default_headers)
+
         super().__init__(
             open_id,
-            OAuth2Session(
-                client_id=client_id,
-                client_secret=client_secret,
-                scope=" ".join(auth_scopes),
-            ),
+            session,
+            transport_options=opts,
         )
 
     @override
@@ -93,4 +118,10 @@ class ClientCredentialsAuthenticatorBuilder(OAuthAuthenticatorBuilder["ClientCre
 
         :return: A configured ClientCredentialsAuthenticator.
         """
-        return ClientCredentialsAuthenticator(self.open_id, self.client_id, self.client_secret, self.auth_scopes)
+        return ClientCredentialsAuthenticator(
+            self.open_id,
+            self.client_id,
+            self.client_secret,
+            self.auth_scopes,
+            transport_options=self.transport_options,
+        )

@@ -20,16 +20,23 @@ class OAuthAuthenticator(Authenticator, ABC):
         oauth_session: An OAuth2Session instance used for fetching tokens.
     """
 
-    def __init__(self, open_id: OpenId, oauth_session: OAuth2Session):
+    def __init__(
+        self,
+        open_id: OpenId,
+        oauth_session: OAuth2Session,
+        transport_options: Optional[TransportOptions] = None,
+    ):
         """
         Constructs an OAuthAuthenticator.
 
         :param open_id: An object that must implement get_host_endpoint() and get_token_endpoint().
         :param oauth_session: The scope for the token request.
+        :param transport_options: Optional TransportOptions for configuring HTTP connections.
         """
         super().__init__(open_id.get_host_endpoint())
         self.open_id = open_id
         self.token: Optional[Token] = None
+        self.transport_options = transport_options or TransportOptions.defaults()
         self.oauth_session = oauth_session
         self._lock = Lock()
 
@@ -105,7 +112,8 @@ class OAuthAuthenticatorBuilder(ABC, Generic[T]):
         :param transport_options: Optional TransportOptions for configuring HTTP connections.
         """
         super().__init__()
-        self.open_id = OpenId(host, transport_options=transport_options)
+        self.transport_options = transport_options or TransportOptions.defaults()
+        self.open_id = OpenId(host, transport_options=self.transport_options)
         self.auth_scopes = {"openid", "urn:zitadel:iam:org:project:id:zitadel:aud"}
 
     def scopes(self: T, *auth_scopes: str) -> T:

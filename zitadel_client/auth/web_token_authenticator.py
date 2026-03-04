@@ -31,6 +31,7 @@ class WebTokenAuthenticator(OAuthAuthenticator):
         jwt_lifetime: timedelta = timedelta(hours=1),
         jwt_algorithm: str = "RS256",
         key_id: Optional[str] = None,
+        transport_options: Optional[TransportOptions] = None,
     ):
         """
         Constructs a JWTAuthenticator.
@@ -43,8 +44,27 @@ class WebTokenAuthenticator(OAuthAuthenticator):
         :param private_key: The private key used to sign the JWT.
         :param jwt_lifetime: Lifetime of the JWT in seconds.
         :param jwt_algorithm: The JWT signing algorithm (default "RS256").
+        :param transport_options: Optional TransportOptions for configuring HTTP connections.
         """
-        super().__init__(open_id, OAuth2Session(scope=" ".join(auth_scopes)))
+        opts = transport_options or TransportOptions.defaults()
+
+        session_kwargs: Dict[str, object] = {}
+        if opts.insecure:
+            session_kwargs["verify"] = False
+        elif opts.ca_cert_path:
+            session_kwargs["verify"] = opts.ca_cert_path
+        if opts.proxy_url:
+            session_kwargs["proxies"] = {"http": opts.proxy_url, "https": opts.proxy_url}
+
+        session = OAuth2Session(
+            scope=" ".join(auth_scopes),
+            **session_kwargs,
+        )
+
+        if opts.default_headers:
+            session.headers.update(opts.default_headers)
+
+        super().__init__(open_id, session, transport_options=opts)
         self.jwt_issuer = jwt_issuer
         self.jwt_subject = jwt_subject
         self.jwt_audience = jwt_audience
@@ -206,6 +226,7 @@ class WebTokenAuthenticatorBuilder(OAuthAuthenticatorBuilder["WebTokenAuthentica
             private_key=self.private_key,
             jwt_lifetime=self.jwt_lifetime,
             key_id=self.key_id,
+            transport_options=self.transport_options,
         )
 
     def key_identifier(self, key_id: Optional[str]) -> "WebTokenAuthenticatorBuilder":
