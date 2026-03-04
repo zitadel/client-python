@@ -48,17 +48,9 @@ class WebTokenAuthenticator(OAuthAuthenticator):
         """
         opts = transport_options or TransportOptions.defaults()
 
-        session_kwargs: Dict[str, object] = {}
-        if opts.insecure:
-            session_kwargs["verify"] = False
-        elif opts.ca_cert_path:
-            session_kwargs["verify"] = opts.ca_cert_path
-        if opts.proxy_url:
-            session_kwargs["proxies"] = {"http": opts.proxy_url, "https": opts.proxy_url}
-
         session = OAuth2Session(
             scope=" ".join(auth_scopes),
-            **session_kwargs,
+            **opts.to_session_kwargs(),
         )
 
         if opts.default_headers:

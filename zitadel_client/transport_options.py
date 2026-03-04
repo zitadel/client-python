@@ -18,3 +18,14 @@ class TransportOptions:
     @staticmethod
     def defaults() -> "TransportOptions":
         return TransportOptions()
+
+    def to_session_kwargs(self) -> dict:
+        """Builds keyword arguments for an authlib OAuth2Session."""
+        kwargs: dict = {}
+        if self.insecure:
+            kwargs["verify"] = False
+        elif self.ca_cert_path:
+            kwargs["verify"] = self.ca_cert_path
+        if self.proxy_url:
+            kwargs["proxies"] = {"http": self.proxy_url, "https": self.proxy_url}
+        return kwargs
