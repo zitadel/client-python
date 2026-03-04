@@ -4,6 +4,7 @@ import unittest
 import urllib.request
 from typing import Optional
 
+import docker
 from testcontainers.core.container import DockerContainer
 from testcontainers.core.waiting_utils import wait_container_is_ready
 
@@ -35,13 +36,20 @@ class TransportOptionsTest(unittest.TestCase):
     host: Optional[str] = None
     http_port: Optional[str] = None
     https_port: Optional[str] = None
+    proxy_port: Optional[str] = None
     ca_cert_path: Optional[str] = None
     wiremock: DockerContainer = None
+    proxy_docker = None
+    docker_network = None
 
     @classmethod
     def setup_class(cls) -> None:
         cls.ca_cert_path = os.path.join(FIXTURES_DIR, "ca.pem")
         keystore_path = os.path.join(FIXTURES_DIR, "keystore.p12")
+        tinyproxy_conf = os.path.join(FIXTURES_DIR, "tinyproxy.conf")
+
+        docker_client = docker.from_env()
+        cls.docker_network = docker_client.networks.create("zitadel-proxy-test")
 
         cls.wiremock = (
             DockerContainer("wiremock/wiremock:3.3.1")
@@ -57,9 +65,24 @@ class TransportOptionsTest(unittest.TestCase):
         )
         cls.wiremock.start()
 
+        # Connect WireMock to network with alias so the proxy can resolve it
+        wiremock_id = cls.wiremock._container.id
+        cls.docker_network.connect(wiremock_id, aliases=["wiremock"])
+
+        # Create proxy directly on the network so Docker DNS resolves 'wiremock'
+        cls.proxy_docker = docker_client.containers.run(
+            "vimagick/tinyproxy",
+            detach=True,
+            network="zitadel-proxy-test",
+            ports={"8888/tcp": None},
+            volumes={tinyproxy_conf: {"bind": "/etc/tinyproxy/tinyproxy.conf", "mode": "ro"}},
+        )
+        cls.proxy_docker.reload()
+
         cls.host = cls.wiremock.get_container_host_ip()
         cls.http_port = cls.wiremock.get_exposed_port(8080)
         cls.https_port = cls.wiremock.get_exposed_port(8443)
+        cls.proxy_port = cls.proxy_docker.ports["8888/tcp"][0]["HostPort"]
 
         _wait_for_wiremock(cls.host, cls.http_port)
 
@@ -141,8 +164,13 @@ class TransportOptionsTest(unittest.TestCase):
 
     @classmethod
     def teardown_class(cls) -> None:
+        if cls.proxy_docker is not None:
+            cls.proxy_docker.stop()
+            cls.proxy_docker.remove()
         if cls.wiremock is not None:
             cls.wiremock.stop()
+        if cls.docker_network is not None:
+            cls.docker_network.remove()
 
     def test_custom_ca_cert(self) -> None:
         zitadel = Zitadel.with_client_credentials(
@@ -193,12 +221,14 @@ class TransportOptionsTest(unittest.TestCase):
         self.assertGreaterEqual(result["count"], 1, "Custom header should be present on API call")
 
     def test_proxy_url(self) -> None:
+        # Use Docker-internal hostname — only resolvable through the proxy's network
         zitadel = Zitadel.with_access_token(
-            f"http://{self.host}:{self.http_port}",
+            "http://wiremock:8080",
             "test-token",
-            transport_options=TransportOptions(proxy_url=f"http://{self.host}:{self.http_port}"),
+            transport_options=TransportOptions(proxy_url=f"http://{self.host}:{self.proxy_port}"),
         )
         self.assertIsNotNone(zitadel)
+        zitadel.settings.get_general_settings({})
 
     def test_no_ca_cert_fails(self) -> None:
         with self.assertRaises(Exception):  # noqa: B017
