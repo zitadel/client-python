@@ -81,6 +81,8 @@ class Configuration:
         self.socket_options = None
         self.datetime_format = "%Y-%m-%dT%H:%M:%S.%f%z"
         self.date_format = "%Y-%m-%d"
+        self.default_headers: Dict[str, str] = {}
+        self.proxy_url: Optional[str] = None
 
     def __deepcopy__(self, memo: Dict[int, Any]) -> Self:
         cls = self.__class__

@@ -1,5 +1,5 @@
 import sys
-from typing import Dict, Set
+from typing import Dict, Optional, Set
 
 if sys.version_info >= (3, 12):
     from typing import override
@@ -13,6 +13,7 @@ from zitadel_client.auth.oauth_authenticator import (
     OAuthAuthenticatorBuilder,
 )
 from zitadel_client.auth.open_id import OpenId
+from zitadel_client.transport_options import TransportOptions
 
 
 class ClientCredentialsAuthenticator(OAuthAuthenticator):
@@ -50,16 +51,19 @@ class ClientCredentialsAuthenticator(OAuthAuthenticator):
         return {"grant_type": "client_credentials"}
 
     @staticmethod
-    def builder(host: str, client_id: str, client_secret: str) -> "ClientCredentialsAuthenticatorBuilder":
+    def builder(
+        host: str, client_id: str, client_secret: str, transport_options: Optional[TransportOptions] = None
+    ) -> "ClientCredentialsAuthenticatorBuilder":
         """
         Returns a builder for constructing a ClientCredentialsAuthenticator.
 
         :param host: The base URL for the OAuth provider.
         :param client_id: The OAuth client identifier.
         :param client_secret: The OAuth client secret.
+        :param transport_options: Optional TransportOptions for configuring HTTP connections.
         :return: A ClientCredentialsAuthenticatorBuilder instance.
         """
-        return ClientCredentialsAuthenticatorBuilder(host, client_id, client_secret)
+        return ClientCredentialsAuthenticatorBuilder(host, client_id, client_secret, transport_options=transport_options)
 
 
 class ClientCredentialsAuthenticatorBuilder(OAuthAuthenticatorBuilder["ClientCredentialsAuthenticatorBuilder"]):
@@ -70,15 +74,16 @@ class ClientCredentialsAuthenticatorBuilder(OAuthAuthenticatorBuilder["ClientCre
     required for the client credentials flow.
     """
 
-    def __init__(self, host: str, client_id: str, client_secret: str):
+    def __init__(self, host: str, client_id: str, client_secret: str, transport_options: Optional[TransportOptions] = None):
         """
         Initializes the ClientCredentialsAuthenticatorBuilder with host, client ID, and client secret.
 
         :param host: The base URL for the OAuth provider.
         :param client_id: The OAuth client identifier.
         :param client_secret: The OAuth client secret.
+        :param transport_options: Optional TransportOptions for configuring HTTP connections.
         """
-        super().__init__(host)
+        super().__init__(host, transport_options=transport_options)
         self.client_id = client_id
         self.client_secret = client_secret
 

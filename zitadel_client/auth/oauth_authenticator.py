@@ -8,6 +8,7 @@ from authlib.integrations.requests_client import OAuth2Session
 from zitadel_client import ZitadelError
 from zitadel_client.auth.authenticator import Authenticator, Token
 from zitadel_client.auth.open_id import OpenId
+from zitadel_client.transport_options import TransportOptions
 
 
 class OAuthAuthenticator(Authenticator, ABC):
@@ -92,14 +93,19 @@ class OAuthAuthenticatorBuilder(ABC, Generic[T]):
     This builder provides common configuration options such as the OpenId instance and authentication scopes.
     """
 
-    def __init__(self, host: str):
+    def __init__(
+        self,
+        host: str,
+        transport_options: Optional[TransportOptions] = None,
+    ):
         """
         Initializes the OAuthAuthenticatorBuilder with a given host.
 
         :param host: The base URL for the OAuth provider.
+        :param transport_options: Optional TransportOptions for configuring HTTP connections.
         """
         super().__init__()
-        self.open_id = OpenId(host)
+        self.open_id = OpenId(host, transport_options=transport_options)
         self.auth_scopes = {"openid", "urn:zitadel:iam:org:project:id:zitadel:aud"}
 
     def scopes(self: T, *auth_scopes: str) -> T:

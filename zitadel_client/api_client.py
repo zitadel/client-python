@@ -65,6 +65,8 @@ class ApiClient:
 
         self.rest_client = rest.RESTClientObject(configuration)
         self.default_headers = {"User-Agent": configuration.user_agent}
+        if configuration.default_headers:
+            self.default_headers.update(configuration.default_headers)
         if header_name is not None and header_value is not None:
             self.default_headers[header_name] = header_value
         self.client_side_validation = configuration.client_side_validation

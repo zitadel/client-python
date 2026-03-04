@@ -1400,11 +1400,10 @@ wheels = [
 
 [[package]]
 name = "zitadel-client"
-version = "4.1.0b8"
+version = "4.1.0b10"
 source = { editable = "." }
 dependencies = [
     { name = "authlib" },
-    { name = "cryptography" },
     { name = "pydantic" },
     { name = "python-dateutil" },
     { name = "requests" },
@@ -1414,6 +1413,7 @@ dependencies = [
 
 [package.dev-dependencies]
 dev = [
+    { name = "cryptography" },
     { name = "fawltydeps" },
     { name = "pytest" },
     { name = "pytest-cov" },
@@ -1429,7 +1429,6 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "authlib", specifier = ">=1.3.2,<2.0.0" },
-    { name = "cryptography", specifier = ">=44.0.1,<47.0.0" },
     { name = "pydantic", specifier = ">=2" },
     { name = "python-dateutil", specifier = ">=2.8.2" },
     { name = "requests", specifier = ">=2.32.4,<3.0.0" },
@@ -1439,6 +1438,7 @@ requires-dist = [
 
 [package.metadata.requires-dev]
 dev = [
+    { name = "cryptography", specifier = ">=44.0.1,<47.0.0" },
     { name = "fawltydeps", specifier = "==0.19.0" },
     { name = "pytest", specifier = ">=7.2.1" },
     { name = "pytest-cov", specifier = ">=2.8.1" },

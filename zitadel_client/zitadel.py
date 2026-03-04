@@ -1,5 +1,5 @@
 from types import TracebackType
-from typing import Callable, Optional, Type, TypeVar
+from typing import Callable, Dict, Optional, Type, TypeVar
 
 from zitadel_client.api.action_service_api import ActionServiceApi
 from zitadel_client.api.application_service_api import ApplicationServiceApi
@@ -36,6 +36,7 @@ from zitadel_client.auth.client_credentials_authenticator import ClientCredentia
 from zitadel_client.auth.personal_access_token_authenticator import PersonalAccessTokenAuthenticator
 from zitadel_client.auth.web_token_authenticator import WebTokenAuthenticator
 from zitadel_client.configuration import Configuration
+from zitadel_client.transport_options import TransportOptions
 
 
 class Zitadel:
@@ -182,38 +183,139 @@ class Zitadel:
         pass
 
     @staticmethod
-    def with_access_token(host: str, access_token: str) -> "Zitadel":
+    def _resolve_transport_options(
+        transport_options: Optional[TransportOptions],
+        default_headers: Optional[Dict[str, str]],
+        ca_cert_path: Optional[str],
+        insecure: bool,
+        proxy_url: Optional[str],
+    ) -> TransportOptions:
+        if transport_options is not None:
+            return transport_options
+        return TransportOptions(
+            default_headers=default_headers or {},
+            ca_cert_path=ca_cert_path,
+            insecure=insecure,
+            proxy_url=proxy_url,
+        )
+
+    @staticmethod
+    def _apply_transport_options(
+        config: Configuration,
+        transport_options: TransportOptions,
+    ) -> None:
+        config.default_headers = transport_options.default_headers
+        if transport_options.ca_cert_path:
+            config.ssl_ca_cert = transport_options.ca_cert_path
+        if transport_options.insecure:
+            config.verify_ssl = False
+        if transport_options.proxy_url:
+            config.proxy_url = transport_options.proxy_url
+
+    @staticmethod
+    def with_access_token(
+        host: str,
+        access_token: str,
+        *,
+        default_headers: Optional[Dict[str, str]] = None,
+        ca_cert_path: Optional[str] = None,
+        insecure: bool = False,
+        proxy_url: Optional[str] = None,
+        transport_options: Optional[TransportOptions] = None,
+    ) -> "Zitadel":
         """
         Initialize the SDK with a Personal Access Token (PAT).
 
         :param host: API URL (e.g., "https://api.zitadel.example.com").
         :param access_token: Personal Access Token for Bearer authentication.
+        :param default_headers: Optional dictionary of default headers to send with every request.
+        :param ca_cert_path: Optional path to a CA certificate file for SSL verification.
+        :param insecure: If True, disable SSL certificate verification.
+        :param proxy_url: Optional proxy URL for HTTP/HTTPS requests.
+        :param transport_options: Optional TransportOptions object (overrides individual params if provided).
         :return: Configured Zitadel client instance.
         :see: https://zitadel.com/docs/guides/integrate/service-users/personal-access-token
         """
-        return Zitadel(PersonalAccessTokenAuthenticator(host, access_token))
+        resolved = Zitadel._resolve_transport_options(transport_options, default_headers, ca_cert_path, insecure, proxy_url)
+
+        def mutate_config(config: Configuration) -> None:
+            Zitadel._apply_transport_options(config, resolved)
+
+        return Zitadel(PersonalAccessTokenAuthenticator(host, access_token), mutate_config=mutate_config)
 
     @staticmethod
-    def with_client_credentials(host: str, client_id: str, client_secret: str) -> "Zitadel":
+    def with_client_credentials(
+        host: str,
+        client_id: str,
+        client_secret: str,
+        *,
+        default_headers: Optional[Dict[str, str]] = None,
+        ca_cert_path: Optional[str] = None,
+        insecure: bool = False,
+        proxy_url: Optional[str] = None,
+        transport_options: Optional[TransportOptions] = None,
+    ) -> "Zitadel":
         """
         Initialize the SDK using OAuth2 Client Credentials flow.
 
         :param host: API URL.
         :param client_id: OAuth2 client identifier.
         :param client_secret: OAuth2 client secret.
+        :param default_headers: Optional dictionary of default headers to send with every request.
+        :param ca_cert_path: Optional path to a CA certificate file for SSL verification.
+        :param insecure: If True, disable SSL certificate verification.
+        :param proxy_url: Optional proxy URL for HTTP/HTTPS requests.
+        :param transport_options: Optional TransportOptions object (overrides individual params if provided).
         :return: Configured Zitadel client instance with token auto-refresh.
         :see: https://zitadel.com/docs/guides/integrate/service-users/client-credentials
         """
-        return Zitadel(ClientCredentialsAuthenticator.builder(host, client_id, client_secret).build())
+        resolved = Zitadel._resolve_transport_options(transport_options, default_headers, ca_cert_path, insecure, proxy_url)
+
+        authenticator = ClientCredentialsAuthenticator.builder(
+            host,
+            client_id,
+            client_secret,
+            transport_options=resolved,
+        ).build()
+
+        def mutate_config(config: Configuration) -> None:
+            Zitadel._apply_transport_options(config, resolved)
+
+        return Zitadel(authenticator, mutate_config=mutate_config)
 
     @staticmethod
-    def with_private_key(host: str, key_file: str) -> "Zitadel":
+    def with_private_key(
+        host: str,
+        key_file: str,
+        *,
+        default_headers: Optional[Dict[str, str]] = None,
+        ca_cert_path: Optional[str] = None,
+        insecure: bool = False,
+        proxy_url: Optional[str] = None,
+        transport_options: Optional[TransportOptions] = None,
+    ) -> "Zitadel":
         """
         Initialize the SDK via Private Key JWT assertion.
 
         :param host: API URL.
         :param key_file: Path to service account JSON or PEM key file.
+        :param default_headers: Optional dictionary of default headers to send with every request.
+        :param ca_cert_path: Optional path to a CA certificate file for SSL verification.
+        :param insecure: If True, disable SSL certificate verification.
+        :param proxy_url: Optional proxy URL for HTTP/HTTPS requests.
+        :param transport_options: Optional TransportOptions object (overrides individual params if provided).
         :return: Configured Zitadel client instance using JWT assertion.
         :see: https://zitadel.com/docs/guides/integrate/service-users/private-key-jwt
         """
-        return Zitadel(WebTokenAuthenticator.from_json(host, key_file))
+        resolved = Zitadel._resolve_transport_options(transport_options, default_headers, ca_cert_path, insecure, proxy_url)
+
+        authenticator = WebTokenAuthenticator.from_json(
+            host,
+            key_file,
+            transport_options=resolved,
+        )
+
+        def mutate_config(config: Configuration) -> None:
+            Zitadel._apply_transport_options(config, resolved)
+
+        return Zitadel(authenticator, mutate_config=mutate_config)
