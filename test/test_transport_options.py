@@ -1,7 +1,5 @@
 import json
 import os
-import ssl
-import tempfile
 import time
 import unittest
 import urllib.request
@@ -11,6 +9,8 @@ from testcontainers.core.container import DockerContainer
 
 from zitadel_client.transport_options import TransportOptions
 from zitadel_client.zitadel import Zitadel
+
+FIXTURES_DIR = os.path.join(os.path.dirname(__file__), "fixtures")
 
 
 class TransportOptionsTest(unittest.TestCase):
@@ -32,10 +32,20 @@ class TransportOptionsTest(unittest.TestCase):
 
     @classmethod
     def setup_class(cls) -> None:
+        cls.ca_cert_path = os.path.join(FIXTURES_DIR, "ca.pem")
+        keystore_path = os.path.join(FIXTURES_DIR, "keystore.p12")
+
         cls.wiremock = (
             DockerContainer("wiremock/wiremock:3.3.1")
             .with_exposed_ports(8080, 8443)
-            .with_command("--https-port 8443 --global-response-templating")
+            .with_volume_mapping(keystore_path, "/home/wiremock/keystore.p12", mode="ro")
+            .with_command(
+                "--https-port 8443"
+                " --https-keystore /home/wiremock/keystore.p12"
+                " --keystore-password password"
+                " --keystore-type PKCS12"
+                " --global-response-templating"
+            )
         )
         cls.wiremock.start()
 
@@ -106,17 +116,8 @@ class TransportOptionsTest(unittest.TestCase):
         with urllib.request.urlopen(req) as resp:  # noqa: S310
             assert resp.status == 201
 
-        # Extract the WireMock HTTPS certificate to a temp file
-        pem_cert = ssl.get_server_certificate((cls.host, int(cls.https_port)))
-        cert_file = tempfile.NamedTemporaryFile(suffix=".pem", delete=False)
-        cert_file.write(pem_cert.encode())
-        cert_file.close()
-        cls.ca_cert_path = cert_file.name
-
     @classmethod
     def teardown_class(cls) -> None:
-        if cls.ca_cert_path is not None:
-            os.unlink(cls.ca_cert_path)
         if cls.wiremock is not None:
             cls.wiremock.stop()
 
