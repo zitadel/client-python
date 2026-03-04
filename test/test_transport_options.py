@@ -140,7 +140,7 @@ class TransportOptionsTest(unittest.TestCase):
             f"https://{self.host}:{self.https_port}",
             "dummy-client",
             "dummy-secret",
-            ca_cert_path=self.ca_cert_path,
+            transport_options=TransportOptions(ca_cert_path=self.ca_cert_path),
         )
         self.assertIsNotNone(zitadel)
 
@@ -149,7 +149,7 @@ class TransportOptionsTest(unittest.TestCase):
             f"https://{self.host}:{self.https_port}",
             "dummy-client",
             "dummy-secret",
-            insecure=True,
+            transport_options=TransportOptions(insecure=True),
         )
         self.assertIsNotNone(zitadel)
 
@@ -159,7 +159,7 @@ class TransportOptionsTest(unittest.TestCase):
             f"http://{self.host}:{self.http_port}",
             "dummy-client",
             "dummy-secret",
-            default_headers={"X-Custom-Header": "test-value"},
+            transport_options=TransportOptions(default_headers={"X-Custom-Header": "test-value"}),
         )
         self.assertIsNotNone(zitadel)
 
@@ -189,7 +189,7 @@ class TransportOptionsTest(unittest.TestCase):
             f"http://{self.host}:{self.http_port}",
             "dummy-client",
             "dummy-secret",
-            proxy_url=f"http://{self.host}:{self.http_port}",
+            transport_options=TransportOptions(proxy_url=f"http://{self.host}:{self.http_port}"),
         )
         self.assertIsNotNone(zitadel)
 
@@ -200,13 +200,3 @@ class TransportOptionsTest(unittest.TestCase):
                 "dummy-client",
                 "dummy-secret",
             )
-
-    def test_transport_options_object(self) -> None:
-        opts = TransportOptions(insecure=True)
-        zitadel = Zitadel.with_client_credentials(
-            f"https://{self.host}:{self.https_port}",
-            "dummy-client",
-            "dummy-secret",
-            transport_options=opts,
-        )
-        self.assertIsNotNone(zitadel)

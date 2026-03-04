@@ -198,76 +198,10 @@ environment and security requirements. For more details, please refer to the
 
 ## Advanced Configuration
 
-The SDK factory methods (`with_client_credentials`, `with_private_key`,
-`with_access_token`) accept additional keyword arguments for advanced
-transport configuration.
-
-### Disabling TLS Verification
-
-To disable TLS certificate verification (useful for development with
-self-signed certificates), pass `insecure=True`:
-
-```python
-import zitadel_client as zitadel
-
-client = zitadel.Zitadel.with_client_credentials(
-    "https://example.us1.zitadel.cloud",
-    "client-id",
-    "client-secret",
-    insecure=True,
-)
-```
-
-### Using a Custom CA Certificate
-
-To use a custom CA certificate for TLS verification, pass
-`ca_cert_path` with the path to your CA certificate file:
-
-```python
-import zitadel_client as zitadel
-
-client = zitadel.Zitadel.with_client_credentials(
-    "https://example.us1.zitadel.cloud",
-    "client-id",
-    "client-secret",
-    ca_cert_path="/path/to/ca.pem",
-)
-```
-
-### Custom Default Headers
-
-To send custom headers with every request, pass a `default_headers`
-dictionary:
-
-```python
-import zitadel_client as zitadel
-
-client = zitadel.Zitadel.with_client_credentials(
-    "https://example.us1.zitadel.cloud",
-    "client-id",
-    "client-secret",
-    default_headers={"Proxy-Authorization": "Basic ..."},
-)
-```
-
-### Proxy Configuration
-
-To route all SDK traffic through an HTTP proxy, pass a `proxy_url`:
-
-```python
-import zitadel_client as zitadel
-
-client = zitadel.Zitadel.with_client_credentials(
-    "https://example.us1.zitadel.cloud",
-    "client-id",
-    "client-secret",
-    proxy_url="http://proxy:8080",
-)
-```
-
-### Using TransportOptions
-
-All transport settings can be combined into a single `TransportOptions` object:
+All factory methods (`with_client_credentials`, `with_private_key`,
+`with_access_token`) accept an optional `transport_options` parameter
+for configuring TLS, proxies, and default headers via a `TransportOptions`
+object.
 
 ```python
 from zitadel_client import Zitadel, TransportOptions
@@ -276,6 +210,7 @@ options = TransportOptions(
     ca_cert_path="/path/to/ca.pem",
     default_headers={"Proxy-Authorization": "Basic dXNlcjpwYXNz"},
     proxy_url="http://proxy:8080",
+    insecure=False,
 )
 
 zitadel = Zitadel.with_client_credentials(
@@ -285,6 +220,13 @@ zitadel = Zitadel.with_client_credentials(
     transport_options=options,
 )
 ```
+
+Available options:
+
+- `ca_cert_path` — path to a custom CA certificate for TLS verification
+- `insecure` — disable TLS certificate verification (not recommended for production)
+- `default_headers` — dictionary of headers to include in every HTTP request
+- `proxy_url` — HTTP proxy URL for all requests
 
 ## Design and Dependencies
 

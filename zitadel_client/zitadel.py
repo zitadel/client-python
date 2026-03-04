@@ -1,5 +1,5 @@
 from types import TracebackType
-from typing import Callable, Dict, Optional, Type, TypeVar
+from typing import Callable, Optional, Type, TypeVar
 
 from zitadel_client.api.action_service_api import ActionServiceApi
 from zitadel_client.api.application_service_api import ApplicationServiceApi
@@ -183,23 +183,6 @@ class Zitadel:
         pass
 
     @staticmethod
-    def _resolve_transport_options(
-        transport_options: Optional[TransportOptions],
-        default_headers: Optional[Dict[str, str]],
-        ca_cert_path: Optional[str],
-        insecure: bool,
-        proxy_url: Optional[str],
-    ) -> TransportOptions:
-        if transport_options is not None:
-            return transport_options
-        return TransportOptions(
-            default_headers=default_headers or {},
-            ca_cert_path=ca_cert_path,
-            insecure=insecure,
-            proxy_url=proxy_url,
-        )
-
-    @staticmethod
     def _apply_transport_options(
         config: Configuration,
         transport_options: TransportOptions,
@@ -217,10 +200,6 @@ class Zitadel:
         host: str,
         access_token: str,
         *,
-        default_headers: Optional[Dict[str, str]] = None,
-        ca_cert_path: Optional[str] = None,
-        insecure: bool = False,
-        proxy_url: Optional[str] = None,
         transport_options: Optional[TransportOptions] = None,
     ) -> "Zitadel":
         """
@@ -228,15 +207,11 @@ class Zitadel:
 
         :param host: API URL (e.g., "https://api.zitadel.example.com").
         :param access_token: Personal Access Token for Bearer authentication.
-        :param default_headers: Optional dictionary of default headers to send with every request.
-        :param ca_cert_path: Optional path to a CA certificate file for SSL verification.
-        :param insecure: If True, disable SSL certificate verification.
-        :param proxy_url: Optional proxy URL for HTTP/HTTPS requests.
-        :param transport_options: Optional TransportOptions object (overrides individual params if provided).
+        :param transport_options: Optional TransportOptions for TLS, proxy, and header configuration.
         :return: Configured Zitadel client instance.
         :see: https://zitadel.com/docs/guides/integrate/service-users/personal-access-token
         """
-        resolved = Zitadel._resolve_transport_options(transport_options, default_headers, ca_cert_path, insecure, proxy_url)
+        resolved = transport_options or TransportOptions()
 
         def mutate_config(config: Configuration) -> None:
             Zitadel._apply_transport_options(config, resolved)
@@ -249,10 +224,6 @@ class Zitadel:
         client_id: str,
         client_secret: str,
         *,
-        default_headers: Optional[Dict[str, str]] = None,
-        ca_cert_path: Optional[str] = None,
-        insecure: bool = False,
-        proxy_url: Optional[str] = None,
         transport_options: Optional[TransportOptions] = None,
     ) -> "Zitadel":
         """
@@ -261,15 +232,11 @@ class Zitadel:
         :param host: API URL.
         :param client_id: OAuth2 client identifier.
         :param client_secret: OAuth2 client secret.
-        :param default_headers: Optional dictionary of default headers to send with every request.
-        :param ca_cert_path: Optional path to a CA certificate file for SSL verification.
-        :param insecure: If True, disable SSL certificate verification.
-        :param proxy_url: Optional proxy URL for HTTP/HTTPS requests.
-        :param transport_options: Optional TransportOptions object (overrides individual params if provided).
+        :param transport_options: Optional TransportOptions for TLS, proxy, and header configuration.
         :return: Configured Zitadel client instance with token auto-refresh.
         :see: https://zitadel.com/docs/guides/integrate/service-users/client-credentials
         """
-        resolved = Zitadel._resolve_transport_options(transport_options, default_headers, ca_cert_path, insecure, proxy_url)
+        resolved = transport_options or TransportOptions()
 
         authenticator = ClientCredentialsAuthenticator.builder(
             host,
@@ -288,10 +255,6 @@ class Zitadel:
         host: str,
         key_file: str,
         *,
-        default_headers: Optional[Dict[str, str]] = None,
-        ca_cert_path: Optional[str] = None,
-        insecure: bool = False,
-        proxy_url: Optional[str] = None,
         transport_options: Optional[TransportOptions] = None,
     ) -> "Zitadel":
         """
@@ -299,15 +262,11 @@ class Zitadel:
 
         :param host: API URL.
         :param key_file: Path to service account JSON or PEM key file.
-        :param default_headers: Optional dictionary of default headers to send with every request.
-        :param ca_cert_path: Optional path to a CA certificate file for SSL verification.
-        :param insecure: If True, disable SSL certificate verification.
-        :param proxy_url: Optional proxy URL for HTTP/HTTPS requests.
-        :param transport_options: Optional TransportOptions object (overrides individual params if provided).
+        :param transport_options: Optional TransportOptions for TLS, proxy, and header configuration.
         :return: Configured Zitadel client instance using JWT assertion.
         :see: https://zitadel.com/docs/guides/integrate/service-users/private-key-jwt
         """
-        resolved = Zitadel._resolve_transport_options(transport_options, default_headers, ca_cert_path, insecure, proxy_url)
+        resolved = transport_options or TransportOptions()
 
         authenticator = WebTokenAuthenticator.from_json(
             host,
