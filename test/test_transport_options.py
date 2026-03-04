@@ -1,11 +1,11 @@
 import json
 import os
-import time
 import unittest
 import urllib.request
 from typing import Optional
 
 from testcontainers.core.container import DockerContainer
+from testcontainers.core.wait_strategies import HttpWaitStrategy
 
 from zitadel_client.transport_options import TransportOptions
 from zitadel_client.zitadel import Zitadel
@@ -46,23 +46,13 @@ class TransportOptionsTest(unittest.TestCase):
                 " --keystore-type PKCS12"
                 " --global-response-templating"
             )
+            .waiting_for(HttpWaitStrategy(8080, "/__admin/mappings").for_status_code(200))
         )
         cls.wiremock.start()
 
         cls.host = cls.wiremock.get_container_host_ip()
         cls.http_port = cls.wiremock.get_exposed_port(8080)
         cls.https_port = cls.wiremock.get_exposed_port(8443)
-
-        # Wait for WireMock to be ready by polling the admin API
-        admin_url = f"http://{cls.host}:{cls.http_port}/__admin/mappings"
-        for _ in range(30):
-            try:
-                with urllib.request.urlopen(admin_url, timeout=2) as resp:  # noqa: S310
-                    if resp.status == 200:
-                        break
-            except Exception:  # noqa: S110, BLE001
-                pass
-            time.sleep(1)
 
         # Register stub for OpenID Configuration discovery
         oidc_stub = json.dumps(
