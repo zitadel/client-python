@@ -51,7 +51,7 @@ class OpenId:
                 ctx.verify_mode = ssl.CERT_NONE
             elif transport_options.ca_cert_path:
                 ctx = ssl.create_default_context()
-                ctx.check_hostname = False
+                ctx.check_hostname = True
                 ctx.verify_mode = ssl.CERT_REQUIRED
                 ctx.load_verify_locations(transport_options.ca_cert_path)
             else:
