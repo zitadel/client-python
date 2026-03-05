@@ -23,7 +23,6 @@ def _wait_for_wiremock(host: str, port: str) -> None:
 
 
 class TransportOptionsTest(unittest.TestCase):
-
     host: Optional[str] = None
     http_port: Optional[str] = None
     https_port: Optional[str] = None
