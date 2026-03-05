@@ -131,7 +131,7 @@ class WebTokenAuthenticator(OAuthAuthenticator):
         private_key = config.get("key")
         key_id = config.get("keyId")
         if not user_id or not key_id or not private_key:
-            raise Exception("Missing required keys 'userId', 'key_id' or 'key' in JSON file.")
+            raise Exception("Missing required keys 'userId', 'keyId' or 'key' in JSON file.")
 
         return (
             (WebTokenAuthenticator.builder(host, user_id, private_key, transport_options=transport_options))
