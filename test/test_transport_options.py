@@ -36,7 +36,7 @@ class TransportOptionsTest(unittest.TestCase):
     def setup_class(cls) -> None:
         cls.ca_cert_path = os.path.join(FIXTURES_DIR, "ca.pem")
         keystore_path = os.path.join(FIXTURES_DIR, "keystore.p12")
-        tinyproxy_conf = os.path.join(FIXTURES_DIR, "tinyproxy.conf")
+        squid_conf = os.path.join(FIXTURES_DIR, "squid.conf")
 
         docker_client = docker.from_env()
         cls.docker_network = docker_client.networks.create("zitadel-proxy-test")
@@ -59,18 +59,18 @@ class TransportOptionsTest(unittest.TestCase):
         cls.docker_network.connect(wiremock_id, aliases=["wiremock"])
 
         cls.proxy_docker = docker_client.containers.run(
-            "vimagick/tinyproxy",
+            "ubuntu/squid:6.10-24.10_beta",
             detach=True,
             network="zitadel-proxy-test",
-            ports={"8888/tcp": None},
-            volumes={tinyproxy_conf: {"bind": "/etc/tinyproxy/tinyproxy.conf", "mode": "ro"}},
+            ports={"3128/tcp": None},
+            volumes={squid_conf: {"bind": "/etc/squid/squid.conf", "mode": "ro"}},
         )
         cls.proxy_docker.reload()
 
         cls.host = cls.wiremock.get_container_host_ip()
         cls.http_port = cls.wiremock.get_exposed_port(8080)
         cls.https_port = cls.wiremock.get_exposed_port(8443)
-        cls.proxy_port = cls.proxy_docker.ports["8888/tcp"][0]["HostPort"]
+        cls.proxy_port = cls.proxy_docker.ports["3128/tcp"][0]["HostPort"]
 
         _wait_for_wiremock(cls.host, cls.http_port)
 
