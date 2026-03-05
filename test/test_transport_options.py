@@ -23,15 +23,6 @@ def _wait_for_wiremock(host: str, port: str) -> None:
 
 
 class TransportOptionsTest(unittest.TestCase):
-    """
-    Test class for verifying transport options (default_headers, ca_cert_path, insecure)
-    on the Zitadel factory methods.
-
-    This class starts a Docker container running WireMock with HTTPS support before any
-    tests run and stops it after all tests. It registers stubs for OpenID Configuration
-    discovery and the token endpoint so that Zitadel.with_client_credentials() can
-    complete its initialization flow.
-    """
 
     host: Optional[str] = None
     http_port: Optional[str] = None
@@ -65,11 +56,9 @@ class TransportOptionsTest(unittest.TestCase):
         )
         cls.wiremock.start()
 
-        # Connect WireMock to network with alias so the proxy can resolve it
         wiremock_id = cls.wiremock._container.id
         cls.docker_network.connect(wiremock_id, aliases=["wiremock"])
 
-        # Create proxy directly on the network so Docker DNS resolves 'wiremock'
         cls.proxy_docker = docker_client.containers.run(
             "vimagick/tinyproxy",
             detach=True,
@@ -86,7 +75,6 @@ class TransportOptionsTest(unittest.TestCase):
 
         _wait_for_wiremock(cls.host, cls.http_port)
 
-        # Register stub for OpenID Configuration discovery
         oidc_stub = json.dumps(
             {
                 "request": {"method": "GET", "url": "/.well-known/openid-configuration"},
@@ -113,7 +101,6 @@ class TransportOptionsTest(unittest.TestCase):
         with urllib.request.urlopen(req) as resp:  # noqa: S310
             assert resp.status == 201
 
-        # Register stub for the token endpoint
         token_stub = json.dumps(
             {
                 "request": {"method": "POST", "url": "/oauth/v2/token"},
@@ -138,7 +125,6 @@ class TransportOptionsTest(unittest.TestCase):
         with urllib.request.urlopen(req) as resp:  # noqa: S310
             assert resp.status == 201
 
-        # Register stub for Settings API endpoint (for verifying headers on API calls)
         settings_stub = json.dumps(
             {
                 "request": {
@@ -191,7 +177,6 @@ class TransportOptionsTest(unittest.TestCase):
         self.assertIsNotNone(zitadel)
 
     def test_default_headers(self) -> None:
-        # Use HTTP to avoid TLS concerns
         zitadel = Zitadel.with_client_credentials(
             f"http://{self.host}:{self.http_port}",
             "dummy-client",
@@ -200,10 +185,8 @@ class TransportOptionsTest(unittest.TestCase):
         )
         self.assertIsNotNone(zitadel)
 
-        # Make an actual API call to verify headers propagate to service requests
         zitadel.settings.get_general_settings({})
 
-        # Use WireMock's verification API to assert the header was sent on the API call
         verify_body = json.dumps(
             {
                 "url": "/zitadel.settings.v2.SettingsService/GetGeneralSettings",
@@ -221,7 +204,6 @@ class TransportOptionsTest(unittest.TestCase):
         self.assertGreaterEqual(result["count"], 1, "Custom header should be present on API call")
 
     def test_proxy_url(self) -> None:
-        # Use Docker-internal hostname — only resolvable through the proxy's network
         zitadel = Zitadel.with_access_token(
             "http://wiremock:8080",
             "test-token",
