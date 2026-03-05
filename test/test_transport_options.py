@@ -2,11 +2,10 @@ import json
 import os
 import unittest
 import urllib.request
-import uuid
 from typing import Optional
 
-import docker
 from testcontainers.core.container import DockerContainer
+from testcontainers.core.network import Network
 from testcontainers.core.waiting_utils import wait_container_is_ready
 
 from zitadel_client.transport_options import TransportOptions
@@ -30,8 +29,8 @@ class TransportOptionsTest(unittest.TestCase):
     proxy_port: Optional[str] = None
     ca_cert_path: Optional[str] = None
     wiremock: DockerContainer = None
-    proxy_docker = None
-    docker_network = None
+    proxy: DockerContainer = None
+    network: Network = None
 
     @classmethod
     def setup_class(cls) -> None:
@@ -39,12 +38,12 @@ class TransportOptionsTest(unittest.TestCase):
         keystore_path = os.path.join(FIXTURES_DIR, "keystore.p12")
         squid_conf = os.path.join(FIXTURES_DIR, "squid.conf")
 
-        docker_client = docker.from_env()
-        cls.network_name = f"zitadel-test-{uuid.uuid4().hex[:8]}"
-        cls.docker_network = docker_client.networks.create(cls.network_name)
+        cls.network = Network().create()
 
         cls.wiremock = (
             DockerContainer("wiremock/wiremock:3.3.1")
+            .with_network(cls.network)
+            .with_network_aliases("wiremock")
             .with_exposed_ports(8080, 8443)
             .with_volume_mapping(keystore_path, "/home/wiremock/keystore.p12", mode="ro")
             .with_command(
@@ -57,22 +56,18 @@ class TransportOptionsTest(unittest.TestCase):
         )
         cls.wiremock.start()
 
-        wiremock_id = cls.wiremock._container.id
-        cls.docker_network.connect(wiremock_id, aliases=["wiremock"])
-
-        cls.proxy_docker = docker_client.containers.run(
-            "ubuntu/squid:6.10-24.10_beta",
-            detach=True,
-            network=cls.network_name,
-            ports={"3128/tcp": None},
-            volumes={squid_conf: {"bind": "/etc/squid/squid.conf", "mode": "ro"}},
+        cls.proxy = (
+            DockerContainer("ubuntu/squid:6.10-24.10_beta")
+            .with_network(cls.network)
+            .with_exposed_ports(3128)
+            .with_volume_mapping(squid_conf, "/etc/squid/squid.conf", mode="ro")
         )
-        cls.proxy_docker.reload()
+        cls.proxy.start()
 
         cls.host = cls.wiremock.get_container_host_ip()
         cls.http_port = cls.wiremock.get_exposed_port(8080)
         cls.https_port = cls.wiremock.get_exposed_port(8443)
-        cls.proxy_port = cls.proxy_docker.ports["3128/tcp"][0]["HostPort"]
+        cls.proxy_port = cls.proxy.get_exposed_port(3128)
 
         _wait_for_wiremock(cls.host, cls.http_port)
 
@@ -151,13 +146,12 @@ class TransportOptionsTest(unittest.TestCase):
 
     @classmethod
     def teardown_class(cls) -> None:
-        if cls.proxy_docker is not None:
-            cls.proxy_docker.stop()
-            cls.proxy_docker.remove()
+        if cls.proxy is not None:
+            cls.proxy.stop()
         if cls.wiremock is not None:
             cls.wiremock.stop()
-        if cls.docker_network is not None:
-            cls.docker_network.remove()
+        if cls.network is not None:
+            cls.network.remove()
 
     def test_custom_ca_cert(self) -> None:
         zitadel = Zitadel.with_client_credentials(
