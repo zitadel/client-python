@@ -240,12 +240,12 @@ zitadel = Zitadel.with_client_credentials(
 ### Custom Default Headers
 
 You can attach default headers to every outgoing request. This is useful for
-proxy authentication or custom routing headers:
+custom routing or tracing headers:
 
 ```python
 from zitadel_client import Zitadel, TransportOptions
 
-options = TransportOptions(default_headers={"Proxy-Authorization": "Basic dXNlcjpwYXNz"})
+options = TransportOptions(default_headers={"X-Custom-Header": "my-value"})
 
 zitadel = Zitadel.with_client_credentials(
     "https://your-instance.zitadel.cloud",
@@ -258,12 +258,13 @@ zitadel = Zitadel.with_client_credentials(
 ### Proxy Configuration
 
 If your environment requires routing traffic through an HTTP proxy, you can
-specify the proxy URL:
+specify the proxy URL. To authenticate with the proxy, embed the credentials
+directly in the URL:
 
 ```python
 from zitadel_client import Zitadel, TransportOptions
 
-options = TransportOptions(proxy_url="http://proxy:8080")
+options = TransportOptions(proxy_url="http://user:pass@proxy:8080")
 
 zitadel = Zitadel.with_client_credentials(
     "https://your-instance.zitadel.cloud",
