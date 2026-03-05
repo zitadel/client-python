@@ -2,6 +2,7 @@ import json
 import os
 import unittest
 import urllib.request
+import uuid
 from typing import Optional
 
 import docker
@@ -39,7 +40,8 @@ class TransportOptionsTest(unittest.TestCase):
         squid_conf = os.path.join(FIXTURES_DIR, "squid.conf")
 
         docker_client = docker.from_env()
-        cls.docker_network = docker_client.networks.create("zitadel-proxy-test")
+        cls.network_name = f"zitadel-test-{uuid.uuid4().hex[:8]}"
+        cls.docker_network = docker_client.networks.create(cls.network_name)
 
         cls.wiremock = (
             DockerContainer("wiremock/wiremock:3.3.1")
@@ -61,7 +63,7 @@ class TransportOptionsTest(unittest.TestCase):
         cls.proxy_docker = docker_client.containers.run(
             "ubuntu/squid:6.10-24.10_beta",
             detach=True,
-            network="zitadel-proxy-test",
+            network=cls.network_name,
             ports={"3128/tcp": None},
             volumes={squid_conf: {"bind": "/etc/squid/squid.conf", "mode": "ro"}},
         )
