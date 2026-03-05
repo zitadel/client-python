@@ -6,6 +6,7 @@ from typing import Optional
 
 from testcontainers.core.container import DockerContainer
 from testcontainers.core.network import Network
+from testcontainers.core.wait_strategies import PortWaitStrategy
 from testcontainers.core.waiting_utils import wait_container_is_ready
 
 from zitadel_client.transport_options import TransportOptions
@@ -61,6 +62,7 @@ class TransportOptionsTest(unittest.TestCase):
             .with_network(cls.network)
             .with_exposed_ports(3128)
             .with_volume_mapping(squid_conf, "/etc/squid/squid.conf", mode="ro")
+            .waiting_for(PortWaitStrategy(3128))
         )
         cls.proxy.start()
 
