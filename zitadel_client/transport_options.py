@@ -23,6 +23,7 @@ class TransportOptions:
 
     @staticmethod
     def defaults() -> "TransportOptions":
+        """Returns a TransportOptions instance with all default values."""
         return TransportOptions()
 
     def to_session_kwargs(self) -> dict:
