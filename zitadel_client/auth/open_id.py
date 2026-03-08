@@ -25,6 +25,12 @@ class OpenId:
         hostname: str,
         transport_options: Optional[TransportOptions] = None,
     ):
+        """
+        Initialize the OpenId configuration fetcher.
+
+        :param hostname: The Zitadel instance hostname or URL.
+        :param transport_options: Optional transport options for TLS, proxy, and headers.
+        """
         if transport_options is None:
             transport_options = TransportOptions.defaults()
 
