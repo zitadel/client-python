@@ -44,7 +44,7 @@ class WebTokenAuthenticator(OAuthAuthenticator):
         :param private_key: The private key used to sign the JWT.
         :param jwt_lifetime: Lifetime of the JWT in seconds.
         :param jwt_algorithm: The JWT signing algorithm (default "RS256").
-        :param transport_options: Optional TransportOptions for configuring HTTP connections.
+        :param transport_options: Optional transport options for TLS, proxy, and headers.
         """
         opts = transport_options or TransportOptions.defaults()
 
@@ -116,7 +116,7 @@ class WebTokenAuthenticator(OAuthAuthenticator):
 
         :param host: Base URL for the API endpoints.
         :param json_path: File path to the JSON configuration file.
-        :param transport_options: Optional TransportOptions for configuring HTTP connections.
+        :param transport_options: Optional transport options for TLS, proxy, and headers.
         :return: A new instance of WebTokenAuthenticator.
         :raises Exception: If the file cannot be read, the JSON is invalid,
                            or required keys are missing.
@@ -149,7 +149,7 @@ class WebTokenAuthenticator(OAuthAuthenticator):
         :param host: The base URL for the OAuth provider.
         :param user_id: The user identifier, used as both the issuer and subject.
         :param private_key: The private key used to sign the JWT.
-        :param transport_options: Optional TransportOptions for configuring HTTP connections.
+        :param transport_options: Optional transport options for TLS, proxy, and headers.
         :return: A JWTAuthenticatorBuilder instance.
         """
         return WebTokenAuthenticatorBuilder(host, user_id, user_id, host, private_key, transport_options=transport_options)
@@ -180,7 +180,7 @@ class WebTokenAuthenticatorBuilder(OAuthAuthenticatorBuilder["WebTokenAuthentica
         :param jwt_subject: The subject claim for the JWT.
         :param jwt_audience: The audience claim for the JWT.
         :param private_key: The PEM-formatted private key used for signing the JWT.
-        :param transport_options: Optional TransportOptions for configuring HTTP connections.
+        :param transport_options: Optional transport options for TLS, proxy, and headers.
         """
         super().__init__(host, transport_options=transport_options)
         self.jwt_issuer = jwt_issuer

@@ -31,7 +31,7 @@ class OAuthAuthenticator(Authenticator, ABC):
 
         :param open_id: An object that must implement get_host_endpoint() and get_token_endpoint().
         :param oauth_session: The scope for the token request.
-        :param transport_options: Optional TransportOptions for configuring HTTP connections.
+        :param transport_options: Optional transport options for TLS, proxy, and headers.
         """
         super().__init__(open_id.get_host_endpoint())
         self.open_id = open_id
@@ -109,7 +109,7 @@ class OAuthAuthenticatorBuilder(ABC, Generic[T]):
         Initializes the OAuthAuthenticatorBuilder with a given host.
 
         :param host: The base URL for the OAuth provider.
-        :param transport_options: Optional TransportOptions for configuring HTTP connections.
+        :param transport_options: Optional transport options for TLS, proxy, and headers.
         """
         super().__init__()
         self.transport_options = transport_options or TransportOptions.defaults()

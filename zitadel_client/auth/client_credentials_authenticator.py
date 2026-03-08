@@ -38,7 +38,7 @@ class ClientCredentialsAuthenticator(OAuthAuthenticator):
         :param client_id: The OAuth client identifier.
         :param client_secret: The OAuth client secret.
         :param auth_scopes: The scope(s) for the token request.
-        :param transport_options: Optional TransportOptions for configuring HTTP connections.
+        :param transport_options: Optional transport options for TLS, proxy, and headers.
         """
         opts = transport_options or TransportOptions.defaults()
 
@@ -77,7 +77,7 @@ class ClientCredentialsAuthenticator(OAuthAuthenticator):
         :param host: The base URL for the OAuth provider.
         :param client_id: The OAuth client identifier.
         :param client_secret: The OAuth client secret.
-        :param transport_options: Optional TransportOptions for configuring HTTP connections.
+        :param transport_options: Optional transport options for TLS, proxy, and headers.
         :return: A ClientCredentialsAuthenticatorBuilder instance.
         """
         return ClientCredentialsAuthenticatorBuilder(host, client_id, client_secret, transport_options=transport_options)
@@ -98,7 +98,7 @@ class ClientCredentialsAuthenticatorBuilder(OAuthAuthenticatorBuilder["ClientCre
         :param host: The base URL for the OAuth provider.
         :param client_id: The OAuth client identifier.
         :param client_secret: The OAuth client secret.
-        :param transport_options: Optional TransportOptions for configuring HTTP connections.
+        :param transport_options: Optional transport options for TLS, proxy, and headers.
         """
         super().__init__(host, transport_options=transport_options)
         self.client_id = client_id

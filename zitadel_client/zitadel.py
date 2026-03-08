@@ -213,7 +213,7 @@ class Zitadel:
 
         :param host: API URL (e.g., "https://api.zitadel.example.com").
         :param access_token: Personal Access Token for Bearer authentication.
-        :param transport_options: Optional transport options for TLS, proxy, headers.
+        :param transport_options: Optional transport options for TLS, proxy, and headers.
         :return: Configured Zitadel client instance.
         :see: https://zitadel.com/docs/guides/integrate/service-users/personal-access-token
         """
@@ -238,7 +238,7 @@ class Zitadel:
         :param host: API URL.
         :param client_id: OAuth2 client identifier.
         :param client_secret: OAuth2 client secret.
-        :param transport_options: Optional transport options for TLS, proxy, headers.
+        :param transport_options: Optional transport options for TLS, proxy, and headers.
         :return: Configured Zitadel client instance with token auto-refresh.
         :see: https://zitadel.com/docs/guides/integrate/service-users/client-credentials
         """
@@ -268,7 +268,7 @@ class Zitadel:
 
         :param host: API URL.
         :param key_file: Path to service account JSON or PEM key file.
-        :param transport_options: Optional transport options for TLS, proxy, headers.
+        :param transport_options: Optional transport options for TLS, proxy, and headers.
         :return: Configured Zitadel client instance using JWT assertion.
         :see: https://zitadel.com/docs/guides/integrate/service-users/private-key-jwt
         """
