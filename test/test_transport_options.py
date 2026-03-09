@@ -47,6 +47,9 @@ class TransportOptionsTest(unittest.TestCase):
             .with_network_aliases("wiremock")
             .with_exposed_ports(8080, 8443)
             .with_volume_mapping(keystore_path, "/home/wiremock/keystore.p12", mode="ro")
+            .with_volume_mapping(
+                os.path.join(FIXTURES_DIR, "mappings"), "/home/wiremock/mappings", mode="ro"
+            )
             .with_command(
                 "--https-port 8443"
                 " --https-keystore /home/wiremock/keystore.p12"
@@ -72,79 +75,6 @@ class TransportOptionsTest(unittest.TestCase):
         cls.proxy_port = cls.proxy.get_exposed_port(3128)
 
         _wait_for_wiremock(cls.host, cls.http_port)
-
-        oidc_stub = json.dumps(
-            {
-                "request": {"method": "GET", "url": "/.well-known/openid-configuration"},
-                "response": {
-                    "status": 200,
-                    "headers": {"Content-Type": "application/json"},
-                    "body": (
-                        '{"issuer":"{{request.baseUrl}}",'
-                        '"token_endpoint":"{{request.baseUrl}}/oauth/v2/token",'
-                        '"authorization_endpoint":"{{request.baseUrl}}/oauth/v2/authorize",'
-                        '"userinfo_endpoint":"{{request.baseUrl}}/oidc/v1/userinfo",'
-                        '"jwks_uri":"{{request.baseUrl}}/oauth/v2/keys"}'
-                    ),
-                },
-            }
-        ).encode()
-
-        req = urllib.request.Request(
-            f"http://{cls.host}:{cls.http_port}/__admin/mappings",
-            data=oidc_stub,
-            headers={"Content-Type": "application/json"},
-            method="POST",
-        )
-        with urllib.request.urlopen(req) as resp:  # noqa: S310
-            assert resp.status == 201
-
-        token_stub = json.dumps(
-            {
-                "request": {"method": "POST", "url": "/oauth/v2/token"},
-                "response": {
-                    "status": 200,
-                    "headers": {"Content-Type": "application/json"},
-                    "jsonBody": {
-                        "access_token": "test-token-12345",
-                        "token_type": "Bearer",
-                        "expires_in": 3600,
-                    },
-                },
-            }
-        ).encode()
-
-        req = urllib.request.Request(
-            f"http://{cls.host}:{cls.http_port}/__admin/mappings",
-            data=token_stub,
-            headers={"Content-Type": "application/json"},
-            method="POST",
-        )
-        with urllib.request.urlopen(req) as resp:  # noqa: S310
-            assert resp.status == 201
-
-        settings_stub = json.dumps(
-            {
-                "request": {
-                    "method": "POST",
-                    "url": "/zitadel.settings.v2.SettingsService/GetGeneralSettings",
-                },
-                "response": {
-                    "status": 200,
-                    "headers": {"Content-Type": "application/json"},
-                    "jsonBody": {},
-                },
-            }
-        ).encode()
-
-        req = urllib.request.Request(
-            f"http://{cls.host}:{cls.http_port}/__admin/mappings",
-            data=settings_stub,
-            headers={"Content-Type": "application/json"},
-            method="POST",
-        )
-        with urllib.request.urlopen(req) as resp:  # noqa: S310
-            assert resp.status == 201
 
     @classmethod
     def teardown_class(cls) -> None:
