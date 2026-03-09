@@ -4,7 +4,6 @@ from zitadel_client.transport_options import TransportOptions
 
 
 class TransportOptionsTest(unittest.TestCase):
-
     def test_defaults_returns_empty(self) -> None:
         self.assertEqual({}, TransportOptions.defaults().to_session_kwargs())
 
@@ -24,7 +23,7 @@ class TransportOptionsTest(unittest.TestCase):
         )
 
     def test_insecure_takes_precedence_over_ca_cert(self) -> None:
-        opts = TransportOptions(insecure=True, ca_cert_path="/path/to/ca.pem")
+        opts = TransportOptions(insecure=True, ca_cert_path="/nonexistent/ca.pem")
         self.assertEqual({"verify": False}, opts.to_session_kwargs())
 
     def test_immutability(self) -> None:
