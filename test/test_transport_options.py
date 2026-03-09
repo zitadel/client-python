@@ -42,7 +42,7 @@ class TransportOptionsTest(unittest.TestCase):
         cls.network = Network().create()
 
         cls.wiremock = (
-            DockerContainer("wiremock/wiremock:3.3.1")
+            DockerContainer("wiremock/wiremock:3.12.1")
             .with_network(cls.network)
             .with_network_aliases("wiremock")
             .with_exposed_ports(8080, 8443)
