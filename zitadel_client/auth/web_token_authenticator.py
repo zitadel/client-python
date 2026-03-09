@@ -34,7 +34,7 @@ class WebTokenAuthenticator(OAuthAuthenticator):
         transport_options: Optional[TransportOptions] = None,
     ):
         """
-        Constructs a JWTAuthenticator.
+        Constructs a WebTokenAuthenticator.
 
         :param open_id: The base URL for the OAuth provider.
         :param auth_scopes: The scope(s) for the token request.
@@ -144,22 +144,22 @@ class WebTokenAuthenticator(OAuthAuthenticator):
         host: str, user_id: str, private_key: str, transport_options: Optional[TransportOptions] = None
     ) -> "WebTokenAuthenticatorBuilder":
         """
-        Returns a builder for constructing a JWTAuthenticator.
+        Returns a builder for constructing a WebTokenAuthenticator.
 
         :param host: The base URL for the OAuth provider.
         :param user_id: The user identifier, used as both the issuer and subject.
         :param private_key: The private key used to sign the JWT.
         :param transport_options: Optional transport options for TLS, proxy, and headers.
-        :return: A JWTAuthenticatorBuilder instance.
+        :return: A WebTokenAuthenticatorBuilder instance.
         """
         return WebTokenAuthenticatorBuilder(host, user_id, user_id, host, private_key, transport_options=transport_options)
 
 
 class WebTokenAuthenticatorBuilder(OAuthAuthenticatorBuilder["WebTokenAuthenticatorBuilder"]):
     """
-    Builder for JWTAuthenticator.
+    Builder for WebTokenAuthenticator.
 
-    Provides a fluent API for configuring and constructing a JWTAuthenticator instance.
+    Provides a fluent API for configuring and constructing a WebTokenAuthenticator instance.
     """
 
     def __init__(
@@ -173,7 +173,7 @@ class WebTokenAuthenticatorBuilder(OAuthAuthenticatorBuilder["WebTokenAuthentica
         transport_options: Optional[TransportOptions] = None,
     ):
         """
-        Initializes the JWTAuthenticatorBuilder with required parameters.
+        Initializes the WebTokenAuthenticatorBuilder with required parameters.
 
         :param host: The base URL for API endpoints.
         :param jwt_issuer: The issuer claim for the JWT.
@@ -202,12 +202,12 @@ class WebTokenAuthenticatorBuilder(OAuthAuthenticatorBuilder["WebTokenAuthentica
 
     def build(self) -> WebTokenAuthenticator:
         """
-        Builds and returns a new JWTAuthenticator instance using the configured parameters.
+        Builds and returns a new WebTokenAuthenticator instance using the configured parameters.
 
         This method inlines the JWT assertion generation logic and passes all required
-        configuration to the JWTAuthenticator constructor.
+        configuration to the WebTokenAuthenticator constructor.
 
-        :return: A new JWTAuthenticator instance.
+        :return: A new WebTokenAuthenticator instance.
         """
         return WebTokenAuthenticator(
             open_id=self.open_id,
