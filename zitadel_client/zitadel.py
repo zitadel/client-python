@@ -191,7 +191,7 @@ class Zitadel:
         Apply transport options to the SDK configuration.
 
         :param config: The Configuration instance to modify.
-        :param transport_options: Optional transport options for TLS, proxy, and headers.
+        :param transport_options: Transport options for TLS, proxy, and headers.
         """
         config.default_headers = dict(transport_options.default_headers)
         if transport_options.ca_cert_path:

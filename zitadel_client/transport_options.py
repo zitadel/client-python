@@ -7,7 +7,7 @@ from typing import Mapping, Optional
 class TransportOptions:
     """Immutable transport options for configuring HTTP connections.
 
-    :param default_headers: Additional HTTP headers to include in every request.
+    :param default_headers: Additional HTTP headers sent to the origin server with every request.
     :param ca_cert_path: Path to a custom CA certificate file for TLS verification.
     :param insecure: If True, disables TLS certificate verification.
     :param proxy_url: HTTP/HTTPS proxy URL to route requests through.
