@@ -8,6 +8,9 @@
     "headers": {
       "Content-Type": "application/json"
     },
-    "jsonBody": {}
+    "jsonBody": {
+      "defaultLanguage": "{{request.scheme}}",
+      "defaultOrgId": "{{request.headers.X-Custom-Header}}"
+    }
   }
 }
