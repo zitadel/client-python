@@ -217,7 +217,7 @@ class Zitadel:
         :return: Configured Zitadel client instance.
         :see: https://zitadel.com/docs/guides/integrate/service-users/personal-access-token
         """
-        resolved = transport_options or TransportOptions()
+        resolved = transport_options or TransportOptions.defaults()
 
         def mutate_config(config: Configuration) -> None:
             Zitadel._apply_transport_options(config, resolved)
@@ -242,7 +242,7 @@ class Zitadel:
         :return: Configured Zitadel client instance with token auto-refresh.
         :see: https://zitadel.com/docs/guides/integrate/service-users/client-credentials
         """
-        resolved = transport_options or TransportOptions()
+        resolved = transport_options or TransportOptions.defaults()
 
         authenticator = ClientCredentialsAuthenticator.builder(
             host,
@@ -272,7 +272,7 @@ class Zitadel:
         :return: Configured Zitadel client instance using JWT assertion.
         :see: https://zitadel.com/docs/guides/integrate/service-users/private-key-jwt
         """
-        resolved = transport_options or TransportOptions()
+        resolved = transport_options or TransportOptions.defaults()
 
         authenticator = WebTokenAuthenticator.from_json(
             host,
