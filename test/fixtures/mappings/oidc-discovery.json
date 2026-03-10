@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/.well-known/openid-configuration"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "issuer": "{{request.baseUrl}}",
+      "token_endpoint": "{{request.baseUrl}}/oauth/v2/token",
+      "authorization_endpoint": "{{request.baseUrl}}/oauth/v2/authorize",
+      "userinfo_endpoint": "{{request.baseUrl}}/oidc/v1/userinfo",
+      "jwks_uri": "{{request.baseUrl}}/oauth/v2/keys"
+    }
+  }
+}

@@ -8,6 +8,7 @@ from authlib.integrations.requests_client import OAuth2Session
 from zitadel_client import ZitadelError
 from zitadel_client.auth.authenticator import Authenticator, Token
 from zitadel_client.auth.open_id import OpenId
+from zitadel_client.transport_options import TransportOptions
 
 
 class OAuthAuthenticator(Authenticator, ABC):
@@ -19,16 +20,23 @@ class OAuthAuthenticator(Authenticator, ABC):
         oauth_session: An OAuth2Session instance used for fetching tokens.
     """
 
-    def __init__(self, open_id: OpenId, oauth_session: OAuth2Session):
+    def __init__(
+        self,
+        open_id: OpenId,
+        oauth_session: OAuth2Session,
+        transport_options: Optional[TransportOptions] = None,
+    ):
         """
         Constructs an OAuthAuthenticator.
 
         :param open_id: An object that must implement get_host_endpoint() and get_token_endpoint().
         :param oauth_session: The scope for the token request.
+        :param transport_options: Optional transport options for TLS, proxy, and headers.
         """
         super().__init__(open_id.get_host_endpoint())
         self.open_id = open_id
         self.token: Optional[Token] = None
+        self.transport_options = transport_options or TransportOptions.defaults()
         self.oauth_session = oauth_session
         self._lock = Lock()
 
@@ -92,14 +100,20 @@ class OAuthAuthenticatorBuilder(ABC, Generic[T]):
     This builder provides common configuration options such as the OpenId instance and authentication scopes.
     """
 
-    def __init__(self, host: str):
+    def __init__(
+        self,
+        host: str,
+        transport_options: Optional[TransportOptions] = None,
+    ):
         """
         Initializes the OAuthAuthenticatorBuilder with a given host.
 
         :param host: The base URL for the OAuth provider.
+        :param transport_options: Optional transport options for TLS, proxy, and headers.
         """
         super().__init__()
-        self.open_id = OpenId(host)
+        self.transport_options = transport_options or TransportOptions.defaults()
+        self.open_id = OpenId(host, transport_options=self.transport_options)
         self.auth_scopes = {"openid", "urn:zitadel:iam:org:project:id:zitadel:aud"}
 
     def scopes(self: T, *auth_scopes: str) -> T:

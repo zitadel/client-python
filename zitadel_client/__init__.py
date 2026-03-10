@@ -8,4 +8,5 @@ from .exceptions import (
     ZitadelError,  # noqa F401
 )
 from .models import *  # noqa: F403, F401
+from .transport_options import TransportOptions  # noqa F401
 from .zitadel import Zitadel  # noqa F401

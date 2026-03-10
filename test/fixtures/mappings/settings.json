@@ -1,0 +1,16 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/zitadel.settings.v2.SettingsService/GetGeneralSettings"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "defaultLanguage": "{{request.scheme}}",
+      "defaultOrgId": "{{request.headers.X-Custom-Header}}"
+    }
+  }
+}

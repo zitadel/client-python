@@ -49,8 +49,12 @@ class RESTClientObject:
 
         # https pool manager
         self.pool_manager: urllib3.PoolManager
-        # noinspection PyArgumentList
-        self.pool_manager = urllib3.PoolManager(**pool_args)  # ty: ignore[invalid-argument-type]
+        if configuration.proxy_url:
+            # noinspection PyArgumentList
+            self.pool_manager = urllib3.ProxyManager(configuration.proxy_url, **pool_args)  # ty: ignore[invalid-argument-type]
+        else:
+            # noinspection PyArgumentList
+            self.pool_manager = urllib3.PoolManager(**pool_args)  # ty: ignore[invalid-argument-type]
 
     def request(  # noqa C901 too complex
         self,
