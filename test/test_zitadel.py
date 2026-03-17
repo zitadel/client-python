@@ -27,7 +27,6 @@ def _wait_for_wiremock(host: str, port: str) -> None:
 
 
 class ZitadelServicesTest(unittest.TestCase):
-
     def test_services_dynamic(self) -> None:
         expected = set()
         package = importlib.import_module("zitadel_client.api")
@@ -71,9 +70,7 @@ class ZitadelTransportTest(unittest.TestCase):
             .with_network_aliases("wiremock")
             .with_exposed_ports(8080, 8443)
             .with_volume_mapping(keystore_path, "/home/wiremock/keystore.p12", mode="ro")
-            .with_volume_mapping(
-                os.path.join(FIXTURES_DIR, "mappings"), "/home/wiremock/mappings", mode="ro"
-            )
+            .with_volume_mapping(os.path.join(FIXTURES_DIR, "mappings"), "/home/wiremock/mappings", mode="ro")
             .with_command(
                 "--https-port 8443"
                 " --https-keystore /home/wiremock/keystore.p12"

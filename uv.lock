@@ -1391,7 +1391,7 @@ wheels = [
 
 [[package]]
 name = "zitadel-client"
-version = "4.1.0b10"
+version = "4.1.0b11"
 source = { editable = "." }
 dependencies = [
     { name = "authlib" },
