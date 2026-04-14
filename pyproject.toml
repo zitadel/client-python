@@ -7,7 +7,7 @@ requires-python = ">=3.10"
 authors = [
   { name = "Mridang Agarwalla", email = "mridang@zitadel.com" }
 ]
-version = "4.1.1"
+version = "4.1.2"
 keywords = ["sdk", "iam", "client-lib", "client-library", "sdk-python", "zitadel", "zitadel-sdk"]
 classifiers = [
   "Topic :: Software Development :: Libraries"
