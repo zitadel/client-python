@@ -29,7 +29,7 @@ documentation = "https://github.com/zitadel/client-python"
 
 [dependency-groups]
 dev = [
-  "cryptography>=44.0.1,<47.0.0",
+  "cryptography>=44.0.1,<49.0.0",
   "pytest>=7.2.1",
   "pytest-cov>=2.8.1",
   "tox>=3.9.0",
