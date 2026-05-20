@@ -1429,7 +1429,7 @@ requires-dist = [
 
 [package.metadata.requires-dev]
 dev = [
-    { name = "cryptography", specifier = ">=44.0.1,<49.0.0" },
+    { name = "cryptography", specifier = ">=46.0.6,<49.0.0" },
     { name = "fawltydeps", specifier = "==0.19.0" },
     { name = "pytest", specifier = ">=7.2.1" },
     { name = "pytest-cov", specifier = ">=2.8.1" },
