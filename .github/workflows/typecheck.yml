@@ -33,10 +33,10 @@ jobs:
       - name: Setup uv
         uses: astral-sh/setup-uv@v4
         with:
-          python-version: "3.10"
+          python-version: "3.13"
 
       - name: Install dependencies
         run: uv sync --group dev --frozen
 
-      - name: Run Ty
-        run: uv run ty check
+      - name: Run Mypy
+        run: uv run mypy zitadel_client

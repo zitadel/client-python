@@ -1,15 +1,19 @@
 from types import TracebackType
-from typing import Callable, Optional, Type, TypeVar
+from typing import Optional, Type, TypeVar
 
 from zitadel_client.api.action_service_api import ActionServiceApi
 from zitadel_client.api.application_service_api import ApplicationServiceApi
 from zitadel_client.api.authorization_service_api import AuthorizationServiceApi
 from zitadel_client.api.beta_action_service_api import BetaActionServiceApi
 from zitadel_client.api.beta_app_service_api import BetaAppServiceApi
-from zitadel_client.api.beta_authorization_service_api import BetaAuthorizationServiceApi
+from zitadel_client.api.beta_authorization_service_api import (
+    BetaAuthorizationServiceApi,
+)
 from zitadel_client.api.beta_feature_service_api import BetaFeatureServiceApi
 from zitadel_client.api.beta_instance_service_api import BetaInstanceServiceApi
-from zitadel_client.api.beta_internal_permission_service_api import BetaInternalPermissionServiceApi
+from zitadel_client.api.beta_internal_permission_service_api import (
+    BetaInternalPermissionServiceApi,
+)
 from zitadel_client.api.beta_oidc_service_api import BetaOIDCServiceApi
 from zitadel_client.api.beta_organization_service_api import BetaOrganizationServiceApi
 from zitadel_client.api.beta_project_service_api import BetaProjectServiceApi
@@ -21,7 +25,9 @@ from zitadel_client.api.beta_web_key_service_api import BetaWebKeyServiceApi
 from zitadel_client.api.feature_service_api import FeatureServiceApi
 from zitadel_client.api.identity_provider_service_api import IdentityProviderServiceApi
 from zitadel_client.api.instance_service_api import InstanceServiceApi
-from zitadel_client.api.internal_permission_service_api import InternalPermissionServiceApi
+from zitadel_client.api.internal_permission_service_api import (
+    InternalPermissionServiceApi,
+)
 from zitadel_client.api.oidc_service_api import OIDCServiceApi
 from zitadel_client.api.organization_service_api import OrganizationServiceApi
 from zitadel_client.api.project_service_api import ProjectServiceApi
@@ -30,12 +36,17 @@ from zitadel_client.api.session_service_api import SessionServiceApi
 from zitadel_client.api.settings_service_api import SettingsServiceApi
 from zitadel_client.api.user_service_api import UserServiceApi
 from zitadel_client.api.web_key_service_api import WebKeyServiceApi
-from zitadel_client.api_client import ApiClient
 from zitadel_client.auth.authenticator import Authenticator
-from zitadel_client.auth.client_credentials_authenticator import ClientCredentialsAuthenticator
-from zitadel_client.auth.personal_access_token_authenticator import PersonalAccessTokenAuthenticator
+from zitadel_client.auth.client_credentials_authenticator import (
+    ClientCredentialsAuthenticator,
+)
+from zitadel_client.auth.http_aware_authenticator import HttpAwareAuthenticator
+from zitadel_client.auth.personal_access_token_authenticator import (
+    PersonalAccessTokenAuthenticator,
+)
 from zitadel_client.auth.web_token_authenticator import WebTokenAuthenticator
 from zitadel_client.configuration import Configuration
+from zitadel_client.default_api_client import DefaultApiClient
 from zitadel_client.transport_options import TransportOptions
 
 
@@ -101,56 +112,68 @@ class Zitadel:
     def __init__(
         self,
         authenticator: Authenticator,
-        mutate_config: Optional[Callable[[Configuration], None]] = None,
+        transport_options: Optional[TransportOptions] = None,
     ):
         """
         Initialize the Zitadel SDK.
 
-        This constructor creates a configuration instance using the provided authenticator.
-        Optionally, the configuration can be modified via the `mutate_config` callback function.
-        It then instantiates the underlying API client and initializes various service APIs.
+        This constructor builds the shared API client from the supplied transport
+        options and wires every service API to the given authenticator. If the
+        authenticator implements :class:`HttpAwareAuthenticator`, the shared
+        :class:`DefaultApiClient` is injected so that token exchange and discovery
+        requests use the same proxy, TLS, and timeout settings as regular API calls.
 
         Args:
             authenticator (Authenticator): The authentication strategy to be used.
-            mutate_config (callable, optional): A callback function that receives the configuration
-                instance for any additional modifications before the API client is created.
-                Defaults to None.
+            transport_options (TransportOptions, optional): Transport configuration
+                for TLS, proxy, and headers. Defaults to ``TransportOptions()``.
         """
-        self.configuration = Configuration(authenticator)
+        resolved = transport_options or TransportOptions()
 
-        if mutate_config:
-            mutate_config(self.configuration)
+        api_client = DefaultApiClient(resolved)
 
-        client = ApiClient(configuration=self.configuration)
-        self.features = FeatureServiceApi(client)
-        self.idps = IdentityProviderServiceApi(client)
-        self.oidc = OIDCServiceApi(client)
-        self.organizations = OrganizationServiceApi(client)
-        self.saml = SAMLServiceApi(client)
-        self.sessions = SessionServiceApi(client)
-        self.settings = SettingsServiceApi(client)
-        self.users = UserServiceApi(client)
-        self.webkeys = WebKeyServiceApi(client)
-        self.actions = ActionServiceApi(client)
-        self.applications = ApplicationServiceApi(client)
-        self.authorizations = AuthorizationServiceApi(client)
-        self.beta_projects = BetaProjectServiceApi(client)
-        self.beta_apps = BetaAppServiceApi(client)
-        self.beta_oidc = BetaOIDCServiceApi(client)
-        self.beta_users = BetaUserServiceApi(client)
-        self.beta_organizations = BetaOrganizationServiceApi(client)
-        self.beta_settings = BetaSettingsServiceApi(client)
-        self.beta_permissions = BetaInternalPermissionServiceApi(client)
-        self.beta_authorizations = BetaAuthorizationServiceApi(client)
-        self.beta_sessions = BetaSessionServiceApi(client)
-        self.beta_instance = BetaInstanceServiceApi(client)
-        self.beta_telemetry = BetaTelemetryServiceApi(client)
-        self.instances = InstanceServiceApi(client)
-        self.internal_permissions = InternalPermissionServiceApi(client)
-        self.beta_features = BetaFeatureServiceApi(client)
-        self.beta_webkeys = BetaWebKeyServiceApi(client)
-        self.beta_actions = BetaActionServiceApi(client)
-        self.projects = ProjectServiceApi(client)
+        if isinstance(authenticator, HttpAwareAuthenticator):
+            authenticator.set_api_client(api_client)
+
+        config = Configuration.builder().base_url(authenticator.get_host()).build()
+
+        self.features = FeatureServiceApi(api_client, config, authenticator)
+        self.idps = IdentityProviderServiceApi(api_client, config, authenticator)
+        self.oidc = OIDCServiceApi(api_client, config, authenticator)
+        self.organizations = OrganizationServiceApi(api_client, config, authenticator)
+        self.saml = SAMLServiceApi(api_client, config, authenticator)
+        self.sessions = SessionServiceApi(api_client, config, authenticator)
+        self.settings = SettingsServiceApi(api_client, config, authenticator)
+        self.users = UserServiceApi(api_client, config, authenticator)
+        self.webkeys = WebKeyServiceApi(api_client, config, authenticator)
+        self.actions = ActionServiceApi(api_client, config, authenticator)
+        self.applications = ApplicationServiceApi(api_client, config, authenticator)
+        self.authorizations = AuthorizationServiceApi(api_client, config, authenticator)
+        self.beta_projects = BetaProjectServiceApi(api_client, config, authenticator)
+        self.beta_apps = BetaAppServiceApi(api_client, config, authenticator)
+        self.beta_oidc = BetaOIDCServiceApi(api_client, config, authenticator)
+        self.beta_users = BetaUserServiceApi(api_client, config, authenticator)
+        self.beta_organizations = BetaOrganizationServiceApi(
+            api_client, config, authenticator
+        )
+        self.beta_settings = BetaSettingsServiceApi(api_client, config, authenticator)
+        self.beta_permissions = BetaInternalPermissionServiceApi(
+            api_client, config, authenticator
+        )
+        self.beta_authorizations = BetaAuthorizationServiceApi(
+            api_client, config, authenticator
+        )
+        self.beta_sessions = BetaSessionServiceApi(api_client, config, authenticator)
+        self.beta_instance = BetaInstanceServiceApi(api_client, config, authenticator)
+        self.beta_telemetry = BetaTelemetryServiceApi(api_client, config, authenticator)
+        self.instances = InstanceServiceApi(api_client, config, authenticator)
+        self.internal_permissions = InternalPermissionServiceApi(
+            api_client, config, authenticator
+        )
+        self.beta_features = BetaFeatureServiceApi(api_client, config, authenticator)
+        self.beta_webkeys = BetaWebKeyServiceApi(api_client, config, authenticator)
+        self.beta_actions = BetaActionServiceApi(api_client, config, authenticator)
+        self.projects = ProjectServiceApi(api_client, config, authenticator)
 
     # noinspection PyArgumentList
     T = TypeVar("T", bound="Zitadel")
@@ -180,26 +203,7 @@ class Zitadel:
             exc_value: The exception value, if an exception occurred.
             traceback: The traceback of the exception, if an exception occurred.
         """
-        pass
-
-    @staticmethod
-    def _apply_transport_options(
-        config: Configuration,
-        transport_options: TransportOptions,
-    ) -> None:
-        """
-        Apply transport options to the SDK configuration.
-
-        :param config: The Configuration instance to modify.
-        :param transport_options: Transport options for TLS, proxy, and headers.
-        """
-        config.default_headers = dict(transport_options.default_headers)
-        if transport_options.ca_cert_path:
-            config.ssl_ca_cert = transport_options.ca_cert_path
-        if transport_options.insecure:
-            config.verify_ssl = False
-        if transport_options.proxy_url:
-            config.proxy_url = transport_options.proxy_url
+        return None
 
     @staticmethod
     def with_access_token(
@@ -217,12 +221,11 @@ class Zitadel:
         :return: Configured Zitadel client instance.
         :see: https://zitadel.com/docs/guides/integrate/service-users/personal-access-token
         """
-        resolved = transport_options or TransportOptions.defaults()
-
-        def mutate_config(config: Configuration) -> None:
-            Zitadel._apply_transport_options(config, resolved)
-
-        return Zitadel(PersonalAccessTokenAuthenticator(host, access_token), mutate_config=mutate_config)
+        resolved = transport_options or TransportOptions()
+        return Zitadel(
+            PersonalAccessTokenAuthenticator(host, access_token),
+            transport_options=resolved,
+        )
 
     @staticmethod
     def with_client_credentials(
@@ -242,19 +245,14 @@ class Zitadel:
         :return: Configured Zitadel client instance with token auto-refresh.
         :see: https://zitadel.com/docs/guides/integrate/service-users/client-credentials
         """
-        resolved = transport_options or TransportOptions.defaults()
-
+        resolved = transport_options or TransportOptions()
         authenticator = ClientCredentialsAuthenticator.builder(
             host,
             client_id,
             client_secret,
             transport_options=resolved,
         ).build()
-
-        def mutate_config(config: Configuration) -> None:
-            Zitadel._apply_transport_options(config, resolved)
-
-        return Zitadel(authenticator, mutate_config=mutate_config)
+        return Zitadel(authenticator, transport_options=resolved)
 
     @staticmethod
     def with_private_key(
@@ -272,15 +270,10 @@ class Zitadel:
         :return: Configured Zitadel client instance using JWT assertion.
         :see: https://zitadel.com/docs/guides/integrate/service-users/private-key-jwt
         """
-        resolved = transport_options or TransportOptions.defaults()
-
+        resolved = transport_options or TransportOptions()
         authenticator = WebTokenAuthenticator.from_json(
             host,
             key_file,
             transport_options=resolved,
         )
-
-        def mutate_config(config: Configuration) -> None:
-            Zitadel._apply_transport_options(config, resolved)
-
-        return Zitadel(authenticator, mutate_config=mutate_config)
+        return Zitadel(authenticator, transport_options=resolved)
