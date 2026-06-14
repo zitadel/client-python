@@ -1,319 +1,140 @@
-# Python SDK for Zitadel
+# zitadel_client SDK
 
-This is the Zitadel Python SDK, designed to provide a convenient and idiomatic
-way to interact with the Zitadel APIs in Python. The SDK provides a seamless
-wrapping of the Zitadel API, making it easy to authenticate service users and
-perform API operations.
+Auto-generated Python SDK client for the Zitadel SDK API.
 
-The SDK enables efficient integration with the Zitadel API, allowing you to
-manage resources and execute actions. However, it's important to note that
-this SDK is tailored for service users and is not intended for user
-authentication scenarios. It does not support authentication mechanisms
-like OAuth2, OIDC, or SAML for client applications, including web, mobile,
-or other environments. For these types of user authentication, you should
-use other libraries that are designed for the specific platform and
-authentication method.
+## Requirements
 
-**Disclaimer**: This SDK is not suitable for implementing user authentication.
-It does not handle authentication for client applications using OAuth2, OIDC,
-or SAML and should not be used for scenarios requiring such functionality.
-For those use cases, consider using other solutions that are designed for
-user authentication across various platforms like web, mobile, or other
-client environments.
+- Python 3.13+
+- `pip`
 
-> [!IMPORTANT]
-> Please be aware that this SDK is currently in an incubating stage. We are releasing it to the community to gather feedback and learn how it is being used. While you are welcome to use it, please note that the API and functionality may evolve based on community input. We encourage you to try it out and share your experiences, but advise caution when considering it for production environments as future updates may introduce changes.
-
-## Getting Started
-
-### Sign up for Zitadel
-
-To use this SDK, you need a Zitadel account. Sign up at the official
-Zitadel website and obtain the necessary credentials to access the API.
-
-### Minimum Requirements
-
-Ensure you have Python 3 or higher installed. You also need
-[uv](https://docs.astral.sh/uv/) to install dependencies (`uv sync --group dev`).
-
-## Using the SDK
-
-### Installation
-
-Install the SDK by running one of the following commands:
+Install runtime and development dependencies:
 
 ```bash
-pip install zitadel_client
+pip install -e . --group dev
 ```
 
-## Authentication Methods
+## Format
 
-Your SDK offers three ways to authenticate with Zitadel. Each method has its
-own benefits—choose the one that fits your situation best.
-
-#### 1. Private Key JWT Authentication
-
-**What is it?**
-You use a JSON Web Token (JWT) that you sign with a private key stored in a
-JSON file. This process creates a secure token.
-
-**When should you use it?**
-
-- **Best for production:** It offers strong security.
-- **Advanced control:** You can adjust token settings like expiration.
-
-**How do you use it?**
-
-1. Save your private key in a JSON file.
-2. Use the provided method to load this key and create a JWT-based
-   authenticator.
-
-**Example:**
-
-```python
-import zitadel_client as zitadel
-from zitadel_client.exceptions import ApiError
-from zitadel_client.models import (
-    UserServiceAddHumanUserRequest,
-    UserServiceSetHumanEmail,
-    UserServiceSetHumanProfile,
-)
-
-zitadel = zitadel.Zitadel.with_private_key("https://example.us1.zitadel.cloud", "path/to/jwt-key.json")
-
-try:
-    request = UserServiceAddHumanUserRequest(
-        username="john.doe",
-        profile=UserServiceSetHumanProfile(
-            givenName="John",
-            familyName="Doe"
-        ),
-        email=UserServiceSetHumanEmail(
-            email="john@doe.com"
-        ),
-    )
-    response = zitadel.users.add_human_user(request)
-    print("User created:", response)
-except ApiError as e:
-    print("Error:", e)
+```bash
+ruff format .
 ```
 
-#### 2. Client Credentials Grant
+## Lint
 
-**What is it?**
-This method uses a client ID and client secret to get a secure access token,
-which is then used to authenticate.
-
-**When should you use it?**
-
-- **Simple and straightforward:** Good for server-to-server communication.
-- **Trusted environments:** Use it when both servers are owned or trusted.
-
-**How do you use it?**
-
-1. Provide your client ID and client secret.
-2. Build the authenticator
-
-**Example:**
-
-```python
-import zitadel_client as zitadel
-from zitadel_client.exceptions import ApiError
-from zitadel_client.models import (
-    UserServiceAddHumanUserRequest,
-    UserServiceSetHumanEmail,
-    UserServiceSetHumanProfile,
-)
-
-zitadel = zitadel.Zitadel.with_client_credentials("https://example.us1.zitadel.cloud", "id", "secret")
-
-try:
-    request = UserServiceAddHumanUserRequest(
-        username="john.doe",
-        profile=UserServiceSetHumanProfile(
-            givenName="John",
-            familyName="Doe"
-        ),
-        email=UserServiceSetHumanEmail(
-            email="john@doe.com"
-        ),
-    )
-    response = zitadel.users.add_human_user(request)
-    print("User created:", response)
-except ApiError as e:
-    print("Error:", e)
+```bash
+ruff check .
 ```
 
-#### 3. Personal Access Tokens (PATs)
+## Type-check
 
-**What is it?**
-A Personal Access Token (PAT) is a pre-generated token that you can use to
-authenticate without exchanging credentials every time.
-
-**When should you use it?**
-
-- **Easy to use:** Great for development or testing scenarios.
-- **Quick setup:** No need for dynamic token generation.
-
-**How do you use it?**
-
-1. Obtain a valid personal access token from your account.
-2. Create the authenticator with: `PersonalAccessTokenAuthenticator`
-
-**Example:**
-
-```python
-import zitadel_client as zitadel
-from zitadel_client.exceptions import ApiError
-from zitadel_client.models import (
-    UserServiceAddHumanUserRequest,
-    UserServiceSetHumanEmail,
-    UserServiceSetHumanProfile,
-)
-
-zitadel = zitadel.Zitadel.with_access_token("https://example.us1.zitadel.cloud", "token")
-
-try:
-    request = UserServiceAddHumanUserRequest(
-        username="john.doe",
-        profile=UserServiceSetHumanProfile(
-            givenName="John",
-            familyName="Doe"
-        ),
-        email=UserServiceSetHumanEmail(
-            email="john@doe.com"
-        ),
-    )
-    response = zitadel.users.add_human_user(request)
-    print("User created:", response)
-except ApiError as e:
-    print("Error:", e)
+```bash
+mypy .
 ```
 
----
+## Install
 
-Choose the authentication method that best suits your needs based on your
-environment and security requirements. For more details, please refer to the
-[Zitadel documentation on authenticating service users](https://zitadel.com/docs/guides/integrate/service-users/authenticate-service-users).
-
-## Advanced Configuration
-
-The SDK provides a `TransportOptions` object that allows you to customise
-the underlying HTTP transport used for both OpenID discovery and API calls.
-
-### Disabling TLS Verification
-
-In development or testing environments with self-signed certificates, you can
-disable TLS verification entirely:
-
-```python
-from zitadel_client import Zitadel, TransportOptions
-
-options = TransportOptions(insecure=True)
-
-zitadel = Zitadel.with_client_credentials(
-    "https://your-instance.zitadel.cloud",
-    "client-id",
-    "client-secret",
-    transport_options=options,
-)
+```bash
+pip install -e .
 ```
 
-### Using a Custom CA Certificate
+## Test
 
-If your Zitadel instance uses a certificate signed by a private CA, you can
-provide the path to the CA certificate in PEM format:
-
-```python
-from zitadel_client import Zitadel, TransportOptions
-
-options = TransportOptions(ca_cert_path="/path/to/ca.pem")
-
-zitadel = Zitadel.with_client_credentials(
-    "https://your-instance.zitadel.cloud",
-    "client-id",
-    "client-secret",
-    transport_options=options,
-)
+```bash
+pytest
 ```
 
-### Custom Default Headers
+## Package
 
-You can attach default headers to every outgoing request. This is useful for
-custom routing or tracing headers:
+- Name: `zitadel_client`
+- Version: `0.0.1`
 
-```python
-from zitadel_client import Zitadel, TransportOptions
+## OpenAPI type mapping
 
-options = TransportOptions(default_headers={"X-Custom-Header": "my-value"})
+This SDK leans on pydantic 2's native typed surfaces:
 
-zitadel = Zitadel.with_client_credentials(
-    "https://your-instance.zitadel.cloud",
-    "client-id",
-    "client-secret",
-    transport_options=options,
-)
-```
+| OAS `type` / `format`              | Python type                       |
+| ---------------------------------- | --------------------------------- |
+| `string`                           | `pydantic.StrictStr`              |
+| `integer`                          | `pydantic.StrictInt`              |
+| `number`                           | `pydantic.StrictFloat`            |
+| `boolean`                          | `pydantic.StrictBool`             |
+| `string`, `format: uri`            | `pydantic.HttpUrl`                |
+| `string`, `format: uri-reference`  | `pydantic.StrictStr` (may be relative) |
+| `string`, `format: uri-template`   | `pydantic.StrictStr` (RFC 6570)   |
+| `string`, `format: email`          | `pydantic.EmailStr`               |
+| `string`, `format: password`       | `pydantic.SecretStr`              |
+| `string`, `format: ipv4`           | `ipaddress.IPv4Address`           |
+| `string`, `format: ipv6`           | `ipaddress.IPv6Address`           |
+| `string`, `format: date-time`      | `pydantic.AwareDatetime` (tz-aware) |
+| `string`, `format: date`           | `datetime.date`                   |
+| `string`, `format: time`           | `datetime.time`                   |
+| `string`, `format: duration`       | `datetime.timedelta`              |
+| `string`, `format: uuid`           | `uuid.UUID`                       |
+| `string`, `format: byte/binary`    | `bytes`                           |
 
-### Proxy Configuration
+`Strict*` types reject lax coercion (`"1"` → `1`, `1.0` → `1`, etc.),
+matching the strict-type-coercion contract of the other SDKs.
+`AwareDatetime` rejects naive datetimes — RFC 3339 mandates a timezone
+offset.
 
-If your environment requires routing traffic through an HTTP proxy, you can
-specify the proxy URL. To authenticate with the proxy, embed the credentials
-directly in the URL:
+## Not supported
 
-```python
-from zitadel_client import Zitadel, TransportOptions
+### Webhooks and callbacks
 
-options = TransportOptions(proxy_url="http://user:pass@proxy:8080")
+This SDK is **client → server** only. Spec entries describing
+server-initiated calls — OAS 3.1 top-level `webhooks` and OAS 3.0
+per-operation `callbacks` — are intentionally skipped during code
+generation. If you need to receive webhook deliveries, write the
+handler yourself and use this SDK only to deserialize the incoming
+payload (e.g. by reusing the relevant request-body model).
 
-zitadel = Zitadel.with_client_credentials(
-    "https://your-instance.zitadel.cloud",
-    "client-id",
-    "client-secret",
-    transport_options=options,
-)
-```
+### Conditional-required validation (`dependentRequired` / `dependentSchemas`)
 
-## Design and Dependencies
+JSON Schema 2019-09 keywords for "if field X is present, field Y is
+also required" are **not enforced** by this SDK. No mainstream
+OpenAPI client codegen implements them. The server is the authoritative
+validator; if you want client-side checking, plug in a JSON Schema
+validator library for your language.
 
-This SDK is designed to be lean and efficient, focusing on providing a
-streamlined way to interact with the Zitadel API. It relies on the commonly used
-urllib3 HTTP transport for making requests, which ensures that
-the SDK integrates well with other libraries and provides flexibility
-in terms of request handling and error management.
+### Numeric / string constraint validation
 
-## Versioning
+OpenAPI keywords `minLength`, `maxLength`, `pattern`, `minimum`,
+`maximum`, `exclusiveMinimum`, `exclusiveMaximum`, `multipleOf`,
+`minItems`, `maxItems`, and `uniqueItems` ARE enforced client-side on
+generated models via pydantic 2's native `Field(...)` constraints
+(`min_length`, `max_length`, `pattern`, `ge`/`gt`, `le`/`lt`,
+`multiple_of`). Constraint violations raise `pydantic.ValidationError`,
+which the `ObjectSerializer` surfaces as a `SerializationError` /
+`DeserializationError` to the caller. The server remains the
+authoritative validator; the client-side check is a fast-fail
+convenience before the network round trip.
 
-A key aspect of our strategy is that the SDK's major version is synchronized with the ZITADEL core project's major version to ensure compatibility. For a detailed explanation of this policy and our release schedule, please see our [Versioning Guide](VERSIONING.md).
+### SOCKS proxies
 
-## Contributing
+`TransportOptions.proxy()` accepts only `http://` and `https://` URLs.
+Passing a `socks://`, `socks4://`, or `socks5://` scheme throws (or
+panics) at construction time with a clear error. SOCKS support would
+require enabling extra dependencies / feature flags on the underlying
+HTTP library in every one of the 12 SDKs we generate, with non-trivial
+API divergence; we explicitly chose not to. If you need SOCKS, route
+through a local HTTP-CONNECT bridge or configure it at the OS level.
 
-This repository is autogenerated. We do not accept direct contributions.
-Instead, please open an issue for any bugs or feature requests.
+### Per-call cancellation
 
-## Reporting Issues
+No generated operation method accepts a per-call cancellation handle.
+In-flight requests can only be terminated by waiting for the configured
+`TransportOptions` request timeout to fire — there is no way to abort
+mid-flight from the caller side. If you need fine-grained per-call
+cancellation, wrap the SDK call in your language's standard concurrency
+primitives (a `Future` you cancel externally, a `Task` you orphan, an
+`asyncio` task you cancel, etc.) and rely on the timeout to break the
+underlying socket.
 
-If you encounter any issues or have suggestions for improvements, please
-open an issue in the [issue tracker](https://github.com/zitadel/client-python/issues).
-When reporting an issue, please provide the following information to help
-us address it more effectively:
+### `LICENSE` file is not auto-emitted
 
-- A detailed description of the problem or feature request
-- Steps to reproduce the issue (if applicable)
-- Any relevant error messages or logs
-- Environment details (e.g., OS version, relevant configurations)
-
-## Support
-
-If you need help setting up or configuring the SDK (or anything
-Zitadel), please head over to the [Zitadel Community on Discord](https://zitadel.com/chat).
-
-There are many helpful people in our Discord community who are ready to
-assist you.
-
-Cloud and enterprise customers can additionally reach us privately via our
-[support communication channels](https://zitadel.com/docs/legal/service-description/support-services).
-
-## License
-
-This SDK is distributed under the Apache 2.0 License.
+The package manifest declares MIT, but no `LICENSE` / `LICENSE.md` file
+is generated alongside the sources. Drop the appropriate license text
+into the generated tree as part of your release pipeline before
+publishing to a registry — most registries warn or block on a missing
+file, and the GitHub license auto-detect cannot pick up a manifest-only
+declaration.

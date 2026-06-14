@@ -1,14 +1,14 @@
 from typing import Dict
 
-from zitadel_client.auth.authenticator import Authenticator
+from zitadel_client.auth.base_authenticator import BaseAuthenticator
 
 
-class NoAuthAuthenticator(Authenticator):
+class NoAuthAuthenticator(BaseAuthenticator):
     """
-    A simple authenticator that performs no authentication.
+    A no-op authenticator that performs no authentication.
 
-    This authenticator is useful for cases where no token or credentials are required.
-    It simply returns an empty dictionary for authentication headers.
+    Useful for testing and unauthenticated endpoints: it has no host-dependent
+    state and never mints a token, so it returns an empty set of auth headers.
     """
 
     def __init__(self, host: str = "http://localhost"):
@@ -17,7 +17,10 @@ class NoAuthAuthenticator(Authenticator):
 
         :param host: The base URL for the service. Defaults to "http://localhost".
         """
-        super().__init__(host)
+        self.host = host
+
+    def get_host(self) -> str:
+        return self.host
 
     def get_auth_headers(self) -> Dict[str, str]:
         """

@@ -1,0 +1,62 @@
+# Keep-list: files the generator must NOT overwrite, and the Makefile's
+# `prune` step must NOT delete. Everything else is generator-owned.
+
+# --- bespoke token-minting authenticators (ported onto the new
+#     Authenticator / HttpAwareAuthenticator interfaces) ---
+zitadel_client/auth/oauth_authenticator.py
+zitadel_client/auth/open_id.py
+zitadel_client/auth/client_credentials_authenticator.py
+zitadel_client/auth/web_token_authenticator.py
+zitadel_client/auth/personal_access_token_authenticator.py
+zitadel_client/auth/no_auth_authenticator.py
+
+# --- bespoke facade (hand-curated entry point wiring the with* factories
+#     onto the bespoke authenticators the generator does not emit) ---
+zitadel_client/zitadel.py
+
+# --- bespoke integration specs + Zitadel server fixtures ---
+spec/
+etc/
+
+# --- bespoke test files the generator does not emit: Zitadel authenticator
+#     unit tests, the facade test, the wiremock/squid/cert fixtures, and the
+#     auth-package init. The spec-independent unit tests (serializer, transport,
+#     header-selector, configuration, client) are now generator-owned. ---
+test/test_zitadel.py
+test/auth/__init__.py
+test/auth/test_oauth_authenticator.py
+test/auth/test_client_credentials_authenticator.py
+test/auth/test_no_auth_authenticator.py
+test/auth/test_personal_access_authenticator.py
+test/auth/test_web_token_authenticator.py
+test/fixtures/
+
+# --- repo identity, docs, house tooling (team-owned, not generated) ---
+README.md
+LICENSE
+SECURITY.md
+VERSIONING.md
+.github/
+.idea/
+.releaserc.json
+.commitlintrc.json
+.pre-commit-config.yaml
+devbox.json
+devbox.lock
+lefthook.yml
+qodana.yaml
+.dockerignore
+Dockerfile
+.editorconfig
+.gitignore
+uv.lock
+pyproject.toml
+
+# --- generation tooling we added ---
+proc.yml
+Makefile
+.openapi-generator-ignore
+
+# --- generator bookkeeping: the FILES manifest + VERSION are committed but
+#     are not themselves listed in FILES, so prune must be told to spare them. ---
+.openapi-generator/

@@ -8,7 +8,9 @@ from typing import Dict, Generator
 import pytest
 
 LOGGER = logging.getLogger(__name__)
-COMPOSE_FILE_PATH: str = os.path.join(os.path.dirname(__file__), "..", "etc", "docker-compose.yaml")
+COMPOSE_FILE_PATH: str = os.path.join(
+    os.path.dirname(__file__), "..", "etc", "docker-compose.yaml"
+)
 COMPOSE_FILE_DIR: str = os.path.dirname(COMPOSE_FILE_PATH)
 
 
@@ -65,7 +67,7 @@ def docker_compose() -> Generator[Dict[str, str], None, None]:
     jwt_key = jwt_key_path
     LOGGER.info(f"Loaded JWT_KEY path: {jwt_key}")
 
-    base_url: str = "http://localhost:8099"
+    base_url: str = "http://localhost:18099"
     LOGGER.info(f"Exposed BASE_URL: {base_url}")
 
     time.sleep(20)
@@ -77,11 +79,20 @@ def docker_compose() -> Generator[Dict[str, str], None, None]:
     }
 
     LOGGER.info("Tearing down Docker Compose stack...")
-    command = ["docker", "compose", "--file", shlex.quote(COMPOSE_FILE_PATH), "down", "-v"]
+    command = [
+        "docker",
+        "compose",
+        "--file",
+        shlex.quote(COMPOSE_FILE_PATH),
+        "down",
+        "-v",
+    ]
     result = subprocess.run(command, capture_output=True, text=True)  # noqa: S603
 
     LOGGER.info(result.stdout)
     if result.returncode != 0:
-        LOGGER.warning(f"Failed to tear down Docker Compose stack. Exit code: {result.returncode}\n{result.stderr}")
+        LOGGER.warning(
+            f"Failed to tear down Docker Compose stack. Exit code: {result.returncode}\n{result.stderr}"
+        )
     else:
         LOGGER.info("Docker Compose stack torn down.")
