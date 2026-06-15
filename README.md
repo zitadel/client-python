@@ -43,7 +43,7 @@ Ensure you have Python 3 or higher installed. You also need
 Install the SDK by running one of the following commands:
 
 ```bash
-pip install zitadel_client
+pip install zitadel-client
 ```
 
 ## Authentication Methods
@@ -71,31 +71,41 @@ JSON file. This process creates a secure token.
 **Example:**
 
 ```python
-import zitadel_client as zitadel
-from zitadel_client.exceptions import ApiError
+import asyncio
+
+from zitadel_client import Zitadel
+from zitadel_client.auth.web_token_authenticator import WebTokenAuthenticator
+from zitadel_client.errors import ApiException
 from zitadel_client.models import (
     UserServiceAddHumanUserRequest,
     UserServiceSetHumanEmail,
     UserServiceSetHumanProfile,
 )
 
-zitadel = zitadel.Zitadel.with_private_key("https://example.us1.zitadel.cloud", "path/to/jwt-key.json")
+zitadel = Zitadel.with_authenticator(
+    WebTokenAuthenticator.from_json("https://example.us1.zitadel.cloud", "path/to/jwt-key.json")
+)
 
-try:
-    request = UserServiceAddHumanUserRequest(
-        username="john.doe",
-        profile=UserServiceSetHumanProfile(
-            givenName="John",
-            familyName="Doe"
-        ),
-        email=UserServiceSetHumanEmail(
-            email="john@doe.com"
-        ),
-    )
-    response = zitadel.users.add_human_user(request)
-    print("User created:", response)
-except ApiError as e:
-    print("Error:", e)
+
+async def main():
+    try:
+        request = UserServiceAddHumanUserRequest(
+            username="john.doe",
+            profile=UserServiceSetHumanProfile(
+                given_name="John",
+                family_name="Doe"
+            ),
+            email=UserServiceSetHumanEmail(
+                email="john@doe.com"
+            ),
+        )
+        response = await zitadel.user_service.add_human_user(request)
+        print("User created:", response)
+    except ApiException as e:
+        print("Error:", e)
+
+
+asyncio.run(main())
 ```
 
 #### 2. Client Credentials Grant
@@ -117,31 +127,45 @@ which is then used to authenticate.
 **Example:**
 
 ```python
-import zitadel_client as zitadel
-from zitadel_client.exceptions import ApiError
+import asyncio
+
+from zitadel_client import Zitadel
+from zitadel_client.auth.client_credentials_authenticator import (
+    ClientCredentialsAuthenticator,
+)
+from zitadel_client.errors import ApiException
 from zitadel_client.models import (
     UserServiceAddHumanUserRequest,
     UserServiceSetHumanEmail,
     UserServiceSetHumanProfile,
 )
 
-zitadel = zitadel.Zitadel.with_client_credentials("https://example.us1.zitadel.cloud", "id", "secret")
+zitadel = Zitadel.with_authenticator(
+    ClientCredentialsAuthenticator.builder(
+        "https://example.us1.zitadel.cloud", "id", "secret"
+    ).build()
+)
 
-try:
-    request = UserServiceAddHumanUserRequest(
-        username="john.doe",
-        profile=UserServiceSetHumanProfile(
-            givenName="John",
-            familyName="Doe"
-        ),
-        email=UserServiceSetHumanEmail(
-            email="john@doe.com"
-        ),
-    )
-    response = zitadel.users.add_human_user(request)
-    print("User created:", response)
-except ApiError as e:
-    print("Error:", e)
+
+async def main():
+    try:
+        request = UserServiceAddHumanUserRequest(
+            username="john.doe",
+            profile=UserServiceSetHumanProfile(
+                given_name="John",
+                family_name="Doe"
+            ),
+            email=UserServiceSetHumanEmail(
+                email="john@doe.com"
+            ),
+        )
+        response = await zitadel.user_service.add_human_user(request)
+        print("User created:", response)
+    except ApiException as e:
+        print("Error:", e)
+
+
+asyncio.run(main())
 ```
 
 #### 3. Personal Access Tokens (PATs)
@@ -163,31 +187,43 @@ authenticate without exchanging credentials every time.
 **Example:**
 
 ```python
-import zitadel_client as zitadel
-from zitadel_client.exceptions import ApiError
+import asyncio
+
+from zitadel_client import Zitadel
+from zitadel_client.auth.personal_access_token_authenticator import (
+    PersonalAccessTokenAuthenticator,
+)
+from zitadel_client.errors import ApiException
 from zitadel_client.models import (
     UserServiceAddHumanUserRequest,
     UserServiceSetHumanEmail,
     UserServiceSetHumanProfile,
 )
 
-zitadel = zitadel.Zitadel.with_access_token("https://example.us1.zitadel.cloud", "token")
+zitadel = Zitadel.with_authenticator(
+    PersonalAccessTokenAuthenticator("https://example.us1.zitadel.cloud", "token")
+)
 
-try:
-    request = UserServiceAddHumanUserRequest(
-        username="john.doe",
-        profile=UserServiceSetHumanProfile(
-            givenName="John",
-            familyName="Doe"
-        ),
-        email=UserServiceSetHumanEmail(
-            email="john@doe.com"
-        ),
-    )
-    response = zitadel.users.add_human_user(request)
-    print("User created:", response)
-except ApiError as e:
-    print("Error:", e)
+
+async def main():
+    try:
+        request = UserServiceAddHumanUserRequest(
+            username="john.doe",
+            profile=UserServiceSetHumanProfile(
+                given_name="John",
+                family_name="Doe"
+            ),
+            email=UserServiceSetHumanEmail(
+                email="john@doe.com"
+            ),
+        )
+        response = await zitadel.user_service.add_human_user(request)
+        print("User created:", response)
+    except ApiException as e:
+        print("Error:", e)
+
+
+asyncio.run(main())
 ```
 
 ---
@@ -208,13 +244,19 @@ disable TLS verification entirely:
 
 ```python
 from zitadel_client import Zitadel, TransportOptions
+from zitadel_client.auth.client_credentials_authenticator import (
+    ClientCredentialsAuthenticator,
+)
 
-options = TransportOptions(insecure=True)
+options = TransportOptions(verify_ssl=False)
 
-zitadel = Zitadel.with_client_credentials(
-    "https://your-instance.zitadel.cloud",
-    "client-id",
-    "client-secret",
+zitadel = Zitadel.with_authenticator(
+    ClientCredentialsAuthenticator.builder(
+        "https://your-instance.zitadel.cloud",
+        "client-id",
+        "client-secret",
+        transport_options=options,
+    ).build(),
     transport_options=options,
 )
 ```
@@ -226,13 +268,19 @@ provide the path to the CA certificate in PEM format:
 
 ```python
 from zitadel_client import Zitadel, TransportOptions
+from zitadel_client.auth.client_credentials_authenticator import (
+    ClientCredentialsAuthenticator,
+)
 
 options = TransportOptions(ca_cert_path="/path/to/ca.pem")
 
-zitadel = Zitadel.with_client_credentials(
-    "https://your-instance.zitadel.cloud",
-    "client-id",
-    "client-secret",
+zitadel = Zitadel.with_authenticator(
+    ClientCredentialsAuthenticator.builder(
+        "https://your-instance.zitadel.cloud",
+        "client-id",
+        "client-secret",
+        transport_options=options,
+    ).build(),
     transport_options=options,
 )
 ```
@@ -244,13 +292,19 @@ custom routing or tracing headers:
 
 ```python
 from zitadel_client import Zitadel, TransportOptions
+from zitadel_client.auth.client_credentials_authenticator import (
+    ClientCredentialsAuthenticator,
+)
 
 options = TransportOptions(default_headers={"X-Custom-Header": "my-value"})
 
-zitadel = Zitadel.with_client_credentials(
-    "https://your-instance.zitadel.cloud",
-    "client-id",
-    "client-secret",
+zitadel = Zitadel.with_authenticator(
+    ClientCredentialsAuthenticator.builder(
+        "https://your-instance.zitadel.cloud",
+        "client-id",
+        "client-secret",
+        transport_options=options,
+    ).build(),
     transport_options=options,
 )
 ```
@@ -263,13 +317,19 @@ directly in the URL:
 
 ```python
 from zitadel_client import Zitadel, TransportOptions
+from zitadel_client.auth.client_credentials_authenticator import (
+    ClientCredentialsAuthenticator,
+)
 
-options = TransportOptions(proxy_url="http://user:pass@proxy:8080")
+options = TransportOptions(proxy="http://user:pass@proxy:8080")
 
-zitadel = Zitadel.with_client_credentials(
-    "https://your-instance.zitadel.cloud",
-    "client-id",
-    "client-secret",
+zitadel = Zitadel.with_authenticator(
+    ClientCredentialsAuthenticator.builder(
+        "https://your-instance.zitadel.cloud",
+        "client-id",
+        "client-secret",
+        transport_options=options,
+    ).build(),
     transport_options=options,
 )
 ```

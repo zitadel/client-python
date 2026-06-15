@@ -14,6 +14,13 @@ class OpenId:
 
     It builds the well-known configuration URL from the provided hostname,
     fetches the configuration, and extracts the token endpoint.
+
+    Discovery happens eagerly in the constructor using the supplied
+    :class:`TransportOptions` so it honours the same proxy / TLS / header
+    configuration as regular API calls. The shared :class:`ApiClient` is not
+    yet available at this point (it is injected into the authenticator later,
+    by :class:`zitadel_client.client.Client`), so the well-known fetch uses a
+    standalone urllib request configured from the same transport options.
     """
 
     host_endpoint: str
@@ -30,8 +37,11 @@ class OpenId:
         :param hostname: The Zitadel instance hostname or URL.
         :param transport_options: Optional transport options for TLS, proxy, and headers.
         """
+        if not hostname:
+            raise ValueError("Hostname cannot be empty.")
+
         if transport_options is None:
-            transport_options = TransportOptions.defaults()
+            transport_options = TransportOptions.builder().build()
 
         # noinspection HttpUrlsUsage
         if not (hostname.startswith("http://") or hostname.startswith("https://")):
@@ -43,14 +53,20 @@ class OpenId:
         try:
             # noinspection HttpUrlsUsage
             if not well_known_url.lower().startswith(("http://", "https://")):
-                raise ValueError("Invalid URL scheme. Only 'http' and 'https' are allowed.")
+                raise ValueError(
+                    "Invalid URL scheme. Only 'http' and 'https' are allowed."
+                )
 
             request = urllib.request.Request(well_known_url)  # noqa: S310
             if transport_options.default_headers:
-                for header_name, header_value in transport_options.default_headers.items():
+                for (
+                    header_name,
+                    header_value,
+                ) in transport_options.default_headers.items():
                     request.add_header(header_name, header_value)
 
-            if transport_options.insecure:
+            ctx: Optional[ssl.SSLContext]
+            if not transport_options.verify_ssl:
                 ctx = ssl.create_default_context()
                 ctx.check_hostname = False
                 ctx.verify_mode = ssl.CERT_NONE
@@ -62,9 +78,9 @@ class OpenId:
             else:
                 ctx = None
 
-            if transport_options.proxy_url:
+            if transport_options.proxy:
                 proxy_handler = urllib.request.ProxyHandler(
-                    {"http": transport_options.proxy_url, "https": transport_options.proxy_url}
+                    {"http": transport_options.proxy, "https": transport_options.proxy}
                 )
                 if ctx:
                     https_handler = urllib.request.HTTPSHandler(context=ctx)
@@ -76,8 +92,11 @@ class OpenId:
                 response_ctx = urllib.request.urlopen(request, context=ctx)  # noqa: S310
 
             with response_ctx as response:
-                if response.status != 200:
-                    raise Exception(f"Failed to fetch OpenID configuration: HTTP {response.status}")
+                status = getattr(response, "status", None)
+                if status is not None and status != 200:
+                    raise Exception(
+                        f"Failed to fetch OpenID configuration: HTTP {status}"
+                    )
                 config = json.loads(response.read().decode("utf-8"))
         except urllib.error.URLError as e:
             raise Exception(f"URL error occurred: {e}") from e

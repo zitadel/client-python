@@ -2,15 +2,14 @@
   "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.10.7/.schema/devbox.schema.json",
   "packages": [
     "uv@latest",
-    "lefthook@latest",
-    "python310@latest"
+    "python313@latest",
+    "github:mridang/nixpkgs#qodana"
   ],
   "env": {
     "UV_CACHE_DIR": "$PWD/.uv"
   },
   "shell": {
     "init_hook": [
-      "lefthook install",
       "uv sync --all-extras --group dev"
     ],
     "scripts": {

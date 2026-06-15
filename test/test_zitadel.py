@@ -11,7 +11,13 @@ from testcontainers.core.network import Network
 from testcontainers.core.wait_strategies import PortWaitStrategy
 from testcontainers.core.waiting_utils import wait_container_is_ready
 
+from zitadel_client.auth.client_credentials_authenticator import (
+    ClientCredentialsAuthenticator,
+)
 from zitadel_client.auth.no_auth_authenticator import NoAuthAuthenticator
+from zitadel_client.auth.personal_access_token_authenticator import (
+    PersonalAccessTokenAuthenticator,
+)
 from zitadel_client.transport_options import TransportOptions
 from zitadel_client.zitadel import Zitadel
 
@@ -30,7 +36,9 @@ class ZitadelServicesTest(unittest.TestCase):
     def test_services_dynamic(self) -> None:
         expected = set()
         package = importlib.import_module("zitadel_client.api")
-        for _, modname, _ in pkgutil.walk_packages(package.__path__, package.__name__ + "."):
+        for _, modname, _ in pkgutil.walk_packages(
+            package.__path__, package.__name__ + "."
+        ):
             module = importlib.import_module(modname)
             for _, obj in inspect.getmembers(module, inspect.isclass):
                 if obj.__module__ == modname and obj.__name__.endswith("ServiceApi"):
@@ -41,12 +49,14 @@ class ZitadelServicesTest(unittest.TestCase):
             for attr in dir(zitadel)
             if not attr.startswith("_")
             and hasattr(getattr(zitadel, attr), "__class__")
-            and getattr(zitadel, attr).__class__.__module__.startswith("zitadel_client.api")
+            and getattr(zitadel, attr).__class__.__module__.startswith(
+                "zitadel_client.api"
+            )
         }
         self.assertEqual(expected, actual)
 
 
-class ZitadelTransportTest(unittest.TestCase):
+class ZitadelTransportTest(unittest.IsolatedAsyncioTestCase):
     host: Optional[str] = None
     http_port: Optional[str] = None
     https_port: Optional[str] = None
@@ -69,14 +79,16 @@ class ZitadelTransportTest(unittest.TestCase):
             .with_network(cls.network)
             .with_network_aliases("wiremock")
             .with_exposed_ports(8080, 8443)
-            .with_volume_mapping(keystore_path, "/home/wiremock/keystore.p12", mode="ro")
-            .with_volume_mapping(os.path.join(FIXTURES_DIR, "mappings"), "/home/wiremock/mappings", mode="ro")
+            .with_volume_mapping(
+                keystore_path, "/home/wiremock/keystore.p12", mode="ro"
+            )
+            .with_volume_mapping(
+                os.path.join(FIXTURES_DIR, "mappings"),
+                "/home/wiremock/mappings",
+                mode="ro",
+            )
             .with_command(
-                "--https-port 8443"
-                " --https-keystore /home/wiremock/keystore.p12"
-                " --keystore-password password"
-                " --keystore-type PKCS12"
-                " --global-response-templating"
+                "--https-port 8443 --https-keystore /home/wiremock/keystore.p12 --keystore-password password --keystore-type PKCS12 --global-response-templating"
             )
         )
         cls.wiremock.start()
@@ -106,50 +118,68 @@ class ZitadelTransportTest(unittest.TestCase):
         if cls.network is not None:
             cls.network.remove()
 
-    def test_custom_ca_cert(self) -> None:
-        zitadel = Zitadel.with_client_credentials(
-            f"https://{self.host}:{self.https_port}",
-            "dummy-client",
-            "dummy-secret",
-            transport_options=TransportOptions(ca_cert_path=self.ca_cert_path),
+    async def test_custom_ca_cert(self) -> None:
+        transport = TransportOptions(ca_cert_path=self.ca_cert_path)
+        zitadel = Zitadel.with_authenticator(
+            ClientCredentialsAuthenticator.builder(
+                f"https://{self.host}:{self.https_port}",
+                "dummy-client",
+                "dummy-secret",
+                transport_options=transport,
+            ).build(),
+            transport_options=transport,
         )
-        response = zitadel.settings.get_general_settings({})
+        response = await zitadel.settings_service.get_general_settings({})
         self.assertEqual("https", response.default_language)
 
-    def test_insecure_mode(self) -> None:
-        zitadel = Zitadel.with_client_credentials(
-            f"https://{self.host}:{self.https_port}",
-            "dummy-client",
-            "dummy-secret",
-            transport_options=TransportOptions(insecure=True),
+    async def test_insecure_mode(self) -> None:
+        transport = TransportOptions(verify_ssl=False)
+        zitadel = Zitadel.with_authenticator(
+            ClientCredentialsAuthenticator.builder(
+                f"https://{self.host}:{self.https_port}",
+                "dummy-client",
+                "dummy-secret",
+                transport_options=transport,
+            ).build(),
+            transport_options=transport,
         )
-        response = zitadel.settings.get_general_settings({})
+        response = await zitadel.settings_service.get_general_settings({})
         self.assertEqual("https", response.default_language)
 
-    def test_default_headers(self) -> None:
-        zitadel = Zitadel.with_client_credentials(
-            f"http://{self.host}:{self.http_port}",
-            "dummy-client",
-            "dummy-secret",
-            transport_options=TransportOptions(default_headers={"X-Custom-Header": "test-value"}),
+    async def test_default_headers(self) -> None:
+        transport = TransportOptions(default_headers={"X-Custom-Header": "test-value"})
+        zitadel = Zitadel.with_authenticator(
+            ClientCredentialsAuthenticator.builder(
+                f"http://{self.host}:{self.http_port}",
+                "dummy-client",
+                "dummy-secret",
+                transport_options=transport,
+            ).build(),
+            transport_options=transport,
         )
-        response = zitadel.settings.get_general_settings({})
+        response = await zitadel.settings_service.get_general_settings({})
         self.assertEqual("http", response.default_language)
         self.assertEqual("test-value", response.default_org_id)
 
-    def test_proxy_url(self) -> None:
-        zitadel = Zitadel.with_access_token(
-            "http://wiremock:8080",
-            "test-token",
-            transport_options=TransportOptions(proxy_url=f"http://{self.host}:{self.proxy_port}"),
+    async def test_proxy_url(self) -> None:
+        zitadel = Zitadel.with_authenticator(
+            PersonalAccessTokenAuthenticator(
+                "http://wiremock:8080",
+                "test-token",
+            ),
+            transport_options=TransportOptions(
+                proxy=f"http://{self.host}:{self.proxy_port}"
+            ),
         )
-        response = zitadel.settings.get_general_settings({})
+        response = await zitadel.settings_service.get_general_settings({})
         self.assertEqual("http", response.default_language)
 
     def test_no_ca_cert_fails(self) -> None:
         with self.assertRaises(Exception):  # noqa: B017
-            Zitadel.with_client_credentials(
-                f"https://{self.host}:{self.https_port}",
-                "dummy-client",
-                "dummy-secret",
+            Zitadel.with_authenticator(
+                ClientCredentialsAuthenticator.builder(
+                    f"https://{self.host}:{self.https_port}",
+                    "dummy-client",
+                    "dummy-secret",
+                ).build()
             )
