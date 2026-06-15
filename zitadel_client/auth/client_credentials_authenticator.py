@@ -37,6 +37,18 @@ class ClientCredentialsAuthenticator(OAuthAuthenticator):
         super().__init__(open_id, client_id, " ".join(auth_scopes))
         self.client_secret = client_secret
 
+    def __repr__(self) -> str:
+        """Redacts the client secret so it never leaks into logs or tracebacks.
+
+        The secret is shown as the literal ``***`` while the non-sensitive
+        client id remains visible to keep the representation useful for
+        debugging.
+        """
+        return (
+            f"{type(self).__name__}(host={self.get_host()!r}, "
+            f"client_id={self.client_id!r}, client_secret='***')"
+        )
+
     def get_grant_type(self) -> str:
         return self.GRANT_TYPE
 

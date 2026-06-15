@@ -3,10 +3,15 @@ import unittest
 import urllib.error
 import urllib.request
 from typing import Optional, TypeVar
+from unittest.mock import Mock
 
 from testcontainers.core.container import DockerContainer
 
+from zitadel_client.auth.client_credentials_authenticator import (
+    ClientCredentialsAuthenticator,
+)
 from zitadel_client.auth.oauth_authenticator import OAuthAuthenticator
+from zitadel_client.auth.open_id import OpenId
 from zitadel_client.default_api_client import DefaultApiClient
 from zitadel_client.transport_options import TransportOptions
 
@@ -59,6 +64,25 @@ class OAuthAuthenticatorTest(unittest.TestCase):
     def teardown_class(cls) -> None:
         if cls.mock_oauth2_server is not None:
             cls.mock_oauth2_server.stop()
+
+    def test_redacts_secret_in_repr(self) -> None:
+        """The cached/minted access token is masked in repr.
+
+        Uses a concrete OAuth authenticator with a mocked OpenId so no network
+        call is made; the cached token is seeded directly.
+        """
+        token = "minted-access-token-do-not-leak"
+        open_id = Mock(spec=OpenId)
+        open_id.get_host_endpoint.return_value = "https://example.zitadel.cloud"
+        authenticator = ClientCredentialsAuthenticator(
+            open_id, "client-1", "client-secret", {"openid"}
+        )
+        authenticator._access_token = token
+
+        rendered = OAuthAuthenticator.__repr__(authenticator)
+
+        self.assertNotIn(token, rendered)
+        self.assertIn("***", rendered)
 
     @staticmethod
     def inject_api_client(authenticator: A) -> A:

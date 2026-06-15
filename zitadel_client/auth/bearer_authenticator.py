@@ -49,3 +49,11 @@ class BearerAuthenticator(BaseAuthenticator):
         if len(value) >= 7 and value[:7].lower() == "bearer ":
             value = value[7:]
         return {"Authorization": f"Bearer {value}"}
+
+    def __repr__(self) -> str:
+        """Redacts the bearer token so it never leaks into logs or tracebacks.
+
+        The token is shown as the literal ``***`` while non-sensitive fields
+        remain visible to keep the representation useful for debugging.
+        """
+        return f"{type(self).__name__}(host={self.host!r}, token='***')"
