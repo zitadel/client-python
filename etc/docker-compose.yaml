@@ -70,7 +70,7 @@ services:
       - './example-zitadel-secrets.yaml:/example-zitadel-secrets.yaml:ro'
       - './zitadel_output:/var/zitadel_output:rw'
     ports:
-      - "18099:8080"
+      - "8080"
     healthcheck:
       test: [
         "CMD", "/app/zitadel", "ready",

@@ -67,7 +67,27 @@ def docker_compose() -> Generator[Dict[str, str], None, None]:
     jwt_key = jwt_key_path
     LOGGER.info(f"Loaded JWT_KEY path: {jwt_key}")
 
-    base_url: str = "http://localhost:18099"
+    port_command: list[str] = [
+        "docker",
+        "compose",
+        "--file",
+        shlex.quote(COMPOSE_FILE_PATH),
+        "port",
+        "zitadel",
+        "8080",
+    ]
+    port_result = subprocess.run(  # noqa: S603
+        port_command, capture_output=True, text=True
+    )
+    if port_result.returncode != 0 or not port_result.stdout.strip():
+        port_error: str = (
+            f"Failed to discover mapped port for zitadel:8080. "
+            f"Exit code: {port_result.returncode}\n{port_result.stderr}"
+        )
+        raise RuntimeError(port_error)
+
+    host_port: str = port_result.stdout.strip().rsplit(":", 1)[-1]
+    base_url: str = f"http://localhost:{host_port}"
     LOGGER.info(f"Exposed BASE_URL: {base_url}")
 
     time.sleep(20)

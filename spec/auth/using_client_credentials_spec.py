@@ -27,13 +27,13 @@ class TestUseClientCredentialsSpec:
 
     @staticmethod
     def generate_user_secret(
-        token: str, login_name: str = "api-user"
+        token: str, base_url: str, login_name: str = "api-user"
     ) -> Dict[str, str]:
         http = urllib3.PoolManager()
 
         user_id_response = http.request(
             "GET",
-            "http://localhost:18099/management/v1/global/users/_by_login_name",
+            f"{base_url}/management/v1/global/users/_by_login_name",
             fields={"loginName": login_name},
             headers={"Authorization": f"Bearer {token}", "Accept": "application/json"},
         )
@@ -57,7 +57,7 @@ class TestUseClientCredentialsSpec:
 
                 secret_response = http.request(
                     "PUT",
-                    f"http://localhost:18099/management/v1/users/{user_id}/secret",
+                    f"{base_url}/management/v1/users/{user_id}/secret",
                     headers=put_headers,
                     body=encoded_body,
                 )
@@ -101,7 +101,9 @@ class TestUseClientCredentialsSpec:
         self, docker_compose: Dict[str, str]
     ) -> None:  # noqa F811
         """Retrieves general settings successfully with valid client credentials."""
-        credentials = self.generate_user_secret(docker_compose["auth_token"])
+        credentials = self.generate_user_secret(
+            docker_compose["auth_token"], docker_compose["base_url"]
+        )
         client = Zitadel.with_authenticator(
             ClientCredentialsAuthenticator.builder(
                 docker_compose["base_url"],
