@@ -1,54 +1,6 @@
 {
   "lockfile_version": "1",
   "packages": {
-    "lefthook@latest": {
-      "last_modified": "2025-12-09T08:49:39Z",
-      "resolved": "github:NixOS/nixpkgs/677fbe97984e7af3175b6c121f3c39ee5c8d62c9#lefthook",
-      "source": "devbox-search",
-      "version": "2.0.7",
-      "systems": {
-        "aarch64-darwin": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/7abrixpmc3jy90ckm090qlvw04038h2g-lefthook-2.0.7",
-              "default": true
-            }
-          ],
-          "store_path": "/nix/store/7abrixpmc3jy90ckm090qlvw04038h2g-lefthook-2.0.7"
-        },
-        "aarch64-linux": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/sighx46zkcvc6mhv2pb55yic2aqmzjig-lefthook-2.0.7",
-              "default": true
-            }
-          ],
-          "store_path": "/nix/store/sighx46zkcvc6mhv2pb55yic2aqmzjig-lefthook-2.0.7"
-        },
-        "x86_64-darwin": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/0y2ni7hvwx5rsqhnh4j57imb8lcy03gm-lefthook-2.0.7",
-              "default": true
-            }
-          ],
-          "store_path": "/nix/store/0y2ni7hvwx5rsqhnh4j57imb8lcy03gm-lefthook-2.0.7"
-        },
-        "x86_64-linux": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/f1sn8v6nbhfxc7c33lxh4xyhzah0b30d-lefthook-2.0.7",
-              "default": true
-            }
-          ],
-          "store_path": "/nix/store/f1sn8v6nbhfxc7c33lxh4xyhzah0b30d-lefthook-2.0.7"
-        }
-      }
-    },
     "python313@latest": {
       "last_modified": "2025-05-16T20:19:48Z",
       "plugin_version": "0.0.3",

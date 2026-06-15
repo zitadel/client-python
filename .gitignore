@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 
 # Tool caches
+devbox.d/
 .pytest/
 .mypy/
 .mypy_cache/

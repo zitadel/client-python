@@ -44,7 +44,6 @@ VERSIONING.md
 .editorconfig
 .github/
 .gitignore
-.idea/
 .pre-commit-config.yaml
 .releaserc.json
 devbox.json
