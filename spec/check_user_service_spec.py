@@ -5,6 +5,9 @@ import pytest
 
 from spec.base_spec import docker_compose as docker_compose
 from zitadel_client import UserServiceDeleteUserRequest
+from zitadel_client.auth.personal_access_token_authenticator import (
+    PersonalAccessTokenAuthenticator,
+)
 from zitadel_client.errors import ApiException
 from zitadel_client.models import (
     UserServiceAddHumanUserRequest,
@@ -24,7 +27,9 @@ def client(docker_compose: Dict[str, str]) -> Zitadel:  # noqa F811
     """Provides a Zitadel client configured with a personal access token."""
     base_url = docker_compose["base_url"]
     auth_token = docker_compose["auth_token"]
-    return Zitadel.with_access_token(base_url, auth_token)
+    return Zitadel.with_authenticator(
+        PersonalAccessTokenAuthenticator(base_url, auth_token)
+    )
 
 
 @pytest.fixture
@@ -37,10 +42,10 @@ async def user(
         profile=UserServiceSetHumanProfile(given_name="John", family_name="Doe"),  # type: ignore[call-arg]
         email=UserServiceSetHumanEmail(email=f"johndoe{uuid.uuid4().hex}@example.com"),
     )
-    response = await client.users.add_human_user(request)
+    response = await client.user_service.add_human_user(request)
     yield response
     try:
-        await client.users.delete_user(
+        await client.user_service.delete_user(
             UserServiceDeleteUserRequest(userId=response.user_id or "")
         )
     except ApiException:
@@ -73,8 +78,8 @@ class TestUserServiceSanityCheckSpec:
         request = UserServiceGetUserByIDRequest(
             userId=user.user_id or "",
         )
-        response: UserServiceGetUserByIDResponse = await client.users.get_user_by_id(
-            request
+        response: UserServiceGetUserByIDResponse = (
+            await client.user_service.get_user_by_id(request)
         )
         assert response.user.user_id == user.user_id  # type: ignore[union-attr]
 
@@ -85,7 +90,7 @@ class TestUserServiceSanityCheckSpec:
     ) -> None:
         """Includes the created user when listing all users."""
         request = UserServiceListUsersRequest(queries=[])
-        response = await client.users.list_users(request)
+        response = await client.user_service.list_users(request)
         ids = [u.user_id for u in response.result]  # type: ignore
         assert user.user_id in ids
 
@@ -101,8 +106,8 @@ class TestUserServiceSanityCheckSpec:
                 email=f"updated{uuid.uuid4().hex}@example.com"
             ),
         )
-        await client.users.update_human_user(request)
-        response = await client.users.get_user_by_id(
+        await client.user_service.update_human_user(request)
+        response = await client.user_service.get_user_by_id(
             UserServiceGetUserByIDRequest(
                 userId=user.user_id or "",
             )
@@ -118,4 +123,4 @@ class TestUserServiceSanityCheckSpec:
             request = UserServiceGetUserByIDRequest(
                 userId=str(uuid.uuid4()),
             )
-            await client.users.get_user_by_id(request)
+            await client.user_service.get_user_by_id(request)

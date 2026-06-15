@@ -5,6 +5,9 @@ import pytest
 import urllib3
 
 from spec.base_spec import docker_compose as docker_compose
+from zitadel_client.auth.client_credentials_authenticator import (
+    ClientCredentialsAuthenticator,
+)
 from zitadel_client.errors import OpenApiException
 from zitadel_client.zitadel import Zitadel
 
@@ -99,21 +102,25 @@ class TestUseClientCredentialsSpec:
     ) -> None:  # noqa F811
         """Retrieves general settings successfully with valid client credentials."""
         credentials = self.generate_user_secret(docker_compose["auth_token"])
-        client = Zitadel.with_client_credentials(
-            docker_compose["base_url"],
-            credentials["client_id"],
-            credentials["client_secret"],
+        client = Zitadel.with_authenticator(
+            ClientCredentialsAuthenticator.builder(
+                docker_compose["base_url"],
+                credentials["client_id"],
+                credentials["client_secret"],
+            ).build()
         )
-        await client.settings.get_general_settings({})
+        await client.settings_service.get_general_settings({})
 
     async def test_raises_api_exception_with_invalid_client_credentials(
         self, docker_compose: Dict[str, str]
     ) -> None:  # noqa F811
         """Raises ApiException when using invalid client credentials."""
-        client = Zitadel.with_client_credentials(
-            docker_compose["base_url"],
-            "invalid",
-            "invalid",
+        client = Zitadel.with_authenticator(
+            ClientCredentialsAuthenticator.builder(
+                docker_compose["base_url"],
+                "invalid",
+                "invalid",
+            ).build()
         )
         with pytest.raises(OpenApiException):
-            await client.settings.get_general_settings({})
+            await client.settings_service.get_general_settings({})

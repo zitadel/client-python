@@ -3,6 +3,7 @@ from typing import Dict
 import pytest
 
 from spec.base_spec import docker_compose as docker_compose
+from zitadel_client.auth.web_token_authenticator import WebTokenAuthenticator
 from zitadel_client.errors import OpenApiException
 from zitadel_client.zitadel import Zitadel
 
@@ -24,19 +25,23 @@ class TestUsePrivateKeySpec:
         self, docker_compose: Dict[str, str]
     ) -> None:  # noqa F811
         """Retrieves general settings successfully with a valid private key."""
-        client = Zitadel.with_private_key(
-            docker_compose["base_url"],
-            docker_compose["jwt_key"],
+        client = Zitadel.with_authenticator(
+            WebTokenAuthenticator.from_json(
+                docker_compose["base_url"],
+                docker_compose["jwt_key"],
+            )
         )
-        await client.settings.get_general_settings({})
+        await client.settings_service.get_general_settings({})
 
     async def test_raises_api_exception_with_invalid_private_key(
         self, docker_compose: Dict[str, str]
     ) -> None:  # noqa F811
         """Raises ApiException when using an invalid private key path."""
-        client = Zitadel.with_private_key(
-            "https://zitadel.cloud",
-            docker_compose["jwt_key"],
+        client = Zitadel.with_authenticator(
+            WebTokenAuthenticator.from_json(
+                "https://zitadel.cloud",
+                docker_compose["jwt_key"],
+            )
         )
         with pytest.raises(OpenApiException):
-            await client.settings.get_general_settings({})
+            await client.settings_service.get_general_settings({})
