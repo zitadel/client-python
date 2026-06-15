@@ -1,10 +1,8 @@
-projectName: zitadel-client
-packageName: zitadel_client
-packageVersion: 0.0.1
-packageUrl: https://github.com/zitadel/sdk
-disallowAdditionalPropertiesIfNotPresent: false
-useOneOfDiscriminatorLookup: true
-generateUnitTests: true
+generatorName: python-plus
 clientClassName: Zitadel
 repoName: git@github.com:zitadel/client-python.git
-generatorName: python-plus
+disallowAdditionalPropertiesIfNotPresent: false
+generateUnitTests: true
+packageName: zitadel_client
+projectName: zitadel-client
+packageVersion: 0.0.1
