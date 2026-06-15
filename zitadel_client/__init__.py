@@ -41,7 +41,7 @@ __all__ = [
     "UserServiceApi",
     "WebKeyServiceApi",
     "Authenticator",
-    "Client",
+    "Zitadel",
     "ApiClient",
     "Configuration",
     "TransportOptions",
@@ -1485,7 +1485,7 @@ from zitadel_client.api.web_key_service_api import WebKeyServiceApi as WebKeySer
 # import ApiClient
 from zitadel_client.api_client import ApiClient as ApiClient
 from zitadel_client.auth.authenticator import Authenticator as Authenticator
-from zitadel_client.client import Client as Client
+from zitadel_client.zitadel import Zitadel as Zitadel
 from zitadel_client.configuration import Configuration as Configuration
 from zitadel_client.transport_options import TransportOptions as TransportOptions
 from zitadel_client.server_configuration import (

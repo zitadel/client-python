@@ -49,7 +49,6 @@ zitadel_client/auth/base_authenticator.py
 zitadel_client/auth/bearer_authenticator.py
 zitadel_client/auth/http_aware_authenticator.py
 zitadel_client/auth/zitadel_access_token_authenticator.py
-zitadel_client/client.py
 zitadel_client/configuration.py
 zitadel_client/default_api_client.py
 zitadel_client/errors/__init__.py
@@ -1422,3 +1421,4 @@ zitadel_client/servers.py
 zitadel_client/trace_context_util.py
 zitadel_client/transport_options.py
 zitadel_client/value_serializer.py
+zitadel_client/zitadel.py

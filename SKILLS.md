@@ -9,9 +9,9 @@ pip install zitadel_client
 ## Quick Start
 
 ```python
-from zitadel_client.client import Client
+from zitadel_client.client import Zitadel
 
-client = Client.with_token("https://api.example.com", "your-token")
+client = Zitadel.with_token("https://api.example.com", "your-token")
 ```
 
 ## Authentication
@@ -24,7 +24,7 @@ All authentication is handled via `Authenticator` implementations passed to the 
 from zitadel_client.auth.bearer_authenticator import BearerAuthenticator
 
 authenticator = BearerAuthenticator("https://api.example.com", "your-token")
-client = Client(authenticator)
+client = Zitadel(authenticator)
 ```
 
 ## Servers
@@ -34,7 +34,7 @@ If the OpenAPI spec defines multiple servers, the generated `zitadel_client.serv
 ```python
 from zitadel_client.servers import SERVER_0
 
-client = Client.with_token(SERVER_0.url(), "your-token")
+client = Zitadel.with_token(SERVER_0.url(), "your-token")
 ```
 
 ## Testing
@@ -49,7 +49,7 @@ class FakeAuthenticator:
     def get_host(self):
         return "https://api.example.com"
 
-client = Client(FakeAuthenticator())
+client = Zitadel(FakeAuthenticator())
 ```
 
 ## Error Handling
@@ -101,7 +101,7 @@ transport = (
     .build()
 )
 
-client = Client(authenticator, transport)
+client = Zitadel(authenticator, transport)
 ```
 
 ## API Methods
