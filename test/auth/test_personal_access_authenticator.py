@@ -14,3 +14,13 @@ class PersonalAccessTokenAuthenticatorTest(unittest.TestCase):
             {"Authorization": "Bearer my-secret-token"}, auth.get_auth_headers()
         )
         self.assertEqual("https://api.example.com", auth.get_host())
+
+    def test_redacts_secret_in_repr(self) -> None:
+        """The personal access token is masked in repr."""
+        token = "tkn-abcdef-do-not-leak"
+        auth = PersonalAccessTokenAuthenticator("https://api.example.com", token)
+
+        rendered = repr(auth)
+
+        self.assertNotIn(token, rendered)
+        self.assertIn("***", rendered)
