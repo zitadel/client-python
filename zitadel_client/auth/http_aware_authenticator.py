@@ -23,7 +23,7 @@ class HttpAwareAuthenticator(Authenticator):
     use the same transport configuration (proxy, TLS, timeouts) as regular
     API calls.
 
-    The :class:`ApiClient` is injected by the :class:`Client` class after
+    The :class:`ApiClient` is injected by the :class:`Zitadel` class after
     construction, via :meth:`set_api_client`. Implementations must not make
     HTTP calls before the client is injected.
 
@@ -36,7 +36,7 @@ class HttpAwareAuthenticator(Authenticator):
     def set_api_client(self, api_client: ApiClient) -> None:
         """Inject the shared API client for making HTTP requests.
 
-        Called by the :class:`Client` constructor after the :class:`ApiClient`
+        Called by the :class:`Zitadel` constructor after the :class:`ApiClient`
         has been created with the user's :class:`TransportOptions`.
         Implementations should store this reference and use it for all
         outbound HTTP calls (token exchange, discovery, etc.).

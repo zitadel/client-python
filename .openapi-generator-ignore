@@ -14,13 +14,6 @@ zitadel_client/auth/open_id.py
 zitadel_client/auth/personal_access_token_authenticator.py
 zitadel_client/auth/web_token_authenticator.py
 
-# --- bespoke support classes (facade + helpers the authenticators depend on
-#     that the generator does not emit) ---
-#
-# NOTE: python intentionally keeps no hand-written error base; its error
-# hierarchy under zitadel_client/errors/ is generator-owned.
-zitadel_client/zitadel.py
-
 # --- bespoke tests + fixtures the generator does not emit ---
 #
 # NOTE: the spec-independent unit tests (value_serializer, header_selector,

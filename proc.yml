@@ -5,5 +5,6 @@ packageUrl: https://github.com/zitadel/sdk
 disallowAdditionalPropertiesIfNotPresent: false
 useOneOfDiscriminatorLookup: true
 generateUnitTests: true
+clientClassName: Zitadel
 repoName: git@github.com:zitadel/client-python.git
 generatorName: python-plus
