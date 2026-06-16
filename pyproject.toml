@@ -1,45 +1,36 @@
 [project]
-name = "zitadel_client"
-description = "Official Zitadel SDK for Python. Authenticate and access Zitadel's authentication and management APIs in Python."
-license = { text = "Apache-2.0" }
-readme = "README.md"
-requires-python = ">=3.10"
-authors = [
-  { name = "Mridang Agarwalla", email = "mridang@zitadel.com" }
-]
-version = "4.1.7"
-keywords = ["sdk", "iam", "client-lib", "client-library", "sdk-python", "zitadel", "zitadel-sdk"]
-classifiers = [
-  "Topic :: Software Development :: Libraries"
-]
+name = "zitadel-client"
+version = "0.0.1"
+description = "The Zitadel SDK is a convenience wrapper around the Zitadel APIs to assist you in integrating with your Zitadel environment. This SDK enables you to handle resources, settings, and configurations within the Zitadel platform."
+license = "MIT"
+requires-python = ">=3.13"
 dependencies = [
-  "urllib3>=1.25.3,<3.0.0",
-  "python-dateutil>=2.8.2",
-  "pydantic>=2",
-  "typing-extensions>=4.7.1",
-  "authlib>=1.3.2,<2.0.0",
-  "requests>=2.32.4,<3.0.0",
+    "urllib3>=2.1.0,<3.0.0",
+    "python_dateutil>=2.8.2",
+    "isodate>=0.6.1",
+    "pydantic[email]>=2,<3",
+    "typing-extensions>=4.7.1",
+    "brotli>=1.0.0",
+    "zstandard>=0.19.0",
+    "PyJWT>=2.0.0",
 ]
-
-[project.urls]
-homepage = "https://zitadel.com/"
-repository = "https://github.com/zitadel/client-python"
-documentation = "https://github.com/zitadel/client-python"
-"Bug Tracker" = "https://github.com/zitadel/client-python/issues"
 
 [dependency-groups]
 dev = [
-  "cryptography>=46.0.6,<49.0.0",
-  "pytest>=7.2.1",
-  "pytest-cov>=2.8.1",
-  "tox>=3.9.0",
-  "types-python-dateutil>=2.8.19.14",
-  "testcontainers>=4.14.0,<5.0.0",
-  "python-dotenv==1.2.2",
-  "ruff>=0.12.4",
-  "sphinx==7.4.7",
-  "fawltydeps==0.19.0",
-  "ty>=0.0.4",
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "mypy>=1,<3",
+    "ruff>=0.15,<0.16",
+    "types-python-dateutil>=2.8.0",
+    "types-requests>=2.28.0",
+    "types-urllib3>=1.26.0",
+    "pytest-cov>=4.0.0",
+    "sphinx>=7,<10",
+    "furo>=2024.1.29",
+    "cryptography>=46.0.6,<49.0.0",
+    "testcontainers>=4.14.0,<5.0.0",
+    "python-dotenv>=1.2.2",
+    "fawltydeps>=0.20,<0.21",
 ]
 
 [build-system]
@@ -52,62 +43,45 @@ include = ["zitadel_client*"]
 [tool.setuptools.package-data]
 zitadel_client = ["py.typed"]
 
-[tool.setuptools]
-include-package-data = true
+# Ruff, mypy and pyright run with their industry-default configuration; no
+# custom or relaxed rules, line length or rule selection are declared here.
+# Findings inherent to generated code are silenced per file via the
+# `# ruff: noqa` and `# mypy: ignore-errors` headers emitted at the top of
+# every generated module, never inline and never by relaxing the config.
 
-[tool.tox]
-envlist = ["py310", "py311", "py312"]
+[tool.fawltydeps]
+# FawltyDeps maps imports to declared deps statically; the entries below are
+# the cases that mapping cannot see, so they are declared here rather than
+# silenced inline.
+ignore_unused = [
+    # Tooling and stub-only deps that are run/consumed, never imported.
+    "fawltydeps",
+    "mypy",
+    "ruff",
+    "pytest-cov",
+    "pytest-asyncio",
+    "sphinx",
+    "furo",
+    "types-python-dateutil",
+    "types-requests",
+    "types-urllib3",
+    # Declared runtime deps used dynamically or behind optional shims, so no
+    # static import is visible (isodate date parsing, brotli/zstandard codec
+    # fallbacks selected at runtime).
+    "isodate",
+    "brotli",
+    "zstandard",
+]
+ignore_undeclared = [
+    # Pulled in by testcontainers for the integration suite (conftest.py).
+    "docker",
+    # Optional tracing integration imported behind a try/except shim.
+    "opentelemetry",
+]
 
 [tool.pytest.ini_options]
 cache_dir = ".pytest"
 testpaths = ["test", "spec"]
 python_files = "test_*.py *_spec.py"
-addopts = [
-  "--cov=zitadel_client",
-  "--cov-report=html:build/coverage/html",
-  "--cov-report=xml:build/coverage/clover.xml",
-  "--cov-report=term",
-]
-junit_family = "legacy"
-
-[tool.coverage.run]
-data_file = "build/coverage/.coverage"
-omit = [
-  "zitadel_client/api/*",
-  "zitadel_client/models/*"
-]
-
-[tool.ruff]
-cache-dir = ".ruff"
-line-length = 130
-fix = true
-target-version = "py310"
-exclude = [
-  "zitadel_client/api/*",
-  "zitadel_client/models/*"
-]
-
-[tool.ruff.lint]
-select = ["E", "F", "I", "B", "C", "N", "Q", "S", "T"]
-extend-select = ["A"]
-ignore = ["S101"]  # Ignore assert statements
-
-[tool.fawltydeps]
-ignore_unused = [
-  "fawltydeps",
-  "pytest-cov",
-  "ruff",
-  "sphinx",
-  "tox",
-  "requests",
-  "ty"
-]
-
-[tool.ty.environment]
-python-version = "3.10"
-root = ["."]
-
-[tool.ty.src]
-respect-ignore-files = true
-include = ["zitadel_client"]
-exclude = ["zitadel_client/api/**", "zitadel_client/models/**"]
+asyncio_mode = "auto"
+addopts = "--cov=zitadel_client --cov-report=xml:.out/coverage.xml --cov-report=term-missing --junitxml=.out/reports/junit.xml"

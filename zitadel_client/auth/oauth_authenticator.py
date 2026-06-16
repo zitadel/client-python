@@ -1,103 +1,192 @@
+import json
+import time
 from abc import ABC, abstractmethod
-from datetime import datetime, timedelta, timezone
 from threading import Lock
-from typing import Any, Dict, Generic, Optional, TypeVar  # noqa: F401
+from typing import Any, Dict, Generic, Optional, TypeVar
+from urllib.parse import urlencode
 
-from authlib.integrations.requests_client import OAuth2Session
-
-from zitadel_client import ZitadelError
-from zitadel_client.auth.authenticator import Authenticator, Token
+from zitadel_client.api_client import ApiClient
+from zitadel_client.auth.base_authenticator import BaseAuthenticator
+from zitadel_client.auth.http_aware_authenticator import HttpAwareAuthenticator
 from zitadel_client.auth.open_id import OpenId
+from zitadel_client.errors import ApiException
 from zitadel_client.transport_options import TransportOptions
 
 
-class OAuthAuthenticator(Authenticator, ABC):
+class OAuthAuthenticator(BaseAuthenticator, HttpAwareAuthenticator, ABC):
     """
-    Base class for OAuth-based authentication using Authlib.
+    Abstract base class for OAuth-based, token-minting authenticators.
 
-    Attributes:
-        open_id: An object providing OAuth endpoint information.
-        oauth_session: An OAuth2Session instance used for fetching tokens.
+    Mints a bearer token by POSTing an OAuth2 grant (client-credentials or a
+    signed JWT-bearer assertion) to the provider's token endpoint, then
+    attaches the resulting access token on every API request. The minted token
+    is cached together with its expiry and only re-minted once it is within the
+    refresh skew of expiring.
+
+    Token-minting requires an outbound HTTP call, so this class implements
+    :class:`HttpAwareAuthenticator`: the :class:`ApiClient` is injected by the
+    :class:`zitadel_client.client.Client` constructor and the token POST is
+    sent through it. Sharing the SDK transport means token exchange honours the
+    same proxy, TLS, timeout and redirect configuration as regular API calls.
+
+    (Previously this exchange went through authlib's ``OAuth2Session``; that
+    dependency has been dropped in favour of the injected SDK transport. A JWT
+    library is retained only for signing the JWT-bearer assertion.)
     """
+
+    # Seconds before expiry at which a cached token is treated as stale and
+    # re-minted. Mirrors the previous 5-minute skew.
+    REFRESH_SKEW_SECONDS = 300
 
     def __init__(
         self,
         open_id: OpenId,
-        oauth_session: OAuth2Session,
-        transport_options: Optional[TransportOptions] = None,
+        client_id: str,
+        scope: str,
     ):
         """
         Constructs an OAuthAuthenticator.
 
-        :param open_id: An object that must implement get_host_endpoint() and get_token_endpoint().
-        :param oauth_session: The scope for the token request.
-        :param transport_options: Optional transport options for TLS, proxy, and headers.
+        :param open_id: Resolved OpenID configuration (host + token endpoint).
+        :param client_id: The OAuth2 client identifier.
+        :param scope: Space-delimited scope string for the token request.
         """
-        super().__init__(open_id.get_host_endpoint())
         self.open_id = open_id
-        self.token: Optional[Token] = None
-        self.transport_options = transport_options or TransportOptions.defaults()
-        self.oauth_session = oauth_session
+        self.client_id = client_id
+        self.scope = scope
+        self._api_client: Optional[ApiClient] = None
+        self._access_token: Optional[str] = None
+        self._expires_at: float = 0.0
         self._lock = Lock()
+
+    def set_api_client(self, api_client: ApiClient) -> None:
+        self._api_client = api_client
+
+    def get_host(self) -> str:
+        return self.open_id.get_host_endpoint()
+
+    def get_auth_headers(self) -> Dict[str, str]:
+        return {"Authorization": "Bearer " + self.get_auth_token()}
 
     def get_auth_token(self) -> str:
         """
-        Returns the current access token, refreshing it if necessary.
+        Return a valid access token, minting (or re-minting) one if the cache
+        is empty or within the refresh skew of expiring.
+
+        :raises ApiException: If the token cannot be obtained.
         """
         with self._lock:
-            if self.token is None or self.token.is_expired():
+            if self._access_token is None or (
+                self._expires_at != 0
+                and time.time() >= (self._expires_at - self.REFRESH_SKEW_SECONDS)
+            ):
                 self.refresh_token()
 
-            if self.token is None:
-                raise ZitadelError("Token is null even after attempting to refresh.")
-            else:
-                return self.token.access_token
+            if self._access_token is None:
+                raise ApiException(
+                    message="Token is null even after attempting to refresh."
+                )
+            token = self._access_token
+        return token
 
-    def get_auth_headers(self) -> Dict[str, str]:
+    def refresh_token(self) -> str:
         """
-        Retrieves authentication headers.
+        Exchange the configured grant for a fresh access token and cache it.
 
-        :return: A dictionary containing the 'Authorization' header.
+        POSTs an ``application/x-www-form-urlencoded`` body to the token
+        endpoint through the injected :class:`ApiClient`. Subclasses contribute
+        the grant_type and the grant-specific parameters (scope, assertion, ...).
+
+        :return: The freshly minted access token.
+        :raises ApiException: If the client is not yet injected or the
+                              exchange fails.
         """
-        return {"Authorization": "Bearer " + self.get_auth_token()}
+        if self._api_client is None:
+            raise ApiException(
+                message=(
+                    "OAuthAuthenticator has no ApiClient; it must be used via zitadel_client.client.Client, which injects the shared transport before any token exchange."
+                )
+            )
+
+        params: Dict[str, str] = {"grant_type": self.get_grant_type()}
+        params.update(self.get_access_token_options())
+
+        response = self._api_client.send_request(
+            "POST",
+            self.open_id.get_token_endpoint(),
+            {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "Accept": "application/json",
+            },
+            urlencode(params),
+            # no_redirect: never replay a token POST across a redirect — a
+            # malicious 307/308 could otherwise leak the assertion/secret.
+            True,
+        )
+
+        if response.status_code < 200 or response.status_code >= 300:
+            raise ApiException(
+                status_code=response.status_code,
+                message=f"Token refresh failed: token endpoint returned HTTP {response.status_code}",
+                response_headers=response.headers,
+                response_body=response.body,
+            )
+
+        try:
+            payload = json.loads(response.body)
+        except json.JSONDecodeError as e:
+            raise ApiException(
+                status_code=response.status_code,
+                message="Token refresh failed: token endpoint response was not valid JSON.",
+                response_headers=response.headers,
+                response_body=response.body,
+            ) from e
+
+        if not isinstance(payload, dict) or not isinstance(
+            payload.get("access_token"), str
+        ):
+            raise ApiException(
+                status_code=response.status_code,
+                message="Token refresh failed: token endpoint response did not contain an access_token.",
+                response_headers=response.headers,
+                response_body=response.body,
+            )
+
+        access_token: str = payload["access_token"]
+        self._access_token = access_token
+        expires_in = payload.get("expires_in")
+        if isinstance(expires_in, (int, float)) and expires_in > 0:
+            self._expires_at = time.time() + float(expires_in)
+        else:
+            self._expires_at = 0.0
+
+        return access_token
+
+    def __repr__(self) -> str:
+        # Mask the cached token so it never leaks through repr() / logging.
+        masked = "***" if self._access_token is not None else None
+        return f"{type(self).__name__}(host={self.get_host()!r}, client_id={self.client_id!r}, scope={self.scope!r}, access_token={masked!r}, expires_at={self._expires_at!r})"
 
     @abstractmethod
-    def get_grant(self) -> Dict[str, str]:
-        """
-        Builds and returns a dictionary of grant parameters required for the token request.
+    def get_grant_type(self) -> str:
+        """The OAuth2 grant_type value sent in the token request."""
+        ...  # pragma: no cover
 
-        For example, this might include parameters like grant_type, client_assertion, etc.
-        """
-        pass  # pragma: no cover
-
-    def refresh_token(self) -> Token:
-        """
-        Refreshes the access token using the OAuth flow.
-        It uses get_grant() to obtain all necessary parameters, such as the grant type and any assertions.
-
-        :return: A new Token.
-        """
-        try:
-            token_response = self.oauth_session.fetch_token(url=(self.open_id.get_token_endpoint()), **(self.get_grant()))
-            access_token = token_response["access_token"]
-            expires_in = token_response.get("expires_in", 3600)
-            expires_at = datetime.now(timezone.utc) + timedelta(seconds=expires_in)
-            self.token = Token(access_token, expires_at)
-            return self.token
-        except Exception as e:
-            raise ZitadelError("Failed to refresh token: " + str(e)) from e
+    @abstractmethod
+    def get_access_token_options(self) -> Dict[str, str]:
+        """Grant-specific token-request parameters (e.g. scope, assertion)."""
+        ...  # pragma: no cover
 
 
-# noinspection PyArgumentList
 T = TypeVar("T", bound="OAuthAuthenticatorBuilder[Any]")
 
 
-# noinspection PyTypeHintsInspection,PyTypeHints
 class OAuthAuthenticatorBuilder(ABC, Generic[T]):
     """
     Abstract builder class for constructing OAuth authenticator instances.
 
-    This builder provides common configuration options such as the OpenId instance and authentication scopes.
+    Provides common configuration options such as the resolved OpenId instance
+    and authentication scopes.
     """
 
     def __init__(
@@ -112,7 +201,7 @@ class OAuthAuthenticatorBuilder(ABC, Generic[T]):
         :param transport_options: Optional transport options for TLS, proxy, and headers.
         """
         super().__init__()
-        self.transport_options = transport_options or TransportOptions.defaults()
+        self.transport_options = transport_options or TransportOptions.builder().build()
         self.open_id = OpenId(host, transport_options=self.transport_options)
         self.auth_scopes = {"openid", "urn:zitadel:iam:org:project:id:zitadel:aud"}
 
