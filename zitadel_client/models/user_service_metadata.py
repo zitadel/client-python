@@ -11,8 +11,16 @@ from __future__ import annotations
 
 import re
 import warnings
-from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
-from typing import Any, ClassVar, Dict, List, Optional, Set, Union
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    field_validator,
+    model_serializer,
+    model_validator,
+)
+from pydantic import StrictBool, StrictFloat, StrictInt, StrictStr
+from typing import Any, Callable, ClassVar, Dict, List, Optional, Set, Union
 from typing_extensions import Self
 
 
@@ -24,7 +32,7 @@ class UserServiceMetadata(BaseModel):
     key: Optional[StrictStr] = Field(
         default=None, alias="key", description="Key in the metadata key/value pair."
     )
-    value: Optional[bytes] = Field(
+    value: Optional[Base64Bytes] = Field(
         default=None, alias="value", description="Value in the metadata key/value pair."
     )
 
@@ -39,6 +47,7 @@ class UserServiceMetadata(BaseModel):
     )
 
 
+from pydantic import Base64Bytes
 from pydantic import StrictStr
 
 UserServiceMetadata.model_rebuild(raise_errors=False)

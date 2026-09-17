@@ -11,8 +11,16 @@ from __future__ import annotations
 
 import re
 import warnings
-from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
-from typing import Any, ClassVar, Dict, List, Optional, Set, Union
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    field_validator,
+    model_serializer,
+    model_validator,
+)
+from pydantic import StrictBool, StrictFloat, StrictInt, StrictStr
+from typing import Any, Callable, ClassVar, Dict, List, Optional, Set, Union
 from typing_extensions import Self
 
 
@@ -40,7 +48,7 @@ class SessionServiceSession(BaseModel):
         description="The sequence of the session represents the change sequence of the session.",
     )
     factors: Optional[SessionServiceFactors] = Field(default=None, alias="factors")
-    metadata: Optional[Dict[str, bytes]] = Field(
+    metadata: Optional[Dict[str, Base64Bytes]] = Field(
         default=None,
         alias="metadata",
         description="Metadata contains custom key value pairs set by the user.  The metadata is not interpreted by ZITADEL and can be used to store any information  relevant to the session.",
@@ -66,6 +74,7 @@ class SessionServiceSession(BaseModel):
 
 
 from pydantic import AwareDatetime
+from pydantic import Base64Bytes
 from pydantic import StrictStr
 from zitadel_client.models.session_service_factors import SessionServiceFactors
 from zitadel_client.models.session_service_user_agent import SessionServiceUserAgent

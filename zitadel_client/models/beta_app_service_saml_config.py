@@ -11,8 +11,16 @@ from __future__ import annotations
 
 import re
 import warnings
-from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
-from typing import Any, ClassVar, Dict, List, Optional, Set, Union
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    field_validator,
+    model_serializer,
+    model_validator,
+)
+from pydantic import StrictBool, StrictFloat, StrictInt, StrictStr
+from typing import Any, Callable, ClassVar, Dict, List, Optional, Set, Union
 from typing_extensions import Self
 
 
@@ -25,7 +33,7 @@ class BetaAppServiceSAMLConfig(BaseModel):
         default=None, alias="loginVersion"
     )
     metadata_url: Optional[StrictStr] = Field(default=None, alias="metadataUrl")
-    metadata_xml: Optional[bytes] = Field(default=None, alias="metadataXml")
+    metadata_xml: Optional[Base64Bytes] = Field(default=None, alias="metadataXml")
 
     # Strict primitives (Item 8 — StrictInt/StrictStr/...) carry the
     # per-field strictness, so the model-wide ConfigDict no longer needs
@@ -38,6 +46,7 @@ class BetaAppServiceSAMLConfig(BaseModel):
     )
 
 
+from pydantic import Base64Bytes
 from pydantic import StrictStr
 from zitadel_client.models.beta_app_service_login_version import (
     BetaAppServiceLoginVersion,

@@ -15,7 +15,7 @@ import re
 import uuid
 from datetime import timezone
 from enum import Enum
-from typing import Any, Callable, ClassVar, Optional, Type, TypeVar, Union, cast
+from typing import Any, ClassVar, Optional, Type, TypeVar, Union, cast
 
 from dateutil.parser import parse
 from pydantic import BaseModel, SecretStr, TypeAdapter
@@ -122,6 +122,13 @@ class ObjectSerializer:
         "StrictFloat": float,
         "StrictBool": bool,
         "StrictStr": str,
+        # LaxFloat (format: float/double) and UrlStr (format: uri) are the
+        # SDK's own Annotated aliases over float/str. They normally appear only
+        # as scalar model-field annotations resolved by pydantic, but mapping
+        # them here keeps a container element type-name string (e.g. an inner
+        # 'LaxFloat' of a List[...]) resolvable on the hand-rolled fallback path.
+        "LaxFloat": float,
+        "UrlStr": str,
     }
 
     def __init__(self) -> None:
@@ -135,9 +142,28 @@ class ObjectSerializer:
         forbids — Python's default allow_nan=True is non-spec-compliant).
         Aligns Python with the 10 SDKs that already reject non-finite
         floats both on encode and decode.
+
+        This is the single source of truth for turning a model into its JSON
+        wire form, used by BOTH the JSON request-body path and the model part
+        of a multipart/form-data body (see DefaultApiClient._multipart_part).
+        Pydantic ``model_dump_json(by_alias=True, ...)`` emits the configured
+        WIRE property names (field aliases such as ``isPrimary``/``takenAt``,
+        never the snake_case attribute names) and the model's declared
+        date-time / duration serializers, so the multipart model part is
+        byte-identical to a JSON request body for the same model.
         """
         try:
             if isinstance(obj, BaseModel):
+                if hasattr(obj, "anyof_merged_dump"):
+                    # anyOf retain-all: emit the union of every retained
+                    # variant's fields so co-satisfied data round-trips
+                    # losslessly instead of dropping all but the first variant.
+                    return json.dumps(
+                        obj.anyof_merged_dump(),
+                        default=str,
+                        ensure_ascii=False,
+                        allow_nan=False,
+                    )
                 if hasattr(obj, "actual_instance"):
                     return self.serialize(obj.actual_instance)
                 return obj.model_dump_json(by_alias=True, exclude_none=True)
@@ -211,7 +237,13 @@ class ObjectSerializer:
             return obj
         elif isinstance(obj, datetime.datetime):
             dt = obj if obj.tzinfo is not None else obj.replace(tzinfo=timezone.utc)
-            return dt.isoformat(timespec="seconds")
+            # Emit with millisecond precision so a sub-second instant is not
+            # silently truncated to whole seconds on the wire. The decode path
+            # (dateutil.parser.parse) accepts the fraction, so dropping it on
+            # encode would make the round-trip lossy and asymmetric. timespec=
+            # 'milliseconds' always renders exactly three fractional digits,
+            # matching the cross-SDK common denominator.
+            return dt.isoformat(timespec="milliseconds")
         elif isinstance(obj, datetime.timedelta):
             # Must precede the datetime.date branch only because timedelta
             # is not a date subclass; ordered alongside the other temporal
@@ -225,7 +257,9 @@ class ObjectSerializer:
             return str(obj)
         elif isinstance(obj, uuid.UUID):
             return str(obj)
-        elif isinstance(obj, (list, tuple, dict)) or hasattr(obj, "__dict__"):
+        elif isinstance(obj, (list, tuple, set, frozenset, dict)) or hasattr(
+            obj, "__dict__"
+        ):
             if _visited is None:
                 _visited = set()
             obj_id = id(obj)
@@ -243,6 +277,21 @@ class ObjectSerializer:
                     sanitized = tuple(
                         cls._sanitize_for_serialization(item, _visited) for item in obj
                     )
+                elif isinstance(obj, (set, frozenset)):
+                    # JSON has no set type, so a set/frozenset must emit as a
+                    # JSON ARRAY — not the Python repr string ('{1, 2, 3}') the
+                    # bare `str(obj)` fallback used to produce. Sets are
+                    # unordered; sort when the elements are mutually comparable
+                    # so the wire form is deterministic, and fall back to
+                    # insertion/hash order for mixed-type sets that can't be
+                    # ordered (sorting would raise TypeError there).
+                    items = [
+                        cls._sanitize_for_serialization(item, _visited) for item in obj
+                    ]
+                    try:
+                        sanitized = sorted(items)
+                    except TypeError:
+                        sanitized = items
                 elif isinstance(obj, dict):
                     sanitized = {
                         key: cls._sanitize_for_serialization(val, _visited)
@@ -265,6 +314,25 @@ class ObjectSerializer:
         ``Dict[str, T]`` collections.
         """
         if name.startswith("List[") or name.startswith("Dict["):
+            return None
+        # ``bytes`` carries an OAS ``format: byte`` payload that travels on the
+        # wire as a base64 STRING. The dedicated ``klass is bytes`` branch in
+        # ``_deserialize`` base64-DECODES it; a plain ``TypeAdapter(bytes)``
+        # does NOT — it UTF-8-encodes the string verbatim, so the base64 text
+        # ``"AQIDBA=="`` would come back as the raw bytes of that text instead
+        # of ``b'\x01\x02\x03\x04'``. Returning None here keeps the inner
+        # ``bytes`` element of a ``List[bytes]`` / ``Dict[str, bytes]`` (and the
+        # byte branch of a oneOf/anyOf union) on the recursive element-wise
+        # path so each element is correctly base64-decoded.
+        if name == "bytes":
+            return None
+        # ``datetime`` / ``AwareDatetime`` carry an OAS ``format: date-time``
+        # payload whose decode rule must reject NAIVE (offset-less) instants for
+        # parity with the AwareDatetime model fields. A plain
+        # ``TypeAdapter(list[datetime])`` accepts naive values, so keep these on
+        # the recursive element-wise path where the ``datetime.datetime`` branch
+        # of ``_deserialize`` applies the consistent tz-awareness rule.
+        if name in ("datetime", "AwareDatetime"):
             return None
         if name in self._NATIVE_TYPES_MAPPING:
             return self._NATIVE_TYPES_MAPPING[name]
@@ -293,6 +361,18 @@ class ObjectSerializer:
                 # types the adapter can't express (e.g. nested 'List[X]').
                 if inner is not None:
                     return _list_adapter(inner).validate_python(data)
+                # A ``str``/``bytes`` scalar is iterable, so an un-guarded
+                # comprehension would silently walk it character-by-character —
+                # e.g. inside a oneOf of [bytes, List[bytes]] the base64 STRING
+                # for the scalar variant would be mis-parsed element-by-element
+                # into a list. Reject non-sequence input here so the composed
+                # deserializer falls through to the scalar ``bytes`` variant.
+                if isinstance(data, (str, bytes)) or not isinstance(
+                    data, (list, tuple)
+                ):
+                    raise ValueError(
+                        f"Expected a list for {klass}, got {type(data).__name__}"
+                    )
                 return [self._deserialize(item, sub_kls) for item in data]
 
             if klass.startswith("Dict["):
@@ -329,7 +409,21 @@ class ObjectSerializer:
         elif klass == datetime.date:
             return parse(data).date()
         elif klass == datetime.datetime:
-            return parse(data)
+            # Item 5 — the top-level / container date-time decode path must
+            # apply the SAME tz-awareness rule that model fields enforce via
+            # pydantic AwareDatetime. dateutil.parser.parse happily returns a
+            # NAIVE datetime for an offset-less string like '2024-01-01T00:00:00',
+            # which would let a container-typed value (e.g. List[datetime] /
+            # Dict[str, datetime]) slip through naive while the identical value
+            # on a model field is rejected. Reject naive results here so both
+            # paths decode by one consistent AwareDatetime rule.
+            parsed = parse(data) if not isinstance(data, datetime.datetime) else data
+            if parsed.tzinfo is None or parsed.tzinfo.utcoffset(parsed) is None:
+                raise ValueError(
+                    "Naive datetime is not allowed; an offset-aware date-time "
+                    "(AwareDatetime) is required"
+                )
+            return parsed
         elif klass == datetime.time:
             if isinstance(data, datetime.time):
                 return data
@@ -350,26 +444,47 @@ class ObjectSerializer:
     def _deserialize_composed(self, data: Any, klass: type) -> Any:
         """Deserialize data for oneOf/anyOf composed schemas.
 
-        Tries each candidate schema and wraps the first successful
-        result in the composed model.
+        oneOf and a discriminated union keep FIRST-match semantics: the first
+        candidate the payload validates against is wrapped and returned.
+
+        anyOf without a discriminator uses RETAIN-ALL (lossless) semantics: a
+        payload may satisfy several variants at once (the schema is documented
+        as matching one variant, another, OR BOTH), so EVERY successfully
+        decoded variant is retained and passed to the composed model as a list.
+        On re-encode the union of all retained variants' fields is emitted, so
+        co-satisfied data round-trips with no silent drop. A payload matching a
+        single variant still decodes correctly (the list has one element).
 
         Gap AU: when the composed schema declares a discriminator, route
         through `get_discriminator_value` so missing / empty / unknown
         discriminator values raise ValueError (matches the other SDKs)
         instead of silently wrapping the raw dict in `actual_instance`.
         """
-        schemas: set[str] = (
-            getattr(klass, "any_of_schemas", None)
-            or getattr(klass, "one_of_schemas", None)
-            or set()
-        )
+        # The model emits any_of_schemas / one_of_schemas as a declared-order
+        # tuple so that trialling candidates below honours declaration order.
+        # Iterating a set here would visit candidates in hash order and resolve
+        # ambiguous payloads non-deterministically.
+        any_of_schemas: tuple[str, ...] = getattr(klass, "any_of_schemas", None) or ()
+        one_of_schemas: tuple[str, ...] = getattr(klass, "one_of_schemas", None) or ()
         if hasattr(klass, "get_discriminator_value") and isinstance(data, dict):
             mapped = klass.get_discriminator_value(data)
             if mapped:
                 instance = self._deserialize(data, mapped)
                 return klass(instance)
 
-        for schema_name in schemas:
+        if any_of_schemas:
+            # Retain-all: collect every variant the payload satisfies.
+            matched: list = []
+            for schema_name in any_of_schemas:
+                try:
+                    matched.append(self._deserialize(data, schema_name))
+                except Exception:
+                    continue
+            if matched:
+                return klass(matched)
+            return klass(data)
+
+        for schema_name in one_of_schemas:
             try:
                 instance = self._deserialize(data, schema_name)
                 return klass(instance)
@@ -402,7 +517,12 @@ class ObjectSerializer:
                 if value.tzinfo is not None
                 else value.replace(tzinfo=timezone.utc)
             )
-            return dt.isoformat(timespec="seconds")
+            # Preserve millisecond precision on the parameter path (query / path
+            # / header / form) for the same reason as the JSON-body path above:
+            # the decoder accepts the fraction, so truncating it here would make
+            # the wire round-trip lossy. timespec='milliseconds' renders exactly
+            # three fractional digits.
+            return dt.isoformat(timespec="milliseconds")
         if isinstance(value, datetime.timedelta):
             return _format_timedelta_protobuf(value)
         if isinstance(value, datetime.time):
@@ -467,48 +587,3 @@ class ObjectSerializer:
         if value is None:
             return ""
         return cls.stringify(value)
-
-    def _resolve_one_of(
-        self, json_string: str, candidates: list[Callable[[str], Any]]
-    ) -> Any:
-        """Resolve a oneOf schema by trying each candidate deserializer in order.
-
-        Args:
-            json_string: The JSON string to deserialize.
-            candidates: List of callable deserializers that accept a JSON string.
-
-        Returns:
-            The first non-None successful result.
-
-        Raises:
-            SerializationError: If no candidate matches the JSON. A payload
-                satisfying none of the declared variants is a contract violation
-                and must fail loudly rather than be silently dropped to None.
-        """
-        for candidate in candidates:
-            try:
-                result = candidate(json_string)
-                if result is not None:
-                    return result
-            except Exception:
-                continue
-        raise SerializationError("No oneOf/anyOf variant matched the JSON")
-
-    def _resolve_any_of(
-        self, json_string: str, candidates: list[Callable[[str], Any]]
-    ) -> Any:
-        """Resolve an anyOf schema by trying each candidate deserializer in order.
-
-        Delegates to _resolve_one_of.
-
-        Args:
-            json_string: The JSON string to deserialize.
-            candidates: List of callable deserializers that accept a JSON string.
-
-        Returns:
-            The first non-None successful result.
-
-        Raises:
-            SerializationError: If no candidate matches the JSON.
-        """
-        return self._resolve_one_of(json_string, candidates)

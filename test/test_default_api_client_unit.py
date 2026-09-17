@@ -295,6 +295,25 @@ class TestCharsetDecoding:
         )
         assert decoded == "é"
 
+    def test_bomless_utf16_decodes_big_endian(self) -> None:
+        # "Pet" encoded as UTF-16 big-endian WITHOUT a BOM. RFC 2781 says a
+        # BOM-less UTF-16 stream defaults to big-endian, so these bytes must
+        # decode to "Pet" — not the little-endian misread "倀攀琀".
+        big_endian = b"\x00P\x00e\x00t"
+        decoded = _decode_with_charset(big_endian, "text/plain; charset=utf-16")
+        assert decoded == "Pet"
+        # Interpreting the same bytes little-endian would NOT yield "Pet",
+        # which proves the big-endian choice is the one being applied.
+        assert big_endian.decode("utf-16-le") != "Pet"
+
+    def test_utf16_honors_little_endian_bom(self) -> None:
+        # When a little-endian BOM (FF FE) is present it must still be honored
+        # and stripped, so BOM-driven detection is not broken by the no-BOM
+        # big-endian default.
+        little_endian_bom = b"\xff\xfeP\x00e\x00t\x00"
+        decoded = _decode_with_charset(little_endian_bom, "text/plain; charset=utf-16")
+        assert decoded == "Pet"
+
     def test_send_request_decodes_iso_8859_1_response(self) -> None:
         import socketserver
         import threading
@@ -398,15 +417,23 @@ class TestMultipartFieldNameUtf8:
     def test_multipart_body_preserves_non_ascii_field_name_as_utf8(self) -> None:
         client = DefaultApiClient()
         body = client._build_multipart_body({"café": b"x"}, "boundary")
-        # The name must appear as raw UTF-8 bytes, never folded to '?'.
+        # The name directive must appear as raw UTF-8 bytes, never folded to '?'.
+        # Anchor on '; name=' so the check targets the name directive and does
+        # not collide with the filename fallback (a raw-bytes part reuses the
+        # field name as the filename, whose ASCII fallback may legitimately fold
+        # non-ASCII to '?' alongside an RFC 5987 filename*= parameter).
         assert 'name="café"'.encode("utf-8") in body
-        assert b'name="caf?"' not in body
+        assert b'; name="caf?"' not in body
 
     def test_multipart_body_preserves_cjk_field_name_as_utf8(self) -> None:
         client = DefaultApiClient()
         body = client._build_multipart_body({"標籤": b"x"}, "boundary")
+        # The name directive must carry the raw UTF-8 field name. The filename
+        # fallback derived from the reused field name may legitimately fold
+        # non-ASCII to '?' alongside an RFC 5987 filename*= parameter, so only
+        # the name directive is asserted free of folding here.
         assert 'name="標籤"'.encode("utf-8") in body
-        assert b"?" not in body.split(b"\r\n\r\n", 1)[0]
+        assert b'; name="?' not in body
 
 
 class TestMultipartContentType:
@@ -437,6 +464,65 @@ class TestMultipartContentType:
         client = DefaultApiClient()
         body = client._build_multipart_body({"upload": b"\x00\x01\x02"}, "boundary")
         assert b"Content-Type: application/octet-stream" in body
+
+    def test_multipart_raw_bytes_reuses_field_name_as_filename(self) -> None:
+        # multipart-raw-bytes-part-content-type: a raw-bytes part with no
+        # explicit filename must reuse the field name as the filename and
+        # advertise a Content-Type guessed from that name (octet-stream when
+        # the name has no/unknown extension), matching the go/node/java
+        # cross-language contract.
+        client = DefaultApiClient()
+        body = client._build_multipart_body({"file": b"\x00\x01\x02"}, "boundary")
+        assert b'name="file"' in body
+        assert b'filename="file"' in body
+        assert b"Content-Type: application/octet-stream" in body
+
+    def test_multipart_model_part_serialized_through_object_serializer(self) -> None:
+        # cross-cutting parity: addPetPhotos sends a multipart/form-data body
+        # whose `metadata` field is a MODEL part (PhotoMetadata). That model
+        # part must be serialized through the SDK's configured ObjectSerializer
+        # (model_dump_json(by_alias=True, ...)) so it carries the WIRE property
+        # names declared by the field aliases (isPrimary, takenAt) and the SDK
+        # date-time string — NOT pydantic's snake_case attribute names
+        # (is_primary, taken_at) and NOT a Python repr. The model part is built
+        # at the lowest level by _build_multipart_body, so capture its bytes and
+        # assert on the embedded JSON. Routing through ObjectSerializer keeps the
+        # multipart model part byte-identical to a JSON request body, matching
+        # the other 11 SDKs.
+        import datetime
+        from zitadel_client.models.photo_metadata import PhotoMetadata
+
+        instant = datetime.datetime(
+            2020, 1, 2, 3, 4, 5, 123000, tzinfo=datetime.timezone.utc
+        )
+        metadata = PhotoMetadata(isPrimary=True, takenAt=instant)
+
+        client = DefaultApiClient()
+        body = client._build_multipart_body({"metadata": metadata}, "boundary")
+        text = body.decode("utf-8")
+
+        # The model part is a JSON part.
+        assert 'name="metadata"' in text
+        assert "Content-Type: application/json" in text
+
+        # Extract the JSON object that follows the metadata part's blank line.
+        marker = text.index('name="metadata"')
+        json_start = text.index("{", marker)
+        json_end = text.index("}", json_start) + 1
+        part_json = text[json_start:json_end]
+        parsed = json.loads(part_json)
+
+        # WIRE keys present, snake_case attribute names absent.
+        assert "isPrimary" in parsed
+        assert "takenAt" in parsed
+        assert "is_primary" not in parsed
+        assert "taken_at" not in parsed
+
+        assert parsed["isPrimary"] is True
+        # takenAt carries a proper RFC 3339 date-time string (the SDK format),
+        # not a Python datetime repr or a date-only value.
+        assert parsed["takenAt"].startswith("2020-01-02T03:04:05")
+        assert ".123" in parsed["takenAt"]
 
 
 class TestProxyAuthentication:

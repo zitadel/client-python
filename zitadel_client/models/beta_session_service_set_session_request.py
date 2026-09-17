@@ -11,8 +11,16 @@ from __future__ import annotations
 
 import re
 import warnings
-from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
-from typing import Any, ClassVar, Dict, List, Optional, Set, Union
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    field_validator,
+    model_serializer,
+    model_validator,
+)
+from pydantic import StrictBool, StrictFloat, StrictInt, StrictStr
+from typing import Any, Callable, ClassVar, Dict, List, Optional, Set, Union
 from typing_extensions import Self
 
 
@@ -24,7 +32,7 @@ class BetaSessionServiceSetSessionRequest(BaseModel):
     session_id: Optional[StrictStr] = Field(default=None, alias="sessionId")
     session_token: Optional[StrictStr] = Field(default=None, alias="sessionToken")
     checks: Optional[BetaSessionServiceChecks] = Field(default=None, alias="checks")
-    metadata: Optional[Dict[str, bytes]] = Field(default=None, alias="metadata")
+    metadata: Optional[Dict[str, Base64Bytes]] = Field(default=None, alias="metadata")
     challenges: Optional[BetaSessionServiceRequestChallenges] = Field(
         default=None, alias="challenges"
     )
@@ -45,6 +53,7 @@ class BetaSessionServiceSetSessionRequest(BaseModel):
     )
 
 
+from pydantic import Base64Bytes
 from pydantic import StrictStr
 from zitadel_client._duration import ProtobufDuration
 from zitadel_client.models.beta_session_service_checks import BetaSessionServiceChecks

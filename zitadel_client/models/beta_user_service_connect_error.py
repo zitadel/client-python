@@ -11,8 +11,16 @@ from __future__ import annotations
 
 import re
 import warnings
-from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
-from typing import Any, ClassVar, Dict, List, Optional, Set, Union
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    field_validator,
+    model_serializer,
+    model_validator,
+)
+from pydantic import StrictBool, StrictFloat, StrictInt, StrictStr
+from typing import Any, Callable, ClassVar, Dict, List, Optional, Set, Union
 from typing_extensions import Self
 from enum import Enum
 
@@ -76,23 +84,86 @@ class BetaUserServiceConnectError(BaseModel):
         if not isinstance(values, dict):
             return values
         known: Set[str] = set()
+        # `aliases` holds only the WIRE aliases that differ from the Python
+        # field name (e.g. 'createdAt' for the field 'created_at'). Their
+        # presence in the incoming mapping is the PATH signal that this dict is
+        # a flat WIRE payload rather than field-name kwargs / re-validation.
+        aliases: Set[str] = set()
         for fname, finfo in cls.model_fields.items():
             known.add(fname)
             if finfo.alias is not None:
                 known.add(finfo.alias)
-        extras: Dict[str, Any] = values.get("additional_properties") or {}
-        if not isinstance(extras, dict):
-            extras = {}
+                if finfo.alias != fname:
+                    aliases.add(finfo.alias)
+        # The `additional_properties` key carries two distinct meanings and we
+        # must distinguish them by the call PATH / declared field, NOT by the
+        # value's runtime type (a dict value is ambiguous — see below):
+        #   1. Internal bucket — the declared `additional_properties` field.
+        #      When re-validating a value we produced ourselves or constructing
+        #      from field-name kwargs (e.g. `Metadata(additional_properties=
+        #      {...})`), the captured extras arrive under this field name and
+        #      must be spread back out, never nested.
+        #   2. Real wire key — a server may legitimately send a property named
+        #      literally `additional_properties` whose value is itself a dict
+        #      (additionalProperties allows any name). This must be funnelled
+        #      into extras under its real name rather than dropped.
+        # A flat wire payload addresses declared fields by their WIRE ALIAS, so
+        # a mapping that carries any aliased key is a wire payload and its
+        # `additional_properties` entry is a real wire property. Only when the
+        # mapping uses field NAMES (no wire alias present) do we treat an
+        # `additional_properties` dict as the internal bucket to seed from.
+        # This keys the decision on the path, so a dict-valued wire property is
+        # preserved instead of being silently swallowed by an `isinstance` test.
+        is_wire_payload = bool(aliases & values.keys())
+        raw_bucket = values.get("additional_properties")
+        extras: Dict[str, Any] = (
+            dict(raw_bucket)
+            if not is_wire_payload and isinstance(raw_bucket, dict)
+            else {}
+        )
         merged: Dict[str, Any] = {}
         for key, value in values.items():
-            if key == "additional_properties":
+            if (
+                key == "additional_properties"
+                and not is_wire_payload
+                and isinstance(value, dict)
+            ):
+                # Internal bucket on the field-name path: already consumed as
+                # the seed above, so drop the wrapper key here.
                 continue
-            if key in known:
+            if key in known and key != "additional_properties":
                 merged[key] = value
             else:
+                # Everything else — including a real wire property literally
+                # named `additional_properties` — lands in extras under its own
+                # name so no data is lost.
                 extras[key] = value
         merged["additional_properties"] = extras
         return merged
+
+    @model_serializer(mode="wrap")
+    def _flatten_additional_properties(
+        self, handler: Callable[[Any], Dict[str, Any]]
+    ) -> Dict[str, Any]:
+        """Re-flatten additional_properties to top level on serialize.
+
+        The mirror of `_capture_additional_properties`. Without this,
+        pydantic emits the captured extras nested under a literal
+        `additional_properties` key (e.g. `{"createdAt": ...,
+        "additional_properties": {"foo": "bar"}}`) instead of the
+        round-trip-faithful flat form `{"createdAt": ..., "foo": "bar"}`.
+        We run the default serializer, lift the captured extras out of the
+        `additional_properties` key, and merge them back at the top level.
+        Declared fields win on key collisions so an explicit field is never
+        clobbered by a stale extra.
+        """
+        data = handler(self)
+        extras = data.pop("additional_properties", None)
+        if isinstance(extras, dict):
+            for key, value in extras.items():
+                if key not in data:
+                    data[key] = value
+        return data
 
     # Strict primitives (Item 8 — StrictInt/StrictStr/...) carry the
     # per-field strictness, so the model-wide ConfigDict no longer needs

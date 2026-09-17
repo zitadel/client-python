@@ -11,8 +11,16 @@ from __future__ import annotations
 
 import re
 import warnings
-from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
-from typing import Any, ClassVar, Dict, List, Optional, Set, Union
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    field_validator,
+    model_serializer,
+    model_validator,
+)
+from pydantic import StrictBool, StrictFloat, StrictInt, StrictStr
+from typing import Any, Callable, ClassVar, Dict, List, Optional, Set, Union
 from typing_extensions import Self
 
 
@@ -26,7 +34,7 @@ class ActionServiceAddPublicKeyRequest(BaseModel):
         alias="targetId",
         description="The unique identifier of the target to add the public key to.",
     )
-    public_key: Optional[bytes] = Field(
+    public_key: Optional[Base64Bytes] = Field(
         default=None,
         alias="publicKey",
         description="The public key in PEM format. It must be either an RSA or an EC public key.",
@@ -49,6 +57,7 @@ class ActionServiceAddPublicKeyRequest(BaseModel):
 
 
 from pydantic import AwareDatetime
+from pydantic import Base64Bytes
 from pydantic import StrictStr
 
 ActionServiceAddPublicKeyRequest.model_rebuild(raise_errors=False)

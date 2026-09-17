@@ -11,8 +11,16 @@ from __future__ import annotations
 
 import re
 import warnings
-from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
-from typing import Any, ClassVar, Dict, List, Optional, Set, Union
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    field_validator,
+    model_serializer,
+    model_validator,
+)
+from pydantic import StrictBool, StrictFloat, StrictInt, StrictStr
+from typing import Any, Callable, ClassVar, Dict, List, Optional, Set, Union
 from typing_extensions import Self
 
 
@@ -22,7 +30,7 @@ class SessionServiceCreateSessionRequest(BaseModel):
     """
 
     checks: Optional[SessionServiceChecks] = Field(default=None, alias="checks")
-    metadata: Optional[Dict[str, bytes]] = Field(
+    metadata: Optional[Dict[str, Base64Bytes]] = Field(
         default=None,
         alias="metadata",
         description="Custom key value list to be stored on the session.",
@@ -50,6 +58,7 @@ class SessionServiceCreateSessionRequest(BaseModel):
     )
 
 
+from pydantic import Base64Bytes
 from zitadel_client._duration import ProtobufDuration
 from zitadel_client.models.session_service_checks import SessionServiceChecks
 from zitadel_client.models.session_service_request_challenges import (

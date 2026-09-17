@@ -80,13 +80,42 @@ def _charset_from_content_type(content_type: str) -> Optional[str]:
     return match.group(1).strip()
 
 
+def _resolve_utf16_charset(charset: str, data: bytes) -> str:
+    """Resolve a bare ``utf-16`` label to an explicit byte order.
+
+    Python's ``utf-16`` codec defaults to the platform-native byte order
+    (little-endian on common hardware) when the body carries no BOM. That
+    disagrees with other SDKs and with RFC 2781, which specifies that a
+    UTF-16 stream without a BOM defaults to BIG-ENDIAN. This normalizes a
+    bare ``utf-16`` / ``utf16`` label so that:
+
+    * a leading little-endian BOM (``FF FE``) decodes as little-endian;
+    * a leading big-endian BOM (``FE FF``) decodes as big-endian;
+    * no BOM decodes as big-endian (UTF-16BE) per RFC 2781.
+
+    Labels that already pin an explicit byte order (``utf-16le`` /
+    ``utf-16be``) are returned unchanged so an explicit choice always wins.
+    When a BOM is present the bare ``utf-16`` label is kept so Python's
+    codec auto-detects the byte order and strips the mark; only the BOM-less
+    case is rewritten to ``utf-16-be``.
+    """
+    normalized = charset.lower().replace("_", "-")
+    if normalized not in ("utf-16", "utf16"):
+        return charset
+    if data[:2] in (b"\xff\xfe", b"\xfe\xff"):
+        return charset
+    return "utf-16-be"
+
+
 def _decode_with_charset(data: bytes, content_type: str) -> str:
     """Decode bytes using the charset from a Content-Type header.
 
     Falls back to UTF-8 when the charset is missing or unknown. Uses
-    ``errors='replace'`` so malformed bytes never raise.
+    ``errors='replace'`` so malformed bytes never raise. A BOM-less
+    ``utf-16`` body is decoded as big-endian per RFC 2781.
     """
     charset = _charset_from_content_type(content_type) or "utf-8"
+    charset = _resolve_utf16_charset(charset, data)
     try:
         return data.decode(charset, errors="replace")
     except LookupError:
@@ -916,15 +945,32 @@ class DefaultApiClient:
             )
             return header.encode("utf-8") + raw_bytes + b"\r\n"
         elif isinstance(value, bytes):
-            disposition = cls._build_disposition(name, None)
+            # Raw bytes carry no explicit filename, so reuse the field name as
+            # the filename and guess the Content-Type from its extension,
+            # falling back to application/octet-stream. This matches the
+            # cross-language contract shared with go/node/java.
+            disposition = cls._build_disposition(name, name)
+            content_type = _guess_content_type(name)
             header = (
                 f"--{boundary}\r\n"
                 f"Content-Disposition: {disposition}\r\n"
-                f"Content-Type: application/octet-stream\r\n\r\n"
+                f"Content-Type: {content_type}\r\n\r\n"
             )
             return header.encode("utf-8") + value + b"\r\n"
         elif hasattr(value, "model_dump_json"):
-            json_str: str = value.model_dump_json(by_alias=True, exclude_none=True)
+            # Route the model part through the SDK's configured ObjectSerializer
+            # rather than pydantic's model_dump_json directly. ObjectSerializer
+            # applies the SDK's canonical wire form: WIRE property names (field
+            # aliases, e.g. `isPrimary`/`takenAt`, NOT snake_case) AND the SDK
+            # date-time format (millisecond precision, `...123Z`, NOT pydantic's
+            # native microsecond `...123000Z`). This keeps the JSON model part
+            # byte-identical to a JSON request body and matches the other 11
+            # SDKs, whose ObjectSerializer.serialize is the single source of
+            # truth for the model part of a multipart body. Imported lazily to
+            # avoid a module-load cycle (object_serializer imports models).
+            from zitadel_client.object_serializer import ObjectSerializer
+
+            json_str: str = ObjectSerializer().serialize(value)
             disposition = cls._build_disposition(name, None)
             header = (
                 f"--{boundary}\r\n"

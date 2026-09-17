@@ -11,8 +11,16 @@ from __future__ import annotations
 
 import re
 import warnings
-from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
-from typing import Any, ClassVar, Dict, List, Optional, Set, Union
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    field_validator,
+    model_serializer,
+    model_validator,
+)
+from pydantic import StrictBool, StrictFloat, StrictInt, StrictStr
+from typing import Any, Callable, ClassVar, Dict, List, Optional, Set, Union
 from typing_extensions import Self
 
 
@@ -31,7 +39,7 @@ class ActionServicePublicKey(BaseModel):
         alias="active",
         description="Active indicates whether the public key is active and used for payload encryption.  Only one public key can be active at a time.",
     )
-    public_key: Optional[bytes] = Field(
+    public_key: Optional[Base64Bytes] = Field(
         default=None, alias="publicKey", description="The public key in PEM format."
     )
     fingerprint: Optional[StrictStr] = Field(
@@ -67,6 +75,7 @@ class ActionServicePublicKey(BaseModel):
 
 
 from pydantic import AwareDatetime
+from pydantic import Base64Bytes
 from pydantic import StrictBool
 from pydantic import StrictStr
 

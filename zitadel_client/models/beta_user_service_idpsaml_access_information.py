@@ -11,8 +11,16 @@ from __future__ import annotations
 
 import re
 import warnings
-from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
-from typing import Any, ClassVar, Dict, List, Optional, Set, Union
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    field_validator,
+    model_serializer,
+    model_validator,
+)
+from pydantic import StrictBool, StrictFloat, StrictInt, StrictStr
+from typing import Any, Callable, ClassVar, Dict, List, Optional, Set, Union
 from typing_extensions import Self
 
 
@@ -21,7 +29,7 @@ class BetaUserServiceIDPSAMLAccessInformation(BaseModel):
     BetaUserServiceIDPSAMLAccessInformation
     """
 
-    assertion: Optional[bytes] = Field(default=None, alias="assertion")
+    assertion: Optional[Base64Bytes] = Field(default=None, alias="assertion")
 
     # Strict primitives (Item 8 — StrictInt/StrictStr/...) carry the
     # per-field strictness, so the model-wide ConfigDict no longer needs
@@ -33,5 +41,7 @@ class BetaUserServiceIDPSAMLAccessInformation(BaseModel):
         protected_namespaces=(),
     )
 
+
+from pydantic import Base64Bytes
 
 BetaUserServiceIDPSAMLAccessInformation.model_rebuild(raise_errors=False)

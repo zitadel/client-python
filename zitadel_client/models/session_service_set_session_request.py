@@ -11,8 +11,16 @@ from __future__ import annotations
 
 import re
 import warnings
-from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
-from typing import Any, ClassVar, Dict, List, Optional, Set, Union
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    field_validator,
+    model_serializer,
+    model_validator,
+)
+from pydantic import StrictBool, StrictFloat, StrictInt, StrictStr
+from typing import Any, Callable, ClassVar, Dict, List, Optional, Set, Union
 from typing_extensions import Self
 
 
@@ -33,7 +41,7 @@ class SessionServiceSetSessionRequest(BaseModel):
         description="Deprecated: the session token is no longer required when updating a session  and will be ignored when provided.",
     )
     checks: Optional[SessionServiceChecks] = Field(default=None, alias="checks")
-    metadata: Optional[Dict[str, bytes]] = Field(
+    metadata: Optional[Dict[str, Base64Bytes]] = Field(
         default=None,
         alias="metadata",
         description="Additional custom key value pairs to be stored on the session.  Existing keys will be overwritten. To delete a key, set its value to an empty byte array.  Note that metadata keys cannot be changed once the session has been created.  You need to create a new entry and delete the old one instead.",
@@ -69,6 +77,7 @@ class SessionServiceSetSessionRequest(BaseModel):
     )
 
 
+from pydantic import Base64Bytes
 from pydantic import StrictStr
 from zitadel_client._duration import ProtobufDuration
 from zitadel_client.models.session_service_checks import SessionServiceChecks

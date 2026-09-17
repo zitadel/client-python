@@ -39,14 +39,15 @@ class ApiClient(Protocol):
         :param url: Fully qualified URL
         :param headers: HTTP headers
         :param body: Request body (serialized JSON string, bytes, dict for multipart, or None)
-        :param no_redirect: When ``True``, the implementation must refuse to
-            follow a 307 or 308 redirect on this request, raising
-            :class:`~zitadel_client.errors.ApiException` instead. Used by
+        :param no_redirect: When ``True``, the implementation must NOT follow
+            any redirect on this request and must return the first 3xx
+            response verbatim so the caller can inspect and reject it itself;
+            the implementation must not raise on its own for a 3xx. Used by
             OAuth2 token requests so that a malicious 307/308 cannot replay
             the credential-bearing token POST against an attacker-controlled
-            endpoint. Implementations are still free to follow 301/302/303
-            (which strip the request body and downgrade to GET) per the
-            usual security guards.
+            endpoint — the token manager checks the returned status code and
+            refuses to follow it. When ``False`` (the default), the
+            implementation follows redirects per its usual security guards.
         :return: ApiHttpResponse containing status code, body, and headers
         """
         ...

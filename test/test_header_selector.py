@@ -65,16 +65,20 @@ class TestSelectAcceptHeader:
     def header_selector(self) -> HeaderSelector:
         return HeaderSelector()
 
-    def test_should_return_none_for_none_input(self, header_selector: Any) -> None:
-        assert header_selector._select_accept_header(None) is None
-
-    def test_should_return_none_for_empty_list(self, header_selector: Any) -> None:
-        assert header_selector._select_accept_header([]) is None
-
-    def test_should_return_none_when_all_entries_filtered_out(
+    def test_should_return_empty_string_for_none_input(
         self, header_selector: Any
     ) -> None:
-        assert header_selector._select_accept_header(["", None]) is None
+        assert header_selector._select_accept_header(None) == ""
+
+    def test_should_return_empty_string_for_empty_list(
+        self, header_selector: Any
+    ) -> None:
+        assert header_selector._select_accept_header([]) == ""
+
+    def test_should_return_empty_string_when_all_entries_filtered_out(
+        self, header_selector: Any
+    ) -> None:
+        assert header_selector._select_accept_header(["", None]) == ""
 
     def test_should_return_single_accept_as_is(self, header_selector: Any) -> None:
         assert (
