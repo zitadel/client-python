@@ -137,7 +137,7 @@ class BetaAuthorizationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaAuthorizationServiceActivateAuthorizationResponse",
-            NO_AUTH,
+            None,
         )
 
     async def create_authorization(
@@ -203,7 +203,7 @@ class BetaAuthorizationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaAuthorizationServiceCreateAuthorizationResponse",
-            NO_AUTH,
+            None,
         )
 
     async def deactivate_authorization(
@@ -271,7 +271,7 @@ class BetaAuthorizationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaAuthorizationServiceDeactivateAuthorizationResponse",
-            NO_AUTH,
+            None,
         )
 
     async def delete_authorization(
@@ -337,7 +337,7 @@ class BetaAuthorizationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaAuthorizationServiceDeleteAuthorizationResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_authorizations(
@@ -403,7 +403,7 @@ class BetaAuthorizationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaAuthorizationServiceListAuthorizationsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def update_authorization(
@@ -469,5 +469,5 @@ class BetaAuthorizationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaAuthorizationServiceUpdateAuthorizationResponse",
-            NO_AUTH,
+            None,
         )

@@ -160,7 +160,7 @@ class BetaFeatureServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaFeatureServiceGetInstanceFeaturesResponse",
-            NO_AUTH,
+            None,
         )
 
     async def get_organization_features(
@@ -224,7 +224,7 @@ class BetaFeatureServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaFeatureServiceGetOrganizationFeaturesResponse",
-            NO_AUTH,
+            None,
         )
 
     async def get_system_features(
@@ -282,7 +282,7 @@ class BetaFeatureServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaFeatureServiceGetSystemFeaturesResponse",
-            NO_AUTH,
+            None,
         )
 
     async def get_user_features(
@@ -346,7 +346,7 @@ class BetaFeatureServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaFeatureServiceGetUserFeaturesResponse",
-            NO_AUTH,
+            None,
         )
 
     async def reset_instance_features(
@@ -404,7 +404,7 @@ class BetaFeatureServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaFeatureServiceResetInstanceFeaturesResponse",
-            NO_AUTH,
+            None,
         )
 
     async def reset_organization_features(
@@ -468,7 +468,7 @@ class BetaFeatureServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaFeatureServiceResetOrganizationFeaturesResponse",
-            NO_AUTH,
+            None,
         )
 
     async def reset_system_features(
@@ -526,7 +526,7 @@ class BetaFeatureServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaFeatureServiceResetSystemFeaturesResponse",
-            NO_AUTH,
+            None,
         )
 
     async def reset_user_features(
@@ -590,7 +590,7 @@ class BetaFeatureServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaFeatureServiceResetUserFeaturesResponse",
-            NO_AUTH,
+            None,
         )
 
     async def set_instance_features(
@@ -654,7 +654,7 @@ class BetaFeatureServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaFeatureServiceSetInstanceFeaturesResponse",
-            NO_AUTH,
+            None,
         )
 
     async def set_organization_features(
@@ -718,7 +718,7 @@ class BetaFeatureServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaFeatureServiceSetOrganizationFeaturesResponse",
-            NO_AUTH,
+            None,
         )
 
     async def set_system_features(
@@ -782,7 +782,7 @@ class BetaFeatureServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaFeatureServiceSetSystemFeaturesResponse",
-            NO_AUTH,
+            None,
         )
 
     async def set_user_features(
@@ -846,5 +846,5 @@ class BetaFeatureServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaFeatureServiceSetUserFeaturesResponse",
-            NO_AUTH,
+            None,
         )

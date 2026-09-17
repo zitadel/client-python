@@ -109,7 +109,7 @@ class SAMLServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "SAMLServiceCreateResponseResponse",
-            NO_AUTH,
+            None,
         )
 
     async def get_saml_request(
@@ -175,5 +175,5 @@ class SAMLServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "SAMLServiceGetSAMLRequestResponse",
-            NO_AUTH,
+            None,
         )

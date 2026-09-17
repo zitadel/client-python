@@ -201,7 +201,7 @@ class BetaProjectServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaProjectServiceActivateProjectResponse",
-            NO_AUTH,
+            None,
         )
 
     async def activate_project_grant(
@@ -267,7 +267,7 @@ class BetaProjectServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaProjectServiceActivateProjectGrantResponse",
-            NO_AUTH,
+            None,
         )
 
     async def add_project_role(
@@ -333,7 +333,7 @@ class BetaProjectServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaProjectServiceAddProjectRoleResponse",
-            NO_AUTH,
+            None,
         )
 
     async def create_project(
@@ -399,7 +399,7 @@ class BetaProjectServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaProjectServiceCreateProjectResponse",
-            NO_AUTH,
+            None,
         )
 
     async def create_project_grant(
@@ -465,7 +465,7 @@ class BetaProjectServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaProjectServiceCreateProjectGrantResponse",
-            NO_AUTH,
+            None,
         )
 
     async def deactivate_project(
@@ -531,7 +531,7 @@ class BetaProjectServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaProjectServiceDeactivateProjectResponse",
-            NO_AUTH,
+            None,
         )
 
     async def deactivate_project_grant(
@@ -597,7 +597,7 @@ class BetaProjectServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaProjectServiceDeactivateProjectGrantResponse",
-            NO_AUTH,
+            None,
         )
 
     async def delete_project(
@@ -663,7 +663,7 @@ class BetaProjectServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaProjectServiceDeleteProjectResponse",
-            NO_AUTH,
+            None,
         )
 
     async def delete_project_grant(
@@ -729,7 +729,7 @@ class BetaProjectServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaProjectServiceDeleteProjectGrantResponse",
-            NO_AUTH,
+            None,
         )
 
     async def get_project(
@@ -795,7 +795,7 @@ class BetaProjectServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaProjectServiceGetProjectResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_project_grants(
@@ -861,7 +861,7 @@ class BetaProjectServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaProjectServiceListProjectGrantsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_project_roles(
@@ -927,7 +927,7 @@ class BetaProjectServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaProjectServiceListProjectRolesResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_projects(
@@ -993,7 +993,7 @@ class BetaProjectServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaProjectServiceListProjectsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def remove_project_role(
@@ -1059,7 +1059,7 @@ class BetaProjectServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaProjectServiceRemoveProjectRoleResponse",
-            NO_AUTH,
+            None,
         )
 
     async def update_project(
@@ -1125,7 +1125,7 @@ class BetaProjectServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaProjectServiceUpdateProjectResponse",
-            NO_AUTH,
+            None,
         )
 
     async def update_project_grant(
@@ -1191,7 +1191,7 @@ class BetaProjectServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaProjectServiceUpdateProjectGrantResponse",
-            NO_AUTH,
+            None,
         )
 
     async def update_project_role(
@@ -1257,5 +1257,5 @@ class BetaProjectServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaProjectServiceUpdateProjectRoleResponse",
-            NO_AUTH,
+            None,
         )

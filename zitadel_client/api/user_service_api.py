@@ -455,7 +455,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceAddHumanUserResponse",
-            NO_AUTH,
+            None,
         )
 
     async def add_idp_link(
@@ -521,7 +521,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceAddIDPLinkResponse",
-            NO_AUTH,
+            None,
         )
 
     async def add_key(
@@ -585,7 +585,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceAddKeyResponse",
-            NO_AUTH,
+            None,
         )
 
     async def add_otp_email(
@@ -651,7 +651,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceAddOTPEmailResponse",
-            NO_AUTH,
+            None,
         )
 
     async def add_otpsms(
@@ -715,7 +715,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceAddOTPSMSResponse",
-            NO_AUTH,
+            None,
         )
 
     async def add_personal_access_token(
@@ -781,7 +781,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceAddPersonalAccessTokenResponse",
-            NO_AUTH,
+            None,
         )
 
     async def add_secret(
@@ -845,7 +845,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceAddSecretResponse",
-            NO_AUTH,
+            None,
         )
 
     async def create_invite_code(
@@ -911,7 +911,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceCreateInviteCodeResponse",
-            NO_AUTH,
+            None,
         )
 
     async def create_passkey_registration_link(
@@ -977,7 +977,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceCreatePasskeyRegistrationLinkResponse",
-            NO_AUTH,
+            None,
         )
 
     async def create_user(
@@ -1041,7 +1041,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceCreateUserResponse",
-            NO_AUTH,
+            None,
         )
 
     async def deactivate_user(
@@ -1107,7 +1107,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceDeactivateUserResponse",
-            NO_AUTH,
+            None,
         )
 
     async def delete_user(
@@ -1171,7 +1171,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceDeleteUserResponse",
-            NO_AUTH,
+            None,
         )
 
     async def delete_user_metadata(
@@ -1237,7 +1237,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceDeleteUserMetadataResponse",
-            NO_AUTH,
+            None,
         )
 
     async def generate_recovery_codes(
@@ -1303,7 +1303,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceGenerateRecoveryCodesResponse",
-            NO_AUTH,
+            None,
         )
 
     async def get_user_by_id(
@@ -1369,7 +1369,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceGetUserByIDResponse",
-            NO_AUTH,
+            None,
         )
 
     async def human_mfa_init_skipped(
@@ -1435,7 +1435,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceHumanMFAInitSkippedResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_authentication_factors(
@@ -1499,7 +1499,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceListAuthenticationFactorsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_authentication_method_types(
@@ -1565,7 +1565,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceListAuthenticationMethodTypesResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_idp_links(
@@ -1631,7 +1631,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceListIDPLinksResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_keys(
@@ -1695,7 +1695,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceListKeysResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_passkeys(
@@ -1761,7 +1761,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceListPasskeysResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_personal_access_tokens(
@@ -1827,7 +1827,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceListPersonalAccessTokensResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_user_metadata(
@@ -1893,7 +1893,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceListUserMetadataResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_users(
@@ -1957,7 +1957,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceListUsersResponse",
-            NO_AUTH,
+            None,
         )
 
     async def lock_user(
@@ -2021,7 +2021,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceLockUserResponse",
-            NO_AUTH,
+            None,
         )
 
     async def password_reset(
@@ -2087,7 +2087,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServicePasswordResetResponse",
-            NO_AUTH,
+            None,
         )
 
     async def reactivate_user(
@@ -2153,7 +2153,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceReactivateUserResponse",
-            NO_AUTH,
+            None,
         )
 
     async def register_passkey(
@@ -2219,7 +2219,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceRegisterPasskeyResponse",
-            NO_AUTH,
+            None,
         )
 
     async def register_totp(
@@ -2285,7 +2285,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceRegisterTOTPResponse",
-            NO_AUTH,
+            None,
         )
 
     async def register_u2_f(
@@ -2351,7 +2351,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceRegisterU2FResponse",
-            NO_AUTH,
+            None,
         )
 
     async def remove_idp_link(
@@ -2417,7 +2417,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceRemoveIDPLinkResponse",
-            NO_AUTH,
+            None,
         )
 
     async def remove_key(
@@ -2481,7 +2481,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceRemoveKeyResponse",
-            NO_AUTH,
+            None,
         )
 
     async def remove_otp_email(
@@ -2547,7 +2547,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceRemoveOTPEmailResponse",
-            NO_AUTH,
+            None,
         )
 
     async def remove_otpsms(
@@ -2613,7 +2613,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceRemoveOTPSMSResponse",
-            NO_AUTH,
+            None,
         )
 
     async def remove_passkey(
@@ -2679,7 +2679,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceRemovePasskeyResponse",
-            NO_AUTH,
+            None,
         )
 
     async def remove_personal_access_token(
@@ -2745,7 +2745,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceRemovePersonalAccessTokenResponse",
-            NO_AUTH,
+            None,
         )
 
     async def remove_phone(
@@ -2811,7 +2811,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceRemovePhoneResponse",
-            NO_AUTH,
+            None,
         )
 
     async def remove_recovery_codes(
@@ -2877,7 +2877,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceRemoveRecoveryCodesResponse",
-            NO_AUTH,
+            None,
         )
 
     async def remove_secret(
@@ -2943,7 +2943,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceRemoveSecretResponse",
-            NO_AUTH,
+            None,
         )
 
     async def remove_totp(
@@ -3007,7 +3007,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceRemoveTOTPResponse",
-            NO_AUTH,
+            None,
         )
 
     async def remove_u2_f(
@@ -3071,7 +3071,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceRemoveU2FResponse",
-            NO_AUTH,
+            None,
         )
 
     async def resend_email_code(
@@ -3137,7 +3137,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceResendEmailCodeResponse",
-            NO_AUTH,
+            None,
         )
 
     async def resend_invite_code(
@@ -3203,7 +3203,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceResendInviteCodeResponse",
-            NO_AUTH,
+            None,
         )
 
     async def resend_phone_code(
@@ -3269,7 +3269,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceResendPhoneCodeResponse",
-            NO_AUTH,
+            None,
         )
 
     async def retrieve_identity_provider_intent(
@@ -3335,7 +3335,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceRetrieveIdentityProviderIntentResponse",
-            NO_AUTH,
+            None,
         )
 
     async def send_email_code(
@@ -3401,7 +3401,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceSendEmailCodeResponse",
-            NO_AUTH,
+            None,
         )
 
     async def set_email(
@@ -3465,7 +3465,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceSetEmailResponse",
-            NO_AUTH,
+            None,
         )
 
     async def set_password(
@@ -3531,7 +3531,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceSetPasswordResponse",
-            NO_AUTH,
+            None,
         )
 
     async def set_phone(
@@ -3595,7 +3595,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceSetPhoneResponse",
-            NO_AUTH,
+            None,
         )
 
     async def set_user_metadata(
@@ -3661,7 +3661,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceSetUserMetadataResponse",
-            NO_AUTH,
+            None,
         )
 
     async def start_identity_provider_intent(
@@ -3727,7 +3727,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceStartIdentityProviderIntentResponse",
-            NO_AUTH,
+            None,
         )
 
     async def unlock_user(
@@ -3791,7 +3791,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceUnlockUserResponse",
-            NO_AUTH,
+            None,
         )
 
     async def update_human_user(
@@ -3857,7 +3857,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceUpdateHumanUserResponse",
-            NO_AUTH,
+            None,
         )
 
     async def update_user(
@@ -3921,7 +3921,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceUpdateUserResponse",
-            NO_AUTH,
+            None,
         )
 
     async def verify_email(
@@ -3987,7 +3987,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceVerifyEmailResponse",
-            NO_AUTH,
+            None,
         )
 
     async def verify_invite_code(
@@ -4053,7 +4053,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceVerifyInviteCodeResponse",
-            NO_AUTH,
+            None,
         )
 
     async def verify_passkey_registration(
@@ -4119,7 +4119,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceVerifyPasskeyRegistrationResponse",
-            NO_AUTH,
+            None,
         )
 
     async def verify_phone(
@@ -4185,7 +4185,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceVerifyPhoneResponse",
-            NO_AUTH,
+            None,
         )
 
     async def verify_totp_registration(
@@ -4251,7 +4251,7 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceVerifyTOTPRegistrationResponse",
-            NO_AUTH,
+            None,
         )
 
     async def verify_u2_f_registration(
@@ -4317,5 +4317,5 @@ class UserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "UserServiceVerifyU2FRegistrationResponse",
-            NO_AUTH,
+            None,
         )

@@ -120,7 +120,7 @@ class BetaWebKeyServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaWebKeyServiceActivateWebKeyResponse",
-            NO_AUTH,
+            None,
         )
 
     async def create_web_key(
@@ -186,7 +186,7 @@ class BetaWebKeyServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaWebKeyServiceCreateWebKeyResponse",
-            NO_AUTH,
+            None,
         )
 
     async def delete_web_key(
@@ -252,7 +252,7 @@ class BetaWebKeyServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaWebKeyServiceDeleteWebKeyResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_web_keys(
@@ -312,5 +312,5 @@ class BetaWebKeyServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaWebKeyServiceListWebKeysResponse",
-            NO_AUTH,
+            None,
         )

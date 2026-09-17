@@ -183,7 +183,7 @@ class BetaOrganizationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaOrganizationServiceActivateOrganizationResponse",
-            NO_AUTH,
+            None,
         )
 
     async def add_organization_domain(
@@ -249,7 +249,7 @@ class BetaOrganizationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaOrganizationServiceAddOrganizationDomainResponse",
-            NO_AUTH,
+            None,
         )
 
     async def create_organization(
@@ -315,7 +315,7 @@ class BetaOrganizationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaOrganizationServiceCreateOrganizationResponse",
-            NO_AUTH,
+            None,
         )
 
     async def deactivate_organization(
@@ -381,7 +381,7 @@ class BetaOrganizationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaOrganizationServiceDeactivateOrganizationResponse",
-            NO_AUTH,
+            None,
         )
 
     async def delete_organization(
@@ -447,7 +447,7 @@ class BetaOrganizationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaOrganizationServiceDeleteOrganizationResponse",
-            NO_AUTH,
+            None,
         )
 
     async def delete_organization_domain(
@@ -513,7 +513,7 @@ class BetaOrganizationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaOrganizationServiceDeleteOrganizationDomainResponse",
-            NO_AUTH,
+            None,
         )
 
     async def delete_organization_metadata(
@@ -579,7 +579,7 @@ class BetaOrganizationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaOrganizationServiceDeleteOrganizationMetadataResponse",
-            NO_AUTH,
+            None,
         )
 
     async def generate_organization_domain_validation(
@@ -653,7 +653,7 @@ class BetaOrganizationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaOrganizationServiceGenerateOrganizationDomainValidationResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_organization_domains(
@@ -719,7 +719,7 @@ class BetaOrganizationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaOrganizationServiceListOrganizationDomainsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_organization_metadata(
@@ -785,7 +785,7 @@ class BetaOrganizationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaOrganizationServiceListOrganizationMetadataResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_organizations(
@@ -851,7 +851,7 @@ class BetaOrganizationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaOrganizationServiceListOrganizationsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def set_organization_metadata(
@@ -917,7 +917,7 @@ class BetaOrganizationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaOrganizationServiceSetOrganizationMetadataResponse",
-            NO_AUTH,
+            None,
         )
 
     async def update_organization(
@@ -983,7 +983,7 @@ class BetaOrganizationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaOrganizationServiceUpdateOrganizationResponse",
-            NO_AUTH,
+            None,
         )
 
     async def verify_organization_domain(
@@ -1049,5 +1049,5 @@ class BetaOrganizationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaOrganizationServiceVerifyOrganizationDomainResponse",
-            NO_AUTH,
+            None,
         )

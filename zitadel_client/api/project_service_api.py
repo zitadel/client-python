@@ -201,7 +201,7 @@ class ProjectServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ProjectServiceActivateProjectResponse",
-            NO_AUTH,
+            None,
         )
 
     async def activate_project_grant(
@@ -267,7 +267,7 @@ class ProjectServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ProjectServiceActivateProjectGrantResponse",
-            NO_AUTH,
+            None,
         )
 
     async def add_project_role(
@@ -333,7 +333,7 @@ class ProjectServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ProjectServiceAddProjectRoleResponse",
-            NO_AUTH,
+            None,
         )
 
     async def create_project(
@@ -399,7 +399,7 @@ class ProjectServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ProjectServiceCreateProjectResponse",
-            NO_AUTH,
+            None,
         )
 
     async def create_project_grant(
@@ -465,7 +465,7 @@ class ProjectServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ProjectServiceCreateProjectGrantResponse",
-            NO_AUTH,
+            None,
         )
 
     async def deactivate_project(
@@ -531,7 +531,7 @@ class ProjectServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ProjectServiceDeactivateProjectResponse",
-            NO_AUTH,
+            None,
         )
 
     async def deactivate_project_grant(
@@ -597,7 +597,7 @@ class ProjectServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ProjectServiceDeactivateProjectGrantResponse",
-            NO_AUTH,
+            None,
         )
 
     async def delete_project(
@@ -663,7 +663,7 @@ class ProjectServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ProjectServiceDeleteProjectResponse",
-            NO_AUTH,
+            None,
         )
 
     async def delete_project_grant(
@@ -729,7 +729,7 @@ class ProjectServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ProjectServiceDeleteProjectGrantResponse",
-            NO_AUTH,
+            None,
         )
 
     async def get_project(
@@ -795,7 +795,7 @@ class ProjectServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ProjectServiceGetProjectResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_project_grants(
@@ -861,7 +861,7 @@ class ProjectServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ProjectServiceListProjectGrantsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_project_roles(
@@ -927,7 +927,7 @@ class ProjectServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ProjectServiceListProjectRolesResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_projects(
@@ -993,7 +993,7 @@ class ProjectServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ProjectServiceListProjectsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def remove_project_role(
@@ -1059,7 +1059,7 @@ class ProjectServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ProjectServiceRemoveProjectRoleResponse",
-            NO_AUTH,
+            None,
         )
 
     async def update_project(
@@ -1125,7 +1125,7 @@ class ProjectServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ProjectServiceUpdateProjectResponse",
-            NO_AUTH,
+            None,
         )
 
     async def update_project_grant(
@@ -1191,7 +1191,7 @@ class ProjectServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ProjectServiceUpdateProjectGrantResponse",
-            NO_AUTH,
+            None,
         )
 
     async def update_project_role(
@@ -1257,5 +1257,5 @@ class ProjectServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ProjectServiceUpdateProjectRoleResponse",
-            NO_AUTH,
+            None,
         )

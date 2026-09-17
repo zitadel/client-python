@@ -118,7 +118,7 @@ class OIDCServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "object",
-            NO_AUTH,
+            None,
         )
 
     async def create_callback(
@@ -184,7 +184,7 @@ class OIDCServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "OIDCServiceCreateCallbackResponse",
-            NO_AUTH,
+            None,
         )
 
     async def get_auth_request(
@@ -250,7 +250,7 @@ class OIDCServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "OIDCServiceGetAuthRequestResponse",
-            NO_AUTH,
+            None,
         )
 
     async def get_device_authorization_request(
@@ -316,5 +316,5 @@ class OIDCServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "OIDCServiceGetDeviceAuthorizationRequestResponse",
-            NO_AUTH,
+            None,
         )

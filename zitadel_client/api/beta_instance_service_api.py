@@ -159,7 +159,7 @@ class BetaInstanceServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaInstanceServiceAddCustomDomainResponse",
-            NO_AUTH,
+            None,
         )
 
     async def add_trusted_domain(
@@ -225,7 +225,7 @@ class BetaInstanceServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaInstanceServiceAddTrustedDomainResponse",
-            NO_AUTH,
+            None,
         )
 
     async def delete_instance(
@@ -291,7 +291,7 @@ class BetaInstanceServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaInstanceServiceDeleteInstanceResponse",
-            NO_AUTH,
+            None,
         )
 
     async def get_instance(
@@ -357,7 +357,7 @@ class BetaInstanceServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaInstanceServiceGetInstanceResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_custom_domains(
@@ -423,7 +423,7 @@ class BetaInstanceServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaInstanceServiceListCustomDomainsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_instances(
@@ -489,7 +489,7 @@ class BetaInstanceServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaInstanceServiceListInstancesResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_trusted_domains(
@@ -555,7 +555,7 @@ class BetaInstanceServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaInstanceServiceListTrustedDomainsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def remove_custom_domain(
@@ -621,7 +621,7 @@ class BetaInstanceServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaInstanceServiceRemoveCustomDomainResponse",
-            NO_AUTH,
+            None,
         )
 
     async def remove_trusted_domain(
@@ -687,7 +687,7 @@ class BetaInstanceServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaInstanceServiceRemoveTrustedDomainResponse",
-            NO_AUTH,
+            None,
         )
 
     async def update_instance(
@@ -753,5 +753,5 @@ class BetaInstanceServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaInstanceServiceUpdateInstanceResponse",
-            NO_AUTH,
+            None,
         )

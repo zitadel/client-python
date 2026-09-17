@@ -111,7 +111,7 @@ class BetaTelemetryServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaTelemetryServiceReportBaseInformationResponse",
-            NO_AUTH,
+            None,
         )
 
     async def report_resource_counts(
@@ -177,5 +177,5 @@ class BetaTelemetryServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaTelemetryServiceReportResourceCountsResponse",
-            NO_AUTH,
+            None,
         )

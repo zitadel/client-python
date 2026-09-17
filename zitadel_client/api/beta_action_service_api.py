@@ -150,7 +150,7 @@ class BetaActionServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaActionServiceCreateTargetResponse",
-            NO_AUTH,
+            None,
         )
 
     async def delete_target(
@@ -216,7 +216,7 @@ class BetaActionServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaActionServiceDeleteTargetResponse",
-            NO_AUTH,
+            None,
         )
 
     async def get_target(
@@ -282,7 +282,7 @@ class BetaActionServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaActionServiceGetTargetResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_execution_functions(
@@ -342,7 +342,7 @@ class BetaActionServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaActionServiceListExecutionFunctionsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_execution_methods(
@@ -402,7 +402,7 @@ class BetaActionServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaActionServiceListExecutionMethodsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_execution_services(
@@ -462,7 +462,7 @@ class BetaActionServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaActionServiceListExecutionServicesResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_executions(
@@ -528,7 +528,7 @@ class BetaActionServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaActionServiceListExecutionsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_targets(
@@ -594,7 +594,7 @@ class BetaActionServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaActionServiceListTargetsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def set_execution(
@@ -660,7 +660,7 @@ class BetaActionServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaActionServiceSetExecutionResponse",
-            NO_AUTH,
+            None,
         )
 
     async def update_target(
@@ -726,5 +726,5 @@ class BetaActionServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaActionServiceUpdateTargetResponse",
-            NO_AUTH,
+            None,
         )

@@ -123,7 +123,7 @@ class BetaInternalPermissionServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaInternalPermissionServiceCreateAdministratorResponse",
-            NO_AUTH,
+            None,
         )
 
     async def delete_administrator(
@@ -189,7 +189,7 @@ class BetaInternalPermissionServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaInternalPermissionServiceDeleteAdministratorResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_administrators(
@@ -255,7 +255,7 @@ class BetaInternalPermissionServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaInternalPermissionServiceListAdministratorsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def update_administrator(
@@ -321,5 +321,5 @@ class BetaInternalPermissionServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaInternalPermissionServiceUpdateAdministratorResponse",
-            NO_AUTH,
+            None,
         )

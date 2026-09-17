@@ -178,7 +178,7 @@ class ActionServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ActionServiceActivatePublicKeyResponse",
-            NO_AUTH,
+            None,
         )
 
     async def add_public_key(
@@ -244,7 +244,7 @@ class ActionServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ActionServiceAddPublicKeyResponse",
-            NO_AUTH,
+            None,
         )
 
     async def create_target(
@@ -310,7 +310,7 @@ class ActionServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ActionServiceCreateTargetResponse",
-            NO_AUTH,
+            None,
         )
 
     async def deactivate_public_key(
@@ -376,7 +376,7 @@ class ActionServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ActionServiceDeactivatePublicKeyResponse",
-            NO_AUTH,
+            None,
         )
 
     async def delete_target(
@@ -442,7 +442,7 @@ class ActionServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ActionServiceDeleteTargetResponse",
-            NO_AUTH,
+            None,
         )
 
     async def get_target(
@@ -506,7 +506,7 @@ class ActionServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ActionServiceGetTargetResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_execution_functions(
@@ -566,7 +566,7 @@ class ActionServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ActionServiceListExecutionFunctionsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_execution_methods(
@@ -626,7 +626,7 @@ class ActionServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ActionServiceListExecutionMethodsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_execution_services(
@@ -686,7 +686,7 @@ class ActionServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ActionServiceListExecutionServicesResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_executions(
@@ -752,7 +752,7 @@ class ActionServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ActionServiceListExecutionsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_public_keys(
@@ -818,7 +818,7 @@ class ActionServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ActionServiceListPublicKeysResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_targets(
@@ -884,7 +884,7 @@ class ActionServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ActionServiceListTargetsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def remove_public_key(
@@ -950,7 +950,7 @@ class ActionServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ActionServiceRemovePublicKeyResponse",
-            NO_AUTH,
+            None,
         )
 
     async def set_execution(
@@ -1016,7 +1016,7 @@ class ActionServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ActionServiceSetExecutionResponse",
-            NO_AUTH,
+            None,
         )
 
     async def update_target(
@@ -1082,5 +1082,5 @@ class ActionServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ActionServiceUpdateTargetResponse",
-            NO_AUTH,
+            None,
         )

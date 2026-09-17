@@ -123,7 +123,7 @@ class InternalPermissionServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "InternalPermissionServiceCreateAdministratorResponse",
-            NO_AUTH,
+            None,
         )
 
     async def delete_administrator(
@@ -189,7 +189,7 @@ class InternalPermissionServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "InternalPermissionServiceDeleteAdministratorResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_administrators(
@@ -255,7 +255,7 @@ class InternalPermissionServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "InternalPermissionServiceListAdministratorsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def update_administrator(
@@ -321,5 +321,5 @@ class InternalPermissionServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "InternalPermissionServiceUpdateAdministratorResponse",
-            NO_AUTH,
+            None,
         )

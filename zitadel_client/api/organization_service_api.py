@@ -183,7 +183,7 @@ class OrganizationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "OrganizationServiceActivateOrganizationResponse",
-            NO_AUTH,
+            None,
         )
 
     async def add_organization(
@@ -249,7 +249,7 @@ class OrganizationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "OrganizationServiceAddOrganizationResponse",
-            NO_AUTH,
+            None,
         )
 
     async def add_organization_domain(
@@ -315,7 +315,7 @@ class OrganizationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "OrganizationServiceAddOrganizationDomainResponse",
-            NO_AUTH,
+            None,
         )
 
     async def deactivate_organization(
@@ -381,7 +381,7 @@ class OrganizationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "OrganizationServiceDeactivateOrganizationResponse",
-            NO_AUTH,
+            None,
         )
 
     async def delete_organization(
@@ -447,7 +447,7 @@ class OrganizationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "OrganizationServiceDeleteOrganizationResponse",
-            NO_AUTH,
+            None,
         )
 
     async def delete_organization_domain(
@@ -513,7 +513,7 @@ class OrganizationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "OrganizationServiceDeleteOrganizationDomainResponse",
-            NO_AUTH,
+            None,
         )
 
     async def delete_organization_metadata(
@@ -579,7 +579,7 @@ class OrganizationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "OrganizationServiceDeleteOrganizationMetadataResponse",
-            NO_AUTH,
+            None,
         )
 
     async def generate_organization_domain_validation(
@@ -647,7 +647,7 @@ class OrganizationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "OrganizationServiceGenerateOrganizationDomainValidationResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_organization_domains(
@@ -713,7 +713,7 @@ class OrganizationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "OrganizationServiceListOrganizationDomainsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_organization_metadata(
@@ -779,7 +779,7 @@ class OrganizationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "OrganizationServiceListOrganizationMetadataResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_organizations(
@@ -845,7 +845,7 @@ class OrganizationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "OrganizationServiceListOrganizationsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def set_organization_metadata(
@@ -911,7 +911,7 @@ class OrganizationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "OrganizationServiceSetOrganizationMetadataResponse",
-            NO_AUTH,
+            None,
         )
 
     async def update_organization(
@@ -977,7 +977,7 @@ class OrganizationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "OrganizationServiceUpdateOrganizationResponse",
-            NO_AUTH,
+            None,
         )
 
     async def verify_organization_domain(
@@ -1043,5 +1043,5 @@ class OrganizationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "OrganizationServiceVerifyOrganizationDomainResponse",
-            NO_AUTH,
+            None,
         )

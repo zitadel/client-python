@@ -105,5 +105,5 @@ class IdentityProviderServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "IdentityProviderServiceGetIDPByIDResponse",
-            NO_AUTH,
+            None,
         )

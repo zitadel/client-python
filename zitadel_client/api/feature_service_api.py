@@ -162,7 +162,7 @@ class FeatureServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "FeatureServiceGetInstanceFeaturesResponse",
-            NO_AUTH,
+            None,
         )
 
     async def get_organization_features(
@@ -228,7 +228,7 @@ class FeatureServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "FeatureServiceGetOrganizationFeaturesResponse",
-            NO_AUTH,
+            None,
         )
 
     async def get_system_features(
@@ -288,7 +288,7 @@ class FeatureServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "FeatureServiceGetSystemFeaturesResponse",
-            NO_AUTH,
+            None,
         )
 
     async def get_user_features(
@@ -354,7 +354,7 @@ class FeatureServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "FeatureServiceGetUserFeaturesResponse",
-            NO_AUTH,
+            None,
         )
 
     async def reset_instance_features(
@@ -414,7 +414,7 @@ class FeatureServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "FeatureServiceResetInstanceFeaturesResponse",
-            NO_AUTH,
+            None,
         )
 
     async def reset_organization_features(
@@ -480,7 +480,7 @@ class FeatureServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "FeatureServiceResetOrganizationFeaturesResponse",
-            NO_AUTH,
+            None,
         )
 
     async def reset_system_features(
@@ -540,7 +540,7 @@ class FeatureServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "FeatureServiceResetSystemFeaturesResponse",
-            NO_AUTH,
+            None,
         )
 
     async def reset_user_features(
@@ -606,7 +606,7 @@ class FeatureServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "FeatureServiceResetUserFeaturesResponse",
-            NO_AUTH,
+            None,
         )
 
     async def set_instance_features(
@@ -672,7 +672,7 @@ class FeatureServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "FeatureServiceSetInstanceFeaturesResponse",
-            NO_AUTH,
+            None,
         )
 
     async def set_organization_features(
@@ -738,7 +738,7 @@ class FeatureServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "FeatureServiceSetOrganizationFeaturesResponse",
-            NO_AUTH,
+            None,
         )
 
     async def set_system_features(
@@ -804,7 +804,7 @@ class FeatureServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "FeatureServiceSetSystemFeaturesResponse",
-            NO_AUTH,
+            None,
         )
 
     async def set_user_features(
@@ -870,5 +870,5 @@ class FeatureServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "FeatureServiceSetUserFeaturesResponse",
-            NO_AUTH,
+            None,
         )

@@ -111,7 +111,7 @@ class BetaOIDCServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaOIDCServiceCreateCallbackResponse",
-            NO_AUTH,
+            None,
         )
 
     async def get_auth_request(
@@ -177,5 +177,5 @@ class BetaOIDCServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaOIDCServiceGetAuthRequestResponse",
-            NO_AUTH,
+            None,
         )

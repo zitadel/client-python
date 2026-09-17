@@ -159,7 +159,7 @@ class BetaSettingsServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaSettingsServiceGetActiveIdentityProvidersResponse",
-            NO_AUTH,
+            None,
         )
 
     async def get_branding_settings(
@@ -225,7 +225,7 @@ class BetaSettingsServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaSettingsServiceGetBrandingSettingsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def get_domain_settings(
@@ -291,7 +291,7 @@ class BetaSettingsServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaSettingsServiceGetDomainSettingsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def get_general_settings(
@@ -351,7 +351,7 @@ class BetaSettingsServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaSettingsServiceGetGeneralSettingsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def get_legal_and_support_settings(
@@ -417,7 +417,7 @@ class BetaSettingsServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaSettingsServiceGetLegalAndSupportSettingsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def get_lockout_settings(
@@ -483,7 +483,7 @@ class BetaSettingsServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaSettingsServiceGetLockoutSettingsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def get_login_settings(
@@ -549,7 +549,7 @@ class BetaSettingsServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaSettingsServiceGetLoginSettingsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def get_password_complexity_settings(
@@ -615,7 +615,7 @@ class BetaSettingsServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaSettingsServiceGetPasswordComplexitySettingsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def get_password_expiry_settings(
@@ -681,7 +681,7 @@ class BetaSettingsServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaSettingsServiceGetPasswordExpirySettingsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def get_security_settings(
@@ -741,7 +741,7 @@ class BetaSettingsServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaSettingsServiceGetSecuritySettingsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def set_security_settings(
@@ -807,5 +807,5 @@ class BetaSettingsServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaSettingsServiceSetSecuritySettingsResponse",
-            NO_AUTH,
+            None,
         )

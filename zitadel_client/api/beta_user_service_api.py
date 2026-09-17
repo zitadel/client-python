@@ -303,7 +303,7 @@ class BetaUserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaUserServiceAddHumanUserResponse",
-            NO_AUTH,
+            None,
         )
 
     async def add_idp_link(
@@ -369,7 +369,7 @@ class BetaUserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaUserServiceAddIDPLinkResponse",
-            NO_AUTH,
+            None,
         )
 
     async def add_otp_email(
@@ -435,7 +435,7 @@ class BetaUserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaUserServiceAddOTPEmailResponse",
-            NO_AUTH,
+            None,
         )
 
     async def add_otpsms(
@@ -501,7 +501,7 @@ class BetaUserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaUserServiceAddOTPSMSResponse",
-            NO_AUTH,
+            None,
         )
 
     async def create_passkey_registration_link(
@@ -567,7 +567,7 @@ class BetaUserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaUserServiceCreatePasskeyRegistrationLinkResponse",
-            NO_AUTH,
+            None,
         )
 
     async def deactivate_user(
@@ -633,7 +633,7 @@ class BetaUserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaUserServiceDeactivateUserResponse",
-            NO_AUTH,
+            None,
         )
 
     async def delete_user(
@@ -699,7 +699,7 @@ class BetaUserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaUserServiceDeleteUserResponse",
-            NO_AUTH,
+            None,
         )
 
     async def get_user_by_id(
@@ -765,7 +765,7 @@ class BetaUserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaUserServiceGetUserByIDResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_authentication_method_types(
@@ -831,7 +831,7 @@ class BetaUserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaUserServiceListAuthenticationMethodTypesResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_users(
@@ -897,7 +897,7 @@ class BetaUserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaUserServiceListUsersResponse",
-            NO_AUTH,
+            None,
         )
 
     async def lock_user(
@@ -963,7 +963,7 @@ class BetaUserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaUserServiceLockUserResponse",
-            NO_AUTH,
+            None,
         )
 
     async def password_reset(
@@ -1029,7 +1029,7 @@ class BetaUserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaUserServicePasswordResetResponse",
-            NO_AUTH,
+            None,
         )
 
     async def reactivate_user(
@@ -1095,7 +1095,7 @@ class BetaUserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaUserServiceReactivateUserResponse",
-            NO_AUTH,
+            None,
         )
 
     async def register_passkey(
@@ -1161,7 +1161,7 @@ class BetaUserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaUserServiceRegisterPasskeyResponse",
-            NO_AUTH,
+            None,
         )
 
     async def register_totp(
@@ -1227,7 +1227,7 @@ class BetaUserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaUserServiceRegisterTOTPResponse",
-            NO_AUTH,
+            None,
         )
 
     async def register_u2_f(
@@ -1293,7 +1293,7 @@ class BetaUserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaUserServiceRegisterU2FResponse",
-            NO_AUTH,
+            None,
         )
 
     async def remove_otp_email(
@@ -1359,7 +1359,7 @@ class BetaUserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaUserServiceRemoveOTPEmailResponse",
-            NO_AUTH,
+            None,
         )
 
     async def remove_otpsms(
@@ -1425,7 +1425,7 @@ class BetaUserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaUserServiceRemoveOTPSMSResponse",
-            NO_AUTH,
+            None,
         )
 
     async def remove_phone(
@@ -1491,7 +1491,7 @@ class BetaUserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaUserServiceRemovePhoneResponse",
-            NO_AUTH,
+            None,
         )
 
     async def remove_totp(
@@ -1557,7 +1557,7 @@ class BetaUserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaUserServiceRemoveTOTPResponse",
-            NO_AUTH,
+            None,
         )
 
     async def resend_email_code(
@@ -1623,7 +1623,7 @@ class BetaUserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaUserServiceResendEmailCodeResponse",
-            NO_AUTH,
+            None,
         )
 
     async def resend_phone_code(
@@ -1689,7 +1689,7 @@ class BetaUserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaUserServiceResendPhoneCodeResponse",
-            NO_AUTH,
+            None,
         )
 
     async def retrieve_identity_provider_intent(
@@ -1755,7 +1755,7 @@ class BetaUserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaUserServiceRetrieveIdentityProviderIntentResponse",
-            NO_AUTH,
+            None,
         )
 
     async def set_email(
@@ -1821,7 +1821,7 @@ class BetaUserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaUserServiceSetEmailResponse",
-            NO_AUTH,
+            None,
         )
 
     async def set_password(
@@ -1887,7 +1887,7 @@ class BetaUserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaUserServiceSetPasswordResponse",
-            NO_AUTH,
+            None,
         )
 
     async def set_phone(
@@ -1953,7 +1953,7 @@ class BetaUserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaUserServiceSetPhoneResponse",
-            NO_AUTH,
+            None,
         )
 
     async def start_identity_provider_intent(
@@ -2019,7 +2019,7 @@ class BetaUserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaUserServiceStartIdentityProviderIntentResponse",
-            NO_AUTH,
+            None,
         )
 
     async def unlock_user(
@@ -2085,7 +2085,7 @@ class BetaUserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaUserServiceUnlockUserResponse",
-            NO_AUTH,
+            None,
         )
 
     async def update_human_user(
@@ -2151,7 +2151,7 @@ class BetaUserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaUserServiceUpdateHumanUserResponse",
-            NO_AUTH,
+            None,
         )
 
     async def verify_email(
@@ -2217,7 +2217,7 @@ class BetaUserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaUserServiceVerifyEmailResponse",
-            NO_AUTH,
+            None,
         )
 
     async def verify_passkey_registration(
@@ -2283,7 +2283,7 @@ class BetaUserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaUserServiceVerifyPasskeyRegistrationResponse",
-            NO_AUTH,
+            None,
         )
 
     async def verify_phone(
@@ -2349,7 +2349,7 @@ class BetaUserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaUserServiceVerifyPhoneResponse",
-            NO_AUTH,
+            None,
         )
 
     async def verify_totp_registration(
@@ -2415,7 +2415,7 @@ class BetaUserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaUserServiceVerifyTOTPRegistrationResponse",
-            NO_AUTH,
+            None,
         )
 
     async def verify_u2_f_registration(
@@ -2481,5 +2481,5 @@ class BetaUserServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaUserServiceVerifyU2FRegistrationResponse",
-            NO_AUTH,
+            None,
         )

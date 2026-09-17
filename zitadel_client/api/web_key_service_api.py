@@ -120,7 +120,7 @@ class WebKeyServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "WebKeyServiceActivateWebKeyResponse",
-            NO_AUTH,
+            None,
         )
 
     async def create_web_key(
@@ -186,7 +186,7 @@ class WebKeyServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "WebKeyServiceCreateWebKeyResponse",
-            NO_AUTH,
+            None,
         )
 
     async def delete_web_key(
@@ -252,7 +252,7 @@ class WebKeyServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "WebKeyServiceDeleteWebKeyResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_web_keys(
@@ -312,5 +312,5 @@ class WebKeyServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "WebKeyServiceListWebKeysResponse",
-            NO_AUTH,
+            None,
         )

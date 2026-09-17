@@ -171,7 +171,7 @@ class SettingsServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "SettingsServiceGetActiveIdentityProvidersResponse",
-            NO_AUTH,
+            None,
         )
 
     async def get_branding_settings(
@@ -237,7 +237,7 @@ class SettingsServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "SettingsServiceGetBrandingSettingsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def get_domain_settings(
@@ -303,7 +303,7 @@ class SettingsServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "SettingsServiceGetDomainSettingsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def get_general_settings(
@@ -363,7 +363,7 @@ class SettingsServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "SettingsServiceGetGeneralSettingsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def get_hosted_login_translation(
@@ -429,7 +429,7 @@ class SettingsServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "SettingsServiceGetHostedLoginTranslationResponse",
-            NO_AUTH,
+            None,
         )
 
     async def get_legal_and_support_settings(
@@ -495,7 +495,7 @@ class SettingsServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "SettingsServiceGetLegalAndSupportSettingsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def get_lockout_settings(
@@ -561,7 +561,7 @@ class SettingsServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "SettingsServiceGetLockoutSettingsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def get_login_settings(
@@ -627,7 +627,7 @@ class SettingsServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "SettingsServiceGetLoginSettingsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def get_password_complexity_settings(
@@ -693,7 +693,7 @@ class SettingsServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "SettingsServiceGetPasswordComplexitySettingsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def get_password_expiry_settings(
@@ -759,7 +759,7 @@ class SettingsServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "SettingsServiceGetPasswordExpirySettingsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def get_security_settings(
@@ -819,7 +819,7 @@ class SettingsServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "SettingsServiceGetSecuritySettingsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def set_hosted_login_translation(
@@ -885,7 +885,7 @@ class SettingsServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "SettingsServiceSetHostedLoginTranslationResponse",
-            NO_AUTH,
+            None,
         )
 
     async def set_security_settings(
@@ -951,5 +951,5 @@ class SettingsServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "SettingsServiceSetSecuritySettingsResponse",
-            NO_AUTH,
+            None,
         )

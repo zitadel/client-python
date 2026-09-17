@@ -135,7 +135,7 @@ class AuthorizationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "AuthorizationServiceActivateAuthorizationResponse",
-            NO_AUTH,
+            None,
         )
 
     async def create_authorization(
@@ -201,7 +201,7 @@ class AuthorizationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "AuthorizationServiceCreateAuthorizationResponse",
-            NO_AUTH,
+            None,
         )
 
     async def deactivate_authorization(
@@ -267,7 +267,7 @@ class AuthorizationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "AuthorizationServiceDeactivateAuthorizationResponse",
-            NO_AUTH,
+            None,
         )
 
     async def delete_authorization(
@@ -333,7 +333,7 @@ class AuthorizationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "AuthorizationServiceDeleteAuthorizationResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_authorizations(
@@ -399,7 +399,7 @@ class AuthorizationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "AuthorizationServiceListAuthorizationsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def update_authorization(
@@ -465,5 +465,5 @@ class AuthorizationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "AuthorizationServiceUpdateAuthorizationResponse",
-            NO_AUTH,
+            None,
         )

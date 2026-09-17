@@ -129,7 +129,7 @@ class BetaSessionServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaSessionServiceCreateSessionResponse",
-            NO_AUTH,
+            None,
         )
 
     async def delete_session(
@@ -195,7 +195,7 @@ class BetaSessionServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaSessionServiceDeleteSessionResponse",
-            NO_AUTH,
+            None,
         )
 
     async def get_session(
@@ -261,7 +261,7 @@ class BetaSessionServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaSessionServiceGetSessionResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_sessions(
@@ -327,7 +327,7 @@ class BetaSessionServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaSessionServiceListSessionsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def set_session(
@@ -393,5 +393,5 @@ class BetaSessionServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaSessionServiceSetSessionResponse",
-            NO_AUTH,
+            None,
         )

@@ -171,7 +171,7 @@ class BetaAppServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaAppServiceCreateApplicationResponse",
-            NO_AUTH,
+            None,
         )
 
     async def create_application_key(
@@ -237,7 +237,7 @@ class BetaAppServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaAppServiceCreateApplicationKeyResponse",
-            NO_AUTH,
+            None,
         )
 
     async def deactivate_application(
@@ -303,7 +303,7 @@ class BetaAppServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaAppServiceDeactivateApplicationResponse",
-            NO_AUTH,
+            None,
         )
 
     async def delete_application(
@@ -369,7 +369,7 @@ class BetaAppServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaAppServiceDeleteApplicationResponse",
-            NO_AUTH,
+            None,
         )
 
     async def delete_application_key(
@@ -435,7 +435,7 @@ class BetaAppServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaAppServiceDeleteApplicationKeyResponse",
-            NO_AUTH,
+            None,
         )
 
     async def get_application(
@@ -501,7 +501,7 @@ class BetaAppServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaAppServiceGetApplicationResponse",
-            NO_AUTH,
+            None,
         )
 
     async def get_application_key(
@@ -567,7 +567,7 @@ class BetaAppServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaAppServiceGetApplicationKeyResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_application_keys(
@@ -633,7 +633,7 @@ class BetaAppServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaAppServiceListApplicationKeysResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_applications(
@@ -699,7 +699,7 @@ class BetaAppServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaAppServiceListApplicationsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def reactivate_application(
@@ -765,7 +765,7 @@ class BetaAppServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaAppServiceReactivateApplicationResponse",
-            NO_AUTH,
+            None,
         )
 
     async def regenerate_client_secret(
@@ -831,7 +831,7 @@ class BetaAppServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaAppServiceRegenerateClientSecretResponse",
-            NO_AUTH,
+            None,
         )
 
     async def update_application(
@@ -897,5 +897,5 @@ class BetaAppServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "BetaAppServiceUpdateApplicationResponse",
-            NO_AUTH,
+            None,
         )

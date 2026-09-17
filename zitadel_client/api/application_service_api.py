@@ -171,7 +171,7 @@ class ApplicationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ApplicationServiceCreateApplicationResponse",
-            NO_AUTH,
+            None,
         )
 
     async def create_application_key(
@@ -237,7 +237,7 @@ class ApplicationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ApplicationServiceCreateApplicationKeyResponse",
-            NO_AUTH,
+            None,
         )
 
     async def deactivate_application(
@@ -303,7 +303,7 @@ class ApplicationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ApplicationServiceDeactivateApplicationResponse",
-            NO_AUTH,
+            None,
         )
 
     async def delete_application(
@@ -369,7 +369,7 @@ class ApplicationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ApplicationServiceDeleteApplicationResponse",
-            NO_AUTH,
+            None,
         )
 
     async def delete_application_key(
@@ -435,7 +435,7 @@ class ApplicationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ApplicationServiceDeleteApplicationKeyResponse",
-            NO_AUTH,
+            None,
         )
 
     async def generate_client_secret(
@@ -501,7 +501,7 @@ class ApplicationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ApplicationServiceGenerateClientSecretResponse",
-            NO_AUTH,
+            None,
         )
 
     async def get_application(
@@ -567,7 +567,7 @@ class ApplicationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ApplicationServiceGetApplicationResponse",
-            NO_AUTH,
+            None,
         )
 
     async def get_application_key(
@@ -633,7 +633,7 @@ class ApplicationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ApplicationServiceGetApplicationKeyResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_application_keys(
@@ -699,7 +699,7 @@ class ApplicationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ApplicationServiceListApplicationKeysResponse",
-            NO_AUTH,
+            None,
         )
 
     async def list_applications(
@@ -765,7 +765,7 @@ class ApplicationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ApplicationServiceListApplicationsResponse",
-            NO_AUTH,
+            None,
         )
 
     async def reactivate_application(
@@ -831,7 +831,7 @@ class ApplicationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ApplicationServiceReactivateApplicationResponse",
-            NO_AUTH,
+            None,
         )
 
     async def update_application(
@@ -897,5 +897,5 @@ class ApplicationServiceApi(BaseApi):
             ["application/json"],
             "application/json",
             "ApplicationServiceUpdateApplicationResponse",
-            NO_AUTH,
+            None,
         )
