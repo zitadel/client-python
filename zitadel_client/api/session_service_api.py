@@ -49,7 +49,7 @@ from zitadel_client.models.session_service_set_session_response import (
 from ..api_client import ApiClient
 from ..api_result import ApiResult
 from ..configuration import Configuration
-from .base_api import BaseApi, NO_AUTH, _is_valid_cookie_value
+from .base_api import BaseApi, _is_valid_cookie_value
 from ..value_serializer import ValueSerializer
 from ..auth.authenticator import Authenticator
 from ..errors import ApiException

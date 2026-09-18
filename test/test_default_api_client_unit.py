@@ -478,19 +478,32 @@ class TestMultipartContentType:
         assert b"Content-Type: application/octet-stream" in body
 
     def test_multipart_model_part_serialized_through_object_serializer(self) -> None:
-        # cross-cutting parity: addPetPhotos sends a multipart/form-data body
-        # whose `metadata` field is a MODEL part (PhotoMetadata). That model
-        # part must be serialized through the SDK's configured ObjectSerializer
-        # (model_dump_json(by_alias=True, ...)) so it carries the WIRE property
-        # names declared by the field aliases (isPrimary, takenAt) and the SDK
-        # date-time string — NOT pydantic's snake_case attribute names
-        # (is_primary, taken_at) and NOT a Python repr. The model part is built
-        # at the lowest level by _build_multipart_body, so capture its bytes and
-        # assert on the embedded JSON. Routing through ObjectSerializer keeps the
-        # multipart model part byte-identical to a JSON request body, matching
-        # the other 11 SDKs.
+        # cross-cutting parity: a multipart/form-data body whose field is a
+        # MODEL part must be serialized through the SDK's configured
+        # ObjectSerializer (model_dump_json(by_alias=True, ...)) so it carries
+        # the WIRE property names declared by the field aliases (isPrimary,
+        # takenAt) and the SDK date-time string — NOT pydantic's snake_case
+        # attribute names (is_primary, taken_at) and NOT a Python repr. The
+        # model part is built at the lowest level by _build_multipart_body, so
+        # capture its bytes and assert on the embedded JSON. Routing through
+        # ObjectSerializer keeps the multipart model part byte-identical to a
+        # JSON request body, matching the other 11 SDKs.
+        #
+        # The part model is declared here rather than imported from the
+        # generated models, so this test holds for EVERY spec this SDK is
+        # generated from — no spec is guaranteed to contain a model with these
+        # properties. It mirrors how the generator emits models: snake_case
+        # attributes carrying the camelCase wire name as a pydantic alias.
         import datetime
-        from zitadel_client.models.photo_metadata import PhotoMetadata
+        from pydantic import BaseModel, ConfigDict, Field
+        from pydantic import AwareDatetime, StrictBool
+        from typing import Optional
+
+        class PhotoMetadata(BaseModel):
+            model_config = ConfigDict(populate_by_name=True)
+
+            is_primary: Optional[StrictBool] = Field(default=None, alias="isPrimary")
+            taken_at: Optional[AwareDatetime] = Field(default=None, alias="takenAt")
 
         instant = datetime.datetime(
             2020, 1, 2, 3, 4, 5, 123000, tzinfo=datetime.timezone.utc
