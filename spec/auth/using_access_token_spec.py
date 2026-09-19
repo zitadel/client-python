@@ -2,9 +2,12 @@ from typing import Dict
 
 import pytest
 
-import zitadel_client as zitadel
 from spec.base_spec import docker_compose as docker_compose
-from zitadel_client.exceptions import ZitadelError
+from zitadel_client.auth.personal_access_token_authenticator import (
+    PersonalAccessTokenAuthenticator,
+)
+from zitadel_client.errors import OpenApiException
+from zitadel_client.zitadel import Zitadel
 
 
 class TestUseAccessTokenSpec:
@@ -20,19 +23,27 @@ class TestUseAccessTokenSpec:
     Each test instantiates a new client to ensure a clean, stateless call.
     """
 
-    def test_retrieves_general_settings_with_valid_token(self, docker_compose: Dict[str, str]) -> None:  # noqa F811
+    async def test_retrieves_general_settings_with_valid_token(
+        self, docker_compose: Dict[str, str]
+    ) -> None:  # noqa F811
         """Retrieves general settings successfully with a valid access token."""
-        client = zitadel.Zitadel.with_access_token(
-            docker_compose["base_url"],
-            docker_compose["auth_token"],
+        client = Zitadel.with_authenticator(
+            PersonalAccessTokenAuthenticator(
+                docker_compose["base_url"],
+                docker_compose["auth_token"],
+            )
         )
-        client.settings.get_general_settings()
+        await client.settings_service.get_general_settings({})
 
-    def test_raises_api_exception_with_invalid_token(self, docker_compose: Dict[str, str]) -> None:  # noqa F811
+    async def test_raises_api_exception_with_invalid_token(
+        self, docker_compose: Dict[str, str]
+    ) -> None:  # noqa F811
         """Raises ApiException when using an invalid access token."""
-        client = zitadel.Zitadel.with_access_token(
-            docker_compose["base_url"],
-            "invalid",
+        client = Zitadel.with_authenticator(
+            PersonalAccessTokenAuthenticator(
+                docker_compose["base_url"],
+                "invalid",
+            )
         )
-        with pytest.raises(ZitadelError):
-            client.settings.get_general_settings()
+        with pytest.raises(OpenApiException):
+            await client.settings_service.get_general_settings({})

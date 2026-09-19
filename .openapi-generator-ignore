@@ -1,0 +1,67 @@
+# Keep-list: files the generator must NOT overwrite, and the Makefile's
+# `prune` step must NOT delete. Everything else is generator-owned.
+
+# --- bespoke authenticators (ported onto the generated auth interfaces) ---
+#
+# NOTE: the generator now owns authenticator.py (interface), base_authenticator.py,
+# bearer_authenticator.py, http_aware_authenticator.py and
+# zitadel_access_token_authenticator.py; only the token-minting strategies below
+# are kept.
+zitadel_client/auth/client_credentials_authenticator.py
+zitadel_client/auth/no_auth_authenticator.py
+zitadel_client/auth/oauth_authenticator.py
+zitadel_client/auth/open_id.py
+zitadel_client/auth/personal_access_token_authenticator.py
+zitadel_client/auth/web_token_authenticator.py
+
+# --- bespoke tests + fixtures the generator does not emit ---
+#
+# NOTE: the spec-independent unit tests (value_serializer, header_selector,
+# configuration, transport_options, trace_context_util, default_api_client_unit)
+# are now generator-owned and are NOT kept here. Only the Zitadel authenticator
+# unit tests, the facade test, the integration specs, the Zitadel server
+# fixtures, and the wiremock/squid/cert fixtures are kept.
+etc/
+spec/
+test/auth/__init__.py
+test/auth/test_client_credentials_authenticator.py
+test/auth/test_no_auth_authenticator.py
+test/auth/test_oauth_authenticator.py
+test/auth/test_personal_access_authenticator.py
+test/auth/test_web_token_authenticator.py
+test/fixtures/
+test/test_zitadel.py
+
+# --- repo identity + docs (team-owned, not generated) ---
+LICENSE
+README.md
+SECURITY.md
+VERSIONING.md
+
+# --- house tooling (team-owned, not generated) ---
+.commitlintrc.json
+.dockerignore
+.editorconfig
+.github/
+.gitignore
+.pre-commit-config.yaml
+.releaserc.json
+devbox.json
+devbox.lock
+Dockerfile
+lefthook.yml
+qodana.yaml
+
+# --- build / package config (team-owned: repo identity + bespoke deps) ---
+pyproject.toml
+uv.lock
+
+# --- generation tooling we added ---
+.openapi-generator-ignore
+Makefile
+proc.yml
+
+# --- generator bookkeeping (FILES manifest + VERSION; rewritten by the
+#     generator but keep-listed so prune does not orphan them — the FILES
+#     manifest does not list itself, so it would otherwise be deleted) ---
+.openapi-generator/

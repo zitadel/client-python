@@ -1,3 +1,4 @@
+name: zitadel-python
 services:
   db:
     image: postgres:17-alpine
@@ -69,7 +70,7 @@ services:
       - './example-zitadel-secrets.yaml:/example-zitadel-secrets.yaml:ro'
       - './zitadel_output:/var/zitadel_output:rw'
     ports:
-      - "8099:8080"
+      - "8080"
     healthcheck:
       test: [
         "CMD", "/app/zitadel", "ready",

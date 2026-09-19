@@ -1,0 +1,8 @@
+generatorName: python-plus
+clientClassName: Zitadel
+repoName: git@github.com:zitadel/client-python.git
+disallowAdditionalPropertiesIfNotPresent: false
+generateUnitTests: true
+packageName: zitadel_client
+projectName: zitadel-client
+packageVersion: 0.0.1
