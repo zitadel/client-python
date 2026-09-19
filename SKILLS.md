@@ -76,7 +76,7 @@ from zitadel_client.errors import (
 )
 
 try:
-    result = client.pet_api.get_pet_by_id(pet_id)
+    result = client.action_service.activate_public_key(...)
 except NotFoundException as e:
     print(f"Not found: {e}")
 except ClientException as e:
@@ -106,16 +106,16 @@ client = Zitadel(authenticator, transport)
 
 ## API Methods
 
-Each API group is exposed as a typed attribute on the client (e.g., `client.pet_api`). API classes have methods that correspond to OpenAPI operations, accepting typed request parameters and returning typed response models.
+Each API group is exposed as a typed attribute on the client (e.g., `client.action_service`). API classes have methods that correspond to OpenAPI operations, accepting typed request parameters and returning typed response models.
 
 ## Models
 
 Models are generated as Python dataclasses. They are located in `zitadel_client.models`.
 
 ```python
-from zitadel_client.models.pet import Pet
+from zitadel_client.models.action_service_activate_public_key_request import ActionServiceActivatePublicKeyRequest
 
-pet = Pet(name="Fido", status="available")
+model = ActionServiceActivatePublicKeyRequest()
 ```
 
 ## Binary / File Uploads

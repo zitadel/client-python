@@ -493,7 +493,7 @@ class TestPathEncodingParity:
 
     def test_empty_string_path_param_raises(self) -> None:
         # Gap W — empty-string path values silently produce malformed
-        # URLs like `/pet//details`; reject at serialization time so
+        # URLs like `/resource//details`; reject at serialization time so
         # callers see the real error rather than a downstream 404.
         with pytest.raises(ValueError):
             ValueSerializer.serialize_styled(

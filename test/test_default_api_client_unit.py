@@ -296,23 +296,23 @@ class TestCharsetDecoding:
         assert decoded == "é"
 
     def test_bomless_utf16_decodes_big_endian(self) -> None:
-        # "Pet" encoded as UTF-16 big-endian WITHOUT a BOM. RFC 2781 says a
+        # "Log" encoded as UTF-16 big-endian WITHOUT a BOM. RFC 2781 says a
         # BOM-less UTF-16 stream defaults to big-endian, so these bytes must
-        # decode to "Pet" — not the little-endian misread "倀攀琀".
-        big_endian = b"\x00P\x00e\x00t"
+        # decode to "Log" — not the little-endian misread "䰀漀最".
+        big_endian = b"\x00L\x00o\x00g"
         decoded = _decode_with_charset(big_endian, "text/plain; charset=utf-16")
-        assert decoded == "Pet"
-        # Interpreting the same bytes little-endian would NOT yield "Pet",
+        assert decoded == "Log"
+        # Interpreting the same bytes little-endian would NOT yield "Log",
         # which proves the big-endian choice is the one being applied.
-        assert big_endian.decode("utf-16-le") != "Pet"
+        assert big_endian.decode("utf-16-le") != "Log"
 
     def test_utf16_honors_little_endian_bom(self) -> None:
         # When a little-endian BOM (FF FE) is present it must still be honored
         # and stripped, so BOM-driven detection is not broken by the no-BOM
         # big-endian default.
-        little_endian_bom = b"\xff\xfeP\x00e\x00t\x00"
+        little_endian_bom = b"\xff\xfeL\x00o\x00g\x00"
         decoded = _decode_with_charset(little_endian_bom, "text/plain; charset=utf-16")
-        assert decoded == "Pet"
+        assert decoded == "Log"
 
     def test_send_request_decodes_iso_8859_1_response(self) -> None:
         import socketserver
@@ -499,7 +499,7 @@ class TestMultipartContentType:
         from pydantic import AwareDatetime, StrictBool
         from typing import Optional
 
-        class PhotoMetadata(BaseModel):
+        class MultipartModelPart(BaseModel):
             model_config = ConfigDict(populate_by_name=True)
 
             is_primary: Optional[StrictBool] = Field(default=None, alias="isPrimary")
@@ -508,7 +508,7 @@ class TestMultipartContentType:
         instant = datetime.datetime(
             2020, 1, 2, 3, 4, 5, 123000, tzinfo=datetime.timezone.utc
         )
-        metadata = PhotoMetadata(isPrimary=True, takenAt=instant)
+        metadata = MultipartModelPart(isPrimary=True, takenAt=instant)
 
         client = DefaultApiClient()
         body = client._build_multipart_body({"metadata": metadata}, "boundary")
