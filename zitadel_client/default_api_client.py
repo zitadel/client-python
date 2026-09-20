@@ -961,7 +961,7 @@ class DefaultApiClient:
             # Route the model part through the SDK's configured ObjectSerializer
             # rather than pydantic's model_dump_json directly. ObjectSerializer
             # applies the SDK's canonical wire form: WIRE property names (field
-            # aliases, e.g. `isPrimary`/`takenAt`, NOT snake_case) AND the SDK
+            # aliases, e.g. `isEnabled`/`recordedAt`, NOT snake_case) AND the SDK
             # date-time format (millisecond precision, `...123Z`, NOT pydantic's
             # native microsecond `...123000Z`). This keeps the JSON model part
             # byte-identical to a JSON request body and matches the other 11

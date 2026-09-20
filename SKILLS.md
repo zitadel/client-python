@@ -1,4 +1,4 @@
-# Zitadel SDK SDK - AI Agent Reference
+# Zitadel SDK - AI Agent Reference
 
 ## Installation
 
@@ -9,7 +9,7 @@ pip install zitadel_client
 ## Quick Start
 
 ```python
-from zitadel_client.client import Zitadel
+from zitadel_client.zitadel import Zitadel
 
 client = Zitadel.with_token("https://api.example.com", "your-token")
 ```
@@ -34,7 +34,7 @@ If the OpenAPI spec defines multiple servers, the generated `zitadel_client.serv
 ```python
 from zitadel_client.servers import SERVER_0
 
-client = Zitadel.with_token(SERVER_0.url(), "your-token")
+client = Zitadel.with_token(SERVER_0.get_url(), "your-token")
 ```
 
 ## Testing
@@ -43,11 +43,11 @@ The `Authenticator` protocol is the seam for tests: substitute a fake authentica
 
 ```python
 class FakeAuthenticator:
-    def get_auth_headers(self, request):
-        return {"Authorization": "Bearer test-token"}
-
     def get_host(self):
         return "https://api.example.com"
+
+    def get_auth_headers(self):
+        return {"Authorization": "Bearer test-token"}
 
 client = Zitadel(FakeAuthenticator())
 ```
@@ -75,16 +75,17 @@ from zitadel_client.errors import (
     ApiException,
 )
 
-try:
-    result = client.action_service.activate_public_key(...)
-except NotFoundException as e:
-    print(f"Not found: {e}")
-except ClientException as e:
-    print(f"Client error {e.status_code}: {e}")
-except ServerException as e:
-    print(f"Server error: {e}")
-except ApiException as e:
-    print(f"API error: {e}")
+async def main():
+    try:
+        result = await client.action_service.activate_public_key(...)
+    except NotFoundException as e:
+        print(f"Not found: {e}")
+    except ClientException as e:
+        print(f"Client error {e.status_code}: {e}")
+    except ServerException as e:
+        print(f"Server error: {e}")
+    except ApiException as e:
+        print(f"API error: {e}")
 ```
 
 ## Configuration
@@ -110,7 +111,7 @@ Each API group is exposed as a typed attribute on the client (e.g., `client.acti
 
 ## Models
 
-Models are generated as Python dataclasses. They are located in `zitadel_client.models`.
+Models are generated as pydantic models. They are located in `zitadel_client.models`.
 
 ```python
 from zitadel_client.models.action_service_activate_public_key_request import ActionServiceActivatePublicKeyRequest

@@ -481,9 +481,9 @@ class TestMultipartContentType:
         # cross-cutting parity: a multipart/form-data body whose field is a
         # MODEL part must be serialized through the SDK's configured
         # ObjectSerializer (model_dump_json(by_alias=True, ...)) so it carries
-        # the WIRE property names declared by the field aliases (isPrimary,
-        # takenAt) and the SDK date-time string — NOT pydantic's snake_case
-        # attribute names (is_primary, taken_at) and NOT a Python repr. The
+        # the WIRE property names declared by the field aliases (isEnabled,
+        # recordedAt) and the SDK date-time string — NOT pydantic's snake_case
+        # attribute names (is_enabled, recorded_at) and NOT a Python repr. The
         # model part is built at the lowest level by _build_multipart_body, so
         # capture its bytes and assert on the embedded JSON. Routing through
         # ObjectSerializer keeps the multipart model part byte-identical to a
@@ -502,13 +502,15 @@ class TestMultipartContentType:
         class MultipartModelPart(BaseModel):
             model_config = ConfigDict(populate_by_name=True)
 
-            is_primary: Optional[StrictBool] = Field(default=None, alias="isPrimary")
-            taken_at: Optional[AwareDatetime] = Field(default=None, alias="takenAt")
+            is_enabled: Optional[StrictBool] = Field(default=None, alias="isEnabled")
+            recorded_at: Optional[AwareDatetime] = Field(
+                default=None, alias="recordedAt"
+            )
 
         instant = datetime.datetime(
             2020, 1, 2, 3, 4, 5, 123000, tzinfo=datetime.timezone.utc
         )
-        metadata = MultipartModelPart(isPrimary=True, takenAt=instant)
+        metadata = MultipartModelPart(isEnabled=True, recordedAt=instant)
 
         client = DefaultApiClient()
         body = client._build_multipart_body({"metadata": metadata}, "boundary")
@@ -526,16 +528,16 @@ class TestMultipartContentType:
         parsed = json.loads(part_json)
 
         # WIRE keys present, snake_case attribute names absent.
-        assert "isPrimary" in parsed
-        assert "takenAt" in parsed
-        assert "is_primary" not in parsed
-        assert "taken_at" not in parsed
+        assert "isEnabled" in parsed
+        assert "recordedAt" in parsed
+        assert "is_enabled" not in parsed
+        assert "recorded_at" not in parsed
 
-        assert parsed["isPrimary"] is True
-        # takenAt carries a proper RFC 3339 date-time string (the SDK format),
+        assert parsed["isEnabled"] is True
+        # recordedAt carries a proper RFC 3339 date-time string (the SDK format),
         # not a Python datetime repr or a date-only value.
-        assert parsed["takenAt"].startswith("2020-01-02T03:04:05")
-        assert ".123" in parsed["takenAt"]
+        assert parsed["recordedAt"].startswith("2020-01-02T03:04:05")
+        assert ".123" in parsed["recordedAt"]
 
 
 class TestProxyAuthentication:

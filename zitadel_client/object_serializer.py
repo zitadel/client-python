@@ -147,7 +147,7 @@ class ObjectSerializer:
         wire form, used by BOTH the JSON request-body path and the model part
         of a multipart/form-data body (see DefaultApiClient._multipart_part).
         Pydantic ``model_dump_json(by_alias=True, ...)`` emits the configured
-        WIRE property names (field aliases such as ``isPrimary``/``takenAt``,
+        WIRE property names (field aliases such as ``isEnabled``/``recordedAt``,
         never the snake_case attribute names) and the model's declared
         date-time / duration serializers, so the multipart model part is
         byte-identical to a JSON request body for the same model.
