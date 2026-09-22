@@ -45,7 +45,7 @@ zitadel_client/api/settings_service_api.py
 zitadel_client/api/user_service_api.py
 zitadel_client/api/web_key_service_api.py
 zitadel_client/api_client.py
-zitadel_client/api_response.py
+zitadel_client/api_http_response.py
 zitadel_client/api_result.py
 zitadel_client/auth/__init__.py
 zitadel_client/auth/authenticator.py

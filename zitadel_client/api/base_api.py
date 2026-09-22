@@ -12,7 +12,7 @@ from typing import Any, Dict, List, Optional, TypeVar, Union
 from urllib.parse import urlencode
 
 from ..api_client import ApiClient
-from ..api_response import ApiHttpResponse
+from ..api_http_response import ApiHttpResponse
 from ..api_result import ApiResult
 from ..default_api_client import DefaultApiClient
 from ..configuration import Configuration

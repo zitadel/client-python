@@ -24,7 +24,7 @@ from urllib.parse import (
 
 import urllib3
 
-from zitadel_client.api_response import ApiHttpResponse
+from zitadel_client.api_http_response import ApiHttpResponse
 from zitadel_client.errors import ApiException
 from zitadel_client.transport_options import TransportOptions
 
