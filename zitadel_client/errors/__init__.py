@@ -117,6 +117,8 @@ from zitadel_client.errors.unprocessable_entity_exception import (
 from zitadel_client.errors.internal_server_error_exception import (
     InternalServerErrorException,
 )
+from zitadel_client.errors.network_exception import NetworkException
+from zitadel_client.errors.network_timeout_exception import NetworkTimeoutException
 
 __all__ = [
     "ZitadelException",
@@ -131,4 +133,6 @@ __all__ = [
     "ConflictException",
     "UnprocessableEntityException",
     "InternalServerErrorException",
+    "NetworkException",
+    "NetworkTimeoutException",
 ]

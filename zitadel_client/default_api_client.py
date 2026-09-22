@@ -25,7 +25,11 @@ from urllib.parse import (
 import urllib3
 
 from zitadel_client.api_http_response import ApiHttpResponse
-from zitadel_client.errors import ApiException
+from zitadel_client.errors import (
+    ApiException,
+    NetworkException,
+    NetworkTimeoutException,
+)
 from zitadel_client.transport_options import TransportOptions
 
 from types import ModuleType
@@ -45,6 +49,25 @@ try:
     _zstandard = zstandard
 except ImportError:
     pass
+
+
+def _network_exception(error: urllib3.exceptions.HTTPError) -> NetworkException:
+    """Classify a urllib3 transport failure as a network error or a timeout.
+
+    Retries are disabled (``Retry(total=0)``), so a failure before the
+    response arrives surfaces as ``MaxRetryError`` wrapping the real cause in
+    ``reason``. ``NewConnectionError`` subclasses ``ConnectTimeoutError`` in
+    urllib3 2.x, so it is checked first: a refused connection or a failed DNS
+    lookup is a network error, not a timeout.
+    """
+    cause: BaseException = error
+    if isinstance(error, urllib3.exceptions.MaxRetryError) and error.reason is not None:
+        cause = error.reason
+    if isinstance(cause, urllib3.exceptions.NewConnectionError):
+        return NetworkException(message=str(error))
+    if isinstance(cause, (urllib3.exceptions.TimeoutError, TimeoutError)):
+        return NetworkTimeoutException(message=str(error))
+    return NetworkException(message=str(error))
 
 
 def _supported_encodings() -> str:
@@ -251,11 +274,9 @@ class DefaultApiClient:
                     ctx = ssl.create_default_context()
                     ctx.load_verify_locations(cafile=transport_options.ca_cert_path)
                 except (OSError, ssl.SSLError) as e:
-                    raise ApiException(
-                        message=(
-                            "failed to load CA certificate from "
-                            f"{transport_options.ca_cert_path!r}: {e}"
-                        )
+                    raise ValueError(
+                        "failed to load CA certificate from "
+                        f"{transport_options.ca_cert_path!r}: {e}"
                     ) from e
                 kwargs["ca_certs"] = transport_options.ca_cert_path
                 kwargs["cert_reqs"] = "CERT_REQUIRED"
@@ -480,7 +501,7 @@ class DefaultApiClient:
                     message=f"failed to decompress response body (content-encoding={content_encoding!r}): {e}"
                 ) from e
         except urllib3.exceptions.HTTPError as e:
-            raise ApiException(message=str(e)) from e
+            raise _network_exception(e) from e
 
         content_type = response.headers.get("content-type") or ""
         # Empty bodies flow through the same content-type decode path as the

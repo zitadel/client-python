@@ -959,11 +959,11 @@ class TestUseAfterClose:
 
 class TestBodyReadErrorWrapped:
     """A failure DURING the response body read (after headers are received)
-    must be wrapped in the SDK ApiException, not leak the raw urllib3 error."""
+    must be wrapped in the SDK NetworkException, not leak the raw urllib3 error."""
 
-    def test_body_read_error_is_wrapped_in_api_exception(self) -> None:
+    def test_body_read_error_is_wrapped_in_network_exception(self) -> None:
         import urllib3
-        from zitadel_client.errors import ApiException
+        from zitadel_client.errors import NetworkException
 
         class _ReadFailResp:
             status = 200
@@ -981,24 +981,66 @@ class TestBodyReadErrorWrapped:
 
         transport = TransportOptions.builder().follow_redirects(False).build()
         client = DefaultApiClient(transport, pool_manager=_Pool())
-        with pytest.raises(ApiException) as excinfo:
+        with pytest.raises(NetworkException) as excinfo:
             client.send_request("GET", "https://example.com/x", {}, None)
+        assert excinfo.value.status_code == 0
         # The underlying urllib3 error is preserved as the cause.
         assert isinstance(excinfo.value.__cause__, urllib3.exceptions.HTTPError)
 
 
+class TestNetworkErrors:
+    """A request that gets no HTTP response raises NetworkException, and one
+    that times out raises NetworkTimeoutException, both with status 0."""
+
+    def test_connection_refused_raises_network_exception(self) -> None:
+        import socket
+        from zitadel_client.errors import (
+            ApiException,
+            NetworkException,
+            NetworkTimeoutException,
+        )
+
+        with socket.socket() as probe:
+            probe.bind(("127.0.0.1", 0))
+            port = probe.getsockname()[1]
+        client = DefaultApiClient()
+        with pytest.raises(NetworkException) as excinfo:
+            client.send_request("GET", f"http://127.0.0.1:{port}/x", {}, None)
+        assert not isinstance(excinfo.value, NetworkTimeoutException)
+        assert isinstance(excinfo.value, ApiException)
+        assert excinfo.value.status_code == 0
+        assert excinfo.value.__cause__ is not None
+
+    def test_read_timeout_raises_network_timeout_exception(self) -> None:
+        import urllib3
+        from zitadel_client.errors import NetworkTimeoutException
+
+        class _Pool:
+            def request(self, method: str, url: str, **kwargs: Any) -> Any:
+                no_pool: Any = None
+                raise urllib3.exceptions.MaxRetryError(
+                    no_pool,
+                    url,
+                    urllib3.exceptions.ReadTimeoutError(no_pool, url, "read timed out"),
+                )
+
+        client = DefaultApiClient(pool_manager=_Pool())
+        with pytest.raises(NetworkTimeoutException) as excinfo:
+            client.send_request("GET", "https://example.com/x", {}, None)
+        assert excinfo.value.status_code == 0
+        assert isinstance(excinfo.value.__cause__, urllib3.exceptions.MaxRetryError)
+
+
 class TestCaCertPathFailsFast:
     """An explicitly configured CA certificate path that cannot be read or
-    parsed must fail fast at construction with the SDK's ApiException rather
-    than silently falling back to the system trust store (security theater)."""
+    parsed must fail fast at construction with a ValueError rather than
+    silently falling back to the system trust store (security theater)."""
 
-    def test_nonexistent_ca_cert_path_raises_api_exception(self) -> None:
-        from zitadel_client.errors import ApiException
-
+    def test_nonexistent_ca_cert_path_raises_value_error(self) -> None:
         transport = (
             TransportOptions.builder().ca_cert_path("/nonexistent/ca.pem").build()
         )
-        with pytest.raises(ApiException):
+        with pytest.raises(ValueError):
             DefaultApiClient(transport)
 
 

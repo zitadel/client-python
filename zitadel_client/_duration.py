@@ -15,9 +15,10 @@ from pydantic import BeforeValidator, PlainSerializer
 
 # protobuf-JSON duration strings are an optional-sign integer second count
 # with an optional fractional part of up to nine digits, suffixed with 's'
-# (e.g. "3600s", "3600.000000001s", "-1.5s"). Zitadel's server validates
-# google.protobuf.Duration with exactly this grammar.
-_DURATION_RE = re.compile(r"-?\d+(\.\d{1,9})?s")
+# (e.g. "3600s", "3600.000000001s", "-1.5s"). A protobuf-JSON server validates
+# google.protobuf.Duration with exactly this grammar. ``[0-9]`` rather than
+# ``\d``: Python's ``\d`` also matches non-ASCII digits such as Arabic-Indic.
+_DURATION_RE = re.compile(r"-?[0-9]+(\.[0-9]{1,9})?s")
 
 
 def _format_timedelta_protobuf(value: datetime.timedelta) -> str:
@@ -53,7 +54,7 @@ def _format_timedelta_protobuf(value: datetime.timedelta) -> str:
 def _parse_timedelta_protobuf(value: datetime.timedelta | str) -> datetime.timedelta:
     """Parse a protobuf-JSON duration string into a :class:`datetime.timedelta`.
 
-    Accepts the google.protobuf.Duration grammar ``-?\\d+(\\.\\d{1,9})?s``.
+    Accepts the google.protobuf.Duration grammar ``-?[0-9]+(\\.[0-9]{1,9})?s``.
     A :class:`datetime.timedelta` is passed through unchanged so that
     constructing a model directly from Python values (not wire JSON) works.
     Raises :class:`ValueError` on malformed input. timedelta resolution is

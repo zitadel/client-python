@@ -61,6 +61,8 @@ zitadel_client/errors/client_exception.py
 zitadel_client/errors/conflict_exception.py
 zitadel_client/errors/forbidden_exception.py
 zitadel_client/errors/internal_server_error_exception.py
+zitadel_client/errors/network_exception.py
+zitadel_client/errors/network_timeout_exception.py
 zitadel_client/errors/not_found_exception.py
 zitadel_client/errors/server_exception.py
 zitadel_client/errors/unauthorized_exception.py
