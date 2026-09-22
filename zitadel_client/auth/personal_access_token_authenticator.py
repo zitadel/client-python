@@ -1,6 +1,8 @@
 from typing import Dict
 
 from zitadel_client.auth.base_authenticator import BaseAuthenticator
+from zitadel_client.auth.oauth_authenticator import require_text
+from zitadel_client.auth.open_id import OpenId
 
 
 class PersonalAccessTokenAuthenticator(BaseAuthenticator):
@@ -10,9 +12,7 @@ class PersonalAccessTokenAuthenticator(BaseAuthenticator):
     Uses a static personal access token (PAT) for API authentication. A PAT is
     a long-lived bearer credential minted out-of-band in the Zitadel console,
     so no token exchange is required: the token is attached verbatim on every
-    request. This authenticator therefore implements :class:`Authenticator`
-    directly (via :class:`BaseAuthenticator`) and does NOT need
-    :class:`HttpAwareAuthenticator`.
+    request.
     """
 
     def __init__(self, host: str, token: str):
@@ -21,17 +21,11 @@ class PersonalAccessTokenAuthenticator(BaseAuthenticator):
 
         :param host: The base URL for the API endpoints.
         :param token: The personal access token.
+        :raises ValueError: If the host is not a valid http or https URL or
+            the token is empty.
         """
-        self.host = self._build_hostname(host)
-        self.token = token
-
-    @staticmethod
-    def _build_hostname(host: str) -> str:
-        host = host.strip()
-        # noinspection HttpUrlsUsage
-        if not host.startswith("http://") and not host.startswith("https://"):
-            host = "https://" + host
-        return host
+        self.host = OpenId(host).get_host_endpoint()
+        self.token = require_text(token, "Token")
 
     def get_host(self) -> str:
         return self.host

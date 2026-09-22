@@ -1,15 +1,29 @@
 import json
 from datetime import datetime, timedelta, timezone
-from typing import Dict, Optional, Set
+from typing import Any, Dict, Optional
 
 import jwt
+from jwt.algorithms import RSAAlgorithm
 
 from zitadel_client.auth.oauth_authenticator import (
     OAuthAuthenticator,
     OAuthAuthenticatorBuilder,
+    require_text,
 )
 from zitadel_client.auth.open_id import OpenId
-from zitadel_client.transport_options import TransportOptions
+
+_ALGORITHMS = ("RS256", "RS384", "RS512")
+
+
+def _load_private_key(private_key: str) -> Any:
+    """Parse a PEM-encoded RSA private key, raising :class:`ValueError` otherwise."""
+    try:
+        key = RSAAlgorithm(RSAAlgorithm.SHA256).prepare_key(private_key)
+    except Exception as e:
+        raise ValueError("Private key is not a valid RSA private key.") from e
+    if not hasattr(key, "private_numbers"):
+        raise ValueError("Private key is not a valid RSA private key.")
+    return key
 
 
 class WebTokenAuthenticator(OAuthAuthenticator):
@@ -27,12 +41,11 @@ class WebTokenAuthenticator(OAuthAuthenticator):
     def __init__(
         self,
         open_id: OpenId,
-        client_id: str,
-        auth_scopes: Set[str],
+        scope: str,
         jwt_issuer: str,
         jwt_subject: str,
         jwt_audience: str,
-        private_key: str,
+        private_key: Any,
         jwt_lifetime: timedelta = timedelta(hours=1),
         jwt_algorithm: str = "RS256",
         key_id: Optional[str] = None,
@@ -40,18 +53,17 @@ class WebTokenAuthenticator(OAuthAuthenticator):
         """
         Constructs a WebTokenAuthenticator.
 
-        :param open_id: Resolved OpenID configuration for the provider.
-        :param client_id: The OAuth2 client identifier.
-        :param auth_scopes: The scope(s) for the token request.
+        :param open_id: The OpenID discovery helper for the target host.
+        :param scope: Space-delimited scope string for the token request.
         :param jwt_issuer: The JWT issuer (iss) claim.
         :param jwt_subject: The JWT subject (sub) claim.
         :param jwt_audience: The JWT audience (aud) claim.
-        :param private_key: The PEM private key used to sign the JWT.
+        :param private_key: The RSA private key used to sign the JWT.
         :param jwt_lifetime: Lifetime of the JWT assertion.
         :param jwt_algorithm: The JWT signing algorithm (default "RS256").
         :param key_id: Optional key id (kid) header.
         """
-        super().__init__(open_id, client_id, " ".join(auth_scopes))
+        super().__init__(open_id, scope)
         self.jwt_issuer = jwt_issuer
         self.jwt_subject = jwt_subject
         self.jwt_audience = jwt_audience
@@ -63,13 +75,10 @@ class WebTokenAuthenticator(OAuthAuthenticator):
     def get_grant_type(self) -> str:
         return self.GRANT_TYPE
 
-    def get_access_token_options(self) -> Dict[str, str]:
+    def get_token_request_params(self) -> Dict[str, str]:
         """
-        Builds the grant-specific parameters for the JWT-bearer flow.
-
-        Dynamically generates a signed JWT assertion with time-sensitive claims.
-
-        :raises Exception: If JWT generation fails.
+        Builds the grant-specific parameters for the JWT-bearer flow: a freshly
+        signed JWT assertion with time-sensitive claims.
         """
         now = datetime.now(timezone.utc)
         headers: Dict[str, str] = {}
@@ -89,22 +98,13 @@ class WebTokenAuthenticator(OAuthAuthenticator):
                 headers=headers,
             )
         except Exception as e:
-            raise Exception("Failed to generate JWT assertion: " + str(e)) from e
-
-        return {
-            "scope": self.scope,
-            "assertion": assertion,
-        }
+            raise RuntimeError("Unable to sign the JWT assertion") from e
+        return {"assertion": assertion}
 
     @classmethod
-    def from_json(
-        cls,
-        host: str,
-        json_path: str,
-        transport_options: Optional[TransportOptions] = None,
-    ) -> "WebTokenAuthenticator":
+    def from_json(cls, host: str, json_path: str) -> "WebTokenAuthenticator":
         """
-        Create a WebTokenAuthenticator from a service-account JSON file.
+        Create a WebTokenAuthenticator from a Zitadel service-account key file.
 
         Expected JSON format::
 
@@ -116,58 +116,51 @@ class WebTokenAuthenticator(OAuthAuthenticator):
             }
 
         :param host: Base URL for the API endpoints.
-        :param json_path: File path to the JSON configuration file.
-        :param transport_options: Optional transport options for TLS, proxy, and headers.
+        :param json_path: File path to the key file.
         :return: A new instance of WebTokenAuthenticator.
-        :raises Exception: If the file cannot be read, the JSON is invalid,
-                           or required keys are missing.
+        :raises ValueError: If the file cannot be read, is not a JSON object,
+            lacks the string fields ``userId``, ``keyId`` and ``key``, or
+            holds an invalid key.
         """
         try:
-            with open(json_path, "r") as file:
-                config = json.load(file)
-        except Exception as e:
-            raise Exception(f"Unable to read JSON file: {json_path}") from e
-
+            with open(json_path, "r", encoding="utf-8") as file:
+                content = file.read()
+        except OSError as e:
+            raise ValueError(f"Unable to read the key file at {json_path}") from e
+        try:
+            config = json.loads(content)
+        except ValueError:
+            config = None
+        if not isinstance(config, dict):
+            raise ValueError(f"The key file at {json_path} is not a JSON object")
         user_id = config.get("userId")
-        private_key = config.get("key")
         key_id = config.get("keyId")
-        if not user_id or not key_id or not private_key:
-            raise Exception(
-                "Missing required keys 'userId', 'keyId' or 'key' in JSON file."
+        private_key = config.get("key")
+        if (
+            not isinstance(user_id, str)
+            or not isinstance(key_id, str)
+            or not isinstance(private_key, str)
+        ):
+            raise ValueError(
+                f"The key file at {json_path} must contain the string fields userId, keyId and key"
             )
-
-        return (
-            WebTokenAuthenticator.builder(
-                host, user_id, private_key, transport_options=transport_options
-            )
-            .key_identifier(key_id)
-            .build()
-        )
+        return cls.builder(host, user_id, private_key).key_id(key_id).build()
 
     @staticmethod
     def builder(
-        host: str,
-        user_id: str,
-        private_key: str,
-        transport_options: Optional[TransportOptions] = None,
+        host: str, user_id: str, private_key: str
     ) -> "WebTokenAuthenticatorBuilder":
         """
         Returns a builder for constructing a WebTokenAuthenticator.
 
         :param host: The base URL for the OAuth provider.
-        :param user_id: The user identifier, used as both the issuer and subject.
-        :param private_key: The private key used to sign the JWT.
-        :param transport_options: Optional transport options for TLS, proxy, and headers.
+        :param user_id: The user ID, used as both the issuer and the subject.
+        :param private_key: The PEM-encoded RSA private key used to sign the JWT.
         :return: A WebTokenAuthenticatorBuilder instance.
+        :raises ValueError: If the host is not a valid http or https URL, the
+            user ID is empty, or the key is not an RSA private key.
         """
-        return WebTokenAuthenticatorBuilder(
-            host,
-            user_id,
-            user_id,
-            host,
-            private_key,
-            transport_options=transport_options,
-        )
+        return WebTokenAuthenticatorBuilder(host, user_id, private_key)
 
 
 class WebTokenAuthenticatorBuilder(
@@ -175,69 +168,60 @@ class WebTokenAuthenticatorBuilder(
 ):
     """
     Builder for WebTokenAuthenticator.
-
-    Provides a fluent API for configuring and constructing a
-    WebTokenAuthenticator instance.
     """
 
-    def __init__(
-        self,
-        host: str,
-        jwt_issuer: str,
-        jwt_subject: str,
-        jwt_audience: str,
-        private_key: str,
-        key_id: Optional[str] = None,
-        transport_options: Optional[TransportOptions] = None,
-    ):
+    def __init__(self, host: str, user_id: str, private_key: str):
         """
         Initializes the WebTokenAuthenticatorBuilder.
 
         :param host: The base URL for API endpoints.
-        :param jwt_issuer: The issuer claim for the JWT.
-        :param jwt_subject: The subject claim for the JWT.
-        :param jwt_audience: The audience claim for the JWT.
-        :param private_key: The PEM-formatted private key used for signing the JWT.
-        :param key_id: Optional key id (kid) header.
-        :param transport_options: Optional transport options for TLS, proxy, and headers.
+        :param user_id: The user ID, used as both the issuer and the subject.
+        :param private_key: The PEM-encoded RSA private key used to sign the JWT.
         """
-        super().__init__(host, transport_options=transport_options)
-        self.jwt_issuer = jwt_issuer
-        self.jwt_subject = jwt_subject
-        self.jwt_audience = jwt_audience
-        self.private_key = private_key
-        self.jwt_lifetime = timedelta(hours=1)
-        self.jwt_algorithm = "RS256"
-        self.key_id = key_id
+        super().__init__(host)
+        self.user_id = require_text(user_id, "User ID")
+        self.private_key = _load_private_key(private_key)
+        self.lifetime = timedelta(hours=1)
+        self.algorithm = "RS256"
+        self.kid: Optional[str] = None
 
     def token_lifetime_seconds(self, seconds: int) -> "WebTokenAuthenticatorBuilder":
         """
-        Sets the JWT token lifetime in seconds.
+        Sets the JWT assertion lifetime in seconds.
 
-        :param seconds: Lifetime of the JWT in seconds.
+        :param seconds: Lifetime of the JWT in seconds; must be positive.
         :return: The builder instance.
+        :raises ValueError: If the lifetime is not positive.
         """
-        self.jwt_lifetime = timedelta(seconds=seconds)
+        if isinstance(seconds, bool) or not isinstance(seconds, int) or seconds <= 0:
+            raise ValueError("Token lifetime must be a positive number of seconds.")
+        self.lifetime = timedelta(seconds=seconds)
         return self
 
-    def jwt_algorithm_(self, jwt_algorithm: str) -> "WebTokenAuthenticatorBuilder":
+    def jwt_algorithm(self, jwt_algorithm: str) -> "WebTokenAuthenticatorBuilder":
         """
         Sets the JWT signing algorithm.
 
-        :param jwt_algorithm: The signing algorithm (e.g. "RS256").
+        :param jwt_algorithm: One of "RS256", "RS384" or "RS512".
         :return: The builder instance.
+        :raises ValueError: If the algorithm is not supported.
         """
-        self.jwt_algorithm = jwt_algorithm
+        if jwt_algorithm not in _ALGORITHMS:
+            raise ValueError(
+                f"Unsupported JWT algorithm '{jwt_algorithm}'; use RS256, RS384 or RS512."
+            )
+        self.algorithm = jwt_algorithm
         return self
 
-    def key_identifier(self, key_id: Optional[str]) -> "WebTokenAuthenticatorBuilder":
+    def key_id(self, key_id: str) -> "WebTokenAuthenticatorBuilder":
         """
-        Sets the optional key id (kid) header.
+        Sets the key ID sent as the ``kid`` header of the assertion.
 
         :param key_id: The key identifier.
         :return: The builder instance.
+        :raises ValueError: If the key ID is empty.
         """
-        self.key_id = key_id
+        self.kid = require_text(key_id, "Key ID")
         return self
 
     def build(self) -> WebTokenAuthenticator:
@@ -248,13 +232,12 @@ class WebTokenAuthenticatorBuilder(
         """
         return WebTokenAuthenticator(
             open_id=self.open_id,
-            client_id="zitadel",
-            auth_scopes=self.auth_scopes,
-            jwt_issuer=self.jwt_issuer,
-            jwt_subject=self.jwt_subject,
-            jwt_audience=self.jwt_audience,
+            scope=self.scope,
+            jwt_issuer=self.user_id,
+            jwt_subject=self.user_id,
+            jwt_audience=self.open_id.get_host_endpoint(),
             private_key=self.private_key,
-            jwt_lifetime=self.jwt_lifetime,
-            jwt_algorithm=self.jwt_algorithm,
-            key_id=self.key_id,
+            jwt_lifetime=self.lifetime,
+            jwt_algorithm=self.algorithm,
+            key_id=self.kid,
         )

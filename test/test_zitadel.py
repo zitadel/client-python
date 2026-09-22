@@ -18,6 +18,7 @@ from zitadel_client.auth.no_auth_authenticator import NoAuthAuthenticator
 from zitadel_client.auth.personal_access_token_authenticator import (
     PersonalAccessTokenAuthenticator,
 )
+from zitadel_client.errors.network_exception import NetworkException
 from zitadel_client.transport_options import TransportOptions
 from zitadel_client.zitadel import Zitadel
 
@@ -125,7 +126,6 @@ class ZitadelTransportTest(unittest.IsolatedAsyncioTestCase):
                 f"https://{self.host}:{self.https_port}",
                 "dummy-client",
                 "dummy-secret",
-                transport_options=transport,
             ).build(),
             transport_options=transport,
         )
@@ -139,7 +139,6 @@ class ZitadelTransportTest(unittest.IsolatedAsyncioTestCase):
                 f"https://{self.host}:{self.https_port}",
                 "dummy-client",
                 "dummy-secret",
-                transport_options=transport,
             ).build(),
             transport_options=transport,
         )
@@ -153,7 +152,6 @@ class ZitadelTransportTest(unittest.IsolatedAsyncioTestCase):
                 f"http://{self.host}:{self.http_port}",
                 "dummy-client",
                 "dummy-secret",
-                transport_options=transport,
             ).build(),
             transport_options=transport,
         )
@@ -174,12 +172,14 @@ class ZitadelTransportTest(unittest.IsolatedAsyncioTestCase):
         response = await zitadel.settings_service.get_general_settings({})
         self.assertEqual("http", response.default_language)
 
-    def test_no_ca_cert_fails(self) -> None:
-        with self.assertRaises(Exception):  # noqa: B017
-            Zitadel.with_authenticator(
-                ClientCredentialsAuthenticator.builder(
-                    f"https://{self.host}:{self.https_port}",
-                    "dummy-client",
-                    "dummy-secret",
-                ).build()
-            )
+    async def test_no_ca_cert_fails(self) -> None:
+        zitadel = Zitadel.with_authenticator(
+            ClientCredentialsAuthenticator.builder(
+                f"https://{self.host}:{self.https_port}",
+                "dummy-client",
+                "dummy-secret",
+            ).build()
+        )
+        with self.assertRaises(NetworkException) as context:
+            await zitadel.settings_service.get_general_settings({})
+        self.assertIs(NetworkException, type(context.exception))

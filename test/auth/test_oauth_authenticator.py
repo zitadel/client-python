@@ -75,7 +75,7 @@ class OAuthAuthenticatorTest(unittest.TestCase):
         open_id = Mock(spec=OpenId)
         open_id.get_host_endpoint.return_value = "https://example.zitadel.cloud"
         authenticator = ClientCredentialsAuthenticator(
-            open_id, "client-1", "client-secret", {"openid"}
+            open_id, "client-1", "client-secret", "openid"
         )
         authenticator._access_token = token
 
@@ -89,8 +89,8 @@ class OAuthAuthenticatorTest(unittest.TestCase):
         """
         Inject a real transport into an OAuth authenticator.
 
-        OAuth authenticators require a transport to perform token exchange. The
-        real client wires this via ``set_api_client`` (see
+        OAuth authenticators require a transport to perform discovery and token
+        exchange. The real client wires this via ``set_api_client`` (see
         ``Zitadel.__init__``); mirror that here so the bespoke tests can exchange
         tokens against the mock OAuth2 server. The mock server is plain HTTP, so
         default transport options are fine.

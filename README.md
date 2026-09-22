@@ -255,7 +255,6 @@ zitadel = Zitadel.with_authenticator(
         "https://your-instance.zitadel.cloud",
         "client-id",
         "client-secret",
-        transport_options=options,
     ).build(),
     transport_options=options,
 )
@@ -279,7 +278,6 @@ zitadel = Zitadel.with_authenticator(
         "https://your-instance.zitadel.cloud",
         "client-id",
         "client-secret",
-        transport_options=options,
     ).build(),
     transport_options=options,
 )
@@ -303,7 +301,6 @@ zitadel = Zitadel.with_authenticator(
         "https://your-instance.zitadel.cloud",
         "client-id",
         "client-secret",
-        transport_options=options,
     ).build(),
     transport_options=options,
 )
@@ -328,7 +325,6 @@ zitadel = Zitadel.with_authenticator(
         "https://your-instance.zitadel.cloud",
         "client-id",
         "client-secret",
-        transport_options=options,
     ).build(),
     transport_options=options,
 )

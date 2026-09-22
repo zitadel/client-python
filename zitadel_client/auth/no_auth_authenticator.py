@@ -1,23 +1,26 @@
 from typing import Dict
 
 from zitadel_client.auth.base_authenticator import BaseAuthenticator
+from zitadel_client.auth.open_id import OpenId
 
 
 class NoAuthAuthenticator(BaseAuthenticator):
     """
     A no-op authenticator that performs no authentication.
 
-    Useful for testing and unauthenticated endpoints: it has no host-dependent
-    state and never mints a token, so it returns an empty set of auth headers.
+    Useful for testing and unauthenticated endpoints: it never mints a token,
+    so it returns an empty set of auth headers.
     """
 
     def __init__(self, host: str = "http://localhost"):
         """
-        Initializes the NoAuthAuthenticator with a default host.
+        Initializes the NoAuthAuthenticator.
 
-        :param host: The base URL for the service. Defaults to "http://localhost".
+        :param host: The base URL for the API endpoints. Defaults to
+            "http://localhost".
+        :raises ValueError: If the host is not a valid http or https URL.
         """
-        self.host = host
+        self.host = OpenId(host).get_host_endpoint()
 
     def get_host(self) -> str:
         return self.host

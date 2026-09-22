@@ -1,10 +1,16 @@
 from typing import Dict
 
 import pytest
+from cryptography.hazmat.primitives.asymmetric import rsa
+from cryptography.hazmat.primitives.serialization import (
+    Encoding,
+    NoEncryption,
+    PrivateFormat,
+)
 
 from spec.base_spec import docker_compose as docker_compose
 from zitadel_client.auth.web_token_authenticator import WebTokenAuthenticator
-from zitadel_client.errors import OpenApiException
+from zitadel_client.errors.oauth2_server_exception import OAuth2ServerException
 from zitadel_client.zitadel import Zitadel
 
 
@@ -16,7 +22,7 @@ class TestUsePrivateKeySpec:
     endpoint works when authenticating via a private key assertion:
 
      1. Retrieve general settings successfully with a valid private key
-     2. Expect an ApiException when using an invalid private key path
+     2. Expect an OAuth2ServerException when signing with an unknown key
 
     Each test instantiates a new client to ensure a clean, stateless call.
     """
@@ -36,12 +42,18 @@ class TestUsePrivateKeySpec:
     async def test_raises_api_exception_with_invalid_private_key(
         self, docker_compose: Dict[str, str]
     ) -> None:  # noqa F811
-        """Raises ApiException when using an invalid private key path."""
+        """Raises OAuth2ServerException when signing with a key the instance does not know."""
+        key = rsa.generate_private_key(public_exponent=65537, key_size=2048)
+        pem = key.private_bytes(
+            encoding=Encoding.PEM,
+            format=PrivateFormat.PKCS8,
+            encryption_algorithm=NoEncryption(),
+        ).decode("utf-8")
         client = Zitadel.with_authenticator(
-            WebTokenAuthenticator.from_json(
-                "https://zitadel.cloud",
-                docker_compose["jwt_key"],
-            )
+            WebTokenAuthenticator.builder(docker_compose["base_url"], "invalid", pem)
+            .key_id("invalid")
+            .build()
         )
-        with pytest.raises(OpenApiException):
+        with pytest.raises(OAuth2ServerException) as excinfo:
             await client.settings_service.get_general_settings({})
+        assert type(excinfo.value) is OAuth2ServerException

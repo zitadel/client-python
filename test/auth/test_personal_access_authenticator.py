@@ -24,3 +24,12 @@ class PersonalAccessTokenAuthenticatorTest(unittest.TestCase):
 
         self.assertNotIn(token, rendered)
         self.assertIn("***", rendered)
+
+    def test_rejects_bad_arguments(self) -> None:
+        """An empty token or an invalid host is a ValueError."""
+        with self.assertRaises(ValueError) as token:
+            PersonalAccessTokenAuthenticator("https://api.example.com", "")
+        self.assertIs(ValueError, type(token.exception))
+        with self.assertRaises(ValueError) as host:
+            PersonalAccessTokenAuthenticator("ftp://api.example.com", "my-secret-token")
+        self.assertIs(ValueError, type(host.exception))

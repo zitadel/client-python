@@ -1,11 +1,11 @@
-from typing import Dict, Optional, Set
+from typing import Dict
 
 from zitadel_client.auth.oauth_authenticator import (
     OAuthAuthenticator,
     OAuthAuthenticatorBuilder,
+    require_text,
 )
 from zitadel_client.auth.open_id import OpenId
-from zitadel_client.transport_options import TransportOptions
 
 
 class ClientCredentialsAuthenticator(OAuthAuthenticator):
@@ -24,47 +24,41 @@ class ClientCredentialsAuthenticator(OAuthAuthenticator):
         open_id: OpenId,
         client_id: str,
         client_secret: str,
-        auth_scopes: Set[str],
+        scope: str,
     ):
         """
         Constructs a ClientCredentialsAuthenticator.
 
-        :param open_id: Resolved OpenID configuration for the provider.
+        :param open_id: The OpenID discovery helper for the target host.
         :param client_id: The OAuth client identifier.
         :param client_secret: The OAuth client secret.
-        :param auth_scopes: The scope(s) for the token request.
+        :param scope: Space-delimited scope string for the token request.
         """
-        super().__init__(open_id, client_id, " ".join(auth_scopes))
+        super().__init__(open_id, scope)
+        self.client_id = client_id
         self.client_secret = client_secret
 
     def __repr__(self) -> str:
-        """Redacts the client secret so it never leaks into logs or tracebacks.
-
-        The secret is shown as the literal ``***`` while the non-sensitive
-        client id remains visible to keep the representation useful for
-        debugging.
-        """
+        """Redacts the client secret and cached token so they never leak into
+        logs or tracebacks, while the client id stays visible."""
         return (
             f"{type(self).__name__}(host={self.get_host()!r}, "
-            f"client_id={self.client_id!r}, client_secret='***')"
+            f"client_id={self.client_id!r}, client_secret='***', "
+            f"scope={self.scope!r}, access_token={self._masked_token()!r})"
         )
 
     def get_grant_type(self) -> str:
         return self.GRANT_TYPE
 
-    def get_access_token_options(self) -> Dict[str, str]:
+    def get_token_request_params(self) -> Dict[str, str]:
         return {
             "client_id": self.client_id,
             "client_secret": self.client_secret,
-            "scope": self.scope,
         }
 
     @staticmethod
     def builder(
-        host: str,
-        client_id: str,
-        client_secret: str,
-        transport_options: Optional[TransportOptions] = None,
+        host: str, client_id: str, client_secret: str
     ) -> "ClientCredentialsAuthenticatorBuilder":
         """
         Returns a builder for constructing a ClientCredentialsAuthenticator.
@@ -72,12 +66,11 @@ class ClientCredentialsAuthenticator(OAuthAuthenticator):
         :param host: The base URL for the OAuth provider.
         :param client_id: The OAuth client identifier.
         :param client_secret: The OAuth client secret.
-        :param transport_options: Optional transport options for TLS, proxy, and headers.
         :return: A ClientCredentialsAuthenticatorBuilder instance.
+        :raises ValueError: If the host is not a valid http or https URL, or
+            the client identifier or secret is empty.
         """
-        return ClientCredentialsAuthenticatorBuilder(
-            host, client_id, client_secret, transport_options=transport_options
-        )
+        return ClientCredentialsAuthenticatorBuilder(host, client_id, client_secret)
 
 
 class ClientCredentialsAuthenticatorBuilder(
@@ -85,29 +78,19 @@ class ClientCredentialsAuthenticatorBuilder(
 ):
     """
     Builder class for constructing ClientCredentialsAuthenticator instances.
-
-    Extends the base OAuthAuthenticatorBuilder with the client_id and
-    client_secret required for the client-credentials flow.
     """
 
-    def __init__(
-        self,
-        host: str,
-        client_id: str,
-        client_secret: str,
-        transport_options: Optional[TransportOptions] = None,
-    ):
+    def __init__(self, host: str, client_id: str, client_secret: str):
         """
         Initializes the ClientCredentialsAuthenticatorBuilder.
 
         :param host: The base URL for the OAuth provider.
         :param client_id: The OAuth client identifier.
         :param client_secret: The OAuth client secret.
-        :param transport_options: Optional transport options for TLS, proxy, and headers.
         """
-        super().__init__(host, transport_options=transport_options)
-        self.client_id = client_id
-        self.client_secret = client_secret
+        super().__init__(host)
+        self.client_id = require_text(client_id, "Client ID")
+        self.client_secret = require_text(client_secret, "Client secret")
 
     def build(self) -> ClientCredentialsAuthenticator:
         """
@@ -116,8 +99,5 @@ class ClientCredentialsAuthenticatorBuilder(
         :return: A configured ClientCredentialsAuthenticator.
         """
         return ClientCredentialsAuthenticator(
-            self.open_id,
-            self.client_id,
-            self.client_secret,
-            self.auth_scopes,
+            self.open_id, self.client_id, self.client_secret, self.scope
         )

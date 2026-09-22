@@ -13,6 +13,11 @@ zitadel_client/auth/oauth_authenticator.py
 zitadel_client/auth/open_id.py
 zitadel_client/auth/personal_access_token_authenticator.py
 zitadel_client/auth/web_token_authenticator.py
+#
+# The OAuth2 error types the authenticators raise. The generator only emits
+# them inside its own OAuth2 token manager, which this spec does not use.
+zitadel_client/errors/oauth2_server_exception.py
+zitadel_client/errors/oauth2_token_exception.py
 
 # --- bespoke tests + fixtures the generator does not emit ---
 #
