@@ -21,7 +21,7 @@
       ],
       "check": [
         "uv run ruff check .",
-        "uv run ty check"
+        "uv run mypy zitadel_client test spec"
       ],
       "replit": [
         "docker build --tag python-repl --file Dockerfile .",

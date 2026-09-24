@@ -86,3 +86,9 @@ testpaths = ["test", "spec"]
 python_files = "test_*.py *_spec.py"
 asyncio_mode = "auto"
 addopts = "--cov=zitadel_client --cov-report=xml:.out/coverage.xml --cov-report=term-missing --junitxml=.out/reports/junit.xml"
+
+# brotli and testcontainers ship no type information, so mypy cannot follow
+# them. Named here rather than silenced with an inline comment at each import.
+[[tool.mypy.overrides]]
+module = ["brotli", "testcontainers.*"]
+ignore_missing_imports = true
