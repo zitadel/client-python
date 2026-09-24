@@ -64,7 +64,8 @@ proc.yml
 # --- generator bookkeeping (FILES manifest + VERSION; rewritten by the
 #     generator but keep-listed so prune does not orphan them — the FILES
 #     manifest does not list itself, so it would otherwise be deleted) ---
-.openapi-generator/
-# ...except the dev-dependency manifest: it lists what the generated tests
-# import, and this repo's own package manifest has to stay in step with it.
-!.openapi-generator/DEV-DEPENDENCIES
+# Only the two bookkeeping files, named individually: excluding the whole
+# directory also excluded DEV-DEPENDENCIES, which the generator must write
+# so this repo's package manifest can stay in step with what its tests import.
+.openapi-generator/FILES
+.openapi-generator/VERSION

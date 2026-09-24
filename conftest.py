@@ -1,14 +1,62 @@
+import importlib.util
 import os
 import time
 
-import docker
 import pytest
-from testcontainers.core.container import DockerContainer
-from testcontainers.core.wait_strategies import LogMessageWaitStrategy
+
+# Every dependency an emitted test imports is listed, with the test that needs
+# it, in .openapi-generator/DEV-DEPENDENCIES. A client keep-lists its own
+# pyproject.toml, so a dependency the generator started using is missing there
+# until someone copies it across -- and the whole suite then dies at collection
+# with an ImportError from whichever module happened to be imported first.
+# Probing here turns that into one message that names the file to reconcile
+# against. The distributions below are imported inside the fixtures rather than
+# at module scope so this check runs before the failure it is reporting on.
+DEV_DEPENDENCIES = ".openapi-generator/DEV-DEPENDENCIES"
+
+_REQUIRED_TEST_DISTRIBUTIONS = {
+    "docker": "docker",
+    "opentelemetry.sdk.trace": "opentelemetry-sdk",
+    "pytest_asyncio": "pytest-asyncio",
+    "pytest_cov": "pytest-cov",
+    "testcontainers": "testcontainers",
+}
+
+
+def _is_installed(module):
+    # find_spec imports the parent package of a dotted name, so it raises
+    # rather than returning None when the parent is the part that is missing.
+    try:
+        return importlib.util.find_spec(module) is not None
+    except (ImportError, ValueError):
+        return False
+
+
+def _assert_test_dependencies_installed():
+    missing = sorted(
+        distribution
+        for module, distribution in _REQUIRED_TEST_DISTRIBUTIONS.items()
+        if not _is_installed(module)
+    )
+    if missing:
+        raise RuntimeError(
+            "Missing test dependencies: "
+            + ", ".join(missing)
+            + ". Every dependency the generated tests import is listed in "
+            + DEV_DEPENDENCIES
+            + "; add the missing entries to this project's dependency manifest "
+            "and reinstall."
+        )
+
+
+_assert_test_dependencies_installed()
 
 
 @pytest.fixture(scope="session")
 def chasm_container(proxy_network):
+    from testcontainers.core.container import DockerContainer
+    from testcontainers.core.wait_strategies import LogMessageWaitStrategy
+
     host_app_path = os.environ.get("HOST_APP_PATH", os.getcwd())
     spec_path = os.path.join(host_app_path, "test", "fixtures", "openapi.yaml")
     cert_path = os.path.join(host_app_path, "test", "fixtures", "certs", "server.pem")
@@ -67,6 +115,8 @@ def chasm_internal_https_url():
 
 @pytest.fixture(scope="session")
 def proxy_network():
+    import docker
+
     client = docker.from_env()
     network = client.networks.create("proxy-test-network")
     yield network
@@ -75,15 +125,24 @@ def proxy_network():
 
 @pytest.fixture(scope="session")
 def squid_container(proxy_network):
+    from testcontainers.core.container import DockerContainer
+
     host_app_path = os.environ.get("HOST_APP_PATH", os.getcwd())
     squid_conf_path = os.path.join(
         host_app_path, "test", "fixtures", "proxy", "squid.conf"
     )
 
+    # ubuntu/squid declares VOLUME /var/log/squid and VOLUME /var/spool/squid,
+    # so every proxy container Docker creates leaves two anonymous volumes
+    # behind after the suite stops it. Mounting both as tmpfs keeps the
+    # container writable without allocating a volume. mode=1777 because squid
+    # drops to the unprivileged `proxy` user before it opens its logs.
     container = (
         DockerContainer("ubuntu/squid:5.2-22.04_beta")
         .with_exposed_ports(3128, 3129)
         .with_volume_mapping(squid_conf_path, "/etc/squid/squid.conf", "ro")
+        .with_tmpfs_mount("/var/log/squid", "rw,mode=1777")
+        .with_tmpfs_mount("/var/spool/squid", "rw,mode=1777")
     )
     container.start()
     proxy_network.connect(container.get_wrapped_container().id)

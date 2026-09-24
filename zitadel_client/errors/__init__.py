@@ -1,7 +1,3 @@
-# The typed subclasses import ApiException from this module, so their
-# re-export can only follow the class definition. Only E402 is off --
-# every other ruff rule applies to this file.
-# ruff: noqa: E402
 # Zitadel SDK
 # The Zitadel SDK is a convenience wrapper around the Zitadel APIs to assist you in integrating with your Zitadel environment. This SDK enables you to handle resources, settings, and configurations within the Zitadel platform.
 #

@@ -1,3 +1,4 @@
+.openapi-generator/DEV-DEPENDENCIES
 SKILLS.md
 conftest.py
 test/__init__.py

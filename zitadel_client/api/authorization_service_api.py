@@ -1,7 +1,3 @@
-# The model and pydantic import blocks below are emitted for every API
-# class, so an API that references none of them still carries them. Only
-# F401 is off -- every other ruff rule applies to this file.
-# ruff: noqa: F401
 # Zitadel SDK
 # The Zitadel SDK is a convenience wrapper around the Zitadel APIs to assist you in integrating with your Zitadel environment. This SDK enables you to handle resources, settings, and configurations within the Zitadel platform.
 #

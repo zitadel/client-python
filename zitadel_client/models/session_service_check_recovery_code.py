@@ -1,8 +1,3 @@
-# The import block below is emitted for every model, so a model that uses
-# none of the strict scalars or containers still carries them; the footer
-# re-imports the strict aliases a forward reference needs. Only those three
-# import rules are off -- every other ruff rule applies to this file.
-# ruff: noqa: F401, F811, E402
 # Zitadel SDK
 # The Zitadel SDK is a convenience wrapper around the Zitadel APIs to assist you in integrating with your Zitadel environment. This SDK enables you to handle resources, settings, and configurations within the Zitadel platform.
 #
