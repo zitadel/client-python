@@ -1,5 +1,3 @@
-# ruff: noqa
-# mypy: ignore-errors
 import json
 import pytest
 from http.server import HTTPServer, BaseHTTPRequestHandler
@@ -116,12 +114,16 @@ class TestDefaultApiClientUnit:
     def test_malformed_gzip_body_raises_api_exception(self) -> None:
         """decompression-error-not-wrapped: a body that advertises
         Content-Encoding: gzip but is not valid gzip must surface as the
-        SDK's ApiException, not a raw gzip.BadGzipFile / OSError."""
-        from zitadel_client.errors import ApiException
+        SDK's ApiException carrying the response's real status, not a
+        NetworkException and not a raw gzip.BadGzipFile / OSError."""
+        from zitadel_client.errors import ApiException, NetworkException
 
         client = DefaultApiClient()
         with pytest.raises(ApiException) as exc_info:
             client.send_request("GET", f"{self.base_url}/bad-gzip", {}, None)
+        assert type(exc_info.value) is ApiException
+        assert not isinstance(exc_info.value, NetworkException)
+        assert exc_info.value.status_code == 200
         assert "decompress" in str(exc_info.value.message or "").lower()
 
     def test_returns_non_2xx_status_code(self) -> None:
@@ -540,41 +542,6 @@ class TestMultipartContentType:
         assert ".123" in parsed["recordedAt"]
 
 
-class TestProxyAuthentication:
-    """Proxy URL with userinfo should produce a ``Proxy-Authorization`` header.
-
-    The shared Squid container in this test environment runs without
-    basic-auth ACLs, so this scenario cannot be verified end-to-end.
-    Enable when ``squid.conf`` is provisioned with htpasswd-backed auth.
-    """
-
-    @pytest.mark.skip(
-        reason=(
-            "requires Squid configured with basic-auth; the shared squid_container "
-            "in this test environment runs without basic_auth ACLs, so userinfo in the "
-            "proxy URL cannot be verified end-to-end. Enable when squid.conf is "
-            "provisioned with htpasswd-backed auth."
-        )
-    )
-    def test_proxy_url_with_userinfo_sends_proxy_authorization(self) -> None:
-        from urllib.parse import urlparse
-
-        # Splice basic-auth userinfo into the proxy URL: http://user:pass@host:port
-        base_proxy_url = "http://127.0.0.1:3128"
-        parsed = urlparse(base_proxy_url)
-        proxy_url_with_auth = (
-            f"{parsed.scheme}://user:pass@{parsed.hostname}:{parsed.port}"
-        )
-
-        transport = TransportOptions.builder().proxy(proxy_url_with_auth).build()
-        client = DefaultApiClient(transport)
-        response = client.send_request("GET", "http://chasm:8080/test/echo", {}, None)
-
-        assert response.status_code == 200
-        # chasm echo envelope always includes a method field
-        assert '"method"' in response.body
-
-
 class TestMultipartBinaryPreservation:
     """Binary multipart parts must not be re-encoded through UTF-8."""
 
@@ -753,6 +720,10 @@ class TestBodyReplayOnTlsDowngrade:
                 '{"secret":"value"}',
             )
         assert "downgrade" in str(excinfo.value.message or "").lower()
+        # A refused redirect is a response that could not be used: an
+        # ApiException with the 3xx status, never a NetworkException.
+        assert type(excinfo.value) is ApiException
+        assert excinfo.value.status_code == 307
         # The replay over plaintext must never have happened.
         assert len(pool.calls) == 1
 
@@ -911,6 +882,8 @@ class TestRedirectExhaustion:
         with pytest.raises(ApiException) as excinfo:
             client.send_request("GET", "https://example.com/start", {}, None)
         assert "too many redirects" in str(excinfo.value.message or "").lower()
+        assert type(excinfo.value) is ApiException
+        assert excinfo.value.status_code in (301, 302, 303, 307, 308)
 
     def test_terminal_redirect_without_location_does_not_raise(self) -> None:
         # A 3xx with no Location header is a legitimate terminal response and
@@ -926,11 +899,12 @@ class TestRedirectExhaustion:
 
 
 class TestUseAfterClose:
-    """Calling ``send_request`` after ``close()`` must raise the SDK's own
-    ApiException rather than a foreign urllib3 error or silently succeeding."""
+    """Calling ``send_request`` after ``close()`` is a wrong call order: it
+    must raise the invalid-state RuntimeError rather than a foreign urllib3
+    error or silently succeeding."""
 
-    def test_send_after_close_raises_api_exception(self) -> None:
-        from zitadel_client.errors import ApiException
+    def test_send_after_close_raises_runtime_error(self) -> None:
+        from zitadel_client.errors import ZitadelException
 
         class _Pool:
             def __init__(self) -> None:
@@ -946,8 +920,10 @@ class TestUseAfterClose:
         pool = _Pool()
         client = DefaultApiClient(pool_manager=pool)
         client.close()
-        with pytest.raises(ApiException):
+        with pytest.raises(RuntimeError) as excinfo:
             client.send_request("GET", "https://example.com/x", {}, None)
+        assert type(excinfo.value) is RuntimeError
+        assert not isinstance(excinfo.value, ZitadelException)
         # The request must never have been issued against the closed client.
         assert pool.calls == 0
 
@@ -963,6 +939,7 @@ class TestBodyReadErrorWrapped:
 
     def test_body_read_error_is_wrapped_in_network_exception(self) -> None:
         import urllib3
+        import urllib3.exceptions
         from zitadel_client.errors import NetworkException
 
         class _ReadFailResp:
@@ -1006,14 +983,26 @@ class TestNetworkErrors:
         client = DefaultApiClient()
         with pytest.raises(NetworkException) as excinfo:
             client.send_request("GET", f"http://127.0.0.1:{port}/x", {}, None)
+        assert type(excinfo.value) is NetworkException
         assert not isinstance(excinfo.value, NetworkTimeoutException)
         assert isinstance(excinfo.value, ApiException)
         assert excinfo.value.status_code == 0
         assert excinfo.value.__cause__ is not None
 
+    def test_unparseable_url_raises_value_error(self) -> None:
+        # A request URL urllib3 cannot parse is a caller mistake: ValueError,
+        # never a NetworkException.
+        from zitadel_client.errors import ZitadelException
+
+        client = DefaultApiClient()
+        with pytest.raises(ValueError) as excinfo:
+            client.send_request("GET", "http://[bad", {}, None)
+        assert not isinstance(excinfo.value, ZitadelException)
+
     def test_read_timeout_raises_network_timeout_exception(self) -> None:
         import urllib3
-        from zitadel_client.errors import NetworkTimeoutException
+        import urllib3.exceptions
+        from zitadel_client.errors import NetworkException, NetworkTimeoutException
 
         class _Pool:
             def request(self, method: str, url: str, **kwargs: Any) -> Any:
@@ -1027,6 +1016,38 @@ class TestNetworkErrors:
         client = DefaultApiClient(pool_manager=_Pool())
         with pytest.raises(NetworkTimeoutException) as excinfo:
             client.send_request("GET", "https://example.com/x", {}, None)
+        assert type(excinfo.value) is NetworkTimeoutException
+        assert isinstance(excinfo.value, NetworkException)
+        assert excinfo.value.status_code == 0
+        assert isinstance(excinfo.value.__cause__, urllib3.exceptions.MaxRetryError)
+
+    def test_connect_timeout_raises_network_timeout_exception(self) -> None:
+        # The single `urllib3.Timeout(total=...)` the client sets covers both
+        # the connect and the read phase, and urllib3 raises a different error
+        # for each. Both are the same expired deadline, so both must be a
+        # NetworkTimeoutException -- and the connect branch sits behind the
+        # NewConnectionError check, whose subclassing could invert on an
+        # upgrade.
+        import urllib3
+        import urllib3.exceptions
+        from zitadel_client.errors import NetworkException, NetworkTimeoutException
+
+        class _Pool:
+            def request(self, method: str, url: str, **kwargs: Any) -> Any:
+                no_pool: Any = None
+                raise urllib3.exceptions.MaxRetryError(
+                    no_pool,
+                    url,
+                    urllib3.exceptions.ConnectTimeoutError(
+                        no_pool, "connect timed out"
+                    ),
+                )
+
+        client = DefaultApiClient(pool_manager=_Pool())
+        with pytest.raises(NetworkTimeoutException) as excinfo:
+            client.send_request("GET", "https://example.com/x", {}, None)
+        assert type(excinfo.value) is NetworkTimeoutException
+        assert isinstance(excinfo.value, NetworkException)
         assert excinfo.value.status_code == 0
         assert isinstance(excinfo.value.__cause__, urllib3.exceptions.MaxRetryError)
 
@@ -1037,11 +1058,15 @@ class TestCaCertPathFailsFast:
     silently falling back to the system trust store (security theater)."""
 
     def test_nonexistent_ca_cert_path_raises_value_error(self) -> None:
+        from zitadel_client.errors import ZitadelException
+
         transport = (
             TransportOptions.builder().ca_cert_path("/nonexistent/ca.pem").build()
         )
-        with pytest.raises(ValueError):
+        with pytest.raises(ValueError) as excinfo:
             DefaultApiClient(transport)
+        assert type(excinfo.value) is ValueError
+        assert not isinstance(excinfo.value, ZitadelException)
 
 
 class TestApiKeyHeaderStrippedOnCrossOrigin:
@@ -1110,5 +1135,7 @@ class TestRedirectToNonHttpScheme:
         with pytest.raises(ApiException) as excinfo:
             client.send_request("GET", "https://example.com/start", {}, None)
         assert "non-http" in str(excinfo.value.message or "").lower()
+        assert type(excinfo.value) is ApiException
+        assert excinfo.value.status_code == 302
         # The non-http(s) target must never have been contacted.
         assert len(pool.calls) == 1

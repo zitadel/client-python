@@ -1,5 +1,3 @@
-# ruff: noqa
-# mypy: ignore-errors
 # import apis into api package
 from zitadel_client.api.action_service_api import ActionServiceApi as ActionServiceApi
 from zitadel_client.api.application_service_api import (

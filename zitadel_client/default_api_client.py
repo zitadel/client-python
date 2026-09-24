@@ -1,5 +1,3 @@
-# ruff: noqa
-# mypy: ignore-errors
 # Zitadel SDK
 # The Zitadel SDK is a convenience wrapper around the Zitadel APIs to assist you in integrating with your Zitadel environment. This SDK enables you to handle resources, settings, and configurations within the Zitadel platform.
 #
@@ -23,6 +21,7 @@ from urllib.parse import (
 )
 
 import urllib3
+import urllib3.exceptions
 
 from zitadel_client.api_http_response import ApiHttpResponse
 from zitadel_client.errors import (
@@ -316,9 +315,8 @@ class DefaultApiClient:
         """Close the underlying urllib3 PoolManager and release sockets.
 
         After calling this method the client must not be reused. Calling
-        :meth:`send_request` on a closed client raises
-        :class:`~zitadel_client.errors.ApiException`. ``close()`` itself is
-        idempotent.
+        :meth:`send_request` on a closed client raises :class:`RuntimeError`.
+        ``close()`` itself is idempotent.
         """
         self._closed = True
         if self._pool_manager is not None:
@@ -365,13 +363,12 @@ class DefaultApiClient:
         Returns:
             :class:`ApiHttpResponse` containing status code, body, and headers.
         """
-        # Use-after-close must surface the SDK's own error type rather than
-        # a foreign urllib3 exception (or silently succeeding against a
-        # cleared pool), matching the closed-flag guard the other SDKs use.
+        # Use-after-close is a wrong call order, so it raises the
+        # invalid-state RuntimeError rather than a foreign urllib3 exception
+        # (or silently succeeding against a cleared pool), matching the
+        # closed-flag guard the other SDKs use.
         if self._closed:
-            raise ApiException(
-                message="ApiClient has been closed and can no longer be used"
-            )
+            raise RuntimeError("ApiClient has been closed and can no longer be used")
 
         # --- Merge headers: transport defaults < caller headers < injected ---
         merged_headers: Dict[str, str] = dict(self._transport_options.default_headers)
@@ -480,13 +477,11 @@ class DefaultApiClient:
             # transport phase, matching Java/Swift/Ruby/PHP/Elixir.
             raw_data = response.read()
 
-            # Decompression also runs INSIDE the transport try/except so a
-            # malformed Content-Encoding body (e.g. a server that advertises
-            # `gzip` but sends truncated / non-gzip bytes) surfaces as the
-            # SDK's uniform ApiException rather than leaking a raw
-            # gzip.BadGzipFile / zlib.error / OSError to the caller. The
-            # decode is part of the transport phase, so it belongs under the
-            # same error contract as the body read above.
+            # A malformed Content-Encoding body (e.g. a server that
+            # advertises `gzip` but sends truncated / non-gzip bytes) arrived
+            # with a real response, so it surfaces as an ApiException
+            # carrying that response's status -- never a NetworkException and
+            # never a raw gzip.BadGzipFile / zlib.error / OSError.
             content_encoding = (response.headers.get("content-encoding") or "").lower()
             try:
                 decompressed = self._decompress_body(raw_data, content_encoding)
@@ -498,8 +493,15 @@ class DefaultApiClient:
                 # Exception with no shared codec base, so they are caught here
                 # as a group and re-raised as the SDK's uniform ApiException.
                 raise ApiException(
-                    message=f"failed to decompress response body (content-encoding={content_encoding!r}): {e}"
+                    status_code=response.status,
+                    message=f"failed to decompress response body (content-encoding={content_encoding!r}): {e}",
+                    response_headers=dict(response.headers),
                 ) from e
+        except urllib3.exceptions.LocationValueError as e:
+            # An unparseable request URL is a caller mistake, not a network
+            # failure: urllib3 reports it as an HTTPError subclass, so it is
+            # caught before the network handler below.
+            raise ValueError(f"Invalid request URL: {url}: {e}") from e
         except urllib3.exceptions.HTTPError as e:
             raise _network_exception(e) from e
 
@@ -627,7 +629,9 @@ class DefaultApiClient:
                 scheme = (parsed_next.scheme or "").lower()
                 if scheme not in ("http", "https"):
                     raise ApiException(
-                        message=f"Refusing to follow redirect to non-HTTP(S) URL: {next_url}"
+                        status_code=response.status,
+                        message=f"Refusing to follow redirect to non-HTTP(S) URL: {next_url}",
+                        response_headers=dict(response.headers),
                     )
 
                 same_origin = self._same_origin(current_url, next_url)
@@ -648,10 +652,12 @@ class DefaultApiClient:
                     and response.status in (307, 308)
                 ):
                     raise ApiException(
+                        status_code=response.status,
                         message=(
                             f"Refusing to replay request body across HTTPS -> HTTP "
                             f"downgrade redirect ({response.status}) to {next_url}"
-                        )
+                        ),
+                        response_headers=dict(response.headers),
                     )
 
                 # Pick follow-up method/body per RFC 7231 section 6.4 / RFC 7538.
@@ -739,7 +745,9 @@ class DefaultApiClient:
             and response.headers.get("location")
         ):
             raise ApiException(
-                message=f"Too many redirects (exceeded max_redirects={max_redirects})"
+                status_code=response.status,
+                message=f"Too many redirects (exceeded max_redirects={max_redirects})",
+                response_headers=dict(response.headers),
             )
 
         return response

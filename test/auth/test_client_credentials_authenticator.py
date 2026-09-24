@@ -8,7 +8,11 @@ from zitadel_client.auth.client_credentials_authenticator import (
 )
 from zitadel_client.auth.open_id import OpenId
 from zitadel_client.default_api_client import DefaultApiClient
-from zitadel_client.errors import ApiException, ZitadelException
+from zitadel_client.errors import (
+    ApiException,
+    SerializationException,
+    ZitadelException,
+)
 from zitadel_client.errors.internal_server_error_exception import (
     InternalServerErrorException,
 )
@@ -16,7 +20,6 @@ from zitadel_client.errors.network_exception import NetworkException
 from zitadel_client.errors.not_found_exception import NotFoundException
 from zitadel_client.errors.oauth2_server_exception import OAuth2ServerException
 from zitadel_client.errors.oauth2_token_exception import OAuth2TokenException
-from zitadel_client.object_serializer import SerializationException
 from zitadel_client.transport_options import TransportOptions
 
 HOST = "https://zitadel.example.com"

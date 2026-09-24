@@ -1,7 +1,6 @@
-# ruff: noqa
-# mypy: ignore-errors
 import pytest
 
+from zitadel_client.errors import ZitadelException
 from zitadel_client.server_configuration import ServerConfiguration, ServerVariable
 
 
@@ -61,8 +60,10 @@ class TestServerConfiguration:
             },
         )
 
-        with pytest.raises(ValueError):
+        with pytest.raises(ValueError) as exc_info:
             config.get_url({"env": "dev"})
+        assert type(exc_info.value) is ValueError
+        assert not isinstance(exc_info.value, ZitadelException)
 
     def test_template_without_variables_is_returned_verbatim(self) -> None:
         config = ServerConfiguration(url_template="https://api.example.com")

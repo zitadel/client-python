@@ -1,8 +1,7 @@
-# ruff: noqa
-# mypy: ignore-errors
 import pytest
 from types import MappingProxyType
 
+from zitadel_client.errors import ZitadelException
 from zitadel_client.transport_options import TransportOptions
 
 
@@ -76,8 +75,10 @@ class TestTransportOptions:
         assert opts.max_redirects is None
 
     def test_invalid_proxy_url_throws_exception(self) -> None:
-        with pytest.raises(ValueError):
+        with pytest.raises(ValueError) as exc_info:
             TransportOptions.builder().proxy("not-a-url").build()
+        assert type(exc_info.value) is ValueError
+        assert not isinstance(exc_info.value, ZitadelException)
 
     def test_null_proxy_url_is_accepted(self) -> None:
         opts = TransportOptions.builder().proxy(None).build()

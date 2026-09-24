@@ -1,5 +1,3 @@
-# ruff: noqa
-# mypy: ignore-errors
 # Zitadel SDK
 # The Zitadel SDK is a convenience wrapper around the Zitadel APIs to assist you in integrating with your Zitadel environment. This SDK enables you to handle resources, settings, and configurations within the Zitadel platform.
 #
@@ -48,8 +46,21 @@ __all__ = [
     "ServerConfiguration",
     "ServerVariable",
     "ZitadelException",
-    "OpenApiException",
     "ApiException",
+    "ClientException",
+    "ServerException",
+    "BadRequestException",
+    "UnauthorizedException",
+    "ForbiddenException",
+    "NotFoundException",
+    "ConflictException",
+    "UnprocessableEntityException",
+    "InternalServerErrorException",
+    "NetworkException",
+    "NetworkTimeoutException",
+    "SerializationException",
+    "OAuth2ServerException",
+    "OAuth2TokenException",
     "ActionServiceActivatePublicKeyRequest",
     "ActionServiceActivatePublicKeyResponse",
     "ActionServiceAddPublicKeyRequest",
@@ -1493,8 +1504,25 @@ from zitadel_client.server_configuration import (
 )
 from zitadel_client.server_configuration import ServerVariable as ServerVariable
 from zitadel_client.errors import ZitadelException as ZitadelException
-from zitadel_client.errors import OpenApiException as OpenApiException
 from zitadel_client.errors import ApiException as ApiException
+from zitadel_client.errors import ClientException as ClientException
+from zitadel_client.errors import ServerException as ServerException
+from zitadel_client.errors import BadRequestException as BadRequestException
+from zitadel_client.errors import UnauthorizedException as UnauthorizedException
+from zitadel_client.errors import ForbiddenException as ForbiddenException
+from zitadel_client.errors import NotFoundException as NotFoundException
+from zitadel_client.errors import ConflictException as ConflictException
+from zitadel_client.errors import (
+    UnprocessableEntityException as UnprocessableEntityException,
+)
+from zitadel_client.errors import (
+    InternalServerErrorException as InternalServerErrorException,
+)
+from zitadel_client.errors import NetworkException as NetworkException
+from zitadel_client.errors import NetworkTimeoutException as NetworkTimeoutException
+from zitadel_client.errors import SerializationException as SerializationException
+from zitadel_client.errors import OAuth2ServerException as OAuth2ServerException
+from zitadel_client.errors import OAuth2TokenException as OAuth2TokenException
 
 # import models into sdk package
 from zitadel_client.models.action_service_activate_public_key_request import (

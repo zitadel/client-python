@@ -64,6 +64,9 @@ zitadel_client/errors/internal_server_error_exception.py
 zitadel_client/errors/network_exception.py
 zitadel_client/errors/network_timeout_exception.py
 zitadel_client/errors/not_found_exception.py
+zitadel_client/errors/oauth2_server_exception.py
+zitadel_client/errors/oauth2_token_exception.py
+zitadel_client/errors/serialization_exception.py
 zitadel_client/errors/server_exception.py
 zitadel_client/errors/unauthorized_exception.py
 zitadel_client/errors/unprocessable_entity_exception.py

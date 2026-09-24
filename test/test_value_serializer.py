@@ -1,5 +1,3 @@
-# ruff: noqa
-# mypy: ignore-errors
 import datetime
 
 import pytest

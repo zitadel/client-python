@@ -25,6 +25,7 @@ dev = [
     "types-requests>=2.28.0",
     "types-urllib3>=1.26.0",
     "pytest-cov>=4.0.0",
+    "opentelemetry-sdk>=1.20.0",
     "sphinx>=7,<10",
     "furo>=2024.1.29",
     "cryptography>=46.0.6,<51.0.0",

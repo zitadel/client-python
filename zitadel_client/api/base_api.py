@@ -1,5 +1,3 @@
-# ruff: noqa
-# mypy: ignore-errors
 # Zitadel SDK
 # The Zitadel SDK is a convenience wrapper around the Zitadel APIs to assist you in integrating with your Zitadel environment. This SDK enables you to handle resources, settings, and configurations within the Zitadel platform.
 #
@@ -20,15 +18,6 @@ from ..object_serializer import ObjectSerializer
 from ..header_selector import HeaderSelector
 from ..trace_context_util import inject_trace_context
 from ..errors import ApiException
-from ..errors.client_exception import ClientException
-from ..errors.server_exception import ServerException
-from ..errors.bad_request_exception import BadRequestException
-from ..errors.unauthorized_exception import UnauthorizedException
-from ..errors.forbidden_exception import ForbiddenException
-from ..errors.not_found_exception import NotFoundException
-from ..errors.conflict_exception import ConflictException
-from ..errors.unprocessable_entity_exception import UnprocessableEntityException
-from ..errors.internal_server_error_exception import InternalServerErrorException
 from ..auth.authenticator import Authenticator
 
 T = TypeVar("T")
@@ -181,7 +170,8 @@ class BaseApi:
         #   - auth is None            -> no per-call override; fall back to the
         #                                client-level authenticator.
         #   - auth is an Authenticator -> per-call override; use it.
-        if auth is NO_AUTH:
+        effective_auth: Optional[Authenticator]
+        if isinstance(auth, _NoAuth):
             effective_auth = None
         elif auth is not None:
             effective_auth = auth
@@ -395,99 +385,11 @@ class BaseApi:
 
     @staticmethod
     def _throw_api_exception(response: "ApiHttpResponse") -> None:
-        """Throw the appropriate exception subclass for the given error response.
-
-        Attempts to parse the response body as JSON so that structured error
-        data (e.g. from a ``default`` response schema) is available via
-        :attr:`ApiException.error_body`.
+        """Raise the exception :meth:`ApiException.from_response` maps the
+        error response to. The body is parsed as JSON where possible so that
+        structured error data (e.g. from a ``default`` response schema) is
+        available via :attr:`ApiException.error_body`.
         """
-        import json as _json
-
-        code = response.status_code
-        message = f"API returned status code {code}"
-        body = response.body
-        # Pass response headers through unconditionally. An empty header map is
-        # a real (if unusual) error response, distinct from "no response" --
-        # coercing empty headers to None conflated the two and dropped a valid
-        # empty dict. The transport always supplies a dict here.
-        headers = dict(response.headers)
-
-        error_body = None
-        if body:
-            try:
-                error_body = _json.loads(body)
-            except (ValueError, TypeError):
-                pass
-
-        if 400 <= code < 500:
-            if code == 400:
-                raise BadRequestException(
-                    message=message,
-                    response_body=body,
-                    response_headers=headers,
-                    error_body=error_body,
-                )
-            if code == 401:
-                raise UnauthorizedException(
-                    message=message,
-                    response_body=body,
-                    response_headers=headers,
-                    error_body=error_body,
-                )
-            if code == 403:
-                raise ForbiddenException(
-                    message=message,
-                    response_body=body,
-                    response_headers=headers,
-                    error_body=error_body,
-                )
-            if code == 404:
-                raise NotFoundException(
-                    message=message,
-                    response_body=body,
-                    response_headers=headers,
-                    error_body=error_body,
-                )
-            if code == 409:
-                raise ConflictException(
-                    message=message,
-                    response_body=body,
-                    response_headers=headers,
-                    error_body=error_body,
-                )
-            if code == 422:
-                raise UnprocessableEntityException(
-                    message=message,
-                    response_body=body,
-                    response_headers=headers,
-                    error_body=error_body,
-                )
-            raise ClientException(
-                status_code=code,
-                message=message,
-                response_body=body,
-                response_headers=headers,
-                error_body=error_body,
-            )
-        if code >= 500:
-            if code == 500:
-                raise InternalServerErrorException(
-                    message=message,
-                    response_body=body,
-                    response_headers=headers,
-                    error_body=error_body,
-                )
-            raise ServerException(
-                status_code=code,
-                message=message,
-                response_body=body,
-                response_headers=headers,
-                error_body=error_body,
-            )
-        raise ApiException(
-            status_code=code,
-            message=message,
-            response_body=body,
-            response_headers=headers,
-            error_body=error_body,
+        raise ApiException.from_response(
+            response.status_code, response.headers, response.body
         )

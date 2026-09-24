@@ -42,11 +42,13 @@ client = Zitadel.with_token(SERVER_0.get_url(), "your-token")
 The `Authenticator` protocol is the seam for tests: substitute a fake authenticator that returns a known header map, and assert your code calls the API the way you expect.
 
 ```python
-class FakeAuthenticator:
-    def get_host(self):
+from zitadel_client.auth.authenticator import Authenticator
+
+class FakeAuthenticator(Authenticator):
+    def get_host(self) -> str:
         return "https://api.example.com"
 
-    def get_auth_headers(self):
+    def get_auth_headers(self) -> dict[str, str]:
         return {"Authorization": "Bearer test-token"}
 
 client = Zitadel(FakeAuthenticator())

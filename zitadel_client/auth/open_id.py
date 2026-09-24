@@ -1,36 +1,12 @@
 import json
 import threading
-from typing import Dict, Optional
+from typing import Optional
 from urllib.parse import urlsplit
 
 from zitadel_client.api_client import ApiClient
-from zitadel_client.errors import ApiException
-from zitadel_client.errors.bad_request_exception import BadRequestException
-from zitadel_client.errors.client_exception import ClientException
-from zitadel_client.errors.conflict_exception import ConflictException
-from zitadel_client.errors.forbidden_exception import ForbiddenException
-from zitadel_client.errors.internal_server_error_exception import (
-    InternalServerErrorException,
-)
-from zitadel_client.errors.not_found_exception import NotFoundException
-from zitadel_client.errors.server_exception import ServerException
-from zitadel_client.errors.unauthorized_exception import UnauthorizedException
-from zitadel_client.errors.unprocessable_entity_exception import (
-    UnprocessableEntityException,
-)
-from zitadel_client.object_serializer import SerializationException
+from zitadel_client.errors import ApiException, SerializationException
 
 _WELL_KNOWN_PATH = "/.well-known/openid-configuration"
-
-_STATUS_EXCEPTIONS = {
-    400: BadRequestException,
-    401: UnauthorizedException,
-    403: ForbiddenException,
-    404: NotFoundException,
-    409: ConflictException,
-    422: UnprocessableEntityException,
-    500: InternalServerErrorException,
-}
 
 
 class OpenId:
@@ -45,7 +21,8 @@ class OpenId:
 
     - no HTTP response: :class:`NetworkException` or
       :class:`NetworkTimeoutException`;
-    - a non-2xx status: the :class:`ApiException` subclass for that status;
+    - a non-2xx status: the :class:`ApiException` subclass for that status, as
+      chosen by :meth:`ApiException.from_response`;
     - a body that is not a JSON object with a ``token_endpoint``:
       :class:`SerializationException`.
     """
@@ -105,12 +82,7 @@ class OpenId:
         response = api_client.send_request("GET", url, {"Accept": "application/json"})
         status = response.status_code
         if status < 200 or status >= 300:
-            raise self._status_exception(
-                status,
-                f"OpenID discovery at {url} failed with status {status}",
-                response.headers,
-                response.body,
-            )
+            raise ApiException.from_response(status, response.headers, response.body)
         try:
             document = json.loads(response.body)
         except ValueError as e:
@@ -127,18 +99,3 @@ class OpenId:
                 f"OpenID configuration at {url} has no valid token_endpoint"
             )
         return endpoint
-
-    @staticmethod
-    def _status_exception(
-        status: int, message: str, headers: Dict[str, str], body: str
-    ) -> ApiException:
-        exception = _STATUS_EXCEPTIONS.get(status)
-        if exception is not None:
-            return exception(
-                message=message, response_headers=headers, response_body=body
-            )
-        if 400 <= status < 500:
-            return ClientException(status, message, headers, body)
-        if status >= 500:
-            return ServerException(status, message, headers, body)
-        return ApiException(status, message, headers, body)

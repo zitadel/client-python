@@ -1,5 +1,3 @@
-# ruff: noqa
-# mypy: ignore-errors
 import os
 import time
 
@@ -31,7 +29,7 @@ def chasm_container(proxy_network):
         .waiting_for(LogMessageWaitStrategy("Listening on"))
     )
     container.start()
-    proxy_network.connect(container._container.id, aliases=["chasm"])
+    proxy_network.connect(container.get_wrapped_container().id, aliases=["chasm"])
     yield container
     container.stop()
 
@@ -84,11 +82,11 @@ def squid_container(proxy_network):
 
     container = (
         DockerContainer("ubuntu/squid:5.2-22.04_beta")
-        .with_exposed_ports(3128)
+        .with_exposed_ports(3128, 3129)
         .with_volume_mapping(squid_conf_path, "/etc/squid/squid.conf", "ro")
     )
     container.start()
-    proxy_network.connect(container._container.id)
+    proxy_network.connect(container.get_wrapped_container().id)
     time.sleep(3)
     yield container
     container.stop()
@@ -99,6 +97,14 @@ def proxy_url(squid_container):
     host = squid_container.get_container_host_ip()
     port = squid_container.get_exposed_port(3128)
     return f"http://{host}:{port}"
+
+
+@pytest.fixture(scope="session")
+def proxy_auth_host_port(squid_container):
+    """host:port of the fixture proxy port that requires Basic credentials."""
+    host = squid_container.get_container_host_ip()
+    port = squid_container.get_exposed_port(3129)
+    return f"{host}:{port}"
 
 
 @pytest.fixture(scope="session")

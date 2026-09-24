@@ -1,5 +1,3 @@
-# ruff: noqa
-# mypy: ignore-errors
 # Zitadel SDK
 # The Zitadel SDK is a convenience wrapper around the Zitadel APIs to assist you in integrating with your Zitadel environment. This SDK enables you to handle resources, settings, and configurations within the Zitadel platform.
 #
@@ -15,7 +13,7 @@ import re
 import uuid
 from datetime import timezone
 from enum import Enum
-from typing import Any, ClassVar, Optional, Type, TypeVar, Union, cast
+from typing import Any, ClassVar, Optional, Type, TypeVar, Union, cast, overload
 
 from dateutil.parser import parse
 from pydantic import BaseModel, SecretStr, TypeAdapter
@@ -29,11 +27,9 @@ from zitadel_client._duration import (
     _parse_timedelta_protobuf,
 )
 
-# SerializationError inherits from the branded SDK root so callers can catch
-# every SDK error (transport + serde) with one `except ZitadelException`.
-# The errors module imports ObjectSerializer lazily (inside a method), so this
+# The errors package imports ObjectSerializer lazily (inside a method), so this
 # top-level import does not create a cycle.
-from zitadel_client.errors import ZitadelException
+from zitadel_client.errors.serialization_exception import SerializationException
 
 import zitadel_client.models
 
@@ -65,25 +61,6 @@ def _dict_adapter(inner: Any) -> TypeAdapter[Any]:
         cached = TypeAdapter(dict[str, inner])
         _DICT_ADAPTER_CACHE[inner] = cached
     return cached
-
-
-class SerializationError(ZitadelException):
-    """Exception raised when serialization or deserialization fails."""
-
-    def __init__(self, message: str, cause: Optional[Exception] = None):
-        super().__init__(message)
-        # Stored privately and exposed via read-only @property getters so a
-        # caught error's fields cannot be reassigned after construction.
-        self._message = message
-        self._cause = cause
-
-    @property
-    def message(self) -> str:
-        return self._message
-
-    @property
-    def cause(self) -> Optional[Exception]:
-        return self._cause
 
 
 class ObjectSerializer:
@@ -174,21 +151,35 @@ class ObjectSerializer:
                 allow_nan=False,
             )
         except Exception as e:
-            raise SerializationError(f"Failed to serialize object to JSON: {e}", e)
+            raise SerializationException(f"Failed to serialize object to JSON: {e}", e)
 
     @staticmethod
     def _reject_nonfinite_constant(name: str) -> Any:
         # Raised when json.loads encounters NaN/Infinity/-Infinity literals.
         # The default parse_constant accepts them silently; we reject so
         # non-spec-compliant JSON from a misbehaving server fails loudly.
-        raise SerializationError(
+        raise SerializationException(
             f"Non-finite JSON number '{name}' is forbidden by RFC 8259", None
         )
 
+    @overload
+    def deserialize(self, json_string: Optional[str], target_type: str) -> Any: ...
+
+    @overload
+    def deserialize(
+        self, json_string: Optional[str], target_type: Type[T]
+    ) -> Optional[T]: ...
+
     def deserialize(
         self, json_string: Optional[str], target_type: Union[str, Type[T]]
-    ) -> Optional[T]:
-        """Deserialize a JSON string to an object of the specified type."""
+    ) -> Any:
+        """Deserialize a JSON string to an object of the specified type.
+
+        A target named by a string (a model name, or a ``List[...]`` or
+        ``Dict[...]`` of one) cannot be typed statically, so that form
+        returns ``Any``; a class target
+        returns an instance of that class, or ``None`` for an empty body.
+        """
         try:
             if json_string is None or json_string == "":
                 return None
@@ -208,9 +199,9 @@ class ObjectSerializer:
             # to the declared Optional[T] for callers without an inline override.
             return cast(Optional[T], self._deserialize(data, target_type))
         except json.JSONDecodeError as e:
-            raise SerializationError(f"Failed to parse JSON: {e}", e)
+            raise SerializationException(f"Failed to parse JSON: {e}", e)
         except Exception as e:
-            raise SerializationError(
+            raise SerializationException(
                 f"Failed to deserialize JSON to {target_type}: {e}", e
             )
 
@@ -264,7 +255,7 @@ class ObjectSerializer:
                 _visited = set()
             obj_id = id(obj)
             if obj_id in _visited:
-                raise SerializationError(
+                raise SerializationException(
                     "Circular reference detected during serialization"
                 )
             _visited.add(obj_id)
@@ -466,8 +457,9 @@ class ObjectSerializer:
         # ambiguous payloads non-deterministically.
         any_of_schemas: tuple[str, ...] = getattr(klass, "any_of_schemas", None) or ()
         one_of_schemas: tuple[str, ...] = getattr(klass, "one_of_schemas", None) or ()
-        if hasattr(klass, "get_discriminator_value") and isinstance(data, dict):
-            mapped = klass.get_discriminator_value(data)
+        get_discriminator_value = getattr(klass, "get_discriminator_value", None)
+        if get_discriminator_value is not None and isinstance(data, dict):
+            mapped = get_discriminator_value(data)
             if mapped:
                 instance = self._deserialize(data, mapped)
                 return klass(instance)

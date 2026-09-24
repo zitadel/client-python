@@ -1,5 +1,3 @@
-# ruff: noqa
-# mypy: ignore-errors
 from types import MappingProxyType
 
 from zitadel_client.configuration import Configuration, ConfigurationBuilder
