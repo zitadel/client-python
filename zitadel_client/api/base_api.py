@@ -110,7 +110,7 @@ class BaseApi:
             config: API-level configuration (base URL and default headers).
                 If ``None``, the default configuration is used.
         """
-        self._config = config or Configuration.get_default()
+        self._config = config or Configuration.default_configuration()
         self._api_client = api_client or DefaultApiClient()
         self._authenticator = authenticator
         self._object_serializer = ObjectSerializer()

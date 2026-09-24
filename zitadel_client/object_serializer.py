@@ -63,6 +63,44 @@ def _dict_adapter(inner: Any) -> TypeAdapter[Any]:
     return cached
 
 
+# Maximum allowed JSON nesting depth. Python's json.loads recurses through
+# the interpreter stack, so a malicious 100k-deep `{"a":{"a":...}}` payload
+# would exhaust it. Matches the 1000-cap Java/Kotlin Jackson use; Go uses
+# the same. C# is stricter (64). F5 follow-up.
+_MAX_JSON_DEPTH = 1000
+
+
+def _json_max_depth(data: str) -> int:
+    """Return the maximum nesting depth of ``{``/``[`` containers.
+
+    Characters inside string literals are ignored. A cheap pre-flight scan
+    used to refuse a deeply-nested payload before invoking ``json.loads``.
+    """
+    depth = 0
+    deepest = 0
+    in_string = False
+    escaped = False
+    for char in data:
+        if in_string:
+            if escaped:
+                escaped = False
+            elif char == "\\":
+                escaped = True
+            elif char == '"':
+                in_string = False
+            continue
+        if char == '"':
+            in_string = True
+        elif char in "{[":
+            depth += 1
+            if depth > deepest:
+                deepest = depth
+        elif char in "}]":
+            if depth > 0:
+                depth -= 1
+    return deepest
+
+
 class ObjectSerializer:
     """Handles JSON serialization and deserialization for API requests and responses.
 
@@ -162,6 +200,33 @@ class ObjectSerializer:
             f"Non-finite JSON number '{name}' is forbidden by RFC 8259", None
         )
 
+    @staticmethod
+    def parse_json(json_string: str) -> Any:
+        """Parse JSON text into a plain Python value.
+
+        Payloads that exceed the ``_MAX_JSON_DEPTH`` nesting cap are refused
+        (DoS guard for malicious deeply-nested payloads).
+
+        :param json_string: the raw JSON text
+        :return: the parsed value
+        :raises SerializationException: if the depth limit is exceeded or
+            parsing fails
+        """
+        depth = _json_max_depth(json_string)
+        if depth > _MAX_JSON_DEPTH:
+            raise SerializationException(
+                f"JSON nesting depth {depth} exceeds limit {_MAX_JSON_DEPTH}", None
+            )
+        try:
+            return json.loads(
+                json_string,
+                parse_constant=ObjectSerializer._reject_nonfinite_constant,
+            )
+        except SerializationException:
+            raise
+        except Exception as e:
+            raise SerializationException(f"Failed to parse JSON: {e}", e)
+
     @overload
     def deserialize(self, json_string: Optional[str], target_type: str) -> Any: ...
 
@@ -191,15 +256,12 @@ class ObjectSerializer:
             if json_string.startswith("﻿"):
                 json_string = json_string[1:]
 
-            data = json.loads(
-                json_string,
-                parse_constant=ObjectSerializer._reject_nonfinite_constant,
-            )
+            data = ObjectSerializer.parse_json(json_string)
             # _deserialize is dynamically typed (returns Any); narrow it back
             # to the declared Optional[T] for callers without an inline override.
             return cast(Optional[T], self._deserialize(data, target_type))
-        except json.JSONDecodeError as e:
-            raise SerializationException(f"Failed to parse JSON: {e}", e)
+        except SerializationException:
+            raise
         except Exception as e:
             raise SerializationException(
                 f"Failed to deserialize JSON to {target_type}: {e}", e

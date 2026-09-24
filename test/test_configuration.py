@@ -170,29 +170,26 @@ class TestConfigurationServerResolution:
         assert config.base_url == "https://override.example.com"
 
 
-class TestConfigurationSingleton:
-    def teardown_method(self) -> None:
-        Configuration.set_default(None)
-
-    def test_get_default_returns_instance(self) -> None:
-        config = Configuration.get_default()
+class TestDefaultConfiguration:
+    def test_default_configuration_returns_instance(self) -> None:
+        config = Configuration.default_configuration()
 
         assert isinstance(config, Configuration)
         assert config.base_url == "https://zitadel.com"
 
-    def test_get_default_returns_same_instance(self) -> None:
-        first = Configuration.get_default()
-        second = Configuration.get_default()
+    def test_default_configuration_returns_a_fresh_instance(self) -> None:
+        # There is no settable process-wide default: every call builds a new
+        # Configuration, so nothing one caller does can change what another
+        # gets.
+        first = Configuration.default_configuration()
+        second = Configuration.default_configuration()
 
-        assert first is second
+        assert first is not second
+        assert first.base_url == second.base_url
 
-    def test_set_default_changes_default(self) -> None:
-        custom = Configuration.builder().base_url("https://custom.example.com").build()
-
-        Configuration.set_default(custom)
-
-        assert Configuration.get_default() is custom
-        assert Configuration.get_default().base_url == "https://custom.example.com"
+    def test_configuration_has_no_settable_process_wide_default(self) -> None:
+        assert not hasattr(Configuration, "set_default")
+        assert not hasattr(Configuration, "get_default")
 
 
 class TestConfigurationImmutability:

@@ -7,9 +7,7 @@
 
 from dataclasses import dataclass, field
 from types import MappingProxyType
-from typing import ClassVar, Dict, Mapping, Optional
-
-from typing_extensions import Self
+from typing import Dict, Mapping, Optional
 
 from .server_configuration import ServerConfiguration
 
@@ -48,8 +46,6 @@ class Configuration:
     and authentication headers.
     """
 
-    _default: ClassVar[Optional["Configuration"]] = None
-
     def __post_init__(self) -> None:
         if not isinstance(self.default_headers, MappingProxyType):
             object.__setattr__(
@@ -57,16 +53,9 @@ class Configuration:
             )
 
     @classmethod
-    def get_default(cls) -> "Configuration":
-        """Return the default configuration instance, creating it lazily if needed."""
-        if cls._default is None:
-            cls._default = cls()
-        return cls._default
-
-    @classmethod
-    def set_default(cls, configuration: Optional[Self]) -> None:
-        """Set the default configuration instance."""
-        cls._default = configuration
+    def default_configuration(cls) -> "Configuration":
+        """Return a Configuration with default values."""
+        return ConfigurationBuilder().build()
 
     @classmethod
     def builder(cls) -> "ConfigurationBuilder":
