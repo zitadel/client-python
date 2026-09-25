@@ -1249,7 +1249,6 @@ dependencies = [
     { name = "pydantic", extra = ["email"] },
     { name = "pyjwt", extra = ["crypto"] },
     { name = "python-dateutil" },
-    { name = "typing-extensions" },
     { name = "urllib3" },
     { name = "zstandard" },
 ]
@@ -1280,7 +1279,6 @@ requires-dist = [
     { name = "pydantic", extras = ["email"], specifier = ">=2,<3" },
     { name = "pyjwt", extras = ["crypto"], specifier = ">=2.0.0" },
     { name = "python-dateutil", specifier = ">=2.8.2" },
-    { name = "typing-extensions", specifier = ">=4.7.1" },
     { name = "urllib3", specifier = ">=2.1.0,<3.0.0" },
     { name = "zstandard", specifier = ">=0.19.0" },
 ]
