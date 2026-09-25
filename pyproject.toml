@@ -44,11 +44,14 @@ include = ["zitadel_client*"]
 [tool.setuptools.package-data]
 zitadel_client = ["py.typed"]
 
-# Ruff, mypy and pyright run with their industry-default configuration; no
-# custom or relaxed rules, line length or rule selection are declared here.
-# Findings inherent to generated code are silenced per file via the
-# `# ruff: noqa` and `# mypy: ignore-errors` headers emitted at the top of
-# every generated module, never inline and never by relaxing the config.
+[tool.ruff.lint.per-file-ignores]
+# Two schemas that reference each other (A has a B, B has an A) generate two
+# modules that import each other, so the model imports have to follow the
+# class definition or the cycle fails at import time.
+"zitadel_client/models/*.py" = ["E402"]
+# The typed subclasses import the root exception from this module, so their
+# re-export can only follow the class definition.
+"zitadel_client/errors/__init__.py" = ["E402"]
 
 [tool.fawltydeps]
 # FawltyDeps maps imports to declared deps statically; the entries below are
