@@ -7,20 +7,9 @@
 
 from __future__ import annotations
 
-import re
-import warnings
-from pydantic import (
-    BaseModel,
-    ConfigDict,
-    Field,
-    field_validator,
-    model_serializer,
-    model_validator,
-)
-from pydantic import StrictBool, StrictFloat, StrictInt, StrictStr
-from typing import Any, Callable, ClassVar, Dict, List, Optional, Set, Union
-from typing_extensions import Self
-from enum import Enum
+from pydantic import BaseModel, ConfigDict, Field
+from pydantic import StrictBool
+from typing import Optional
 
 
 class FeatureServiceFeatureFlag(BaseModel):
@@ -42,7 +31,6 @@ class FeatureServiceFeatureFlag(BaseModel):
     )
 
 
-from pydantic import StrictBool
 from zitadel_client.models.feature_service_source import FeatureServiceSource
 
 FeatureServiceFeatureFlag.model_rebuild(raise_errors=False)

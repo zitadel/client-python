@@ -7,12 +7,8 @@
 
 from __future__ import annotations
 
-from typing import Any, Dict, List, Optional
-from pydantic import AwareDatetime, StrictBool, StrictFloat, StrictInt, StrictStr
+from typing import Any, Dict, Optional
 
-from zitadel_client.models.settings_service_connect_error import (
-    SettingsServiceConnectError,
-)
 from zitadel_client.models.settings_service_get_active_identity_providers_request import (
     SettingsServiceGetActiveIdentityProvidersRequest,
 )
@@ -89,8 +85,7 @@ from zitadel_client.models.settings_service_set_security_settings_response impor
 from ..api_client import ApiClient
 from ..api_result import ApiResult
 from ..configuration import Configuration
-from .base_api import BaseApi, _is_valid_cookie_value
-from ..value_serializer import ValueSerializer
+from .base_api import BaseApi
 from ..auth.authenticator import Authenticator
 from ..errors import ApiException
 

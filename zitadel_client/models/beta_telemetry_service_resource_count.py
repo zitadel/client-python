@@ -7,20 +7,9 @@
 
 from __future__ import annotations
 
-import re
-import warnings
-from pydantic import (
-    BaseModel,
-    ConfigDict,
-    Field,
-    field_validator,
-    model_serializer,
-    model_validator,
-)
-from pydantic import StrictBool, StrictFloat, StrictInt, StrictStr
-from typing import Any, Callable, ClassVar, Dict, List, Optional, Set, Union
-from typing_extensions import Self
-from enum import Enum
+from pydantic import BaseModel, ConfigDict, Field
+from pydantic import StrictInt, StrictStr
+from typing import Optional
 
 
 class BetaTelemetryServiceResourceCount(BaseModel):
@@ -72,8 +61,6 @@ class BetaTelemetryServiceResourceCount(BaseModel):
 
 
 from pydantic import AwareDatetime
-from pydantic import StrictInt
-from pydantic import StrictStr
 from zitadel_client.models.beta_telemetry_service_count_parent_type import (
     BetaTelemetryServiceCountParentType,
 )

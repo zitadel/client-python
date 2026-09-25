@@ -7,12 +7,8 @@
 
 from __future__ import annotations
 
-from typing import Any, Dict, List, Optional
-from pydantic import AwareDatetime, StrictBool, StrictFloat, StrictInt, StrictStr
+from typing import Any, Dict, Optional
 
-from zitadel_client.models.beta_app_service_connect_error import (
-    BetaAppServiceConnectError,
-)
 from zitadel_client.models.beta_app_service_create_application_key_request import (
     BetaAppServiceCreateApplicationKeyRequest,
 )
@@ -89,8 +85,7 @@ from zitadel_client.models.beta_app_service_update_application_response import (
 from ..api_client import ApiClient
 from ..api_result import ApiResult
 from ..configuration import Configuration
-from .base_api import BaseApi, _is_valid_cookie_value
-from ..value_serializer import ValueSerializer
+from .base_api import BaseApi
 from ..auth.authenticator import Authenticator
 from ..errors import ApiException
 

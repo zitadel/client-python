@@ -7,20 +7,9 @@
 
 from __future__ import annotations
 
-import re
-import warnings
-from pydantic import (
-    BaseModel,
-    ConfigDict,
-    Field,
-    field_validator,
-    model_serializer,
-    model_validator,
-)
-from pydantic import StrictBool, StrictFloat, StrictInt, StrictStr
-from typing import Any, Callable, ClassVar, Dict, List, Optional, Set, Union
-from typing_extensions import Self
-from enum import Enum
+from pydantic import BaseModel, ConfigDict, Field
+from pydantic import StrictStr
+from typing import Optional
 
 
 class SettingsServiceLegalAndSupportSettings(BaseModel):
@@ -78,7 +67,6 @@ class SettingsServiceLegalAndSupportSettings(BaseModel):
     )
 
 
-from pydantic import StrictStr
 from zitadel_client.models.settings_service_resource_owner_type import (
     SettingsServiceResourceOwnerType,
 )

@@ -7,20 +7,10 @@
 
 from __future__ import annotations
 
-import re
 import warnings
-from pydantic import (
-    BaseModel,
-    ConfigDict,
-    Field,
-    field_validator,
-    model_serializer,
-    model_validator,
-)
-from pydantic import StrictBool, StrictFloat, StrictInt, StrictStr
-from typing import Any, Callable, ClassVar, Dict, List, Optional, Set, Union
-from typing_extensions import Self
-from enum import Enum
+from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pydantic import StrictBool, StrictStr
+from typing import Any, List, Optional
 
 
 class SettingsServiceLoginSettings(BaseModel):
@@ -153,8 +143,6 @@ class SettingsServiceLoginSettings(BaseModel):
     )
 
 
-from pydantic import StrictBool
-from pydantic import StrictStr
 from zitadel_client._duration import ProtobufDuration
 from zitadel_client.models.settings_service_multi_factor_type import (
     SettingsServiceMultiFactorType,

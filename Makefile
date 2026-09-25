@@ -50,4 +50,9 @@ prune:
 # Format the freshly generated tree so `generate` is self-contained and a
 # subsequent format-check is a no-op. Run via uv so the pinned ruff is used.
 format:
+	# Strip the unused imports the generated model import-block emits before
+	# formatting, matching the generator's own formatter step. Without this a
+	# regenerated tree fails `make lint` (ruff F401/F811) even though the code
+	# is otherwise correct.
+	uv run ruff check --select F401,F811 --fix --exit-zero --quiet .
 	uv run ruff format .

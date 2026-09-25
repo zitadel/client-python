@@ -7,19 +7,9 @@
 
 from __future__ import annotations
 
-import re
-import warnings
-from pydantic import (
-    BaseModel,
-    ConfigDict,
-    Field,
-    field_validator,
-    model_serializer,
-    model_validator,
-)
-from pydantic import StrictBool, StrictFloat, StrictInt, StrictStr
-from typing import Any, Callable, ClassVar, Dict, List, Optional, Set, Union
-from typing_extensions import Self
+from pydantic import BaseModel, ConfigDict, Field
+from pydantic import StrictStr
+from typing import Optional
 
 
 class ApplicationServiceCreateApplicationRequest(BaseModel):
@@ -63,7 +53,6 @@ class ApplicationServiceCreateApplicationRequest(BaseModel):
     )
 
 
-from pydantic import StrictStr
 from zitadel_client.models.application_service_create_api_application_request import (
     ApplicationServiceCreateAPIApplicationRequest,
 )

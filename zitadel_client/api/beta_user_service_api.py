@@ -7,8 +7,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Dict, List, Optional
-from pydantic import AwareDatetime, StrictBool, StrictFloat, StrictInt, StrictStr
+from typing import Any, Dict, Optional
 
 from zitadel_client.models.beta_user_service_add_human_user_request import (
     BetaUserServiceAddHumanUserRequest,
@@ -33,9 +32,6 @@ from zitadel_client.models.beta_user_service_add_otpsms_request import (
 )
 from zitadel_client.models.beta_user_service_add_otpsms_response import (
     BetaUserServiceAddOTPSMSResponse,
-)
-from zitadel_client.models.beta_user_service_connect_error import (
-    BetaUserServiceConnectError,
 )
 from zitadel_client.models.beta_user_service_create_passkey_registration_link_request import (
     BetaUserServiceCreatePasskeyRegistrationLinkRequest,
@@ -221,8 +217,7 @@ from zitadel_client.models.beta_user_service_verify_u2_f_registration_response i
 from ..api_client import ApiClient
 from ..api_result import ApiResult
 from ..configuration import Configuration
-from .base_api import BaseApi, _is_valid_cookie_value
-from ..value_serializer import ValueSerializer
+from .base_api import BaseApi
 from ..auth.authenticator import Authenticator
 from ..errors import ApiException
 

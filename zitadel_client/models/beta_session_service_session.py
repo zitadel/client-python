@@ -7,19 +7,9 @@
 
 from __future__ import annotations
 
-import re
-import warnings
-from pydantic import (
-    BaseModel,
-    ConfigDict,
-    Field,
-    field_validator,
-    model_serializer,
-    model_validator,
-)
-from pydantic import StrictBool, StrictFloat, StrictInt, StrictStr
-from typing import Any, Callable, ClassVar, Dict, List, Optional, Set, Union
-from typing_extensions import Self
+from pydantic import BaseModel, ConfigDict, Field
+from pydantic import StrictStr
+from typing import Dict, Optional
 
 
 class BetaSessionServiceSession(BaseModel):
@@ -63,7 +53,6 @@ class BetaSessionServiceSession(BaseModel):
 
 from pydantic import AwareDatetime
 from pydantic import Base64Bytes
-from pydantic import StrictStr
 from zitadel_client.models.beta_session_service_factors import BetaSessionServiceFactors
 from zitadel_client.models.beta_session_service_user_agent import (
     BetaSessionServiceUserAgent,

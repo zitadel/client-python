@@ -7,19 +7,9 @@
 
 from __future__ import annotations
 
-import re
-import warnings
-from pydantic import (
-    BaseModel,
-    ConfigDict,
-    Field,
-    field_validator,
-    model_serializer,
-    model_validator,
-)
-from pydantic import StrictBool, StrictFloat, StrictInt, StrictStr
-from typing import Any, Callable, ClassVar, Dict, List, Optional, Set, Union
-from typing_extensions import Self
+from pydantic import BaseModel, ConfigDict, Field
+from pydantic import StrictBool
+from typing import Optional
 
 
 class SettingsServiceGetActiveIdentityProvidersRequest(BaseModel):
@@ -46,7 +36,6 @@ class SettingsServiceGetActiveIdentityProvidersRequest(BaseModel):
     )
 
 
-from pydantic import StrictBool
 from zitadel_client.models.settings_service_request_context import (
     SettingsServiceRequestContext,
 )

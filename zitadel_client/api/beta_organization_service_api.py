@@ -7,8 +7,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Dict, List, Optional
-from pydantic import AwareDatetime, StrictBool, StrictFloat, StrictInt, StrictStr
+from typing import Any, Dict, Optional
 
 from zitadel_client.models.beta_organization_service_activate_organization_request import (
     BetaOrganizationServiceActivateOrganizationRequest,
@@ -21,9 +20,6 @@ from zitadel_client.models.beta_organization_service_add_organization_domain_req
 )
 from zitadel_client.models.beta_organization_service_add_organization_domain_response import (
     BetaOrganizationServiceAddOrganizationDomainResponse,
-)
-from zitadel_client.models.beta_organization_service_connect_error import (
-    BetaOrganizationServiceConnectError,
 )
 from zitadel_client.models.beta_organization_service_create_organization_request import (
     BetaOrganizationServiceCreateOrganizationRequest,
@@ -101,8 +97,7 @@ from zitadel_client.models.beta_organization_service_verify_organization_domain_
 from ..api_client import ApiClient
 from ..api_result import ApiResult
 from ..configuration import Configuration
-from .base_api import BaseApi, _is_valid_cookie_value
-from ..value_serializer import ValueSerializer
+from .base_api import BaseApi
 from ..auth.authenticator import Authenticator
 from ..errors import ApiException
 

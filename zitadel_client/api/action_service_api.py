@@ -7,8 +7,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Dict, List, Optional
-from pydantic import AwareDatetime, StrictBool, StrictFloat, StrictInt, StrictStr
+from typing import Any, Dict, Optional
 
 from zitadel_client.models.action_service_activate_public_key_request import (
     ActionServiceActivatePublicKeyRequest,
@@ -22,7 +21,6 @@ from zitadel_client.models.action_service_add_public_key_request import (
 from zitadel_client.models.action_service_add_public_key_response import (
     ActionServiceAddPublicKeyResponse,
 )
-from zitadel_client.models.action_service_connect_error import ActionServiceConnectError
 from zitadel_client.models.action_service_create_target_request import (
     ActionServiceCreateTargetRequest,
 )
@@ -96,8 +94,7 @@ from zitadel_client.models.action_service_update_target_response import (
 from ..api_client import ApiClient
 from ..api_result import ApiResult
 from ..configuration import Configuration
-from .base_api import BaseApi, _is_valid_cookie_value
-from ..value_serializer import ValueSerializer
+from .base_api import BaseApi
 from ..auth.authenticator import Authenticator
 from ..errors import ApiException
 

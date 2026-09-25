@@ -7,20 +7,9 @@
 
 from __future__ import annotations
 
-import re
-import warnings
-from pydantic import (
-    BaseModel,
-    ConfigDict,
-    Field,
-    field_validator,
-    model_serializer,
-    model_validator,
-)
-from pydantic import StrictBool, StrictFloat, StrictInt, StrictStr
-from typing import Any, Callable, ClassVar, Dict, List, Optional, Set, Union
-from typing_extensions import Self
-from enum import Enum
+from pydantic import BaseModel, ConfigDict, Field
+from pydantic import StrictStr
+from typing import List, Optional
 
 
 class BetaUserServiceUser(BaseModel):
@@ -50,7 +39,6 @@ class BetaUserServiceUser(BaseModel):
     )
 
 
-from pydantic import StrictStr
 from zitadel_client.models.beta_user_service_details import BetaUserServiceDetails
 from zitadel_client.models.beta_user_service_human_user import BetaUserServiceHumanUser
 from zitadel_client.models.beta_user_service_machine_user import (

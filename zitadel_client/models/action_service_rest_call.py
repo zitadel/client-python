@@ -7,19 +7,9 @@
 
 from __future__ import annotations
 
-import re
-import warnings
-from pydantic import (
-    BaseModel,
-    ConfigDict,
-    Field,
-    field_validator,
-    model_serializer,
-    model_validator,
-)
-from pydantic import StrictBool, StrictFloat, StrictInt, StrictStr
-from typing import Any, Callable, ClassVar, Dict, List, Optional, Set, Union
-from typing_extensions import Self
+from pydantic import BaseModel, ConfigDict, Field
+from pydantic import StrictBool
+from typing import Optional
 
 
 class ActionServiceRESTCall(BaseModel):
@@ -43,7 +33,5 @@ class ActionServiceRESTCall(BaseModel):
         protected_namespaces=(),
     )
 
-
-from pydantic import StrictBool
 
 ActionServiceRESTCall.model_rebuild(raise_errors=False)

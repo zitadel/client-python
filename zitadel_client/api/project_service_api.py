@@ -7,8 +7,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Dict, List, Optional
-from pydantic import AwareDatetime, StrictBool, StrictFloat, StrictInt, StrictStr
+from typing import Any, Dict, Optional
 
 from zitadel_client.models.project_service_activate_project_grant_request import (
     ProjectServiceActivateProjectGrantRequest,
@@ -27,9 +26,6 @@ from zitadel_client.models.project_service_add_project_role_request import (
 )
 from zitadel_client.models.project_service_add_project_role_response import (
     ProjectServiceAddProjectRoleResponse,
-)
-from zitadel_client.models.project_service_connect_error import (
-    ProjectServiceConnectError,
 )
 from zitadel_client.models.project_service_create_project_grant_request import (
     ProjectServiceCreateProjectGrantRequest,
@@ -119,8 +115,7 @@ from zitadel_client.models.project_service_update_project_role_response import (
 from ..api_client import ApiClient
 from ..api_result import ApiResult
 from ..configuration import Configuration
-from .base_api import BaseApi, _is_valid_cookie_value
-from ..value_serializer import ValueSerializer
+from .base_api import BaseApi
 from ..auth.authenticator import Authenticator
 from ..errors import ApiException
 

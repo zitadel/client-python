@@ -7,20 +7,9 @@
 
 from __future__ import annotations
 
-import re
-import warnings
-from pydantic import (
-    BaseModel,
-    ConfigDict,
-    Field,
-    field_validator,
-    model_serializer,
-    model_validator,
-)
-from pydantic import StrictBool, StrictFloat, StrictInt, StrictStr
-from typing import Any, Callable, ClassVar, Dict, List, Optional, Set, Union
-from typing_extensions import Self
-from enum import Enum
+from pydantic import BaseModel, ConfigDict, Field
+from pydantic import StrictStr
+from typing import List, Optional
 
 
 class BetaInstanceServiceListCustomDomainsRequest(BaseModel):
@@ -52,7 +41,6 @@ class BetaInstanceServiceListCustomDomainsRequest(BaseModel):
     )
 
 
-from pydantic import StrictStr
 from zitadel_client.models.beta_instance_service_domain_field_name import (
     BetaInstanceServiceDomainFieldName,
 )
