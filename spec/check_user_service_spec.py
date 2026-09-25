@@ -1,5 +1,6 @@
+import asyncio
 import uuid
-from typing import AsyncGenerator, Dict
+from typing import AsyncGenerator, Dict, List, Optional
 
 import pytest
 
@@ -90,8 +91,16 @@ class TestUserServiceSanityCheckSpec:
     ) -> None:
         """Includes the created user when listing all users."""
         request = UserServiceListUsersRequest(queries=[])
-        response = await client.user_service.list_users(request)
-        ids = [u.user_id for u in response.result]  # type: ignore
+        # Zitadel serves the user list from an eventually-consistent read
+        # model, so a just-created user may not appear on the first call. Poll
+        # briefly (bounded) to let the projection catch up before asserting.
+        ids: List[Optional[str]] = []
+        for _ in range(20):
+            response = await client.user_service.list_users(request)
+            ids = [u.user_id for u in response.result]  # type: ignore
+            if user.user_id in ids:
+                break
+            await asyncio.sleep(0.5)
         assert user.user_id in ids
 
     async def test_updates_user_email_and_reflects_in_get(
