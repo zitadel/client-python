@@ -1,0 +1,13 @@
+# Every dev dependency an emitted test imports, one per line as
+# `<name> <version-range>  # <which test needs it>`. This file is
+# generator-owned and rewritten on every generation. It is the contract between
+# the generator and a client that keep-lists its own pyproject.toml: a
+# dependency added to a generated test but missing from the client's manifest
+# kills the whole suite at collection, so the test bootstrap (conftest.py)
+# probes this set up front and names this file when one is missing.
+pytest >=7.0.0  # every module under test/
+pytest-asyncio >=0.21.0  # asyncio_mode = "auto"; the async transport tests
+pytest-cov >=4.0.0  # the --cov flags in [tool.pytest.ini_options] addopts
+testcontainers >=4.0.0  # conftest.py starts the mock server and the proxy
+docker >=7.0.0  # conftest.py joins both containers to a Docker network
+opentelemetry-sdk >=1.20.0  # test/test_trace_context_util.py

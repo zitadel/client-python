@@ -1,10 +1,17 @@
 from typing import Dict
 
 import pytest
+from cryptography.hazmat.primitives.asymmetric import rsa
+from cryptography.hazmat.primitives.serialization import (
+    Encoding,
+    NoEncryption,
+    PrivateFormat,
+)
 
-import zitadel_client as zitadel
 from spec.base_spec import docker_compose as docker_compose
-from zitadel_client import ZitadelError
+from zitadel_client.auth.web_token_authenticator import WebTokenAuthenticator
+from zitadel_client.errors.oauth2_server_exception import OAuth2ServerException
+from zitadel_client.zitadel import Zitadel
 
 
 class TestUsePrivateKeySpec:
@@ -15,24 +22,38 @@ class TestUsePrivateKeySpec:
     endpoint works when authenticating via a private key assertion:
 
      1. Retrieve general settings successfully with a valid private key
-     2. Expect an ApiException when using an invalid private key path
+     2. Expect an OAuth2ServerException when signing with an unknown key
 
     Each test instantiates a new client to ensure a clean, stateless call.
     """
 
-    def test_retrieves_general_settings_with_valid_private_key(self, docker_compose: Dict[str, str]) -> None:  # noqa F811
+    async def test_retrieves_general_settings_with_valid_private_key(
+        self, docker_compose: Dict[str, str]
+    ) -> None:  # noqa F811
         """Retrieves general settings successfully with a valid private key."""
-        client = zitadel.Zitadel.with_private_key(
-            docker_compose["base_url"],
-            docker_compose["jwt_key"],
+        client = Zitadel.with_authenticator(
+            WebTokenAuthenticator.from_json(
+                docker_compose["base_url"],
+                docker_compose["jwt_key"],
+            )
         )
-        client.settings.get_general_settings()
+        await client.settings_service.get_general_settings({})
 
-    def test_raises_api_exception_with_invalid_private_key(self, docker_compose: Dict[str, str]) -> None:  # noqa F811
-        """Raises ApiException when using an invalid private key path."""
-        client = zitadel.Zitadel.with_private_key(
-            "https://zitadel.cloud",
-            docker_compose["jwt_key"],
+    async def test_raises_api_exception_with_invalid_private_key(
+        self, docker_compose: Dict[str, str]
+    ) -> None:  # noqa F811
+        """Raises OAuth2ServerException when signing with a key the instance does not know."""
+        key = rsa.generate_private_key(public_exponent=65537, key_size=2048)
+        pem = key.private_bytes(
+            encoding=Encoding.PEM,
+            format=PrivateFormat.PKCS8,
+            encryption_algorithm=NoEncryption(),
+        ).decode("utf-8")
+        client = Zitadel.with_authenticator(
+            WebTokenAuthenticator.builder(docker_compose["base_url"], "invalid", pem)
+            .key_id("invalid")
+            .build()
         )
-        with pytest.raises(ZitadelError):
-            client.settings.get_general_settings()
+        with pytest.raises(OAuth2ServerException) as excinfo:
+            await client.settings_service.get_general_settings({})
+        assert type(excinfo.value) is OAuth2ServerException
