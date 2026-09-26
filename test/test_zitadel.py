@@ -20,7 +20,7 @@ from zitadel_client.auth.no_auth_authenticator import NoAuthAuthenticator
 from zitadel_client.auth.personal_access_token_authenticator import (
     PersonalAccessTokenAuthenticator,
 )
-from zitadel_client.errors import ApiException
+from zitadel_client.errors import ClientException
 from zitadel_client.errors.network_exception import NetworkException
 from zitadel_client.transport_options import TransportOptions
 from zitadel_client.zitadel import Zitadel
@@ -219,7 +219,7 @@ class ZitadelTransportTest(unittest.IsolatedAsyncioTestCase):
                 proxy=f"http://{self.host}:{self.proxy_auth_port}"
             ),
         )
-        with self.assertRaises(ApiException) as context:
+        with self.assertRaises(ClientException) as context:
             await zitadel.settings_service.get_general_settings({})
         self.assertEqual(407, context.exception.status_code)
 
