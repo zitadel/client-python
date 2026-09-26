@@ -2,6 +2,8 @@ import importlib
 import inspect
 import os
 import pkgutil
+import socket
+import time
 import unittest
 import urllib.request
 from typing import Optional
@@ -18,6 +20,7 @@ from zitadel_client.auth.no_auth_authenticator import NoAuthAuthenticator
 from zitadel_client.auth.personal_access_token_authenticator import (
     PersonalAccessTokenAuthenticator,
 )
+from zitadel_client.errors import ApiException
 from zitadel_client.errors.network_exception import NetworkException
 from zitadel_client.transport_options import TransportOptions
 from zitadel_client.zitadel import Zitadel
@@ -31,6 +34,36 @@ def _wait_for_wiremock(host: str, port: str) -> None:
     with urllib.request.urlopen(url, timeout=5) as resp:  # noqa: S310
         if resp.status != 200:
             raise ConnectionError(f"WireMock not ready: {resp.status}")
+
+
+def _wait_for_ports(
+    container: DockerContainer, ports: list[int], timeout: float = 60.0
+) -> None:
+    """Block until every given container port is both published by Docker and
+    accepting TCP connections on the host.
+
+    Both proxy ports must be reachable before their mapped ports are read: 3128
+    is the open proxy and 3129 the same proxy gated by Basic credentials, and a
+    single-port wait can return while 3129 is still unmapped.
+    """
+    host = container.get_container_host_ip()
+    deadline = time.time() + timeout
+    while True:
+        try:
+            for port in ports:
+                mapped = container.get_exposed_port(port)
+                if not mapped:
+                    raise ConnectionError(f"port {port} not mapped yet")
+                with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+                    sock.settimeout(2)
+                    sock.connect((host, int(mapped)))
+            return
+        except (OSError, ValueError, TypeError):
+            if time.time() > deadline:
+                raise TimeoutError(
+                    f"Proxy ports {ports} did not become available in time"
+                )
+            time.sleep(0.2)
 
 
 class ZitadelServicesTest(unittest.TestCase):
@@ -62,6 +95,7 @@ class ZitadelTransportTest(unittest.IsolatedAsyncioTestCase):
     http_port: Optional[str] = None
     https_port: Optional[str] = None
     proxy_port: Optional[str] = None
+    proxy_auth_port: Optional[str] = None
     ca_cert_path: Optional[str] = None
     wiremock: DockerContainer = None
     proxy: DockerContainer = None
@@ -97,7 +131,7 @@ class ZitadelTransportTest(unittest.IsolatedAsyncioTestCase):
         cls.proxy = (
             DockerContainer("ubuntu/squid:6.10-24.10_beta")
             .with_network(cls.network)
-            .with_exposed_ports(3128)
+            .with_exposed_ports(3128, 3129)
             .with_volume_mapping(squid_conf, "/etc/squid/squid.conf", mode="ro")
             .waiting_for(PortWaitStrategy(3128))
         )
@@ -106,7 +140,10 @@ class ZitadelTransportTest(unittest.IsolatedAsyncioTestCase):
         cls.host = cls.wiremock.get_container_host_ip()
         cls.http_port = cls.wiremock.get_exposed_port(8080)
         cls.https_port = cls.wiremock.get_exposed_port(8443)
+
+        _wait_for_ports(cls.proxy, [3128, 3129])
         cls.proxy_port = cls.proxy.get_exposed_port(3128)
+        cls.proxy_auth_port = cls.proxy.get_exposed_port(3129)
 
         _wait_for_wiremock(cls.host, cls.http_port)
 
@@ -167,6 +204,33 @@ class ZitadelTransportTest(unittest.IsolatedAsyncioTestCase):
             ),
             transport_options=TransportOptions(
                 proxy=f"http://{self.host}:{self.proxy_port}"
+            ),
+        )
+        response = await zitadel.settings_service.get_general_settings({})
+        self.assertEqual("http", response.default_language)
+
+    async def test_proxy_requires_credentials(self) -> None:
+        zitadel = Zitadel.with_authenticator(
+            PersonalAccessTokenAuthenticator(
+                "http://wiremock:8080",
+                "test-token",
+            ),
+            transport_options=TransportOptions(
+                proxy=f"http://{self.host}:{self.proxy_auth_port}"
+            ),
+        )
+        with self.assertRaises(ApiException) as context:
+            await zitadel.settings_service.get_general_settings({})
+        self.assertEqual(407, context.exception.status_code)
+
+    async def test_proxy_with_credentials(self) -> None:
+        zitadel = Zitadel.with_authenticator(
+            PersonalAccessTokenAuthenticator(
+                "http://wiremock:8080",
+                "test-token",
+            ),
+            transport_options=TransportOptions(
+                proxy=f"http://user:pass@{self.host}:{self.proxy_auth_port}"
             ),
         )
         response = await zitadel.settings_service.get_general_settings({})

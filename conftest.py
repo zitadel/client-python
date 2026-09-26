@@ -1,5 +1,6 @@
 import importlib.util
 import os
+import socket
 import time
 
 import pytest
@@ -128,9 +129,7 @@ def squid_container(proxy_network):
     from testcontainers.core.container import DockerContainer
 
     host_app_path = os.environ.get("HOST_APP_PATH", os.getcwd())
-    squid_conf_path = os.path.join(
-        host_app_path, "test", "fixtures", "proxy", "squid.conf"
-    )
+    squid_conf_path = os.path.join(host_app_path, "test", "fixtures", "squid.conf")
 
     # ubuntu/squid declares VOLUME /var/log/squid and VOLUME /var/spool/squid,
     # so every proxy container Docker creates leaves two anonymous volumes
@@ -146,7 +145,27 @@ def squid_container(proxy_network):
     )
     container.start()
     proxy_network.connect(container.get_wrapped_container().id)
-    time.sleep(3)
+
+    # 3128 is the open proxy; 3129 is the same proxy gated by Basic credentials.
+    # Wait for both to accept connections rather than sleeping a fixed interval,
+    # which either races the container or wastes time.
+    host = container.get_container_host_ip()
+    deadline = time.time() + 60.0
+    while True:
+        try:
+            for port in (3128, 3129):
+                mapped = container.get_exposed_port(port)
+                if not mapped:
+                    raise ConnectionError(f"port {port} not mapped yet")
+                with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+                    sock.settimeout(2)
+                    sock.connect((host, int(mapped)))
+            break
+        except (OSError, ValueError, TypeError):
+            if time.time() > deadline:
+                raise TimeoutError("Proxy ports 3128/3129 did not become available")
+            time.sleep(0.2)
+
     yield container
     container.stop()
 
