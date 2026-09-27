@@ -2,7 +2,7 @@ import datetime
 
 import pytest
 
-from zitadel_client.value_serializer import ValueSerializer
+from zitadel_client.value_serializer import AllowReservedValue, ValueSerializer
 
 
 class TestValueSerializerPath:
@@ -228,6 +228,11 @@ class TestSpaceDelimitedStyle:
             == "blue black"
         )
 
+    def test_array_with_explode_true_returns_list(self) -> None:
+        assert ValueSerializer.serialize_styled(
+            "color", ["blue", "black"], "query", "array", None, "spaceDelimited", True
+        ) == ["blue", "black"]
+
     def test_scalar_returns_stringified_value(self) -> None:
         assert (
             ValueSerializer.serialize_styled(
@@ -251,6 +256,11 @@ class TestPipeDelimitedStyle:
             )
             == "blue|black"
         )
+
+    def test_array_with_explode_true_returns_list(self) -> None:
+        assert ValueSerializer.serialize_styled(
+            "color", ["blue", "black"], "query", "array", None, "pipeDelimited", True
+        ) == ["blue", "black"]
 
     def test_scalar_returns_stringified_value(self) -> None:
         assert (
@@ -382,6 +392,29 @@ class TestDeepObjectSerialization:
     def test_null_returns_empty_dict(self) -> None:
         result = ValueSerializer.serialize_deep_object("filter", None)
         assert result == {}
+
+
+class TestAllowReserved:
+    """OAS ``allowReserved: true`` query encoding.
+
+    Cross-language parity with the Java ``AllowReservedTests``.
+    """
+
+    def test_reserved_chars_preserved_other_chars_still_encoded(self) -> None:
+        assert (
+            ValueSerializer.encode_query_allowing_reserved("v1.0/beta:rc1")
+            == "v1.0/beta:rc1"
+        )
+        # Space is illegal in a URL and must still be percent-encoded even
+        # when reserved characters are preserved.
+        assert ValueSerializer.encode_query_allowing_reserved("a b:c") == "a%20b:c"
+
+    def test_maybe_allow_reserved_wraps_only_when_allow_reserved_true(self) -> None:
+        assert ValueSerializer.maybe_allow_reserved("plain", False) == "plain"
+        wrapped = ValueSerializer.maybe_allow_reserved("v1/beta", True)
+        assert isinstance(wrapped, AllowReservedValue)
+        assert wrapped.value == "v1/beta"
+        assert ValueSerializer.maybe_allow_reserved(None, True) is None
 
 
 class TestPathEncodingParity:

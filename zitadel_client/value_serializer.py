@@ -11,6 +11,21 @@ from urllib.parse import quote
 from .object_serializer import ObjectSerializer
 
 
+class AllowReservedValue:
+    """Wraps a query value so the query-string builder preserves RFC 3986
+    reserved characters (OAS ``allowReserved: true``).
+
+    Holds the serialized query value (a ``str``, or a ``list`` of strings for
+    exploded parameters) untouched; the query-string builder unwraps it and
+    encodes it with :meth:`ValueSerializer.encode_query_allowing_reserved`.
+    """
+
+    __slots__ = ("value",)
+
+    def __init__(self, value: Union[str, List[str]]) -> None:
+        self.value = value
+
+
 class ValueSerializer:
     """Serializes parameter values for different HTTP locations (path, query, header, form)."""
 
@@ -78,6 +93,46 @@ class ValueSerializer:
         if not value:
             return value
         return quote(value, safe=";=,:@!$&'()*+")
+
+    @staticmethod
+    def encode_query_allowing_reserved(value: str) -> str:
+        """Percent-encode a query value while leaving RFC 3986 reserved
+        characters literal (OAS ``allowReserved: true``).
+
+        Everything that is not RFC 3986 reserved or unreserved -- spaces,
+        control characters, non-ASCII -- is still percent-encoded, so the
+        result is always a valid URL query segment. Only the reserved set
+        ``: / ? # [ ] @ ! $ & ' ( ) * + , ; =`` is left literal. A space
+        becomes ``%20`` (never ``+``), so this uses :func:`quote`, not
+        :func:`quote_plus`.
+
+        Args:
+            value: The raw value to encode.
+
+        Returns:
+            The encoded value with reserved characters preserved.
+        """
+        return quote(value, safe="/?#[]@!$&'()*+,;=:")
+
+    @staticmethod
+    def maybe_allow_reserved(
+        value: Union[str, List[str], None],
+        allow_reserved: bool,
+    ) -> Union[str, List[str], "AllowReservedValue", None]:
+        """Wrap ``value`` in :class:`AllowReservedValue` when the parameter
+        declares ``allowReserved: true``; otherwise return it unchanged.
+
+        Args:
+            value: The serialized query value.
+            allow_reserved: Whether the parameter preserves reserved characters.
+
+        Returns:
+            The value, wrapped iff ``allow_reserved`` is true and the value is
+            not ``None``.
+        """
+        if value is None or not allow_reserved:
+            return value
+        return AllowReservedValue(value)
 
     @classmethod
     def serialize_styled(
@@ -165,11 +220,15 @@ class ValueSerializer:
 
         if style == "spaceDelimited":
             if isinstance(value, list):
+                if explode:
+                    return items
                 return " ".join(items)
             return ObjectSerializer.stringify(value)
 
         if style == "pipeDelimited":
             if isinstance(value, list):
+                if explode:
+                    return items
                 return "|".join(items)
             return ObjectSerializer.stringify(value)
 

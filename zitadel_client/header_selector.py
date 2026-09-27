@@ -52,7 +52,7 @@ class HeaderSelector:
         if accept is None:
             return ""
 
-        filtered_accept = [s for s in accept if s is not None and s]
+        filtered_accept = [s for s in accept if s is not None and s.strip()]
 
         if not filtered_accept:
             return ""

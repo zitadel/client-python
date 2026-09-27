@@ -7,7 +7,7 @@
 
 import asyncio
 from typing import Any, Dict, List, Optional, TypeVar, Union
-from urllib.parse import urlencode
+from urllib.parse import quote_plus, urlencode
 
 from ..api_client import ApiClient
 from ..api_http_response import ApiHttpResponse
@@ -15,6 +15,7 @@ from ..api_result import ApiResult
 from ..default_api_client import DefaultApiClient
 from ..configuration import Configuration
 from ..object_serializer import ObjectSerializer
+from ..value_serializer import ValueSerializer, AllowReservedValue
 from ..header_selector import HeaderSelector
 from ..trace_context_util import inject_trace_context
 from ..errors import ApiException
@@ -184,15 +185,50 @@ class BaseApi:
         if query_params:
             filtered = {k: v for k, v in query_params.items() if v is not None}
             if filtered:
+                # OAS allowReserved: a value wrapped in AllowReservedValue keeps
+                # RFC 3986 reserved characters literal instead of percent-encoding
+                # them. Such values are encoded separately, with a
+                # reserved-preserving quoter, from the default-encoded parameters.
+                # When no parameter opts in, `reserved` stays empty and the output
+                # is byte-identical to encoding every parameter with the default
+                # quoter.
                 normalized: dict[str, str | list[str]] = {}
+                reserved: dict[str, str | list[str]] = {}
                 for k, v in filtered.items():
+                    target = normalized
+                    if isinstance(v, AllowReservedValue):
+                        v = v.value
+                        target = reserved
                     if isinstance(v, list):
-                        normalized[k] = [
+                        target[k] = [
                             self._object_serializer.stringify(item) for item in v
                         ]
                     else:
-                        normalized[k] = self._object_serializer.stringify(v)
-                url += "?" + urlencode(normalized, doseq=True)
+                        target[k] = self._object_serializer.stringify(v)
+                parts: list[str] = []
+                if normalized:
+                    parts.append(urlencode(normalized, doseq=True))
+                if reserved:
+                    reserved_parts: list[str] = []
+                    for reserved_key, reserved_value in reserved.items():
+                        reserved_items = (
+                            reserved_value
+                            if isinstance(reserved_value, list)
+                            else [reserved_value]
+                        )
+                        encoded_key = quote_plus(reserved_key)
+                        for reserved_item in reserved_items:
+                            reserved_parts.append(
+                                encoded_key
+                                + "="
+                                + ValueSerializer.encode_query_allowing_reserved(
+                                    reserved_item
+                                )
+                            )
+                    parts.append("&".join(reserved_parts))
+                query_string = "&".join(parts)
+                if query_string:
+                    url += "?" + query_string
 
         is_multipart = content_type == "multipart/form-data"
         headers = self._header_selector.select_headers(
