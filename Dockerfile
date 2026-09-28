@@ -21,4 +21,4 @@ RUN uv sync --frozen --no-dev --all-extras
 COPY . .
 RUN uv sync --frozen --no-dev --all-extras
 
-CMD ["uv", "run", "python"]
+CMD ["uv", "run", "--no-sync", "python"]

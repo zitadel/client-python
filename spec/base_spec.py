@@ -8,7 +8,9 @@ from typing import Dict, Generator
 import pytest
 
 LOGGER = logging.getLogger(__name__)
-COMPOSE_FILE_PATH: str = os.path.join(os.path.dirname(__file__), "..", "etc", "docker-compose.yaml")
+COMPOSE_FILE_PATH: str = os.path.join(
+    os.path.dirname(__file__), "..", "etc", "docker-compose.yaml"
+)
 COMPOSE_FILE_DIR: str = os.path.dirname(COMPOSE_FILE_PATH)
 
 
@@ -65,7 +67,27 @@ def docker_compose() -> Generator[Dict[str, str], None, None]:
     jwt_key = jwt_key_path
     LOGGER.info(f"Loaded JWT_KEY path: {jwt_key}")
 
-    base_url: str = "http://localhost:8099"
+    port_command: list[str] = [
+        "docker",
+        "compose",
+        "--file",
+        shlex.quote(COMPOSE_FILE_PATH),
+        "port",
+        "zitadel",
+        "8080",
+    ]
+    port_result = subprocess.run(  # noqa: S603
+        port_command, capture_output=True, text=True
+    )
+    if port_result.returncode != 0 or not port_result.stdout.strip():
+        port_error: str = (
+            f"Failed to discover mapped port for zitadel:8080. "
+            f"Exit code: {port_result.returncode}\n{port_result.stderr}"
+        )
+        raise RuntimeError(port_error)
+
+    host_port: str = port_result.stdout.strip().rsplit(":", 1)[-1]
+    base_url: str = f"http://localhost:{host_port}"
     LOGGER.info(f"Exposed BASE_URL: {base_url}")
 
     time.sleep(20)
@@ -77,11 +99,20 @@ def docker_compose() -> Generator[Dict[str, str], None, None]:
     }
 
     LOGGER.info("Tearing down Docker Compose stack...")
-    command = ["docker", "compose", "--file", shlex.quote(COMPOSE_FILE_PATH), "down", "-v"]
+    command = [
+        "docker",
+        "compose",
+        "--file",
+        shlex.quote(COMPOSE_FILE_PATH),
+        "down",
+        "-v",
+    ]
     result = subprocess.run(command, capture_output=True, text=True)  # noqa: S603
 
     LOGGER.info(result.stdout)
     if result.returncode != 0:
-        LOGGER.warning(f"Failed to tear down Docker Compose stack. Exit code: {result.returncode}\n{result.stderr}")
+        LOGGER.warning(
+            f"Failed to tear down Docker Compose stack. Exit code: {result.returncode}\n{result.stderr}"
+        )
     else:
         LOGGER.info("Docker Compose stack torn down.")

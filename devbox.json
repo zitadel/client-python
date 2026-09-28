@@ -2,15 +2,14 @@
   "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.10.7/.schema/devbox.schema.json",
   "packages": [
     "uv@latest",
-    "lefthook@latest",
-    "python310@latest"
+    "python313@latest",
+    "github:mridang/nixpkgs#qodana"
   ],
   "env": {
     "UV_CACHE_DIR": "$PWD/.uv"
   },
   "shell": {
     "init_hook": [
-      "lefthook install",
       "uv sync --all-extras --group dev"
     ],
     "scripts": {
@@ -22,7 +21,7 @@
       ],
       "check": [
         "uv run ruff check .",
-        "uv run ty check"
+        "uv run mypy zitadel_client test spec"
       ],
       "replit": [
         "docker build --tag python-repl --file Dockerfile .",

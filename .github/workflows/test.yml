@@ -30,34 +30,43 @@ jobs:
       - name: Setup uv
         uses: astral-sh/setup-uv@v4
         with:
-          python-version: "3.10"
+          python-version: "3.13"
 
       - name: Install dependencies
         run: uv sync --group dev --frozen
 
       - name: Run Tests
-        run: uv run pytest --junitxml=build/reports/junit.xml
+        run: uv run pytest
 
       - name: Generate coverage report
         uses: mridang/action-test-reporter@v1
         if: always()
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          coverage-file: 'build/coverage/clover.xml'
+          coverage-file: '.out/coverage.xml'
 
       - name: Upload Results
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         if: always()
         with:
           name: test-results
-          path: build/reports/junit.xml
+          path: .out/reports/junit.xml
+          overwrite: true
+
+      - name: Upload Coverage
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        if: always()
+        with:
+          name: test-coverage
+          path: .out/coverage.xml
+          overwrite: true
 
       - name: Generate Report
         if: ${{ always() && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) }}
         uses: dorny/test-reporter@6e6a65b7a0bd2c9197df7d0ae36ac5cee784230c # v2.0.0
         with:
           name: Tests
-          path: build/reports/junit.xml
+          path: .out/reports/junit.xml
           reporter: java-junit
           fail-on-error: 'false'
           token: ${{ secrets.GITHUB_TOKEN }}

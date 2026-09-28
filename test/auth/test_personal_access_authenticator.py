@@ -7,6 +7,29 @@ from zitadel_client.auth.personal_access_token_authenticator import (
 
 class PersonalAccessTokenAuthenticatorTest(unittest.TestCase):
     def test_returns_expected_headers_and_host(self) -> None:
-        auth = PersonalAccessTokenAuthenticator("https://api.example.com", "my-secret-token")
-        self.assertEqual({"Authorization": "Bearer my-secret-token"}, auth.get_auth_headers())
+        auth = PersonalAccessTokenAuthenticator(
+            "https://api.example.com", "my-secret-token"
+        )
+        self.assertEqual(
+            {"Authorization": "Bearer my-secret-token"}, auth.get_auth_headers()
+        )
         self.assertEqual("https://api.example.com", auth.get_host())
+
+    def test_redacts_secret_in_repr(self) -> None:
+        """The personal access token is masked in repr."""
+        token = "tkn-abcdef-do-not-leak"
+        auth = PersonalAccessTokenAuthenticator("https://api.example.com", token)
+
+        rendered = repr(auth)
+
+        self.assertNotIn(token, rendered)
+        self.assertIn("***", rendered)
+
+    def test_rejects_bad_arguments(self) -> None:
+        """An empty token or an invalid host is a ValueError."""
+        with self.assertRaises(ValueError) as token:
+            PersonalAccessTokenAuthenticator("https://api.example.com", "")
+        self.assertIs(ValueError, type(token.exception))
+        with self.assertRaises(ValueError) as host:
+            PersonalAccessTokenAuthenticator("ftp://api.example.com", "my-secret-token")
+        self.assertIs(ValueError, type(host.exception))

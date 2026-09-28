@@ -131,7 +131,9 @@ class _NodeReporter:
             self._add_simple("skipped", "xfail-marked test passes unexpectedly")
         else:
             assert report.longrepr is not None
-            reprcrash: ReprFileLocation | None = getattr(report.longrepr, "reprcrash", None)
+            reprcrash: ReprFileLocation | None = getattr(
+                report.longrepr, "reprcrash", None
+            )
             if reprcrash is not None:
                 message = reprcrash.message
             else:
@@ -193,7 +195,9 @@ class _NodeReporter:
                 skipreason = skipreason[9:]
             details = f"{filename}:{lineno}: {skipreason}"
 
-            skipped = ET.Element("skipped", type="pytest.skip", message=bin_xml_escape(skipreason))
+            skipped = ET.Element(
+                "skipped", type="pytest.skip", message=bin_xml_escape(skipreason)
+            )
             skipped.text = bin_xml_escape(details)
             self.append(skipped)
             self.write_captured_output(report)
@@ -351,7 +355,9 @@ class LogXML:
         self.logging = logging
         self.log_passing_tests = log_passing_tests
         self.report_duration = report_duration
-        self.stats: dict[str, int] = dict.fromkeys(["error", "passed", "failure", "skipped"], 0)
+        self.stats: dict[str, int] = dict.fromkeys(
+            ["error", "passed", "failure", "skipped"], 0
+        )
         # noinspection PyUnresolvedReferences
         self.node_reporters: dict[tuple[str | TestReport, object], _NodeReporter] = {}
         self.node_reporters_ordered: list[_NodeReporter] = []
@@ -545,7 +551,11 @@ class LogXML:
         multiple <testsuite> elements grouped by test class.
         """
         os.makedirs(self.output_dir, exist_ok=True)
-        ts = datetime.fromtimestamp(self.suite_start_time, timezone.utc).astimezone().isoformat()
+        ts = (
+            datetime.fromtimestamp(self.suite_start_time, timezone.utc)
+            .astimezone()
+            .isoformat()
+        )
 
         root = ET.Element("testsuites")
         total_tests = total_failures = total_skipped = total_errors = total_time = 0.0
