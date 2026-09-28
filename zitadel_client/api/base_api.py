@@ -110,6 +110,8 @@ class BaseApi:
                 :class:`DefaultApiClient` with default transport is created.
             config: API-level configuration (base URL and default headers).
                 If ``None``, the default configuration is used.
+            authenticator: Default authenticator for operations without
+                explicit auth.
         """
         self._config = config or Configuration.default_configuration()
         self._api_client = api_client or DefaultApiClient()
@@ -129,7 +131,8 @@ class BaseApi:
         return_type: Optional[str],
         auth: Union[Authenticator, "_NoAuth", None] = None,
     ) -> "ApiResult[Any]":
-        """Invoke an API operation and return the full result.
+        """Invoke an API operation and return the full result including status
+        code, headers, and raw body alongside the deserialized data.
 
         Args:
             method: HTTP method (GET, POST, PUT, DELETE, etc.).

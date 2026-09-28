@@ -42,7 +42,8 @@ class TransportOptions:
     """Path to a custom CA certificate bundle for TLS verification.
 
     When set together with ``verify_ssl=True``, the client trusts
-    certificates signed by this CA instead of the system default.
+    certificates signed by this CA in addition to (or instead of) the
+    system trust store.
     """
 
     proxy: Optional[str] = None
@@ -126,6 +127,8 @@ class TransportOptionsBuilder:
     - ``verify_ssl`` -- ``True``
     - ``follow_redirects`` -- ``True``
     - ``inject_request_id`` -- ``False``
+    - ``timeout`` -- ``10000`` (10 seconds)
+    - ``user_agent`` -- a package-specific default string
     - All other fields -- ``None`` or empty
 
     Example::

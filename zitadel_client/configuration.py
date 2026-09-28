@@ -53,14 +53,18 @@ class Configuration:
             )
 
     @classmethod
-    def default_configuration(cls) -> "Configuration":
-        """Return a Configuration with default values."""
-        return ConfigurationBuilder().build()
-
-    @classmethod
     def builder(cls) -> "ConfigurationBuilder":
         """Create a new builder for constructing Configuration instances."""
         return ConfigurationBuilder()
+
+    @classmethod
+    def default_configuration(cls) -> "Configuration":
+        """Return a Configuration with default values.
+
+        A fresh instance every call: the SDK keeps no process-wide default a
+        caller could swap out from under another caller.
+        """
+        return ConfigurationBuilder().build()
 
 
 class ConfigurationBuilder:
@@ -103,6 +107,18 @@ class ConfigurationBuilder:
         self._default_headers[name] = value
         return self
 
+    def default_headers(self, headers: Dict[str, str]) -> "ConfigurationBuilder":
+        """Add multiple default headers to include in every API request.
+
+        Args:
+            headers: Map of header names to values.
+
+        Returns:
+            This builder.
+        """
+        self._default_headers.update(headers)
+        return self
+
     def server(
         self,
         server_config: ServerConfiguration,
@@ -128,18 +144,6 @@ class ConfigurationBuilder:
                 enum_values.
         """
         self._base_url = server_config.get_url(variables)
-        return self
-
-    def default_headers(self, headers: Dict[str, str]) -> "ConfigurationBuilder":
-        """Add multiple default headers to include in every API request.
-
-        Args:
-            headers: Map of header names to values.
-
-        Returns:
-            This builder.
-        """
-        self._default_headers.update(headers)
         return self
 
     def build(self) -> Configuration:

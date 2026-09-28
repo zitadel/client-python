@@ -65,8 +65,7 @@ def _dict_adapter(inner: Any) -> TypeAdapter[Any]:
 
 # Maximum allowed JSON nesting depth. Python's json.loads recurses through
 # the interpreter stack, so a malicious 100k-deep `{"a":{"a":...}}` payload
-# would exhaust it. Matches the 1000-cap Java/Kotlin Jackson use; Go uses
-# the same. C# is stricter (64). F5 follow-up.
+# would exhaust it. All twelve SDKs use the same cap.
 _MAX_JSON_DEPTH = 1000
 
 

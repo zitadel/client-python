@@ -10,7 +10,9 @@ from typing import Dict, List
 
 
 class HeaderSelector:
-    """HeaderSelector"""
+    """Selects Accept and Content-Type headers for API requests based on the MIME
+    types declared in the OpenAPI specification.
+    """
 
     _JSON_MIME_PATTERN = re.compile(
         r"^application/(json|[\w!#$&.+\-^_]+\+json)\s*(;|$)", re.IGNORECASE

@@ -11,11 +11,9 @@ from zitadel_client.errors import ApiException
 
 
 class NetworkException(ApiException):
-    """Exception for a request that got no HTTP response.
-
-    Raised when the connection is refused, the host name does not resolve,
-    the TLS handshake fails, or the connection is reset. The status code is
-    always ``0``; the underlying library error is kept as ``__cause__``.
+    """Exception for a request that got no HTTP response: connection
+    refused, DNS failure, TLS failure, or connection reset. The status code
+    is always ``0``; the underlying library error is kept as ``__cause__``.
     """
 
     def __init__(self, message: Optional[str] = None) -> None:

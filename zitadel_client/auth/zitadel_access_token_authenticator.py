@@ -9,5 +9,7 @@ from .bearer_authenticator import BearerAuthenticator
 
 
 class ZitadelAccessTokenAuthenticator(BearerAuthenticator):
+    """Scheme-specific authenticator for the zitadelAccessToken security scheme."""
+
     def __init__(self, host: str, token: str):
         super().__init__(host, token)

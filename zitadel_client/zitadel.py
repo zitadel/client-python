@@ -84,10 +84,9 @@ class Zitadel:
         discovery requests use the same proxy, TLS, and timeout settings.
 
         Args:
-            authenticator: Provides host URL and auth credentials.
+            authenticator: Provides host URL and auth headers.
             transport_options: HTTP transport configuration (proxy, TLS,
-                timeouts, etc.). If ``None``, default transport settings
-                are used.
+                timeouts, etc.).
         """
         if transport_options is None:
             transport_options = TransportOptions.builder().build()
@@ -98,90 +97,119 @@ class Zitadel:
             authenticator.set_api_client(api_client)
 
         config = Configuration.builder().base_url(authenticator.get_host()).build()
+        # API operations for the ActionServiceApi group.
         self.action_service: ActionServiceApi = ActionServiceApi(
             api_client, config, authenticator
         )
+        # API operations for the ApplicationServiceApi group.
         self.application_service: ApplicationServiceApi = ApplicationServiceApi(
             api_client, config, authenticator
         )
+        # API operations for the AuthorizationServiceApi group.
         self.authorization_service: AuthorizationServiceApi = AuthorizationServiceApi(
             api_client, config, authenticator
         )
+        # API operations for the BetaActionServiceApi group.
         self.beta_action_service: BetaActionServiceApi = BetaActionServiceApi(
             api_client, config, authenticator
         )
+        # API operations for the BetaAppServiceApi group.
         self.beta_app_service: BetaAppServiceApi = BetaAppServiceApi(
             api_client, config, authenticator
         )
+        # API operations for the BetaAuthorizationServiceApi group.
         self.beta_authorization_service: BetaAuthorizationServiceApi = (
             BetaAuthorizationServiceApi(api_client, config, authenticator)
         )
+        # API operations for the BetaFeatureServiceApi group.
         self.beta_feature_service: BetaFeatureServiceApi = BetaFeatureServiceApi(
             api_client, config, authenticator
         )
+        # API operations for the BetaInstanceServiceApi group.
         self.beta_instance_service: BetaInstanceServiceApi = BetaInstanceServiceApi(
             api_client, config, authenticator
         )
+        # API operations for the BetaInternalPermissionServiceApi group.
         self.beta_internal_permission_service: BetaInternalPermissionServiceApi = (
             BetaInternalPermissionServiceApi(api_client, config, authenticator)
         )
+        # API operations for the BetaOIDCServiceApi group.
         self.beta_oidc_service: BetaOIDCServiceApi = BetaOIDCServiceApi(
             api_client, config, authenticator
         )
+        # API operations for the BetaOrganizationServiceApi group.
         self.beta_organization_service: BetaOrganizationServiceApi = (
             BetaOrganizationServiceApi(api_client, config, authenticator)
         )
+        # API operations for the BetaProjectServiceApi group.
         self.beta_project_service: BetaProjectServiceApi = BetaProjectServiceApi(
             api_client, config, authenticator
         )
+        # API operations for the BetaSessionServiceApi group.
         self.beta_session_service: BetaSessionServiceApi = BetaSessionServiceApi(
             api_client, config, authenticator
         )
+        # API operations for the BetaSettingsServiceApi group.
         self.beta_settings_service: BetaSettingsServiceApi = BetaSettingsServiceApi(
             api_client, config, authenticator
         )
+        # API operations for the BetaTelemetryServiceApi group.
         self.beta_telemetry_service: BetaTelemetryServiceApi = BetaTelemetryServiceApi(
             api_client, config, authenticator
         )
+        # API operations for the BetaUserServiceApi group.
         self.beta_user_service: BetaUserServiceApi = BetaUserServiceApi(
             api_client, config, authenticator
         )
+        # API operations for the BetaWebKeyServiceApi group.
         self.beta_web_key_service: BetaWebKeyServiceApi = BetaWebKeyServiceApi(
             api_client, config, authenticator
         )
+        # API operations for the FeatureServiceApi group.
         self.feature_service: FeatureServiceApi = FeatureServiceApi(
             api_client, config, authenticator
         )
+        # API operations for the IdentityProviderServiceApi group.
         self.identity_provider_service: IdentityProviderServiceApi = (
             IdentityProviderServiceApi(api_client, config, authenticator)
         )
+        # API operations for the InstanceServiceApi group.
         self.instance_service: InstanceServiceApi = InstanceServiceApi(
             api_client, config, authenticator
         )
+        # API operations for the InternalPermissionServiceApi group.
         self.internal_permission_service: InternalPermissionServiceApi = (
             InternalPermissionServiceApi(api_client, config, authenticator)
         )
+        # API operations for the OIDCServiceApi group.
         self.oidc_service: OIDCServiceApi = OIDCServiceApi(
             api_client, config, authenticator
         )
+        # API operations for the OrganizationServiceApi group.
         self.organization_service: OrganizationServiceApi = OrganizationServiceApi(
             api_client, config, authenticator
         )
+        # API operations for the ProjectServiceApi group.
         self.project_service: ProjectServiceApi = ProjectServiceApi(
             api_client, config, authenticator
         )
+        # API operations for the SAMLServiceApi group.
         self.saml_service: SAMLServiceApi = SAMLServiceApi(
             api_client, config, authenticator
         )
+        # API operations for the SessionServiceApi group.
         self.session_service: SessionServiceApi = SessionServiceApi(
             api_client, config, authenticator
         )
+        # API operations for the SettingsServiceApi group.
         self.settings_service: SettingsServiceApi = SettingsServiceApi(
             api_client, config, authenticator
         )
+        # API operations for the UserServiceApi group.
         self.user_service: UserServiceApi = UserServiceApi(
             api_client, config, authenticator
         )
+        # API operations for the WebKeyServiceApi group.
         self.web_key_service: WebKeyServiceApi = WebKeyServiceApi(
             api_client, config, authenticator
         )
@@ -198,7 +226,8 @@ class Zitadel:
         Args:
             host: API base URL.
             access_token: Bearer token.
-            transport_options: Optional transport configuration.
+            transport_options: Optional HTTP transport configuration (proxy,
+                TLS, timeouts, etc.).
 
         Returns:
             Configured client instance.
@@ -213,13 +242,17 @@ class Zitadel:
     ) -> "Zitadel":
         """Creates a client from a ready-made authenticator.
 
-        This is the generic entry point for bespoke authenticators (client
-        credentials, JWT private key, PAT, etc.). Construct the authenticator
-        yourself and pass it in.
+        This is the generic entry point for bespoke authentication strategies
+        such as OAuth2 client credentials, JWT private-key (service account),
+        or a personal access token (PAT). Supply any :class:`Authenticator`
+        implementation; if it also implements :class:`HttpAwareAuthenticator`,
+        the shared :class:`ApiClient` is injected so its HTTP calls reuse the
+        same transport configuration.
 
         Args:
-            authenticator: Provides host URL and auth credentials.
-            transport_options: Optional transport configuration.
+            authenticator: Provides host URL and auth headers.
+            transport_options: Optional HTTP transport configuration (proxy,
+                TLS, timeouts, etc.).
 
         Returns:
             Configured client instance.
